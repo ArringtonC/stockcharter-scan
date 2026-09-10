@@ -12,3 +12,4 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-04-DOCU-small,call,small,2026-09-04,DOCU,E,4.88,86.65,65,2026-10-16,1,open,,,,
 2026-09-04-WDAY-big,call,big,2026-09-04,WDAY,E,37.85,249.85,170,2026-12-18,1,open,,,,
 2026-09-04-SHOP-big,call,big,2026-09-04,SHOP,E,27.93,182.19,120,2026-10-02,1,open,,,,
+2026-09-10-PYPL-real,call,real,2026-09-10,PYPL,none,1.66,56.00,53,2026-09-25,2,open,,,,REAL $332. No setup passed (10<30 EMA). Sell both at $56. Cut under $52. Out 3 days before expiry unless past $54.66.

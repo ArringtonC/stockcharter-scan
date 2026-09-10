@@ -72,6 +72,7 @@ tr:hover td{background:color-mix(in srgb,var(--amber) 5%,transparent)}
 .pill{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line2);color:var(--ink2)}
 .pill.win{color:var(--up);border-color:var(--up)}.pill.loss{color:var(--dn);border-color:var(--dn)}
 .pill.setup{color:var(--amber);border-color:var(--amber)}
+.pill.real{color:#fff;background:var(--dn);border-color:var(--dn);font-weight:700}
 .bar{position:relative;height:6px;width:96px;background:var(--line);border-radius:3px;display:inline-block;vertical-align:middle}
 .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--amber);border-radius:3px}
 .scroll{overflow-x:auto}
@@ -167,11 +168,11 @@ function renderTrades(d){
   const o=d.open||[],c=d.closed||[];
   const wins=c.filter(r=>r.result==='win'),losses=c.filter(r=>r.result==='loss');
   const mean=a=>a.length?a.reduce((s,r)=>s+Number(r.pl_pct),0)/a.length:null;
-  const kind=r=>r.kind==='shares'?'shares':`${esc(r.acct)} call`;
+  const kind=r=>r.kind==='shares'?'shares':r.acct==='real'?`<span class="pill real">REAL</span> call`:`${esc(r.acct)} call`;
   const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
     ['opened',r=>esc(r.opened)],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">intr.</span>':'')],
     ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
-    ['target',r=>r.kind==='shares'?f2(r.target):(r.dte!=null?`${r.dte}d left`:'—')],
+    ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
     ['progress',r=>r.kind==='shares'?`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`:`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
     ['held',r=>(r.sessions??'—')+'s']];
   const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
