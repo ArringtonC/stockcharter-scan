@@ -9,7 +9,8 @@ Setups are LOCKED. The numbers quoted in SETUPS below come from the tests in the
 private research repo; do not tune them here.
 
 trades.csv is the paper book. This script marks it to market and auto-closes:
-  shares  close at the target the first day the high touches it, or at 252 sessions
+  shares  ARM a floor at the target when the high first touches it; close when a later low
+          falls back to that floor, or at 252 sessions. (Tested: +6pp over closing at target.)
   calls   mark with a Black-Scholes estimate (60d realized vol); close at expiry at intrinsic
 """
 import urllib.request, json, datetime, time, os, gzip, csv, math
@@ -44,8 +45,10 @@ SETUPS = {
         rules=["Price is 20–45% below its 252-day high",
                "10 EMA above 30 EMA, and 50 EMA above 200 EMA",
                "Trailing-12-month revenue growing 25%+ (SEC filings only, as of the signal date)",
-               "Target is the prior high. One number, set at entry."],
+               "Target is the prior high. One number, set at entry.",
+               "When price REACHES the target, do not sell. Set a hard floor at the target and let it run. Sell only if it falls back to the floor, or at 252 sessions."],
         numbers=["198 signals · 83% reach the target · 115 sessions median",
+                 "Exit test: close at target +20.7% mean · floor at target +26.8% mean, same 84% win, same median — strictly better",
                  "Excluding the top 5 names it still hits 76% — the only setup that survives that test",
                  "Revenue filter is a U-shape: 25%+ growth 85% hit, flat revenue 47–53%",
                  "Best VIX window is 16–20 (+10.76pp). Under 16 the edge is negative."],
@@ -237,10 +240,13 @@ def mark_trades():
             sessions = len(after)
             if r["status"] == "open":
                 if r["kind"] == "shares":
-                    hit = next((x for x in after if x[2] >= tgt), None) if tgt else None
-                    if hit:
-                        r.update(status="closed", closed=hit[0], exit=f"{tgt:.2f}",
-                                 pl_pct=f"{(tgt/entry-1)*100:.1f}", note=(r["note"] + " · target hit").strip(" ·"))
+                    # arm a floor at the target the first time the high touches it;
+                    # close only if a later low falls back to that floor (or at 252)
+                    armed_i = next((n for n, x in enumerate(after) if x[2] >= tgt), None) if tgt else None
+                    floor_hit = next((x for x in after[armed_i + 1:] if x[3] <= tgt), None) if armed_i is not None else None
+                    if floor_hit:
+                        r.update(status="closed", closed=floor_hit[0], exit=f"{tgt:.2f}",
+                                 pl_pct=f"{(tgt/entry-1)*100:.1f}", note=(r["note"] + " · floored at target").strip(" ·"))
                     elif sessions >= 252:
                         r.update(status="closed", closed=b[-1][0], exit=f"{spot:.2f}",
                                  pl_pct=f"{(spot/entry-1)*100:.1f}", note=(r["note"] + " · 252-session timeout").strip(" ·"))
@@ -254,7 +260,8 @@ def mark_trades():
                 if r["kind"] == "shares":
                     now = spot; pl = (spot / entry - 1) * 100; to_t = (tgt / spot - 1) * 100 if tgt else None
                     prog = max(0, min(1, (spot - entry) / (tgt - entry))) if tgt and tgt > entry else 0
-                    extra = dict(now=now, pl_pct=pl, to_target=to_t, progress=prog, sessions=sessions)
+                    armed = tgt and any(x[2] >= tgt for x in after)
+                    extra = dict(now=now, pl_pct=pl, to_target=to_t, progress=prog, sessions=sessions, armed=bool(armed))
                 else:
                     K = float(r["strike"]); exp = datetime.date.fromisoformat(r["expiry"])
                     c60 = [x[1] for x in b[-61:]]
