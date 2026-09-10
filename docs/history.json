@@ -1,7 +1,7 @@
 [
  {
   "date": "2026-09-10",
-  "vix": 17.459999084472656,
+  "vix": 17.489999771118164,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -10,8 +10,10 @@
    "MU"
   ],
   "D": [
+   "U",
    "AMD",
    "SNOW",
+   "MSFT",
    "OXY",
    "CRM",
    "DELL",
