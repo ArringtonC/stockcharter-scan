@@ -1,23 +1,25 @@
 [
  {
   "date": "2026-09-10",
-  "vix": 17.489999771118164,
+  "vix": 17.84000015258789,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
-   "HOOD",
    "BE",
-   "MU"
+   "HOOD",
+   "MU",
+   "PLTR"
   ],
   "D": [
-   "U",
    "AMD",
-   "SNOW",
    "MSFT",
-   "OXY",
-   "CRM",
    "DELL",
+   "CRM",
+   "OXY",
+   "SLB",
    "XOM",
+   "WBD",
+   "AAPL",
    "DVN"
   ],
   "C": [],
