@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --serif:'Fraunces',Georgia,serif;
+}
+@media(prefers-color-scheme:light){:root{
+  --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
+  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
+  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font:14.5px/1.55 var(--mono);background:
+  radial-gradient(1200px 600px at 80% -10%,color-mix(in srgb,var(--amber) 9%,transparent),transparent 60%),var(--bg);min-height:100vh}
+.wrap{max-width:1040px;margin:0 auto;padding:22px 18px 80px}
+
+/* masthead */
+.mast{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line2);padding-bottom:12px}
+.mast h1{font:300 34px/1 var(--serif);letter-spacing:-.01em;margin:0}
+.mast h1 b{font-weight:700;color:var(--amber)}
+.stamp{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+/* regime meter */
+.meter{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;padding:26px 0 18px;border-bottom:1px solid var(--line)}
+.vix{font:600 88px/0.9 var(--serif);letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.vix small{display:block;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:10px}
+.band{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--dim) 0 27%,var(--up) 27% 45%,var(--amber) 45% 64%,var(--dn) 64% 100%);opacity:.85}
+.band i{position:absolute;top:-7px;width:3px;height:24px;background:var(--ink);border-radius:2px;box-shadow:0 0 0 3px var(--bg);transition:left .6s cubic-bezier(.2,.8,.2,1)}
+.ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim);letter-spacing:.1em;margin-top:8px}
+.regime{margin-top:14px;font-size:13.5px;color:var(--ink2)}
+.regime b{color:var(--ink);font-weight:600}
+.regime .tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--line2);border-radius:3px;margin-right:8px;color:var(--amber)}
+.swing{margin-top:10px;padding:10px 12px;border-left:3px solid var(--dn);background:var(--panel);font-size:13px;color:var(--ink2)}
+
+/* tabs */
+nav{display:flex;gap:2px;margin:22px 0 0;border-bottom:1px solid var(--line2)}
+nav button{appearance:none;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
+  font:500 12.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:12px 16px;cursor:pointer;transition:color .15s}
+nav button:hover{color:var(--ink2)}
+nav button[aria-selected=true]{color:var(--amber);border-bottom-color:var(--amber)}
+nav button .n{display:inline-block;min-width:18px;margin-left:6px;font-size:10px;padding:1px 5px;border-radius:9px;background:var(--line);color:var(--ink2)}
+section[role=tabpanel]{padding-top:8px;animation:in .35s cubic-bezier(.2,.8,.2,1)}
+section[hidden]{display:none}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* blocks */
+h2{font:600 22px/1.2 var(--serif);margin:30px 0 4px;letter-spacing:-.01em}
+h2 .k{display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;border-radius:4px;background:var(--amber);color:var(--bg);font:700 13px var(--mono);margin-right:10px;vertical-align:3px}
+.rule{font-size:12.5px;color:var(--dim);margin:0 0 12px;max-width:78ch}
+.fire{padding:14px 16px;border-radius:5px;background:var(--up);color:#07110b;font-weight:600;margin:8px 0 14px}
+.none{color:var(--dim);font-size:13px;padding:10px 0 2px}
+.note{color:var(--dim);font-size:12.5px;margin:8px 0 0}
+
+table{border-collapse:collapse;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+th,td{text-align:right;padding:9px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+th{font:600 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);background:var(--bg2)}
+td:first-child,th:first-child{text-align:left}
+td:first-child{font-weight:600;color:var(--ink)}
+tr:last-child td{border-bottom:0}
+tr:hover td{background:color-mix(in srgb,var(--amber) 5%,transparent)}
+.up{color:var(--up)}.dn{color:var(--dn)}.dim{color:var(--dim)}.amber{color:var(--amber)}
+.pill{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line2);color:var(--ink2)}
+.pill.win{color:var(--up);border-color:var(--up)}.pill.loss{color:var(--dn);border-color:var(--dn)}
+.pill.setup{color:var(--amber);border-color:var(--amber)}
+.bar{position:relative;height:6px;width:96px;background:var(--line);border-radius:3px;display:inline-block;vertical-align:middle}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--amber);border-radius:3px}
+.scroll{overflow-x:auto}
+details{border:1px solid var(--line);border-radius:5px;background:var(--panel);margin:8px 0}
+summary{cursor:pointer;padding:12px 14px;list-style:none;display:flex;align-items:center;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary .k{flex:0 0 30px}
+summary .t{font:600 16px var(--serif)}
+summary .g{color:var(--dim);font-size:12.5px}
+summary::after{content:'+';margin-left:auto;color:var(--dim);font-size:18px}
+details[open] summary::after{content:'−'}
+.body{padding:2px 16px 16px 56px;color:var(--ink2);font-size:13.5px}
+.body h4{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:14px 0 6px}
+.body ul{margin:0;padding-left:18px}.body li{margin:3px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:5px;overflow:hidden;margin:10px 0 18px}
+.stats div{background:var(--panel);padding:12px 14px}
+.stats b{display:block;font:600 24px/1.1 var(--serif);margin-top:4px}
+.stats .l{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}.meter{grid-template-columns:1fr}.vix{font-size:64px}nav{overflow-x:auto}}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
+.err{color:var(--dn);font-size:12.5px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mast">
+    <h1><b>Ledger</b> · daily scan</h1>
+    <div class="stamp" id="stamp">loading…</div>
+  </div>
+
+  <div class="meter">
+    <div class="vix"><span id="vixnum">—</span><small>VIX · <span id="vix5"></span></small></div>
+    <div>
+      <div class="band"><i id="marker" style="left:0"></i></div>
+      <div class="ticks"><span>CALM &lt;16</span><span>NORMAL</span><span>ELEVATED</span><span>HIGH 25+</span></div>
+      <div class="regime"><span class="tag" id="regime">—</span><b id="advice"></b>
+        <div class="note">QQQ <span id="qqq"></span> · <span id="qdd"></span> off its 6-month high</div></div>
+      <div class="swing" id="swing" hidden>VIX over 20: bigger swings <b>both ways</b>. At 25+, 17% of months gain 10%+ and 3% lose 10%+. Under 16 both are ~1%. Size smaller, not bigger.</div>
+    </div>
+  </div>
+
+  <nav role="tablist">
+    <button role="tab" data-tab="scan" aria-selected="true">Scan<span class="n" id="n-scan"></span></button>
+    <button role="tab" data-tab="trades">Trades<span class="n" id="n-trades"></span></button>
+    <button role="tab" data-tab="week">Week</button>
+    <button role="tab" data-tab="setups">Setups</button>
+  </nav>
+
+  <section role="tabpanel" id="tab-scan"></section>
+  <section role="tabpanel" id="tab-trades" hidden></section>
+  <section role="tabpanel" id="tab-week" hidden></section>
+  <section role="tabpanel" id="tab-setups" hidden></section>
+
+  <footer>All setups locked. Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks are intrinsic value, not quotes. Every backtest behind this page carries a survivorship caveat.</footer>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const f2=x=>x==null?'—':Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=(x,sign=true)=>x==null?'—':(sign&&x>0?'+':'')+Number(x).toFixed(1)+'%';
+const cls=x=>x>0?'up':x<0?'dn':'dim';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function tbl(rows,cols,empty='none today'){
+  if(!rows||!rows.length)return `<p class="none">${empty}</p>`;
+  return `<div class="scroll"><table><thead><tr>${cols.map(c=>`<th>${c[0]}</th>`).join('')}</tr></thead><tbody>${
+    rows.map(r=>`<tr>${cols.map(c=>`<td>${c[1](r)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function head(k,title,rule){return `<h2><span class="k">${k}</span>${title}</h2><p class="rule">${rule}</p>`;}
+
+function renderScan(d){
+  const vixBlock=d.vix_fires
+    ?`<div class="fire">SETUP VIX FIRES — buy an ATM QQQ call, ~30 DTE, $1,000, hold 21 sessions. QQQ ${f2(d.qqq)}, strike ≈ ${Math.round(d.qqq)}</div>`
+    :`<p class="none">Does not fire. 25+ in last 10 days: <b>${d.peaked?'yes':'no'}</b> (10-day high ${d.vix_hi10.toFixed(1)}) · falling 3 days: <b>${d.falling?'yes':'no'}</b></p>`;
+  const shortNote=d.vix<25?`<p class="note">VIX ${d.vix.toFixed(1)} is under 25. This setup does nothing here — skip.</p>`:'';
+  $('#tab-scan').innerHTML=
+    head('V','Setup VIX','VIX 25+ in the last 10 sessions AND falling 3 in a row → ATM QQQ call, 30 DTE, hold 21. $1,000.')+vixBlock+
+    head('F','Setup F — recovery + earnings','20–45% below the 252-day high · 10&gt;30 · 50&gt;200 · revenue +25% (SEC, point-in-time). Target = prior high. No stop.')+
+    tbl(d.F,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['target',r=>f2(r.tgt)],['upside',r=>`<span class="up">+${r.up.toFixed(1)}%</span>`],['revenue',r=>'+'+r.rev.toFixed(0)+'%']])+
+    head('D','Setup D — shallow pullback','5–20% below the high · up over 126 sessions · RSI &gt; 55. Watchlist only — it never beat random picking on the honest universe.')+
+    tbl(d.D,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['RSI',r=>r.rsi.toFixed(0)],['upside',r=>'+'+r.up.toFixed(1)+'%']])+
+    head('C','Setup C — breakout','10 EMA crosses above 50 SMA within 5 sessions · 50&gt;200 · close clears the 20-day high. Tech names only.')+
+    tbl(d.C,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['target',r=>f2(r.tgt)],['upside',r=>'+'+r.up.toFixed(1)+'%']])+
+    head('S','Setup S — support-break short','Close under the 20-day low · 50 EMA under 200. $100, up to 10 sessions. Needs VIX 25+.')+shortNote+
+    tbl(d.S,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['20d low',r=>f2(r.lo20)],['below',r=>`<span class="dn">${r.below.toFixed(1)}%</span>`]])+
+    `<details><summary><span class="k" style="background:var(--line);color:var(--ink2)">×</span><span class="t">In the F price band, but blocked</span><span class="g">${d.blocked.length} names · they hit 39% vs 71% for passers</span></summary><div class="body">`+
+    tbl(d.blocked,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['upside',r=>'+'+r.up.toFixed(1)+'%'],['why',r=>esc(r.why)]])+
+    `</div></details>`+(d.errors.length?`<p class="err">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>e.split(':')[0]).join(', '))}</p>`:'');
+  $('#n-scan').textContent=d.F.length+d.C.length+d.S.length+(d.vix_fires?1:0);
+}
+
+function renderTrades(d){
+  const o=d.open||[],c=d.closed||[];
+  const wins=c.filter(r=>r.result==='win'),losses=c.filter(r=>r.result==='loss');
+  const mean=a=>a.length?a.reduce((s,r)=>s+Number(r.pl_pct),0)/a.length:null;
+  const kind=r=>r.kind==='shares'?'shares':`${esc(r.acct)} call`;
+  const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
+    ['opened',r=>esc(r.opened)],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">intr.</span>':'')],
+    ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
+    ['target',r=>r.kind==='shares'?f2(r.target):(r.dte!=null?`${r.dte}d left`:'—')],
+    ['progress',r=>r.kind==='shares'?`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`:`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
+    ['held',r=>(r.sessions??'—')+'s']];
+  const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
+    ['opened',r=>esc(r.opened)],['closed',r=>esc(r.closed)],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
+    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`]];
+  $('#tab-trades').innerHTML=
+    `<div class="stats"><div><span class="l">open</span><b>${o.length}</b></div><div><span class="l">closed</span><b>${c.length}</b></div>
+     <div><span class="l">wins</span><b class="up">${wins.length}</b></div><div><span class="l">losses</span><b class="dn">${losses.length}</b></div>
+     <div><span class="l">win rate</span><b>${c.length?Math.round(wins.length/c.length*100)+'%':'—'}</b></div>
+     <div><span class="l">avg closed</span><b class="${cls(mean(c))}">${pct(mean(c))}</b></div></div>`+
+    head('▶','Open','Marked to market. Shares close automatically at the target or at 252 sessions. Calls are marked at intrinsic value and close at expiry.')+
+    tbl(o,openCols,'no open trades')+
+    head('■','Closed — wins','')+tbl(wins,closedCols,'no wins yet')+
+    head('■','Closed — losses','')+tbl(losses,closedCols,'no losses yet');
+  $('#n-trades').textContent=o.length;
+}
+
+function renderWeek(d){
+  const w=d.week||{days:[],closed:[],by_setup:{},produced:[]};
+  const days=tbl(w.days.slice().reverse(),[['date',r=>esc(r.date)],['VIX',r=>Number(r.vix).toFixed(1)],['regime',r=>`<span class="pill">${esc(r.regime)}</span>`],
+    ['VIX fires',r=>r.vix_fires?'<span class="up">yes</span>':'<span class="dim">no</span>'],
+    ['F',r=>r.F.length?r.F.map(esc).join(' '):'<span class="dim">—</span>'],['C',r=>r.C.length?r.C.map(esc).join(' '):'<span class="dim">—</span>'],
+    ['S',r=>r.S.length?r.S.map(esc).join(' '):'<span class="dim">—</span>'],['D',r=>`<span class="dim">${r.D.length}</span>`]],'history builds as the scan runs each day');
+  const bs=Object.entries(w.by_setup).sort();
+  const verdict=bs.length?tbl(bs.map(([k,v])=>({k,...v})),[['setup',r=>`<span class="pill setup">${esc(r.k)}</span>`],
+    ['closed W/L',r=>`<span class="up">${r.wins}</span> / <span class="dn">${r.losses}</span>`],['closed avg',r=>`<span class="${cls(r.closed_mean)}">${pct(r.closed_mean)}</span>`],
+    ['open',r=>r.open_n],['open avg',r=>`<span class="${cls(r.open_mean)}">${pct(r.open_mean)}</span>`],
+    ['verdict',r=>{const m=r.closed_mean??r.open_mean;return m==null?'<span class="dim">—</span>':m>0?'<span class="up">working</span>':'<span class="dn">not working</span>'}]]):'<p class="none">no trades this week</p>';
+  const closedWk=tbl(w.closed,[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['closed',r=>esc(r.closed)],
+    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`]],'nothing closed this week');
+  $('#tab-week').innerHTML=
+    head('W','Snapshot — what worked, what didn\'t','Per setup, over the last 7 days. "Working" means the average P/L is positive, closed first, open if nothing closed.')+verdict+
+    head('≡','Signals produced this week','One row per session the scan ran. D is a count — it is a watchlist, not a signal.')+days+
+    head('■','Closed this week','')+closedWk;
+}
+
+function renderSetups(d){
+  const order=['VIX','F','D','C','S'];
+  $('#tab-setups').innerHTML=head('?','The setups','Click one. Every number comes from a test that was written down before it was run.')+
+    order.map(k=>{const s=d.setups[k];if(!s)return '';return `<details><summary><span class="k">${k==='VIX'?'V':k}</span><span class="t">${esc(s.name)}</span><span class="g">${esc(s.tag)}</span></summary>
+      <div class="body"><h4>Rules</h4><ul>${s.rules.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+      <h4>Size</h4><div>${esc(s.size)}</div>
+      <h4>The numbers</h4><ul>${s.numbers.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+      <h4>When it works</h4><div>${esc(s.works)}</div>
+      <h4>When it fails</h4><div>${esc(s.fails)}</div></div></details>`}).join('');
+}
+
+function renderHead(d){
+  $('#stamp').textContent=`${d.date} · scanned ${d.stamp}`;
+  $('#vixnum').textContent=d.vix.toFixed(2);
+  $('#vix5').textContent=d.vix5.map(x=>x.toFixed(1)).join(' → ');
+  const pos=Math.max(0,Math.min(100,(d.vix-8)/(40-8)*100));
+  requestAnimationFrame(()=>$('#marker').style.left=`calc(${pos}% - 1px)`);
+  $('#regime').textContent=d.regime;$('#advice').textContent=d.advice;
+  $('#qqq').textContent=f2(d.qqq);$('#qdd').textContent=pct(d.qdd);
+  $('#swing').hidden=d.vix<20;
+}
+
+document.querySelectorAll('nav [role=tab]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav [role=tab]').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('[role=tabpanel]').forEach(p=>p.hidden=p.id!=='tab-'+b.dataset.tab);
+  try{localStorage.setItem('tab',b.dataset.tab)}catch(e){}
+}));
+
+fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{
+  renderHead(d);renderScan(d);renderTrades(d);renderWeek(d);renderSetups(d);
+  let t='scan';try{t=localStorage.getItem('tab')||'scan'}catch(e){}
+  const b=document.querySelector(`nav [data-tab="${t}"]`);if(b)b.click();
+}).catch(e=>{$('#stamp').textContent='could not load data.json';$('#tab-scan').innerHTML=`<p class="err">${esc(e.message)}</p>`;});
+</script>
+</body>
+</html>

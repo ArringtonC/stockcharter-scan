@@ -1,0 +1,767 @@
+{
+ "date": "2026-09-10",
+ "stamp": "2026-09-10 15:50 UTC",
+ "vix": 17.200000762939453,
+ "vix5": [
+  14.529999732971191,
+  15.300000190734863,
+  15.720000267028809,
+  16.459999084472656,
+  17.200000762939453
+ ],
+ "vix_hi10": 17.200000762939453,
+ "qqq": 710.9699096679688,
+ "qdd": -4.716155347795126,
+ "regime": "NORMAL",
+ "advice": "Setup F best window (+10.76pp). No shorts.",
+ "peaked": false,
+ "falling": false,
+ "vix_fires": false,
+ "F": [
+  {
+   "sym": "HOOD",
+   "px": 114.46939849853516,
+   "dd": 25.60158712827032,
+   "tgt": 153.86000061035156,
+   "up": 34.411469465632315,
+   "rev": 61.9413407821229
+  },
+  {
+   "sym": "BE",
+   "px": 267.2099914550781,
+   "dd": 23.932477686279675,
+   "tgt": 351.2799987792969,
+   "up": 31.46214962487739,
+   "rev": 53.43903353378423
+  },
+  {
+   "sym": "MU",
+   "px": 984.0800170898438,
+   "dd": 21.587249634275395,
+   "tgt": 1255.0,
+   "up": 27.530279876155838,
+   "rev": 200.23471782834986
+  }
+ ],
+ "D": [
+  {
+   "sym": "AMD",
+   "px": 508.0400085449219,
+   "dd": 13.11545063284586,
+   "rsi": 56.35201049400155,
+   "up": 15.095262308863422
+  },
+  {
+   "sym": "SNOW",
+   "px": 334.2900085449219,
+   "dd": 13.072079605995023,
+   "rsi": 55.883255992162795,
+   "up": 15.037837724341262
+  },
+  {
+   "sym": "MSFT",
+   "px": 492.4119873046875,
+   "dd": 11.072019548181977,
+   "rsi": 55.00904003747573,
+   "up": 12.450546489336833
+  },
+  {
+   "sym": "OXY",
+   "px": 61.219600677490234,
+   "dd": 9.237059381237412,
+   "rsi": 61.43832123773994,
+   "up": 10.177126609456643
+  },
+  {
+   "sym": "CRM",
+   "px": 245.57000732421875,
+   "dd": 8.747344694992032,
+   "rsi": 64.21376705145971,
+   "up": 9.585852231646763
+  },
+  {
+   "sym": "DELL",
+   "px": 517.97998046875,
+   "dd": 7.994815280265843,
+   "rsi": 60.46806429815328,
+   "up": 8.689526905053913
+  },
+  {
+   "sym": "XOM",
+   "px": 164.7949981689453,
+   "dd": 6.584096849411736,
+   "rsi": 59.80407025143223,
+   "up": 7.0481541443730755
+  },
+  {
+   "sym": "DVN",
+   "px": 49.27000045776367,
+   "dd": 6.526273356969837,
+   "rsi": 62.91571790827211,
+   "up": 6.981933417390351
+  },
+  {
+   "sym": "WBD",
+   "px": 28.219999313354492,
+   "dd": 5.9333356221516915,
+   "rsi": 55.440481636097324,
+   "up": 6.307585860936449
+  }
+ ],
+ "C": [],
+ "S": [
+  {
+   "sym": "ADBE",
+   "px": 250.85000610351562,
+   "lo20": 251.1999969482422,
+   "below": -0.13932756726851014
+  },
+  {
+   "sym": "CAVA",
+   "px": 54.8650016784668,
+   "lo20": 56.43000030517578,
+   "below": -2.773345061572585
+  }
+ ],
+ "blocked": [
+  {
+   "sym": "CAVA",
+   "px": 54.8650016784668,
+   "dd": 44.46300114382996,
+   "up": 80.06014379527497,
+   "why": "trend broken"
+  },
+  {
+   "sym": "NFLX",
+   "px": 76.05500030517578,
+   "dd": 39.97237400388828,
+   "up": 66.58996310544995,
+   "why": "trend broken"
+  },
+  {
+   "sym": "SG",
+   "px": 6.735000133514404,
+   "dd": 36.64157985882929,
+   "up": 57.83221831792387,
+   "why": "trend broken"
+  },
+  {
+   "sym": "PYPL",
+   "px": 53.15999984741211,
+   "dd": 32.891494912580995,
+   "up": 49.01240888876133,
+   "why": "trend broken"
+  },
+  {
+   "sym": "ADBE",
+   "px": 250.85000610351562,
+   "dd": 32.35991586805505,
+   "up": 47.84133000918629,
+   "why": "trend broken"
+  },
+  {
+   "sym": "QCOM",
+   "px": 178.13499450683594,
+   "dd": 31.46545656194233,
+   "up": 45.911820497325095,
+   "why": "revenue +4%"
+  },
+  {
+   "sym": "NOW",
+   "px": 133.72999572753906,
+   "dd": 31.324015718137343,
+   "up": 45.61130946383833,
+   "why": "trend broken"
+  },
+  {
+   "sym": "SHOP",
+   "px": 127.33000183105469,
+   "dd": 30.111422073225434,
+   "up": 43.08489737017476,
+   "why": "trend broken"
+  },
+  {
+   "sym": "SPOT",
+   "px": 528.6199951171875,
+   "dd": 29.04429595742449,
+   "up": 40.932996648158216,
+   "why": "trend broken"
+  },
+  {
+   "sym": "INTC",
+   "px": 101.7500991821289,
+   "dd": 28.521183829007246,
+   "up": 39.90158952937666,
+   "why": "revenue +9%"
+  },
+  {
+   "sym": "IBM",
+   "px": 237.64480590820312,
+   "dd": 28.519276900627123,
+   "up": 39.897857302002215,
+   "why": "trend broken"
+  },
+  {
+   "sym": "TSLA",
+   "px": 366.87701416015625,
+   "dd": 26.4524940288435,
+   "up": 35.96654118933347,
+   "why": "trend broken"
+  },
+  {
+   "sym": "AVGO",
+   "px": 364.25,
+   "dd": 26.41414141414141,
+   "up": 35.895676046671234,
+   "why": "trend broken"
+  },
+  {
+   "sym": "WDAY",
+   "px": 186.55999755859375,
+   "dd": 25.33120152044348,
+   "up": 33.92474773432825,
+   "why": "revenue +18%"
+  },
+  {
+   "sym": "DOCU",
+   "px": 65.33999633789062,
+   "dd": 24.593196552482265,
+   "up": 32.614028745561185,
+   "why": "revenue +12%"
+  },
+  {
+   "sym": "MRNA",
+   "px": 133.94000244140625,
+   "dd": 24.18204479516031,
+   "up": 31.894878633731196,
+   "why": "revenue -29%"
+  },
+  {
+   "sym": "F",
+   "px": 13.854999542236328,
+   "dd": 22.075371163271285,
+   "up": 28.329132256150523,
+   "why": "trend broken"
+  },
+  {
+   "sym": "TXN",
+   "px": 260.44989013671875,
+   "dd": 22.027994165636176,
+   "up": 28.251157489048474,
+   "why": "trend broken"
+  }
+ ],
+ "errors": [],
+ "open": [
+  {
+   "id": "2026-09-03-NFLX-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-03",
+   "symbol": "NFLX",
+   "setup": "E",
+   "entry": "82.67",
+   "target": "126.71",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -8.001693110952246,
+   "note": "paper",
+   "now": 76.05500030517578,
+   "to_target": 66.60311549742639,
+   "progress": 0,
+   "sessions": 4
+  },
+  {
+   "id": "2026-09-03-IBM-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-03",
+   "symbol": "IBM",
+   "setup": "E",
+   "entry": "234.71",
+   "target": "332.46",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": 1.2503966205969608,
+   "note": "paper",
+   "now": 237.64480590820312,
+   "to_target": 39.897860897671734,
+   "progress": 0.030023589853740335,
+   "sessions": 4
+  },
+  {
+   "id": "2026-09-03-AVGO-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-03",
+   "symbol": "AVGO",
+   "setup": "E",
+   "entry": "357.16",
+   "target": "495.00",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": 1.9851047149736845,
+   "note": "paper",
+   "now": 364.25,
+   "to_target": 35.895676046671234,
+   "progress": 0.0514364480557166,
+   "sessions": 4
+  },
+  {
+   "id": "2026-09-03-WDAY-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-03",
+   "symbol": "WDAY",
+   "setup": "D",
+   "entry": "206.92",
+   "target": "249.85",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -9.839552697373977,
+   "note": "paper",
+   "now": 186.55999755859375,
+   "to_target": 33.9247444627182,
+   "progress": 0,
+   "sessions": 4
+  },
+  {
+   "id": "2026-09-03-MSFT-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-03",
+   "symbol": "MSFT",
+   "setup": "D",
+   "entry": "510.12",
+   "target": "553.72",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -3.471342565536051,
+   "note": "paper",
+   "now": 492.4119873046875,
+   "to_target": 12.450552439004149,
+   "progress": 0,
+   "sessions": 4
+  },
+  {
+   "id": "2026-09-08-BE-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-08",
+   "symbol": "BE",
+   "setup": "F",
+   "entry": "277.22",
+   "target": "351.28",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -3.610853670341929,
+   "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
+   "now": 267.2099914550781,
+   "to_target": 31.46215008171027,
+   "progress": 0,
+   "sessions": 2
+  },
+  {
+   "id": "2026-09-08-HOOD-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-08",
+   "symbol": "HOOD",
+   "setup": "F",
+   "entry": "117.34",
+   "target": "153.86",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -2.446396370772841,
+   "note": "matches the backtest profile: real pullback, +62% revenue",
+   "now": 114.46939849853516,
+   "to_target": 34.4114689324317,
+   "progress": 0,
+   "sessions": 2
+  },
+  {
+   "id": "2026-09-08-MU-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-08",
+   "symbol": "MU",
+   "setup": "F",
+   "entry": "1000.26",
+   "target": "1255.00",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -1.6175777208082165,
+   "note": "+200% revenue. EARNINGS 2026-09-30, 22 days out",
+   "now": 984.0800170898438,
+   "to_target": 27.530279876155838,
+   "progress": 0,
+   "sessions": 2
+  },
+  {
+   "id": "2026-09-08-SHOP-sh",
+   "kind": "shares",
+   "acct": "paper",
+   "opened": "2026-09-08",
+   "symbol": "SHOP",
+   "setup": "F",
+   "entry": "134.10",
+   "target": "182.19",
+   "strike": "",
+   "expiry": "",
+   "contracts": "",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -5.048469924642285,
+   "note": "+46% revenue. Option already held in both option books",
+   "now": 127.33000183105469,
+   "to_target": 43.08489545278984,
+   "progress": 0,
+   "sessions": 2
+  },
+  {
+   "id": "2026-09-04-DOCU-big",
+   "kind": "call",
+   "acct": "big",
+   "opened": "2026-09-04",
+   "symbol": "DOCU",
+   "setup": "E",
+   "entry": "26.23",
+   "target": "86.65",
+   "strike": "37.5",
+   "expiry": "2027-01-15",
+   "contracts": "1",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": 6.1379959507839255,
+   "note": "",
+   "now": 27.839996337890625,
+   "spot": 65.33999633789062,
+   "dte": 127,
+   "sessions": 3,
+   "mark": "intrinsic"
+  },
+  {
+   "id": "2026-09-04-DOCU-small",
+   "kind": "call",
+   "acct": "small",
+   "opened": "2026-09-04",
+   "symbol": "DOCU",
+   "setup": "E",
+   "entry": "4.88",
+   "target": "86.65",
+   "strike": "65",
+   "expiry": "2026-10-16",
+   "contracts": "1",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -93.0328619284708,
+   "note": "",
+   "now": 0.339996337890625,
+   "spot": 65.33999633789062,
+   "dte": 36,
+   "sessions": 3,
+   "mark": "intrinsic"
+  },
+  {
+   "id": "2026-09-04-WDAY-big",
+   "kind": "call",
+   "acct": "big",
+   "opened": "2026-09-04",
+   "symbol": "WDAY",
+   "setup": "E",
+   "entry": "37.85",
+   "target": "249.85",
+   "strike": "170",
+   "expiry": "2026-12-18",
+   "contracts": "1",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -56.2483551952609,
+   "note": "",
+   "now": 16.55999755859375,
+   "spot": 186.55999755859375,
+   "dte": 99,
+   "sessions": 3,
+   "mark": "intrinsic"
+  },
+  {
+   "id": "2026-09-04-SHOP-big",
+   "kind": "call",
+   "acct": "big",
+   "opened": "2026-09-04",
+   "symbol": "SHOP",
+   "setup": "E",
+   "entry": "27.93",
+   "target": "182.19",
+   "strike": "120",
+   "expiry": "2026-10-02",
+   "contracts": "1",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": -73.75581156084966,
+   "note": "",
+   "now": 7.3300018310546875,
+   "spot": 127.33000183105469,
+   "dte": 22,
+   "sessions": 3,
+   "mark": "intrinsic"
+  }
+ ],
+ "closed": [],
+ "week": {
+  "days": [
+   {
+    "date": "2026-09-10",
+    "vix": 17.200000762939453,
+    "regime": "NORMAL",
+    "vix_fires": false,
+    "F": [
+     "HOOD",
+     "BE",
+     "MU"
+    ],
+    "D": [
+     "AMD",
+     "SNOW",
+     "MSFT",
+     "OXY",
+     "CRM",
+     "DELL",
+     "XOM",
+     "DVN",
+     "WBD"
+    ],
+    "C": [],
+    "S": [
+     "ADBE",
+     "CAVA"
+    ]
+   }
+  ],
+  "closed": [],
+  "by_setup": {
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -6.655447631455013
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 4,
+    "open_mean": -3.1808244216413177
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": -31.666460644168435
+   }
+  },
+  "produced": [
+   {
+    "date": "2026-09-10",
+    "sym": "ADBE",
+    "setup": "S"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "AMD",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "BE",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "CAVA",
+    "setup": "S"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "CRM",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "DELL",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "DVN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "HOOD",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "MSFT",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "MU",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "OXY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "SNOW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "WBD",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-10",
+    "sym": "XOM",
+    "setup": "D"
+   }
+  ]
+ },
+ "setups": {
+  "VIX": {
+   "name": "Setup VIX",
+   "tag": "buy the end of panic",
+   "size": "$1,000 \u00b7 ATM QQQ call \u00b7 30 DTE \u00b7 hold 21 sessions",
+   "rules": [
+    "VIX closed at 25 or higher on any of the last 10 sessions",
+    "VIX has now fallen 3 sessions in a row",
+    "Buy an at-the-money QQQ call, about 30 days out",
+    "Sell after 21 sessions. No stop."
+   ],
+   "numbers": [
+    "286 signals, 15 years",
+    "+64% mean return \u00b7 58% win \u00b7 13% go to zero",
+    "A call on any random day: +46.7%. Edge +17.3pp, p = 0.002",
+    "Both halves work: 2011\u201319 +85.5%, 2020\u201326 +55.5%"
+   ],
+   "works": "When panic peaks and starts to unwind. The VIX crush works for you: the stock rises while the option's volatility premium falls.",
+   "fails": "When VIX keeps rising after three down days. 2022: \u221215%, 33% win. 2024: \u221234%. Buying the FIRST close over 25 is worse \u2014 it fails the null test (p=0.212) because you get run over on the way up."
+  },
+  "F": {
+   "name": "Setup F",
+   "tag": "recovery + earnings",
+   "size": "shares \u00b7 target = the prior high \u00b7 no stop \u00b7 78\u2013136 sessions",
+   "rules": [
+    "Price is 20\u201345% below its 252-day high",
+    "10 EMA above 30 EMA, and 50 EMA above 200 EMA",
+    "Trailing-12-month revenue growing 25%+ (SEC filings only, as of the signal date)",
+    "Target is the prior high. One number, set at entry."
+   ],
+   "numbers": [
+    "198 signals \u00b7 83% reach the target \u00b7 115 sessions median",
+    "Excluding the top 5 names it still hits 76% \u2014 the only setup that survives that test",
+    "Revenue filter is a U-shape: 25%+ growth 85% hit, flat revenue 47\u201353%",
+    "Best VIX window is 16\u201320 (+10.76pp). Under 16 the edge is negative."
+   ],
+   "works": "Bull markets, moderate fear. Five years of six.",
+   "fails": "2022: 5% hit rate. A prior-high target cannot work when the index spends 91% of the year 10%+ below its own high. Adding 'QQQ above its 200 EMA' turns it off in a bear (93% hit vs 27% when rejected)."
+  },
+  "D": {
+   "name": "Setup D",
+   "tag": "shallow pullback",
+   "size": "shares \u00b7 hold ~63 sessions",
+   "rules": [
+    "Price is 5\u201320% below its 252-day high",
+    "Price is above where it was 126 sessions ago",
+    "RSI(14) above 55"
+   ],
+   "numbers": [
+    "8,148 signals \u00b7 +3.75pp edge at 63 days \u00b7 62% win vs 59%",
+    "Fires on ~9% of all name-days \u2014 very frequent",
+    "Edge decayed: +9.8pp in 2019 down to \u22121.5pp in 2025 on the old universe"
+   ],
+   "works": "Trending years. Best at VIX 25+ (+14.88%, +2.69pp).",
+   "fails": "It never beat random picking on the hindsight-free universe. Treat it as a watchlist, not a signal."
+  },
+  "C": {
+   "name": "Setup C",
+   "tag": "breakout",
+   "size": "shares \u00b7 21\u201363 sessions \u00b7 tech names only",
+   "rules": [
+    "10 EMA crosses above the 50 SMA within the last 5 sessions",
+    "50 EMA above 200 EMA",
+    "Close clears the prior 20 sessions' highs",
+    "Breadth filter: under 65% of the universe above its 200 EMA (unvalidated)"
+   ],
+   "numbers": [
+    "+4.56% at 21 days vs +1.66% baseline, p=0.000 \u2014 on the ORIGINAL universe",
+    "On a hindsight-free universe: +0.12pp broad (dead), +4.27pp tech-only (alive)",
+    "Portfolio-level it loses to random: fires only ~400 times, sits 57% in cash"
+   ],
+   "works": "Liquid technology names in a trending tape. HOOD 2024: 7 signals, 7 winners.",
+   "fails": "Anything that is not tech. Banks, energy, staples: no edge. It is a momentum idea and KO does not trend that way."
+  },
+  "S": {
+   "name": "Setup S",
+   "tag": "support-break short",
+   "size": "$100 \u00b7 puts \u00b7 hold up to 10 sessions \u00b7 not every trade",
+   "rules": [
+    "Today's close is below the lowest low of the prior 20 sessions",
+    "50 EMA is below the 200 EMA",
+    "Take the move. Do not wait for a target."
+   ],
+   "numbers": [
+    "2,221 signals \u00b7 49% drop 5%+ within 10 days vs 41% baseline",
+    "31% drop 8%+ vs 23% \u00b7 null p = 0.000 \u00b7 survives top-5 removal (46%)",
+    "At VIX 25+: 57% hit. At VIX 16\u201320: 38% \u2014 worse than nothing"
+   ],
+   "works": "Volatile years only. 2020 +22pp, 2022 +19pp, 2026 +21pp.",
+   "fails": "Calm years. 2021 \u221212.5pp, 2023 \u22128.5pp, 2024 \u22124.3pp. Second half of the window has +0.3pp edge. Every 63-day short hold in this project loses money \u2014 this only works as a 10-day trade."
+  }
+ }
+}

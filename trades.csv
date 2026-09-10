@@ -1,0 +1,14 @@
+id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,closed,exit,pl_pct,note
+2026-09-03-NFLX-sh,shares,paper,2026-09-03,NFLX,E,82.67,126.71,,,,open,,,,paper
+2026-09-03-IBM-sh,shares,paper,2026-09-03,IBM,E,234.71,332.46,,,,open,,,,paper
+2026-09-03-AVGO-sh,shares,paper,2026-09-03,AVGO,E,357.16,495.00,,,,open,,,,paper
+2026-09-03-WDAY-sh,shares,paper,2026-09-03,WDAY,D,206.92,249.85,,,,open,,,,paper
+2026-09-03-MSFT-sh,shares,paper,2026-09-03,MSFT,D,510.12,553.72,,,,open,,,,paper
+2026-09-08-BE-sh,shares,paper,2026-09-08,BE,F,277.22,351.28,,,,open,,,,"fires Setup C AND F. NOT in the tested universe, +386% on the year — untested situation"
+2026-09-08-HOOD-sh,shares,paper,2026-09-08,HOOD,F,117.34,153.86,,,,open,,,,"matches the backtest profile: real pullback, +62% revenue"
+2026-09-08-MU-sh,shares,paper,2026-09-08,MU,F,1000.26,1255.00,,,,open,,,,"+200% revenue. EARNINGS 2026-09-30, 22 days out"
+2026-09-08-SHOP-sh,shares,paper,2026-09-08,SHOP,F,134.10,182.19,,,,open,,,,+46% revenue. Option already held in both option books
+2026-09-04-DOCU-big,call,big,2026-09-04,DOCU,E,26.23,86.65,37.5,2027-01-15,1,open,,,,
+2026-09-04-DOCU-small,call,small,2026-09-04,DOCU,E,4.88,86.65,65,2026-10-16,1,open,,,,
+2026-09-04-WDAY-big,call,big,2026-09-04,WDAY,E,37.85,249.85,170,2026-12-18,1,open,,,,
+2026-09-04-SHOP-big,call,big,2026-09-04,SHOP,E,27.93,182.19,120,2026-10-02,1,open,,,,
