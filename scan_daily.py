@@ -10,7 +10,7 @@ private research repo; do not tune them here.
 
 trades.csv is the paper book. This script marks it to market and auto-closes:
   shares  close at the target the first day the high touches it, or at 252 sessions
-  calls   mark at intrinsic value; close at expiry at intrinsic
+  calls   mark with a Black-Scholes estimate (60d realized vol); close at expiry at intrinsic
 """
 import urllib.request, json, datetime, time, os, gzip, csv, math
 
