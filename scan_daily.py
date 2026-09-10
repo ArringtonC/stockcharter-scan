@@ -12,7 +12,7 @@ trades.csv is the paper book. This script marks it to market and auto-closes:
   shares  close at the target the first day the high touches it, or at 252 sessions
   calls   mark at intrinsic value; close at expiry at intrinsic
 """
-import urllib.request, json, datetime, time, os, gzip, csv
+import urllib.request, json, datetime, time, os, gzip, csv, math
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.join(HERE, "docs")
@@ -218,6 +218,14 @@ def scan():
                 F=F, D=D, C=C, S=S, blocked=blocked, errors=err)
 
 
+def _ncdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+def bs_call(s, k, t, sig, r=0.04):
+    """Black-Scholes call. Used to MARK open calls; at expiry it equals intrinsic."""
+    if t <= 0 or sig <= 0: return max(0.0, s - k)
+    d1 = (math.log(s / k) + (r + sig * sig / 2) * t) / (sig * math.sqrt(t)); d2 = d1 - sig * math.sqrt(t)
+    return s * _ncdf(d1) - k * math.exp(-r * t) * _ncdf(d2)
+
+
 def mark_trades():
     """Mark every open paper trade, auto-close on target / timeout / expiry, write trades.csv back."""
     rows = list(csv.DictReader(open(TRADES))) if os.path.exists(TRADES) else []
@@ -249,9 +257,12 @@ def mark_trades():
                     extra = dict(now=now, pl_pct=pl, to_target=to_t, progress=prog, sessions=sessions)
                 else:
                     K = float(r["strike"]); exp = datetime.date.fromisoformat(r["expiry"])
-                    intr = max(0.0, spot - K)
-                    extra = dict(now=intr, pl_pct=(intr / entry - 1) * 100, spot=spot,
-                                 dte=(exp - today).days, sessions=sessions, mark="intrinsic")
+                    c60 = [x[1] for x in b[-61:]]
+                    sig = max(0.15, min(1.5, (sum((math.log(c60[j + 1] / c60[j])) ** 2 for j in range(len(c60) - 1)) / max(1, len(c60) - 1)) ** 0.5 * math.sqrt(252)))
+                    dte = (exp - today).days
+                    est = bs_call(spot, K, max(0.0, dte) / 365, sig)
+                    extra = dict(now=est, pl_pct=(est / entry - 1) * 100, spot=spot, intrinsic=max(0.0, spot - K),
+                                 dte=dte, sessions=sessions, mark="est")
                 open_.append({**r, **extra})
             else:
                 closed.append({**r, "result": "win" if float(r["pl_pct"] or 0) > 0 else "loss"})
