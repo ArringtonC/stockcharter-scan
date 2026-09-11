@@ -30,7 +30,7 @@
  },
  {
   "date": "2026-09-11",
-  "vix": 15.600000381469727,
+  "vix": 15.84000015258789,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -39,20 +39,18 @@
    "BE"
   ],
   "D": [
-   "META",
    "MRNA",
+   "META",
    "U",
    "AMD",
    "MSFT",
    "OXY",
    "CRM",
+   "SLB",
    "OKTA",
-   "XOM",
-   "DVN"
+   "XOM"
   ],
-  "C": [
-   "QCOM"
-  ],
+  "C": [],
   "S": []
  }
 ]
