@@ -14,3 +14,4 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-04-SHOP-big,call,big,2026-09-04,SHOP,E,27.93,182.19,120,2026-10-02,1,open,,,,
 2026-09-10-PYPL-real,call,real,2026-09-10,PYPL,none,1.66,56.00,53,2026-09-25,2,closed,2026-09-11,1.91,15.1,"REAL. Bought $1.66, sold $1.91 Friday 09-11: under the 10 EMA, weekend theta, never passed a setup. +$50."
 2026-09-11-QCOM-sh,shares,paper,2026-09-11,QCOM,C,183.57,259.92,,,,open,,,,"Setup C fired (cross+regime+breakout). Breadth 73% fails the <65% filter. VIX 15.7 CALM. Revenue only +4%, fails F. Chart signal only."
+2026-09-14-BABA-real,call,real,2026-09-14,BABA,none,4.25,116.00,109,2026-10-02,1,open,,,,"REAL. 1x 109C 10/2 at $4.25. Fails the F trend filter (10<30, 50<200), 88% time value, 18 DTE. Plan: sell at $116 (30 EMA) or +100%; cut on a close under $107.72; out by 09-29 unless past $113.25."

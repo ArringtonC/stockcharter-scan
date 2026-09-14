@@ -11,7 +11,7 @@ private research repo; do not tune them here.
 trades.csv is the paper book. This script marks it to market and auto-closes:
   shares  ARM a floor at the target when the high first touches it; close when a later low
           falls back to that floor, or at 252 sessions. (Tested: +6pp over closing at target.)
-  calls   mark with a Black-Scholes estimate (60d realized vol); close at expiry at intrinsic
+  calls   mark with Black-Scholes on live chain IV (falls back to 60d realized vol); close at expiry at intrinsic
 """
 import urllib.request, json, datetime, time, os, gzip, csv, math
 
@@ -229,6 +229,31 @@ def bs_call(s, k, t, sig, r=0.04):
     return s * _ncdf(d1) - k * math.exp(-r * t) * _ncdf(d2)
 
 
+_CHAIN = {}
+def chain_iv(sym, expiry, strike):
+    """Implied vol of one call from the live Yahoo chain. None if unavailable. Cached per (sym, expiry)."""
+    key = (sym, expiry)
+    if key not in _CHAIN:
+        _CHAIN[key] = {}
+        try:
+            import http.cookiejar
+            if "_op" not in _CHAIN:
+                op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+                op.addheaders = [("User-Agent", "Mozilla/5.0")]
+                try: op.open("https://fc.yahoo.com", timeout=10)
+                except Exception: pass
+                _CHAIN["_op"] = (op, op.open("https://query2.finance.yahoo.com/v1/test/getcrumb", timeout=10).read().decode())
+            op, crumb = _CHAIN["_op"]
+            ts = int(datetime.datetime.fromisoformat(expiry).replace(tzinfo=datetime.timezone.utc).timestamp())
+            rr = json.load(op.open(f"https://query2.finance.yahoo.com/v7/finance/options/{sym}?date={ts}&crumb={crumb}", timeout=25))
+            for c in rr["optionChain"]["result"][0]["options"][0].get("calls", []):
+                if c.get("impliedVolatility"): _CHAIN[key][float(c["strike"])] = float(c["impliedVolatility"])
+        except Exception:
+            pass
+    iv = _CHAIN[key].get(float(strike))
+    return max(0.05, min(3.0, iv)) if iv else None
+
+
 def mark_trades():
     """Mark every open paper trade, auto-close on target / timeout / expiry, write trades.csv back."""
     rows = list(csv.DictReader(open(TRADES))) if os.path.exists(TRADES) else []
@@ -267,9 +292,10 @@ def mark_trades():
                     c60 = [x[1] for x in b[-61:]]
                     sig = max(0.15, min(1.5, (sum((math.log(c60[j + 1] / c60[j])) ** 2 for j in range(len(c60) - 1)) / max(1, len(c60) - 1)) ** 0.5 * math.sqrt(252)))
                     dte = (exp - today).days
-                    est = bs_call(spot, K, max(0.0, dte) / 365, sig)
+                    iv = chain_iv(r["symbol"], r["expiry"], K)   # live IV when the chain answers, else realized
+                    est = bs_call(spot, K, max(0.0, dte) / 365, iv or sig)
                     extra = dict(now=est, pl_pct=(est / entry - 1) * 100, spot=spot, intrinsic=max(0.0, spot - K),
-                                 dte=dte, sessions=sessions, mark="est")
+                                 dte=dte, sessions=sessions, mark="iv" if iv else "est")
                 open_.append({**r, **extra})
             else:
                 closed.append({**r, "result": "win" if float(r["pl_pct"] or 0) > 0 else "loss"})
