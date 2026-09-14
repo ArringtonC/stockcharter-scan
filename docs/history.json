@@ -55,23 +55,29 @@
  },
  {
   "date": "2026-09-14",
-  "vix": 16.739999771118164,
+  "vix": 17.100000381469727,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "BE",
-   "HOOD",
-   "MU"
+   "MU",
+   "HOOD"
   ],
   "D": [
+   "DOCU",
    "MRNA",
    "U",
    "META",
+   "GOOGL",
    "SNOW",
    "MSFT",
    "OXY",
+   "GILD",
    "XOM",
-   "PANW"
+   "PANW",
+   "HPQ",
+   "DELL",
+   "DVN"
   ],
   "C": [],
   "S": []
