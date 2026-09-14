@@ -52,5 +52,29 @@
   ],
   "C": [],
   "S": []
+ },
+ {
+  "date": "2026-09-14",
+  "vix": 17.219999313354492,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "MU",
+   "BE",
+   "HOOD"
+  ],
+  "D": [
+   "U",
+   "META",
+   "MSFT",
+   "PANW",
+   "OXY",
+   "HPQ",
+   "DELL",
+   "CRM",
+   "XOM"
+  ],
+  "C": [],
+  "S": []
  }
 ]
