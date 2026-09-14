@@ -20,6 +20,11 @@ jobs:
       - name: run the scan
         env:
           SEC_CONTACT: ${{ secrets.SEC_CONTACT }}
+          SCHWAB_KEY: ${{ secrets.SCHWAB_KEY }}
+          SCHWAB_SECRET: ${{ secrets.SCHWAB_SECRET }}
+          SCHWAB_REFRESH: ${{ secrets.SCHWAB_REFRESH }}
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
         run: python3 scan_daily.py
       - name: commit
         run: |

@@ -11,7 +11,7 @@ private research repo; do not tune them here.
 trades.csv is the paper book. This script marks it to market and auto-closes:
   shares  ARM a floor at the target when the high first touches it; close when a later low
           falls back to that floor, or at 252 sessions. (Tested: +6pp over closing at target.)
-  calls   mark with Black-Scholes on live chain IV (falls back to 60d realized vol); close at expiry at intrinsic
+  calls   mark with a real quote (Schwab, then Alpaca), falling back to Black-Scholes; close at expiry at intrinsic
 """
 import urllib.request, json, datetime, time, os, gzip, csv, math
 
@@ -254,6 +254,67 @@ def chain_iv(sym, expiry, strike):
     return max(0.05, min(3.0, iv)) if iv else None
 
 
+# ---------------------------------------------------------------- option quotes
+# Real quotes beat the Black-Scholes estimate. Tried in order; each one degrades to
+# the next, so the page still works with no credentials at all:
+#   1 Schwab   (SCHWAB_KEY / SCHWAB_SECRET / SCHWAB_REFRESH)  real bid/ask, the broker we trade at
+#   2 Alpaca   (ALPACA_KEY / ALPACA_SECRET)                   real bid/ask, free tier
+#   3 Yahoo chain IV  -> Black-Scholes                        no credentials needed
+#   4 60-day realized vol -> Black-Scholes                    always available
+def occ(sym, expiry, strike, pad=True):
+    """OCC option symbol. Schwab pads the root to 6 chars; Alpaca does not."""
+    y, m, d = expiry.split("-")
+    root = f"{sym:<6s}" if pad else sym
+    return f"{root}{y[2:]}{m}{d}C{int(round(float(strike) * 1000)):08d}"
+
+_TOK = {}
+def schwab_quote(sym, expiry, strike):
+    """Mid of the real bid/ask from Schwab. None unless all three env vars are set."""
+    k, sec, ref = (os.environ.get(x) for x in ("SCHWAB_KEY", "SCHWAB_SECRET", "SCHWAB_REFRESH"))
+    if not (k and sec and ref): return None
+    try:
+        import base64, urllib.parse
+        if "t" not in _TOK or time.time() > _TOK.get("exp", 0):
+            body = urllib.parse.urlencode({"grant_type": "refresh_token", "refresh_token": ref}).encode()
+            auth = base64.b64encode(f"{k}:{sec}".encode()).decode()
+            rq = urllib.request.Request("https://api.schwabapi.com/v1/oauth/token", data=body,
+                                        headers={"Authorization": f"Basic {auth}",
+                                                 "Content-Type": "application/x-www-form-urlencoded"})
+            j = json.load(urllib.request.urlopen(rq, timeout=20))
+            _TOK["t"] = j["access_token"]; _TOK["exp"] = time.time() + j.get("expires_in", 1800) - 60
+        u = "https://api.schwabapi.com/marketdata/v1/quotes?symbols=" + urllib.request.quote(occ(sym, expiry, strike))
+        rq = urllib.request.Request(u, headers={"Authorization": f"Bearer {_TOK['t']}"})
+        j = json.load(urllib.request.urlopen(rq, timeout=20))
+        q = list(j.values())[0].get("quote", {})
+        b, a = q.get("bidPrice") or 0, q.get("askPrice") or 0
+        return (b + a) / 2 if b > 0 and a > 0 else (q.get("lastPrice") or None)
+    except Exception:
+        return None
+
+def alpaca_quote(sym, expiry, strike):
+    """Mid of the real bid/ask from Alpaca's free options feed. None without keys."""
+    k, sec = os.environ.get("ALPACA_KEY"), os.environ.get("ALPACA_SECRET")
+    if not (k and sec): return None
+    try:
+        o = occ(sym, expiry, strike, pad=False)
+        rq = urllib.request.Request(
+            f"https://data.alpaca.markets/v1beta1/options/quotes/latest?symbols={o}",
+            headers={"APCA-API-KEY-ID": k, "APCA-API-SECRET-KEY": sec})
+        q = json.load(urllib.request.urlopen(rq, timeout=20)).get("quotes", {}).get(o, {})
+        b, a = q.get("bp") or 0, q.get("ap") or 0
+        return (b + a) / 2 if b > 0 and a > 0 else None
+    except Exception:
+        return None
+
+def option_mark(sym, expiry, strike, spot, dte, realized):
+    """(price, source-tag). Real quote if any source answers, else Black-Scholes."""
+    for fn, tag in ((schwab_quote, "schwab"), (alpaca_quote, "alpaca")):
+        v = fn(sym, expiry, strike)
+        if v and v > 0: return v, tag
+    iv = chain_iv(sym, expiry, strike)
+    return bs_call(spot, float(strike), max(0.0, dte) / 365, iv or realized), ("iv" if iv else "est")
+
+
 def mark_trades():
     """Mark every open paper trade, auto-close on target / timeout / expiry, write trades.csv back."""
     rows = list(csv.DictReader(open(TRADES))) if os.path.exists(TRADES) else []
@@ -292,10 +353,9 @@ def mark_trades():
                     c60 = [x[1] for x in b[-61:]]
                     sig = max(0.15, min(1.5, (sum((math.log(c60[j + 1] / c60[j])) ** 2 for j in range(len(c60) - 1)) / max(1, len(c60) - 1)) ** 0.5 * math.sqrt(252)))
                     dte = (exp - today).days
-                    iv = chain_iv(r["symbol"], r["expiry"], K)   # live IV when the chain answers, else realized
-                    est = bs_call(spot, K, max(0.0, dte) / 365, iv or sig)
+                    est, src = option_mark(r["symbol"], r["expiry"], K, spot, dte, sig)
                     extra = dict(now=est, pl_pct=(est / entry - 1) * 100, spot=spot, intrinsic=max(0.0, spot - K),
-                                 dte=dte, sessions=sessions, mark="iv" if iv else "est")
+                                 dte=dte, sessions=sessions, mark=src)
                 open_.append({**r, **extra})
             else:
                 closed.append({**r, "result": "win" if float(r["pl_pct"] or 0) > 0 else "loss"})

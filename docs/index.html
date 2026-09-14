@@ -127,7 +127,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
   <section role="tabpanel" id="tab-week" hidden></section>
   <section role="tabpanel" id="tab-setups" hidden></section>
 
-  <footer>All setups locked. Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks are Black-Scholes on live chain IV (est. = realized vol fallback), not quotes. Every backtest behind this page carries a survivorship caveat.</footer>
+  <footer>All setups locked. Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks: <b>schwab</b>/<b>alpaca</b> = a real bid/ask midpoint. <b>iv</b>/<b>est</b> = Black-Scholes, a model, not a quote. Every backtest behind this page carries a survivorship caveat.</footer>
 </div>
 
 <script>
@@ -170,7 +170,7 @@ function renderTrades(d){
   const mean=a=>a.length?a.reduce((s,r)=>s+Number(r.pl_pct),0)/a.length:null;
   const kind=r=>r.kind==='shares'?'shares':r.acct==='real'?`<span class="pill real">REAL</span> call`:`${esc(r.acct)} call`;
   const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
-    ['opened',r=>esc(r.opened)],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark==='iv'?' <span class="dim">iv</span>':r.mark?' <span class="dim">est.</span>':'')],
+    ['opened',r=>esc(r.opened)],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">'+esc(r.mark)+'</span>':'')],
     ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
     ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
     ['progress',r=>r.kind==='shares'?(r.armed?`<span class="pill win">FLOOR SET</span> <span class="dim">at ${f2(r.target)}</span>`:`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`):`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
@@ -183,7 +183,7 @@ function renderTrades(d){
      <div><span class="l">wins</span><b class="up">${wins.length}</b></div><div><span class="l">losses</span><b class="dn">${losses.length}</b></div>
      <div><span class="l">win rate</span><b>${c.length?Math.round(wins.length/c.length*100)+'%':'—'}</b></div>
      <div><span class="l">avg closed</span><b class="${cls(mean(c))}">${pct(mean(c))}</b></div></div>`+
-    head('▶','Open','Marked to market. Shares: when price reaches the target a floor is set there; the trade closes only if it falls back to the floor, or at 252 sessions. Calls: Black-Scholes on live IV, close at expiry.')+
+    head('▶','Open','Marked to market. Shares: when price reaches the target a floor is set there; the trade closes only if it falls back to the floor, or at 252 sessions. Calls: a real quote where one is available, else Black-Scholes; close at expiry.')+
     tbl(o,openCols,'no open trades')+
     head('■','Closed — wins','')+tbl(wins,closedCols,'no wins yet')+
     head('■','Closed — losses','')+tbl(losses,closedCols,'no losses yet');
