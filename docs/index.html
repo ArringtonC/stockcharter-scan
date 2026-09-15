@@ -98,11 +98,11 @@ details[open] summary::after{content:'−'}
 .rgrp>h3{font:600 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0 0 12px;
  display:flex;align-items:center;gap:10px}
 .rgrp>h3::after{content:"";flex:1;height:1px;background:var(--line)}
-.rule-c{display:grid;grid-template-columns:1fr auto;gap:4px 18px;align-items:start;
+.rule-c{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 20px;align-items:start;
  padding:15px 17px;border:1px solid var(--line);border-left:3px solid var(--line);border-radius:7px;
  background:var(--panel);margin-bottom:9px}
-.rule-c.on{border-left-color:var(--acc)}
-.rule-c.armed{border-left-color:var(--warn)}
+.rule-c.on{border-left-color:var(--amber)}
+.rule-c.armed{border-left-color:var(--up)}
 .rule-c.never{border-left-color:var(--dn)}
 .rule-c .say{font-weight:600;font-size:15px;line-height:1.35;grid-column:1}
 .rule-c .why{grid-column:1;font-size:12.5px;color:var(--ink2);margin:0;max-width:66ch}
@@ -110,8 +110,8 @@ details[open] summary::after{content:'−'}
 .rule-c .ev b{color:var(--ink2)}
 .rule-c .st{grid-row:1/3;grid-column:2;font:600 10px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;
  padding:5px 9px;border-radius:4px;white-space:nowrap;align-self:start}
-.st.a{background:var(--acc);color:#1a1207}
-.st.w{background:var(--warn);color:#1a1207}
+.st.a{background:var(--amber);color:#17100a}
+.st.w{background:var(--up);color:#fff}
 .st.n{background:var(--dn);color:#fff}
 .st.d{background:var(--line);color:var(--dim)}
 .rnow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
