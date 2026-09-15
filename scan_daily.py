@@ -51,7 +51,7 @@ SETUPS = {
                  "Exit test: close at target +20.7% mean · floor at target +26.8% mean, same 84% win, same median — strictly better",
                  "Excluding the top 5 names it still hits 76% — the only setup that survives that test",
                  "Revenue filter is a U-shape: 25%+ growth 85% hit, flat revenue 47–53%",
-                 "Best VIX window is 16–20 (+10.76pp). Under 16 the edge is negative."],
+                 "VIX 16–20 is where it adds the most over baseline (+10.76pp); 25+ is where it pays the most (+34% mean). Under 16 the edge is negative."],
         works="Bull markets, moderate fear. Five years of six.",
         fails="2022: 5% hit rate. A prior-high target cannot work when the index spends 91% of the year 10%+ below its own high. Adding 'QQQ above its 200 EMA' turns it off in a bear (93% hit vs 27% when rejected)."),
     "D": dict(name="Setup D", tag="shallow pullback", size="shares · hold ~63 sessions",
@@ -174,7 +174,7 @@ def scan():
     q = bars("QQQ", "1y"); qc = [x[1] for x in q]
     vnow = vc[-1]
     if vnow < 16: regime, advice = "CALM", "Setup F edge is negative here. Run nothing new."
-    elif vnow < 20: regime, advice = "NORMAL", "Setup F best window (+10.76pp). No shorts."
+    elif vnow < 20: regime, advice = "NORMAL", "Setup F adds the most here (+10.76pp vs baseline). It pays more at 25+. No shorts."
     elif vnow < 25: regime, advice = "ELEVATED", "Setup F yes. Do NOT short — worst zone (−2.89pp)."
     else: regime, advice = "HIGH", "Everything live. Size up longs. Setup S works here."
     peaked = max(vc[-11:]) >= 25; falling = vc[-1] < vc[-2] < vc[-3]
