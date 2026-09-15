@@ -84,23 +84,23 @@
  },
  {
   "date": "2026-09-15",
-  "vix": 17.68000030517578,
+  "vix": 17.469999313354492,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "HOOD",
-   "MU",
-   "BE"
+   "BE",
+   "MU"
   ],
   "D": [
    "MRNA",
-   "META",
    "DOCU",
-   "PLTR",
+   "META",
    "MSFT",
    "HPQ",
    "OXY",
-   "PANW"
+   "PANW",
+   "CRM"
   ],
   "C": [
    "QCOM"
