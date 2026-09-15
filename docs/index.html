@@ -123,6 +123,15 @@ details[open] summary::after{content:'−'}
 .recent{margin-top:30px}
 .recent table{font-size:12px}
 
+.stampwrap{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.stamp2{font:500 10.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.stamp2 b{color:var(--ink2)}
+.stamp2.stale b{color:var(--dn)}
+.runbtn{display:inline-block;margin-top:2px;font:500 11px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
+ color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:5px;padding:7px 11px;transition:.15s}
+.runbtn:hover{color:var(--ink);border-color:var(--amber);background:var(--panel)}
+@media(max-width:720px){.stampwrap{align-items:flex-start;text-align:left;margin-top:10px}}
+
 footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
 .err{color:var(--dn);font-size:12.5px;margin-top:10px}
 </style>
@@ -131,7 +140,12 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
 <div class="wrap">
   <div class="mast">
     <h1><b>Ledger</b> · daily scan</h1>
-    <div class="stamp" id="stamp">loading…</div>
+    <div class="stampwrap">
+      <div class="stamp" id="stamp">loading…</div>
+      <div class="stamp2" id="nextrun"></div>
+      <a class="runbtn" id="runbtn" target="_blank" rel="noopener"
+         href="https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml">Run scan now ↗</a>
+    </div>
   </div>
 
   <div class="meter">
@@ -325,6 +339,33 @@ function renderSetups(d){
 
 function renderHead(d){
   $('#stamp').textContent=`${d.date} · scanned ${d.stamp}`;
+  (function(){
+    // the workflow runs 13:15 and 21:15 UTC, Mon-Fri
+    const now=new Date(), SLOTS=[[13,15],[21,15]];
+    let next=null;
+    for(let k=0;k<7&&!next;k++){
+      const day=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+k));
+      const dow=day.getUTCDay(); if(dow===0||dow===6) continue;
+      for(const [H,M] of SLOTS){
+        const t=new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate(),H,M));
+        if(t>now){next=t;break;}
+      }
+    }
+    const el=$('#nextrun'); if(!next){el.textContent='';return;}
+    const mins=Math.round((next-now)/60000);
+    const when = mins<60 ? `${mins} min` : mins<1440 ? `${Math.round(mins/60)} hr` : `${Math.round(mins/1440)} d`;
+    const local=next.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+    // how old is the data we are showing?
+    let age='';
+    const m=String(d.stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+    if(m){
+      const scanned=new Date(Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]));
+      const h=(now-scanned)/3600000;
+      age = h<1?`${Math.round(h*60)} min old` : h<48?`${Math.round(h)} hr old` : `${Math.round(h/24)} days old`;
+      if(h>20) el.classList.add('stale');
+    }
+    el.innerHTML = `${age?'data <b>'+age+'</b> · ':''}next run <b>${local}</b> (${when})`;
+  })();
   $('#vixnum').textContent=d.vix.toFixed(2);
   $('#vix5').textContent=d.vix5.map(x=>x.toFixed(1)).join(' → ');
   const pos=Math.max(0,Math.min(100,(d.vix-8)/(40-8)*100));
