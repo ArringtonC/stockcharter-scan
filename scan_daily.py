@@ -319,31 +319,53 @@ SECTORS = {"XLK": "Technology", "XLF": "Financials", "XLV": "Health Care", "XLY"
            "XLP": "Staples", "XLE": "Energy", "XLI": "Industrials", "XLB": "Materials",
            "XLU": "Utilities", "XLRE": "Real Estate", "XLC": "Communications"}
 def sectors():
-    """Where each sector stands. CONTEXT ONLY — rotation was tested twice and carries no
+    """The leadership board. CONTEXT ONLY — rotation was tested twice and carries no
     signal (thesis/rotation.md): buying last month's leader loses to SPY by 0.25pp, and
-    86% of leadership spells last exactly one month."""
-    out = []
+    86% of leadership spells last exactly one month. The history grid exists to make
+    that churn visible, not to be traded."""
+    WEEKS, STEP = 10, 5                       # ten weekly snapshots, one per 5 sessions
     try:
-        spy = bars("SPY")
-        sc = [x[1] for x in spy]
-        if len(sc) < 260: return []
-        spy_1m = sc[-1] / sc[-22] - 1
+        spy = bars("SPY"); sc = [x[1] for x in spy]
+        if len(sc) < 300: return []
     except Exception:
         return []
-    for sym, name in SECTORS.items():
+    px = {}
+    for sym in SECTORS:
         try:
             b = bars(sym); c = [x[1] for x in b]
-            if len(c) < 260: continue
-            e50, e200 = ema(c, 50), ema(c, 200)
-            out.append(dict(sym=sym, name=name, px=c[-1],
-                            gap=(e50[-1] / e200[-1] - 1) * 100,
-                            up=e50[-1] > e200[-1],
-                            rel=((c[-1] / c[-22] - 1) - spy_1m) * 100))
+            if len(c) >= 300: px[sym] = c
         except Exception:
             continue
-    out.sort(key=lambda r: -r["gap"])
+    if len(px) < 8: return []
+    n = min(len(v) for v in px.values())
+    # rank on 21-session return at each weekly snapshot, most recent first
+    hist = []
+    for w in range(WEEKS):
+        k = n - 1 - w * STEP
+        if k - 21 < 0: break
+        r = {sym: c[k] / c[k - 21] - 1 for sym, c in px.items()}
+        hist.append([sym for sym in sorted(r, key=lambda x: -r[x])])
+    if not hist: return []
+    now, wk_ago = hist[0], hist[min(1, len(hist) - 1)], 
+    mo_ago = hist[min(4, len(hist) - 1)]
+    spy_1m = sc[-1] / sc[-22] - 1
+    out = []
+    for sym, name in SECTORS.items():
+        if sym not in px: continue
+        c = px[sym]; e50, e200 = ema(c, 50), ema(c, 200)
+        out.append(dict(sym=sym, name=name, px=c[-1],
+                        gap=(e50[-1] / e200[-1] - 1) * 100,
+                        up=e50[-1] > e200[-1],
+                        rel=((c[-1] / c[-22] - 1) - spy_1m) * 100,
+                        rank=now.index(sym) + 1,
+                        d_week=wk_ago.index(sym) - now.index(sym),
+                        d_month=mo_ago.index(sym) - now.index(sym),
+                        track=[h.index(sym) + 1 for h in hist]))
+    out.sort(key=lambda r: r["rank"])
+    # how much churn is in the window?
+    churn = sum(1 for a, b in zip(hist, hist[1:]) if a[0] != b[0])
+    for r in out: r["churn"] = f"{churn} of {len(hist)-1}"
     return out
-
 
 def mark_trades():
     """Mark every open paper trade, auto-close on target / timeout / expiry, write trades.csv back."""

@@ -132,14 +132,22 @@ details[open] summary::after{content:'−'}
 .runbtn:hover{color:var(--ink);border-color:var(--amber);background:var(--panel)}
 @media(max-width:720px){.stampwrap{align-items:flex-start;text-align:left;margin-top:10px}}
 
-/* sector strip — context, not signal */
-.sect{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:1px;background:var(--line);
- border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:8px}
-.sect>div{background:var(--panel);padding:10px 11px}
-.sect .nm{font:500 10.5px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--dim)}
-.sect .g{font:600 16px/1.2 var(--serif);font-variant-numeric:tabular-nums;margin-top:3px}
-.sect .r{font:500 11px/1.3 var(--mono);color:var(--dim);margin-top:1px}
-.sect .lead{box-shadow:inset 3px 0 0 var(--amber)}
+/* leadership board — context, not signal */
+.lb{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.lb th{font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:0 8px 8px;border-bottom:1px solid var(--line)}
+.lb th:first-child,.lb td:first-child{text-align:left}
+.lb td{padding:8px;border-bottom:1px solid var(--line2,var(--line));text-align:right;vertical-align:middle}
+.lb tr:last-child td{border-bottom:none}
+.lb .r{font:600 15px/1 var(--serif);width:34px}
+.lb tr.top .r{color:var(--amber)}
+.lb .nm{font-weight:500}
+.lb .d{font:500 12px var(--mono)}
+.lb .trk{width:150px;padding-right:0}
+.lb .trk svg{display:block;width:150px;height:26px;overflow:visible}
+@media(max-width:720px){.lb .trk{display:none}.lb th.trkh{display:none}}
+.churn{font:500 12px/1.5 var(--mono);color:var(--dim);margin-top:10px}
+.churn b{color:var(--ink2)}
 
 footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
 .err{color:var(--dn);font-size:12.5px;margin-top:10px}
@@ -215,12 +223,22 @@ function renderScan(d){
     tbl(d.blocked,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['upside',r=>'+'+r.up.toFixed(1)+'%'],['why',r=>esc(r.why)]])+
     `</div></details>`+
     ((d.sectors&&d.sectors.length)?(
-      head('◷','Where the sectors stand','<b>Context, not a signal.</b> Rotation was tested twice and carries none: buying last month\u2019s leader loses to SPY by 0.25pp, and 86% of leadership spells last exactly one month. This is here to tell you what tape you are in.')+
-      '<div class="sect">'+d.sectors.map((r,i)=>
-        `<div class="${i<3?'lead':''}"><div class="nm">${esc(r.name)}</div>`+
-        `<div class="g ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</div>`+
-        `<div class="r">vs SPY 1mo ${r.rel>0?'+':''}${r.rel.toFixed(1)}%</div></div>`).join('')+'</div>'+
-      '<p class="note">The big number is how far the 50-day average sits above or below the 200-day \u2014 the slow measure of which sectors are in an uptrend. The first three are highlighted only because you asked to see them.</p>'
+      head('\u25f7','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none \u2014 buying last month\u2019s leader loses to SPY by 0.25pp. The track on the right is why: it shows each sector\u2019s rank over the last ten weeks, and it churns.')+
+      '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th>1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks \u2192 now</th></tr></thead><tbody>'+
+      d.sectors.map(r=>{
+        const N=r.track.length, W=150, H=20, X=i=>W-(i/(N-1))*W, Y=v=>2+((v-1)/10)*H;
+        const pts=r.track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+        const arrow=n=>n===0?'<span class="dim">\u2014</span>'
+          :n>0?`<span class="up">\u25b2${n}</span>`:`<span class="dn">\u25bc${-n}</span>`;
+        return `<tr class="${r.rank<=3?'top':''}"><td class="nm">${esc(r.name)}</td>`+
+          `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d">${arrow(r.d_month)}</td>`+
+          `<td class="d ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>`+
+          `<td class="d ${r.rel>0?'up':'dn'}">${r.rel>0?'+':''}${r.rel.toFixed(1)}%</td>`+
+          `<td class="trk"><svg viewBox="0 0 ${W} 26" preserveAspectRatio="none" role="img" aria-label="rank track">`+
+          `<polyline points="${pts}" fill="none" stroke="${r.rank<=3?'var(--amber)':'var(--dim)'}" stroke-width="1.6" stroke-linejoin="round" opacity="${r.rank<=3?1:.55}"/>`+
+          `<circle cx="${X(0)}" cy="${Y(r.track[0])}" r="2.6" fill="${r.rank<=3?'var(--amber)':'var(--dim)'}"/></svg></td></tr>`;
+      }).join('')+'</tbody></table>'+
+      `<p class="churn">The top sector changed <b>${esc(d.sectors[0].churn)}</b> weeks in this window. Rank 1 is at the top of each track line, 11 at the bottom.</p>`
     ):'')+
     (d.errors.length?`<p class="err">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>e.split(':')[0]).join(', '))}</p>`:'');
   $('#n-scan').textContent=d.F.length+d.C.length+d.S.length+(d.vix_fires?1:0);
