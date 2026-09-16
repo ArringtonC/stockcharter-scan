@@ -44,7 +44,7 @@ body{margin:0;color:var(--ink);font:14.5px/1.55 var(--mono);background:
 
 /* tabs */
 nav{display:flex;gap:2px;margin:22px 0 0;border-bottom:1px solid var(--line2)}
-nav button{appearance:none;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
+nav button{appearance:none;background:none;border:0;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
   font:500 12.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:12px 16px;cursor:pointer;transition:color .15s}
 nav button:hover{color:var(--ink2)}
 nav button[aria-selected=true]{color:var(--amber);border-bottom-color:var(--amber)}
@@ -155,7 +155,7 @@ details[open] summary::after{content:'−'}
   .lb .nm .dim{display:none}                /* drop the ticker, the name is enough */
   .lb .r{font-size:14px;width:26px}
   /* five tabs have to fit without a hidden horizontal scroll */
-  nav button{padding:11px 9px;font-size:11px;letter-spacing:.09em}
+  nav button{padding:11px 8px;font-size:11px;letter-spacing:.06em;white-space:nowrap}
   nav button .n{margin-left:4px;padding:1px 4px}
   /* the header stacks rather than squeezing */
   .mast{flex-direction:column;align-items:flex-start;gap:6px}
@@ -282,6 +282,7 @@ function renderTrades(d){
     ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
     ['progress',r=>r.kind==='shares'?(r.armed?`<span class="pill win">FLOOR SET</span> <span class="dim">at ${f2(r.target)}</span>`:`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`):`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
     ['held',r=>(r.sessions??'—')+'s','sm']];
+  openCols[8][2]='sm';   // the progress bar needs width a phone does not have
   const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
     ['opened',r=>esc(r.opened),'sm'],['closed',r=>esc(r.closed),'sm'],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
     ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`,'sm']];
