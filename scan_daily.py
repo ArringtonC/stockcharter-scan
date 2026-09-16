@@ -218,7 +218,7 @@ def scan():
                 vix=vnow, vix5=vc[-5:], vix_hi10=max(vc[-11:]), qqq=qc[-1],
                 qdd=(qc[-1] / max(qc[-126:]) - 1) * 100, regime=regime, advice=advice,
                 peaked=peaked, falling=falling, vix_fires=peaked and falling,
-                F=F, D=D, C=C, S=S, blocked=blocked, errors=err)
+                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors())
 
 
 def _ncdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
@@ -313,6 +313,36 @@ def option_mark(sym, expiry, strike, spot, dte, realized):
         if v and v > 0: return v, tag
     iv = chain_iv(sym, expiry, strike)
     return bs_call(spot, float(strike), max(0.0, dte) / 365, iv or realized), ("iv" if iv else "est")
+
+
+SECTORS = {"XLK": "Technology", "XLF": "Financials", "XLV": "Health Care", "XLY": "Consumer Disc",
+           "XLP": "Staples", "XLE": "Energy", "XLI": "Industrials", "XLB": "Materials",
+           "XLU": "Utilities", "XLRE": "Real Estate", "XLC": "Communications"}
+def sectors():
+    """Where each sector stands. CONTEXT ONLY — rotation was tested twice and carries no
+    signal (thesis/rotation.md): buying last month's leader loses to SPY by 0.25pp, and
+    86% of leadership spells last exactly one month."""
+    out = []
+    try:
+        spy = bars("SPY")
+        sc = [x[1] for x in spy]
+        if len(sc) < 260: return []
+        spy_1m = sc[-1] / sc[-22] - 1
+    except Exception:
+        return []
+    for sym, name in SECTORS.items():
+        try:
+            b = bars(sym); c = [x[1] for x in b]
+            if len(c) < 260: continue
+            e50, e200 = ema(c, 50), ema(c, 200)
+            out.append(dict(sym=sym, name=name, px=c[-1],
+                            gap=(e50[-1] / e200[-1] - 1) * 100,
+                            up=e50[-1] > e200[-1],
+                            rel=((c[-1] / c[-22] - 1) - spy_1m) * 100))
+        except Exception:
+            continue
+    out.sort(key=lambda r: -r["gap"])
+    return out
 
 
 def mark_trades():
