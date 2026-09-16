@@ -164,6 +164,10 @@ details[open] summary::after{content:'−'}
   .mkin{grid-template-columns:1fr 1fr;gap:6px 14px}
   .rule-c{padding:13px 14px}
   .rule-c .st{font-size:9px;padding:4px 7px}
+  /* trades: hide the columns you can infer, so P/L and target are on screen */
+  #tab-trades .sm{display:none}
+  #tab-trades table{font-size:12px}
+  #tab-trades th,#tab-trades td{padding:8px 6px}
 }
 .churn{font:500 12px/1.5 var(--mono);color:var(--dim);margin-top:10px}
 .churn b{color:var(--ink2)}
@@ -236,8 +240,11 @@ const cls=x=>x>0?'up':x<0?'dn':'dim';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function tbl(rows,cols,empty='none today'){
   if(!rows||!rows.length)return `<p class="none">${empty}</p>`;
-  return `<div class="scroll"><table><thead><tr>${cols.map(c=>`<th>${c[0]}</th>`).join('')}</tr></thead><tbody>${
-    rows.map(r=>`<tr>${cols.map(c=>`<td>${c[1](r)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  // a third element on a column marks it 'sm' — hidden on a phone so the numbers that
+  // matter are visible without swiping
+  const cl=c=>c[2]?` class="${c[2]}"`:'';
+  return `<div class="scroll"><table><thead><tr>${cols.map(c=>`<th${cl(c)}>${c[0]}</th>`).join('')}</tr></thead><tbody>${
+    rows.map(r=>`<tr>${cols.map(c=>`<td${cl(c)}>${c[1](r)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function head(k,title,rule){return `<h2><span class="k">${k}</span>${title}</h2><p class="rule">${rule}</p>`;}
 
@@ -269,15 +276,15 @@ function renderTrades(d){
   const wins=c.filter(r=>r.result==='win'),losses=c.filter(r=>r.result==='loss');
   const mean=a=>a.length?a.reduce((s,r)=>s+Number(r.pl_pct),0)/a.length:null;
   const kind=r=>r.kind==='shares'?'shares':r.acct==='real'?`<span class="pill real">REAL</span> call`:`${esc(r.acct)} call`;
-  const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
-    ['opened',r=>esc(r.opened)],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">'+esc(r.mark)+'</span>':'')],
+  const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`,'sm'],['kind',r=>kind(r),'sm'],
+    ['opened',r=>esc(r.opened),'sm'],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">'+esc(r.mark)+'</span>':'')],
     ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
     ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
     ['progress',r=>r.kind==='shares'?(r.armed?`<span class="pill win">FLOOR SET</span> <span class="dim">at ${f2(r.target)}</span>`:`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`):`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
-    ['held',r=>(r.sessions??'—')+'s']];
+    ['held',r=>(r.sessions??'—')+'s','sm']];
   const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
-    ['opened',r=>esc(r.opened)],['closed',r=>esc(r.closed)],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
-    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`]];
+    ['opened',r=>esc(r.opened),'sm'],['closed',r=>esc(r.closed),'sm'],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
+    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`,'sm']];
   $('#tab-trades').innerHTML=
     `<div class="stats"><div><span class="l">open</span><b>${o.length}</b></div><div><span class="l">closed</span><b>${c.length}</b></div>
      <div><span class="l">wins</span><b class="up">${wins.length}</b></div><div><span class="l">losses</span><b class="dn">${losses.length}</b></div>
