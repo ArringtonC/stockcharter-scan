@@ -1,17 +1,17 @@
 {
  "date": "2026-09-16",
- "stamp": "2026-09-16 14:58 UTC",
- "vix": 16.770000457763672,
+ "stamp": "2026-09-16 15:01 UTC",
+ "vix": 16.729999542236328,
  "vix5": [
   17.84000015258789,
   15.84000015258789,
   17.100000381469727,
   17.200000762939453,
-  16.770000457763672
+  16.729999542236328
  ],
  "vix_hi10": 17.84000015258789,
- "qqq": 709.9349975585938,
- "qdd": -4.8548537699328875,
+ "qqq": 710.875,
+ "qdd": -4.7288750957559795,
  "regime": "NORMAL",
  "advice": "Setup F adds the most here (+10.76pp vs baseline). It pays more at 25+. No shorts.",
  "peaked": false,
@@ -20,85 +20,100 @@
  "F": [
   {
    "sym": "HOOD",
-   "px": 105.23999786376953,
-   "dd": 31.60015764572337,
+   "px": 105.76589965820312,
+   "dd": 31.258352243183797,
    "tgt": 153.86000061035156,
-   "up": 46.1991673636476,
+   "up": 45.47221846320133,
    "rev": 61.9413407821229
   },
   {
    "sym": "MU",
-   "px": 930.1300048828125,
-   "dd": 25.886055387823703,
+   "px": 932.489990234375,
+   "dd": 25.698008746264943,
    "tgt": 1255.0,
-   "up": 34.92737503486063,
+   "up": 34.585895091974585,
    "rev": 200.23471782834986
   },
   {
    "sym": "BE",
-   "px": 271.9999084472656,
-   "dd": 22.568916706766885,
+   "px": 270.5400085449219,
+   "dd": 22.98451107804249,
    "tgt": 351.2799987792969,
-   "up": 29.147101844485277,
+   "up": 29.844011120066384,
    "rev": 53.43903353378423
+  },
+  {
+   "sym": "HAL",
+   "px": 34.775001525878906,
+   "dd": 20.22252488151379,
+   "tgt": 43.59000015258789,
+   "up": 25.348664960227318,
+   "rev": 37.416949152542365
   }
  ],
  "D": [
   {
    "sym": "DOCU",
-   "px": 71.16000366210938,
-   "dd": 17.876511934213045,
-   "rsi": 67.19409003232559,
-   "up": 21.767842982865805
+   "px": 71.05000305175781,
+   "dd": 18.003460126266702,
+   "rsi": 66.87176318583317,
+   "up": 21.95636566371004
+  },
+  {
+   "sym": "U",
+   "px": 43.0099983215332,
+   "dd": 17.526371882865753,
+   "rsi": 55.510606655948884,
+   "up": 21.250880169808582
   },
   {
    "sym": "MRNA",
-   "px": 146.7899932861328,
-   "dd": 16.908190737450536,
-   "rsi": 61.677821454801844,
-   "up": 20.348805601313668
+   "px": 146.41000366210938,
+   "dd": 17.123287316272208,
+   "rsi": 61.52751530745309,
+   "up": 20.661156508002087
   },
   {
    "sym": "META",
-   "px": 678.5869750976562,
-   "dd": 14.189809613994308,
-   "rsi": 73.21184202626313,
-   "up": 16.53627564530895
+   "px": 679.655029296875,
+   "dd": 14.054749647415454,
+   "rsi": 73.39968630493777,
+   "up": 16.353142948280208
   },
   {
    "sym": "SNOW",
-   "px": 335.6600036621094,
-   "dd": 12.715829573260207,
-   "rsi": 55.909469021285815,
-   "up": 14.568311196739824
+   "px": 335.6549987792969,
+   "dd": 12.717131030209517,
+   "rsi": 55.907563912967696,
+   "up": 14.570019501319376
   },
   {
    "sym": "AMD",
-   "px": 522.6099853515625,
-   "dd": 10.623706187835435,
-   "rsi": 58.24751796881342,
-   "up": 11.88649219463327
+   "px": 523.1849975585938,
+   "dd": 10.52536811278577,
+   "rsi": 58.36423685677333,
+   "up": 11.763522118820614
   },
   {
    "sym": "HPQ",
-   "px": 33.358699798583984,
-   "dd": 7.9251995029837925,
-   "rsi": 59.95301394672444,
-   "up": 8.607349090309047
+   "px": 33.334999084472656,
+   "dd": 7.990616876460976,
+   "rsi": 59.83628858576956,
+   "up": 8.684567383450602
   },
   {
    "sym": "CRM",
-   "px": 251.74000549316406,
-   "dd": 6.4546025060000956,
-   "rsi": 63.307239453755244,
-   "up": 6.89996801436874
+   "px": 252.05499267578125,
+   "dd": 6.337554756097507,
+   "rsi": 63.55656193899948,
+   "up": 6.766377644309984
   },
   {
    "sym": "GILD",
-   "px": 148.14999389648438,
-   "dd": 5.810922359836002,
-   "rsi": 58.92309935770558,
-   "up": 6.169422724401019
+   "px": 148.25999450683594,
+   "dd": 5.740987452946245,
+   "rsi": 59.111563881698885,
+   "up": 6.09065096038468
   }
  ],
  "C": [],
@@ -106,114 +121,114 @@
  "blocked": [
   {
    "sym": "ZS",
-   "px": 192.55499267578125,
-   "dd": 42.86032278232948,
-   "up": 75.00973906285016,
+   "px": 192.42999267578125,
+   "dd": 42.8974158722201,
+   "up": 75.12342309452661,
    "why": "trend broken"
   },
   {
    "sym": "NFLX",
-   "px": 77.41999816894531,
-   "dd": 37.994555669955055,
-   "up": 61.2761606347278,
+   "px": 77.45500183105469,
+   "dd": 37.96652134195708,
+   "up": 61.203276300602184,
    "why": "trend broken"
   },
   {
    "sym": "SG",
-   "px": 6.849999904632568,
-   "dd": 35.55973818545116,
-   "up": 55.18248558298495,
+   "px": 6.860000133514404,
+   "dd": 35.46566265606099,
+   "up": 54.956266873935576,
    "why": "trend broken"
   },
   {
    "sym": "PYPL",
-   "px": 53.34000015258789,
-   "dd": 32.66426482547982,
-   "up": 48.50955401440389,
+   "px": 53.439998626708984,
+   "dd": 32.538028028479225,
+   "up": 48.23165863312626,
    "why": "trend broken"
   },
   {
    "sym": "ADBE",
-   "px": 251.42999267578125,
-   "dd": 32.20352623445362,
-   "up": 47.50029676443022,
+   "px": 251.5500030517578,
+   "dd": 32.17116621161027,
+   "up": 47.429926794815415,
    "why": "trend broken"
   },
   {
    "sym": "AVGO",
-   "px": 342.3299865722656,
-   "dd": 30.842426955097856,
-   "up": 44.59732404876715,
+   "px": 342.4049987792969,
+   "dd": 30.827272973879417,
+   "up": 44.56564646097965,
    "why": "trend broken"
   },
   {
    "sym": "INTC",
-   "px": 101.5999984741211,
-   "dd": 28.626628649219377,
-   "up": 40.10827582814789,
+   "px": 101.45559692382812,
+   "dd": 28.728069846340198,
+   "up": 40.30769165982102,
    "why": "revenue +9%"
   },
   {
    "sym": "NOW",
-   "px": 140.20010375976562,
-   "dd": 28.001342782228168,
-   "up": 38.89147918069289,
+   "px": 140.35000610351562,
+   "dd": 27.92436161620642,
+   "up": 38.743134632415945,
    "why": "trend broken"
   },
   {
    "sym": "SHOP",
-   "px": 131.25999450683594,
-   "dd": 27.954337368731196,
-   "up": 38.800860937045,
+   "px": 131.60000610351562,
+   "dd": 27.76771264063228,
+   "up": 38.44224467443937,
    "why": "trend broken"
   },
   {
    "sym": "IBM",
-   "px": 239.89999389648438,
-   "dd": 27.840943252595984,
-   "up": 38.58274277344622,
-   "why": "trend broken"
-  },
-  {
-   "sym": "TSLA",
-   "px": 363.3900146484375,
-   "dd": 27.151529693415277,
-   "up": 37.27124204413261,
+   "px": 240.42990112304688,
+   "dd": 27.681553479335374,
+   "up": 38.277306567177845,
    "why": "trend broken"
   },
   {
    "sym": "QCOM",
-   "px": 189.35499572753906,
-   "dd": 27.14874348058408,
-   "up": 37.26599207434198,
+   "px": 188.92999267578125,
+   "dd": 27.312256496051045,
+   "up": 37.574775580379985,
    "why": "revenue +4%"
   },
   {
-   "sym": "WDAY",
-   "px": 186.99000549316406,
-   "dd": 25.159095086957084,
-   "up": 33.616770289174404,
-   "why": "revenue +18%"
-  },
-  {
-   "sym": "SPOT",
-   "px": 558.5850219726562,
-   "dd": 25.022144701656877,
-   "up": 33.37271331927498,
+   "sym": "TSLA",
+   "px": 364.2799987792969,
+   "dd": 26.97311537294209,
+   "up": 36.935870276667956,
    "why": "trend broken"
   },
   {
+   "sym": "SPOT",
+   "px": 559.364990234375,
+   "dd": 24.917450975251676,
+   "up": 33.186740859102315,
+   "why": "trend broken"
+  },
+  {
+   "sym": "WDAY",
+   "px": 187.64500427246094,
+   "dd": 24.896938287559,
+   "up": 33.15036393973638,
+   "why": "revenue +18%"
+  },
+  {
    "sym": "F",
-   "px": 13.449999809265137,
-   "dd": 24.35320984342041,
-   "up": 32.19331552999441,
+   "px": 13.454999923706055,
+   "dd": 24.32508771604236,
+   "up": 32.14419017066908,
    "why": "trend broken"
   },
   {
    "sym": "TXN",
-   "px": 264.3800048828125,
-   "dd": 20.851418780055177,
-   "up": 26.344652625056497,
+   "px": 264.8900146484375,
+   "dd": 20.698734958994546,
+   "up": 26.101393147122632,
    "why": "trend broken"
   }
  ],
@@ -222,10 +237,10 @@
   {
    "sym": "XLC",
    "name": "Communications",
-   "px": 114.19999694824219,
-   "gap": -0.337622731208298,
+   "px": 114.36000061035156,
+   "gap": -0.3334425080097514,
    "up": false,
-   "rel": 4.714361098301934,
+   "rel": 4.765539389026829,
    "rank": 1,
    "d_week": 3,
    "d_month": 8,
@@ -241,15 +256,73 @@
     6,
     8
    ],
+   "hold": [
+    {
+     "sym": "META",
+     "name": "Meta Platforms Inc Class A",
+     "pct": 16.77
+    },
+    {
+     "sym": "GOOGL",
+     "name": "Alphabet Inc Class A",
+     "pct": 10.3
+    },
+    {
+     "sym": "GOOG",
+     "name": "Alphabet Inc Class C",
+     "pct": 8.2
+    },
+    {
+     "sym": "T",
+     "name": "AT&T Inc",
+     "pct": 5.25
+    },
+    {
+     "sym": "VZ",
+     "name": "Verizon Communications Inc",
+     "pct": 5.02
+    },
+    {
+     "sym": "CMCSA",
+     "name": "Comcast Corp Class A",
+     "pct": 4.86
+    },
+    {
+     "sym": "NFLX",
+     "name": "Netflix Inc",
+     "pct": 4.86
+    },
+    {
+     "sym": "DIS",
+     "name": "The Walt Disney Co",
+     "pct": 4.82
+    },
+    {
+     "sym": "WBD",
+     "name": "Warner Bros. Discovery Inc Ordinary Shares - Class A",
+     "pct": 4.65
+    },
+    {
+     "sym": "TMUS",
+     "name": "T-Mobile US Inc",
+     "pct": 4.59
+    }
+   ],
+   "ours": [
+    "GOOGL",
+    "META",
+    "NFLX",
+    "WBD"
+   ],
    "churn": "6 of 9"
   },
   {
    "sym": "XLE",
    "name": "Energy",
-   "px": 64.25499725341797,
-   "gap": 9.852515718135791,
+   "px": 64.08000183105469,
+   "gap": 9.843680457280236,
    "up": true,
-   "rel": 4.340939184090409,
+   "rel": 3.9681011636632513,
    "rank": 2,
    "d_week": -1,
    "d_month": -1,
@@ -265,15 +338,73 @@
     1,
     6
    ],
+   "hold": [
+    {
+     "sym": "XOM",
+     "name": "ExxonMobil Holdings Corp",
+     "pct": 19.86
+    },
+    {
+     "sym": "CVX",
+     "name": "Chevron Corp",
+     "pct": 14.89
+    },
+    {
+     "sym": "COP",
+     "name": "ConocoPhillips",
+     "pct": 6.23
+    },
+    {
+     "sym": "MPC",
+     "name": "Marathon Petroleum Corp",
+     "pct": 5.42
+    },
+    {
+     "sym": "PSX",
+     "name": "Phillips 66",
+     "pct": 5.33
+    },
+    {
+     "sym": "VLO",
+     "name": "Valero Energy Corp",
+     "pct": 5.07
+    },
+    {
+     "sym": "SLB",
+     "name": "SLB Ltd",
+     "pct": 4.88
+    },
+    {
+     "sym": "EOG",
+     "name": "EOG Resources Inc",
+     "pct": 4.13
+    },
+    {
+     "sym": "WMB",
+     "name": "Williams Companies Inc",
+     "pct": 3.78
+    },
+    {
+     "sym": "KMI",
+     "name": "Kinder Morgan Inc Class P",
+     "pct": 3.65
+    }
+   ],
+   "ours": [
+    "COP",
+    "CVX",
+    "SLB",
+    "XOM"
+   ],
    "churn": "6 of 9"
   },
   {
    "sym": "XLV",
    "name": "Health Care",
-   "px": 168.13999938964844,
-   "gap": 6.196873555137716,
+   "px": 168.22540283203125,
+   "gap": 6.198438077571655,
    "up": true,
-   "rel": 2.316869639539487,
+   "rel": 2.274790832433926,
    "rank": 3,
    "d_week": 2,
    "d_month": -1,
@@ -289,15 +420,76 @@
     2,
     4
    ],
+   "hold": [
+    {
+     "sym": "LLY",
+     "name": "Eli Lilly and Co",
+     "pct": 14.87
+    },
+    {
+     "sym": "JNJ",
+     "name": "Johnson & Johnson",
+     "pct": 10.4
+    },
+    {
+     "sym": "ABBV",
+     "name": "AbbVie Inc",
+     "pct": 7.36
+    },
+    {
+     "sym": "MRK",
+     "name": "Merck & Co Inc",
+     "pct": 5.93
+    },
+    {
+     "sym": "UNH",
+     "name": "UnitedHealth Group Inc",
+     "pct": 5.75
+    },
+    {
+     "sym": "AMGN",
+     "name": "Amgen Inc",
+     "pct": 3.77
+    },
+    {
+     "sym": "TMO",
+     "name": "Thermo Fisher Scientific Inc",
+     "pct": 3.73
+    },
+    {
+     "sym": "ABT",
+     "name": "Abbott Laboratories",
+     "pct": 3.12
+    },
+    {
+     "sym": "GILD",
+     "name": "Gilead Sciences Inc",
+     "pct": 2.95
+    },
+    {
+     "sym": "PFE",
+     "name": "Pfizer Inc",
+     "pct": 2.64
+    }
+   ],
+   "ours": [
+    "ABBV",
+    "AMGN",
+    "GILD",
+    "JNJ",
+    "LLY",
+    "MRK",
+    "PFE"
+   ],
    "churn": "6 of 9"
   },
   {
    "sym": "XLP",
    "name": "Staples",
-   "px": 83.7300033569336,
-   "gap": 1.3792999698078567,
+   "px": 83.75499725341797,
+   "gap": 1.3801709204789292,
    "up": true,
-   "rel": 0.542505628312473,
+   "rel": 0.4788180449431523,
    "rank": 4,
    "d_week": 4,
    "d_month": 4,
@@ -313,15 +505,68 @@
     5,
     11
    ],
+   "hold": [
+    {
+     "sym": "WMT",
+     "name": "Walmart Inc",
+     "pct": 9.82
+    },
+    {
+     "sym": "COST",
+     "name": "Costco Wholesale Corp",
+     "pct": 8.94
+    },
+    {
+     "sym": "KO",
+     "name": "Coca-Cola Co",
+     "pct": 7.33
+    },
+    {
+     "sym": "PG",
+     "name": "Procter & Gamble Co",
+     "pct": 7.22
+    },
+    {
+     "sym": "PM",
+     "name": "Philip Morris International Inc",
+     "pct": 6.24
+    },
+    {
+     "sym": "TGT",
+     "name": "Target Corp",
+     "pct": 4.66
+    },
+    {
+     "sym": "CL",
+     "name": "Colgate-Palmolive Co",
+     "pct": 4.52
+    },
+    {
+     "sym": "PEP",
+     "name": "PepsiCo Inc",
+     "pct": 4.4
+    },
+    {
+     "sym": "MDLZ",
+     "name": "Mondelez International Inc Class A",
+     "pct": 4.38
+    },
+    {
+     "sym": "MO",
+     "name": "Altria Group Inc",
+     "pct": 4.24
+    }
+   ],
+   "ours": [],
    "churn": "6 of 9"
   },
   {
    "sym": "XLF",
    "name": "Financials",
-   "px": 56.60499954223633,
-   "gap": 4.813248040910634,
+   "px": 56.685001373291016,
+   "gap": 4.817500499531935,
    "up": true,
-   "rel": -0.028927612645568423,
+   "rel": 0.01680940860361302,
    "rank": 5,
    "d_week": 1,
    "d_month": 0,
@@ -337,15 +582,68 @@
     3,
     1
    ],
+   "hold": [
+    {
+     "sym": "JPM",
+     "name": "JPMorgan Chase & Co",
+     "pct": 11.69
+    },
+    {
+     "sym": "BRK-B",
+     "name": "Berkshire Hathaway Inc Class B",
+     "pct": 11.32
+    },
+    {
+     "sym": "V",
+     "name": "Visa Inc Class A",
+     "pct": 7.71
+    },
+    {
+     "sym": "MA",
+     "name": "Mastercard Inc Class A",
+     "pct": 5.83
+    },
+    {
+     "sym": "BAC",
+     "name": "Bank of America Corp",
+     "pct": 4.96
+    },
+    {
+     "sym": "GS",
+     "name": "The Goldman Sachs Group Inc",
+     "pct": 3.71
+    },
+    {
+     "sym": "WFC",
+     "name": "Wells Fargo & Co",
+     "pct": 3.24
+    },
+    {
+     "sym": "MS",
+     "name": "Morgan Stanley",
+     "pct": 3.13
+    },
+    {
+     "sym": "C",
+     "name": "Citigroup Inc",
+     "pct": 2.75
+    },
+    {
+     "sym": "SCHW",
+     "name": "Charles Schwab Corp",
+     "pct": 2.2
+    }
+   ],
+   "ours": [],
    "churn": "6 of 9"
   },
   {
    "sym": "XLK",
    "name": "Technology",
-   "px": 185.49000549316406,
-   "gap": 10.505046828553578,
+   "px": 185.61500549316406,
+   "gap": 10.507173107597033,
    "up": true,
-   "rel": -0.8734592939029118,
+   "rel": -0.9009837250673058,
    "rank": 6,
    "d_week": -4,
    "d_month": -3,
@@ -361,15 +659,78 @@
     11,
     5
    ],
+   "hold": [
+    {
+     "sym": "NVDA",
+     "name": "NVIDIA Corp",
+     "pct": 14.36
+    },
+    {
+     "sym": "AAPL",
+     "name": "Apple Inc",
+     "pct": 12.5
+    },
+    {
+     "sym": "MSFT",
+     "name": "Microsoft Corp",
+     "pct": 10.12
+    },
+    {
+     "sym": "AVGO",
+     "name": "Broadcom Inc",
+     "pct": 4.71
+    },
+    {
+     "sym": "MU",
+     "name": "Micron Technology Inc",
+     "pct": 4.0
+    },
+    {
+     "sym": "AMD",
+     "name": "Advanced Micro Devices Inc",
+     "pct": 3.93
+    },
+    {
+     "sym": "INTC",
+     "name": "Intel Corp",
+     "pct": 2.9
+    },
+    {
+     "sym": "CSCO",
+     "name": "Cisco Systems Inc",
+     "pct": 2.86
+    },
+    {
+     "sym": "PLTR",
+     "name": "Palantir Technologies Inc Ordinary Shares - Class A",
+     "pct": 2.81
+    },
+    {
+     "sym": "LRCX",
+     "name": "Lam Research Corp",
+     "pct": 2.47
+    }
+   ],
+   "ours": [
+    "AAPL",
+    "AMD",
+    "AVGO",
+    "CSCO",
+    "INTC",
+    "MSFT",
+    "MU",
+    "NVDA",
+    "PLTR"
+   ],
    "churn": "6 of 9"
   },
   {
    "sym": "XLB",
    "name": "Materials",
-   "px": 50.84000015258789,
-   "gap": 3.2887927953966,
+   "px": 50.875,
+   "gap": 3.2908108940120417,
    "up": true,
-   "rel": -1.0155689870902873,
+   "rel": -1.0417740980259382,
    "rank": 7,
    "d_week": 2,
    "d_month": -3,
@@ -385,15 +746,68 @@
     10,
     10
    ],
+   "hold": [
+    {
+     "sym": "LIN",
+     "name": "Linde PLC",
+     "pct": 13.13
+    },
+    {
+     "sym": "NEM",
+     "name": "Newmont Corp",
+     "pct": 7.81
+    },
+    {
+     "sym": "FCX",
+     "name": "Freeport-McMoRan Inc",
+     "pct": 6.32
+    },
+    {
+     "sym": "CTVA",
+     "name": "Corteva Inc",
+     "pct": 4.91
+    },
+    {
+     "sym": "APD",
+     "name": "Air Products and Chemicals Inc",
+     "pct": 4.83
+    },
+    {
+     "sym": "SHW",
+     "name": "Sherwin-Williams Co",
+     "pct": 4.81
+    },
+    {
+     "sym": "ECL",
+     "name": "Ecolab Inc",
+     "pct": 4.76
+    },
+    {
+     "sym": "NUE",
+     "name": "Nucor Corp",
+     "pct": 4.3
+    },
+    {
+     "sym": "VMC",
+     "name": "Vulcan Materials Co",
+     "pct": 4.27
+    },
+    {
+     "sym": "CRH",
+     "name": "CRH PLC",
+     "pct": 4.07
+    }
+   ],
+   "ours": [],
    "churn": "6 of 9"
   },
   {
    "sym": "XLRE",
    "name": "Real Estate",
-   "px": 43.244998931884766,
-   "gap": 1.7698178679779852,
+   "px": 43.275001525878906,
+   "gap": 1.7718212693828228,
    "up": true,
-   "rel": -1.8712125841061966,
+   "rel": -1.8974906122814605,
    "rank": 8,
    "d_week": -1,
    "d_month": 2,
@@ -409,15 +823,68 @@
     4,
     9
    ],
+   "hold": [
+    {
+     "sym": "WELL",
+     "name": "Welltower Inc",
+     "pct": 11.43
+    },
+    {
+     "sym": "PLD",
+     "name": "Prologis Inc",
+     "pct": 9.09
+    },
+    {
+     "sym": "EQIX",
+     "name": "Equinix Inc",
+     "pct": 7.07
+    },
+    {
+     "sym": "AMT",
+     "name": "American Tower Corp",
+     "pct": 5.61
+    },
+    {
+     "sym": "VMRK",
+     "name": "Vivmark Residential",
+     "pct": 4.94
+    },
+    {
+     "sym": "DLR",
+     "name": "Digital Realty Trust Inc",
+     "pct": 4.92
+    },
+    {
+     "sym": "SPG",
+     "name": "Simon Property Group Inc",
+     "pct": 4.72
+    },
+    {
+     "sym": "VTR",
+     "name": "Ventas Inc",
+     "pct": 4.58
+    },
+    {
+     "sym": "PSA",
+     "name": "Public Storage",
+     "pct": 4.58
+    },
+    {
+     "sym": "O",
+     "name": "Realty Income Corp",
+     "pct": 4.49
+    }
+   ],
+   "ours": [],
    "churn": "6 of 9"
   },
   {
    "sym": "XLY",
    "name": "Consumer Disc",
-   "px": 111.02999877929688,
-   "gap": -0.2212283297106099,
+   "px": 111.25499725341797,
+   "gap": -0.2155323796385944,
    "up": false,
-   "rel": -3.2349860553210763,
+   "rel": -3.1354711615016573,
    "rank": 9,
    "d_week": 1,
    "d_month": -2,
@@ -433,15 +900,72 @@
     9,
     7
    ],
+   "hold": [
+    {
+     "sym": "AMZN",
+     "name": "Amazon.com Inc",
+     "pct": 24.37
+    },
+    {
+     "sym": "TSLA",
+     "name": "Tesla Inc",
+     "pct": 17.29
+    },
+    {
+     "sym": "HD",
+     "name": "The Home Depot Inc",
+     "pct": 5.45
+    },
+    {
+     "sym": "MCD",
+     "name": "McDonald's Corp",
+     "pct": 4.07
+    },
+    {
+     "sym": "BKNG",
+     "name": "Booking Holdings Inc",
+     "pct": 3.86
+    },
+    {
+     "sym": "TJX",
+     "name": "TJX Companies Inc",
+     "pct": 3.49
+    },
+    {
+     "sym": "SBUX",
+     "name": "Starbucks Corp",
+     "pct": 3.03
+    },
+    {
+     "sym": "LOW",
+     "name": "Lowe's Companies Inc",
+     "pct": 2.87
+    },
+    {
+     "sym": "DASH",
+     "name": "DoorDash Inc Ordinary Shares - Class A",
+     "pct": 2.2
+    },
+    {
+     "sym": "GM",
+     "name": "General Motors Co",
+     "pct": 1.95
+    }
+   ],
+   "ours": [
+    "AMZN",
+    "GM",
+    "TSLA"
+   ],
    "churn": "6 of 9"
   },
   {
    "sym": "XLU",
    "name": "Utilities",
-   "px": 41.5099983215332,
-   "gap": -1.3250672222181348,
+   "px": 41.560001373291016,
+   "gap": -1.321739579004766,
    "up": false,
-   "rel": -4.379090434745425,
+   "rel": -4.35911343165084,
    "rank": 10,
    "d_week": -7,
    "d_month": 1,
@@ -457,15 +981,68 @@
     7,
     2
    ],
+   "hold": [
+    {
+     "sym": "NEE",
+     "name": "NextEra Energy Inc",
+     "pct": 13.05
+    },
+    {
+     "sym": "SO",
+     "name": "Southern Co",
+     "pct": 7.54
+    },
+    {
+     "sym": "DUK",
+     "name": "Duke Energy Corp",
+     "pct": 7.1
+    },
+    {
+     "sym": "CEG",
+     "name": "Constellation Energy Corp",
+     "pct": 6.68
+    },
+    {
+     "sym": "AEP",
+     "name": "American Electric Power Co Inc",
+     "pct": 5.06
+    },
+    {
+     "sym": "D",
+     "name": "Dominion Energy Inc",
+     "pct": 4.41
+    },
+    {
+     "sym": "SRE",
+     "name": "Sempra",
+     "pct": 4.06
+    },
+    {
+     "sym": "ETR",
+     "name": "Entergy Corp",
+     "pct": 3.7
+    },
+    {
+     "sym": "XEL",
+     "name": "Xcel Energy Inc",
+     "pct": 3.59
+    },
+    {
+     "sym": "EXC",
+     "name": "Exelon Corp",
+     "pct": 3.4
+    }
+   ],
+   "ours": [],
    "churn": "6 of 9"
   },
   {
    "sym": "XLI",
    "name": "Industrials",
-   "px": 169.92999267578125,
-   "gap": 3.6763694630246313,
+   "px": 170.1199951171875,
+   "gap": 3.679578784851878,
    "up": true,
-   "rel": -7.132328784244335,
+   "rel": -7.123555666614645,
    "rank": 11,
    "d_week": 0,
    "d_month": -5,
@@ -481,6 +1058,59 @@
     8,
     3
    ],
+   "hold": [
+    {
+     "sym": "CAT",
+     "name": "Caterpillar Inc",
+     "pct": 6.67
+    },
+    {
+     "sym": "GE",
+     "name": "GE Aerospace",
+     "pct": 6.36
+    },
+    {
+     "sym": "RTX",
+     "name": "RTX Corp",
+     "pct": 5.08
+    },
+    {
+     "sym": "GEV",
+     "name": "GE Vernova Inc",
+     "pct": 4.39
+    },
+    {
+     "sym": "UNP",
+     "name": "Union Pacific Corp",
+     "pct": 3.24
+    },
+    {
+     "sym": "DE",
+     "name": "Deere & Co",
+     "pct": 2.99
+    },
+    {
+     "sym": "BA",
+     "name": "Boeing Co",
+     "pct": 2.98
+    },
+    {
+     "sym": "ETN",
+     "name": "Eaton Corp PLC",
+     "pct": 2.84
+    },
+    {
+     "sym": "UBER",
+     "name": "Uber Technologies Inc",
+     "pct": 2.8
+    },
+    {
+     "sym": "PH",
+     "name": "Parker Hannifin Corp",
+     "pct": 2.24
+    }
+   ],
+   "ours": [],
    "churn": "6 of 9"
   }
  ],
@@ -500,10 +1130,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -6.350552595929226,
+   "pl_pct": -6.308211163596611,
    "note": "paper",
-   "now": 77.41999816894531,
-   "to_target": 63.665723323183784,
+   "now": 77.45500183105469,
+   "to_target": 63.591759091789314,
    "progress": 0,
    "sessions": 8,
    "armed": false
@@ -523,11 +1153,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 2.211236801365235,
+   "pl_pct": 2.437007849280759,
    "note": "paper",
-   "now": 239.89999389648438,
-   "to_target": 38.58274633531453,
-   "progress": 0.05309456671595262,
+   "now": 240.42990112304688,
+   "to_target": 38.27731012119582,
+   "progress": 0.058515612511988425,
    "sessions": 8,
    "armed": false
   },
@@ -546,10 +1176,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.152204453951846,
+   "pl_pct": -4.131202044098769,
    "note": "paper",
-   "now": 342.3299865722656,
-   "to_target": 44.59732404876715,
+   "now": 342.4049987792969,
+   "to_target": 44.56564646097965,
    "progress": 0,
    "sessions": 8,
    "armed": false
@@ -569,10 +1199,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -9.631739081208156,
+   "pl_pct": -9.315192213193047,
    "note": "paper",
-   "now": 186.99000549316406,
-   "to_target": 33.616767025087846,
+   "now": 187.64500427246094,
+   "to_target": 33.15036068704353,
    "progress": 0,
    "sessions": 8,
    "armed": false
@@ -592,10 +1222,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.4256667031929977,
+   "pl_pct": -3.352154588396483,
    "note": "paper",
-   "now": 492.6449890136719,
-   "to_target": 12.397367749260347,
+   "now": 493.0199890136719,
+   "to_target": 12.311876260385235,
    "progress": 0,
    "sessions": 8,
    "armed": false
@@ -615,10 +1245,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -1.8830140511991944,
+   "pl_pct": -2.40963547185562,
    "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
-   "now": 271.9999084472656,
-   "to_target": 29.14710229327333,
+   "now": 270.5400085449219,
+   "to_target": 29.84401157127621,
    "progress": 0,
    "sessions": 6,
    "armed": false
@@ -638,10 +1268,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -10.311915916337544,
+   "pl_pct": -9.863729624848204,
    "note": "matches the backtest profile: real pullback, +62% revenue",
-   "now": 105.23999786376953,
-   "to_target": 46.19916678368601,
+   "now": 105.76589965820312,
+   "to_target": 45.472217886123524,
    "progress": 0,
    "sessions": 6,
    "armed": false
@@ -661,10 +1291,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -7.011176605801239,
+   "pl_pct": -6.7752394143147825,
    "note": "+200% revenue. EARNINGS 2026-09-30, 22 days out",
-   "now": 930.1300048828125,
-   "to_target": 34.92737503486063,
+   "now": 932.489990234375,
+   "to_target": 34.585895091974585,
    "progress": 0,
    "sessions": 6,
    "armed": false
@@ -684,10 +1314,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -2.1178266168262905,
+   "pl_pct": -1.8642758363045298,
    "note": "+46% revenue. Option already held in both option books",
-   "now": 131.25999450683594,
-   "to_target": 38.800859077067585,
+   "now": 131.60000610351562,
+   "to_target": 38.442242819267534,
    "progress": 0,
    "sessions": 6,
    "armed": false
@@ -707,11 +1337,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 30.209613254982457,
+   "pl_pct": 29.79024379119457,
    "note": "",
-   "now": 34.1539815567819,
-   "spot": 71.16000366210938,
-   "intrinsic": 33.660003662109375,
+   "now": 34.04398094643034,
+   "spot": 71.05000305175781,
+   "intrinsic": 33.55000305175781,
    "dte": 121,
    "sessions": 7,
    "mark": "iv"
@@ -731,11 +1361,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 65.94338958064216,
+   "pl_pct": 65.05632011753578,
    "note": "",
-   "now": 8.098037411535337,
-   "spot": 71.16000366210938,
-   "intrinsic": 6.160003662109375,
+   "now": 8.054748421735745,
+   "spot": 71.05000305175781,
+   "intrinsic": 6.0500030517578125,
    "dte": 30,
    "sessions": 7,
    "mark": "iv"
@@ -755,11 +1385,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -19.1434173466565,
+   "pl_pct": -19.235426446020544,
    "note": "",
-   "now": 30.604216534290515,
-   "spot": 186.99000549316406,
-   "intrinsic": 16.990005493164062,
+   "now": 30.569391090181227,
+   "spot": 187.64500427246094,
+   "intrinsic": 17.645004272460938,
    "dte": 93,
    "sessions": 7,
    "mark": "iv"
@@ -779,11 +1409,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -49.98349877718374,
+   "pl_pct": -49.82038717563545,
    "note": "",
-   "now": 13.969608791532579,
-   "spot": 131.25999450683594,
-   "intrinsic": 11.259994506835938,
+   "now": 14.01516586184502,
+   "spot": 131.60000610351562,
+   "intrinsic": 11.600006103515625,
    "dte": 16,
    "sessions": 7,
    "mark": "iv"
@@ -803,11 +1433,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 3.1513840646832714,
+   "pl_pct": 2.9198630907998346,
    "note": "Setup C fired (cross+regime+breakout). Breadth 73% fails the <65% filter. VIX 15.7 CALM. Revenue only +4%, fails F. Chart signal only.",
-   "now": 189.35499572753906,
-   "to_target": 37.2659849830401,
-   "progress": 0.07576942668682472,
+   "now": 188.92999267578125,
+   "to_target": 37.57476847312602,
+   "progress": 0.0702029165131795,
    "sessions": 3,
    "armed": false
   },
@@ -826,10 +1456,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -15.123288974238935,
+   "pl_pct": -10.480283393935375,
    "note": "REAL. 1x 109C 10/2 at $4.25. Fails the F trend filter (10<30, 50<200), 88% time value, 18 DTE. Plan: sell at $116 (30 EMA) or +100%; cut on a close under $107.72; out by 09-29 unless past $113.25.",
-   "now": 3.6072602185948455,
-   "spot": 107.71499633789062,
+   "now": 3.8045879557577464,
+   "spot": 107.91500091552734,
    "intrinsic": 0.0,
    "dte": 16,
    "sessions": 2,
@@ -850,10 +1480,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -0.7503158999252246,
+   "pl_pct": -0.6441978596094855,
    "note": "Setup F complete: 27.5% below high, revenue +29.4%, and the 50 EMA crossed the 200 TODAY (125.13 vs 124.96) after weeks in the halfway state. That cross is the 88%-win entry from halfway.md. The cross is thin \u2014 0.17 points.",
-   "now": 140.20010375976562,
-   "to_target": 38.894333725795185,
+   "now": 140.35000610351562,
+   "to_target": 38.74598612869045,
    "progress": 0,
    "sessions": 0,
    "armed": false
@@ -996,16 +1626,18 @@
    },
    {
     "date": "2026-09-16",
-    "vix": 16.770000457763672,
+    "vix": 16.729999542236328,
     "regime": "NORMAL",
     "vix_fires": false,
     "F": [
      "HOOD",
      "MU",
-     "BE"
+     "BE",
+     "HAL"
     ],
     "D": [
      "DOCU",
+     "U",
      "MRNA",
      "META",
      "SNOW",
@@ -1040,40 +1672,40 @@
    }
   ],
   "by_setup": {
+   "none": {
+    "wins": 1,
+    "losses": 0,
+    "closed_mean": 15.1,
+    "open_n": 1,
+    "open_mean": -10.480283393935375
+   },
    "C": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 1,
-    "open_mean": 3.1513840646832714
-   },
-   "E": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": 2.676366637609792
-   },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -6.528702892200577
+    "open_mean": 2.9198630907998346
    },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 5,
-    "open_mean": -4.414849818017898
+    "open_mean": -4.3114156413865246
    },
-   "none": {
-    "wins": 1,
+   "D": {
+    "wins": 0,
     "losses": 0,
-    "closed_mean": 15.1,
-    "open_n": 1,
-    "open_mean": -15.123288974238935
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -6.3336734007947655
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": 2.5411921326656755
    }
   },
   "produced": [
@@ -1409,6 +2041,11 @@
    },
    {
     "date": "2026-09-16",
+    "sym": "HAL",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-16",
     "sym": "HOOD",
     "setup": "F"
    },
@@ -1435,6 +2072,11 @@
    {
     "date": "2026-09-16",
     "sym": "SNOW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-16",
+    "sym": "U",
     "setup": "D"
    }
   ]
