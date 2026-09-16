@@ -113,7 +113,7 @@
  },
  {
   "date": "2026-09-16",
-  "vix": 16.75,
+  "vix": 16.889999389648438,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -122,16 +122,16 @@
    "BE"
   ],
   "D": [
-   "MRNA",
    "DOCU",
    "U",
+   "MRNA",
    "META",
+   "SNOW",
    "AMD",
    "HPQ",
+   "CRM",
    "GILD",
-   "XOM",
-   "DVN",
-   "CRM"
+   "COP"
   ],
   "C": [],
   "S": []
