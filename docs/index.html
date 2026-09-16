@@ -145,7 +145,26 @@ details[open] summary::after{content:'−'}
 .lb .d{font:500 12px var(--mono)}
 .lb .trk{width:150px;padding-right:0}
 .lb .trk svg{display:block;width:150px;height:26px;overflow:visible}
-@media(max-width:720px){.lb .trk{display:none}.lb th.trkh{display:none}}
+@media(max-width:720px){
+  /* the leadership board measured 442px inside a 390px page — trim it to fit */
+  .lb .trk,.lb th.trkh{display:none}
+  .lb .mo,.lb th.moh{display:none}          /* 1-month change: the least load-bearing column */
+  .lb{font-size:12px}
+  .lb th,.lb td{padding:7px 5px}
+  .lb th:first-child,.lb td:first-child{padding-left:0}
+  .lb .nm .dim{display:none}                /* drop the ticker, the name is enough */
+  .lb .r{font-size:14px;width:26px}
+  /* five tabs have to fit without a hidden horizontal scroll */
+  nav button{padding:11px 9px;font-size:11px;letter-spacing:.09em}
+  nav button .n{margin-left:4px;padding:1px 4px}
+  /* the header stacks rather than squeezing */
+  .mast{flex-direction:column;align-items:flex-start;gap:6px}
+  .stampwrap{align-items:flex-start;text-align:left;margin-top:2px}
+  .runbtn{padding:8px 12px}
+  .mkin{grid-template-columns:1fr 1fr;gap:6px 14px}
+  .rule-c{padding:13px 14px}
+  .rule-c .st{font-size:9px;padding:4px 7px}
+}
 .churn{font:500 12px/1.5 var(--mono);color:var(--dim);margin-top:10px}
 .churn b{color:var(--ink2)}
 
@@ -153,7 +172,7 @@ details[open] summary::after{content:'−'}
 .lb tbody tr:hover td{background:var(--bg2,rgba(128,128,128,.06))}
 .lb tr.open td{border-bottom:none}
 .mk{background:var(--panel)}
-.mk>td{padding:0 8px 14px!important;border-bottom:1px solid var(--line)!important}
+.mk>td{padding:0 4px 14px!important;border-bottom:1px solid var(--line)!important}
 .mkin{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 22px;padding:4px 0 0}
 .mkrow{display:flex;align-items:center;gap:9px;font:500 12.5px/1.5 var(--mono)}
 .mkrow .s{width:52px;color:var(--ink)}
@@ -323,7 +342,7 @@ function renderSectors(d){
     const col=r.rank<=3?'var(--amber)':'var(--dim)';
     const main=`<tr class="${r.rank<=3?'top':''}" data-i="${ri}" tabindex="0" role="button" aria-expanded="false">`+
       `<td class="nm">${esc(r.name)} <span class="dim">${esc(r.sym)}</span></td>`+
-      `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d">${arrow(r.d_month)}</td>`+
+      `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d mo">${arrow(r.d_month)}</td>`+
       `<td class="d ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>`+
       `<td class="d ${r.rel>0?'up':'dn'}">${r.rel>0?'+':''}${r.rel.toFixed(1)}%</td>`+
       `<td class="trk"><svg viewBox="0 0 ${W} 26" preserveAspectRatio="none" role="img" aria-label="rank over ten weeks">`+
@@ -339,11 +358,11 @@ function renderSectors(d){
           `<span class="bar"><i style="width:${(h.pct/mx*100).toFixed(0)}%"></i></span>`+
           `<span class="p">${h.pct.toFixed(1)}%</span></div>`).join('')+'</div>'
       : '<p class="none">holdings unavailable</p>';
-    return main+`<tr class="mk" data-for="${ri}" hidden><td colspan="7">${body}</td></tr>`;
+    return main+`<tr class="mk" data-for="${ri}" hidden><td colspan="7" class="mkcell">${body}</td></tr>`;
   }).join('');
   $('#tab-sectors').innerHTML=
     head('◷','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none — buying last month’s leader loses to SPY by 0.25pp. Click a sector to see what it is made of.')+
-    '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th>1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks → now</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th class="moh">1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks → now</th></tr></thead><tbody>'+rows+'</tbody></table>'+
     `<p class="churn">The top sector changed <b>${esc(S[0].churn)}</b> weeks in this window — that churn is why it cannot be traded. Rank 1 sits at the top of each track line, 11 at the bottom. Gold names in a makeup list are ones our scan already follows.</p>`;
   const tb=$('#tab-sectors').querySelector('tbody');
   const toggle=tr=>{
