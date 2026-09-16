@@ -110,5 +110,30 @@
   "S": [
    "CAVA"
   ]
+ },
+ {
+  "date": "2026-09-16",
+  "vix": 16.75,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "HOOD",
+   "MU",
+   "BE"
+  ],
+  "D": [
+   "MRNA",
+   "DOCU",
+   "U",
+   "META",
+   "AMD",
+   "HPQ",
+   "GILD",
+   "XOM",
+   "DVN",
+   "CRM"
+  ],
+  "C": [],
+  "S": []
  }
 ]
