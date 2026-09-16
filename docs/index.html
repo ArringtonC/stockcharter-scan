@@ -149,6 +149,22 @@ details[open] summary::after{content:'−'}
 .churn{font:500 12px/1.5 var(--mono);color:var(--dim);margin-top:10px}
 .churn b{color:var(--ink2)}
 
+.lb tbody tr{cursor:pointer}
+.lb tbody tr:hover td{background:var(--bg2,rgba(128,128,128,.06))}
+.lb tr.open td{border-bottom:none}
+.mk{background:var(--panel)}
+.mk>td{padding:0 8px 14px!important;border-bottom:1px solid var(--line)!important}
+.mkin{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 22px;padding:4px 0 0}
+.mkrow{display:flex;align-items:center;gap:9px;font:500 12.5px/1.5 var(--mono)}
+.mkrow .s{width:52px;color:var(--ink)}
+.mkrow .bar{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.mkrow .bar i{display:block;height:100%;background:var(--dim);border-radius:3px}
+.mkrow.own .bar i{background:var(--amber)}
+.mkrow.own .s{color:var(--amber)}
+.mkrow .p{width:44px;text-align:right;color:var(--dim)}
+.mkhead{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:4px 0 8px}
+.mkhead b{color:var(--amber)}
+
 footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
 .err{color:var(--dn);font-size:12.5px;margin-top:10px}
 </style>
@@ -179,12 +195,14 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
   <nav role="tablist">
     <button role="tab" data-tab="scan" aria-selected="true">Scan<span class="n" id="n-scan"></span></button>
     <button role="tab" data-tab="trades">Trades<span class="n" id="n-trades"></span></button>
+    <button role="tab" data-tab="sectors">Sectors</button>
     <button role="tab" data-tab="rules">Rules</button>
     <button role="tab" data-tab="setups">Setups</button>
   </nav>
 
   <section role="tabpanel" id="tab-scan"></section>
   <section role="tabpanel" id="tab-trades" hidden></section>
+  <section role="tabpanel" id="tab-sectors" hidden></section>
   <section role="tabpanel" id="tab-rules" hidden></section>
   <section role="tabpanel" id="tab-setups" hidden></section>
 
@@ -222,24 +240,7 @@ function renderScan(d){
     `<details><summary><span class="k" style="background:var(--line);color:var(--ink2)">×</span><span class="t">In the F price band, but blocked</span><span class="g">${d.blocked.length} names · they hit 39% vs 71% for passers</span></summary><div class="body">`+
     tbl(d.blocked,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['upside',r=>'+'+r.up.toFixed(1)+'%'],['why',r=>esc(r.why)]])+
     `</div></details>`+
-    ((d.sectors&&d.sectors.length)?(
-      head('\u25f7','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none \u2014 buying last month\u2019s leader loses to SPY by 0.25pp. The track on the right is why: it shows each sector\u2019s rank over the last ten weeks, and it churns.')+
-      '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th>1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks \u2192 now</th></tr></thead><tbody>'+
-      d.sectors.map(r=>{
-        const N=r.track.length, W=150, H=20, X=i=>W-(i/(N-1))*W, Y=v=>2+((v-1)/10)*H;
-        const pts=r.track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
-        const arrow=n=>n===0?'<span class="dim">\u2014</span>'
-          :n>0?`<span class="up">\u25b2${n}</span>`:`<span class="dn">\u25bc${-n}</span>`;
-        return `<tr class="${r.rank<=3?'top':''}"><td class="nm">${esc(r.name)}</td>`+
-          `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d">${arrow(r.d_month)}</td>`+
-          `<td class="d ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>`+
-          `<td class="d ${r.rel>0?'up':'dn'}">${r.rel>0?'+':''}${r.rel.toFixed(1)}%</td>`+
-          `<td class="trk"><svg viewBox="0 0 ${W} 26" preserveAspectRatio="none" role="img" aria-label="rank track">`+
-          `<polyline points="${pts}" fill="none" stroke="${r.rank<=3?'var(--amber)':'var(--dim)'}" stroke-width="1.6" stroke-linejoin="round" opacity="${r.rank<=3?1:.55}"/>`+
-          `<circle cx="${X(0)}" cy="${Y(r.track[0])}" r="2.6" fill="${r.rank<=3?'var(--amber)':'var(--dim)'}"/></svg></td></tr>`;
-      }).join('')+'</tbody></table>'+
-      `<p class="churn">The top sector changed <b>${esc(d.sectors[0].churn)}</b> weeks in this window. Rank 1 is at the top of each track line, 11 at the bottom.</p>`
-    ):'')+
+    
     (d.errors.length?`<p class="err">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>e.split(':')[0]).join(', '))}</p>`:'');
   $('#n-scan').textContent=d.F.length+d.C.length+d.S.length+(d.vix_fires?1:0);
 }
@@ -311,6 +312,51 @@ const RULES=[
   why:"A loan payment is fixed. The return is not.",
   ev:"Cheapest loan costs <b>$960 a year</b> on $12,000. The best tested futures result earns $495."},
 ];
+function renderSectors(d){
+  const S=d.sectors||[];
+  if(!S.length){$('#tab-sectors').innerHTML='<p class="none">sector data unavailable</p>';return;}
+  const arrow=n=>n===0?'<span class="dim">—</span>'
+    :n>0?`<span class="up">▲${n}</span>`:`<span class="dn">▼${-n}</span>`;
+  const rows=S.map((r,ri)=>{
+    const N=r.track.length,W=150,H=20,X=i=>W-(i/(N-1))*W,Y=v=>2+((v-1)/10)*H;
+    const pts=r.track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+    const col=r.rank<=3?'var(--amber)':'var(--dim)';
+    const main=`<tr class="${r.rank<=3?'top':''}" data-i="${ri}" tabindex="0" role="button" aria-expanded="false">`+
+      `<td class="nm">${esc(r.name)} <span class="dim">${esc(r.sym)}</span></td>`+
+      `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d">${arrow(r.d_month)}</td>`+
+      `<td class="d ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>`+
+      `<td class="d ${r.rel>0?'up':'dn'}">${r.rel>0?'+':''}${r.rel.toFixed(1)}%</td>`+
+      `<td class="trk"><svg viewBox="0 0 ${W} 26" preserveAspectRatio="none" role="img" aria-label="rank over ten weeks">`+
+      `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linejoin="round" opacity="${r.rank<=3?1:.55}"/>`+
+      `<circle cx="${X(0)}" cy="${Y(r.track[0])}" r="2.6" fill="${col}"/></svg></td></tr>`;
+    const hold=(r.hold||[]);
+    const mx=hold.length?Math.max(...hold.map(h=>h.pct)):1;
+    const own=new Set(r.ours||[]);
+    const body=hold.length
+      ? `<div class="mkhead">Top ${hold.length} holdings · <b>${own.size} of them are names we scan</b></div>`+
+        '<div class="mkin">'+hold.map(h=>
+          `<div class="mkrow ${own.has(h.sym)?'own':''}"><span class="s">${esc(h.sym)}</span>`+
+          `<span class="bar"><i style="width:${(h.pct/mx*100).toFixed(0)}%"></i></span>`+
+          `<span class="p">${h.pct.toFixed(1)}%</span></div>`).join('')+'</div>'
+      : '<p class="none">holdings unavailable</p>';
+    return main+`<tr class="mk" data-for="${ri}" hidden><td colspan="7">${body}</td></tr>`;
+  }).join('');
+  $('#tab-sectors').innerHTML=
+    head('◷','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none — buying last month’s leader loses to SPY by 0.25pp. Click a sector to see what it is made of.')+
+    '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th>1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks → now</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    `<p class="churn">The top sector changed <b>${esc(S[0].churn)}</b> weeks in this window — that churn is why it cannot be traded. Rank 1 sits at the top of each track line, 11 at the bottom. Gold names in a makeup list are ones our scan already follows.</p>`;
+  const tb=$('#tab-sectors').querySelector('tbody');
+  const toggle=tr=>{
+    const i=tr.dataset.i, mk=tb.querySelector(`tr.mk[data-for="${i}"]`);
+    const open=!mk.hidden; mk.hidden=open; tr.classList.toggle('open',!open);
+    tr.setAttribute('aria-expanded',String(!open));
+  };
+  tb.querySelectorAll('tr[data-i]').forEach(tr=>{
+    tr.addEventListener('click',()=>toggle(tr));
+    tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(tr);}});
+  });
+}
+
 function renderRules(d){
   const v=d.vix, band=v<16?["CALM","under 16"]:v<20?["NORMAL","16–20"]:v<25?["ELEVATED","20–25"]:["HIGH","25+"];
   const shorts=v>=25, sd=v>=25;
@@ -418,7 +464,7 @@ document.querySelectorAll('nav [role=tab]').forEach(b=>b.addEventListener('click
 }));
 
 fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{
-  renderHead(d);renderScan(d);renderTrades(d);renderRules(d);renderSetups(d);
+  renderHead(d);renderScan(d);renderTrades(d);renderSectors(d);renderRules(d);renderSetups(d);
   let t='scan';try{t=localStorage.getItem('tab')||'scan'}catch(e){}
   const b=document.querySelector(`nav [data-tab="${t}"]`);if(b)b.click();
 }).catch(e=>{$('#stamp').textContent='could not load data.json';$('#tab-scan').innerHTML=`<p class="err">${esc(e.message)}</p>`;});

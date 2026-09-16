@@ -318,6 +318,31 @@ def option_mark(sym, expiry, strike, spot, dte, realized):
 SECTORS = {"XLK": "Technology", "XLF": "Financials", "XLV": "Health Care", "XLY": "Consumer Disc",
            "XLP": "Staples", "XLE": "Energy", "XLI": "Industrials", "XLB": "Materials",
            "XLU": "Utilities", "XLRE": "Real Estate", "XLC": "Communications"}
+
+_HOLD = {}
+def holdings(sym):
+    """Top-10 holdings of a sector ETF, from Yahoo. Cached per run, [] on failure."""
+    if sym in _HOLD: return _HOLD[sym]
+    out = []
+    try:
+        import http.cookiejar
+        if "_op" not in _HOLD:
+            op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+            op.addheaders = [("User-Agent", "Mozilla/5.0")]
+            try: op.open("https://fc.yahoo.com", timeout=10)
+            except Exception: pass
+            _HOLD["_op"] = (op, op.open("https://query2.finance.yahoo.com/v1/test/getcrumb", timeout=10).read().decode())
+        op, crumb = _HOLD["_op"]
+        j = json.load(op.open(
+            f"https://query2.finance.yahoo.com/v10/finance/quoteSummary/{sym}?modules=topHoldings&crumb={crumb}", timeout=25))
+        for h in j["quoteSummary"]["result"][0]["topHoldings"].get("holdings", []):
+            out.append(dict(sym=h["symbol"], name=h.get("holdingName", ""),
+                            pct=round(h["holdingPercent"]["raw"] * 100, 2)))
+    except Exception:
+        pass
+    _HOLD[sym] = out
+    return out
+
 def sectors():
     """The leadership board. CONTEXT ONLY — rotation was tested twice and carries no
     signal (thesis/rotation.md): buying last month's leader loses to SPY by 0.25pp, and
@@ -360,7 +385,9 @@ def sectors():
                         rank=now.index(sym) + 1,
                         d_week=wk_ago.index(sym) - now.index(sym),
                         d_month=mo_ago.index(sym) - now.index(sym),
-                        track=[h.index(sym) + 1 for h in hist]))
+                        track=[h.index(sym) + 1 for h in hist],
+                        hold=holdings(sym),
+                        ours=sorted(x["sym"] for x in holdings(sym) if x["sym"] in set(UNIVERSE))))
     out.sort(key=lambda r: r["rank"])
     # how much churn is in the window?
     churn = sum(1 for a, b in zip(hist, hist[1:]) if a[0] != b[0])
