@@ -198,6 +198,9 @@ details[open] summary::after{content:'−'}
  color:var(--amber);margin:0 0 var(--s2);display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s3)}
 .sgrp>h3 span{font-size:var(--t-data);letter-spacing:0;text-transform:none;color:var(--dim);font-weight:400}
 .sgrp:nth-of-type(2)>h3,.sgrp:nth-of-type(3)>h3{color:var(--dim)}
+.plain{display:block;text-align:left;font-size:var(--t-data);color:var(--ink2);line-height:1.5;min-width:30ch}
+#tab-trades td:last-child{text-align:left}
+@media(max-width:720px){.plain{min-width:0}}
 
 footer{margin-top:44px;padding-top:var(--s3);border-top:1px solid var(--line);font-size:var(--t-data);color:var(--dim)}
 .err{color:var(--dn);font-size:var(--t-data);margin-top:var(--s2)}
@@ -294,6 +297,19 @@ function renderScan(d){
   $('#n-scan').textContent=d.F.length+(d.vix_fires?1:0)+(d.vix>=25?d.S.length:0);
 }
 
+// The trade in the words you would use to place it.
+function plain(r){
+  const n=Number(r.contracts||1), e=Number(r.entry);
+  if(r.kind==='shares'){
+    const sh=Math.max(1,Math.round(600/e));
+    return `Buy ${sh} shares near $${e.toFixed(2)}. Sell at $${Number(r.target).toFixed(2)}.`;
+  }
+  const be=Number(r.strike)+e;
+  const exp=new Date(r.expiry+'T12:00:00Z').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  return `Buy ${n} ${esc(r.symbol)} call${n>1?'s':''}, $${r.strike} strike, expires ${exp}. `+
+         `About $${(e*100*n).toFixed(0)}. Pays if ${esc(r.symbol)} is over $${be.toFixed(2)}.`;
+}
+
 function renderTrades(d){
   const o=d.open||[],c=d.closed||[];
   const wins=c.filter(r=>r.result==='win'),losses=c.filter(r=>r.result==='loss');
@@ -304,8 +320,9 @@ function renderTrades(d){
     ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
     ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
     ['progress',r=>r.kind==='shares'?(r.armed?`<span class="pill win">FLOOR SET</span> <span class="dim">at ${f2(r.target)}</span>`:`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`):`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
+    ['the trade',r=>`<span class="plain">${plain(r)}</span>`],
     ['held',r=>(r.sessions??'—')+'s','sm']];
-  openCols[8][2]='sm';   // the progress bar needs width a phone does not have
+  openCols[8][2]='sm';   // the progress bar needs width a phone does not have; the plain line stays
   const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
     ['opened',r=>esc(r.opened),'sm'],['closed',r=>esc(r.closed),'sm'],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
     ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`,'sm']];
