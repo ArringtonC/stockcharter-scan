@@ -134,5 +134,34 @@
   ],
   "C": [],
   "S": []
+ },
+ {
+  "date": "2026-09-17",
+  "vix": 17.709999084472656,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "HOOD",
+   "BE",
+   "MU"
+  ],
+  "D": [
+   "MRNA",
+   "U",
+   "DOCU",
+   "META",
+   "MSFT",
+   "GILD",
+   "HPQ",
+   "PANW",
+   "OXY",
+   "CRM"
+  ],
+  "C": [
+   "QCOM"
+  ],
+  "S": [
+   "CAVA"
+  ]
  }
 ]

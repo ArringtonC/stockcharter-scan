@@ -1,6 +1,6 @@
 {
- "date": "2026-09-16",
- "stamp": "2026-09-16 23:39 UTC",
+ "date": "2026-09-17",
+ "stamp": "2026-09-17 00:07 UTC",
  "vix": 17.709999084472656,
  "vix5": [
   17.84000015258789,
@@ -10,8 +10,8 @@
   17.709999084472656
  ],
  "vix_hi10": 17.84000015258789,
- "qqq": 704.719970703125,
- "qdd": -5.5537691557972835,
+ "qqq": 704.5399780273438,
+ "qdd": -5.5778916874606566,
  "regime": "NORMAL",
  "advice": "Setup F adds the most here (+10.76pp vs baseline). It pays more at 25+. No shorts.",
  "peaked": false,
@@ -20,208 +20,228 @@
  "F": [
   {
    "sym": "HOOD",
-   "px": 104.41999816894531,
-   "dd": 32.133109479579694,
+   "px": 110.44999694824219,
+   "dd": 28.213963011767195,
    "tgt": 153.86000061035156,
-   "up": 47.34725465271057,
+   "up": 39.302856370789826,
    "rev": 61.9413407821229
   },
   {
-   "sym": "MU",
-   "px": 926.5499877929688,
-   "dd": 26.171315713707667,
-   "tgt": 1255.0,
-   "up": 35.44870935559508,
-   "rev": 200.23471782834986
-  },
-  {
    "sym": "BE",
-   "px": 270.0199890136719,
-   "dd": 23.132546700069668,
+   "px": 259.3500061035156,
+   "dd": 26.170004838089078,
    "tgt": 351.2799987792969,
-   "up": 30.094071947210765,
+   "up": 35.44630441963004,
    "rev": 53.43903353378423
   },
   {
-   "sym": "HAL",
-   "px": 34.5099983215332,
-   "dd": 20.830469830855503,
-   "tgt": 43.59000015258789,
-   "up": 26.311220726397533,
-   "rev": 37.416949152542365
+   "sym": "MU",
+   "px": 927.5999755859375,
+   "dd": 26.087651347734063,
+   "tgt": 1255.0,
+   "up": 35.29538950313722,
+   "rev": 200.23471782834986
   }
  ],
  "D": [
   {
-   "sym": "DOCU",
-   "px": 70.4000015258789,
-   "dd": 18.75360613253627,
-   "rsi": 65.02849558138892,
-   "up": 23.082385863339127
+   "sym": "MRNA",
+   "px": 143.77000427246094,
+   "dd": 18.617682954742744,
+   "rsi": 60.44979164731142,
+   "up": 22.8768160341138
   },
   {
-   "sym": "MRNA",
-   "px": 145.6199951171875,
-   "dd": 17.570478830222868,
-   "rsi": 61.21122001808684,
-   "up": 21.315759913288336
+   "sym": "U",
+   "px": 43.0099983215332,
+   "dd": 17.526371882865753,
+   "rsi": 55.510606655948884,
+   "up": 21.250880169808582
+  },
+  {
+   "sym": "DOCU",
+   "px": 71.8499984741211,
+   "dd": 17.080210953415442,
+   "rsi": 69.28901674187473,
+   "up": 20.598473717558207
   },
   {
    "sym": "META",
-   "px": 673.3099975585938,
-   "dd": 14.857105721799002,
-   "rsi": 72.24340968893368,
-   "up": 17.449613203485903
+   "px": 670.239990234375,
+   "dd": 15.245321120333188,
+   "rsi": 71.6470912795072,
+   "up": 17.987586433992895
   },
   {
-   "sym": "AMD",
-   "px": 512.5,
-   "dd": 12.352706870074748,
-   "rsi": 56.08289754188729,
-   "up": 14.093654725609749
-  },
-  {
-   "sym": "HPQ",
-   "px": 32.70000076293945,
-   "dd": 9.74330340573607,
-   "rsi": 56.869771631264136,
-   "up": 10.79510304873632
-  },
-  {
-   "sym": "CRM",
-   "px": 250.5399932861328,
-   "dd": 6.900521376481084,
-   "rsi": 62.375048827305015,
-   "up": 7.41198713301694
+   "sym": "MSFT",
+   "px": 497.1199951171875,
+   "dd": 10.221768868850024,
+   "rsi": 55.85050839719621,
+   "up": 11.385576146981368
   },
   {
    "sym": "GILD",
-   "px": 147.67999267578125,
-   "dd": 6.109734261905397,
-   "rsi": 58.09788079072442,
-   "up": 6.507313845450602
+   "px": 146.3000030517578,
+   "dd": 6.987087992548036,
+   "rsi": 55.471316640430615,
+   "up": 7.511954890723405
+  },
+  {
+   "sym": "HPQ",
+   "px": 33.81999969482422,
+   "dd": 6.651945564069283,
+   "rsi": 62.31917441388967,
+   "up": 7.125960582965152
   },
   {
    "sym": "PANW",
-   "px": 375.6499938964844,
-   "dd": 5.823809341647223,
-   "rsi": 58.17659849838798,
-   "up": 6.183950848866382
+   "px": 375.0899963378906,
+   "dd": 5.964201828545201,
+   "rsi": 58.01596492701416,
+   "up": 6.3424801453492385
+  },
+  {
+   "sym": "OXY",
+   "px": 63.52000045776367,
+   "dd": 5.826533236901699,
+   "rsi": 70.00789132937297,
+   "up": 6.187022138155829
+  },
+  {
+   "sym": "CRM",
+   "px": 255.64999389648438,
+   "dd": 5.001669275665909,
+   "rsi": 66.5477780457841,
+   "up": 5.265007540163769
   }
  ],
- "C": [],
- "S": [],
+ "C": [
+  {
+   "sym": "QCOM",
+   "px": 187.8000030517578,
+   "tgt": 259.9200134277344,
+   "up": 38.40256081151408
+  }
+ ],
+ "S": [
+  {
+   "sym": "CAVA",
+   "px": 49.9900016784668,
+   "lo20": 53.90999984741211,
+   "below": -7.271374847042389
+  }
+ ],
  "blocked": [
   {
    "sym": "ZS",
-   "px": 191.5800018310547,
-   "dd": 43.14964616669722,
-   "up": 75.90040036201194,
+   "px": 193.88999938964844,
+   "dd": 42.46416658999313,
+   "up": 73.80473015379592,
    "why": "trend broken"
   },
   {
    "sym": "NFLX",
-   "px": 76.41000366210938,
-   "dd": 38.80345724123393,
-   "up": 63.40792386621472,
+   "px": 77.9000015258789,
+   "dd": 37.61012242104652,
+   "up": 60.28241099439802,
    "why": "trend broken"
   },
   {
    "sym": "SG",
-   "px": 6.619999885559082,
-   "dd": 37.72342601797555,
-   "up": 60.574022631469845,
+   "px": 6.829999923706055,
+   "dd": 35.747884758463364,
+   "up": 55.63689946094361,
    "why": "trend broken"
   },
   {
    "sym": "PYPL",
-   "px": 52.709999084472656,
-   "dd": 33.45957013033393,
-   "up": 50.28457164444502,
-   "why": "trend broken"
-  },
-  {
-   "sym": "ADBE",
-   "px": 250.5,
-   "dd": 32.454292753494386,
-   "up": 48.04789834393712,
-   "why": "trend broken"
-  },
-  {
-   "sym": "AVGO",
-   "px": 339.510009765625,
-   "dd": 31.41211923926768,
-   "up": 45.79835226116451,
+   "px": 53.810001373291016,
+   "dd": 32.07094128520174,
+   "up": 47.212403486779245,
    "why": "trend broken"
   },
   {
    "sym": "INTC",
-   "px": 101.05000305175781,
-   "dd": 29.012997036139797,
-   "up": 40.87085779760338,
+   "px": 97.13999938964844,
+   "dd": 31.75975045690611,
+   "up": 46.54108194145707,
    "why": "revenue +9%"
   },
   {
-   "sym": "QCOM",
-   "px": 184.83999633789062,
-   "dd": 28.88581610154397,
-   "up": 40.61892370555786,
-   "why": "revenue +4%"
-  },
-  {
-   "sym": "SHOP",
-   "px": 129.9600067138672,
-   "dd": 28.667871468049754,
-   "up": 40.18928364826404,
+   "sym": "AVGO",
+   "px": 339.2699890136719,
+   "dd": 31.460608280066293,
+   "up": 45.90149910962285,
    "why": "trend broken"
   },
   {
-   "sym": "IBM",
-   "px": 237.49000549316406,
-   "dd": 28.565839019082805,
-   "up": 39.98904533464576,
+   "sym": "ADBE",
+   "px": 257.760009765625,
+   "dd": 30.496678006046572,
+   "up": 43.87801493675323,
+   "why": "trend broken"
+  },
+  {
+   "sym": "SHOP",
+   "px": 129.86000061035156,
+   "dd": 28.722762571938844,
+   "up": 40.297244405590504,
    "why": "trend broken"
   },
   {
    "sym": "TSLA",
-   "px": 358.0799865722656,
-   "dd": 28.216026259201143,
-   "up": 39.306860276480336,
+   "px": 356.5799865722656,
+   "dd": 28.51672991382851,
+   "up": 39.89287266720203,
    "why": "trend broken"
   },
   {
+   "sym": "QCOM",
+   "px": 187.8000030517578,
+   "dd": 27.747001635188862,
+   "up": 38.40256081151408,
+   "why": "revenue +4%"
+  },
+  {
    "sym": "NOW",
-   "px": 139.82000732421875,
-   "dd": 28.196538308042673,
-   "up": 39.269051440734316,
+   "px": 141.89999389648438,
+   "dd": 27.128377613306455,
+   "up": 37.22762952819909,
+   "why": "trend broken"
+  },
+  {
+   "sym": "IBM",
+   "px": 248.3699951171875,
+   "dd": 25.293267911682793,
+   "up": 33.85674517496155,
    "why": "trend broken"
   },
   {
    "sym": "SPOT",
-   "px": 547.4299926757812,
-   "dd": 26.51946407036493,
-   "up": 36.090460874917895,
+   "px": 558.260009765625,
+   "dd": 25.06577050125839,
+   "up": 33.450361295406815,
    "why": "trend broken"
   },
   {
    "sym": "F",
-   "px": 13.350000381469727,
-   "dd": 24.915636299739507,
-   "up": 33.18352193700893,
+   "px": 13.5,
+   "dd": 24.07199393338719,
+   "up": 31.703708789966733,
    "why": "trend broken"
   },
   {
    "sym": "WDAY",
-   "px": 187.75999450683594,
-   "dd": 24.850914580708515,
-   "up": 33.06881839220501,
+   "px": 190.6699981689453,
+   "dd": 23.686214324145894,
+   "up": 31.037923376982036,
    "why": "revenue +18%"
   },
   {
    "sym": "TXN",
-   "px": 260.6700134277344,
-   "dd": 21.962094907539587,
-   "up": 28.142855554001066,
+   "px": 263.42999267578125,
+   "dd": 21.135828027878134,
+   "up": 26.800291563765555,
    "why": "trend broken"
   }
  ],
@@ -230,10 +250,10 @@
   {
    "sym": "XLE",
    "name": "Energy",
-   "px": 64.02999877929688,
-   "gap": 9.833505176986645,
+   "px": 65.93000030517578,
+   "gap": 9.809438834956508,
    "up": true,
-   "rel": 4.726854342655429,
+   "rel": 8.934239789292697,
    "rank": 1,
    "d_week": 0,
    "d_month": 0,
@@ -245,9 +265,9 @@
     1,
     1,
     1,
-    2,
     1,
-    6
+    1,
+    11
    ],
    "hold": [
     {
@@ -307,28 +327,28 @@
     "SLB",
     "XOM"
    ],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLC",
    "name": "Communications",
-   "px": 113.0,
-   "gap": -0.36897739138107566,
+   "px": 114.02999877929688,
+   "gap": -0.4078725941988659,
    "up": false,
-   "rel": 4.376979314920404,
+   "rel": 3.3971192585994348,
    "rank": 2,
-   "d_week": 2,
-   "d_month": 7,
+   "d_week": 1,
+   "d_month": 6,
    "track": [
     2,
-    4,
-    7,
-    4,
-    9,
-    9,
+    3,
     5,
     4,
-    6,
+    8,
+    9,
+    3,
+    5,
+    5,
     8
    ],
    "hold": [
@@ -389,29 +409,29 @@
     "NFLX",
     "WBD"
    ],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLV",
    "name": "Health Care",
-   "px": 167.77000427246094,
-   "gap": 6.197433895822191,
+   "px": 167.66000366210938,
+   "gap": 6.230691940268063,
    "up": true,
-   "rel": 2.84083449369521,
+   "rel": 2.6142162289438997,
    "rank": 3,
-   "d_week": 2,
-   "d_month": -1,
+   "d_week": -1,
+   "d_month": 1,
    "track": [
     3,
-    5,
-    2,
-    1,
     2,
     3,
-    9,
+    2,
+    4,
+    2,
+    8,
     3,
     2,
-    4
+    3
    ],
    "hold": [
     {
@@ -474,104 +494,27 @@
     "MRK",
     "PFE"
    ],
-   "churn": "5 of 9"
-  },
-  {
-   "sym": "XLP",
-   "name": "Staples",
-   "px": 83.33000183105469,
-   "gap": 1.3718326696758654,
-   "up": true,
-   "rel": 0.8155897704615334,
-   "rank": 4,
-   "d_week": 4,
-   "d_month": 4,
-   "track": [
-    4,
-    8,
-    5,
-    8,
-    8,
-    8,
-    6,
-    5,
-    5,
-    11
-   ],
-   "hold": [
-    {
-     "sym": "WMT",
-     "name": "Walmart Inc",
-     "pct": 9.82
-    },
-    {
-     "sym": "COST",
-     "name": "Costco Wholesale Corp",
-     "pct": 8.94
-    },
-    {
-     "sym": "KO",
-     "name": "Coca-Cola Co",
-     "pct": 7.33
-    },
-    {
-     "sym": "PG",
-     "name": "Procter & Gamble Co",
-     "pct": 7.22
-    },
-    {
-     "sym": "PM",
-     "name": "Philip Morris International Inc",
-     "pct": 6.24
-    },
-    {
-     "sym": "TGT",
-     "name": "Target Corp",
-     "pct": 4.66
-    },
-    {
-     "sym": "CL",
-     "name": "Colgate-Palmolive Co",
-     "pct": 4.52
-    },
-    {
-     "sym": "PEP",
-     "name": "PepsiCo Inc",
-     "pct": 4.4
-    },
-    {
-     "sym": "MDLZ",
-     "name": "Mondelez International Inc Class A",
-     "pct": 4.38
-    },
-    {
-     "sym": "MO",
-     "name": "Altria Group Inc",
-     "pct": 4.24
-    }
-   ],
-   "ours": [],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLF",
    "name": "Financials",
-   "px": 55.93000030517578,
-   "gap": 4.774266052604981,
+   "px": 56.849998474121094,
+   "gap": 4.869630782443979,
    "up": true,
-   "rel": -0.45575579390499943,
-   "rank": 5,
-   "d_week": 1,
-   "d_month": 0,
+   "rel": 0.1885327930193026,
+   "rank": 4,
+   "d_week": 2,
+   "d_month": 2,
    "track": [
-    5,
+    4,
     6,
     6,
     7,
-    5,
+    6,
     4,
     2,
-    1,
+    2,
     3,
     1
    ],
@@ -628,26 +571,103 @@
     }
    ],
    "ours": [],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
+  },
+  {
+   "sym": "XLP",
+   "name": "Staples",
+   "px": 83.7300033569336,
+   "gap": 1.436998489394803,
+   "up": true,
+   "rel": -0.3003668767830425,
+   "rank": 5,
+   "d_week": 2,
+   "d_month": 4,
+   "track": [
+    5,
+    7,
+    8,
+    6,
+    9,
+    7,
+    6,
+    6,
+    6,
+    10
+   ],
+   "hold": [
+    {
+     "sym": "WMT",
+     "name": "Walmart Inc",
+     "pct": 9.82
+    },
+    {
+     "sym": "COST",
+     "name": "Costco Wholesale Corp",
+     "pct": 8.94
+    },
+    {
+     "sym": "KO",
+     "name": "Coca-Cola Co",
+     "pct": 7.33
+    },
+    {
+     "sym": "PG",
+     "name": "Procter & Gamble Co",
+     "pct": 7.22
+    },
+    {
+     "sym": "PM",
+     "name": "Philip Morris International Inc",
+     "pct": 6.24
+    },
+    {
+     "sym": "TGT",
+     "name": "Target Corp",
+     "pct": 4.66
+    },
+    {
+     "sym": "CL",
+     "name": "Colgate-Palmolive Co",
+     "pct": 4.52
+    },
+    {
+     "sym": "PEP",
+     "name": "PepsiCo Inc",
+     "pct": 4.4
+    },
+    {
+     "sym": "MDLZ",
+     "name": "Mondelez International Inc Class A",
+     "pct": 4.38
+    },
+    {
+     "sym": "MO",
+     "name": "Altria Group Inc",
+     "pct": 4.24
+    }
+   ],
+   "ours": [],
+   "churn": "3 of 9"
   },
   {
    "sym": "XLK",
    "name": "Technology",
-   "px": 183.92999267578125,
-   "gap": 10.479463154537383,
+   "px": 183.74000549316406,
+   "gap": 10.584051671151062,
    "up": true,
-   "rel": -0.9476856293246461,
+   "rel": -0.8588783255136567,
    "rank": 6,
-   "d_week": -4,
-   "d_month": -3,
+   "d_week": -2,
+   "d_month": -4,
    "track": [
     6,
-    2,
-    3,
-    5,
-    3,
-    7,
     4,
+    2,
+    8,
+    2,
+    8,
+    9,
     11,
     11,
     5
@@ -715,29 +735,29 @@
     "NVDA",
     "PLTR"
    ],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLB",
    "name": "Materials",
-   "px": 50.36000061035156,
-   "gap": 3.259877742838335,
+   "px": 50.72999954223633,
+   "gap": 3.3821983276886236,
    "up": true,
-   "rel": -1.1889517233560465,
+   "rel": -1.0040545309950688,
    "rank": 7,
-   "d_week": 2,
-   "d_month": -3,
+   "d_week": 1,
+   "d_month": -2,
    "track": [
     7,
+    8,
+    4,
+    5,
+    5,
+    3,
+    10,
     9,
-    4,
-    6,
-    4,
-    2,
     10,
-    7,
-    10,
-    10
+    7
    ],
    "hold": [
     {
@@ -792,27 +812,27 @@
     }
    ],
    "ours": [],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLRE",
    "name": "Real Estate",
-   "px": 42.810001373291016,
-   "gap": 1.7463774549128397,
+   "px": 43.06999969482422,
+   "gap": 1.8700759264112632,
    "up": true,
-   "rel": -2.096086966441857,
+   "rel": -2.4187898291816667,
    "rank": 8,
-   "d_week": -1,
+   "d_week": 1,
    "d_month": 2,
    "track": [
     8,
-    7,
-    8,
+    9,
+    9,
     9,
     10,
     10,
-    3,
-    6,
+    4,
+    4,
     4,
     9
    ],
@@ -869,29 +889,29 @@
     }
    ],
    "ours": [],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLY",
    "name": "Consumer Disc",
-   "px": 110.18000030517578,
-   "gap": -0.24556713355650128,
+   "px": 110.87999725341797,
+   "gap": -0.10920156425368033,
    "up": false,
-   "rel": -3.2175836413914416,
+   "rel": -3.751950989880737,
    "rank": 9,
    "d_week": 1,
    "d_month": -2,
    "track": [
     9,
     10,
-    9,
-    2,
     7,
-    6,
-    8,
+    1,
+    7,
+    5,
+    5,
     10,
-    9,
-    7
+    8,
+    6
    ],
    "hold": [
     {
@@ -950,29 +970,29 @@
     "GM",
     "TSLA"
    ],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLU",
    "name": "Utilities",
    "px": 41.31999969482422,
-   "gap": -1.3372651156045245,
+   "gap": -1.1924667596661997,
    "up": false,
-   "rel": -4.063693674703551,
+   "rel": -4.306973701148086,
    "rank": 10,
-   "d_week": -7,
+   "d_week": -5,
    "d_month": 1,
    "track": [
     10,
-    3,
-    10,
+    5,
     11,
     11,
     11,
     11,
-    9,
+    11,
     7,
-    2
+    7,
+    4
    ],
    "hold": [
     {
@@ -1027,29 +1047,29 @@
     }
    ],
    "ours": [],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   },
   {
    "sym": "XLI",
    "name": "Industrials",
-   "px": 168.7100067138672,
-   "gap": 3.652851149108205,
+   "px": 168.85000610351562,
+   "gap": 3.844139641142519,
    "up": true,
-   "rel": -7.041656187709677,
+   "rel": -7.027712946099706,
    "rank": 11,
    "d_week": 0,
-   "d_month": -5,
+   "d_month": -8,
    "track": [
     11,
     11,
-    11,
     10,
+    10,
+    3,
     6,
-    5,
     7,
     8,
-    8,
-    3
+    9,
+    2
    ],
    "hold": [
     {
@@ -1104,7 +1124,7 @@
     }
    ],
    "ours": [],
-   "churn": "5 of 9"
+   "churn": "3 of 9"
   }
  ],
  "open": [
@@ -1123,12 +1143,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -7.572270881686983,
+   "pl_pct": -5.769926786163171,
    "note": "paper",
-   "now": 76.41000366210938,
-   "to_target": 65.82907201564979,
+   "now": 77.9000015258789,
+   "to_target": 62.65724970224304,
    "progress": 0,
-   "sessions": 8,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1146,12 +1166,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 1.1844427136313174,
+   "pl_pct": 5.8199459406022225,
    "note": "paper",
-   "now": 237.49000549316406,
-   "to_target": 39.989048932659,
-   "progress": 0.028439953894261436,
-   "sessions": 8,
+   "now": 248.3699951171875,
+   "to_target": 33.85674861536177,
+   "progress": 0.1397441955722506,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1169,12 +1189,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.941760061142075,
+   "pl_pct": -5.008962645964877,
    "note": "paper",
-   "now": 339.510009765625,
-   "to_target": 45.79835226116451,
+   "now": 339.2699890136719,
+   "to_target": 45.90149910962285,
    "progress": 0,
-   "sessions": 8,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1192,12 +1212,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -9.259619898107507,
+   "pl_pct": -7.853277513558221,
    "note": "paper",
-   "now": 187.75999450683594,
-   "to_target": 33.06881514150422,
+   "now": 190.6699981689453,
+   "to_target": 31.03792017589342,
    "progress": 0,
-   "sessions": 8,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1215,12 +1235,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.885362700351147,
+   "pl_pct": -2.548420936801632,
    "note": "paper",
-   "now": 490.29998779296875,
-   "to_target": 12.934940604936473,
+   "now": 497.1199951171875,
+   "to_target": 11.385582040301978,
    "progress": 0,
-   "sessions": 8,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1238,12 +1258,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -2.597219171173848,
+   "pl_pct": -6.446141655177984,
    "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
-   "now": 270.0199890136719,
-   "to_target": 30.09407239928954,
+   "now": 259.3500061035156,
+   "to_target": 35.446304890307914,
    "progress": 0,
-   "sessions": 6,
+   "sessions": 5,
    "armed": false
   },
   {
@@ -1261,12 +1281,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -11.010739586717822,
+   "pl_pct": -5.871828065244433,
    "note": "matches the backtest profile: real pullback, +62% revenue",
-   "now": 104.41999816894531,
-   "to_target": 47.34725406819462,
+   "now": 110.44999694824219,
+   "to_target": 39.30285581818542,
    "progress": 0,
-   "sessions": 6,
+   "sessions": 5,
    "armed": false
   },
   {
@@ -1284,12 +1304,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -7.369085258535901,
+   "pl_pct": -7.264113771825576,
    "note": "+200% revenue. EARNINGS 2026-09-30, 22 days out",
-   "now": 926.5499877929688,
-   "to_target": 35.44870935559508,
+   "now": 927.5999755859375,
+   "to_target": 35.29538950313722,
    "progress": 0,
-   "sessions": 6,
+   "sessions": 5,
    "armed": false
   },
   {
@@ -1307,12 +1327,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.087243315535282,
+   "pl_pct": -3.1618190825118853,
    "note": "+46% revenue. Option already held in both option books",
-   "now": 129.9600067138672,
-   "to_target": 40.18928176968129,
+   "now": 129.86000061035156,
+   "to_target": 40.29724252556106,
    "progress": 0,
-   "sessions": 6,
+   "sessions": 5,
    "armed": false
   },
   {
@@ -1330,13 +1350,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 27.31215943786287,
+   "pl_pct": 32.824707175339405,
    "note": "",
-   "now": 33.39397942055143,
-   "spot": 70.4000015258789,
-   "intrinsic": 32.900001525878906,
-   "dte": 121,
-   "sessions": 7,
+   "now": 34.839920692091525,
+   "spot": 71.8499984741211,
+   "intrinsic": 34.349998474121094,
+   "dte": 120,
+   "sessions": 6,
    "mark": "iv"
   },
   {
@@ -1354,13 +1374,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 53.374828693296465,
+   "pl_pct": 75.68167106384142,
    "note": "",
-   "now": 7.484691640232867,
-   "spot": 70.4000015258789,
-   "intrinsic": 5.400001525878906,
-   "dte": 30,
-   "sessions": 7,
+   "now": 8.573265547915462,
+   "spot": 71.8499984741211,
+   "intrinsic": 6.849998474121094,
+   "dte": 29,
+   "sessions": 6,
    "mark": "iv"
   },
   {
@@ -1378,13 +1398,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -20.364736148932437,
+   "pl_pct": -14.887618152685667,
    "note": "",
-   "now": 30.141947367629072,
-   "spot": 187.75999450683594,
-   "intrinsic": 17.759994506835938,
-   "dte": 93,
-   "sessions": 7,
+   "now": 32.215036529208476,
+   "spot": 190.6699981689453,
+   "intrinsic": 20.669998168945312,
+   "dte": 92,
+   "sessions": 6,
    "mark": "iv"
   },
   {
@@ -1402,13 +1422,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -57.617880132224755,
+   "pl_pct": -57.96966043281285,
    "note": "",
-   "now": 11.837326079069626,
-   "spot": 129.9600067138672,
-   "intrinsic": 9.960006713867188,
-   "dte": 16,
-   "sessions": 7,
+   "now": 11.73907384111537,
+   "spot": 129.86000061035156,
+   "intrinsic": 9.860000610351562,
+   "dte": 15,
+   "sessions": 6,
    "mark": "iv"
   },
   {
@@ -1426,12 +1446,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.6918321827589669,
+   "pl_pct": 2.304299750371963,
    "note": "Setup C fired (cross+regime+breakout). Breadth 73% fails the <65% filter. VIX 15.7 CALM. Revenue only +4%, fails F. Chart signal only.",
-   "now": 184.83999633789062,
-   "to_target": 40.6189164410401,
-   "progress": 0.016633874759536756,
-   "sessions": 3,
+   "now": 187.8000030517578,
+   "to_target": 38.40255366149587,
+   "progress": 0.05540279046179199,
+   "sessions": 2,
    "armed": false
   },
   {
@@ -1449,13 +1469,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -23.303481089291555,
+   "pl_pct": 0.6099467517338031,
    "note": "REAL. 1x 109C 10/2 at $4.25. Fails the F trend filter (10<30, 50<200), 88% time value, 18 DTE. Plan: sell at $116 (30 EMA) or +100%; cut on a close under $107.72; out by 09-29 unless past $113.25.",
-   "now": 3.259602053705109,
-   "spot": 107.2699966430664,
-   "intrinsic": 0.0,
-   "dte": 16,
-   "sessions": 2,
+   "now": 4.2759227369486865,
+   "spot": 109.33999633789062,
+   "intrinsic": 0.339996337890625,
+   "dte": 15,
+   "sessions": 1,
    "mark": "iv"
   },
   {
@@ -1473,11 +1493,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -1.0193916719391516,
+   "pl_pct": 0.45306094894830284,
    "note": "Setup F complete: 27.5% below high, revenue +29.4%, and the 50 EMA crossed the 200 TODAY (125.13 vs 124.96) after weeks in the halfway state. That cross is the 88%-win entry from halfway.md. The cross is thin \u2014 0.17 points.",
-   "now": 139.82000732421875,
-   "to_target": 39.27191374583061,
-   "progress": 0,
+   "now": 141.89999389648438,
+   "to_target": 37.23044987729524,
+   "progress": 0.011969214447061607,
    "sessions": 0,
    "armed": false
   },
@@ -1496,12 +1516,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.8429751289045884,
+   "pl_pct": 10.63103537316248,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
-   "now": 6.000157020169823,
-   "spot": 139.82000732421875,
+   "now": 6.582546604703168,
+   "spot": 141.89999389648438,
    "intrinsic": 0.0,
-   "dte": 93,
+   "dte": 92,
    "sessions": 0,
    "mark": "iv"
   }
@@ -1529,35 +1549,6 @@
  ],
  "week": {
   "days": [
-   {
-    "date": "2026-09-10",
-    "vix": 17.84000015258789,
-    "regime": "NORMAL",
-    "vix_fires": false,
-    "F": [
-     "BE",
-     "HOOD",
-     "MU",
-     "PLTR"
-    ],
-    "D": [
-     "AMD",
-     "MSFT",
-     "DELL",
-     "CRM",
-     "OXY",
-     "SLB",
-     "XOM",
-     "WBD",
-     "AAPL",
-     "DVN"
-    ],
-    "C": [],
-    "S": [
-     "ADBE",
-     "CAVA"
-    ]
-   },
    {
     "date": "2026-09-11",
     "vix": 15.84000015258789,
@@ -1664,6 +1655,35 @@
     ],
     "C": [],
     "S": []
+   },
+   {
+    "date": "2026-09-17",
+    "vix": 17.709999084472656,
+    "regime": "NORMAL",
+    "vix_fires": false,
+    "F": [
+     "HOOD",
+     "BE",
+     "MU"
+    ],
+    "D": [
+     "MRNA",
+     "U",
+     "DOCU",
+     "META",
+     "MSFT",
+     "GILD",
+     "HPQ",
+     "PANW",
+     "OXY",
+     "CRM"
+    ],
+    "C": [
+     "QCOM"
+    ],
+    "S": [
+     "CAVA"
+    ]
    }
   ],
   "closed": [
@@ -1688,123 +1708,43 @@
    }
   ],
   "by_setup": {
-   "E": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -1.2321737684565137
-   },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -6.572491299229327
-   },
    "C": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 1,
-    "open_mean": 0.6918321827589669
+    "open_mean": 2.304299750371963
    },
    "none": {
     "wins": 1,
     "losses": 0,
     "closed_mean": 15.1,
     "open_n": 1,
-    "open_mean": -23.303481089291555
+    "open_mean": 0.6099467517338031
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -5.200849225179926
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": 4.384308023165212
    },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 6,
-    "open_mean": -4.040117312499569
+    "open_mean": -1.9433010421081827
    }
   },
   "produced": [
-   {
-    "date": "2026-09-10",
-    "sym": "AAPL",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "ADBE",
-    "setup": "S"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "AMD",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "BE",
-    "setup": "F"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "CAVA",
-    "setup": "S"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "CRM",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "DELL",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "DVN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "HOOD",
-    "setup": "F"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "MSFT",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "MU",
-    "setup": "F"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "OXY",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "PLTR",
-    "setup": "F"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "SLB",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "WBD",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-10",
-    "sym": "XOM",
-    "setup": "D"
-   },
    {
     "date": "2026-09-11",
     "sym": "AMD",
@@ -2089,6 +2029,81 @@
     "date": "2026-09-16",
     "sym": "PANW",
     "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "BE",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "CAVA",
+    "setup": "S"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "CRM",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "DOCU",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "GILD",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "HOOD",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "HPQ",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "META",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "MRNA",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "MSFT",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "MU",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "OXY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "PANW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "QCOM",
+    "setup": "C"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "U",
+    "setup": "D"
    }
   ]
  },
@@ -2132,6 +2147,24 @@
    ],
    "works": "Bull markets, moderate fear. Five years of six.",
    "fails": "2022: 5% hit rate. A prior-high target cannot work when the index spends 91% of the year 10%+ below its own high. Adding 'QQQ above its 200 EMA' turns it off in a bear (93% hit vs 27% when rejected)."
+  },
+  "E": {
+   "name": "Setup E",
+   "tag": "retired \u2014 replaced by Setup F on 2026-09-09",
+   "size": "shares \u00b7 target = the prior high \u00b7 no stop",
+   "rules": [
+    "Price is 20\u201345% below its 252-day high",
+    "10 EMA above 30 EMA, and 50 EMA above 200 EMA",
+    "Target is the prior high. No tight stop.",
+    "NO earnings condition \u2014 that is the whole difference from Setup F."
+   ],
+   "numbers": [
+    "356 signals \u00b7 71% hit rate \u00b7 +46.7% a year with the trend filter",
+    "Without the trend filter: 51% hit, +33.0% a year \u2014 the filter was worth +13.7pp",
+    "Setup F is this plus SEC revenue +25%, and F survives the top-5 concentration test"
+   ],
+   "works": "The best per-trade idea in the project, and Arrington's own. The trend filter inside it was his catch too, from a PYPL chart.",
+   "fails": "Superseded, not broken. Seven open paper trades still carry the E tag \u2014 they were opened before the revenue condition existed, and are left marked rather than quietly relabelled."
   },
   "D": {
    "name": "Setup D",
