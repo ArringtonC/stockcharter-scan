@@ -229,7 +229,7 @@ def scan():
                 vix=vnow, vix5=vc[-5:], vix_hi10=max(vc[-11:]), qqq=qc[-1],
                 qdd=(qc[-1] / max(qc[-126:]) - 1) * 100, regime=regime, advice=advice,
                 peaked=peaked, falling=falling, vix_fires=peaked and falling,
-                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors())
+                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors(), today=today_trades())
 
 
 def _ncdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
@@ -404,6 +404,42 @@ def sectors():
     churn = sum(1 for a, b in zip(hist, hist[1:]) if a[0] != b[0])
     for r in out: r["churn"] = f"{churn} of {len(hist)-1}"
     return out
+
+# Trades of the day — the four Arrington asked to track on 2026-09-17, in his format.
+# cost/breakeven/target are fixed at entry; `now` and `profit` are marked each scan.
+TODAY = [
+    dict(sym="SG",   kind="call",   strike=3,   expiry="2028-01-21", prem=4.60, n=1,
+         target=17.60, why="Conviction hold. Revenue +4.4%, no setup fires. 13% time value, 491 days."),
+    dict(sym="NOW",  kind="shares", strike=None, expiry=None,        prem=139.29, n=4,
+         target=194.73, why="The only real Setup F. 50/200 cross held through the Fed. Revenue +29.4%. Target is the prior high."),
+    dict(sym="QCOM", kind="call",   strike=240, expiry="2026-11-20", prem=3.92, n=1,
+         target=253.72, why="Setup C fired 09-15. Breadth fails, revenue +4% fails F. Up 12.6% in ten sessions."),
+    dict(sym="SNAP", kind="call",   strike=5,   expiry="2028-01-21", prem=2.34, n=2,
+         target=12.34, why="Halfway state: 50 EMA needs 44c to cross the 200. Revenue +15.7%. 491 days buys the wait."),
+]
+def today_trades():
+    """Mark each of the four. Returns [] if prices fail rather than half a table."""
+    out = []
+    for t in TODAY:
+        try:
+            spot = bars(t["sym"])[-1][1]
+        except Exception:
+            continue
+        cost = t["prem"] * (100 if t["kind"] == "call" else 1) * t["n"]
+        be   = (t["strike"] + t["prem"]) if t["kind"] == "call" else t["prem"]
+        val  = (max(0.0, t["target"] - t["strike"]) * 100 * t["n"]) if t["kind"] == "call" else t["target"] * t["n"]
+        if t["kind"] == "call":
+            plain = (f'Buy {t["n"]} {t["sym"]} call{"s" if t["n"] > 1 else ""}, ${t["strike"]:g} strike, '
+                     f'expires {datetime.date.fromisoformat(t["expiry"]).strftime("%b %d, %Y")}.')
+        else:
+            plain = f'Buy {t["n"]} shares of {t["sym"]}.'
+        out.append(dict(sym=t["sym"], kind=t["kind"], plain=plain, why=t["why"],
+                        now=spot, target=t["target"], cost=cost, be=be,
+                        profit=val - cost, ret=(val / cost - 1) * 100 if cost else 0,
+                        move=(t["target"] / spot - 1) * 100,
+                        strike=t["strike"], expiry=t["expiry"], n=t["n"], prem=t["prem"]))
+    return out
+
 
 def mark_trades():
     """Mark every open paper trade, auto-close on target / timeout / expiry, write trades.csv back."""
