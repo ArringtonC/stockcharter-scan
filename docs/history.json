@@ -137,7 +137,7 @@
  },
  {
   "date": "2026-09-17",
-  "vix": 15.930000305175781,
+  "vix": 15.779999732971191,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -149,17 +149,16 @@
   ],
   "D": [
    "DOCU",
-   "PLTR",
    "META",
+   "PLTR",
    "SNOW",
    "MSFT",
    "CRM",
    "MRNA",
    "HPQ",
    "AMD",
-   "GILD",
    "WBD",
-   "PANW"
+   "GILD"
   ],
   "C": [
    "INTC",
