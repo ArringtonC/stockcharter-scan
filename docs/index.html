@@ -465,7 +465,7 @@ function renderSetups(d){
     ["Watchlist only","Kept and shown, never acted on. Each failed a test that mattered.",["D","C"]],
     ["Retired","Superseded. Open trades still carry the tag, so it stays readable.",["E"]]];
   const one=k=>{
-    const v=d.SETUPS[k]; if(!v) return '';
+    const v=(d.setups||{})[k]; if(!v) return '';
     return `<details><summary><span class="k">${esc(k==='VIX'?'V':k)}</span>`+
       `<span class="t">${esc(v.name)}</span><span class="g">${esc(v.tag)}</span></summary>`+
       `<div class="body"><p class="size">${esc(v.size)}</p>`+
