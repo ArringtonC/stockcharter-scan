@@ -1,355 +1,295 @@
 {
  "date": "2026-09-17",
- "stamp": "2026-09-17 00:07 UTC",
- "vix": 17.709999084472656,
+ "stamp": "2026-09-17 14:22 UTC",
+ "vix": 15.930000305175781,
  "vix5": [
-  17.84000015258789,
   15.84000015258789,
   17.100000381469727,
   17.200000762939453,
-  17.709999084472656
+  17.709999084472656,
+  15.930000305175781
  ],
  "vix_hi10": 17.84000015258789,
- "qqq": 704.5399780273438,
- "qdd": -5.5778916874606566,
- "regime": "NORMAL",
- "advice": "Setup F adds the most here (+10.76pp vs baseline). It pays more at 25+. No shorts.",
+ "qqq": 715.780029296875,
+ "qdd": -4.0715054332955525,
+ "regime": "CALM",
+ "advice": "Setup F edge is negative here. Run nothing new.",
  "peaked": false,
  "falling": false,
  "vix_fires": false,
  "F": [
   {
    "sym": "HOOD",
-   "px": 110.44999694824219,
-   "dd": 28.213963011767195,
+   "px": 107.58000183105469,
+   "dd": 30.079291950934262,
    "tgt": 153.86000061035156,
-   "up": 39.302856370789826,
+   "up": 43.019146673724464,
    "rev": 61.9413407821229
   },
   {
-   "sym": "BE",
-   "px": 259.3500061035156,
-   "dd": 26.170004838089078,
-   "tgt": 351.2799987792969,
-   "up": 35.44630441963004,
-   "rev": 53.43903353378423
+   "sym": "NOW",
+   "px": 139.5,
+   "dd": 28.360875544790243,
+   "tgt": 194.7259979248047,
+   "up": 39.58852897835461,
+   "rev": 29.36572199730094
   },
   {
    "sym": "MU",
-   "px": 927.5999755859375,
-   "dd": 26.087651347734063,
+   "px": 977.280029296875,
+   "dd": 22.129081330926294,
    "tgt": 1255.0,
-   "up": 35.29538950313722,
+   "up": 28.41764513523688,
    "rev": 200.23471782834986
+  },
+  {
+   "sym": "HAL",
+   "px": 34.084999084472656,
+   "dd": 21.80546234191957,
+   "tgt": 43.59000015258789,
+   "up": 27.886170818309374,
+   "rev": 37.416949152542365
+  },
+  {
+   "sym": "BE",
+   "px": 276.30999755859375,
+   "dd": 21.34194986370558,
+   "tgt": 351.2799987792969,
+   "up": 27.132569173435407,
+   "rev": 53.43903353378423
   }
  ],
  "D": [
   {
-   "sym": "MRNA",
-   "px": 143.77000427246094,
-   "dd": 18.617682954742744,
-   "rsi": 60.44979164731142,
-   "up": 22.8768160341138
-  },
-  {
-   "sym": "U",
-   "px": 43.0099983215332,
-   "dd": 17.526371882865753,
-   "rsi": 55.510606655948884,
-   "up": 21.250880169808582
-  },
-  {
    "sym": "DOCU",
-   "px": 71.8499984741211,
-   "dd": 17.080210953415442,
-   "rsi": 69.28901674187473,
-   "up": 20.598473717558207
+   "px": 70.33000183105469,
+   "dd": 18.834390545221268,
+   "rsi": 64.82127654515918,
+   "up": 23.204890189008953
+  },
+  {
+   "sym": "PLTR",
+   "px": 176.18499755859375,
+   "dd": 15.099752346152739,
+   "rsi": 55.889620836742374,
+   "up": 17.785286572681148
   },
   {
    "sym": "META",
-   "px": 670.239990234375,
-   "dd": 15.245321120333188,
-   "rsi": 71.6470912795072,
-   "up": 17.987586433992895
+   "px": 673.010009765625,
+   "dd": 14.895040445825236,
+   "rsi": 72.08387043773544,
+   "up": 17.501965248386718
+  },
+  {
+   "sym": "SNOW",
+   "px": 341.0,
+   "dd": 11.327230558336144,
+   "rsi": 58.117819018662935,
+   "up": 12.774192832432174
   },
   {
    "sym": "MSFT",
-   "px": 497.1199951171875,
-   "dd": 10.221768868850024,
-   "rsi": 55.85050839719621,
-   "up": 11.385576146981368
-  },
-  {
-   "sym": "GILD",
-   "px": 146.3000030517578,
-   "dd": 6.987087992548036,
-   "rsi": 55.471316640430615,
-   "up": 7.511954890723405
-  },
-  {
-   "sym": "HPQ",
-   "px": 33.81999969482422,
-   "dd": 6.651945564069283,
-   "rsi": 62.31917441388967,
-   "up": 7.125960582965152
-  },
-  {
-   "sym": "PANW",
-   "px": 375.0899963378906,
-   "dd": 5.964201828545201,
-   "rsi": 58.01596492701416,
-   "up": 6.3424801453492385
-  },
-  {
-   "sym": "OXY",
-   "px": 63.52000045776367,
-   "dd": 5.826533236901699,
-   "rsi": 70.00789132937297,
-   "up": 6.187022138155829
+   "px": 496.864990234375,
+   "dd": 10.26782190943093,
+   "rsi": 55.1573918366092,
+   "up": 11.44274231153437
   },
   {
    "sym": "CRM",
-   "px": 255.64999389648438,
-   "dd": 5.001669275665909,
-   "rsi": 66.5477780457841,
-   "up": 5.265007540163769
+   "px": 243.3699951171875,
+   "dd": 9.564858844144542,
+   "rsi": 56.97663451409145,
+   "up": 10.576484673873088
+  },
+  {
+   "sym": "MRNA",
+   "px": 160.52999877929688,
+   "dd": 9.1305358023561,
+   "rsi": 66.7647824566483,
+   "up": 10.047969230342236
+  },
+  {
+   "sym": "HPQ",
+   "px": 33.05799865722656,
+   "dd": 8.755177822489069,
+   "rsi": 58.13008021391509,
+   "up": 9.595259888233908
+  },
+  {
+   "sym": "AMD",
+   "px": 535.9500122070312,
+   "dd": 8.342306687030854,
+   "rsi": 61.11817417528859,
+   "up": 9.101589168893543
+  },
+  {
+   "sym": "GILD",
+   "px": 147.8699951171875,
+   "dd": 5.988936722636263,
+   "rsi": 58.46118489674938,
+   "up": 6.370459511735249
+  },
+  {
+   "sym": "WBD",
+   "px": 28.209999084472656,
+   "dd": 5.966669718424478,
+   "rsi": 55.21997093094255,
+   "up": 6.345271086919668
+  },
+  {
+   "sym": "PANW",
+   "px": 378.2300109863281,
+   "dd": 5.176993994108869,
+   "rsi": 58.955756485654376,
+   "up": 5.459639186915499
   }
  ],
  "C": [
   {
-   "sym": "QCOM",
-   "px": 187.8000030517578,
-   "tgt": 259.9200134277344,
-   "up": 38.40256081151408
-  }
- ],
- "S": [
+   "sym": "INTC",
+   "px": 109.06999969482422,
+   "tgt": 142.35000610351562,
+   "up": 30.512520859822345
+  },
   {
-   "sym": "CAVA",
-   "px": 49.9900016784668,
-   "lo20": 53.90999984741211,
-   "below": -7.271374847042389
+   "sym": "AMD",
+   "px": 535.9500122070312,
+   "tgt": 584.72998046875,
+   "up": 9.101589168893543
   }
  ],
+ "S": [],
  "blocked": [
   {
    "sym": "ZS",
-   "px": 193.88999938964844,
-   "dd": 42.46416658999313,
-   "up": 73.80473015379592,
+   "px": 197.13999938964844,
+   "dd": 41.49974625283722,
+   "up": 70.93942948042329,
    "why": "trend broken"
   },
   {
    "sym": "NFLX",
-   "px": 77.9000015258789,
-   "dd": 37.61012242104652,
-   "up": 60.28241099439802,
+   "px": 75.9800033569336,
+   "dd": 39.147843195962274,
+   "up": 64.33271267940448,
    "why": "trend broken"
   },
   {
    "sym": "SG",
-   "px": 6.829999923706055,
-   "dd": 35.747884758463364,
-   "up": 55.63689946094361,
-   "why": "trend broken"
-  },
-  {
-   "sym": "PYPL",
-   "px": 53.810001373291016,
-   "dd": 32.07094128520174,
-   "up": 47.212403486779245,
-   "why": "trend broken"
-  },
-  {
-   "sym": "INTC",
-   "px": 97.13999938964844,
-   "dd": 31.75975045690611,
-   "up": 46.54108194145707,
-   "why": "revenue +9%"
-  },
-  {
-   "sym": "AVGO",
-   "px": 339.2699890136719,
-   "dd": 31.460608280066293,
-   "up": 45.90149910962285,
+   "px": 6.920000076293945,
+   "dd": 34.90122293702439,
+   "up": 53.61271672317509,
    "why": "trend broken"
   },
   {
    "sym": "ADBE",
-   "px": 257.760009765625,
-   "dd": 30.496678006046572,
-   "up": 43.87801493675323,
+   "px": 248.61000061035156,
+   "dd": 32.96391888311222,
+   "up": 49.17339786858144,
+   "why": "trend broken"
+  },
+  {
+   "sym": "PYPL",
+   "px": 53.11000061035156,
+   "dd": 32.954613311081296,
+   "up": 49.15269332994696,
+   "why": "trend broken"
+  },
+  {
+   "sym": "AVGO",
+   "px": 349.5350036621094,
+   "dd": 29.38686794704861,
+   "up": 41.61671787198446,
    "why": "trend broken"
   },
   {
    "sym": "SHOP",
-   "px": 129.86000061035156,
-   "dd": 28.722762571938844,
-   "up": 40.297244405590504,
-   "why": "trend broken"
-  },
-  {
-   "sym": "TSLA",
-   "px": 356.5799865722656,
-   "dd": 28.51672991382851,
-   "up": 39.89287266720203,
-   "why": "trend broken"
-  },
-  {
-   "sym": "QCOM",
-   "px": 187.8000030517578,
-   "dd": 27.747001635188862,
-   "up": 38.40256081151408,
-   "why": "revenue +4%"
-  },
-  {
-   "sym": "NOW",
-   "px": 141.89999389648438,
-   "dd": 27.128377613306455,
-   "up": 37.22762952819909,
+   "px": 128.6999969482422,
+   "dd": 29.35946252614321,
+   "up": 41.56177681548472,
    "why": "trend broken"
   },
   {
    "sym": "IBM",
-   "px": 248.3699951171875,
-   "dd": 25.293267911682793,
-   "up": 33.85674517496155,
+   "px": 238.64999389648438,
+   "dd": 28.216928343171578,
+   "up": 39.308610918835505,
    "why": "trend broken"
   },
   {
    "sym": "SPOT",
-   "px": 558.260009765625,
-   "dd": 25.06577050125839,
-   "up": 33.450361295406815,
+   "px": 540.885009765625,
+   "dd": 27.397985266359058,
+   "up": 37.73722446529284,
    "why": "trend broken"
   },
   {
+   "sym": "QCOM",
+   "px": 191.32000732421875,
+   "dd": 26.392737211283844,
+   "up": 35.856159041047505,
+   "why": "revenue +4%"
+  },
+  {
+   "sym": "TSLA",
+   "px": 371.6900939941406,
+   "dd": 25.48762023144858,
+   "up": 34.20588674072364,
+   "why": "trend broken"
+  },
+  {
+   "sym": "INTC",
+   "px": 109.06999969482422,
+   "dd": 23.3789989334391,
+   "up": 30.512520859822345,
+   "why": "revenue +9%"
+  },
+  {
    "sym": "F",
-   "px": 13.5,
-   "dd": 24.07199393338719,
-   "up": 31.703708789966733,
+   "px": 13.779999732971191,
+   "dd": 22.49719234644745,
+   "up": 29.027583680597434,
+   "why": "trend broken"
+  },
+  {
+   "sym": "TXN",
+   "px": 262.2200012207031,
+   "dd": 21.498068383385128,
+   "up": 27.38540051266085,
    "why": "trend broken"
   },
   {
    "sym": "WDAY",
-   "px": 190.6699981689453,
-   "dd": 23.686214324145894,
-   "up": 31.037923376982036,
+   "px": 196.99000549316406,
+   "dd": 21.156693743866107,
+   "up": 26.83384899554506,
    "why": "revenue +18%"
-  },
-  {
-   "sym": "TXN",
-   "px": 263.42999267578125,
-   "dd": 21.135828027878134,
-   "up": 26.800291563765555,
-   "why": "trend broken"
   }
  ],
  "errors": [],
  "sectors": [
   {
-   "sym": "XLE",
-   "name": "Energy",
-   "px": 65.93000030517578,
-   "gap": 9.809438834956508,
-   "up": true,
-   "rel": 8.934239789292697,
-   "rank": 1,
-   "d_week": 0,
-   "d_month": 0,
-   "track": [
-    1,
-    1,
-    1,
-    3,
-    1,
-    1,
-    1,
-    1,
-    1,
-    11
-   ],
-   "hold": [
-    {
-     "sym": "XOM",
-     "name": "ExxonMobil Holdings Corp",
-     "pct": 19.86
-    },
-    {
-     "sym": "CVX",
-     "name": "Chevron Corp",
-     "pct": 14.89
-    },
-    {
-     "sym": "COP",
-     "name": "ConocoPhillips",
-     "pct": 6.23
-    },
-    {
-     "sym": "MPC",
-     "name": "Marathon Petroleum Corp",
-     "pct": 5.42
-    },
-    {
-     "sym": "PSX",
-     "name": "Phillips 66",
-     "pct": 5.33
-    },
-    {
-     "sym": "VLO",
-     "name": "Valero Energy Corp",
-     "pct": 5.07
-    },
-    {
-     "sym": "SLB",
-     "name": "SLB Ltd",
-     "pct": 4.88
-    },
-    {
-     "sym": "EOG",
-     "name": "EOG Resources Inc",
-     "pct": 4.13
-    },
-    {
-     "sym": "WMB",
-     "name": "Williams Companies Inc",
-     "pct": 3.78
-    },
-    {
-     "sym": "KMI",
-     "name": "Kinder Morgan Inc Class P",
-     "pct": 3.65
-    }
-   ],
-   "ours": [
-    "COP",
-    "CVX",
-    "SLB",
-    "XOM"
-   ],
-   "churn": "3 of 9"
-  },
-  {
    "sym": "XLC",
    "name": "Communications",
-   "px": 114.02999877929688,
-   "gap": -0.4078725941988659,
+   "px": 112.5,
+   "gap": -0.34490376752613905,
    "up": false,
-   "rel": 3.3971192585994348,
-   "rank": 2,
+   "rel": 2.551554680095236,
+   "rank": 1,
    "d_week": 1,
-   "d_month": 6,
+   "d_month": 8,
    "track": [
+    1,
     2,
-    3,
-    5,
     4,
-    8,
+    5,
     9,
-    3,
-    5,
-    5,
-    8
+    10,
+    9,
+    7,
+    7,
+    5
    ],
    "hold": [
     {
@@ -409,268 +349,29 @@
     "NFLX",
     "WBD"
    ],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLV",
-   "name": "Health Care",
-   "px": 167.66000366210938,
-   "gap": 6.230691940268063,
-   "up": true,
-   "rel": 2.6142162289438997,
-   "rank": 3,
-   "d_week": -1,
-   "d_month": 1,
-   "track": [
-    3,
-    2,
-    3,
-    2,
-    4,
-    2,
-    8,
-    3,
-    2,
-    3
-   ],
-   "hold": [
-    {
-     "sym": "LLY",
-     "name": "Eli Lilly and Co",
-     "pct": 14.87
-    },
-    {
-     "sym": "JNJ",
-     "name": "Johnson & Johnson",
-     "pct": 10.4
-    },
-    {
-     "sym": "ABBV",
-     "name": "AbbVie Inc",
-     "pct": 7.36
-    },
-    {
-     "sym": "MRK",
-     "name": "Merck & Co Inc",
-     "pct": 5.93
-    },
-    {
-     "sym": "UNH",
-     "name": "UnitedHealth Group Inc",
-     "pct": 5.75
-    },
-    {
-     "sym": "AMGN",
-     "name": "Amgen Inc",
-     "pct": 3.77
-    },
-    {
-     "sym": "TMO",
-     "name": "Thermo Fisher Scientific Inc",
-     "pct": 3.73
-    },
-    {
-     "sym": "ABT",
-     "name": "Abbott Laboratories",
-     "pct": 3.12
-    },
-    {
-     "sym": "GILD",
-     "name": "Gilead Sciences Inc",
-     "pct": 2.95
-    },
-    {
-     "sym": "PFE",
-     "name": "Pfizer Inc",
-     "pct": 2.64
-    }
-   ],
-   "ours": [
-    "ABBV",
-    "AMGN",
-    "GILD",
-    "JNJ",
-    "LLY",
-    "MRK",
-    "PFE"
-   ],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLF",
-   "name": "Financials",
-   "px": 56.849998474121094,
-   "gap": 4.869630782443979,
-   "up": true,
-   "rel": 0.1885327930193026,
-   "rank": 4,
-   "d_week": 2,
-   "d_month": 2,
-   "track": [
-    4,
-    6,
-    6,
-    7,
-    6,
-    4,
-    2,
-    2,
-    3,
-    1
-   ],
-   "hold": [
-    {
-     "sym": "JPM",
-     "name": "JPMorgan Chase & Co",
-     "pct": 11.69
-    },
-    {
-     "sym": "BRK-B",
-     "name": "Berkshire Hathaway Inc Class B",
-     "pct": 11.32
-    },
-    {
-     "sym": "V",
-     "name": "Visa Inc Class A",
-     "pct": 7.71
-    },
-    {
-     "sym": "MA",
-     "name": "Mastercard Inc Class A",
-     "pct": 5.83
-    },
-    {
-     "sym": "BAC",
-     "name": "Bank of America Corp",
-     "pct": 4.96
-    },
-    {
-     "sym": "GS",
-     "name": "The Goldman Sachs Group Inc",
-     "pct": 3.71
-    },
-    {
-     "sym": "WFC",
-     "name": "Wells Fargo & Co",
-     "pct": 3.24
-    },
-    {
-     "sym": "MS",
-     "name": "Morgan Stanley",
-     "pct": 3.13
-    },
-    {
-     "sym": "C",
-     "name": "Citigroup Inc",
-     "pct": 2.75
-    },
-    {
-     "sym": "SCHW",
-     "name": "Charles Schwab Corp",
-     "pct": 2.2
-    }
-   ],
-   "ours": [],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLP",
-   "name": "Staples",
-   "px": 83.7300033569336,
-   "gap": 1.436998489394803,
-   "up": true,
-   "rel": -0.3003668767830425,
-   "rank": 5,
-   "d_week": 2,
-   "d_month": 4,
-   "track": [
-    5,
-    7,
-    8,
-    6,
-    9,
-    7,
-    6,
-    6,
-    6,
-    10
-   ],
-   "hold": [
-    {
-     "sym": "WMT",
-     "name": "Walmart Inc",
-     "pct": 9.82
-    },
-    {
-     "sym": "COST",
-     "name": "Costco Wholesale Corp",
-     "pct": 8.94
-    },
-    {
-     "sym": "KO",
-     "name": "Coca-Cola Co",
-     "pct": 7.33
-    },
-    {
-     "sym": "PG",
-     "name": "Procter & Gamble Co",
-     "pct": 7.22
-    },
-    {
-     "sym": "PM",
-     "name": "Philip Morris International Inc",
-     "pct": 6.24
-    },
-    {
-     "sym": "TGT",
-     "name": "Target Corp",
-     "pct": 4.66
-    },
-    {
-     "sym": "CL",
-     "name": "Colgate-Palmolive Co",
-     "pct": 4.52
-    },
-    {
-     "sym": "PEP",
-     "name": "PepsiCo Inc",
-     "pct": 4.4
-    },
-    {
-     "sym": "MDLZ",
-     "name": "Mondelez International Inc Class A",
-     "pct": 4.38
-    },
-    {
-     "sym": "MO",
-     "name": "Altria Group Inc",
-     "pct": 4.24
-    }
-   ],
-   "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLK",
    "name": "Technology",
-   "px": 183.74000549316406,
-   "gap": 10.584051671151062,
+   "px": 187.8699951171875,
+   "gap": 10.442633106296984,
    "up": true,
-   "rel": -0.8588783255136567,
-   "rank": 6,
-   "d_week": -2,
-   "d_month": -4,
+   "rel": 1.9353264406704596,
+   "rank": 2,
+   "d_week": 1,
+   "d_month": 6,
    "track": [
+    2,
+    3,
+    7,
+    2,
+    8,
     6,
-    4,
     2,
-    8,
-    2,
-    8,
-    9,
     11,
     11,
-    5
+    7
    ],
    "hold": [
     {
@@ -735,29 +436,196 @@
     "NVDA",
     "PLTR"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLE",
+   "name": "Energy",
+   "px": 63.880001068115234,
+   "gap": 9.84439115385416,
+   "up": true,
+   "rel": 1.03724409439091,
+   "rank": 3,
+   "d_week": -2,
+   "d_month": -1,
+   "track": [
+    3,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    9
+   ],
+   "hold": [
+    {
+     "sym": "XOM",
+     "name": "ExxonMobil Holdings Corp",
+     "pct": 19.86
+    },
+    {
+     "sym": "CVX",
+     "name": "Chevron Corp",
+     "pct": 14.89
+    },
+    {
+     "sym": "COP",
+     "name": "ConocoPhillips",
+     "pct": 6.23
+    },
+    {
+     "sym": "MPC",
+     "name": "Marathon Petroleum Corp",
+     "pct": 5.42
+    },
+    {
+     "sym": "PSX",
+     "name": "Phillips 66",
+     "pct": 5.33
+    },
+    {
+     "sym": "VLO",
+     "name": "Valero Energy Corp",
+     "pct": 5.07
+    },
+    {
+     "sym": "SLB",
+     "name": "SLB Ltd",
+     "pct": 4.88
+    },
+    {
+     "sym": "EOG",
+     "name": "EOG Resources Inc",
+     "pct": 4.13
+    },
+    {
+     "sym": "WMB",
+     "name": "Williams Companies Inc",
+     "pct": 3.78
+    },
+    {
+     "sym": "KMI",
+     "name": "Kinder Morgan Inc Class P",
+     "pct": 3.65
+    }
+   ],
+   "ours": [
+    "COP",
+    "CVX",
+    "SLB",
+    "XOM"
+   ],
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLV",
+   "name": "Health Care",
+   "px": 168.3000030517578,
+   "gap": 6.17295532796458,
+   "up": true,
+   "rel": -0.11933774191942303,
+   "rank": 4,
+   "d_week": 0,
+   "d_month": -3,
+   "track": [
+    4,
+    4,
+    2,
+    4,
+    1,
+    2,
+    10,
+    4,
+    2,
+    2
+   ],
+   "hold": [
+    {
+     "sym": "LLY",
+     "name": "Eli Lilly and Co",
+     "pct": 14.87
+    },
+    {
+     "sym": "JNJ",
+     "name": "Johnson & Johnson",
+     "pct": 10.4
+    },
+    {
+     "sym": "ABBV",
+     "name": "AbbVie Inc",
+     "pct": 7.36
+    },
+    {
+     "sym": "MRK",
+     "name": "Merck & Co Inc",
+     "pct": 5.93
+    },
+    {
+     "sym": "UNH",
+     "name": "UnitedHealth Group Inc",
+     "pct": 5.75
+    },
+    {
+     "sym": "AMGN",
+     "name": "Amgen Inc",
+     "pct": 3.77
+    },
+    {
+     "sym": "TMO",
+     "name": "Thermo Fisher Scientific Inc",
+     "pct": 3.73
+    },
+    {
+     "sym": "ABT",
+     "name": "Abbott Laboratories",
+     "pct": 3.12
+    },
+    {
+     "sym": "GILD",
+     "name": "Gilead Sciences Inc",
+     "pct": 2.95
+    },
+    {
+     "sym": "PFE",
+     "name": "Pfizer Inc",
+     "pct": 2.64
+    }
+   ],
+   "ours": [
+    "ABBV",
+    "AMGN",
+    "GILD",
+    "JNJ",
+    "LLY",
+    "MRK",
+    "PFE"
+   ],
+   "churn": "4 of 9"
   },
   {
    "sym": "XLB",
    "name": "Materials",
-   "px": 50.72999954223633,
-   "gap": 3.3821983276886236,
+   "px": 50.8650016784668,
+   "gap": 3.1713870046655934,
    "up": true,
-   "rel": -1.0040545309950688,
-   "rank": 7,
-   "d_week": 1,
+   "rel": -1.04391343772543,
+   "rank": 5,
+   "d_week": 4,
    "d_month": -2,
    "track": [
-    7,
-    8,
-    4,
     5,
-    5,
-    3,
-    10,
     9,
-    10,
-    7
+    3,
+    6,
+    3,
+    3,
+    4,
+    6,
+    9,
+    11
    ],
    "hold": [
     {
@@ -812,103 +680,180 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
-   "sym": "XLRE",
-   "name": "Real Estate",
-   "px": 43.06999969482422,
-   "gap": 1.8700759264112632,
+   "sym": "XLP",
+   "name": "Staples",
+   "px": 83.4000015258789,
+   "gap": 1.3117480985467722,
    "up": true,
-   "rel": -2.4187898291816667,
-   "rank": 8,
-   "d_week": 1,
-   "d_month": 2,
+   "rel": -1.824151897195514,
+   "rank": 6,
+   "d_week": 0,
+   "d_month": -1,
    "track": [
+    6,
+    6,
+    5,
     8,
-    9,
-    9,
-    9,
-    10,
-    10,
-    4,
-    4,
-    4,
-    9
+    5,
+    7,
+    8,
+    3,
+    5,
+    10
    ],
    "hold": [
     {
-     "sym": "WELL",
-     "name": "Welltower Inc",
-     "pct": 11.43
+     "sym": "WMT",
+     "name": "Walmart Inc",
+     "pct": 9.82
     },
     {
-     "sym": "PLD",
-     "name": "Prologis Inc",
-     "pct": 9.09
+     "sym": "COST",
+     "name": "Costco Wholesale Corp",
+     "pct": 8.94
     },
     {
-     "sym": "EQIX",
-     "name": "Equinix Inc",
-     "pct": 7.07
+     "sym": "KO",
+     "name": "Coca-Cola Co",
+     "pct": 7.33
     },
     {
-     "sym": "AMT",
-     "name": "American Tower Corp",
-     "pct": 5.61
+     "sym": "PG",
+     "name": "Procter & Gamble Co",
+     "pct": 7.22
     },
     {
-     "sym": "VMRK",
-     "name": "Vivmark Residential",
-     "pct": 4.94
+     "sym": "PM",
+     "name": "Philip Morris International Inc",
+     "pct": 6.24
     },
     {
-     "sym": "DLR",
-     "name": "Digital Realty Trust Inc",
-     "pct": 4.92
+     "sym": "TGT",
+     "name": "Target Corp",
+     "pct": 4.66
     },
     {
-     "sym": "SPG",
-     "name": "Simon Property Group Inc",
-     "pct": 4.72
+     "sym": "CL",
+     "name": "Colgate-Palmolive Co",
+     "pct": 4.52
     },
     {
-     "sym": "VTR",
-     "name": "Ventas Inc",
-     "pct": 4.58
+     "sym": "PEP",
+     "name": "PepsiCo Inc",
+     "pct": 4.4
     },
     {
-     "sym": "PSA",
-     "name": "Public Storage",
-     "pct": 4.58
+     "sym": "MDLZ",
+     "name": "Mondelez International Inc Class A",
+     "pct": 4.38
     },
     {
-     "sym": "O",
-     "name": "Realty Income Corp",
-     "pct": 4.49
+     "sym": "MO",
+     "name": "Altria Group Inc",
+     "pct": 4.24
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLF",
+   "name": "Financials",
+   "px": 55.81740188598633,
+   "gap": 4.675702215634692,
+   "up": true,
+   "rel": -2.773712414640639,
+   "rank": 7,
+   "d_week": -2,
+   "d_month": -1,
+   "track": [
+    7,
+    5,
+    6,
+    7,
+    6,
+    4,
+    3,
+    2,
+    3,
+    1
+   ],
+   "hold": [
+    {
+     "sym": "JPM",
+     "name": "JPMorgan Chase & Co",
+     "pct": 11.69
+    },
+    {
+     "sym": "BRK-B",
+     "name": "Berkshire Hathaway Inc Class B",
+     "pct": 11.32
+    },
+    {
+     "sym": "V",
+     "name": "Visa Inc Class A",
+     "pct": 7.71
+    },
+    {
+     "sym": "MA",
+     "name": "Mastercard Inc Class A",
+     "pct": 5.83
+    },
+    {
+     "sym": "BAC",
+     "name": "Bank of America Corp",
+     "pct": 4.96
+    },
+    {
+     "sym": "GS",
+     "name": "The Goldman Sachs Group Inc",
+     "pct": 3.71
+    },
+    {
+     "sym": "WFC",
+     "name": "Wells Fargo & Co",
+     "pct": 3.24
+    },
+    {
+     "sym": "MS",
+     "name": "Morgan Stanley",
+     "pct": 3.13
+    },
+    {
+     "sym": "C",
+     "name": "Citigroup Inc",
+     "pct": 2.75
+    },
+    {
+     "sym": "SCHW",
+     "name": "Charles Schwab Corp",
+     "pct": 2.2
+    }
+   ],
+   "ours": [],
+   "churn": "4 of 9"
   },
   {
    "sym": "XLY",
    "name": "Consumer Disc",
-   "px": 110.87999725341797,
-   "gap": -0.10920156425368033,
+   "px": 111.98500061035156,
+   "gap": -0.32957762596694806,
    "up": false,
-   "rel": -3.751950989880737,
-   "rank": 9,
-   "d_week": 1,
-   "d_month": -2,
+   "rel": -3.03671055557162,
+   "rank": 8,
+   "d_week": 2,
+   "d_month": -4,
    "track": [
-    9,
+    8,
     10,
-    7,
-    1,
-    7,
-    5,
-    5,
+    8,
+    3,
+    4,
+    8,
+    6,
     10,
     8,
     6
@@ -970,28 +915,105 @@
     "GM",
     "TSLA"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLRE",
+   "name": "Real Estate",
+   "px": 42.935001373291016,
+   "gap": 1.6363556053144768,
+   "up": true,
+   "rel": -3.074720472674153,
+   "rank": 9,
+   "d_week": -2,
+   "d_month": 1,
+   "track": [
+    9,
+    7,
+    9,
+    10,
+    10,
+    9,
+    7,
+    5,
+    6,
+    8
+   ],
+   "hold": [
+    {
+     "sym": "WELL",
+     "name": "Welltower Inc",
+     "pct": 11.43
+    },
+    {
+     "sym": "PLD",
+     "name": "Prologis Inc",
+     "pct": 9.09
+    },
+    {
+     "sym": "EQIX",
+     "name": "Equinix Inc",
+     "pct": 7.07
+    },
+    {
+     "sym": "AMT",
+     "name": "American Tower Corp",
+     "pct": 5.61
+    },
+    {
+     "sym": "VMRK",
+     "name": "Vivmark Residential",
+     "pct": 4.94
+    },
+    {
+     "sym": "DLR",
+     "name": "Digital Realty Trust Inc",
+     "pct": 4.92
+    },
+    {
+     "sym": "SPG",
+     "name": "Simon Property Group Inc",
+     "pct": 4.72
+    },
+    {
+     "sym": "VTR",
+     "name": "Ventas Inc",
+     "pct": 4.58
+    },
+    {
+     "sym": "PSA",
+     "name": "Public Storage",
+     "pct": 4.58
+    },
+    {
+     "sym": "O",
+     "name": "Realty Income Corp",
+     "pct": 4.49
+    }
+   ],
+   "ours": [],
+   "churn": "4 of 9"
   },
   {
    "sym": "XLU",
    "name": "Utilities",
-   "px": 41.31999969482422,
-   "gap": -1.1924667596661997,
+   "px": 41.40999984741211,
+   "gap": -1.4686938178643083,
    "up": false,
-   "rel": -4.306973701148086,
+   "rel": -5.205951904673434,
    "rank": 10,
-   "d_week": -5,
+   "d_week": -2,
    "d_month": 1,
    "track": [
     10,
-    5,
+    8,
+    10,
     11,
     11,
     11,
     11,
-    11,
-    7,
-    7,
+    8,
+    4,
     4
    ],
    "hold": [
@@ -1047,29 +1069,29 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLI",
    "name": "Industrials",
-   "px": 168.85000610351562,
-   "gap": 3.844139641142519,
+   "px": 169.6999969482422,
+   "gap": 3.4861726219381772,
    "up": true,
-   "rel": -7.027712946099706,
+   "rel": -6.832533627384063,
    "rank": 11,
    "d_week": 0,
-   "d_month": -8,
+   "d_month": -4,
    "track": [
     11,
     11,
-    10,
-    10,
-    3,
-    6,
-    7,
-    8,
+    11,
     9,
-    2
+    7,
+    5,
+    5,
+    9,
+    10,
+    3
    ],
    "hold": [
     {
@@ -1124,7 +1146,7 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   }
  ],
  "open": [
@@ -1143,12 +1165,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.769926786163171,
+   "pl_pct": -8.09241156775905,
    "note": "paper",
-   "now": 77.9000015258789,
-   "to_target": 62.65724970224304,
+   "now": 75.9800033569336,
+   "to_target": 66.76756304517457,
    "progress": 0,
-   "sessions": 7,
+   "sessions": 9,
    "armed": false
   },
   {
@@ -1166,12 +1188,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 5.8199459406022225,
+   "pl_pct": 1.6786646911015168,
    "note": "paper",
-   "now": 248.3699951171875,
-   "to_target": 33.85674861536177,
-   "progress": 0.1397441955722506,
-   "sessions": 7,
+   "now": 238.64999389648438,
+   "to_target": 39.30861449936016,
+   "progress": 0.040306842930786374,
+   "sessions": 9,
    "armed": false
   },
   {
@@ -1189,12 +1211,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.008962645964877,
+   "pl_pct": -2.134896499577399,
    "note": "paper",
-   "now": 339.2699890136719,
-   "to_target": 45.90149910962285,
+   "now": 349.5350036621094,
+   "to_target": 41.61671787198446,
    "progress": 0,
-   "sessions": 7,
+   "sessions": 9,
    "armed": false
   },
   {
@@ -1212,12 +1234,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -7.853277513558221,
+   "pl_pct": -4.79895346357816,
    "note": "paper",
-   "now": 190.6699981689453,
-   "to_target": 31.03792017589342,
+   "now": 196.99000549316406,
+   "to_target": 26.833845897156582,
    "progress": 0,
-   "sessions": 7,
+   "sessions": 9,
    "armed": false
   },
   {
@@ -1235,12 +1257,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -2.548420936801632,
+   "pl_pct": -2.5984101320522646,
    "note": "paper",
-   "now": 497.1199951171875,
-   "to_target": 11.385582040301978,
+   "now": 496.864990234375,
+   "to_target": 11.442748207879582,
    "progress": 0,
-   "sessions": 7,
+   "sessions": 9,
    "armed": false
   },
   {
@@ -1258,12 +1280,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -6.446141655177984,
+   "pl_pct": -0.32826002503653084,
    "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
-   "now": 259.3500061035156,
-   "to_target": 35.446304890307914,
+   "now": 276.30999755859375,
+   "to_target": 27.132569615222923,
    "progress": 0,
-   "sessions": 5,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1281,12 +1303,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.871828065244433,
+   "pl_pct": -8.317707660597673,
    "note": "matches the backtest profile: real pullback, +62% revenue",
-   "now": 110.44999694824219,
-   "to_target": 39.30285581818542,
+   "now": 107.58000183105469,
+   "to_target": 43.019146106377804,
    "progress": 0,
-   "sessions": 5,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1304,12 +1326,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -7.264113771825576,
+   "pl_pct": -2.297399746378437,
    "note": "+200% revenue. EARNINGS 2026-09-30, 22 days out",
-   "now": 927.5999755859375,
-   "to_target": 35.29538950313722,
+   "now": 977.280029296875,
+   "to_target": 28.41764513523688,
    "progress": 0,
-   "sessions": 5,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1327,12 +1349,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.1618190825118853,
+   "pl_pct": -4.026847913316789,
    "note": "+46% revenue. Option already held in both option books",
-   "now": 129.86000061035156,
-   "to_target": 40.29724252556106,
+   "now": 128.6999969482422,
+   "to_target": 41.56177491851012,
    "progress": 0,
-   "sessions": 5,
+   "sessions": 7,
    "armed": false
   },
   {
@@ -1350,13 +1372,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 32.824707175339405,
+   "pl_pct": 27.029828627621487,
    "note": "",
-   "now": 34.839920692091525,
-   "spot": 71.8499984741211,
-   "intrinsic": 34.349998474121094,
+   "now": 33.31992404902512,
+   "spot": 70.33000183105469,
+   "intrinsic": 32.83000183105469,
    "dte": 120,
-   "sessions": 6,
+   "sessions": 8,
    "mark": "iv"
   },
   {
@@ -1374,13 +1396,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 75.68167106384142,
+   "pl_pct": 47.59443967717591,
    "note": "",
-   "now": 8.573265547915462,
-   "spot": 71.8499984741211,
-   "intrinsic": 6.849998474121094,
+   "now": 7.202608656246184,
+   "spot": 70.33000183105469,
+   "intrinsic": 5.3300018310546875,
    "dte": 29,
-   "sessions": 6,
+   "sessions": 8,
    "mark": "iv"
   },
   {
@@ -1398,13 +1420,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -14.887618152685667,
+   "pl_pct": -0.4963270687594723,
    "note": "",
-   "now": 32.215036529208476,
-   "spot": 190.6699981689453,
-   "intrinsic": 20.669998168945312,
+   "now": 37.66214020447454,
+   "spot": 196.99000549316406,
+   "intrinsic": 26.990005493164062,
    "dte": 92,
-   "sessions": 6,
+   "sessions": 8,
    "mark": "iv"
   },
   {
@@ -1422,13 +1444,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -57.96966043281285,
+   "pl_pct": -60.45885347441906,
    "note": "",
-   "now": 11.73907384111537,
-   "spot": 129.86000061035156,
-   "intrinsic": 9.860000610351562,
+   "now": 11.043842224594755,
+   "spot": 128.6999969482422,
+   "intrinsic": 8.699996948242188,
    "dte": 15,
-   "sessions": 6,
+   "sessions": 8,
    "mark": "iv"
   },
   {
@@ -1446,12 +1468,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 2.304299750371963,
+   "pl_pct": 4.221826727797984,
    "note": "Setup C fired (cross+regime+breakout). Breadth 73% fails the <65% filter. VIX 15.7 CALM. Revenue only +4%, fails F. Chart signal only.",
-   "now": 187.8000030517578,
-   "to_target": 38.40255366149587,
-   "progress": 0.05540279046179199,
-   "sessions": 2,
+   "now": 191.32000732421875,
+   "to_target": 35.85615202257906,
+   "progress": 0.10150631727856915,
+   "sessions": 4,
    "armed": false
   },
   {
@@ -1469,13 +1491,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.6099467517338031,
+   "pl_pct": -17.599707991009073,
    "note": "REAL. 1x 109C 10/2 at $4.25. Fails the F trend filter (10<30, 50<200), 88% time value, 18 DTE. Plan: sell at $116 (30 EMA) or +100%; cut on a close under $107.72; out by 09-29 unless past $113.25.",
-   "now": 4.2759227369486865,
-   "spot": 109.33999633789062,
-   "intrinsic": 0.339996337890625,
+   "now": 3.5020124103821146,
+   "spot": 108.0,
+   "intrinsic": 0.0,
    "dte": 15,
-   "sessions": 1,
+   "sessions": 3,
    "mark": "iv"
   },
   {
@@ -1493,12 +1515,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.45306094894830284,
+   "pl_pct": -1.2459294917173902,
    "note": "Setup F complete: 27.5% below high, revenue +29.4%, and the 50 EMA crossed the 200 TODAY (125.13 vs 124.96) after weeks in the halfway state. That cross is the 88%-win entry from halfway.md. The cross is thin \u2014 0.17 points.",
-   "now": 141.89999389648438,
-   "to_target": 37.23044987729524,
-   "progress": 0.011969214447061607,
-   "sessions": 0,
+   "now": 139.5,
+   "to_target": 39.59139784946235,
+   "progress": 0,
+   "sessions": 1,
    "armed": false
   },
   {
@@ -1516,13 +1538,13 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 10.63103537316248,
+   "pl_pct": -5.102502662039998,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
-   "now": 6.582546604703168,
-   "spot": 141.89999389648438,
+   "now": 5.64640109160862,
+   "spot": 139.5,
    "intrinsic": 0.0,
    "dte": 92,
-   "sessions": 0,
+   "sessions": 1,
    "mark": "iv"
   }
  ],
@@ -1658,32 +1680,35 @@
    },
    {
     "date": "2026-09-17",
-    "vix": 17.709999084472656,
-    "regime": "NORMAL",
+    "vix": 15.930000305175781,
+    "regime": "CALM",
     "vix_fires": false,
     "F": [
      "HOOD",
-     "BE",
-     "MU"
+     "NOW",
+     "MU",
+     "HAL",
+     "BE"
     ],
     "D": [
-     "MRNA",
-     "U",
      "DOCU",
+     "PLTR",
      "META",
+     "SNOW",
      "MSFT",
-     "GILD",
+     "CRM",
+     "MRNA",
      "HPQ",
-     "PANW",
-     "OXY",
-     "CRM"
+     "AMD",
+     "GILD",
+     "WBD",
+     "PANW"
     ],
     "C": [
-     "QCOM"
+     "INTC",
+     "AMD"
     ],
-    "S": [
-     "CAVA"
-    ]
+    "S": []
    }
   ],
   "closed": [
@@ -1708,40 +1733,40 @@
    }
   ],
   "by_setup": {
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": 2.304299750371963
-   },
    "none": {
     "wins": 1,
     "losses": 0,
     "closed_mean": 15.1,
     "open_n": 1,
-    "open_mean": 0.6099467517338031
+    "open_mean": -17.599707991009073
+   },
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": 4.221826727797984
    },
    "D": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 2,
-    "open_mean": -5.200849225179926
-   },
-   "E": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": 4.384308023165212
+    "open_mean": -3.6986817978152122
    },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 6,
-    "open_mean": -1.9433010421081827
+    "open_mean": -3.55310791651447
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": 0.7314920550548482
    }
   },
   "produced": [
@@ -2032,13 +2057,18 @@
    },
    {
     "date": "2026-09-17",
-    "sym": "BE",
-    "setup": "F"
+    "sym": "AMD",
+    "setup": "C"
    },
    {
     "date": "2026-09-17",
-    "sym": "CAVA",
-    "setup": "S"
+    "sym": "AMD",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "BE",
+    "setup": "F"
    },
    {
     "date": "2026-09-17",
@@ -2057,6 +2087,11 @@
    },
    {
     "date": "2026-09-17",
+    "sym": "HAL",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-17",
     "sym": "HOOD",
     "setup": "F"
    },
@@ -2064,6 +2099,11 @@
     "date": "2026-09-17",
     "sym": "HPQ",
     "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "INTC",
+    "setup": "C"
    },
    {
     "date": "2026-09-17",
@@ -2087,8 +2127,8 @@
    },
    {
     "date": "2026-09-17",
-    "sym": "OXY",
-    "setup": "D"
+    "sym": "NOW",
+    "setup": "F"
    },
    {
     "date": "2026-09-17",
@@ -2097,12 +2137,17 @@
    },
    {
     "date": "2026-09-17",
-    "sym": "QCOM",
-    "setup": "C"
+    "sym": "PLTR",
+    "setup": "D"
    },
    {
     "date": "2026-09-17",
-    "sym": "U",
+    "sym": "SNOW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-17",
+    "sym": "WBD",
     "setup": "D"
    }
   ]

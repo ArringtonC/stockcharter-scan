@@ -137,31 +137,34 @@
  },
  {
   "date": "2026-09-17",
-  "vix": 17.709999084472656,
-  "regime": "NORMAL",
+  "vix": 15.930000305175781,
+  "regime": "CALM",
   "vix_fires": false,
   "F": [
    "HOOD",
-   "BE",
-   "MU"
+   "NOW",
+   "MU",
+   "HAL",
+   "BE"
   ],
   "D": [
-   "MRNA",
-   "U",
    "DOCU",
+   "PLTR",
    "META",
+   "SNOW",
    "MSFT",
-   "GILD",
+   "CRM",
+   "MRNA",
    "HPQ",
-   "PANW",
-   "OXY",
-   "CRM"
+   "AMD",
+   "GILD",
+   "WBD",
+   "PANW"
   ],
   "C": [
-   "QCOM"
+   "INTC",
+   "AMD"
   ],
-  "S": [
-   "CAVA"
-  ]
+  "S": []
  }
 ]
