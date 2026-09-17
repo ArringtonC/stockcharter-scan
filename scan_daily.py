@@ -409,13 +409,25 @@ def sectors():
 # cost/breakeven/target are fixed at entry; `now` and `profit` are marked each scan.
 TODAY = [
     dict(sym="SG",   kind="call",   strike=3,   expiry="2028-01-21", prem=4.60, n=1,
-         target=17.60, why="Conviction hold. Revenue +4.4%, no setup fires. 13% time value, 491 days."),
+         target=17.60, odds=None,
+         why="Conviction hold, not a signal. Revenue +4.4% sits in the flat zone no setup wants.",
+         exit="No mechanical exit. 491 days. Sell if the thesis on the business changes.",
+         kills="A close under $5.67, the 2026 low. Below that the recovery case is gone."),
     dict(sym="NOW",  kind="shares", strike=None, expiry=None,        prem=139.29, n=4,
-         target=194.73, why="The only real Setup F. 50/200 cross held through the Fed. Revenue +29.4%. Target is the prior high."),
+         target=194.73, odds=83,
+         why="The only real Setup F. 50/200 cross held through the Fed. Revenue +29.4%.",
+         exit="Reach $194.73, then FLOOR it there — do not sell. Close only if it falls back to the floor, or at 252 sessions.",
+         kills="Nothing. No stop, by design — six tests say stops make this worse."),
     dict(sym="QCOM", kind="call",   strike=240, expiry="2026-11-20", prem=3.92, n=1,
-         target=253.72, why="Setup C fired 09-15. Breadth fails, revenue +4% fails F. Up 12.6% in ten sessions."),
+         target=253.72, odds=None,
+         why="Setup C fired 09-15 but breadth fails and revenue +4% fails F. Up 12.6% in ten sessions — this is the chase.",
+         exit="Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
+         kills="A close back under $180, which would undo the breakout that produced the signal."),
     dict(sym="SNAP", kind="call",   strike=5,   expiry="2028-01-21", prem=2.34, n=2,
-         target=12.34, why="Halfway state: 50 EMA needs 44c to cross the 200. Revenue +15.7%. 491 days buys the wait."),
+         target=12.34, odds=None,
+         why="Halfway state: 50 EMA needs 44c to cross the 200. Revenue +15.7%, under F's +25% bar.",
+         exit="No mechanical exit. 491 days is the whole point — it buys time for the cross.",
+         kills="A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%."),
 ]
 def today_trades():
     """Mark each of the four. Returns [] if prices fail rather than half a table."""
@@ -433,8 +445,11 @@ def today_trades():
                      f'expires {datetime.date.fromisoformat(t["expiry"]).strftime("%b %d, %Y")}.')
         else:
             plain = f'Buy {t["n"]} shares of {t["sym"]}.'
+        days = (datetime.date.fromisoformat(t["expiry"]) - datetime.date.today()).days if t["expiry"] else None
         out.append(dict(sym=t["sym"], kind=t["kind"], plain=plain, why=t["why"],
+                        exit=t["exit"], kills=t["kills"], odds=t["odds"], days=days,
                         now=spot, target=t["target"], cost=cost, be=be,
+                        loss=(-cost if t["kind"] == "call" else None),
                         profit=val - cost, ret=(val / cost - 1) * 100 if cost else 0,
                         move=(t["target"] / spot - 1) * 100,
                         strike=t["strike"], expiry=t["expiry"], n=t["n"], prem=t["prem"]))

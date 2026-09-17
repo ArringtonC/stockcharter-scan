@@ -213,7 +213,8 @@ details[open] summary::after{content:'−'}
 .tod tr:last-child td{border-bottom:none}
 .tod .sym{font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
 .tod .buy{display:block;font-size:var(--t-data);color:var(--ink);line-height:1.5;margin-top:var(--s1);max-width:34ch}
-.tod .why{display:block;font-size:var(--t-label);line-height:1.6;color:var(--dim);margin-top:var(--s1);max-width:44ch}
+.tod .why{display:block;font-size:var(--t-label);line-height:1.65;color:var(--dim);margin-top:var(--s1);max-width:46ch}
+.tod .why b{color:var(--ink2);font-weight:500}
 .tod .big{font-size:var(--t-body);color:var(--ink)}
 .tod .mv{display:block;font-size:var(--t-label);color:var(--dim);margin-top:2px}
 @media(max-width:720px){
@@ -227,6 +228,8 @@ details[open] summary::after{content:'−'}
   .tod td:first-child::before{content:none}
   .tod .buy,.tod .why{max-width:none}
 }
+.lbtop{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3)}
+.lbtop .dim{font-size:var(--t-label);line-height:1.5}
 
 footer{margin-top:44px;padding-top:var(--s3);border-top:1px solid var(--line);font-size:var(--t-data);color:var(--dim)}
 .err{color:var(--dn);font-size:var(--t-data);margin-top:var(--s2)}
@@ -296,18 +299,25 @@ function renderToday(d){
   const T=d.today||[];
   if(!T.length) return '';
   const m=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
   return '<div class="tod">'+
-    head('$','Trades of the day','Cost, breakeven and target were fixed when the trade was written. <b>Stock now</b> is live. Three of the four targets are simply where $1,000 of profit lands, not a level any test says the stock reaches.')+
-    '<table><thead><tr><th class="l">the trade</th><th>stock now</th><th>stock target</th><th>cost</th><th>breakeven</th><th>profit at target</th></tr></thead><tbody>'+
+    head('$','Trades of the day','Cost, breakeven, target and max loss were fixed when the trade was written. <b>Stock now</b> is live. Only NOW has a tested hit rate — the other three fire no setup, and their targets are simply where $1,000 of profit lands.')+
+    '<table><thead><tr><th class="l">the trade</th><th>stock now</th><th>stock target</th><th>cost</th><th>breakeven</th>'+
+    '<th>if it works</th><th>if it does not</th><th>odds</th><th>time</th></tr></thead><tbody>'+
     T.map(r=>`<tr>
       <td class="l"><span class="sym">${esc(r.sym)}</span>
         <span class="buy">${esc(r.plain)}</span>
-        <span class="why">${esc(r.why)}</span></td>
+        <span class="why">${esc(r.why)}</span>
+        <span class="why"><b>Exit</b> ${esc(r.exit)}</span>
+        <span class="why"><b>Wrong if</b> ${esc(r.kills)}</span></td>
       <td data-l="stock now" class="big">${m(r.now)}</td>
       <td data-l="stock target" class="big">${m(r.target)}<span class="mv">${r.move>0?'+':''}${r.move.toFixed(0)}% away</span></td>
-      <td data-l="cost" class="big">$${Math.round(r.cost).toLocaleString()}</td>
+      <td data-l="cost" class="big">${n0(r.cost)}</td>
       <td data-l="breakeven" class="big">${m(r.be)}</td>
-      <td data-l="profit at target" class="big ${r.profit>0?'up':'dn'}">+$${Math.round(r.profit).toLocaleString()}<span class="mv">${r.ret>0?'+':''}${r.ret.toFixed(0)}%</span></td>
+      <td data-l="if it works" class="big up">+${n0(r.profit)}<span class="mv">${r.ret>0?'+':''}${r.ret.toFixed(0)}%</span></td>
+      <td data-l="if it does not" class="big ${r.loss?'dn':'dim'}">${r.loss?'−'+n0(r.loss):'—'}<span class="mv">${r.loss?'the whole premium':'shares do not expire'}</span></td>
+      <td data-l="odds" class="big ${r.odds?'up':'dim'}">${r.odds?r.odds+'%':'—'}<span class="mv">${r.odds?'reach the target':'untested'}</span></td>
+      <td data-l="time" class="big">${r.days!=null?r.days+'d':'—'}<span class="mv">${r.days!=null?'to expiry':'no expiry'}</span></td>
     </tr>`).join('')+'</tbody></table></div>';
 }
 
@@ -456,6 +466,9 @@ function renderSectors(d){
   $('#tab-sectors').innerHTML=
     head('◷','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none — buying last month’s leader loses to SPY by 0.25pp. Click a sector to see what it is made of.')+
     '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th class="moh">1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks → now</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    `<div class="lbtop"><a class="runbtn" target="_blank" rel="noopener"
+       href="https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml">Refresh the board ↗</a>
+     <span class="dim">Runs the same scan that updates every tab. Takes about a minute.</span></div>`+
     `<p class="churn">The top sector changed <b>${esc(S[0].churn)}</b> weeks in this window — that churn is why it cannot be traded. Rank 1 sits at the top of each track line, 11 at the bottom. Gold names in a makeup list are ones our scan already follows.</p>`;
   const tb=$('#tab-sectors').querySelector('tbody');
   const toggle=tr=>{
