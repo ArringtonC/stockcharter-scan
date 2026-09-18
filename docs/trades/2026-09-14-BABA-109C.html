@@ -1,0 +1,436 @@
+<title>The BABA Post-Mortem</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E0F12; --panel:#191A1F; --panel2:#15161A; --line:#26282F; --line2:#33363F;
+  --ink:#E8E4DB; --ink2:#A8A49B; --dim:#6E6B64;
+  --amber:#E2A73B; --up:#5FBF84; --dn:#E06B5A;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --serif:'Fraunces',Georgia,serif;
+  --s1:6px; --s2:10px; --s3:16px; --s4:24px; --s5:38px; --s6:60px;
+  --tr:.12em;
+}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#F4F1EA; --panel:#FBF9F4; --panel2:#EFEBE1; --line:#DCD6C9; --line2:#C6BFAF;
+  --ink:#17181C; --ink2:#4A4C55; --dim:#8A877E;
+  --amber:#8A5E0C; --up:#1E6E44; --dn:#B23A2A;}}
+:root[data-theme="light"]{
+  --bg:#F4F1EA; --panel:#FBF9F4; --panel2:#EFEBE1; --line:#DCD6C9; --line2:#C6BFAF;
+  --ink:#17181C; --ink2:#4A4C55; --dim:#8A877E;
+  --amber:#8A5E0C; --up:#1E6E44; --dn:#B23A2A;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.65 var(--mono)}
+.wrap{max-width:920px;margin:0 auto;padding:var(--s5) 20px var(--s6)}
+h1{font:300 34px/1.1 var(--serif);margin:0;letter-spacing:-.01em;text-wrap:balance}
+h1 b{font-weight:600;color:var(--amber)}
+.lede{color:var(--ink2);margin:var(--s3) 0 0;max-width:62ch;font-size:14px;line-height:1.7}
+.lede b{color:var(--ink);font-weight:500}
+.eyebrow{font:500 10.5px/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+h2{font:500 21px/1.25 var(--serif);margin:var(--s6) 0 var(--s2);text-wrap:balance}
+h2+.sub{color:var(--dim);margin:0 0 var(--s4);font-size:12.5px;max-width:62ch;line-height:1.7}
+
+/* the price path */
+.path{margin-top:var(--s4);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.path table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.path th{font:500 10.5px/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:var(--s3) var(--s2) var(--s2)}
+.path th:first-child,.path td:first-child{text-align:left}
+.path td{padding:var(--s2);border-top:1px solid var(--line);font-size:13px}
+.path tr.cut td{background:color-mix(in srgb,var(--dn) 9%,transparent)}
+.path tr.now td{background:color-mix(in srgb,var(--up) 9%,transparent)}
+.path .note{font-size:11px;color:var(--dim);letter-spacing:.02em}
+.path .v{font-weight:600}
+
+/* checkpoints */
+.step{display:grid;grid-template-columns:36px 1fr;gap:0 var(--s3);padding:var(--s4) 0;border-top:1px solid var(--line)}
+.step:first-of-type{border-top:none}
+.num{font:300 26px/1 var(--serif);color:var(--amber);font-variant-numeric:tabular-nums;padding-top:2px}
+.step h3{font:500 16px/1.35 var(--serif);margin:0 0 var(--s2)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin-top:var(--s2)}
+@media(max-width:680px){.pair{grid-template-columns:1fr}.step{grid-template-columns:28px 1fr}}
+.box{padding:var(--s3);border:1px solid var(--line);border-radius:5px;background:var(--panel2)}
+.box .h{font:500 10.5px/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;margin-bottom:var(--s2)}
+.box.did .h{color:var(--dn)}
+.box.should .h{color:var(--up)}
+.box p{margin:0;font-size:12.5px;line-height:1.7;color:var(--ink2)}
+.box p+p{margin-top:var(--s2)}
+.box b{color:var(--ink);font-weight:500}
+.ev{margin-top:var(--s2);font-size:11.5px;line-height:1.7;color:var(--dim)}
+.ev b{color:var(--ink2);font-weight:500}
+
+/* the stop, called out */
+.stopbox{margin-top:var(--s3);padding:var(--s3);border:1px solid var(--dn);border-radius:5px;background:var(--panel)}
+.stopbox .row{display:flex;justify-content:space-between;gap:var(--s3);padding:var(--s1) 0;font-size:12.5px}
+.stopbox .row+.row{border-top:1px solid var(--line)}
+.stopbox .row b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.stopbox .verdict{margin:var(--s2) 0 0;font-size:12.5px;color:var(--dn);line-height:1.6}
+
+/* the workflow */
+.flow{counter-reset:q;margin-top:var(--s4)}
+.q{display:grid;grid-template-columns:1fr auto;gap:var(--s2) var(--s4);align-items:start;
+ padding:var(--s3) var(--s3);border:1px solid var(--line);border-radius:5px;background:var(--panel);margin-bottom:var(--s1)}
+.q .ask{font-size:13.5px;font-weight:500;color:var(--ink);line-height:1.5}
+.q .thn{grid-column:1;font-size:12px;color:var(--ink2);line-height:1.7;margin:0}
+.q .thn b{color:var(--ink)}
+.q .tag{grid-row:1/3;font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+ padding:5px 8px;border-radius:3px;white-space:nowrap;align-self:start}
+.tag.stop{background:var(--dn);color:#12100e}
+.tag.size{background:var(--amber);color:#12100e}
+.tag.go{background:var(--up);color:#0d1410}
+
+table.k{width:100%;border-collapse:collapse;margin-top:var(--s3);font-variant-numeric:tabular-nums}
+table.k th{font:500 10.5px/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:0 var(--s2) var(--s2);border-bottom:1px solid var(--line)}
+table.k th:first-child,table.k td:first-child{text-align:left}
+table.k td{padding:var(--s2);border-bottom:1px solid var(--line);font-size:12.5px}
+table.k tr:last-child td{border-bottom:none}
+.up{color:var(--up)}.dn{color:var(--dn)}.dim{color:var(--dim)}
+.close{margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid var(--line2);font-size:13px;
+ color:var(--ink2);line-height:1.75;max-width:64ch}
+.close b{color:var(--ink);font-weight:500}
+
+.chartwrap{margin-top:var(--s4);padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow-x:auto}
+.chartwrap svg{display:block;width:100%;min-width:720px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s2);font-size:11.5px;color:var(--ink2)}
+.legend i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:6px;border-radius:1px}
+
+/* the ticket — a trade written the way you would place it */
+.tix{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s4)}
+@media(max-width:680px){.tix{grid-template-columns:1fr}}
+.tick{border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+.tick.was{border-color:color-mix(in srgb,var(--dn) 45%,var(--line))}
+.tick.ideal{border-color:color-mix(in srgb,var(--up) 45%,var(--line))}
+.tick>header{padding:var(--s3);border-bottom:1px solid var(--line);background:var(--panel2)}
+.tick .kind{font:500 10.5px/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.tick.was .kind{color:var(--dn)}
+.tick.ideal .kind{color:var(--up)}
+.tick .name{font:500 19px/1.25 var(--serif);margin-top:var(--s2);color:var(--ink)}
+.tick dl{margin:0;padding:var(--s2) var(--s3) var(--s3)}
+.tick div.f{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3);
+ padding:var(--s2) 0;border-bottom:1px solid var(--line)}
+.tick div.f:last-of-type{border-bottom:none}
+.tick dt{font-size:12px;color:var(--dim)}
+.tick dd{margin:0;font-size:13.5px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
+.tick dd small{display:block;font-weight:400;font-size:11px;color:var(--dim);margin-top:1px}
+.tick .total{margin:0;padding:var(--s3);border-top:1px solid var(--line2);background:var(--panel2);
+ display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3)}
+.tick .total span{font:500 10.5px/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tick .total b{font:500 21px/1 var(--serif);font-variant-numeric:tabular-nums}
+.tick.was .total b{color:var(--dn)}
+.tick.ideal .total b{color:var(--up)}
+.verdictrow{margin-top:var(--s4);padding:var(--s3);border:1px solid var(--line2);border-radius:6px;
+ font-size:13px;line-height:1.75;color:var(--ink2)}
+.verdictrow b{color:var(--ink);font-weight:500}
+.scroll{overflow-x:auto}
+</style>
+<div class="wrap">
+
+<p style="margin:0 0 var(--s4);font-size:12px"><a href="../index.html" style="color:var(--amber);text-decoration:none">&larr; Ledger</a></p>
+<div class="eyebrow">Trade post-mortem · 2026-09-18</div>
+<h1>BABA <b>$109C</b> 10/2 — what to do differently</h1>
+<p class="lede">Bought 14 September at <b>$4.25</b>. Cut 16 September when it closed under $107.72.
+Two days later the same contract is worth <b>$6.45</b>. The exit was not bad luck —
+<b>the stop was set closer to the entry than a normal day's move</b>, and the entry passed no setup.
+Both are fixable, and one of them was my error.</p>
+
+<h2>What actually happened</h2>
+<p class="sub">Contract value is Black-Scholes at 46% implied volatility, the level the chain was quoting.</p>
+<div class="path scroll"><table>
+<thead><tr><th>session</th><th>close</th><th>low</th><th>109C</th><th>vs $4.25</th><th>&nbsp;</th></tr></thead>
+<tbody>
+<tr><td>Mon 14 Sep</td><td>109.23</td><td>107.83</td><td class="v">4.67</td><td class="up">+10%</td><td class="note">bought at 4.25</td></tr>
+<tr><td>Tue 15 Sep</td><td>109.34</td><td>109.28</td><td class="v">4.59</td><td class="up">+8%</td><td class="note"></td></tr>
+<tr class="cut"><td>Wed 16 Sep</td><td>107.27</td><td>106.64</td><td class="v">3.43</td><td class="dn">−19%</td><td class="note">closed under 107.72 — cut fired</td></tr>
+<tr><td>Thu 17 Sep</td><td>108.54</td><td>107.31</td><td class="v">3.90</td><td class="dn">−8%</td><td class="note"></td></tr>
+<tr class="now"><td>Fri 18 Sep</td><td>113.06</td><td>110.86</td><td class="v">6.45</td><td class="up">+52%</td><td class="note">where it is now</td></tr>
+</tbody></table></div>
+
+
+<h2>The trade on the chart</h2>
+<p class="sub">BABA's daily closes since entry, with every stop level drawn. Only the one that was used
+was ever touched.</p>
+<div class="chartwrap"><svg viewBox="0 0 1010 340" role="img" aria-label="BABA daily closes since entry with each candidate stop level">
+<line x1="54" x2="816" y1="267.7" y2="267.7" stroke="var(--line)"/>
+<text x="46" y="271.7" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">104</text>
+<line x1="54" x2="816" y1="223.4" y2="223.4" stroke="var(--line)"/>
+<text x="46" y="227.4" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">106</text>
+<line x1="54" x2="816" y1="179.1" y2="179.1" stroke="var(--line)"/>
+<text x="46" y="183.1" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">108</text>
+<line x1="54" x2="816" y1="134.8" y2="134.8" stroke="var(--line)"/>
+<text x="46" y="138.8" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">110</text>
+<line x1="54" x2="816" y1="90.4" y2="90.4" stroke="var(--line)"/>
+<text x="46" y="94.4" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">112</text>
+<line x1="54" x2="816" y1="46.1" y2="46.1" stroke="var(--line)"/>
+<text x="46" y="50.1" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">114</text>
+<line x1="54" x2="816" y1="185.2" y2="185.2" stroke="var(--dn)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="822" y="189.2" fill="var(--dn)" font-size="10.5" font-family="var(--mono)">$107.72 · 1.38% — used</text>
+<line x1="54" x2="816" y1="272.8" y2="272.8" stroke="var(--up)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="822" y="276.8" fill="var(--up)" font-size="10.5" font-family="var(--mono)">$103.77 · 5%</text>
+<line x1="54" x2="816" y1="151.8" y2="151.8" stroke="var(--line2)" stroke-width="1"/>
+<text x="822" y="155.8" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">$109.23 · entry</text>
+<line x1="54.0" x2="54.0" y1="119.5" y2="156.9" stroke="var(--line2)" stroke-width="2"/>
+<line x1="181.0" x2="181.0" y1="125.2" y2="182.8" stroke="var(--line2)" stroke-width="2"/>
+<line x1="308.0" x2="308.0" y1="107.1" y2="150.7" stroke="var(--line2)" stroke-width="2"/>
+<line x1="435.0" x2="435.0" y1="165.1" y2="209.2" stroke="var(--line2)" stroke-width="2"/>
+<line x1="562.0" x2="562.0" y1="153.8" y2="194.3" stroke="var(--line2)" stroke-width="2"/>
+<line x1="689.0" x2="689.0" y1="51.2" y2="115.7" stroke="var(--line2)" stroke-width="2"/>
+<line x1="816.0" x2="816.0" y1="67.0" y2="67.0" stroke="var(--line2)" stroke-width="2"/>
+<polyline points="54.0,150.3 181.0,151.8 308.0,149.4 435.0,195.2 562.0,167.1 689.0,66.7 816.0,67.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="181.0" cy="151.8" r="5" fill="var(--amber)" stroke="var(--bg)" stroke-width="2"/>
+<text x="181.0" y="137.8" text-anchor="middle" fill="var(--amber)" font-size="10.5" font-family="var(--mono)" font-weight="600">BOUGHT $4.25</text>
+<circle cx="435.0" cy="195.2" r="5" fill="var(--dn)" stroke="var(--bg)" stroke-width="2"/>
+<text x="435.0" y="215.2" text-anchor="middle" fill="var(--dn)" font-size="10.5" font-family="var(--mono)" font-weight="600">CUT $3.43</text>
+<circle cx="816.0" cy="67.0" r="5" fill="var(--up)" stroke="var(--bg)" stroke-width="2"/>
+<text x="816.0" y="53.0" text-anchor="middle" fill="var(--up)" font-size="10.5" font-family="var(--mono)" font-weight="600">$6.45</text>
+<text x="54.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-11</text>
+<text x="181.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-14</text>
+<text x="308.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-15</text>
+<text x="435.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-16</text>
+<text x="562.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-17</text>
+<text x="689.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-18</text>
+<text x="816.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">now</text>
+</svg></div>
+<div class="legend">
+  <span><i style="background:var(--ink)"></i>close</span>
+  <span><i style="background:var(--dn)"></i>the stop that was used, 1.38%</span>
+  <span><i style="background:var(--up)"></i>5% and wider — never touched</span>
+</div>
+
+<h2>Five checkpoints, in order</h2>
+<p class="sub">Each one is a place the trade could have changed. The first is the one that mattered most.</p>
+
+<div class="step">
+  <div class="num">1</div>
+  <div>
+    <h3>Does a setup fire?</h3>
+    <div class="pair">
+      <div class="box did"><div class="h">What happened</div>
+        <p>BABA was 43% below its high, which is inside the Setup F band. But the <b>10 EMA was under the 30</b> and the <b>50 was under the 200</b>. Both trend conditions failed. The trade was taken anyway.</p></div>
+      <div class="box should"><div class="h">What the data says</div>
+        <p>That combination is the <b>all-trends-down</b> bucket. It reaches its target <b>39%</b> of the time against <b>71%</b> when the averages are stacked up.</p>
+        <p>No entry filter fixes it. RSI at the buy point moves the win rate from 53% to 55% across every band.</p></div>
+    </div>
+    <p class="ev"><b>The rule:</b> if no setup fires, the trade is cash. Two of the three real trades this month passed no setup, and both are the ones that hurt.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div>
+    <h3>How long does the thesis need?</h3>
+    <div class="pair">
+      <div class="box did"><div class="h">What happened</div>
+        <p><b>18 days</b> to expiry. The thesis was a recovery in a stock that had been falling for a week.</p></div>
+      <div class="box should"><div class="h">What the data says</div>
+        <p>Under 30 days, a recovery setup performs <b>worse than a random day</b> — 21 DTE is −14pp against random, 45 DTE is +33pp, 90 DTE is +51pp.</p>
+        <p>A 28-day at-the-money call has a <b>−57.6% median</b> and <b>46% go to zero</b>.</p></div>
+    </div>
+    <p class="ev"><b>The honest complication:</b> a 60-day version of this exact trade cost $9.06 and would be worth $11.05 now — <b>+22%</b> against the 18-day's +52%. The short one paid better <em>this time</em>, because it was cheaper. It also had roughly a one-in-two chance of expiring worthless. It happened to land on the right side.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">3</div>
+  <div>
+    <h3>Where does the stop go?</h3>
+    <div class="pair">
+      <div class="box did"><div class="h">What happened</div>
+        <p>Cut on a close under <b>$107.72</b>, the 20-day low. It fired on day three.</p></div>
+      <div class="box should"><div class="h">What the data says</div>
+        <p>Six independent tests in this project say tight stops make recovery trades <b>strictly worse</b>, and wider always beats tighter.</p>
+        <p>A 5% stop at $103.77 was <b>never touched</b>. Neither was 10%, 15% or 20%.</p></div>
+    </div>
+    <div class="stopbox">
+      <div class="row"><span>Entry</span><b>$109.23</b></div>
+      <div class="row"><span>Stop</span><b>$107.72</b></div>
+      <div class="row"><span>Distance</span><b>1.38%</b></div>
+      <div class="row"><span>BABA's median daily move</span><b>1.4%</b></div>
+      <div class="row"><span>Days in six months that moved further</span><b>50%</b></div>
+      <p class="verdict">The stop was nearer than a coin-flip day. It was not a stop, it was a fee.
+      I set it by anchoring to the 20-day low without checking how far away the 20-day low actually was.</p>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">4</div>
+  <div>
+    <h3>What takes you out on the way up?</h3>
+    <div class="pair">
+      <div class="box did"><div class="h">What happened</div>
+        <p>Sell at <b>$116</b>, the 30 EMA, or at +100%. Neither was reached before the stop fired.</p></div>
+      <div class="box should"><div class="h">What the data says</div>
+        <p>On 2,168 trades of this shape: selling into an <b>RSI of 60 triples the median</b> — +3.10% against +1.11% for holding — but it only fires <b>13%</b> of the time.</p>
+        <p>The 30 EMA exit fires on 87% and wins 66%, but caps every winner so hard the mean falls to +0.23%.</p></div>
+    </div>
+    <p class="ev"><b>The exit was the right shape.</b> The 30 EMA is a profit-taking level on a position you already hold, which is exactly how it was used. It never got the chance.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">5</div>
+  <div>
+    <h3>Which clock are you reading?</h3>
+    <div class="pair">
+      <div class="box did"><div class="h">What happened</div>
+        <p>The breakout looked live on a <b>15-minute chart</b> with RSI at <b>84.6</b>.</p></div>
+      <div class="box should"><div class="h">What the data says</div>
+        <p>The <b>daily</b> RSI that same moment was <b>47.6</b> — neutral, not overbought.</p>
+        <p>84.6 on a 15-minute chart is about four hours of buying. The trade had 14 days on it.</p></div>
+    </div>
+    <p class="ev"><b>The rule:</b> read the indicator on the clock the trade runs on. A 14-day option is a daily-chart instrument.</p>
+  </div>
+</div>
+
+<h2>The workflow — run this before the next one</h2>
+<p class="sub">Five questions in order. Any red answer stops the trade there.</p>
+
+<div class="flow">
+  <div class="q"><span class="tag stop">stop</span>
+    <p class="ask">Does a setup fire — all of its conditions, not most?</p>
+    <p class="thn">No: <b>the trade is cash.</b> Nine days in ten this is the answer. Setup F needs the drawdown band, 10&gt;30, 50&gt;200 <em>and</em> revenue +25%. Three of four is not a signal.</p></div>
+
+  <div class="q"><span class="tag stop">stop</span>
+    <p class="ask">Is the expiry at least 45 days out?</p>
+    <p class="thn">No: <b>do not buy it.</b> The only exception is VIX at 25 or above, and then at $200, not $600. Target 90 to 120 days.</p></div>
+
+  <div class="q"><span class="tag size">size</span>
+    <p class="ask">What is the stock's median daily move?</p>
+    <p class="thn">Any stop must be <b>at least 4× that number</b>, or there is no stop at all and the position is sized to survive instead. BABA's 1.34% day needed a stop 5%+ away, not 1.38%.</p></div>
+
+  <div class="q"><span class="tag size">size</span>
+    <p class="ask">How much of the premium is time value?</p>
+    <p class="thn">Over 50% means you are buying air. Under 25% means most of what you pay is real. Never over 8% of the stock price in premium — that was the single worst factor measured, at −33.8pp.</p></div>
+
+  <div class="q"><span class="tag go">go</span>
+    <p class="ask">Write the exit before you buy.</p>
+    <p class="thn">One target, one invalidation level, one date. If you cannot write all three in a sentence, the trade is not formed yet.</p></div>
+</div>
+
+
+<h2>What each stop would have returned</h2>
+<p class="sub">Same entry, same contract, same day. Only the stop width changes.</p>
+<div class="scroll"><table class="k">
+<thead><tr><th>stop</th><th>level</th><th>fired</th><th>call worth</th><th>profit</th><th>return</th></tr></thead>
+<tbody><tr><td>none</td><td>—</td><td><span class="dim">never touched</span></td><td>$6.45</td><td class="up">+$220</td><td class="up">+52%</td></tr>
+<tr style="background:color-mix(in srgb,var(--dn) 9%,transparent)"><td>1.38% — used</td><td>$107.72</td><td>2026-09-16</td><td>$3.43</td><td class="dn">$82</td><td class="dn">-19%</td></tr>
+<tr><td>5%</td><td>$103.77</td><td><span class="dim">never touched</span></td><td>$6.45</td><td class="up">+$220</td><td class="up">+52%</td></tr>
+<tr><td>10%</td><td>$98.31</td><td><span class="dim">never touched</span></td><td>$6.45</td><td class="up">+$220</td><td class="up">+52%</td></tr>
+<tr><td>15%</td><td>$92.85</td><td><span class="dim">never touched</span></td><td>$6.45</td><td class="up">+$220</td><td class="up">+52%</td></tr>
+<tr><td>20%</td><td>$87.38</td><td><span class="dim">never touched</span></td><td>$6.45</td><td class="up">+$220</td><td class="up">+52%</td></tr></tbody></table></div>
+<p class="ev" style="margin-top:var(--s3)"><b>Every stop of 5% or wider returns the same thing</b>, because none of
+them was ever touched. The 1.38% stop is the only row that differs, and it differs by <b>$302</b>.</p>
+
+<h2>What this one cost, and what it is worth</h2>
+<div class="scroll"><table class="k">
+<thead><tr><th>&nbsp;</th><th>then</th><th>now</th><th>difference</th></tr></thead>
+<tbody>
+<tr><td>The trade as taken</td><td>$425 in</td><td class="dim">closed $343</td><td class="dn">−$82</td></tr>
+<tr><td>Held to today</td><td>$425 in</td><td>$645</td><td class="up">+$220</td></tr>
+<tr><td>Held with a 5% stop</td><td>$425 in</td><td>$645</td><td class="up">+$220 · never stopped</td></tr>
+<tr><td>Never taken</td><td>$0</td><td>$0</td><td class="dim">—</td></tr>
+</tbody></table></div>
+
+
+<h2>The ticket — before and after</h2>
+<p class="sub">Written the way you would fill it in on a calculator. Left is what was placed.
+Right is the best contract that existed the same morning, under the same $600 cap.</p>
+
+<div class="tix">
+
+  <div class="tick was">
+    <header>
+      <div class="kind">What was placed</div>
+      <div class="name">BABA 109 Call</div>
+    </header>
+    <dl>
+      <div class="f"><dt>Symbol</dt><dd>BABA</dd></div>
+      <div class="f"><dt>Stock price at entry</dt><dd>$109.23</dd></div>
+      <div class="f"><dt>Buy or write</dt><dd>Buy</dd></div>
+      <div class="f"><dt>Option</dt><dd>2<sup>nd</sup> Oct $109 Call<small>18 days</small></dd></div>
+      <div class="f"><dt>Price per option</dt><dd>$4.25</dd></div>
+      <div class="f"><dt>Contracts</dt><dd>1 &times;100</dd></div>
+      <div class="f"><dt>Time value</dt><dd>88%<small>$3.74 of $4.25 was air</small></dd></div>
+      <div class="f"><dt>Breakeven</dt><dd>$113.25</dd></div>
+      <div class="f"><dt>Stop</dt><dd>$107.72<small>1.38% away — fired day 3</small></dd></div>
+      <div class="f"><dt>Exit</dt><dd>$116.00<small>the 30 EMA — never reached</small></dd></div>
+    </dl>
+    <p class="total"><span>Total cost</span><b>$425</b></p>
+    <p class="total"><span>Result</span><b>&minus;$82</b></p>
+  </div>
+
+  <div class="tick ideal">
+    <header>
+      <div class="kind">The perfect trade</div>
+      <div class="name">BABA 107 Call</div>
+    </header>
+    <dl>
+      <div class="f"><dt>Symbol</dt><dd>BABA</dd></div>
+      <div class="f"><dt>Stock price at entry</dt><dd>$109.23</dd></div>
+      <div class="f"><dt>Buy or write</dt><dd>Buy</dd></div>
+      <div class="f"><dt>Option</dt><dd>2<sup>nd</sup> Oct $107 Call<small>18 days</small></dd></div>
+      <div class="f"><dt>Price per option</dt><dd>$5.73</dd></div>
+      <div class="f"><dt>Contracts</dt><dd>1 &times;100</dd></div>
+      <div class="f"><dt>Time value</dt><dd>61%<small>$2.23 of $5.73 is real value you own</small></dd></div>
+      <div class="f"><dt>Breakeven</dt><dd>$112.73<small>52c closer than the one bought</small></dd></div>
+      <div class="f"><dt>Stop</dt><dd>$103.10<small>5.6% = 4&times; the 1.40% median day</small></dd></div>
+      <div class="f"><dt>Exit</dt><dd>$114.50<small>the 30 EMA, as profit not a target</small></dd></div>
+    </dl>
+    <p class="total"><span>Total cost</span><b>$573</b></p>
+    <p class="total"><span>Result</span><b>+$208</b></p>
+  </div>
+
+</div>
+
+<p class="verdictrow"><b>Two dollars of strike and one number on the stop.</b> The $107 call cost $148 more and is worth
+$137 more today, and it never would have been sold, because a 5.6% stop sits at $103.10 and BABA's lowest close since
+entry was $107.27. Same stock, same day, same direction, same $600 budget &mdash; <b>&minus;$82 against +$208</b>.
+<br><br>The strike is the smaller half of it. <b>The stop is most of the $290 gap.</b> Holding the original $109 call
+through the same 5.6% stop returns <b>+$220</b>, which is more than the perfect strike with the wrong stop would have
+managed.</p>
+
+<h2>Every contract that existed that morning</h2>
+<p class="sub">Same entry, same $600 cap, priced on 14 September and marked today. Ranked by what it is worth now.</p>
+<div class="scroll"><table class="k">
+<thead><tr><th>contract</th><th>days</th><th>cost</th><th>time value</th><th>breakeven</th><th>worth now</th><th>profit</th></tr></thead>
+<tbody>
+<tr style="background:color-mix(in srgb,var(--up) 9%,transparent)"><td><b>$107 Call, 2 Oct</b></td><td>18</td><td>$573</td><td class="up">61%</td><td>$112.73</td><td>$781</td><td class="up">+$208</td></tr>
+<tr><td>$109 Call, 2 Oct &mdash; <span class="dim">the one bought</span></td><td>18</td><td>$467</td><td class="dn">95%</td><td>$113.67</td><td>$644</td><td class="up">+$178</td></tr>
+<tr><td>$111 Call, 16 Oct</td><td>32</td><td>$530</td><td class="dn">100%</td><td>$116.30</td><td>$696</td><td class="up">+$165</td></tr>
+<tr><td>$113 Call, 30 Oct</td><td>46</td><td>$572</td><td class="dn">100%</td><td>$118.72</td><td>$730</td><td class="up">+$158</td></tr>
+<tr><td>$120 Call, 20 Nov</td><td>67</td><td>$487</td><td class="dn">100%</td><td>$124.87</td><td>$611</td><td class="up">+$124</td></tr>
+<tr><td>$125 Call, 18 Dec</td><td>95</td><td>$513</td><td class="dn">100%</td><td>$130.13</td><td>$630</td><td class="up">+$117</td></tr>
+<tr><td class="dim">5 shares</td><td class="dim">&mdash;</td><td>$546</td><td class="up">0%</td><td>$109.23</td><td>$565</td><td class="dim">+$19</td></tr>
+</tbody></table></div>
+
+<p class="ev" style="margin-top:var(--s3)"><b>The 45-day rule cost money here, and it was still right.</b>
+Every longer-dated contract made less, because BABA moved 3.5% in four days and short options capture a fast move
+best. That is what the 45-day rule gives up. What it buys is the other outcome: had BABA kept falling, the 2 October
+contracts expire worthless and the December one is still alive. The rule is a probability, not a promise, and this was
+one of the times it paid to break it.</p>
+
+<h2>The same trade, written as a ticket</h2>
+<p class="sub">Every trade in this folder gets this block. Symbol, stock price, option, price per option,
+contracts, total cost &mdash; then the three numbers that decide it: breakeven, stop, exit.</p>
+<div class="scroll"><table class="k">
+<thead><tr><th>field</th><th>what was placed</th><th>perfect</th></tr></thead>
+<tbody>
+<tr><td>Symbol</td><td>BABA</td><td>BABA</td></tr>
+<tr><td>Stock at entry</td><td>$109.23</td><td>$109.23</td></tr>
+<tr><td>Option</td><td>2 Oct $109 Call</td><td class="up">2 Oct $107 Call</td></tr>
+<tr><td>Days to expiry</td><td>18</td><td>18</td></tr>
+<tr><td>Price per option</td><td>$4.25</td><td>$5.73</td></tr>
+<tr><td>Contracts</td><td>1 &times;100</td><td>1 &times;100</td></tr>
+<tr><td>Total cost</td><td>$425</td><td>$573</td></tr>
+<tr><td>Time value</td><td class="dn">88%</td><td class="up">61%</td></tr>
+<tr><td>Breakeven</td><td>$113.25</td><td class="up">$112.73</td></tr>
+<tr><td>Stop</td><td class="dn">$107.72 &middot; 1.38%</td><td class="up">$103.10 &middot; 5.6%</td></tr>
+<tr><td>Exit</td><td>$116.00</td><td>$114.50</td></tr>
+<tr><td>Result today</td><td class="dn">&minus;$82</td><td class="up">+$208</td></tr>
+</tbody></table></div>
+
+<p class="close"><b>The order of the lessons matters.</b> The stop being four times too tight cost $290 on this one trade, and it is the easiest thing to fix — it is arithmetic, not judgment.
+But the trade that never should have been taken is the one that repeats. BABA hit 39%-odds by construction, and the only reason this post-mortem has a happy counterfactual is that the coin landed the right way.
+<br><br>The workflow above exists so the next one is decided at checkpoint one, where it is free, instead of at checkpoint three, where it costs.</p>
+
+</div>

@@ -231,6 +231,26 @@ details[open] summary::after{content:'−'}
 .lbtop{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3)}
 .lbtop .dim{font-size:var(--t-label);line-height:1.5}
 
+/* trades taken with real money */
+.taken{margin-top:var(--s4)}
+.tk{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s2) var(--s4);align-items:baseline;
+ padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.tk:last-child{border-bottom:none}
+.tk .sym{font:600 var(--t-h2)/1 var(--serif)}
+.tk .mid{min-width:0}
+.tk .con{font-size:var(--t-data);color:var(--ink);font-weight:500}
+.tk .dates{font-size:var(--t-label);color:var(--dim);margin-top:2px}
+.tk .lesson{grid-column:2/4;font-size:var(--t-data);color:var(--ink2);line-height:1.65;max-width:72ch;margin-top:var(--s1)}
+.tk .lesson a{color:var(--amber)}
+.tk .pl{text-align:right;white-space:nowrap}
+.tk .pl b{display:block;font:600 var(--t-h2)/1 var(--serif);font-variant-numeric:tabular-nums}
+.tk .pl small{display:block;font-size:var(--t-label);color:var(--dim);margin-top:2px}
+.tkfoot{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin-top:var(--s3);
+ padding-top:var(--s3);border-top:1px solid var(--line2);font-size:var(--t-data);color:var(--ink2)}
+.tkfoot b{color:var(--ink)}
+@media(max-width:720px){.tk{grid-template-columns:1fr auto}.tk .sym{grid-column:1}.tk .mid{grid-column:1}
+ .tk .pl{grid-row:1/3;grid-column:2}.tk .lesson{grid-column:1/3}}
+
 footer{margin-top:44px;padding-top:var(--s3);border-top:1px solid var(--line);font-size:var(--t-data);color:var(--dim)}
 .err{color:var(--dn);font-size:var(--t-data);margin-top:var(--s2)}
 </style>
@@ -389,7 +409,8 @@ function renderTrades(d){
     head('▶','Open','Marked to market. Shares: when price reaches the target a floor is set there; the trade closes only if it falls back to the floor, or at 252 sessions. Calls: a real quote where one is available, else Black-Scholes; close at expiry.')+
     tbl(o,openCols,'no open trades')+
     head('■','Closed — wins','')+tbl(wins,closedCols,'no wins yet')+
-    head('■','Closed — losses','')+tbl(losses,closedCols,'no losses yet');
+    head('■','Closed — losses','')+tbl(losses,closedCols,'no losses yet')+
+    renderTaken(d);
   $('#n-trades').textContent=o.length;
 }
 
@@ -480,6 +501,24 @@ function renderSectors(d){
     tr.addEventListener('click',()=>toggle(tr));
     tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(tr);}});
   });
+}
+
+function renderTaken(d){
+  const T=d.taken||[];
+  if(!T.length) return '';
+  const w=T.filter(t=>t.pl>0).length, tot=T.reduce((s,t)=>s+t.pl,0);
+  return '<div class="taken">'+
+    head('■','Trades taken with real money','Every one of these passed no setup. Both outcomes came from the exit, not the entry. Each closed trade gets a post-mortem with the same five checkpoints.')+
+    T.map(t=>`<div class="tk">
+      <span class="sym">${esc(t.sym)}</span>
+      <span class="mid"><span class="con">${t.n} &times; ${esc(t.contract)} @ $${t.paid.toFixed(2)} &middot; $${t.cost}</span>
+        <span class="dates">${esc(t.opened)} → ${esc(t.closed)} &middot; exit $${t.exit.toFixed(2)} &middot; setup ${t.setup?esc(t.setup):'none'}</span></span>
+      <span class="pl"><b class="${t.pl>0?'up':'dn'}">${t.pl>0?'+':'−'}$${Math.abs(t.pl)}</b><small>${t.pct>0?'+':''}${t.pct}%</small></span>
+      <span class="lesson">${esc(t.lesson)}${t.link?` <a href="${esc(t.link)}">Read the post-mortem →</a>`:''}</span>
+    </div>`).join('')+
+    `<div class="tkfoot"><span><b>${T.length}</b> closed</span><span><b>${w}</b> won</span>`+
+    `<span>net <b class="${tot>0?'up':'dn'}">${tot>0?'+':'−'}$${Math.abs(tot)}</b></span>`+
+    `<span><b>0</b> passed a setup</span></div></div>`;
 }
 
 function renderRules(d){

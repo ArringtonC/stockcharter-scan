@@ -229,7 +229,7 @@ def scan():
                 vix=vnow, vix5=vc[-5:], vix_hi10=max(vc[-11:]), qqq=qc[-1],
                 qdd=(qc[-1] / max(qc[-126:]) - 1) * 100, regime=regime, advice=advice,
                 peaked=peaked, falling=falling, vix_fires=peaked and falling,
-                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors(), today=today_trades())
+                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors(), today=today_trades(), taken=TAKEN)
 
 
 def _ncdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
@@ -407,6 +407,21 @@ def sectors():
 
 # Trades of the day — the four Arrington asked to track on 2026-09-17, in his format.
 # cost/breakeven/target are fixed at entry; `now` and `profit` are marked each scan.
+# Trades actually taken with real money, closed. Each links to its post-mortem.
+# The lesson column is the one sentence worth carrying forward.
+TAKEN = [
+    dict(sym="PYPL", contract="53 Call 9/25", n=2, paid=1.66, cost=332,
+         opened="2026-09-10", closed="2026-09-11", exit=1.91,
+         pl=50, pct=15.1, setup=None,
+         lesson="Cut early on a trade with no setup behind it. The exit was the reason it won.",
+         link=None),
+    dict(sym="BABA", contract="109 Call 10/2", n=1, paid=4.25, cost=425,
+         opened="2026-09-14", closed="2026-09-16", exit=3.43,
+         pl=-82, pct=-19.3, setup=None,
+         lesson="Stop was 1.38% from entry against a 1.40% median day. A 5% stop was never touched and returns +$220.",
+         link="trades/2026-09-14-BABA-109C.html"),
+]
+
 TODAY = [
     dict(sym="SG",   kind="call",   strike=3,   expiry="2028-01-21", prem=4.60, n=1,
          target=17.60, odds=None,
