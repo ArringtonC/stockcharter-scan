@@ -171,11 +171,7 @@
   "vix": 14.8100004196167,
   "regime": "CALM",
   "vix_fires": false,
-  "F": [
-   "NOW",
-   "BE",
-   "HOOD"
-  ],
+  "F": [],
   "D": [
    "MU",
    "META",

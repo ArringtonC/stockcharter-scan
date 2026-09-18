@@ -1,6 +1,6 @@
 {
  "date": "2026-09-18",
- "stamp": "2026-09-18 23:19 UTC",
+ "stamp": "2026-09-18 23:58 UTC",
  "vix": 14.8100004196167,
  "vix5": [
   17.100000381469727,
@@ -17,32 +17,7 @@
  "peaked": false,
  "falling": true,
  "vix_fires": false,
- "F": [
-  {
-   "sym": "NOW",
-   "px": 135.47000122070312,
-   "dd": 30.43044962439162,
-   "tgt": 194.7259979248047,
-   "up": 43.74104685181459,
-   "rev": 29.36572199730094
-  },
-  {
-   "sym": "BE",
-   "px": 265.6300048828125,
-   "dd": 24.382257513698292,
-   "tgt": 351.2799987792969,
-   "up": 32.24409604414622,
-   "rev": 53.43903353378423
-  },
-  {
-   "sym": "HOOD",
-   "px": 119.81999969482422,
-   "dd": 22.124009346479333,
-   "tgt": 153.86000061035156,
-   "up": 28.40928142399064,
-   "rev": 61.9413407821229
-  }
- ],
+ "F": [],
  "D": [
   {
    "sym": "MU",
@@ -151,7 +126,7 @@
    "px": 177.72000122070312,
    "dd": 31.62511848280023,
    "up": 46.25253862391687,
-   "why": "revenue +4%"
+   "why": "no SEC data"
   },
   {
    "sym": "SPOT",
@@ -166,6 +141,13 @@
    "dd": 30.954097048764883,
    "up": 44.83118581362713,
    "why": "trend broken"
+  },
+  {
+   "sym": "NOW",
+   "px": 135.47000122070312,
+   "dd": 30.43044962439162,
+   "up": 43.74104685181459,
+   "why": "no SEC data"
   },
   {
    "sym": "SHOP",
@@ -196,11 +178,18 @@
    "why": "trend broken"
   },
   {
+   "sym": "BE",
+   "px": 265.6300048828125,
+   "dd": 24.382257513698292,
+   "up": 32.24409604414622,
+   "why": "no SEC data"
+  },
+  {
    "sym": "INTC",
    "px": 108.5999984741211,
    "dd": 23.709171887812797,
    "up": 31.077355528174344,
-   "why": "revenue +9%"
+   "why": "no SEC data"
   },
   {
    "sym": "HAL",
@@ -214,21 +203,28 @@
    "px": 193.8699951171875,
    "dd": 22.405447115792743,
    "up": 28.875025736958527,
-   "why": "revenue +18%"
+   "why": "no SEC data"
+  },
+  {
+   "sym": "HOOD",
+   "px": 119.81999969482422,
+   "dd": 22.124009346479333,
+   "up": 28.40928142399064,
+   "why": "no SEC data"
   },
   {
    "sym": "U",
    "px": 41.400001525878906,
    "dd": 20.61361397020367,
    "up": 25.966182617844204,
-   "why": "revenue +10%"
+   "why": "no SEC data"
   },
   {
    "sym": "DOCU",
    "px": 69.06999969482422,
    "dd": 20.28851877839176,
    "up": 25.45244231754651,
-   "why": "revenue +12%"
+   "why": "no SEC data"
   },
   {
    "sym": "TXN",
@@ -1567,14 +1563,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 22.210696879948433,
+   "pl_pct": 24.952344643537927,
    "note": "",
-   "now": 32.05586579161047,
+   "now": 32.775,
    "spot": 69.06999969482422,
    "intrinsic": 31.56999969482422,
    "dte": 119,
    "sessions": 9,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-04-DOCU-small",
@@ -1591,14 +1587,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 31.916278712310554,
+   "pl_pct": 30.840163934426236,
    "note": "",
-   "now": 6.437514401160755,
+   "now": 6.385,
    "spot": 69.06999969482422,
    "intrinsic": 4.069999694824219,
    "dte": 28,
    "sessions": 9,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-04-WDAY-big",
@@ -1615,14 +1611,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -10.005858023213365,
+   "pl_pct": -12.298546895640694,
    "note": "",
-   "now": 34.06278273821374,
+   "now": 33.195,
    "spot": 193.8699951171875,
    "intrinsic": 23.8699951171875,
    "dte": 91,
    "sessions": 9,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-04-SHOP-big",
@@ -1639,14 +1635,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -61.75219084176427,
+   "pl_pct": -64.51843895452917,
    "note": "",
-   "now": 10.682613097895242,
+   "now": 9.91,
    "spot": 128.5,
    "intrinsic": 8.5,
    "dte": 14,
    "sessions": 9,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-11-QCOM-sh",
@@ -1686,14 +1682,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 60.44108110089843,
+   "pl_pct": 53.64705882352943,
    "note": "REAL. 1x 109C 10/2 at $4.25. Fails the F trend filter (10<30, 50<200), 88% time value, 18 DTE. Plan: sell at $116 (30 EMA) or +100%; cut on a close under $107.72; out by 09-29 unless past $113.25.",
-   "now": 6.818745946788184,
+   "now": 6.53,
    "spot": 113.23999786376953,
    "intrinsic": 4.239997863769531,
    "dte": 14,
    "sessions": 4,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-16-NOW",
@@ -1733,14 +1729,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -25.27936450309761,
+   "pl_pct": -29.32773109243697,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
-   "now": 4.445877812065692,
+   "now": 4.205,
    "spot": 135.47000122070312,
    "intrinsic": 0.0,
    "dte": 91,
    "sessions": 2,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-17-NOW-170c",
@@ -1757,14 +1753,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -25.359885287651508,
+   "pl_pct": -26.3771186440678,
    "note": "Stock $140.01. Setup F, 50/200 cross held through the Fed. $170C Nov-20, 100% time value, needs +32%. Target = +$1,000 on one contract.",
-   "now": 3.5230134144228487,
+   "now": 3.4749999999999996,
    "spot": 135.47000122070312,
    "intrinsic": 0.0,
    "dte": 63,
    "sessions": 1,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-17-QCOM-240c",
@@ -1781,14 +1777,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -44.475035443519786,
+   "pl_pct": -45.56451612903226,
    "note": "Stock $190.62. Setup C fired 09-15, breadth fails, revenue +4% fails F. Up 12.6% in ten sessions \u2014 the chase. $240C Nov-20, needs +33%. Target = +$1,000.",
-   "now": 2.065528681501064,
+   "now": 2.025,
    "spot": 177.72000122070312,
    "intrinsic": 0.0,
    "dte": 63,
    "sessions": 1,
-   "mark": "iv"
+   "mark": "alpaca"
   }
  ],
  "closed": [
@@ -1932,11 +1928,7 @@
     "vix": 14.8100004196167,
     "regime": "CALM",
     "vix_fires": false,
-    "F": [
-     "NOW",
-     "BE",
-     "HOOD"
-    ],
+    "F": [],
     "D": [
      "MU",
      "META",
@@ -1976,26 +1968,26 @@
    }
   ],
   "by_setup": {
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -24.375655346015524
+   },
    "E": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 7,
-    "open_mean": -4.6948997617254475
+    "open_mean": -5.179671761652171
    },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 7,
-    "open_mean": -8.489677752885498
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -23.830915003259285
+    "open_mean": -9.21333488799345
    },
    "D": {
     "wins": 0,
@@ -2009,7 +2001,7 @@
     "losses": 0,
     "closed_mean": 15.1,
     "open_n": 1,
-    "open_mean": 60.44108110089843
+    "open_mean": 53.64705882352943
    }
   },
   "produced": [
@@ -2330,16 +2322,6 @@
    },
    {
     "date": "2026-09-18",
-    "sym": "BE",
-    "setup": "F"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "HOOD",
-    "setup": "F"
-   },
-   {
-    "date": "2026-09-18",
     "sym": "HPQ",
     "setup": "D"
    },
@@ -2367,11 +2349,6 @@
     "date": "2026-09-18",
     "sym": "NFLX",
     "setup": "S"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "NOW",
-    "setup": "F"
    },
    {
     "date": "2026-09-18",
