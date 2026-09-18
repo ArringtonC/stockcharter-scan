@@ -168,19 +168,18 @@
  },
  {
   "date": "2026-09-18",
-  "vix": 15.460000038146973,
+  "vix": 14.989999771118164,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
    "NOW",
-   "BE",
    "HOOD",
-   "MU"
+   "BE"
   ],
   "D": [
-   "DOCU",
-   "PLTR",
+   "MU",
    "META",
+   "PLTR",
    "GOOGL",
    "MRNA",
    "AMD",
