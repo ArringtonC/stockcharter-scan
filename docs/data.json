@@ -1,6 +1,6 @@
 {
  "date": "2026-09-18",
- "stamp": "2026-09-18 23:17 UTC",
+ "stamp": "2026-09-18 23:19 UTC",
  "vix": 14.8100004196167,
  "vix5": [
   17.100000381469727,
@@ -1976,26 +1976,12 @@
    }
   ],
   "by_setup": {
-   "D": {
+   "E": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -4.7549778560649845
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -23.830915003259285
-   },
-   "none": {
-    "wins": 1,
-    "losses": 0,
-    "closed_mean": 15.1,
-    "open_n": 1,
-    "open_mean": 60.44108110089843
+    "open_n": 7,
+    "open_mean": -4.6948997617254475
    },
    "F": {
     "wins": 0,
@@ -2004,12 +1990,26 @@
     "open_n": 7,
     "open_mean": -8.489677752885498
    },
-   "E": {
+   "C": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -4.6948997617254475
+    "open_n": 2,
+    "open_mean": -23.830915003259285
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -4.7549778560649845
+   },
+   "none": {
+    "wins": 1,
+    "losses": 0,
+    "closed_mean": 15.1,
+    "open_n": 1,
+    "open_mean": 60.44108110089843
    }
   },
   "produced": [
