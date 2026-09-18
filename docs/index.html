@@ -251,6 +251,17 @@ details[open] summary::after{content:'−'}
 @media(max-width:720px){.tk{grid-template-columns:1fr auto}.tk .sym{grid-column:1}.tk .mid{grid-column:1}
  .tk .pl{grid-row:1/3;grid-column:2}.tk .lesson{grid-column:1/3}}
 
+/* weekly cross watchlist */
+.wk{margin-top:var(--s4)}
+.wk table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.wk th{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line)}
+.wk th:first-child,.wk td:first-child{text-align:left}
+.wk td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.wk tr:last-child td{border-bottom:none}
+.wk tr.x td{background:color-mix(in srgb,var(--amber) 7%,transparent)}
+.wk .st{font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase}
+
 footer{margin-top:44px;padding-top:var(--s3);border-top:1px solid var(--line);font-size:var(--t-data);color:var(--dim)}
 .err{color:var(--dn);font-size:var(--t-data);margin-top:var(--s2)}
 </style>
@@ -341,6 +352,23 @@ function renderToday(d){
     </tr>`).join('')+'</tbody></table></div>';
 }
 
+function renderWeekly(d){
+  const W=d.weekly||[]; if(!W.length) return '';
+  return '<div class="wk">'+
+    head('W','Weekly 10/30 cross','<b>Watchlist only.</b> Tested 2026-09-18: +2.27pp raw at 13 weeks, <b>+0.49pp once the top five names come out, p=0.363</b>. It is here because it is the best-behaved EMA cross we have — the daily version of the same signal is −0.97pp at p=0.991. Weekly beats daily by 3.2 points and still does not clear the bar.')+
+    '<table><thead><tr><th>sym</th><th>state</th><th>price</th><th>10 v 30</th><th>below high</th><th>30 EMA</th><th>F band</th></tr></thead><tbody>'+
+    W.map(r=>`<tr class="${r.state==='crossed'?'x':''}">
+      <td><b>${esc(r.sym)}</b></td>
+      <td class="st ${r.state==='crossed'?'up':'dim'}">${r.state==='crossed'?'crossed':'near'}</td>
+      <td>${f2(r.px)}</td>
+      <td class="${r.gap>0?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>
+      <td>${r.dd.toFixed(1)}%</td>
+      <td class="${r.up?'up':'dn'}">${r.up?'rising':'falling'}</td>
+      <td class="${r.band?'up':'dim'}">${r.band?'yes':'—'}</td>
+    </tr>`).join('')+'</tbody></table>'+
+    '<p class="note">A cross with the 30 EMA still <b>falling</b> is the weak version — that is the SG picture. The strongest cell in the test was a cross plus a rising 30 EMA plus the 20–45% band, at 80% win on 54 signals, which is too few to trade.</p></div>';
+}
+
 function renderScan(d){
   const vixBlock=d.vix_fires
     ?`<div class="fire">SETUP VIX FIRES — buy an ATM QQQ call, ~30 DTE, $1,000, hold 21 sessions. QQQ ${f2(d.qqq)}, strike ≈ ${Math.round(d.qqq)}</div>`
@@ -364,6 +392,7 @@ function renderScan(d){
     tbl(d.S,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['20d low',r=>f2(r.lo20)],['below',r=>`<span class="dn">${r.below.toFixed(1)}%</span>`]])+
     `<details><summary><span class="k" style="background:var(--line);color:var(--ink2)">×</span><span class="t">In the F price band, but blocked</span><span class="g">${d.blocked.length} names · they hit 39% vs 71% for passers</span></summary><div class="body">`+
     tbl(d.blocked,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['upside',r=>'+'+r.up.toFixed(1)+'%'],['why',r=>esc(r.why)]])+
+    renderWeekly(d)+
     `</div></details>`+
     
     (d.errors.length?`<p class="err">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>e.split(':')[0]).join(', '))}</p>`:'');

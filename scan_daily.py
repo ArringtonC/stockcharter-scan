@@ -229,7 +229,7 @@ def scan():
                 vix=vnow, vix5=vc[-5:], vix_hi10=max(vc[-11:]), qqq=qc[-1],
                 qdd=(qc[-1] / max(qc[-126:]) - 1) * 100, regime=regime, advice=advice,
                 peaked=peaked, falling=falling, vix_fires=peaked and falling,
-                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors(), today=today_trades(), taken=TAKEN)
+                F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors(), today=today_trades(), taken=TAKEN, weekly=weekly_cross())
 
 
 def _ncdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
@@ -468,6 +468,34 @@ def today_trades():
                         profit=val - cost, ret=(val / cost - 1) * 100 if cost else 0,
                         move=(t["target"] / spot - 1) * 100,
                         strike=t["strike"], expiry=t["expiry"], n=t["n"], prem=t["prem"]))
+    return out
+
+
+def weekly_cross():
+    """Weekly 10/30 EMA cross. WATCHLIST ONLY — tested 2026-09-18 and it does not pass:
+    +2.27pp raw at 13 weeks but +0.49pp ex-top-5, p=0.363. It is kept because it is by far
+    the best-behaved member of the EMA-cross family: the DAILY version of the same signal
+    is -0.97pp and p=0.991. Weekly beats daily by 3.2pp. That is worth watching, not trading."""
+    out = []
+    for sym in UNIVERSE:
+        try:
+            d = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=5y&interval=1wk")
+            q = d["chart"]["result"][0]["indicators"]["quote"][0]
+            rows = [(c, h) for c, h in zip(q["close"], q["high"]) if c and h]
+            if len(rows) < 60: continue
+            c = [x[0] for x in rows]; h = [x[1] for x in rows]
+            e10, e30 = ema(c, 10), ema(c, 30); i = len(c) - 1
+            hi = max(h[-52:]); dd = (1 - c[i] / hi) * 100
+            gap = (e10[i] - e30[i]) / c[i] * 100
+            state = ("crossed" if (e10[i] > e30[i] and e10[i-4] <= e30[i-4])
+                     else "near" if -6 < gap < 0 else None)
+            if not state: continue
+            out.append(dict(sym=sym, px=c[i], gap=gap, dd=dd, hi=hi,
+                            up=(e30[i] > e30[i-4]), state=state,
+                            band=(20 <= dd <= 45)))
+        except Exception:
+            continue
+    out.sort(key=lambda r: (r["state"] != "crossed", -r["gap"]))
     return out
 
 
