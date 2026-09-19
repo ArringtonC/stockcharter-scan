@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Today — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── KEPT VERBATIM FROM index.html. No new design language was invented. ───── */
+:root{
+  --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --serif:'Fraunces',Georgia,serif;
+  --s1:6px; --s2:10px; --s3:16px; --s4:24px; --s5:36px; --s6:56px;
+  --t-hero:76px; --t-h1:30px; --t-h2:19px; --t-body:14px; --t-data:12.5px; --t-label:10.5px; --tr:.12em;
+}
+/* CHANGED: the light palette was behind a bare media query, so an explicit light
+   choice could never win over a dark OS. Same colors, three states now. */
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){
+  --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
+  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
+  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
+:root[data-theme=light]{
+  --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
+  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
+  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}
+:root[data-theme=dark]{
+  --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;}
+
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font:var(--t-body)/1.6 var(--mono);background:var(--bg)}
+h1,h2,h3{text-wrap:balance}
+
+/* ── review chrome. Not part of the page being proposed. ───────────────────── */
+.chrome{position:sticky;top:0;z-index:20;background:var(--bg2);border-bottom:1px solid var(--line2)}
+.chrome .in{max-width:1180px;margin:0 auto;padding:var(--s2) 18px;display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center}
+.chrome .ttl{font:600 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--amber)}
+.chrome .sp{flex:1}
+.seg{display:flex;border:1px solid var(--line2);border-radius:5px;overflow:hidden}
+.seg button{appearance:none;background:none;border:0;color:var(--dim);cursor:pointer;
+  font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;padding:7px 11px}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button[aria-pressed=true]{background:var(--amber);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--amber2);outline-offset:-2px}
+.lg{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+
+.stage{max-width:1180px;margin:0 auto;padding:var(--s4) 18px 96px}
+.pane{border:1px solid var(--line);border-radius:6px;background:var(--bg);overflow:hidden;margin-bottom:var(--s5)}
+.pane>figcaption{display:flex;align-items:baseline;gap:var(--s3);padding:var(--s2) var(--s3);
+  background:var(--bg2);border-bottom:1px solid var(--line);
+  font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.pane>figcaption b{color:var(--ink)}
+.pane iframe{display:block;width:100%;height:760px;border:0;background:var(--bg)}
+.frame{margin:0 auto;transition:max-width .3s cubic-bezier(.2,.8,.2,1)}
+body[data-w=phone] .frame{max-width:390px}
+.synth{background:var(--dn);color:#fff;padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:.08em}
+
+/* ── THE PROPOSED TODAY PAGE ───────────────────────────────────────────────── */
+.today{padding:var(--s4) var(--s4) var(--s5)}
+@media(max-width:720px){.today{padding:var(--s3) var(--s3) var(--s4)}}
+
+/* masthead — CHANGED: admin control removed, identity only */
+.tmast{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
+  border-bottom:1px solid var(--line2);padding-bottom:var(--s2)}
+.tmast h1{font:300 var(--t-h2)/1 var(--serif);margin:0;letter-spacing:-.01em}
+.tmast h1 b{font-weight:700;color:var(--amber)}
+.tmast .when{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tmast .when.stale{color:var(--dn)}
+
+/* verdict hero — the whole point of the redesign */
+.verdict{padding:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line)}
+.verdict .eyebrow{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-bottom:var(--s2)}
+.verdict p.say{font:300 clamp(30px,5.2vw,46px)/1.12 var(--serif);letter-spacing:-.02em;margin:0;max-width:20ch;color:var(--ink)}
+.verdict p.say b{font-weight:600;color:var(--amber)}
+.verdict p.say.fires b{color:var(--up)}
+.verdict .sub{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:60ch}
+.verdict .sub b{color:var(--ink);font-weight:500}
+
+/* market context — CHANGED: was a 76px hero, now one quiet strip */
+.ctx{display:flex;flex-wrap:wrap;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.ctx div{display:flex;flex-direction:column;gap:2px}
+.ctx .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.ctx .v{font:600 var(--t-h2)/1 var(--serif);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ctx .v small{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--ink2);margin-left:var(--s1)}
+.ctx .warn{margin:var(--s2) 0 0;width:100%;font-size:var(--t-data);color:var(--ink2)}
+
+/* sections */
+.sec{padding-top:var(--s5)}
+.sec>h2{font:600 var(--t-h2)/1.2 var(--serif);margin:0 0 var(--s1);letter-spacing:-.01em;
+  display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
+.sec>h2 .tag{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:3px;padding:2px 7px;color:var(--ink2)}
+.sec>h2 .tag.trade{color:var(--amber);border-color:var(--amber)}
+.sec>h2 .tag.watch{color:var(--dim)}
+.sec>p.lede{margin:0 0 var(--s3);font-size:var(--t-data);color:var(--dim);max-width:72ch}
+.empty{font-size:var(--t-data);color:var(--dim);padding:var(--s2) 0}
+
+/* rows — LAYOUT rule: thin rules, not filled cards */
+.row{display:grid;grid-template-columns:5.5rem minmax(0,1fr) auto;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row .sym{font:600 var(--t-body) var(--mono);color:var(--ink);letter-spacing:.02em}
+.row .sym small{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);font-weight:500;margin-top:2px}
+.row .main{min-width:0}
+.row .main .t{font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.row .main .miss{margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2)}
+.row .main .miss b{color:var(--dn);font-weight:500}
+.row .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.row .num .big{font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
+.row .num .u{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-top:3px}
+.row .num .up{color:var(--up)}.row .num .dn{color:var(--dn)}
+@media(max-width:560px){
+  .row{grid-template-columns:1fr auto}
+  .row .sym{grid-column:1}
+  .row .num{grid-column:2;grid-row:1}
+  .row .main{grid-column:1/-1}
+}
+
+/* disclosure — CHANGED: empty setup detail collapses instead of filling the page */
+.deep{margin-top:var(--s5);border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.deep summary{cursor:pointer;list-style:none;padding:var(--s3);display:flex;align-items:center;gap:var(--s2);
+  font:500 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--ink2)}
+.deep summary::-webkit-details-marker{display:none}
+.deep summary::after{content:'+';margin-left:auto;color:var(--dim);font-size:var(--t-h2);line-height:1}
+.deep[open] summary::after{content:'−'}
+.deep summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.deep .in{padding:0 var(--s3) var(--s3)}
+.chk{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s2) var(--s3);align-items:baseline;
+  padding:var(--s2) 0;border-top:1px solid var(--line)}
+.chk .k{font:700 var(--t-label) var(--mono);letter-spacing:var(--tr);color:var(--dim);
+  border:1px solid var(--line2);border-radius:3px;padding:2px 6px;min-width:2.1rem;text-align:center}
+.chk .d{font-size:var(--t-data);color:var(--ink2);min-width:0}
+.chk .r{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;white-space:nowrap}
+.chk .r.no{color:var(--dim)}.chk .r.yes{color:var(--up)}
+
+/* skeleton + error states */
+.sk{background:var(--line);border-radius:4px;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:.85}}
+.err{border:1px solid var(--dn);border-radius:6px;padding:var(--s3);color:var(--dn);font-size:var(--t-data);background:var(--panel)}
+.stalebar{border:1px solid var(--dn);border-left-width:3px;border-radius:5px;padding:var(--s2) var(--s3);
+  margin-bottom:var(--s3);font-size:var(--t-data);color:var(--ink2);background:var(--panel)}
+.stalebar b{color:var(--dn)}
+.foot{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line);
+  font-size:var(--t-label);line-height:1.7;color:var(--dim)}
+
+/* keep/change ledger */
+.kc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-bottom:var(--s5)}
+@media(max-width:720px){.kc{grid-template-columns:1fr}}
+.kc section{border-top:2px solid var(--line2);padding-top:var(--s3)}
+.kc section.keep{border-top-color:var(--up)}
+.kc section.chg{border-top-color:var(--amber)}
+.kc h3{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;margin:0 0 var(--s2)}
+.kc section.keep h3{color:var(--up)}
+.kc section.chg h3{color:var(--amber)}
+.kc ul{margin:0;padding-left:1.1em;font-size:var(--t-data);color:var(--ink2)}
+.kc li{margin:var(--s1) 0}
+.kc li b{color:var(--ink);font-weight:500}
+.gate{border:1px solid var(--line2);border-radius:6px;padding:var(--s3);background:var(--panel);margin-bottom:var(--s5)}
+.gate h3{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--amber);margin:0 0 var(--s2)}
+.gate p{margin:0;font-size:var(--t-data);color:var(--ink2);max-width:70ch}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-w="wide">
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 1 of 8 · Today</span>
+  <span class="sp"></span>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="quiet" aria-pressed="false">quiet</button>
+    <button data-s="near" aria-pressed="false">near</button>
+    <button data-s="fired" aria-pressed="false">fired</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="stale" aria-pressed="false">stale</button>
+    <button data-s="error" aria-pressed="false">error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <figure class="pane">
+    <figcaption><b>Before</b> · the current Scan page, live</figcaption>
+    <div class="frame"><iframe src="../index.html" title="Current Ledger scan page" loading="lazy"></iframe></div>
+  </figure>
+
+  <figure class="pane">
+    <figcaption><b>Proposed after</b> · Today <span id="statelabel"></span></figcaption>
+    <div class="frame"><div id="after" class="today"></div></div>
+  </figure>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>"Most days nothing fires, and that is the point."</b> It is now the hero instead of a subtitle.</li>
+        <li><b>Signal truth.</b> The count still means only what can actually be traded today.</li>
+        <li><b>Market regime context.</b> VIX, its 5-day path, QQQ and its drawdown all survive.</li>
+        <li><b>Setup integrity.</b> No setup definition, threshold or calculation was touched.</li>
+        <li><b>Research-terminal identity.</b> Same serif, same mono, same palette, same tokens, same spacing scale.</li>
+        <li><b>Trades of the day</b> renders unchanged, above everything else.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>The verdict is the hero.</b> A plain sentence in serif answers the day before any number appears.</li>
+        <li><b>VIX shrinks</b> from a 76px hero to one value in a context strip. It is input, not answer.</li>
+        <li><b>Empty setups collapse.</b> Four headed sections with "none today" became one disclosure that states the count.</li>
+        <li><b>Getting close</b> is a real section. Each name says <b>which condition is missing</b>, read from the scanner's own <code>why</code> field.</li>
+        <li><b>Watching</b> separates watchlist-only research from signals, and is labelled as such.</li>
+        <li><b>Run scan now</b> leaves the masthead. It belongs to System, page 8.</li>
+        <li><b>Light mode is fixed.</b> The palette was behind a bare media query, so an explicit light choice lost to a dark OS.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>Today is the reference screen. Nothing spreads to Trades, Watching, Research or System until this
+    page is approved. Use the state switcher above to review all seven required states, then reply with
+    <b>approved</b>, or with the changes you want.</p>
+  </div>
+
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f2=x=>Number(x).toFixed(2);
+const money=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
+
+let LIVE=null, STATE='live';
+
+/* Trades of the day — KEPT. Identical output to index.html renderToday. */
+function todayTrades(d){
+  const T=d.today||[]; if(!T.length) return '';
+  return `<div class="sec"><h2>Trades of the day <span class="tag trade">written, not generated</span></h2>
+    <p class="lede">Cost, breakeven, target and max loss were fixed when the trade was written. Stock price is live.
+    Only rows showing odds have a tested hit rate.</p>`+
+    T.map(r=>`<div class="row">
+      <div class="sym">${esc(r.sym)}<small>${r.kind==='call'?'call':'shares'}</small></div>
+      <div class="main"><div class="t">${esc(r.plain)}</div>
+        <div class="miss">${esc(r.why)}</div>
+        <div class="miss"><b style="color:var(--ink2)">Exit</b> ${esc(r.exit)}</div></div>
+      <div class="num"><span class="big">${money(r.now)}</span>
+        <span class="u">now · ${n0(r.cost)} to open</span>
+        <span class="u up">+${n0(r.profit)} if it works</span></div>
+    </div>`).join('')+`</div>`;
+}
+
+function fired(d){
+  const out=[];
+  if(d.vix_fires) out.push({sym:'QQQ',t:`Setup VIX fires. Buy an at-the-money QQQ call, about 30 days out, $1,000. Hold 21 sessions.`,num:f2(d.qqq),u:'QQQ now'});
+  (d.F||[]).forEach(r=>out.push({sym:r.sym,t:`Setup F fires. Target ${money(r.tgt)}, the prior high. No stop.`,num:f2(r.px),u:`+${r.up.toFixed(1)}% to target`}));
+  if(d.vix>=25)(d.S||[]).forEach(r=>out.push({sym:r.sym,t:`Setup S fires. Closed under its 20-day low with the 50 EMA under the 200.`,num:f2(r.px),u:`${r.below.toFixed(1)}% below`}));
+  return out;
+}
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when">loading…</span></div>
+      <div class="verdict"><div class="eyebrow">the verdict</div>
+        <div class="sk" style="height:46px;width:min(20ch,90%)"></div>
+        <div class="sk" style="height:14px;width:min(52ch,95%);margin-top:20px"></div></div>
+      <div class="ctx">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:19px;width:70px"></div></div>'.repeat(3)}</div>`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when stale">no data</span></div>
+      <div class="verdict"><div class="eyebrow">the verdict</div>
+        <p class="say">Today is <b style="color:var(--dn)">unknown</b>.</p>
+        <p class="sub">The page could not load <b>data.json</b>, so nothing below is current. This is not a quiet
+        day — it is a page with no data. Do not read it as "nothing fires".</p></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. The last scan may have failed to publish.
+        Check the workflow run, then reload.</div></div>`;
+    return;
+  }
+
+  const stale = state==='stale';
+  const live  = fired(d);
+  const blocked=d.blocked||[], watch=d.D||[], weekly=d.weekly||[];
+  const universe=(d.F||[]).length+(d.D||[]).length+(d.C||[]).length+(d.S||[]).length+blocked.length;
+
+  const say = live.length
+    ? `<p class="say fires">${live.length===1?'One setup':live.length+' setups'} <b>fires</b> today.</p>`
+    : `<p class="say">Nothing <b>fires</b> today.</p>`;
+  const sub = live.length
+    ? `<p class="sub">Read the trade before you place it. A signal is a condition that was met, <b>not a
+       prediction</b>. Size it at the $600 cap.</p>`
+    : `<p class="sub">All six setups were checked against ${universe?universe+" names":"every name"} in the universe. None met its
+       conditions. Roughly three signals arrive a month, so <b>nine days in ten look like this</b>. The checks
+       are below.</p>`;
+
+  const nearRows = blocked.length ? blocked.map(r=>`<div class="row">
+      <div class="sym">${esc(r.sym)}<small>setup F</small></div>
+      <div class="main"><div class="t">In the F price band, ${r.dd.toFixed(1)}% below its high.</div>
+        <div class="miss">Missing: <b>${esc(r.why)}</b></div></div>
+      <div class="num"><span class="big">${f2(r.px)}</span><span class="u">+${r.up.toFixed(1)}% to target</span></div>
+    </div>`).join('')
+    : `<p class="empty">No name is in a setup's price band with a single condition outstanding.</p>`;
+
+  const watchRows = (watch.length||weekly.length) ? (
+      watch.map(r=>`<div class="row">
+        <div class="sym">${esc(r.sym)}<small>setup D</small></div>
+        <div class="main"><div class="t">${r.dd.toFixed(1)}% below its high, RSI ${r.rsi.toFixed(0)}, up over 126 sessions.</div>
+          <div class="miss">Watchlist only. Setup D never beat random picking on the honest universe.</div></div>
+        <div class="num"><span class="big">${f2(r.px)}</span><span class="u">+${r.up.toFixed(1)}% upside</span></div>
+      </div>`).join('') +
+      weekly.filter(r=>r.state==='crossed').map(r=>`<div class="row">
+        <div class="sym">${esc(r.sym)}<small>weekly</small></div>
+        <div class="main"><div class="t">Weekly 10 EMA crossed the 30. The 30 is ${r.up?'rising':'falling'}.</div>
+          <div class="miss">Watchlist only. +0.49pp once the top five names come out, p=0.363.</div></div>
+        <div class="num"><span class="big">${f2(r.px)}</span><span class="u">${r.gap>0?'+':''}${r.gap.toFixed(1)}% gap</span></div>
+      </div>`).join('')
+    ) : `<p class="empty">Nothing on the watchlists today.</p>`;
+
+  const check=(k,name,n,note)=>`<div class="chk"><span class="k">${k}</span>
+    <span class="d"><b style="color:var(--ink)">${name}</b> — ${note}</span>
+    <span class="r ${n?'yes':'no'}">${n?n+' fired':'none'}</span></div>`;
+
+  A.innerHTML=`
+  <div class="tmast">
+    <h1><b>Ledger</b> · today</h1>
+    <span class="when${stale?' stale':''}">${stale?'data 3 days old · scan has not run':esc(d.date)+' · scanned '+esc(d.stamp)}</span>
+  </div>
+
+  ${stale?`<div class="stalebar" style="margin-top:var(--s3)"><b>This data is 3 days old.</b> The last two scheduled
+    scans did not publish. Prices and marks below are from the last good run, not from now.</div>`:''}
+
+  <div class="verdict">
+    <div class="eyebrow">the verdict</div>
+    ${say}
+    ${sub}
+  </div>
+
+  <div class="ctx">
+    <div><span class="l">VIX</span><span class="v">${d.vix.toFixed(2)}<small>${esc(d.regime)}</small></span></div>
+    <div><span class="l">5-day path</span><span class="v" style="font-size:var(--t-body)">${d.vix5.map(x=>x.toFixed(1)).join(' → ')}</span></div>
+    <div><span class="l">QQQ</span><span class="v">${f2(d.qqq)}<small>${d.qdd.toFixed(1)}% off high</small></span></div>
+    ${d.vix>=20?`<p class="warn">VIX over 20 means bigger swings <b style="color:var(--ink)">both ways</b>. Size smaller, not bigger.</p>`:''}
+  </div>
+
+  ${todayTrades(d)}
+
+  <div class="sec">
+    <h2>Signals <span class="tag trade">tradeable</span></h2>
+    <p class="lede">A setup whose conditions were all met at today's close.</p>
+    ${live.length ? live.map(r=>`<div class="row">
+        <div class="sym">${esc(r.sym)}</div>
+        <div class="main"><div class="t">${r.t}</div></div>
+        <div class="num"><span class="big">${r.num}</span><span class="u">${r.u}</span></div>
+      </div>`).join('')
+      : `<p class="empty">None. This is the ordinary outcome.</p>`}
+  </div>
+
+  <div class="sec">
+    <h2>Getting close <span class="tag watch">not a signal</span></h2>
+    <p class="lede">Names inside a setup's price band with conditions still outstanding. The missing condition is
+    named. There is no score and no ranking — a near miss is not a weak signal.</p>
+    ${nearRows}
+  </div>
+
+  <div class="sec">
+    <h2>Watching <span class="tag watch">research, untested or failed</span></h2>
+    <p class="lede">Shown because the research is interesting, not because it is tradeable.</p>
+    ${watchRows}
+  </div>
+
+  <details class="deep">
+    <summary>The checks · all six setups, ${universe||'every'} names <span style="color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0"> </span></summary>
+    <div class="in">
+      ${check('VIX','Setup VIX',d.vix_fires?1:0,'VIX 25+ in the last 10 sessions and falling 3 in a row. 10-day high '+d.vix_hi10.toFixed(1)+'.')}
+      ${check('F','Setup F',(d.F||[]).length,'20–45% below the 252-day high, 10&gt;30, 50&gt;200, revenue +25% from SEC filings.')}
+      ${check('D','Setup D',(d.D||[]).length,'5–20% below the high, up over 126 sessions, RSI over 55. Watchlist only.')}
+      ${check('C','Setup C',(d.C||[]).length,'10 EMA crosses the 50 SMA within 5 sessions, 50&gt;200, close clears the 20-day high.')}
+      ${check('S','Setup S',d.vix>=25?(d.S||[]).length:0,d.vix<25?'Needs VIX 25+. VIX is '+d.vix.toFixed(1)+', so this setup does nothing today.':'Close under the 20-day low with the 50 EMA under the 200.')}
+      ${check('×','Blocked',blocked.length,'In the F price band but failing at least one condition. Blocked names hit 39% versus 71% for passers.')}
+      ${(d.errors&&d.errors.length)?`<div class="chk"><span class="k">!</span>
+        <span class="d">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>String(e).split(':')[0]).join(', '))}</span>
+        <span class="r no">incomplete</span></div>`:''}
+    </div>
+  </details>
+
+  <p class="foot">Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks tagged
+  <b>schwab</b> or <b>alpaca</b> are a real bid/ask midpoint; <b>iv</b> and <b>est</b> are Black-Scholes, a model,
+  not a quote. Every backtest behind this page carries a survivorship caveat.</p>`;
+}
+
+/* State previews reshape real data. Nothing here invents a hit rate or a score.
+   The one synthetic row is the 'fired' preview, and it is labelled at the top. */
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='quiet'){ d.F=[];d.S=[];d.D=[];d.weekly=[];d.blocked=[];d.vix_fires=false; }
+  if(state==='near'){ d.F=[];d.S=[];d.vix_fires=false; }
+  if(state==='fired'){
+    d.vix_fires=false;
+    d.F=[{sym:'EXAMPLE',px:112.40,dd:31.2,tgt:163.30,up:45.3,rev:28}];
+  }
+  return d;
+}
+
+function paint(){
+  if(STATE==='loading'||STATE==='error'||!LIVE){ renderAfter(LIVE||{},STATE); return; }
+  renderAfter(shape(STATE),STATE);
+}
+
+document.querySelectorAll('#seg-state button').forEach(b=>b.addEventListener('click',()=>{
+  STATE=b.dataset.s;
+  document.querySelectorAll('#seg-state button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  paint();
+}));
+document.querySelectorAll('#seg-w button').forEach(b=>b.addEventListener('click',()=>{
+  document.body.dataset.w=b.dataset.w;
+  document.querySelectorAll('#seg-w button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+}));
+document.querySelectorAll('#seg-t button').forEach(b=>b.addEventListener('click',()=>{
+  document.documentElement.dataset.theme=b.dataset.t;
+  document.querySelectorAll('#seg-t button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+}));
+document.documentElement.dataset.theme='dark';
+
+renderAfter({},'loading');
+fetch('../data.json?'+Date.now()).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(d=>{LIVE=d;paint();})
+  .catch(()=>{STATE='error';paint();});
+</script>
+</body>
+</html>
