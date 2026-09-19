@@ -2,9 +2,9 @@
 
 Extracted from **Today**, approved 2026-09-18. This is the source of truth for
 pages 2–8. Do not invent a new language on a later page. If a page needs a
-component that does not exist here, add it to `review.css` so every page gets it.
+component that does not exist here, add it to `ledger.css` so every page gets it.
 
-Files: `review.css` (tokens + components), `review.js` (review chrome).
+Files: `ledger.css` (tokens + components), `review.js` (review chrome).
 
 ## Tokens — unchanged from index.html
 

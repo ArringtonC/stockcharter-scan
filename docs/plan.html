@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Plan — $3,000 a Month</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:880px;margin:0 auto;padding:var(--s4) 18px 96px;container-type:inline-size}
+.back{display:inline-block;margin-bottom:var(--s4);font:500 var(--t-label) var(--mono);
+  letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+.back:hover,.back:focus-visible{color:var(--amber);outline:none}
+.hero{padding-bottom:var(--s5);border-bottom:1px solid var(--line2)}
+.hero .eyebrow{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  color:var(--dim);margin-bottom:var(--s3)}
+.hero h1{margin:0;font:300 clamp(34px,6vw,58px)/1.05 var(--serif);letter-spacing:-.025em;max-width:16ch}
+.hero h1 b{font-weight:700;color:var(--amber)}
+.hero p{margin:var(--s4) 0 0;font-size:var(--t-body);line-height:1.7;color:var(--ink2);max-width:62ch}
+.hero p b{color:var(--ink);font-weight:500}
+
+h2{margin:var(--s6) 0 var(--s2);font:600 clamp(22px,3vw,28px)/1.15 var(--serif);letter-spacing:-.015em}
+h2+p.l{margin:0 0 var(--s4);font-size:var(--t-data);color:var(--dim);max-width:72ch;line-height:1.7}
+p{font-size:var(--t-body);line-height:1.75;color:var(--ink2);max-width:66ch}
+p b{color:var(--ink);font-weight:500}
+
+.sum2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s4);
+  padding:var(--s4) 0;border-bottom:1px solid var(--line)}
+.sum2 div{display:flex;flex-direction:column;gap:var(--s1)}
+.sum2 .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.sum2 .v{font:600 clamp(26px,4vw,36px)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.sum2 .v.bad{color:var(--dn)} .sum2 .v.ok{color:var(--up)}
+.sum2 .n{font-size:var(--t-data);color:var(--ink2)}
+
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{text-align:left;padding:var(--s1) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line2);
+  font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+td{padding:var(--s3) var(--s3) var(--s3) 0;border-bottom:1px solid var(--line);
+  font-size:var(--t-data);color:var(--ink2);vertical-align:baseline}
+td:first-child{color:var(--ink);font-weight:500}
+td.r,th.r{text-align:right;padding-right:0}
+tr.key td{color:var(--ink)}
+tr.key td:first-child{color:var(--amber)}
+.scroll{overflow-x:auto}
+
+.ms{display:grid;grid-template-columns:8rem minmax(0,1fr) 7rem;gap:var(--s3);align-items:baseline;
+  padding:var(--s3) 0;border-top:1px solid var(--line)}
+.ms:last-of-type{border-bottom:1px solid var(--line)}
+.ms .amt{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.ms.now .amt{color:var(--amber)}
+.ms .what{min-width:0;font-size:var(--t-body);color:var(--ink)}
+.ms .what small{display:block;margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2);line-height:1.6}
+.ms .when{text-align:right;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);white-space:nowrap}
+
+.hard{border-left:2px solid var(--dn);padding:var(--s2) 0 var(--s2) var(--s3);margin:var(--s4) 0}
+.hard p{margin:0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:66ch}
+.hard b{color:var(--dn);font-weight:600}
+
+.step{display:grid;grid-template-columns:2.2rem minmax(0,1fr);gap:var(--s3);
+  padding:var(--s4) 0;border-top:1px solid var(--line)}
+.step:last-of-type{border-bottom:1px solid var(--line)}
+.step .i{font:600 var(--t-h2)/1 var(--serif);color:var(--amber);font-variant-numeric:tabular-nums}
+.step h3{margin:0 0 var(--s1);font:600 var(--t-body)/1.3 var(--mono);color:var(--ink);letter-spacing:0}
+.step p{margin:0;font-size:var(--t-data);line-height:1.75;max-width:64ch}
+.step .ev{margin-top:var(--s2);font-size:var(--t-data);color:var(--dim);line-height:1.65}
+.step .ev b{color:var(--ink2);font-weight:500}
+
+.chk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s3);align-items:baseline;
+  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data);color:var(--ink2)}
+.chk:last-of-type{border-bottom:1px solid var(--line)}
+.chk .b{width:11px;height:11px;border:1px solid var(--line2);border-radius:2px;align-self:center}
+.chk b{color:var(--ink);font-weight:500}
+
+footer{margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid var(--line);
+  font-size:var(--t-label);line-height:1.8;color:var(--dim);max-width:66ch}
+@container (max-width:620px){
+  .ms{grid-template-columns:minmax(0,1fr) auto}
+  .ms .amt{grid-column:1} .ms .when{grid-column:2} .ms .what{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+
+<div class="hero">
+  <div class="eyebrow">the plan · written 18 September 2026</div>
+  <h1>How <b>$8,500</b> becomes <b>$3,000</b> a month.</h1>
+  <p>Not by trading better. <b>By trading the same and getting bigger.</b> The arithmetic below is the
+  whole argument, and it says the account is the constraint — not the strategy.</p>
+</div>
+
+<h2>The arithmetic first</h2>
+<p class="l">This is the part that settles it. Everything after is a consequence.</p>
+
+<div class="sum2">
+  <div><span class="l">account today</span><span class="v">$8,500</span><span class="n">18 Sep 2026</span></div>
+  <div><span class="l">target</span><span class="v">$36,000</span><span class="n">$3,000 a month</span></div>
+  <div><span class="l">return that needs</span><span class="v bad">424%</span><span class="n">every year, forever</span></div>
+</div>
+
+<p style="margin-top:var(--s4)">For scale: Buffett's lifetime average is about <b>20% a year</b>. The best
+result anything in this project ever produced was under 100%, and it did not survive having its five biggest
+contributors removed.</p>
+
+<div class="hard"><p><b>424% a year is not a target. It is a way to lose the account.</b> Anything sized to
+reach it has to be sized to lose everything, and on an option that happens in one week.</p></div>
+
+<h2>What this account can actually do</h2>
+<p class="l">Take the best cell we ever measured and apply your own rules to it.</p>
+
+<div class="scroll"><table>
+  <thead><tr><th>step</th><th class="r">number</th><th>where it comes from</th></tr></thead>
+  <tbody>
+    <tr><td>Best tested trade</td><td class="r">+173% median</td>
+      <td>ATM calls, 120 days, Setup F. 73% win, 12% go to zero, ~$340 a contract.</td></tr>
+    <tr><td>Position cap</td><td class="r">$600</td><td>Your rule. 7% of the account.</td></tr>
+    <tr><td>Held at once</td><td class="r">4</td><td>$2,400, about 28% of the account at risk.</td></tr>
+    <tr><td>Cycles a year</td><td class="r">3</td><td>120 days a trade.</td></tr>
+    <tr><td>Deployed a year</td><td class="r">$7,200</td><td>$2,400 × 3.</td></tr>
+    <tr class="key"><td>Best case</td><td class="r">+$1,038 / mo</td>
+      <td>Everything at the median, no bad year, survivorship ignored.</td></tr>
+    <tr class="key"><td>Honest case</td><td class="r">+$400–600 / mo</td>
+      <td>Half, for survivorship and the trades that miss.</td></tr>
+  </tbody>
+</table></div>
+
+<div class="hard"><p>The $1,038 is the <b>ceiling, not the forecast</b>. It assumes every trade lands on the
+median of a number measured on companies that still exist. The ones that went to zero are not in the sample.</p></div>
+
+<h2>Where the real money is, and why you cannot reach it</h2>
+<p>The strongest result in this entire project is <b>LEAPS on Setup F — an 87% win rate at 730 days</b>.</p>
+<p>You cannot trade it. One contract costs about <b>$3,000</b> and your cap is $600.</p>
+<p style="color:var(--ink)"><b>That is the finding. The edge exists and the account cannot reach it.</b>
+Everything below is about closing that gap.</p>
+
+<h2>The path</h2>
+<p class="l">40% a year, compounded monthly, plus $1,000 added each month. Projections, not promises.</p>
+
+<div class="ms now"><span class="amt">$8,500</span>
+  <span class="what">Today<small>Two real trades closed. Net −$32. That is a start, not a record.</small></span>
+  <span class="when">now</span></div>
+<div class="ms"><span class="amt">$15,000</span>
+  <span class="what">First checkpoint<small>Enough to run four positions without the cap binding on every one.</small></span>
+  <span class="when">Feb 2027</span></div>
+<div class="ms"><span class="amt">$30,000</span>
+  <span class="what">LEAPS become reachable<small>A $3,000 contract is 10% of the account. The 87% cell opens up.</small></span>
+  <span class="when">Dec 2027</span></div>
+<div class="ms"><span class="amt">$60,000</span>
+  <span class="what">$2,000 a month<small>At 40%, this account throws off $24,000 a year.</small></span>
+  <span class="when">Jan 2029</span></div>
+<div class="ms"><span class="amt">$90,000</span>
+  <span class="what">The target<small>$36,000 a year at 40%. $3,000 a month.</small></span>
+  <span class="when">Nov 2029</span></div>
+
+<h2>Why both halves are needed</h2>
+<p class="l">Deposits alone and returns alone each take seven years. Together they take three.</p>
+
+<div class="scroll"><table>
+  <thead><tr><th>approach</th><th class="r">to $90,000</th><th>what it means</th></tr></thead>
+  <tbody>
+    <tr><td>Deposits only, 0% return</td><td class="r">Jul 2033</td>
+      <td>6 years 10 months. The floor if every strategy fails.</td></tr>
+    <tr><td>40% return, no deposits</td><td class="r">Oct 2033</td>
+      <td>7 years 1 month. Slower than just saving.</td></tr>
+    <tr class="key"><td>Both together</td><td class="r">Nov 2029</td>
+      <td><b>3 years 2 months.</b> Less than half the time of either alone.</td></tr>
+  </tbody>
+</table></div>
+
+<p style="margin-top:var(--s4)">Read the second row twice. <b>A 40% annual return on $8,500 is worth less than
+$1,000 a month of deposits.</b> Deposits are also the only part fully under your control.</p>
+
+<h2>What we do</h2>
+
+<div class="step"><span class="i">1</span><div>
+  <h3>Change the target to $500–$800 a month</h3>
+  <p>That is what $8,500 can support. Hitting it consistently for six months is the evidence that size is
+  worth adding. Aiming at $3,000 today means sizing for it, and sizing for it is how the account ends.</p>
+</div></div>
+
+<div class="step"><span class="i">2</span><div>
+  <h3>Deposit $1,000 a month, on a date, automatically</h3>
+  <p>It beats every edge we found this year. It is the only lever that cannot fail.</p>
+  <p class="ev">The table above: deposits alone reach the target faster than a 40% annual return alone.</p>
+</div></div>
+
+<div class="step"><span class="i">3</span><div>
+  <h3>Follow the rules you already wrote</h3>
+  <p>Both real trades broke them. PYPL had no setup behind it. BABA was 18 days when the rule says 45 minimum,
+  and the stop was 1.38% against a stock that moves 1.40% on a median day.</p>
+  <p class="ev">The BABA post-mortem says a 5% stop was never touched and returned <b>+$220</b> on the same
+  entry. Following the existing rules costs nothing and was worth $300 on one trade.</p>
+</div></div>
+
+<div class="step"><span class="i">4</span><div>
+  <h3>Keep testing, and expect it to fail</h3>
+  <p>About fifty ideas were tested in one session. Nearly all failed — VWAP, equal price, touch reversal,
+  sector rotation, the weekly cross, earnings sentiment.</p>
+  <p class="ev">That is the process working. A failed test costs an afternoon. A failed live trade costs $600.</p>
+</div></div>
+
+<div class="step"><span class="i">5</span><div>
+  <h3>Revisit at $30,000</h3>
+  <p>That is where the 87% LEAPS cell becomes reachable and the shape of the plan changes. Do not re-plan
+  before then. The numbers will not have moved enough to mean anything.</p>
+</div></div>
+
+<h2>The monthly check</h2>
+<p class="l">Five questions, once a month. If the first three are yes, the plan is working.</p>
+
+<div class="chk"><span class="b"></span><span>Did the <b>$1,000 deposit</b> go in?</span></div>
+<div class="chk"><span class="b"></span><span>Did every trade taken <b>have a setup behind it</b>?</span></div>
+<div class="chk"><span class="b"></span><span>Did every call have <b>45 days or more</b> at entry?</span></div>
+<div class="chk"><span class="b"></span><span>Did any position exceed <b>$600</b>, or any name exceed <b>20%</b> of the account?</span></div>
+<div class="chk"><span class="b"></span><span>Is the account <b>on or above the line</b> in the path table?</span></div>
+
+<h2>What would make me wrong</h2>
+<p>Three things, and only these three:</p>
+<p><b>A tested edge that survives the bar.</b> Fifty ideas failed. The fifty-first might not. That changes
+the return assumption, not the arithmetic.</p>
+<p><b>More capital than $1,000 a month.</b> Every extra dollar moves the date forward more than any strategy
+we have found.</p>
+<p><b>Buying the delisted-securities data.</b> $500 once. Every backtest here is inflated by an unknown
+amount because the companies that died are not in the sample. Until that is fixed, every number on this
+page is optimistic.</p>
+
+<footer>
+Written 18 September 2026. Projections assume 40% annual return compounded monthly and $1,000 added each
+month, from $8,500. They are arithmetic, not forecasts, and no return is guaranteed. Trading results here
+come from this project's own tests, which carry a survivorship caveat — see
+<a href="index.html" style="color:var(--amber)">Methodology</a>. Nothing on this page is financial advice,
+and I am not a licensed advisor.
+</footer>
+</div>
+</body>
+</html>

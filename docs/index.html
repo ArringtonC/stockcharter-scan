@@ -245,6 +245,19 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
 .perf .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
 .perf .v{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
 .perf .n{font-size:var(--t-label);color:var(--dim)}
+.planrow{display:grid;grid-template-columns:8rem minmax(0,1fr) auto;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0;margin-top:var(--s3);text-decoration:none;color:inherit;
+  border-top:1px solid var(--amber);border-bottom:1px solid var(--line)}
+.planrow:hover,.planrow:focus-visible{background:color-mix(in srgb,var(--amber) 6%,transparent);outline:none}
+.planrow .sym{font:600 var(--t-body) var(--mono);color:var(--amber)}
+.planrow .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.planrow .main{min-width:0}
+.planrow .main .t{display:block;font:600 var(--t-h2) var(--serif);color:var(--ink);letter-spacing:-.01em}
+.planrow .main .miss{display:block;margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2)}
+.planrow .num .u{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--amber);white-space:nowrap}
+@container (max-width:620px){.planrow{grid-template-columns:1fr}.planrow .num{display:none}}
 .pm{display:inline-block;margin-top:var(--s1);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
   text-transform:uppercase;color:var(--amber);text-decoration:none;border-bottom:1px solid transparent}
 .pm:hover,.pm:focus-visible{border-bottom-color:var(--amber);outline:none}
@@ -706,7 +719,8 @@ function renderToday(d,state){
 
   <p class="foot">Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks tagged
   <b>schwab</b> or <b>alpaca</b> are a real bid/ask midpoint; <b>iv</b> and <b>est</b> are Black-Scholes, a model,
-  not a quote. Every backtest behind this page carries a survivorship caveat.</p>`;
+  not a quote. Every backtest behind this page carries a survivorship caveat.
+  <a href="plan.html" style="color:var(--amber)">The plan ↗</a></p>`;
 }
 
 /* State previews reshape real data. Nothing here invents a hit rate or a score.
@@ -1209,6 +1223,13 @@ function renderRules(d,state){
     <div><span class="l">setup F window</span><span class="v" style="font-size:var(--t-body)">
       ${v>=16&&v<20?'best':'ok'}<small>16–20 is +10.76pp</small></span></div>
   </div>
+
+  <a class="planrow" href="plan.html">
+    <span class="sym">The plan<small>written 18 Sep 2026</small></span>
+    <span class="main"><span class="t">How $8,500 becomes $3,000 a month.</span>
+      <span class="miss">The arithmetic, the path, and the five things to check each month.</span></span>
+    <span class="num"><span class="u">read it ↗</span></span>
+  </a>
 
   <div class="filt" role="group" aria-label="Filter rules by state">
     <button data-f="all" aria-pressed="${FILTER==='all'}">all ${RULES.length}</button>
