@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --serif:'Fraunces',Georgia,serif;
+  /* one scale, used everywhere. Steps are 1.5x apart so rhythm is visible. */
+  --s1:6px; --s2:10px; --s3:16px; --s4:24px; --s5:36px; --s6:56px;
+  /* five type steps, not eight. Each is 1.35x+ from the next. */
+  --t-hero:76px; --t-h1:30px; --t-h2:19px; --t-body:14px; --t-data:12.5px; --t-label:10.5px; --tr:.12em;
+}
+@media(prefers-color-scheme:light){:root{
+  --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
+  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
+  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font:var(--t-body)/1.6 var(--mono);background:var(--bg);min-height:100vh}
+.wrap{max-width:1040px;margin:0 auto;padding:var(--s4) 18px 96px}
+
+/* masthead */
+.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s4);
+  border-bottom:1px solid var(--line2);padding-bottom:var(--s3)}
+.mast h1{font:300 var(--t-h1)/1 var(--serif);letter-spacing:-.01em;margin:0}
+.mast h1 b{font-weight:700;color:var(--amber)}
+.what{margin:var(--s2) 0 0;font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:46ch}
+.what b{color:var(--ink);font-weight:500}
+.stamp{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+
+/* regime meter */
+.meter{display:grid;grid-template-columns:auto 1fr;gap:var(--s6);align-items:center;padding:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line)}
+.vix{font:600 var(--t-hero)/0.88 var(--serif);letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.vix small{display:block;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-top:var(--s2)}
+.band{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--dim) 0 27%,var(--up) 27% 45%,var(--amber) 45% 64%,var(--dn) 64% 100%);opacity:.85}
+.band i{position:absolute;top:-7px;width:3px;height:24px;background:var(--ink);border-radius:2px;box-shadow:0 0 0 3px var(--bg);transition:left .6s cubic-bezier(.2,.8,.2,1)}
+.ticks{display:flex;justify-content:space-between;font-size:var(--t-label);color:var(--dim);letter-spacing:.1em;margin-top:var(--s2)}
+.regime{margin-top:var(--s3);font-size:var(--t-data);line-height:1.6;color:var(--ink2)}
+.regime b{color:var(--ink);font-weight:600}
+.regime .tag{display:inline-block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;padding:3px 8px;border:1px solid var(--line2);border-radius:3px;margin-right:8px;color:var(--amber)}
+.swing{margin-top:var(--s2);padding:var(--s2) var(--s3);border:1px solid var(--line);border-radius:5px;background:var(--panel);font-size:var(--t-data);color:var(--ink2)}
+
+/* tabs */
+nav{display:flex;gap:2px;margin:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line2)}
+nav button{appearance:none;background:none;border:0;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
+  font:500 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;padding:12px 16px;cursor:pointer;transition:color .15s}
+nav button:hover{color:var(--ink2)}
+nav button[aria-selected=true]{color:var(--amber);border-bottom-color:var(--amber)}
+nav button .n{display:inline-block;min-width:18px;margin-left:6px;font-size:var(--t-label);padding:1px 5px;border-radius:9px;background:var(--line);color:var(--ink2)}
+section[role=tabpanel]{padding-top:var(--s2);animation:in .35s cubic-bezier(.2,.8,.2,1)}
+section[hidden]{display:none}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* blocks */
+h2{font:600 22px/1.2 var(--serif);margin:30px 0 4px;letter-spacing:-.01em}
+h2 .k{display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;border-radius:4px;background:var(--amber);color:var(--bg);font:700 var(--t-data) var(--mono);margin-right:10px;vertical-align:3px}
+.rule{font-size:var(--t-data);color:var(--dim);margin:0 0 12px;max-width:78ch}
+.fire{padding:14px 16px;border-radius:5px;background:var(--up);color:#07110b;font-weight:600;margin:8px 0 14px}
+.none{color:var(--dim);font-size:var(--t-data);padding:10px 0 2px}
+.note{color:var(--dim);font-size:var(--t-data);margin:8px 0 0}
+
+table{border-collapse:collapse;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+th,td{text-align:right;padding:9px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+th{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);background:var(--bg2)}
+td:first-child,th:first-child{text-align:left}
+td:first-child{font-weight:600;color:var(--ink)}
+tr:last-child td{border-bottom:0}
+tr:hover td{background:color-mix(in srgb,var(--amber) 5%,transparent)}
+.up{color:var(--up)}.dn{color:var(--dn)}.dim{color:var(--dim)}.amber{color:var(--amber)}
+.pill{display:inline-block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line2);color:var(--ink2)}
+.pill.win{color:var(--up);border-color:var(--up)}.pill.loss{color:var(--dn);border-color:var(--dn)}
+.pill.setup{color:var(--amber);border-color:var(--amber)}
+.pill.real{color:#fff;background:var(--dn);border-color:var(--dn);font-weight:700}
+.bar{position:relative;height:6px;width:96px;background:var(--line);border-radius:3px;display:inline-block;vertical-align:middle}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--amber);border-radius:3px}
+.scroll{overflow-x:auto}
+details{border:1px solid var(--line);border-radius:5px;background:var(--panel);margin:8px 0}
+summary{cursor:pointer;padding:12px 14px;list-style:none;display:flex;align-items:center;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary .k{flex:0 0 30px}
+summary .t{font:600 16px var(--serif)}
+summary .g{color:var(--dim);font-size:var(--t-data)}
+summary::after{content:'+';margin-left:auto;color:var(--dim);font-size:var(--t-h2)}
+details[open] summary::after{content:'−'}
+.body{padding:2px 16px 16px 56px;color:var(--ink2);font-size:var(--t-data)}
+.body h4{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:14px 0 6px}
+.body ul{margin:0;padding-left:18px}.body li{margin:3px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:5px;overflow:hidden;margin:10px 0 18px}
+.stats div{background:var(--panel);padding:12px 14px}
+.stats b{display:block;font:600 24px/1.1 var(--serif);margin-top:var(--s1)}
+.stats .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}.meter{grid-template-columns:1fr}.vix{font-size:clamp(56px,16vw,var(--t-hero))}nav{overflow-x:auto}}
+/* Rules tab */
+.rgrp{margin:26px 0 0}
+.rgrp>h3{font:600 var(--t-data)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:0 0 12px;
+ display:flex;align-items:center;gap:10px}
+.rgrp>h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.rule-c{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s1) var(--s4);align-items:start;
+ padding:var(--s3) var(--s3);border:1px solid var(--line);border-radius:6px;
+ background:var(--panel);margin-bottom:var(--s1)}
+.rule-c .say{font-weight:600;font-size:var(--t-body);line-height:1.35;grid-column:1}
+.rule-c .why{grid-column:1;font-size:var(--t-data);color:var(--ink2);margin:0;max-width:66ch}
+.rule-c .ev{grid-column:1;font:500 var(--t-data)/1.5 var(--mono);color:var(--dim);margin-top:var(--s1)}
+.rule-c .ev b{color:var(--ink2)}
+.rule-c .st{grid-row:1/3;grid-column:2;font:600 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+ padding:5px 9px;border-radius:4px;white-space:nowrap;align-self:start}
+.st.a{background:var(--amber);color:#17100a}
+.st.w{background:var(--up);color:#fff}
+.st.n{background:var(--dn);color:#fff}
+.st.d{background:var(--line);color:var(--dim)}
+.rnow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
+ border:1px solid var(--line);border-radius:7px;overflow:hidden;margin-bottom:var(--s1)}
+.rnow>div{background:var(--panel);padding:13px 15px}
+.rnow .l{display:block;font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-bottom:var(--s1)}
+.rnow b{font:600 var(--t-h2)/1.15 var(--serif);display:block}
+.rnow small{display:block;font-size:var(--t-data);color:var(--ink2);margin-top:var(--s1);line-height:1.4}
+.recent{margin-top:30px}
+.recent table{font-size:var(--t-data)}
+
+.stampwrap{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.stamp2{font:500 var(--t-label)/1.4 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.stamp2 b{color:var(--ink2)}
+.stamp2.stale b{color:var(--dn)}
+.runbtn{display:inline-block;margin-top:var(--s1);font:500 var(--t-label)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
+ color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:5px;padding:7px 11px;transition:.15s}
+.runbtn:hover{color:var(--ink);border-color:var(--amber);background:var(--panel)}
+@media(max-width:720px){.stampwrap{align-items:flex-start;text-align:left;margin-top:var(--s2)}}
+
+/* leadership board — context, not signal */
+.lb{width:100%;border-collapse:collapse;font-size:var(--t-data);margin-top:var(--s2)}
+.lb th{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:0 8px 8px;border-bottom:1px solid var(--line)}
+.lb th:first-child,.lb td:first-child{text-align:left}
+.lb td{padding:8px;border-bottom:1px solid var(--line2,var(--line));text-align:right;vertical-align:middle}
+.lb tr:last-child td{border-bottom:none}
+.lb .r{font:600 var(--t-body)/1 var(--serif);width:34px}
+.lb tr.top .r{color:var(--amber)}
+.lb .nm{font-weight:500}
+.lb .d{font:500 var(--t-data) var(--mono)}
+.lb .trk{width:150px;padding-right:0}
+.lb .trk svg{display:block;width:150px;height:26px;overflow:visible}
+@media(max-width:720px){
+  /* the leadership board measured 442px inside a 390px page — trim it to fit */
+  .lb .trk,.lb th.trkh{display:none}
+  .lb .mo,.lb th.moh{display:none}          /* 1-month change: the least load-bearing column */
+  .lb{font-size:var(--t-data)}
+  .lb th,.lb td{padding:7px 5px}
+  .lb th:first-child,.lb td:first-child{padding-left:0}
+  .lb .nm .dim{display:none}                /* drop the ticker, the name is enough */
+  .lb .r{font-size:var(--t-body);width:26px}
+  /* five tabs have to fit without a hidden horizontal scroll */
+  nav button{padding:11px 8px;font-size:var(--t-label);letter-spacing:.06em;white-space:nowrap}
+  nav button .n{margin-left:4px;padding:1px 4px}
+  /* the header stacks rather than squeezing */
+  .mast{flex-direction:column;align-items:flex-start;gap:6px}
+  .stampwrap{align-items:flex-start;text-align:left;margin-top:var(--s1)}
+  .runbtn{padding:8px 12px}
+  .mkin{grid-template-columns:1fr 1fr;gap:6px 14px}
+  .rule-c{padding:13px 14px}
+  .rule-c .st{font-size:var(--t-label);padding:4px 7px}
+  /* trades: hide the columns you can infer, so P/L and target are on screen */
+  #tab-trades .sm{display:none}
+  #tab-trades table{font-size:var(--t-data)}
+  #tab-trades th,#tab-trades td{padding:8px 6px}
+}
+.churn{font:500 var(--t-data)/1.5 var(--mono);color:var(--dim);margin-top:var(--s2)}
+.churn b{color:var(--ink2)}
+
+.lb tbody tr{cursor:pointer}
+.lb tbody tr:hover td{background:var(--bg2,rgba(128,128,128,.06))}
+.lb tr.open td{border-bottom:none}
+.mk{background:var(--panel)}
+.mk>td{padding:0 4px 14px!important;border-bottom:1px solid var(--line)!important}
+.mkin{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 22px;padding:4px 0 0}
+.mkrow{display:flex;align-items:center;gap:9px;font:500 var(--t-data)/1.5 var(--mono)}
+.mkrow .s{width:52px;color:var(--ink)}
+.mkrow .bar{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.mkrow .bar i{display:block;height:100%;background:var(--dim);border-radius:3px}
+.mkrow.own .bar i{background:var(--amber)}
+.mkrow.own .s{color:var(--amber)}
+.mkrow .p{width:44px;text-align:right;color:var(--dim)}
+.mkhead{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:4px 0 8px}
+.mkhead b{color:var(--amber)}
+
+/* setup groups */
+.sgrp{margin-top:var(--s5)}
+.sgrp:first-of-type{margin-top:var(--s4)}
+.sgrp>h3{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+ color:var(--amber);margin:0 0 var(--s2);display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s3)}
+.sgrp>h3 span{font-size:var(--t-data);letter-spacing:0;text-transform:none;color:var(--dim);font-weight:400}
+.sgrp:nth-of-type(2)>h3,.sgrp:nth-of-type(3)>h3{color:var(--dim)}
+.plain{display:block;text-align:left;font-size:var(--t-data);color:var(--ink2);line-height:1.5;min-width:30ch}
+#tab-trades td:last-child{text-align:left}
+@media(max-width:720px){.plain{min-width:0}}
+
+/* trade of the day */
+.tod{margin:var(--s4) 0 var(--s5)}
+.tod table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.tod th{font:500 var(--t-label)/1.3 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);white-space:nowrap}
+.tod th:first-child,.tod td:first-child,.tod th.l,.tod td.l{text-align:left}
+.tod td{padding:var(--s3);border-bottom:1px solid var(--line);text-align:right;vertical-align:top;
+ font-variant-numeric:tabular-nums}
+.tod tr:last-child td{border-bottom:none}
+.tod .sym{font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
+.tod .buy{display:block;font-size:var(--t-data);color:var(--ink);line-height:1.5;margin-top:var(--s1);max-width:34ch}
+.tod .why{display:block;font-size:var(--t-label);line-height:1.65;color:var(--dim);margin-top:var(--s1);max-width:46ch}
+.tod .why b{color:var(--ink2);font-weight:500}
+.tod .big{font-size:var(--t-body);color:var(--ink)}
+.tod .mv{display:block;font-size:var(--t-label);color:var(--dim);margin-top:2px}
+@media(max-width:720px){
+  .tod table,.tod thead,.tod tbody,.tod tr,.tod td{display:block;width:100%}
+  .tod thead{display:none}
+  .tod tr{border-bottom:1px solid var(--line);padding:var(--s3) 0}
+  .tod tr:last-child{border-bottom:none}
+  .tod td{border:none;text-align:left;padding:2px var(--s3);display:flex;justify-content:space-between;gap:var(--s3)}
+  .tod td::before{content:attr(data-l);color:var(--dim);font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase}
+  .tod td:first-child{display:block;padding-bottom:var(--s2)}
+  .tod td:first-child::before{content:none}
+  .tod .buy,.tod .why{max-width:none}
+}
+.lbtop{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3)}
+.lbtop .dim{font-size:var(--t-label);line-height:1.5}
+
+/* trades taken with real money */
+.taken{margin-top:var(--s4)}
+.tk{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s2) var(--s4);align-items:baseline;
+ padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.tk:last-child{border-bottom:none}
+.tk .sym{font:600 var(--t-h2)/1 var(--serif)}
+.tk .mid{min-width:0}
+.tk .con{font-size:var(--t-data);color:var(--ink);font-weight:500}
+.tk .dates{font-size:var(--t-label);color:var(--dim);margin-top:2px}
+.tk .lesson{grid-column:2/4;font-size:var(--t-data);color:var(--ink2);line-height:1.65;max-width:72ch;margin-top:var(--s1)}
+.tk .lesson a{color:var(--amber)}
+.tk .pl{text-align:right;white-space:nowrap}
+.tk .pl b{display:block;font:600 var(--t-h2)/1 var(--serif);font-variant-numeric:tabular-nums}
+.tk .pl small{display:block;font-size:var(--t-label);color:var(--dim);margin-top:2px}
+.tkfoot{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin-top:var(--s3);
+ padding-top:var(--s3);border-top:1px solid var(--line2);font-size:var(--t-data);color:var(--ink2)}
+.tkfoot b{color:var(--ink)}
+@media(max-width:720px){.tk{grid-template-columns:1fr auto}.tk .sym{grid-column:1}.tk .mid{grid-column:1}
+ .tk .pl{grid-row:1/3;grid-column:2}.tk .lesson{grid-column:1/3}}
+
+/* weekly cross watchlist */
+.wk{margin-top:var(--s4)}
+.wk table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.wk th{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
+ text-align:right;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line)}
+.wk th:first-child,.wk td:first-child{text-align:left}
+.wk td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.wk tr:last-child td{border-bottom:none}
+.wk tr.x td{background:color-mix(in srgb,var(--amber) 7%,transparent)}
+.wk .st{font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase}
+
+footer{margin-top:44px;padding-top:var(--s3);border-top:1px solid var(--line);font-size:var(--t-data);color:var(--dim)}
+.err{color:var(--dn);font-size:var(--t-data);margin-top:var(--s2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mast">
+    <div>
+      <h1><b>Ledger</b> · daily scan</h1>
+      <p class="what">Six tested setups, scanned twice a day.
+      <b>Most days nothing fires, and that is the point.</b></p>
+    </div>
+    <div class="stampwrap">
+      <div class="stamp" id="stamp">loading…</div>
+      <div class="stamp2" id="nextrun"></div>
+      <a class="runbtn" id="runbtn" target="_blank" rel="noopener"
+         href="https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml">Run scan now ↗</a>
+    </div>
+  </div>
+
+  <div class="meter">
+    <div class="vix"><span id="vixnum">—</span><small>VIX · <span id="vix5"></span></small></div>
+    <div>
+      <div class="band"><i id="marker" style="left:0"></i></div>
+      <div class="ticks"><span>CALM &lt;16</span><span>NORMAL</span><span>ELEVATED</span><span>HIGH 25+</span></div>
+      <div class="regime"><span class="tag" id="regime">—</span><b id="advice"></b>
+        <div class="note">QQQ <span id="qqq"></span> · <span id="qdd"></span> off its 6-month high</div></div>
+      <div class="swing" id="swing" hidden>VIX over 20: bigger swings <b>both ways</b>. At 25+, 17% of months gain 10%+ and 3% lose 10%+. Under 16 both are ~1%. Size smaller, not bigger.</div>
+    </div>
+  </div>
+
+  <nav role="tablist">
+    <button role="tab" data-tab="scan" aria-selected="true">Scan<span class="n" id="n-scan"></span></button>
+    <button role="tab" data-tab="trades">Trades<span class="n" id="n-trades"></span></button>
+    <button role="tab" data-tab="sectors">Sectors</button>
+    <button role="tab" data-tab="rules">Rules</button>
+    <button role="tab" data-tab="setups">Setups</button>
+  </nav>
+
+  <section role="tabpanel" id="tab-scan"></section>
+  <section role="tabpanel" id="tab-trades" hidden></section>
+  <section role="tabpanel" id="tab-sectors" hidden></section>
+  <section role="tabpanel" id="tab-rules" hidden></section>
+  <section role="tabpanel" id="tab-setups" hidden></section>
+
+  <footer>All setups locked. Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks: <b>schwab</b>/<b>alpaca</b> = a real bid/ask midpoint. <b>iv</b>/<b>est</b> = Black-Scholes, a model, not a quote. Every backtest behind this page carries a survivorship caveat.</footer>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const f2=x=>x==null?'—':Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=(x,sign=true)=>x==null?'—':(sign&&x>0?'+':'')+Number(x).toFixed(1)+'%';
+const cls=x=>x>0?'up':x<0?'dn':'dim';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function tbl(rows,cols,empty='none today'){
+  if(!rows||!rows.length)return `<p class="none">${empty}</p>`;
+  // a third element on a column marks it 'sm' — hidden on a phone so the numbers that
+  // matter are visible without swiping
+  const cl=c=>c[2]?` class="${c[2]}"`:'';
+  return `<div class="scroll"><table><thead><tr>${cols.map(c=>`<th${cl(c)}>${c[0]}</th>`).join('')}</tr></thead><tbody>${
+    rows.map(r=>`<tr>${cols.map(c=>`<td${cl(c)}>${c[1](r)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function head(k,title,rule){return `<h2><span class="k">${k}</span>${title}</h2><p class="rule">${rule}</p>`;}
+
+function renderToday(d){
+  const T=d.today||[];
+  if(!T.length) return '';
+  const m=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
+  return '<div class="tod">'+
+    head('$','Trades of the day','Cost, breakeven, target and max loss were fixed when the trade was written. <b>Stock now</b> is live. Only NOW has a tested hit rate — the other three fire no setup, and their targets are simply where $1,000 of profit lands.')+
+    '<table><thead><tr><th class="l">the trade</th><th>stock now</th><th>stock target</th><th>cost</th><th>breakeven</th>'+
+    '<th>if it works</th><th>if it does not</th><th>odds</th><th>time</th></tr></thead><tbody>'+
+    T.map(r=>`<tr>
+      <td class="l"><span class="sym">${esc(r.sym)}</span>
+        <span class="buy">${esc(r.plain)}</span>
+        <span class="why">${esc(r.why)}</span>
+        <span class="why"><b>Exit</b> ${esc(r.exit)}</span>
+        <span class="why"><b>Wrong if</b> ${esc(r.kills)}</span></td>
+      <td data-l="stock now" class="big">${m(r.now)}</td>
+      <td data-l="stock target" class="big">${m(r.target)}<span class="mv">${r.move>0?'+':''}${r.move.toFixed(0)}% away</span></td>
+      <td data-l="cost" class="big">${n0(r.cost)}</td>
+      <td data-l="breakeven" class="big">${m(r.be)}</td>
+      <td data-l="if it works" class="big up">+${n0(r.profit)}<span class="mv">${r.ret>0?'+':''}${r.ret.toFixed(0)}%</span></td>
+      <td data-l="if it does not" class="big ${r.loss?'dn':'dim'}">${r.loss?'−'+n0(r.loss):'—'}<span class="mv">${r.loss?'the whole premium':'shares do not expire'}</span></td>
+      <td data-l="odds" class="big ${r.odds?'up':'dim'}">${r.odds?r.odds+'%':'—'}<span class="mv">${r.odds?'reach the target':'untested'}</span></td>
+      <td data-l="time" class="big">${r.days!=null?r.days+'d':'—'}<span class="mv">${r.days!=null?'to expiry':'no expiry'}</span></td>
+    </tr>`).join('')+'</tbody></table></div>';
+}
+
+function renderWeekly(d){
+  const W=d.weekly||[]; if(!W.length) return '';
+  return '<div class="wk">'+
+    head('W','Weekly 10/30 cross','<b>Watchlist only.</b> Tested 2026-09-18: +2.27pp raw at 13 weeks, <b>+0.49pp once the top five names come out, p=0.363</b>. It is here because it is the best-behaved EMA cross we have — the daily version of the same signal is −0.97pp at p=0.991. Weekly beats daily by 3.2 points and still does not clear the bar.')+
+    '<table><thead><tr><th>sym</th><th>state</th><th>price</th><th>10 v 30</th><th>below high</th><th>30 EMA</th><th>F band</th></tr></thead><tbody>'+
+    W.map(r=>`<tr class="${r.state==='crossed'?'x':''}">
+      <td><b>${esc(r.sym)}</b></td>
+      <td class="st ${r.state==='crossed'?'up':'dim'}">${r.state==='crossed'?'crossed':'near'}</td>
+      <td>${f2(r.px)}</td>
+      <td class="${r.gap>0?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>
+      <td>${r.dd.toFixed(1)}%</td>
+      <td class="${r.up?'up':'dn'}">${r.up?'rising':'falling'}</td>
+      <td class="${r.band?'up':'dim'}">${r.band?'yes':'—'}</td>
+    </tr>`).join('')+'</tbody></table>'+
+    '<p class="note">A cross with the 30 EMA still <b>falling</b> is the weak version — that is the SG picture. The strongest cell in the test was a cross plus a rising 30 EMA plus the 20–45% band, at 80% win on 54 signals, which is too few to trade.</p></div>';
+}
+
+function renderScan(d){
+  const vixBlock=d.vix_fires
+    ?`<div class="fire">SETUP VIX FIRES — buy an ATM QQQ call, ~30 DTE, $1,000, hold 21 sessions. QQQ ${f2(d.qqq)}, strike ≈ ${Math.round(d.qqq)}</div>`
+    :`<p class="none">Does not fire. 25+ in last 10 days: <b>${d.peaked?'yes':'no'}</b> (10-day high ${d.vix_hi10.toFixed(1)}) · falling 3 days: <b>${d.falling?'yes':'no'}</b></p>`;
+  const shortNote=d.vix<25?`<p class="note">VIX ${d.vix.toFixed(1)} is under 25. This setup does nothing here — skip.</p>`:'';
+  const live=d.F.length+(d.vix_fires?1:0)+(d.vix>=25?d.S.length:0);
+  const quiet = live===0 ? `<div class="quiet">
+      <b>Nothing fires today.</b>
+      <p>All six setups were checked against ${d.F.length+d.D.length+d.C.length+d.S.length+d.blocked.length||'every'} name in the universe. None met its conditions.</p>
+      <p>Roughly three signals arrive a month, so nine days in ten look like this. The rest of this tab shows the work.</p>
+    </div>` : '';
+  $('#tab-scan').innerHTML= renderToday(d) + quiet +
+    head('V','Setup VIX','VIX 25+ in the last 10 sessions AND falling 3 in a row → ATM QQQ call, 30 DTE, hold 21. $1,000.')+vixBlock+
+    head('F','Setup F — recovery + earnings','20–45% below the 252-day high · 10&gt;30 · 50&gt;200 · revenue +25% (SEC, point-in-time). Target = prior high. No stop.')+
+    tbl(d.F,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['target',r=>f2(r.tgt)],['upside',r=>`<span class="up">+${r.up.toFixed(1)}%</span>`],['revenue',r=>'+'+r.rev.toFixed(0)+'%']])+
+    head('D','Setup D — shallow pullback','5–20% below the high · up over 126 sessions · RSI &gt; 55. Watchlist only — it never beat random picking on the honest universe.')+
+    tbl(d.D,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['RSI',r=>r.rsi.toFixed(0)],['upside',r=>'+'+r.up.toFixed(1)+'%']])+
+    head('C','Setup C — breakout','10 EMA crosses above 50 SMA within 5 sessions · 50&gt;200 · close clears the 20-day high. Tech names only.')+
+    tbl(d.C,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['target',r=>f2(r.tgt)],['upside',r=>'+'+r.up.toFixed(1)+'%']])+
+    head('S','Setup S — support-break short','Close under the 20-day low · 50 EMA under 200. $100, up to 10 sessions. Needs VIX 25+.')+shortNote+
+    tbl(d.S,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['20d low',r=>f2(r.lo20)],['below',r=>`<span class="dn">${r.below.toFixed(1)}%</span>`]])+
+    `<details><summary><span class="k" style="background:var(--line);color:var(--ink2)">×</span><span class="t">In the F price band, but blocked</span><span class="g">${d.blocked.length} names · they hit 39% vs 71% for passers</span></summary><div class="body">`+
+    tbl(d.blocked,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['upside',r=>'+'+r.up.toFixed(1)+'%'],['why',r=>esc(r.why)]])+
+    renderWeekly(d)+
+    `</div></details>`+
+    
+    (d.errors.length?`<p class="err">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>e.split(':')[0]).join(', '))}</p>`:'');
+  // Setup C and D are watchlist only, and S is dead under VIX 25 — the badge counts
+  // what could actually be traded today, so a zero means something.
+  $('#n-scan').textContent=d.F.length+(d.vix_fires?1:0)+(d.vix>=25?d.S.length:0);
+}
+
+// The trade in the words you would use to place it.
+function plain(r){
+  const n=Number(r.contracts||1), e=Number(r.entry);
+  if(r.kind==='shares'){
+    const sh=Math.max(1,Math.round(600/e));
+    return `Buy ${sh} shares near $${e.toFixed(2)}. Sell at $${Number(r.target).toFixed(2)}.`;
+  }
+  const be=Number(r.strike)+e;
+  const exp=new Date(r.expiry+'T12:00:00Z').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  return `Buy ${n} ${esc(r.symbol)} call${n>1?'s':''}, $${r.strike} strike, expires ${exp}. `+
+         `About $${(e*100*n).toFixed(0)}. Pays if ${esc(r.symbol)} is over $${be.toFixed(2)}.`;
+}
+
+function renderTrades(d){
+  const o=d.open||[],c=d.closed||[];
+  const wins=c.filter(r=>r.result==='win'),losses=c.filter(r=>r.result==='loss');
+  const mean=a=>a.length?a.reduce((s,r)=>s+Number(r.pl_pct),0)/a.length:null;
+  const kind=r=>r.kind==='shares'?'shares':r.acct==='real'?`<span class="pill real">REAL</span> call`:`${esc(r.acct)} call`;
+  const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`,'sm'],['kind',r=>kind(r),'sm'],
+    ['opened',r=>esc(r.opened),'sm'],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">'+esc(r.mark)+'</span>':'')],
+    ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
+    ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
+    ['progress',r=>r.kind==='shares'?(r.armed?`<span class="pill win">FLOOR SET</span> <span class="dim">at ${f2(r.target)}</span>`:`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`):`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
+    ['the trade',r=>`<span class="plain">${plain(r)}</span>`],
+    ['held',r=>(r.sessions??'—')+'s','sm']];
+  openCols[8][2]='sm';   // the progress bar needs width a phone does not have; the plain line stays
+  const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
+    ['opened',r=>esc(r.opened),'sm'],['closed',r=>esc(r.closed),'sm'],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
+    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`,'sm']];
+  $('#tab-trades').innerHTML=
+    `<div class="stats"><div><span class="l">open</span><b>${o.length}</b></div><div><span class="l">closed</span><b>${c.length}</b></div>
+     <div><span class="l">wins</span><b class="up">${wins.length}</b></div><div><span class="l">losses</span><b class="dn">${losses.length}</b></div>
+     <div><span class="l">win rate</span><b>${c.length?Math.round(wins.length/c.length*100)+'%':'—'}</b></div>
+     <div><span class="l">avg closed</span><b class="${cls(mean(c))}">${pct(mean(c))}</b></div></div>`+
+    head('▶','Open','Marked to market. Shares: when price reaches the target a floor is set there; the trade closes only if it falls back to the floor, or at 252 sessions. Calls: a real quote where one is available, else Black-Scholes; close at expiry.')+
+    tbl(o,openCols,'no open trades')+
+    head('■','Closed — wins','')+tbl(wins,closedCols,'no wins yet')+
+    head('■','Closed — losses','')+tbl(losses,closedCols,'no losses yet')+
+    renderTaken(d);
+  $('#n-trades').textContent=o.length;
+}
+
+const RULES=[
+ {g:"Size",st:"a",say:"$600 is the most in one option position.",
+  why:"Set when the account was $8,000 — 7.5%. At $10,000 it becomes $750. It is a hard number, not a target.",
+  ev:"Raising it to $750 moves the share of affordable 120-day calls from <b>20% to 25%</b>. The step that would matter is $2,000 a position, which needs a $27,000 account."},
+ {g:"Size",st:"a",say:"No single name over 20% of the account.",
+  why:"SG hit 25% on 11 September and was trimmed to 228 shares the same day.",
+  ev:"Sold 72 at <b>$6.945</b>. SG then rose to $7.18, which cost $11. The rule was still right."},
+ {g:"Size",st:"a",say:"If nothing fires, the trade is cash.",
+  why:"Roughly three signals a month across the whole list. Nine days out of ten, nothing fires. That is the design, not a fault.",
+  ev:"Setup F produced <b>198 signals in seven years</b> across 52 names. Setup VIX has not fired since April."},
+
+ {g:"Buying calls",st:"a",say:"Never under 45 days. Target 90 to 120.",
+  why:"Setup F needs about 100 sessions to reach its target. A short call expires before the thesis can happen.",
+  ev:"Median return against a random day: <b>21 days −14pp, 45 days +33pp, 90 days +51pp</b>. The real PYPL and BABA trades were 15 and 18 days."},
+ {g:"Buying calls",st:"a",say:"At the money, not deep in the money.",
+  why:"Deep ITM has the better win rate, but almost none of it fits $600 on a $180 stock.",
+  ev:"Best cell that fits the cap: <b>ATM, 120 days — +173% median, 73% win, 12% wiped</b>, about $340 a contract."},
+ {g:"Buying calls",st:"w",say:"Short-dated only at VIX 25+, and only small.",
+  why:"Not a ban. The base rate is brutal and only one condition changes it. Premium over 8% of the stock price is the worst single choice you can make.",
+  ev:"28-day ATM calls: <b>−57.6% median, 46% wiped out</b>. At VIX 25+ the median is −7.4%. Size these near <b>$200</b>, not $600."},
+
+ {g:"Getting out",st:"a",say:"Reach the target, then floor it there. Do not sell.",
+  why:"Your own idea, 10 September. It beat closing at the target on mean with an identical win rate and median.",
+  ev:"<b>+26.78% against +20.70%</b>, same 84% win. The scanner does this automatically on every share trade."},
+ {g:"Getting out",st:"n",say:"No tight stops. Ever.",
+  why:"Six separate tests. Every one says the same thing, and wider is always better than tighter.",
+  ev:"Stop ladder: <b>−10% gives +8.87%, −50% gives +21.29%</b>. A 30 EMA stop on BABA returned −47.5% against +24.6% for holding."},
+ {g:"Getting out",st:"a",say:"Share trades close at 252 sessions if the target never comes.",
+  why:"A hard limit so a dead trade cannot sit forever. It is also the one place the cap has cost real money.",
+  ev:"The BABA trade closed on the cap in February 2025 at +1.2%. Six weeks later BABA ran <b>$100 to $147</b>."},
+
+ {g:"Armed, not on",st:"w",say:"Re-entry turns on above 20% in one position.",
+  why:"Stop at the level, buy back when price reclaims it. It works — it is just insurance the $600 cap already bought.",
+  ev:"Cuts option wipeouts from <b>33% to 2%</b> and share blowups from 6.0% to 0.6%, for about half the mean. Off while positions stay small."},
+ {g:"Armed, not on",st:"d",say:"Futures wait for a strategy, not for an account size.",
+  why:"M2K becomes sizeable around $12,000. That is not the blocker.",
+  ev:"Six futures strategies tested, six failed. The best 25-year result is buy-and-hold at <b>+$495 a year</b> — less than the interest on any loan."},
+ {g:"Armed, not on",st:"n",say:"No borrowed money.",
+  why:"A loan payment is fixed. The return is not.",
+  ev:"Cheapest loan costs <b>$960 a year</b> on $12,000. The best tested futures result earns $495."},
+];
+function renderSectors(d){
+  const S=d.sectors||[];
+  if(!S.length){$('#tab-sectors').innerHTML='<p class="none">sector data unavailable</p>';return;}
+  const arrow=n=>n===0?'<span class="dim">—</span>'
+    :n>0?`<span class="up">▲${n}</span>`:`<span class="dn">▼${-n}</span>`;
+  const rows=S.map((r,ri)=>{
+    const N=r.track.length,W=150,H=20,X=i=>W-(i/(N-1))*W,Y=v=>2+((v-1)/10)*H;
+    const pts=r.track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+    const col=r.rank<=3?'var(--amber)':'var(--dim)';
+    const main=`<tr class="${r.rank<=3?'top':''}" data-i="${ri}" tabindex="0" role="button" aria-expanded="false">`+
+      `<td class="nm">${esc(r.name)} <span class="dim">${esc(r.sym)}</span></td>`+
+      `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d mo">${arrow(r.d_month)}</td>`+
+      `<td class="d ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>`+
+      `<td class="d ${r.rel>0?'up':'dn'}">${r.rel>0?'+':''}${r.rel.toFixed(1)}%</td>`+
+      `<td class="trk"><svg viewBox="0 0 ${W} 26" preserveAspectRatio="none" role="img" aria-label="rank over ten weeks">`+
+      `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linejoin="round" opacity="${r.rank<=3?1:.55}"/>`+
+      `<circle cx="${X(0)}" cy="${Y(r.track[0])}" r="2.6" fill="${col}"/></svg></td></tr>`;
+    const hold=(r.hold||[]);
+    const mx=hold.length?Math.max(...hold.map(h=>h.pct)):1;
+    const own=new Set(r.ours||[]);
+    const body=hold.length
+      ? `<div class="mkhead">Top ${hold.length} holdings · <b>${own.size} of them are names we scan</b></div>`+
+        '<div class="mkin">'+hold.map(h=>
+          `<div class="mkrow ${own.has(h.sym)?'own':''}"><span class="s">${esc(h.sym)}</span>`+
+          `<span class="bar"><i style="width:${(h.pct/mx*100).toFixed(0)}%"></i></span>`+
+          `<span class="p">${h.pct.toFixed(1)}%</span></div>`).join('')+'</div>'
+      : '<p class="none">holdings unavailable</p>';
+    return main+`<tr class="mk" data-for="${ri}" hidden><td colspan="7" class="mkcell">${body}</td></tr>`;
+  }).join('');
+  $('#tab-sectors').innerHTML=
+    head('◷','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none — buying last month’s leader loses to SPY by 0.25pp. Click a sector to see what it is made of.')+
+    '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th class="moh">1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks → now</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    `<div class="lbtop"><a class="runbtn" target="_blank" rel="noopener"
+       href="https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml">Refresh the board ↗</a>
+     <span class="dim">Runs the same scan that updates every tab. Takes about a minute.</span></div>`+
+    `<p class="churn">The top sector changed <b>${esc(S[0].churn)}</b> weeks in this window — that churn is why it cannot be traded. Rank 1 sits at the top of each track line, 11 at the bottom. Gold names in a makeup list are ones our scan already follows.</p>`;
+  const tb=$('#tab-sectors').querySelector('tbody');
+  const toggle=tr=>{
+    const i=tr.dataset.i, mk=tb.querySelector(`tr.mk[data-for="${i}"]`);
+    const open=!mk.hidden; mk.hidden=open; tr.classList.toggle('open',!open);
+    tr.setAttribute('aria-expanded',String(!open));
+  };
+  tb.querySelectorAll('tr[data-i]').forEach(tr=>{
+    tr.addEventListener('click',()=>toggle(tr));
+    tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(tr);}});
+  });
+}
+
+function renderTaken(d){
+  const T=d.taken||[];
+  if(!T.length) return '';
+  const w=T.filter(t=>t.pl>0).length, tot=T.reduce((s,t)=>s+t.pl,0);
+  return '<div class="taken">'+
+    head('■','Trades taken with real money','Every one of these passed no setup. Both outcomes came from the exit, not the entry. Each closed trade gets a post-mortem with the same five checkpoints.')+
+    T.map(t=>`<div class="tk">
+      <span class="sym">${esc(t.sym)}</span>
+      <span class="mid"><span class="con">${t.n} &times; ${esc(t.contract)} @ $${t.paid.toFixed(2)} &middot; $${t.cost}</span>
+        <span class="dates">${esc(t.opened)} → ${esc(t.closed)} &middot; exit $${t.exit.toFixed(2)} &middot; setup ${t.setup?esc(t.setup):'none'}</span></span>
+      <span class="pl"><b class="${t.pl>0?'up':'dn'}">${t.pl>0?'+':'−'}$${Math.abs(t.pl)}</b><small>${t.pct>0?'+':''}${t.pct}%</small></span>
+      <span class="lesson">${esc(t.lesson)}${t.link?` <a href="${esc(t.link)}">Read the post-mortem →</a>`:''}</span>
+    </div>`).join('')+
+    `<div class="tkfoot"><span><b>${T.length}</b> closed</span><span><b>${w}</b> won</span>`+
+    `<span>net <b class="${tot>0?'up':'dn'}">${tot>0?'+':'−'}$${Math.abs(tot)}</b></span>`+
+    `<span><b>0</b> passed a setup</span></div></div>`;
+}
+
+function renderRules(d){
+  const v=d.vix, band=v<16?["CALM","under 16"]:v<20?["NORMAL","16–20"]:v<25?["ELEVATED","20–25"]:["HIGH","25+"];
+  const shorts=v>=25, sd=v>=25;
+  const now=`<div class="rnow">
+    <div><span class="l">VIX right now</span><b>${v.toFixed(1)}</b><small>${band[0]} · ${band[1]}</small></div>
+    <div><span class="l">Shorts (Setup S)</span><b class="${shorts?'up':'dim'}">${shorts?'allowed':'no'}</b><small>${shorts?'VIX is at 25+':'needs VIX 25+'}</small></div>
+    <div><span class="l">Short-dated calls</span><b class="${sd?'up':'dim'}">${sd?'allowed':'no'}</b><small>${sd?'small size, ~$200':'needs VIX 25+'}</small></div>
+    <div><span class="l">Setup F window</span><b class="${v>=16&&v<20?'up':'dim'}">${v>=16&&v<20?'best':'ok'}</b><small>${v>=16&&v<20?'16–20 is +10.76pp':'16–20 is the best band'}</small></div>
+  </div>`;
+  const cls={a:'on',w:'armed',n:'never',d:''}, lab={a:'active',w:'armed',n:'never',d:'waiting'};
+  let out=head('§','The rules','Decisions, not signals. Each one is here because a test said so. The number under each rule is that test.')+now;
+  for(const g of ["Size","Buying calls","Getting out","Armed, not on"]){
+    out+=`<div class="rgrp"><h3>${g}</h3>`;
+    for(const r of RULES.filter(x=>x.g===g))
+      out+=`<div class="rule-c ${cls[r.st]}"><span class="st ${r.st}">${lab[r.st]}</span>
+        <p class="say">${r.say}</p><p class="why">${r.why}</p><p class="ev">${r.ev}</p></div>`;
+    out+=`</div>`;
+  }
+  const w=d.week||{days:[]};
+  if(w.days&&w.days.length){
+    out+=`<div class="recent">`+head('≡','What the scan produced','One row per session. Setup D is a watchlist count, not a signal.')+
+      tbl(w.days.slice().reverse().slice(0,10),[['date',r=>esc(r.date)],['VIX',r=>Number(r.vix).toFixed(1)],
+      ['regime',r=>`<span class="pill">${esc(r.regime)}</span>`],
+      ['VIX fires',r=>r.vix_fires?'<span class="up">yes</span>':'<span class="dim">no</span>'],
+      ['F',r=>r.F.length?r.F.map(esc).join(' '):'<span class="dim">—</span>'],
+      ['C',r=>r.C.length?r.C.map(esc).join(' '):'<span class="dim">—</span>'],
+      ['S',r=>r.S.length?r.S.map(esc).join(' '):'<span class="dim">—</span>'],
+      ['D',r=>`<span class="dim">${r.D.length}</span>`]],'history builds as the scan runs')+`</div>`;
+  }
+  $('#tab-rules').innerHTML=out;
+}
+
+function renderWeek(d){
+  const w=d.week||{days:[],closed:[],by_setup:{},produced:[]};
+  const days=tbl(w.days.slice().reverse(),[['date',r=>esc(r.date)],['VIX',r=>Number(r.vix).toFixed(1)],['regime',r=>`<span class="pill">${esc(r.regime)}</span>`],
+    ['VIX fires',r=>r.vix_fires?'<span class="up">yes</span>':'<span class="dim">no</span>'],
+    ['F',r=>r.F.length?r.F.map(esc).join(' '):'<span class="dim">—</span>'],['C',r=>r.C.length?r.C.map(esc).join(' '):'<span class="dim">—</span>'],
+    ['S',r=>r.S.length?r.S.map(esc).join(' '):'<span class="dim">—</span>'],['D',r=>`<span class="dim">${r.D.length}</span>`]],'history builds as the scan runs each day');
+  const bs=Object.entries(w.by_setup).sort();
+  const verdict=bs.length?tbl(bs.map(([k,v])=>({k,...v})),[['setup',r=>`<span class="pill setup">${esc(r.k)}</span>`],
+    ['closed W/L',r=>`<span class="up">${r.wins}</span> / <span class="dn">${r.losses}</span>`],['closed avg',r=>`<span class="${cls(r.closed_mean)}">${pct(r.closed_mean)}</span>`],
+    ['open',r=>r.open_n],['open avg',r=>`<span class="${cls(r.open_mean)}">${pct(r.open_mean)}</span>`],
+    ['verdict',r=>{const m=r.closed_mean??r.open_mean;return m==null?'<span class="dim">—</span>':m>0?'<span class="up">working</span>':'<span class="dn">not working</span>'}]]):'<p class="none">no trades this week</p>';
+  const closedWk=tbl(w.closed,[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['closed',r=>esc(r.closed)],
+    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`]],'nothing closed this week');
+  $('#tab-week-retired').innerHTML=
+    head('W','Snapshot — what worked, what didn\'t','Per setup, over the last 7 days. "Working" means the average P/L is positive, closed first, open if nothing closed.')+verdict+
+    head('≡','Signals produced this week','One row per session the scan ran. D is a count — it is a watchlist, not a signal.')+days+
+    head('■','Closed this week','')+closedWk;
+}
+
+function renderSetups(d){
+  // Two of six are the ones that actually produce trades. Say so.
+  const GROUP=[
+    ["Active","These produce signals. F is the only one that survived every test.",["F","VIX","S"]],
+    ["Watchlist only","Kept and shown, never acted on. Each failed a test that mattered.",["D","C"]],
+    ["Retired","Superseded. Open trades still carry the tag, so it stays readable.",["E"]]];
+  const one=k=>{
+    const v=(d.setups||{})[k]; if(!v) return '';
+    return `<details><summary><span class="k">${esc(k==='VIX'?'V':k)}</span>`+
+      `<span class="t">${esc(v.name)}</span><span class="g">${esc(v.tag)}</span></summary>`+
+      `<div class="body"><p class="size">${esc(v.size)}</p>`+
+      `<h4>The rule</h4><ol>${v.rules.map(x=>`<li>${x}</li>`).join('')}</ol>`+
+      `<h4>The numbers</h4><ul>${v.numbers.map(x=>`<li>${x}</li>`).join('')}</ul>`+
+      `<h4>When it works</h4><p>${v.works}</p>`+
+      `<h4>When it does not</h4><p>${v.fails}</p></div></details>`;
+  };
+  $('#tab-setups').innerHTML=
+    head('?','The setups','Click one. Every number comes from a test written down before it was run.')+
+    GROUP.map(([name,why,keys])=>
+      `<div class="sgrp"><h3>${name}<span>${why}</span></h3>${keys.map(one).join('')}</div>`).join('');
+}
+
+
+function renderHead(d){
+  $('#stamp').textContent=`${d.date} · scanned ${d.stamp}`;
+  (function(){
+    // the workflow runs 13:15 and 21:15 UTC, Mon-Fri
+    const now=new Date(), SLOTS=[[13,15],[21,15]];
+    let next=null;
+    for(let k=0;k<7&&!next;k++){
+      const day=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+k));
+      const dow=day.getUTCDay(); if(dow===0||dow===6) continue;
+      for(const [H,M] of SLOTS){
+        const t=new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate(),H,M));
+        if(t>now){next=t;break;}
+      }
+    }
+    const el=$('#nextrun'); if(!next){el.textContent='';return;}
+    const mins=Math.round((next-now)/60000);
+    const when = mins<60 ? `${mins} min` : mins<1440 ? `${Math.round(mins/60)} hr` : `${Math.round(mins/1440)} d`;
+    const local=next.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+    // how old is the data we are showing?
+    let age='';
+    const m=String(d.stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+    if(m){
+      const scanned=new Date(Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]));
+      const h=(now-scanned)/3600000;
+      age = h<1?`${Math.round(h*60)} min old` : h<48?`${Math.round(h)} hr old` : `${Math.round(h/24)} days old`;
+      if(h>20) el.classList.add('stale');
+    }
+    el.innerHTML = `${age?'data <b>'+age+'</b> · ':''}next run <b>${local}</b> (${when})`;
+  })();
+  $('#vixnum').textContent=d.vix.toFixed(2);
+  $('#vix5').textContent=d.vix5.map(x=>x.toFixed(1)).join(' → ');
+  const pos=Math.max(0,Math.min(100,(d.vix-8)/(40-8)*100));
+  requestAnimationFrame(()=>$('#marker').style.left=`calc(${pos}% - 1px)`);
+  $('#regime').textContent=d.regime;$('#advice').textContent=d.advice;
+  $('#qqq').textContent=f2(d.qqq);$('#qdd').textContent=pct(d.qdd);
+  $('#swing').hidden=d.vix<20;
+}
+
+document.querySelectorAll('nav [role=tab]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav [role=tab]').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('[role=tabpanel]').forEach(p=>p.hidden=p.id!=='tab-'+b.dataset.tab);
+  try{localStorage.setItem('tab',b.dataset.tab)}catch(e){}
+}));
+
+fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{
+  renderHead(d);renderScan(d);renderTrades(d);renderSectors(d);renderRules(d);renderSetups(d);
+  let t='scan';try{t=localStorage.getItem('tab')||'scan'}catch(e){}
+  const b=document.querySelector(`nav [data-tab="${t}"]`);if(b)b.click();
+}).catch(e=>{$('#stamp').textContent='could not load data.json';$('#tab-scan').innerHTML=`<p class="err">${esc(e.message)}</p>`;});
+</script>
+</body>
+</html>

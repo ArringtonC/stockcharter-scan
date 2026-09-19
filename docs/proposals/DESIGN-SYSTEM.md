@@ -79,8 +79,8 @@ Subtle only. Everything is visible at rest — no section waits on scroll.
 ## The process, unchanged
 
 One page at a time. BEFORE → PROPOSED AFTER → KEEP/CHANGE → required states →
-**STOP for approval**. Nothing spreads past an unapproved checkpoint. `index.html`
-is not touched until all eight pages pass and the final consistency review runs.
+**STOP for approval**. Nothing spreads past an unapproved checkpoint. `index.html` was rebuilt on 2026-09-18 once all eight passed. `_index-before.html` in this
+folder is the page as it stood before.
 
 ## Board
 
@@ -88,16 +88,15 @@ is not touched until all eight pages pass and the final consistency review runs.
 |---|---|---|---|---|---|
 | 1 | Today | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
 | 2 | Trades | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
-| 3 | Watching | ✓ | ✓ | ✓ | for review |
-| 4 | Setups | ✓ | ✓ | ✓ | for review |
-| 5 | Rules | ✓ | ✓ | ✓ | for review |
-| 6 | Sectors | ✓ | ✓ | ✓ | for review |
-| 7 | Methodology | ✓ | ✓ | ✓ | for review |
-| 8 | System | ✓ | ✓ | ✓ | for review |
+| 3 | Watching | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
+| 4 | Setups | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
+| 5 | Rules | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
+| 6 | Sectors | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
+| 7 | Methodology | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
+| 8 | System | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
 
 ## Open items, carried forward
 
 - **Universe count.** Today wants "63 names" in its count line. `scan_daily.py`
   must emit a `universe` field. That is a data change and waits for approval.
-- **Run scan now** has no home until System (page 8) exists. It is out of the
-  masthead and not yet placed.
+- ~~Run scan now has no home~~ — it lives on System now.

@@ -7,442 +7,1109 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* Ledger redesign — the approved system, extracted from Today (page 1).
+   Pages 2-8 link this file. Do not fork it; if a page needs a new component,
+   add it here so every page gets it. */
+/* ── KEPT VERBATIM FROM index.html. No new design language was invented. ───── */
 :root{
   --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
   --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
   --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
   --serif:'Fraunces',Georgia,serif;
-  /* one scale, used everywhere. Steps are 1.5x apart so rhythm is visible. */
   --s1:6px; --s2:10px; --s3:16px; --s4:24px; --s5:36px; --s6:56px;
-  /* five type steps, not eight. Each is 1.35x+ from the next. */
   --t-hero:76px; --t-h1:30px; --t-h2:19px; --t-body:14px; --t-data:12.5px; --t-label:10.5px; --tr:.12em;
 }
-@media(prefers-color-scheme:light){:root{
+/* CHANGED: the light palette was behind a bare media query, so an explicit light
+   choice could never win over a dark OS. Same colors, three states now. */
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){
   --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
   --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
   --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
+:root[data-theme=light]{
+  --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
+  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
+  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}
+:root[data-theme=dark]{
+  --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;}
+
 *{box-sizing:border-box}
 html{background:var(--bg)}
-body{margin:0;color:var(--ink);font:var(--t-body)/1.6 var(--mono);background:var(--bg);min-height:100vh}
+body{margin:0;color:var(--ink);font:var(--t-body)/1.6 var(--mono);background:var(--bg)}
+h1,h2,h3{text-wrap:balance}
+
+/* ── shared page components ───────────────────────────────────────────────── */
+/* the page components use @container so they respond to the panel, not the window.
+   That needs the panel to BE a container. */
+.today{padding:0 0 var(--s5);container-type:inline-size}
+
+
+/* masthead — CHANGED: admin control removed, identity only */
+.tmast{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
+  border-bottom:1px solid var(--line2);padding-bottom:var(--s2)}
+.tmast h1{font:300 var(--t-h2)/1 var(--serif);margin:0;letter-spacing:-.01em}
+.tmast h1 b{font-weight:700;color:var(--amber)}
+.tmast .when{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tmast .when.stale{color:var(--dn)}
+
+/* verdict hero — the whole point of the redesign */
+.verdict{padding:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line)}
+.verdict .eyebrow{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-bottom:var(--s2)}
+.verdict p.say{font:300 clamp(30px,5.2vw,46px)/1.12 var(--serif);letter-spacing:-.02em;margin:0;max-width:20ch;color:var(--ink)}
+.verdict p.say b{font-weight:600;color:var(--amber)}
+.verdict p.say.fires b{color:var(--up)}
+.verdict .sub{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:60ch}
+.verdict .sub b{color:var(--ink);font-weight:500}
+/* CHANGED: the paragraph became one scannable count line plus one sentence. */
+.vstat{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);
+  font:500 var(--t-data) var(--mono);color:var(--ink2);font-variant-numeric:tabular-nums}
+.vstat b{color:var(--ink);font-weight:600}
+.vquiet{margin:var(--s1) 0 0;font-size:var(--t-data);line-height:1.6;color:var(--dim);max-width:60ch}
+.vquiet b{color:var(--ink2);font-weight:500}
+.verdict .row:first-of-type{margin-top:var(--s4)}
+
+/* what this is — Karla asked "is this recommendations?", "is this an app?",
+   "how does it work?". One line answers all three; the detail folds away. */
+.whatis{margin-top:var(--s2);border-bottom:1px solid var(--line)}
+.whatis>summary{cursor:pointer;list-style:none;display:flex;gap:var(--s2);flex-wrap:wrap;
+  align-items:baseline;padding:var(--s2) 0;font-size:var(--t-data);color:var(--ink2)}
+.whatis>summary::-webkit-details-marker{display:none}
+.whatis>summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.whatis b.not{color:var(--dn);font-weight:600}
+.whatis .how{margin-left:auto;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--amber);white-space:nowrap}
+.whatis[open] .how::after{content:' ▴'}
+.whatis:not([open]) .how::after{content:' ▾'}
+.whatis .in{padding:0 0 var(--s3)}
+.whatis .in p{margin:0 0 var(--s2);font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:66ch}
+.whatis .in b{color:var(--ink);font-weight:500}
+
+/* summary pair — Getting close and Watching sit together, above the trades */
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
+@container (max-width:820px){.sum{grid-template-columns:1fr;gap:var(--s5)}}
+.row.tight{padding:var(--s2) 0;align-items:center}
+.row.tight .miss{margin-top:0}
+.row .num .mid{font:600 var(--t-body) var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.row .num .mid.up{color:var(--up)}.row .num .mid.dn{color:var(--dn)}
+.more{margin:var(--s2) 0 0;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+
+/* recent activity — the week strip is five real scans, not a sparkline */
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:5px;overflow:hidden;margin-top:var(--s3)}
+.week>div{background:var(--panel);padding:var(--s2);text-align:center}
+.week>div.hit{background:color-mix(in srgb,var(--up) 14%,var(--panel))}
+.week .wd{display:block;font-size:var(--t-label);letter-spacing:var(--tr);color:var(--dim)}
+.week .wn{display:block;font:600 var(--t-h2)/1.2 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.week>div.hit .wn{color:var(--up)}
+
+/* market context — CHANGED: was a 76px hero, now one quiet strip */
+.ctx{display:flex;flex-wrap:wrap;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.ctx div{display:flex;flex-direction:column;gap:2px}
+.ctx .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.ctx .v{font:600 var(--t-h2)/1 var(--serif);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ctx .v small{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--ink2);margin-left:var(--s1)}
+.ctx .warn{margin:var(--s2) 0 0;width:100%;font-size:var(--t-data);color:var(--ink2)}
+
+/* sections */
+.sec{padding-top:var(--s5)}
+.sec>h2{font:600 var(--t-h2)/1.2 var(--serif);margin:0 0 var(--s1);letter-spacing:-.01em;
+  display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
+.sec>h2 .tag{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:3px;padding:2px 7px;color:var(--ink2)}
+.sec>h2 .tag.trade{color:var(--amber);border-color:var(--amber)}
+.sec>h2 .tag.watch{color:var(--dim)}
+.sec>p.lede{margin:0 0 var(--s3);font-size:var(--t-data);color:var(--dim);max-width:72ch}
+.empty{font-size:var(--t-data);color:var(--dim);padding:var(--s2) 0}
+
+/* rows — LAYOUT rule: thin rules, not filled cards */
+.row{display:grid;grid-template-columns:5.5rem minmax(0,1fr) auto;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row .sym{font:600 var(--t-body) var(--mono);color:var(--ink);letter-spacing:.02em}
+.row .sym small{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);font-weight:500;margin-top:2px}
+.row .main{min-width:0}
+.row .main .t{font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.row .main .miss{margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2)}
+.row .main .miss b{color:var(--dn);font-weight:500}
+.row .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.row .num .big{font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
+.row .num .u{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-top:3px}
+.row .num .up{color:var(--up)}.row .num .dn{color:var(--dn)}
+@container (max-width:560px){
+  .row{grid-template-columns:1fr auto}
+  .row .sym{grid-column:1}
+  .row .num{grid-column:2;grid-row:1}
+  .row .main{grid-column:1/-1}
+}
+
+/* disclosure — CHANGED: empty setup detail collapses instead of filling the page */
+.deep{margin-top:var(--s5);border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.deep summary{cursor:pointer;list-style:none;padding:var(--s3);display:flex;align-items:center;gap:var(--s2);
+  font:500 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--ink2)}
+.deep summary::-webkit-details-marker{display:none}
+.deep summary::after{content:'+';margin-left:auto;color:var(--dim);font-size:var(--t-h2);line-height:1}
+.deep[open] summary::after{content:'−'}
+.deep summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.deep .in{padding:0 var(--s3) var(--s3)}
+.chk{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s2) var(--s3);align-items:baseline;
+  padding:var(--s2) 0;border-top:1px solid var(--line)}
+.chk .k{font:700 var(--t-label) var(--mono);letter-spacing:var(--tr);color:var(--dim);
+  border:1px solid var(--line2);border-radius:3px;padding:2px 6px;min-width:2.1rem;text-align:center}
+.chk .d{font-size:var(--t-data);color:var(--ink2);min-width:0}
+.chk .r{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;white-space:nowrap}
+.chk .r.no{color:var(--dim)}.chk .r.yes{color:var(--up)}
+
+/* skeleton + error states */
+.sk{background:var(--line);border-radius:4px;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:.85}}
+.err{border:1px solid var(--dn);border-radius:6px;padding:var(--s3);color:var(--dn);font-size:var(--t-data);background:var(--panel)}
+.stalebar{border:1px solid var(--dn);border-left-width:3px;border-radius:5px;padding:var(--s2) var(--s3);
+  margin-bottom:var(--s3);font-size:var(--t-data);color:var(--ink2);background:var(--panel)}
+.stalebar b{color:var(--dn)}
+.foot{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line);
+  font-size:var(--t-label);line-height:1.7;color:var(--dim)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ── app shell ─────────────────────────────────────────────────────────────── */
 .wrap{max-width:1040px;margin:0 auto;padding:var(--s4) 18px 96px}
-
-/* masthead */
-.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s4);
-  border-bottom:1px solid var(--line2);padding-bottom:var(--s3)}
-.mast h1{font:300 var(--t-h1)/1 var(--serif);letter-spacing:-.01em;margin:0}
+.mast{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
+  padding-bottom:var(--s3)}
+.mast h1{margin:0;font:300 var(--t-h1)/1 var(--serif);letter-spacing:-.01em}
 .mast h1 b{font-weight:700;color:var(--amber)}
-.what{margin:var(--s2) 0 0;font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:46ch}
-.what b{color:var(--ink);font-weight:500}
-.stamp{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.mast .stamp{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.mast .stamp.stale{color:var(--dn)}
 
-/* regime meter */
-.meter{display:grid;grid-template-columns:auto 1fr;gap:var(--s6);align-items:center;padding:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line)}
-.vix{font:600 var(--t-hero)/0.88 var(--serif);letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
-.vix small{display:block;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-top:var(--s2)}
-.band{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--dim) 0 27%,var(--up) 27% 45%,var(--amber) 45% 64%,var(--dn) 64% 100%);opacity:.85}
-.band i{position:absolute;top:-7px;width:3px;height:24px;background:var(--ink);border-radius:2px;box-shadow:0 0 0 3px var(--bg);transition:left .6s cubic-bezier(.2,.8,.2,1)}
-.ticks{display:flex;justify-content:space-between;font-size:var(--t-label);color:var(--dim);letter-spacing:.1em;margin-top:var(--s2)}
-.regime{margin-top:var(--s3);font-size:var(--t-data);line-height:1.6;color:var(--ink2)}
-.regime b{color:var(--ink);font-weight:600}
-.regime .tag{display:inline-block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;padding:3px 8px;border:1px solid var(--line2);border-radius:3px;margin-right:8px;color:var(--amber)}
-.swing{margin-top:var(--s2);padding:var(--s2) var(--s3);border:1px solid var(--line);border-radius:5px;background:var(--panel);font-size:var(--t-data);color:var(--ink2)}
-
-/* tabs */
-nav{display:flex;gap:2px;margin:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line2)}
-nav button{appearance:none;background:none;border:0;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
-  font:500 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;padding:12px 16px;cursor:pointer;transition:color .15s}
+nav{display:flex;gap:2px;border-bottom:1px solid var(--line2);overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{appearance:none;background:none;border:0;white-space:nowrap;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
+  font:500 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;padding:12px 16px}
 nav button:hover{color:var(--ink2)}
 nav button[aria-selected=true]{color:var(--amber);border-bottom-color:var(--amber)}
-nav button .n{display:inline-block;min-width:18px;margin-left:6px;font-size:var(--t-label);padding:1px 5px;border-radius:9px;background:var(--line);color:var(--ink2)}
-section[role=tabpanel]{padding-top:var(--s2);animation:in .35s cubic-bezier(.2,.8,.2,1)}
-section[hidden]{display:none}
-@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+nav button:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+nav .n{display:inline-block;min-width:18px;margin-left:6px;font-size:var(--t-label);padding:1px 5px;
+  border-radius:9px;background:var(--line);color:var(--ink2)}
 
-/* blocks */
-h2{font:600 22px/1.2 var(--serif);margin:30px 0 4px;letter-spacing:-.01em}
-h2 .k{display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;border-radius:4px;background:var(--amber);color:var(--bg);font:700 var(--t-data) var(--mono);margin-right:10px;vertical-align:3px}
-.rule{font-size:var(--t-data);color:var(--dim);margin:0 0 12px;max-width:78ch}
-.fire{padding:14px 16px;border-radius:5px;background:var(--up);color:#07110b;font-weight:600;margin:8px 0 14px}
-.none{color:var(--dim);font-size:var(--t-data);padding:10px 0 2px}
-.note{color:var(--dim);font-size:var(--t-data);margin:8px 0 0}
+/* Research holds four reference pages behind one tab */
+.sub{display:flex;gap:2px;margin-top:var(--s3);overflow-x:auto;scrollbar-width:none}
+.sub::-webkit-scrollbar{display:none}
+.sub button{appearance:none;background:none;cursor:pointer;white-space:nowrap;
+  border:1px solid var(--line2);border-radius:3px;padding:6px 11px;color:var(--dim);
+  font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.sub button[aria-selected=true]{border-color:var(--amber);color:var(--amber)}
+.sub button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 
-table{border-collapse:collapse;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
-th,td{text-align:right;padding:9px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
-th{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);background:var(--bg2)}
-td:first-child,th:first-child{text-align:left}
-td:first-child{font-weight:600;color:var(--ink)}
-tr:last-child td{border-bottom:0}
-tr:hover td{background:color-mix(in srgb,var(--amber) 5%,transparent)}
-.up{color:var(--up)}.dn{color:var(--dn)}.dim{color:var(--dim)}.amber{color:var(--amber)}
-.pill{display:inline-block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line2);color:var(--ink2)}
-.pill.win{color:var(--up);border-color:var(--up)}.pill.loss{color:var(--dn);border-color:var(--dn)}
-.pill.setup{color:var(--amber);border-color:var(--amber)}
-.pill.real{color:#fff;background:var(--dn);border-color:var(--dn);font-weight:700}
-.bar{position:relative;height:6px;width:96px;background:var(--line);border-radius:3px;display:inline-block;vertical-align:middle}
-.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--amber);border-radius:3px}
+section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8,.2,1)}
+[hidden]{display:none!important}
+@keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .scroll{overflow-x:auto}
-details{border:1px solid var(--line);border-radius:5px;background:var(--panel);margin:8px 0}
-summary{cursor:pointer;padding:12px 14px;list-style:none;display:flex;align-items:center;gap:12px}
-summary::-webkit-details-marker{display:none}
-summary .k{flex:0 0 30px}
-summary .t{font:600 16px var(--serif)}
-summary .g{color:var(--dim);font-size:var(--t-data)}
-summary::after{content:'+';margin-left:auto;color:var(--dim);font-size:var(--t-h2)}
-details[open] summary::after{content:'−'}
-.body{padding:2px 16px 16px 56px;color:var(--ink2);font-size:var(--t-data)}
-.body h4{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:14px 0 6px}
-.body ul{margin:0;padding-left:18px}.body li{margin:3px 0}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:5px;overflow:hidden;margin:10px 0 18px}
-.stats div{background:var(--panel);padding:12px 14px}
-.stats b{display:block;font:600 24px/1.1 var(--serif);margin-top:var(--s1)}
-.stats .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:720px){.grid2{grid-template-columns:1fr}.meter{grid-template-columns:1fr}.vix{font-size:clamp(56px,16vw,var(--t-hero))}nav{overflow-x:auto}}
-/* Rules tab */
-.rgrp{margin:26px 0 0}
-.rgrp>h3{font:600 var(--t-data)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:0 0 12px;
- display:flex;align-items:center;gap:10px}
-.rgrp>h3::after{content:"";flex:1;height:1px;background:var(--line)}
-.rule-c{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s1) var(--s4);align-items:start;
- padding:var(--s3) var(--s3);border:1px solid var(--line);border-radius:6px;
- background:var(--panel);margin-bottom:var(--s1)}
-.rule-c .say{font-weight:600;font-size:var(--t-body);line-height:1.35;grid-column:1}
-.rule-c .why{grid-column:1;font-size:var(--t-data);color:var(--ink2);margin:0;max-width:66ch}
-.rule-c .ev{grid-column:1;font:500 var(--t-data)/1.5 var(--mono);color:var(--dim);margin-top:var(--s1)}
-.rule-c .ev b{color:var(--ink2)}
-.rule-c .st{grid-row:1/3;grid-column:2;font:600 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
- padding:5px 9px;border-radius:4px;white-space:nowrap;align-self:start}
-.st.a{background:var(--amber);color:#17100a}
-.st.w{background:var(--up);color:#fff}
-.st.n{background:var(--dn);color:#fff}
-.st.d{background:var(--line);color:var(--dim)}
-.rnow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
- border:1px solid var(--line);border-radius:7px;overflow:hidden;margin-bottom:var(--s1)}
-.rnow>div{background:var(--panel);padding:13px 15px}
-.rnow .l{display:block;font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-bottom:var(--s1)}
-.rnow b{font:600 var(--t-h2)/1.15 var(--serif);display:block}
-.rnow small{display:block;font-size:var(--t-data);color:var(--ink2);margin-top:var(--s1);line-height:1.4}
-.recent{margin-top:30px}
-.recent table{font-size:var(--t-data)}
-
-.stampwrap{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-.stamp2{font:500 var(--t-label)/1.4 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-.stamp2 b{color:var(--ink2)}
-.stamp2.stale b{color:var(--dn)}
-.runbtn{display:inline-block;margin-top:var(--s1);font:500 var(--t-label)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
- color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:5px;padding:7px 11px;transition:.15s}
-.runbtn:hover{color:var(--ink);border-color:var(--amber);background:var(--panel)}
-@media(max-width:720px){.stampwrap{align-items:flex-start;text-align:left;margin-top:var(--s2)}}
-
-/* leadership board — context, not signal */
-.lb{width:100%;border-collapse:collapse;font-size:var(--t-data);margin-top:var(--s2)}
-.lb th{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
- text-align:right;padding:0 8px 8px;border-bottom:1px solid var(--line)}
-.lb th:first-child,.lb td:first-child{text-align:left}
-.lb td{padding:8px;border-bottom:1px solid var(--line2,var(--line));text-align:right;vertical-align:middle}
-.lb tr:last-child td{border-bottom:none}
-.lb .r{font:600 var(--t-body)/1 var(--serif);width:34px}
-.lb tr.top .r{color:var(--amber)}
-.lb .nm{font-weight:500}
-.lb .d{font:500 var(--t-data) var(--mono)}
-.lb .trk{width:150px;padding-right:0}
-.lb .trk svg{display:block;width:150px;height:26px;overflow:visible}
-@media(max-width:720px){
-  /* the leadership board measured 442px inside a 390px page — trim it to fit */
-  .lb .trk,.lb th.trkh{display:none}
-  .lb .mo,.lb th.moh{display:none}          /* 1-month change: the least load-bearing column */
-  .lb{font-size:var(--t-data)}
-  .lb th,.lb td{padding:7px 5px}
-  .lb th:first-child,.lb td:first-child{padding-left:0}
-  .lb .nm .dim{display:none}                /* drop the ticker, the name is enough */
-  .lb .r{font-size:var(--t-body);width:26px}
-  /* five tabs have to fit without a hidden horizontal scroll */
-  nav button{padding:11px 8px;font-size:var(--t-label);letter-spacing:.06em;white-space:nowrap}
-  nav button .n{margin-left:4px;padding:1px 4px}
-  /* the header stacks rather than squeezing */
-  .mast{flex-direction:column;align-items:flex-start;gap:6px}
-  .stampwrap{align-items:flex-start;text-align:left;margin-top:var(--s1)}
-  .runbtn{padding:8px 12px}
-  .mkin{grid-template-columns:1fr 1fr;gap:6px 14px}
-  .rule-c{padding:13px 14px}
-  .rule-c .st{font-size:var(--t-label);padding:4px 7px}
-  /* trades: hide the columns you can infer, so P/L and target are on screen */
-  #tab-trades .sm{display:none}
-  #tab-trades table{font-size:var(--t-data)}
-  #tab-trades th,#tab-trades td{padding:8px 6px}
+/* ── Trades ─────────────────────────────── */
+.pos{border-top:1px solid var(--line);padding:0}
+.pos:last-of-type{border-bottom:1px solid var(--line)}
+.pos>summary{cursor:pointer;list-style:none;display:grid;
+  grid-template-columns:7rem minmax(0,1fr) 7.5rem 8rem;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0}
+.pos>summary::-webkit-details-marker{display:none}
+.pos>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.pos:hover>summary{background:color-mix(in srgb,var(--amber) 4%,transparent)}
+.pos .sym{font:600 var(--t-body) var(--mono);color:var(--ink);letter-spacing:.02em}
+.pos .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.pos .say{min-width:0;font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.pos .say .rule{display:block;margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2)}
+.pos .pl{text-align:right;font-variant-numeric:tabular-nums}
+.pos .pl b{font:600 var(--t-h2)/1 var(--serif)}
+.pos .pl small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+.pos .st{text-align:right;font-variant-numeric:tabular-nums}
+.pos .st .bar{position:relative;display:block;height:5px;border-radius:3px;background:var(--line);margin:0 0 5px auto;width:100%}
+.pos .st .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:3px}
+.pos .st small{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.pos>summary::after{content:'+';grid-column:4;justify-self:end;color:var(--dim)}
+.pos .mech{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s3);
+  padding:0 0 var(--s4);border-left:2px solid var(--line2);padding-left:var(--s3);margin:0 0 var(--s3)}
+.pos .mech div{display:flex;flex-direction:column;gap:2px}
+.pos .mech .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.pos .mech .v{font:500 var(--t-data) var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.real{background:var(--dn);color:#fff;border-radius:3px;padding:1px 6px;font:700 var(--t-label) var(--mono);
+  letter-spacing:var(--tr);text-transform:uppercase}
+.setup{border:1px solid var(--amber);color:var(--amber);border-radius:3px;padding:1px 6px;
+  font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.setup.off{border-color:var(--line2);color:var(--dim)}
+.perf{display:flex;flex-wrap:wrap;gap:var(--s5);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.perf div{display:flex;flex-direction:column;gap:2px}
+.perf .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.perf .v{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.perf .n{font-size:var(--t-label);color:var(--dim)}
+.pm{display:inline-block;margin-top:var(--s1);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--amber);text-decoration:none;border-bottom:1px solid transparent}
+.pm:hover,.pm:focus-visible{border-bottom-color:var(--amber);outline:none}
+.pmrow{display:grid;grid-template-columns:7rem minmax(0,1fr) auto;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.pmrow:last-of-type{border-bottom:1px solid var(--line)}
+.pmrow:hover,.pmrow:focus-visible{background:color-mix(in srgb,var(--amber) 5%,transparent);outline:none}
+.pmrow .sym{font:600 var(--t-body) var(--mono);color:var(--ink)}
+.pmrow .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.pmrow .main{min-width:0}
+.pmrow .main .t{display:block;font-size:var(--t-body);color:var(--ink)}
+.pmrow .main .miss{display:block;margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2)}
+.pmrow .num{text-align:right;white-space:nowrap}
+.pmrow .num .mid{font:600 var(--t-body) var(--mono);font-variant-numeric:tabular-nums}
+.pmrow .num .mid.up{color:var(--up)}.pmrow .num .mid.dn{color:var(--dn)}
+.pmrow .num .u{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--amber)}
+@container (max-width:680px){
+  .pos>summary{grid-template-columns:minmax(0,1fr) auto}
+  .pos .sym{grid-column:1;grid-row:1}
+  .pos .pl{grid-column:2;grid-row:1}
+  .pos .say{grid-column:1/-1;grid-row:2}
+  .pos .st{grid-column:1/-1;grid-row:3;text-align:left}
+  .pos .st .bar{margin-left:0}
+  .pos>summary::after{display:none}
 }
-.churn{font:500 var(--t-data)/1.5 var(--mono);color:var(--dim);margin-top:var(--s2)}
-.churn b{color:var(--ink2)}
 
-.lb tbody tr{cursor:pointer}
-.lb tbody tr:hover td{background:var(--bg2,rgba(128,128,128,.06))}
-.lb tr.open td{border-bottom:none}
-.mk{background:var(--panel)}
-.mk>td{padding:0 4px 14px!important;border-bottom:1px solid var(--line)!important}
-.mkin{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 22px;padding:4px 0 0}
-.mkrow{display:flex;align-items:center;gap:9px;font:500 var(--t-data)/1.5 var(--mono)}
-.mkrow .s{width:52px;color:var(--ink)}
-.mkrow .bar{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
-.mkrow .bar i{display:block;height:100%;background:var(--dim);border-radius:3px}
-.mkrow.own .bar i{background:var(--amber)}
-.mkrow.own .s{color:var(--amber)}
-.mkrow .p{width:44px;text-align:right;color:var(--dim)}
-.mkhead{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:4px 0 8px}
-.mkhead b{color:var(--amber)}
+/* ── Watching ─────────────────────────────── */
+/* status is the organising idea on this page, so it gets the left edge */
+.wrow{display:grid;grid-template-columns:7rem minmax(0,1fr) 7rem;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0;border-top:1px solid var(--line)}
+.wrow:last-of-type{border-bottom:1px solid var(--line)}
+.wrow .sym{font:600 var(--t-body) var(--mono);color:var(--ink);letter-spacing:.02em}
+.wrow .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.wrow .next{min-width:0;font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.wrow .next em{display:block;margin-top:var(--s1);font-style:normal;font-size:var(--t-data);color:var(--ink2)}
+.wrow .next em b{color:var(--dn);font-weight:500}
+.wrow .px{text-align:right;font-variant-numeric:tabular-nums}
+.wrow .px b{font:600 var(--t-body) var(--mono);color:var(--ink)}
+.wrow .px small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
 
-/* setup groups */
+/* the three states share one bar so none of them can read as a signal */
+.band{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin:var(--s5) 0 var(--s2)}
+.band h3{margin:0;font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.band .n{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:3px;padding:2px 7px;color:var(--dim)}
+.band p{flex:1 1 100%;margin:0;font-size:var(--t-data);color:var(--dim);max-width:74ch}
+
+/* sector context — expandable, never a recommendation */
+.sect{border-top:1px solid var(--line)}
+.sect:last-of-type{border-bottom:1px solid var(--line)}
+.sect>summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:2.5rem minmax(0,1fr) 5rem 6rem;
+  gap:var(--s3);align-items:baseline;padding:var(--s2) 0}
+.sect>summary::-webkit-details-marker{display:none}
+.sect>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.sect .rk{font:600 var(--t-body) var(--serif);color:var(--dim);font-variant-numeric:tabular-nums}
+.sect.top .rk{color:var(--amber)}
+.sect .nm{font-size:var(--t-body);color:var(--ink)}
+.sect .nm small{color:var(--dim);font-size:var(--t-label);letter-spacing:var(--tr);margin-left:var(--s1)}
+.sect .g,.sect .o{text-align:right;font-variant-numeric:tabular-nums;font:500 var(--t-data) var(--mono)}
+.sect .o{color:var(--dim)}
+.sect .in{padding:0 0 var(--s3) 2.5rem;font-size:var(--t-data);color:var(--ink2)}
+.sect .in .hold{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s1)}
+.sect .in .hold span{white-space:nowrap}
+.sect .in .hold b{color:var(--ink);font-weight:500}
+.sect .in .hold .mine{color:var(--amber)}
+@container (max-width:680px){
+  .wrow{grid-template-columns:minmax(0,1fr) auto}
+  .wrow .sym{grid-column:1;grid-row:1}
+  .wrow .px{grid-column:2;grid-row:1}
+  .wrow .next{grid-column:1/-1;grid-row:2}
+  .sect>summary{grid-template-columns:2.5rem minmax(0,1fr) 5rem}
+  .sect .o{display:none}
+}
+
+/* ── Setups ─────────────────────────────── */
 .sgrp{margin-top:var(--s5)}
-.sgrp:first-of-type{margin-top:var(--s4)}
-.sgrp>h3{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
- color:var(--amber);margin:0 0 var(--s2);display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s3)}
-.sgrp>h3 span{font-size:var(--t-data);letter-spacing:0;text-transform:none;color:var(--dim);font-weight:400}
-.sgrp:nth-of-type(2)>h3,.sgrp:nth-of-type(3)>h3{color:var(--dim)}
-.plain{display:block;text-align:left;font-size:var(--t-data);color:var(--ink2);line-height:1.5;min-width:30ch}
-#tab-trades td:last-child{text-align:left}
-@media(max-width:720px){.plain{min-width:0}}
+.sgrp>h3{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s1);
+  font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.sgrp>h3 .n{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:3px;padding:2px 7px;color:var(--dim)}
+.sgrp>h3.on .n{color:var(--amber);border-color:var(--amber)}
+.sgrp>p{margin:0 0 var(--s3);font-size:var(--t-data);color:var(--dim);max-width:74ch}
+.su{border-top:1px solid var(--line)}
+.su:last-of-type{border-bottom:1px solid var(--line)}
+.su>summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:2.6rem minmax(0,1fr) auto;
+  gap:var(--s3);align-items:baseline;padding:var(--s3) 0}
+.su>summary::-webkit-details-marker{display:none}
+.su>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.su>summary::after{content:'+';color:var(--dim)}
+.su[open]>summary::after{content:'\2212'}
+.su .k{font:700 var(--t-label) var(--mono);letter-spacing:var(--tr);text-align:center;
+  border:1px solid var(--line2);border-radius:3px;padding:4px 0;color:var(--dim)}
+.su.on .k{border-color:var(--amber);color:var(--amber)}
+.su .t{font:600 var(--t-body) var(--serif);font-size:var(--t-h2);color:var(--ink);letter-spacing:-.01em}
+.su .t small{display:block;margin-top:3px;font:400 var(--t-data) var(--mono);color:var(--dim);letter-spacing:0}
+.su .in{padding:0 0 var(--s4) 2.6rem}
+.su .size{margin:0 0 var(--s3);font:500 var(--t-data) var(--mono);color:var(--amber)}
+.su h4{margin:var(--s3) 0 var(--s1);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+.su ol,.su ul{margin:0;padding-left:1.3em;font-size:var(--t-data);color:var(--ink2);line-height:1.7}
+.su p{margin:0;font-size:var(--t-data);color:var(--ink2);line-height:1.7;max-width:74ch}
+.su .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s3)}
+@container (max-width:680px){.su .two{grid-template-columns:1fr}.su .in{padding-left:0}}
 
-/* trade of the day */
-.tod{margin:var(--s4) 0 var(--s5)}
-.tod table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
-.tod th{font:500 var(--t-label)/1.3 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
- text-align:right;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);white-space:nowrap}
-.tod th:first-child,.tod td:first-child,.tod th.l,.tod td.l{text-align:left}
-.tod td{padding:var(--s3);border-bottom:1px solid var(--line);text-align:right;vertical-align:top;
- font-variant-numeric:tabular-nums}
-.tod tr:last-child td{border-bottom:none}
-.tod .sym{font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
-.tod .buy{display:block;font-size:var(--t-data);color:var(--ink);line-height:1.5;margin-top:var(--s1);max-width:34ch}
-.tod .why{display:block;font-size:var(--t-label);line-height:1.65;color:var(--dim);margin-top:var(--s1);max-width:46ch}
-.tod .why b{color:var(--ink2);font-weight:500}
-.tod .big{font-size:var(--t-body);color:var(--ink)}
-.tod .mv{display:block;font-size:var(--t-label);color:var(--dim);margin-top:2px}
-@media(max-width:720px){
-  .tod table,.tod thead,.tod tbody,.tod tr,.tod td{display:block;width:100%}
-  .tod thead{display:none}
-  .tod tr{border-bottom:1px solid var(--line);padding:var(--s3) 0}
-  .tod tr:last-child{border-bottom:none}
-  .tod td{border:none;text-align:left;padding:2px var(--s3);display:flex;justify-content:space-between;gap:var(--s3)}
-  .tod td::before{content:attr(data-l);color:var(--dim);font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase}
-  .tod td:first-child{display:block;padding-bottom:var(--s2)}
-  .tod td:first-child::before{content:none}
-  .tod .buy,.tod .why{max-width:none}
+/* ── Rules ─────────────────────────────── */
+.filt{display:flex;flex-wrap:wrap;gap:var(--s1);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.filt button{appearance:none;cursor:pointer;background:none;border:1px solid var(--line2);border-radius:3px;
+  padding:5px 10px;color:var(--dim);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.filt button[aria-pressed=true]{border-color:var(--amber);color:var(--amber)}
+.filt button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.filt .sp{flex:1}
+.rgrp{margin-top:var(--s5)}
+.rgrp>h3{margin:0 0 var(--s2);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:var(--s2)}
+.rgrp>h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.rc{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s1) var(--s3);align-items:start;
+  padding:var(--s3) 0;border-top:1px solid var(--line)}
+.rc:last-of-type{border-bottom:1px solid var(--line)}
+.rc .say{grid-column:1;font:500 var(--t-body)/1.4 var(--mono);color:var(--ink);margin:0}
+.rc .why{grid-column:1;margin:0;font-size:var(--t-data);color:var(--ink2);max-width:72ch;line-height:1.65}
+.rc .ev{grid-column:1;margin:var(--s1) 0 0;font-size:var(--t-data);color:var(--dim);line-height:1.65;max-width:72ch}
+.rc .ev b{color:var(--ink2);font-weight:500}
+.rc .st{grid-row:1/4;grid-column:2;align-self:start;white-space:nowrap;
+  font:600 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border-radius:3px;padding:5px 9px;border:1px solid transparent}
+.st.a{background:var(--amber);color:#17100a}
+.st.w{border-color:var(--up);color:var(--up)}
+.st.n{border-color:var(--dn);color:var(--dn)}
+.st.d{border-color:var(--line2);color:var(--dim)}
+.rc[hidden]{display:none}
+@container (max-width:680px){.rc{grid-template-columns:1fr}.rc .st{grid-row:1;grid-column:1;justify-self:start}}
+
+/* ── Sectors ─────────────────────────────── */
+.lead{display:grid;grid-template-columns:2.6rem minmax(0,1fr) 5.5rem 5.5rem 6rem;gap:var(--s3);
+  align-items:baseline;padding:var(--s2) 0;border-top:1px solid var(--line)}
+.lead.hd{border-top:0;padding-bottom:var(--s1);font:600 var(--t-label) var(--mono);
+  letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.sct{border-top:1px solid var(--line)}
+.sct:last-of-type{border-bottom:1px solid var(--line)}
+.sct>summary{cursor:pointer;list-style:none;display:grid;
+  grid-template-columns:2.6rem minmax(0,1fr) 5.5rem 5.5rem 6rem;gap:var(--s3);
+  align-items:baseline;padding:var(--s3) 0}
+.sct>summary::-webkit-details-marker{display:none}
+.sct>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.sct:hover>summary{background:color-mix(in srgb,var(--amber) 4%,transparent)}
+.sct .rk{font:600 var(--t-h2)/1 var(--serif);color:var(--dim);font-variant-numeric:tabular-nums}
+.sct.top .rk{color:var(--amber)}
+.sct .nm{font-size:var(--t-body);color:var(--ink);min-width:0}
+.sct .nm small{display:block;margin-top:2px;font-size:var(--t-label);letter-spacing:var(--tr);color:var(--dim)}
+.sct .num{text-align:right;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums;color:var(--ink2)}
+.sct .num.up{color:var(--up)}.sct .num.dn{color:var(--dn)}
+.sct .spark{align-self:center}
+.sct .spark svg{display:block;width:100%;height:22px;overflow:visible}
+.sct .in{padding:0 0 var(--s4) 2.6rem}
+.sct .in p{margin:0 0 var(--s2);font-size:var(--t-data);color:var(--ink2);line-height:1.65;max-width:74ch}
+.hold{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s1) var(--s3);margin-top:var(--s2)}
+.hold span{font:500 var(--t-data) var(--mono);color:var(--ink2);font-variant-numeric:tabular-nums;
+  display:flex;justify-content:space-between;gap:var(--s2);border-bottom:1px solid var(--line);padding-bottom:3px}
+.hold span.mine{color:var(--amber)}
+.hold b{font-weight:600}
+@container (max-width:680px){
+  .lead,.sct>summary{grid-template-columns:2.2rem minmax(0,1fr) 4.5rem}
+  .lead .spark,.sct .spark,.lead .o,.sct .o{display:none}
 }
-.lbtop{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s3)}
-.lbtop .dim{font-size:var(--t-label);line-height:1.5}
 
-/* trades taken with real money */
-.taken{margin-top:var(--s4)}
-.tk{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s2) var(--s4);align-items:baseline;
- padding:var(--s3) 0;border-bottom:1px solid var(--line)}
-.tk:last-child{border-bottom:none}
-.tk .sym{font:600 var(--t-h2)/1 var(--serif)}
-.tk .mid{min-width:0}
-.tk .con{font-size:var(--t-data);color:var(--ink);font-weight:500}
-.tk .dates{font-size:var(--t-label);color:var(--dim);margin-top:2px}
-.tk .lesson{grid-column:2/4;font-size:var(--t-data);color:var(--ink2);line-height:1.65;max-width:72ch;margin-top:var(--s1)}
-.tk .lesson a{color:var(--amber)}
-.tk .pl{text-align:right;white-space:nowrap}
-.tk .pl b{display:block;font:600 var(--t-h2)/1 var(--serif);font-variant-numeric:tabular-nums}
-.tk .pl small{display:block;font-size:var(--t-label);color:var(--dim);margin-top:2px}
-.tkfoot{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin-top:var(--s3);
- padding-top:var(--s3);border-top:1px solid var(--line2);font-size:var(--t-data);color:var(--ink2)}
-.tkfoot b{color:var(--ink)}
-@media(max-width:720px){.tk{grid-template-columns:1fr auto}.tk .sym{grid-column:1}.tk .mid{grid-column:1}
- .tk .pl{grid-row:1/3;grid-column:2}.tk .lesson{grid-column:1/3}}
+/* ── Methodology ─────────────────────────────── */
+.mtoc{display:flex;flex-wrap:wrap;gap:var(--s1);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.mtoc a{text-decoration:none;border:1px solid var(--line2);border-radius:3px;padding:5px 10px;
+  color:var(--dim);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.mtoc a:hover,.mtoc a:focus-visible{border-color:var(--amber);color:var(--amber);outline:none}
+.msec{padding-top:var(--s5);scroll-margin-top:var(--s4)}
+.msec>h2{margin:0 0 var(--s2);font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.msec>p{margin:0 0 var(--s3);font-size:var(--t-data);color:var(--ink2);line-height:1.7;max-width:74ch}
+.msec>p b{color:var(--ink);font-weight:500}
+.dt{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:var(--s2) var(--s3);
+  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data)}
+.dt:last-of-type{border-bottom:1px solid var(--line)}
+.dt dt{font:500 var(--t-data) var(--mono);color:var(--ink);margin:0}
+.dt dd{margin:0;color:var(--ink2);line-height:1.65}
+.dt dd b{color:var(--ink);font-weight:500}
+.warn2{border-left:2px solid var(--dn);padding:var(--s2) 0 var(--s2) var(--s3);margin:var(--s3) 0;
+  font-size:var(--t-data);color:var(--ink2);line-height:1.7;max-width:74ch}
+.warn2 b{color:var(--dn);font-weight:600}
+.log{width:100%;border-collapse:collapse;font-size:var(--t-data);font-variant-numeric:tabular-nums}
+.log th{text-align:left;padding:var(--s1) var(--s2) var(--s1) 0;border-bottom:1px solid var(--line2);
+  font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.log td{padding:var(--s2) var(--s2) var(--s2) 0;border-bottom:1px solid var(--line);color:var(--ink2)}
+.log td:first-child{color:var(--ink)}
+.log .z{color:var(--dim)}
+@container (max-width:680px){.dt{grid-template-columns:1fr}.dt dt{margin-top:var(--s2)}}
 
-/* weekly cross watchlist */
-.wk{margin-top:var(--s4)}
-.wk table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:5px;overflow:hidden}
-.wk th{font:500 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);
- text-align:right;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line)}
-.wk th:first-child,.wk td:first-child{text-align:left}
-.wk td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
-.wk tr:last-child td{border-bottom:none}
-.wk tr.x td{background:color-mix(in srgb,var(--amber) 7%,transparent)}
-.wk .st{font-size:var(--t-label);letter-spacing:.06em;text-transform:uppercase}
-
-footer{margin-top:44px;padding-top:var(--s3);border-top:1px solid var(--line);font-size:var(--t-data);color:var(--dim)}
-.err{color:var(--dn);font-size:var(--t-data);margin-top:var(--s2)}
+/* ── System ─────────────────────────────── */
+.big2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--s3);
+  padding:var(--s4) 0;border-bottom:1px solid var(--line)}
+.big2>div{display:flex;flex-direction:column;gap:var(--s1)}
+.big2 .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.big2 .v{font:600 clamp(24px,3.4vw,32px)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.big2 .v.ok{color:var(--up)} .big2 .v.bad{color:var(--dn)}
+.big2 .n{font-size:var(--t-data);color:var(--ink2)}
+.stat{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s3);align-items:baseline;
+  padding:var(--s3) 0;border-top:1px solid var(--line)}
+.stat:last-of-type{border-bottom:1px solid var(--line)}
+.stat .dot{width:8px;height:8px;border-radius:50%;background:var(--dim);align-self:center}
+.stat.ok .dot{background:var(--up)} .stat.bad .dot{background:var(--dn)} .stat.warn .dot{background:var(--amber)}
+.stat .t{font-size:var(--t-body);color:var(--ink)}
+.stat .t small{display:block;margin-top:3px;font-size:var(--t-data);color:var(--ink2);line-height:1.6}
+.stat .r{text-align:right;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.stat.ok .r{color:var(--up)} .stat.bad .r{color:var(--dn)} .stat.warn .r{color:var(--amber)}
+.acts{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+.acts a{text-decoration:none;border:1px solid var(--line2);border-radius:4px;padding:9px 14px;
+  color:var(--ink2);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.acts a.primary{border-color:var(--amber);color:var(--amber)}
+.acts a:hover,.acts a:focus-visible{border-color:var(--amber);color:var(--amber);background:var(--panel);outline:none}
+.errl{margin:var(--s2) 0 0;padding:var(--s2) var(--s3);border:1px solid var(--dn);border-left-width:3px;
+  border-radius:5px;background:var(--panel);font-size:var(--t-data);color:var(--ink2);line-height:1.7}
+.errl b{color:var(--dn)}
+@container (max-width:680px){.stat{grid-template-columns:auto minmax(0,1fr)}.stat .r{grid-column:2;text-align:left}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
   <div class="mast">
-    <div>
-      <h1><b>Ledger</b> · daily scan</h1>
-      <p class="what">Six tested setups, scanned twice a day.
-      <b>Most days nothing fires, and that is the point.</b></p>
-    </div>
-    <div class="stampwrap">
-      <div class="stamp" id="stamp">loading…</div>
-      <div class="stamp2" id="nextrun"></div>
-      <a class="runbtn" id="runbtn" target="_blank" rel="noopener"
-         href="https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml">Run scan now ↗</a>
-    </div>
+    <h1><b>Ledger</b></h1>
+    <div class="stamp" id="stamp">loading…</div>
   </div>
 
-  <div class="meter">
-    <div class="vix"><span id="vixnum">—</span><small>VIX · <span id="vix5"></span></small></div>
-    <div>
-      <div class="band"><i id="marker" style="left:0"></i></div>
-      <div class="ticks"><span>CALM &lt;16</span><span>NORMAL</span><span>ELEVATED</span><span>HIGH 25+</span></div>
-      <div class="regime"><span class="tag" id="regime">—</span><b id="advice"></b>
-        <div class="note">QQQ <span id="qqq"></span> · <span id="qdd"></span> off its 6-month high</div></div>
-      <div class="swing" id="swing" hidden>VIX over 20: bigger swings <b>both ways</b>. At 25+, 17% of months gain 10%+ and 3% lose 10%+. Under 16 both are ~1%. Size smaller, not bigger.</div>
-    </div>
-  </div>
-
-  <nav role="tablist">
-    <button role="tab" data-tab="scan" aria-selected="true">Scan<span class="n" id="n-scan"></span></button>
-    <button role="tab" data-tab="trades">Trades<span class="n" id="n-trades"></span></button>
-    <button role="tab" data-tab="sectors">Sectors</button>
-    <button role="tab" data-tab="rules">Rules</button>
-    <button role="tab" data-tab="setups">Setups</button>
+  <nav role="tablist" aria-label="Sections">
+    <button role="tab" data-tab="today" aria-selected="true">Today<span class="n" id="n-today"></span></button>
+    <button role="tab" data-tab="trades" aria-selected="false">Trades<span class="n" id="n-trades"></span></button>
+    <button role="tab" data-tab="watching" aria-selected="false">Watching<span class="n" id="n-watching"></span></button>
+    <button role="tab" data-tab="research" aria-selected="false">Research</button>
+    <button role="tab" data-tab="system" aria-selected="false">System</button>
   </nav>
 
-  <section role="tabpanel" id="tab-scan"></section>
-  <section role="tabpanel" id="tab-trades" hidden></section>
-  <section role="tabpanel" id="tab-sectors" hidden></section>
-  <section role="tabpanel" id="tab-rules" hidden></section>
-  <section role="tabpanel" id="tab-setups" hidden></section>
+  <section role="tabpanel" id="tab-today" class="today"></section>
+  <section role="tabpanel" id="tab-trades" class="today" hidden></section>
+  <section role="tabpanel" id="tab-watching" class="today" hidden></section>
 
-  <footer>All setups locked. Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks: <b>schwab</b>/<b>alpaca</b> = a real bid/ask midpoint. <b>iv</b>/<b>est</b> = Black-Scholes, a model, not a quote. Every backtest behind this page carries a survivorship caveat.</footer>
+  <section role="tabpanel" id="tab-research" hidden>
+    <div class="sub" role="tablist" aria-label="Research">
+      <button role="tab" data-sub="setups" aria-selected="true">Setups</button>
+      <button role="tab" data-sub="rules" aria-selected="false">Rules</button>
+      <button role="tab" data-sub="sectors" aria-selected="false">Sectors</button>
+      <button role="tab" data-sub="methodology" aria-selected="false">Methodology</button>
+    </div>
+    <div id="tab-setups" class="today"></div>
+    <div id="tab-rules" class="today" hidden></div>
+    <div id="tab-sectors" class="today" hidden></div>
+    <div id="tab-methodology" class="today" hidden></div>
+  </section>
+
+  <section role="tabpanel" id="tab-system" class="today" hidden></section>
 </div>
 
 <script>
-const $=s=>document.querySelector(s);
-const f2=x=>x==null?'—':Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-const pct=(x,sign=true)=>x==null?'—':(sign&&x>0?'+':'')+Number(x).toFixed(1)+'%';
-const cls=x=>x>0?'up':x<0?'dn':'dim';
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function tbl(rows,cols,empty='none today'){
-  if(!rows||!rows.length)return `<p class="none">${empty}</p>`;
-  // a third element on a column marks it 'sm' — hidden on a phone so the numbers that
-  // matter are visible without swiping
-  const cl=c=>c[2]?` class="${c[2]}"`:'';
-  return `<div class="scroll"><table><thead><tr>${cols.map(c=>`<th${cl(c)}>${c[0]}</th>`).join('')}</tr></thead><tbody>${
-    rows.map(r=>`<tr>${cols.map(c=>`<td${cl(c)}>${c[1](r)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-}
-function head(k,title,rule){return `<h2><span class="k">${k}</span>${title}</h2><p class="rule">${rule}</p>`;}
-
-function renderToday(d){
-  const T=d.today||[];
-  if(!T.length) return '';
-  const m=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-  const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
-  return '<div class="tod">'+
-    head('$','Trades of the day','Cost, breakeven, target and max loss were fixed when the trade was written. <b>Stock now</b> is live. Only NOW has a tested hit rate — the other three fire no setup, and their targets are simply where $1,000 of profit lands.')+
-    '<table><thead><tr><th class="l">the trade</th><th>stock now</th><th>stock target</th><th>cost</th><th>breakeven</th>'+
-    '<th>if it works</th><th>if it does not</th><th>odds</th><th>time</th></tr></thead><tbody>'+
-    T.map(r=>`<tr>
-      <td class="l"><span class="sym">${esc(r.sym)}</span>
-        <span class="buy">${esc(r.plain)}</span>
-        <span class="why">${esc(r.why)}</span>
-        <span class="why"><b>Exit</b> ${esc(r.exit)}</span>
-        <span class="why"><b>Wrong if</b> ${esc(r.kills)}</span></td>
-      <td data-l="stock now" class="big">${m(r.now)}</td>
-      <td data-l="stock target" class="big">${m(r.target)}<span class="mv">${r.move>0?'+':''}${r.move.toFixed(0)}% away</span></td>
-      <td data-l="cost" class="big">${n0(r.cost)}</td>
-      <td data-l="breakeven" class="big">${m(r.be)}</td>
-      <td data-l="if it works" class="big up">+${n0(r.profit)}<span class="mv">${r.ret>0?'+':''}${r.ret.toFixed(0)}%</span></td>
-      <td data-l="if it does not" class="big ${r.loss?'dn':'dim'}">${r.loss?'−'+n0(r.loss):'—'}<span class="mv">${r.loss?'the whole premium':'shares do not expire'}</span></td>
-      <td data-l="odds" class="big ${r.odds?'up':'dim'}">${r.odds?r.odds+'%':'—'}<span class="mv">${r.odds?'reach the target':'untested'}</span></td>
-      <td data-l="time" class="big">${r.days!=null?r.days+'d':'—'}<span class="mv">${r.days!=null?'to expiry':'no expiry'}</span></td>
-    </tr>`).join('')+'</tbody></table></div>';
+/* ══ Today ══════════════════════════════════ */
+function todayTrades(d){
+  const T=d.today||[]; if(!T.length) return '';
+  return `<div class="sec"><h2>Trades of the day <span class="tag trade">written, not generated</span></h2>
+    <p class="lede">Cost, breakeven, target and max loss were fixed when the trade was written. Stock price is live.
+    Only rows showing odds have a tested hit rate.</p>`+
+    T.map(r=>`<div class="row">
+      <div class="sym">${esc(r.sym)}<small>${r.kind==='call'?'call':'shares'}</small></div>
+      <div class="main"><div class="t">${esc(r.plain)}</div>
+        <div class="miss">${esc(r.why)}</div>
+        <div class="miss"><b style="color:var(--ink2)">Exit</b> ${esc(r.exit)}</div></div>
+      <div class="num"><span class="big">${money(r.now)}</span>
+        <span class="u">now · ${n0(r.cost)} to open</span>
+        <span class="u up">+${n0(r.profit)} if it works</span></div>
+    </div>`).join('')+`</div>`;
 }
 
-function renderWeekly(d){
-  const W=d.weekly||[]; if(!W.length) return '';
-  return '<div class="wk">'+
-    head('W','Weekly 10/30 cross','<b>Watchlist only.</b> Tested 2026-09-18: +2.27pp raw at 13 weeks, <b>+0.49pp once the top five names come out, p=0.363</b>. It is here because it is the best-behaved EMA cross we have — the daily version of the same signal is −0.97pp at p=0.991. Weekly beats daily by 3.2 points and still does not clear the bar.')+
-    '<table><thead><tr><th>sym</th><th>state</th><th>price</th><th>10 v 30</th><th>below high</th><th>30 EMA</th><th>F band</th></tr></thead><tbody>'+
-    W.map(r=>`<tr class="${r.state==='crossed'?'x':''}">
-      <td><b>${esc(r.sym)}</b></td>
-      <td class="st ${r.state==='crossed'?'up':'dim'}">${r.state==='crossed'?'crossed':'near'}</td>
-      <td>${f2(r.px)}</td>
-      <td class="${r.gap>0?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>
-      <td>${r.dd.toFixed(1)}%</td>
-      <td class="${r.up?'up':'dn'}">${r.up?'rising':'falling'}</td>
-      <td class="${r.band?'up':'dim'}">${r.band?'yes':'—'}</td>
-    </tr>`).join('')+'</tbody></table>'+
-    '<p class="note">A cross with the 30 EMA still <b>falling</b> is the weak version — that is the SG picture. The strongest cell in the test was a cross plus a rising 30 EMA plus the 20–45% band, at 80% win on 54 signals, which is too few to trade.</p></div>';
+function fired(d){
+  const out=[];
+  if(d.vix_fires) out.push({sym:'QQQ',t:`Setup VIX fires. Buy an at-the-money QQQ call, about 30 days out, $1,000. Hold 21 sessions.`,num:f2(d.qqq),u:'QQQ now'});
+  (d.F||[]).forEach(r=>out.push({sym:r.sym,t:`Setup F fires. Target ${money(r.tgt)}, the prior high. No stop.`,num:f2(r.px),u:`+${r.up.toFixed(1)}% to target`}));
+  if(d.vix>=25)(d.S||[]).forEach(r=>out.push({sym:r.sym,t:`Setup S fires. Closed under its 20-day low with the 50 EMA under the 200.`,num:f2(r.px),u:`${r.below.toFixed(1)}% below`}));
+  return out;
 }
 
-function renderScan(d){
-  const vixBlock=d.vix_fires
-    ?`<div class="fire">SETUP VIX FIRES — buy an ATM QQQ call, ~30 DTE, $1,000, hold 21 sessions. QQQ ${f2(d.qqq)}, strike ≈ ${Math.round(d.qqq)}</div>`
-    :`<p class="none">Does not fire. 25+ in last 10 days: <b>${d.peaked?'yes':'no'}</b> (10-day high ${d.vix_hi10.toFixed(1)}) · falling 3 days: <b>${d.falling?'yes':'no'}</b></p>`;
-  const shortNote=d.vix<25?`<p class="note">VIX ${d.vix.toFixed(1)} is under 25. This setup does nothing here — skip.</p>`:'';
-  const live=d.F.length+(d.vix_fires?1:0)+(d.vix>=25?d.S.length:0);
-  const quiet = live===0 ? `<div class="quiet">
-      <b>Nothing fires today.</b>
-      <p>All six setups were checked against ${d.F.length+d.D.length+d.C.length+d.S.length+d.blocked.length||'every'} name in the universe. None met its conditions.</p>
-      <p>Roughly three signals arrive a month, so nine days in ten look like this. The rest of this tab shows the work.</p>
-    </div>` : '';
-  $('#tab-scan').innerHTML= renderToday(d) + quiet +
-    head('V','Setup VIX','VIX 25+ in the last 10 sessions AND falling 3 in a row → ATM QQQ call, 30 DTE, hold 21. $1,000.')+vixBlock+
-    head('F','Setup F — recovery + earnings','20–45% below the 252-day high · 10&gt;30 · 50&gt;200 · revenue +25% (SEC, point-in-time). Target = prior high. No stop.')+
-    tbl(d.F,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['target',r=>f2(r.tgt)],['upside',r=>`<span class="up">+${r.up.toFixed(1)}%</span>`],['revenue',r=>'+'+r.rev.toFixed(0)+'%']])+
-    head('D','Setup D — shallow pullback','5–20% below the high · up over 126 sessions · RSI &gt; 55. Watchlist only — it never beat random picking on the honest universe.')+
-    tbl(d.D,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['RSI',r=>r.rsi.toFixed(0)],['upside',r=>'+'+r.up.toFixed(1)+'%']])+
-    head('C','Setup C — breakout','10 EMA crosses above 50 SMA within 5 sessions · 50&gt;200 · close clears the 20-day high. Tech names only.')+
-    tbl(d.C,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['target',r=>f2(r.tgt)],['upside',r=>'+'+r.up.toFixed(1)+'%']])+
-    head('S','Setup S — support-break short','Close under the 20-day low · 50 EMA under 200. $100, up to 10 sessions. Needs VIX 25+.')+shortNote+
-    tbl(d.S,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['20d low',r=>f2(r.lo20)],['below',r=>`<span class="dn">${r.below.toFixed(1)}%</span>`]])+
-    `<details><summary><span class="k" style="background:var(--line);color:var(--ink2)">×</span><span class="t">In the F price band, but blocked</span><span class="g">${d.blocked.length} names · they hit 39% vs 71% for passers</span></summary><div class="body">`+
-    tbl(d.blocked,[['sym',r=>esc(r.sym)],['price',r=>f2(r.px)],['below high',r=>r.dd.toFixed(1)+'%'],['upside',r=>'+'+r.up.toFixed(1)+'%'],['why',r=>esc(r.why)]])+
-    renderWeekly(d)+
-    `</div></details>`+
-    
-    (d.errors.length?`<p class="err">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>e.split(':')[0]).join(', '))}</p>`:'');
-  // Setup C and D are watchlist only, and S is dead under VIX 25 — the badge counts
-  // what could actually be traded today, so a zero means something.
-  $('#n-scan').textContent=d.F.length+(d.vix_fires?1:0)+(d.vix>=25?d.S.length:0);
-}
+function renderToday(d,state){
+  const A=$('#tab-today');
 
-// The trade in the words you would use to place it.
-function plain(r){
-  const n=Number(r.contracts||1), e=Number(r.entry);
-  if(r.kind==='shares'){
-    const sh=Math.max(1,Math.round(600/e));
-    return `Buy ${sh} shares near $${e.toFixed(2)}. Sell at $${Number(r.target).toFixed(2)}.`;
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when">loading…</span></div>
+      <div class="verdict"><div class="eyebrow">the verdict</div>
+        <div class="sk" style="height:46px;width:min(20ch,90%)"></div>
+        <div class="sk" style="height:14px;width:min(40ch,95%);margin-top:20px"></div></div>
+      <div class="ctx">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:19px;width:70px"></div></div>'.repeat(3)}</div>`;
+    return;
   }
-  const be=Number(r.strike)+e;
-  const exp=new Date(r.expiry+'T12:00:00Z').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
-  return `Buy ${n} ${esc(r.symbol)} call${n>1?'s':''}, $${r.strike} strike, expires ${exp}. `+
-         `About $${(e*100*n).toFixed(0)}. Pays if ${esc(r.symbol)} is over $${be.toFixed(2)}.`;
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when stale">no data</span></div>
+      <div class="verdict"><div class="eyebrow">the verdict</div>
+        <p class="say">Today is <b style="color:var(--dn)">unknown</b>.</p>
+        <p class="vquiet">The page could not load <b>data.json</b>, so nothing below is current. This is not a quiet
+        day — it is a page with no data. Do not read it as "nothing fires".</p></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. The last scan may have failed to publish.
+        Check the workflow run, then reload.</div></div>`;
+    return;
+  }
+
+  const stale = state==='stale';
+  const live  = fired(d);
+  const blocked=d.blocked||[], watch=d.D||[], weekly=(d.weekly||[]).filter(r=>r.state==='crossed');
+  const universe=(d.F||[]).length+(d.D||[]).length+(d.C||[]).length+(d.S||[]).length+blocked.length;
+  const CAP=4;
+
+  /* ── 1. verdict ─────────────────────────────────────────────────────────── */
+  const say = live.length
+    ? `<p class="say fires">${live.length===1?'One setup':live.length+' setups'} <b>fires</b> today.</p>`
+    : `<p class="say">Nothing <b>fires</b> today.</p>`;
+
+  /* The names count was the union of setup hits, not the universe — it read "1 names"
+     on a quiet day. data.json carries no universe size, so the claim is dropped rather
+     than guessed. Adding `universe` to the scan output is a data change, and needs
+     approval before the count can come back. */
+  const stat = `<div class="vstat"><span><b>6</b> setups checked</span><span>·</span>
+    <span><b>${live.length}</b> triggered</span></div>`;
+
+  const quietLine = live.length
+    ? `<p class="vquiet">A signal is a condition that was met, not a prediction. The $600 cap still applies.</p>`
+    : `<p class="vquiet">Quiet is expected — roughly 3 signals arrive per month.</p>`;
+
+  const firedRows = live.length ? live.map(r=>`<div class="row">
+      <div class="sym">${esc(r.sym)}</div>
+      <div class="main"><div class="t">${r.t}</div></div>
+      <div class="num"><span class="big">${r.num}</span><span class="u">${r.u}</span></div>
+    </div>`).join('') : '';
+
+  /* ── 3. getting close / watching, as a summary ──────────────────────────── */
+  const nearRows = blocked.length ? blocked.slice(0,CAP).map(r=>`<div class="row tight">
+      <div class="sym">${esc(r.sym)}</div>
+      <div class="main"><div class="miss">missing <b>${esc(r.why)}</b></div></div>
+      <div class="num"><span class="mid">${f2(r.px)}</span></div>
+    </div>`).join('') + (blocked.length>CAP?`<p class="more">+${blocked.length-CAP} more · view all checks</p>`:'')
+    : `<p class="empty">Nothing is one condition away.</p>`;
+
+  const wRows=[
+    ...watch.slice(0,CAP).map(r=>`<div class="row tight">
+      <div class="sym">${esc(r.sym)}<small>setup D</small></div>
+      <div class="main"><div class="miss">${r.dd.toFixed(1)}% off high · RSI ${r.rsi.toFixed(0)} · never beat random</div></div>
+      <div class="num"><span class="mid">${f2(r.px)}</span></div>
+    </div>`),
+    ...weekly.slice(0,2).map(r=>`<div class="row tight">
+      <div class="sym">${esc(r.sym)}<small>weekly</small></div>
+      <div class="main"><div class="miss">10 EMA crossed the 30, which is ${r.up?'rising':'falling'} · p=0.363</div></div>
+      <div class="num"><span class="mid">${f2(r.px)}</span></div>
+    </div>`)];
+  const extra=(watch.length>CAP?watch.length-CAP:0)+(weekly.length>2?weekly.length-2:0);
+  const watchRows = wRows.length
+    ? wRows.join('')+(extra?`<p class="more">+${extra} more · view all checks</p>`:'')
+    : `<p class="empty">Nothing on the watchlists.</p>`;
+
+  /* ── 5. recent activity, from closed trades and the last five scans ─────── */
+  const taken=(d.taken||[]).slice(-3).reverse();
+  const days=((d.week&&d.week.days)||[]).slice(-5);
+  const dayFired=x=>(x.F||[]).length+(x.vix_fires?1:0)+(x.vix>=25?(x.S||[]).length:0);
+  const activity = (taken.length||days.length) ? `
+    ${taken.map(t=>`<div class="row tight">
+      <div class="sym">${esc(t.sym)}<small>${esc(t.closed||'')}</small></div>
+      <div class="main"><div class="t">${esc(t.contract)} closed</div>
+        ${t.lesson?`<div class="miss">${esc(t.lesson)}</div>`:''}</div>
+      <div class="num"><span class="mid ${t.pl>=0?'up':'dn'}">${t.pl>=0?'+':'−'}${n0(t.pl)}</span>
+        <span class="u">${t.pct>=0?'+':''}${Number(t.pct).toFixed(1)}%</span></div>
+    </div>`).join('')}
+    ${days.length?`<div class="week">${days.map(x=>{const n=dayFired(x);return `<div${n?' class="hit"':''}>
+        <span class="wd">${esc(String(x.date).slice(5))}</span>
+        <span class="wn">${n||'—'}</span></div>`;}).join('')}</div>
+      <p class="more">the last ${days.length} scans · number of setups that fired</p>`:''}`
+    : `<p class="empty">No closed trades yet.</p>`;
+
+  /* ── 6. the checks ──────────────────────────────────────────────────────── */
+  const check=(k,name,n,note)=>`<div class="chk"><span class="k">${k}</span>
+    <span class="d"><b style="color:var(--ink)">${name}</b> — ${note}</span>
+    <span class="r ${n?'yes':'no'}">${n?n+' fired':'none'}</span></div>`;
+
+  A.innerHTML=`
+  <div class="tmast">
+    <h1><b>Ledger</b> · today</h1>
+    <span class="when${stale?' stale':''}">${stale?'data 3 days old · scan has not run':esc(d.date)+' · scanned '+esc(d.stamp)}</span>
+  </div>
+
+  <details class="whatis">
+    <summary><span>Arrington's own trades, logged win or lose. <b class="not">Not recommendations.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>I decide on a trade. The scanner checks it against six setups that were tested against thousands of
+      historical cases. Then it goes up here — whether it worked or not.</p>
+      <p>Setups that <b>failed</b> their test are labelled <b>watchlist only</b> and are kept for the record.
+      Nothing on this page is financial advice, and none of it is a prediction.</p>
+    </div>
+  </details>
+
+  ${stale?`<div class="stalebar" style="margin-top:var(--s3)"><b>This data is 3 days old.</b> The last two scheduled
+    scans did not publish. Prices and marks below are from the last good run, not from now.</div>`:''}
+
+  <div class="verdict">
+    <div class="eyebrow">the verdict</div>
+    ${say}
+    ${stat}
+    ${quietLine}
+    ${firedRows}
+  </div>
+
+  <div class="ctx">
+    <div><span class="l">VIX</span><span class="v">${d.vix.toFixed(2)}<small>${esc(d.regime)}</small></span></div>
+    <div><span class="l">5-day path</span><span class="v" style="font-size:var(--t-body)">${d.vix5.map(x=>x.toFixed(1)).join(' → ')}</span></div>
+    <div><span class="l">QQQ</span><span class="v">${f2(d.qqq)}<small>${d.qdd.toFixed(1)}% off high</small></span></div>
+    ${d.vix>=20?`<p class="warn">VIX over 20 means bigger swings <b style="color:var(--ink)">both ways</b>. Size smaller, not bigger.</p>`:''}
+  </div>
+
+  <div class="sec"><div class="sum">
+    <div>
+      <h2>Getting close <span class="tag watch">not a signal</span></h2>
+      <p class="lede">Inside a setup's band, one condition short. The missing condition is named. No score, no ranking.</p>
+      ${nearRows}
+    </div>
+    <div>
+      <h2>Watching <span class="tag watch">research only</span></h2>
+      <p class="lede">Here because the research is interesting, not because it is tradeable.</p>
+      ${watchRows}
+    </div>
+  </div></div>
+
+  ${todayTrades(d)}
+
+  <div class="sec">
+    <h2>Recent activity</h2>
+    <p class="lede">Closed trades and what the scanner has seen this week.</p>
+    ${activity}
+  </div>
+
+  <details class="deep">
+    <summary>View all checks</summary>
+    <div class="in">
+      ${check('VIX','Setup VIX',d.vix_fires?1:0,'VIX 25+ in the last 10 sessions and falling 3 in a row. 10-day high '+d.vix_hi10.toFixed(1)+'.')}
+      ${check('F','Setup F',(d.F||[]).length,'20–45% below the 252-day high, 10&gt;30, 50&gt;200, revenue +25% from SEC filings. Target is the prior high, no stop.')}
+      ${check('D','Setup D',(d.D||[]).length,'5–20% below the high, up over 126 sessions, RSI over 55. Watchlist only — it never beat random picking on the honest universe.')}
+      ${check('C','Setup C',(d.C||[]).length,'10 EMA crosses the 50 SMA within 5 sessions, 50&gt;200, close clears the 20-day high. Tech only.')}
+      ${check('S','Setup S',d.vix>=25?(d.S||[]).length:0,d.vix<25?'Needs VIX 25+. VIX is '+d.vix.toFixed(1)+', so this setup does nothing today.':'Close under the 20-day low with the 50 EMA under the 200.')}
+      ${check('×','Blocked',blocked.length,'In the F price band but failing at least one condition. Blocked names hit 39% versus 71% for passers.')}
+      ${check('W','Weekly cross',weekly.length,'Weekly 10/30 EMA cross. +0.49pp once the top five names come out, p=0.363 — watchlist only.')}
+      ${(d.errors&&d.errors.length)?`<div class="chk"><span class="k">!</span>
+        <span class="d">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>String(e).split(':')[0]).join(', '))}</span>
+        <span class="r no">incomplete</span></div>`:''}
+      <p class="more" style="padding-top:var(--s3)">Three signals a month is the long-run rate, so nine days in ten
+      look like today. A quiet scan is the scanner working, not the scanner failing.</p>
+    </div>
+  </details>
+
+  <p class="foot">Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Option marks tagged
+  <b>schwab</b> or <b>alpaca</b> are a real bid/ask midpoint; <b>iv</b> and <b>est</b> are Black-Scholes, a model,
+  not a quote. Every backtest behind this page carries a survivorship caveat.</p>`;
 }
 
-function renderTrades(d){
-  const o=d.open||[],c=d.closed||[];
-  const wins=c.filter(r=>r.result==='win'),losses=c.filter(r=>r.result==='loss');
-  const mean=a=>a.length?a.reduce((s,r)=>s+Number(r.pl_pct),0)/a.length:null;
-  const kind=r=>r.kind==='shares'?'shares':r.acct==='real'?`<span class="pill real">REAL</span> call`:`${esc(r.acct)} call`;
-  const openCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`,'sm'],['kind',r=>kind(r),'sm'],
-    ['opened',r=>esc(r.opened),'sm'],['entry',r=>f2(r.entry)],['now',r=>r.error?'<span class="dn">err</span>':f2(r.now)+(r.mark?' <span class="dim">'+esc(r.mark)+'</span>':'')],
-    ['P/L',r=>r.error?'—':`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],
-    ['target',r=>r.kind==='shares'?f2(r.target):`${r.target?'$'+f2(r.target)+' · ':''}${r.dte!=null?r.dte+'d left':'—'}`],
-    ['progress',r=>r.kind==='shares'?(r.armed?`<span class="pill win">FLOOR SET</span> <span class="dim">at ${f2(r.target)}</span>`:`<span class="bar"><i style="width:${Math.round((r.progress||0)*100)}%"></i></span> <span class="dim">${r.to_target!=null?pct(r.to_target)+' to go':''}</span>`):`<span class="dim">$${esc(r.strike)} · ${esc(r.expiry)}</span>`],
-    ['the trade',r=>`<span class="plain">${plain(r)}</span>`],
-    ['held',r=>(r.sessions??'—')+'s','sm']];
-  openCols[8][2]='sm';   // the progress bar needs width a phone does not have; the plain line stays
-  const closedCols=[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['kind',r=>kind(r)],
-    ['opened',r=>esc(r.opened),'sm'],['closed',r=>esc(r.closed),'sm'],['entry',r=>f2(r.entry)],['exit',r=>f2(r.exit)],
-    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`],['why',r=>`<span class="dim">${esc(r.note)}</span>`,'sm']];
-  $('#tab-trades').innerHTML=
-    `<div class="stats"><div><span class="l">open</span><b>${o.length}</b></div><div><span class="l">closed</span><b>${c.length}</b></div>
-     <div><span class="l">wins</span><b class="up">${wins.length}</b></div><div><span class="l">losses</span><b class="dn">${losses.length}</b></div>
-     <div><span class="l">win rate</span><b>${c.length?Math.round(wins.length/c.length*100)+'%':'—'}</b></div>
-     <div><span class="l">avg closed</span><b class="${cls(mean(c))}">${pct(mean(c))}</b></div></div>`+
-    head('▶','Open','Marked to market. Shares: when price reaches the target a floor is set there; the trade closes only if it falls back to the floor, or at 252 sessions. Calls: a real quote where one is available, else Black-Scholes; close at expiry.')+
-    tbl(o,openCols,'no open trades')+
-    head('■','Closed — wins','')+tbl(wins,closedCols,'no wins yet')+
-    head('■','Closed — losses','')+tbl(losses,closedCols,'no losses yet')+
-    renderTaken(d);
-  $('#n-trades').textContent=o.length;
+/* State previews reshape real data. Nothing here invents a hit rate or a score.
+   The one synthetic row is the 'fired' preview, and it is labelled at the top. */
+
+/* ══ Trades ══════════════════════════════════ */
+const KIND=r=>r.kind==='shares'?'shares':'call';
+const RETIRED=new Set(['E']);
+
+/* The rule that applies, read from fields the scanner already writes. Nothing here
+   is invented: shares arm a floor at the target, calls have no stop by design. */
+function ruleFor(r){
+  if(r.kind==='shares'){
+    return r.armed
+      ? `Floor set at ${money(r.target)}. It closes only if it falls back there.`
+      : `Reach ${money(r.target)}, then floor it there. Closes at 252 sessions if it never comes.`;
+  }
+  return r.dte!=null && r.dte<45
+    ? `No stop. ${r.dte} days left — under the 45-day floor.`
+    : `No stop. Target is the prior high.`;
 }
 
+function holding(r){
+  const n=Number(r.contracts||1);
+  if(r.kind==='shares'){
+    const sh=Math.max(1,Math.round(600/Number(r.entry)));
+    return `${sh} shares at ${money(r.entry)}`;
+  }
+  return `${n} ${esc(r.symbol)} ${r.strike} Call ${esc(String(r.expiry||'').slice(5))} at ${money(r.entry)}`;
+}
+
+function cost(r){
+  const n=Number(r.contracts||1);
+  return r.kind==='shares' ? Math.max(1,Math.round(600/Number(r.entry)))*Number(r.entry)
+                           : Number(r.entry)*100*n;
+}
+
+function position(r){
+  const up=Number(r.pl_pct)>=0, prog=Math.round((r.progress||0)*100);
+  const mech=[
+    ['entry', money(r.entry)],
+    ['mark now, '+(r.mark||'model'), r.now!=null?money(r.now):'—'],
+    ['cost basis', n0(cost(r))],
+    r.kind==='call'?['strike / expiry', '$'+esc(r.strike)+' · '+esc(r.expiry)]:null,
+    r.kind==='call'?['days left', r.dte!=null?r.dte+'d':'—']:null,
+    r.kind==='call'?['contracts', esc(r.contracts||'1')]:null,
+    r.kind==='shares'?['target', money(r.target)]:null,
+    ['held', (r.sessions??'—')+' sessions'],
+    ['opened', esc(r.opened)],
+    ['account', esc(r.acct)],
+  ].filter(Boolean);
+  return `<details class="pos">
+    <summary>
+      <span class="sym">${esc(r.symbol)}
+        <small>${r.acct==='real'?'<span class="real">real</span> ':''}${r.setup&&r.setup!=='none'
+          ?`<span class="setup${RETIRED.has(r.setup)?' off':''}">${esc(r.setup)}${RETIRED.has(r.setup)?' · retired':''}</span>`
+          :`<span class="setup off">no setup</span>`}</small></span>
+      <span class="say">${holding(r)}
+        <span class="rule">${ruleFor(r)}</span></span>
+      <span class="pl"><b class="${up?'up':'dn'}">${pct(r.pl_pct)}</b>
+        <small>${r.error?'quote failed':(r.mark||'model')}</small></span>
+      <span class="st">${r.kind==='shares'&&!r.armed
+          ? `<span class="bar"><i style="width:${Math.min(100,Math.max(0,prog))}%"></i></span>
+             <small>${r.to_target!=null?pct(r.to_target)+' to target':''}</small>`
+          : r.armed ? `<small class="up">floor set</small>`
+          : `<small>${r.dte!=null?r.dte+'d left':''}</small>`}</span>
+    </summary>
+    <div class="mech">${mech.map(([l,v])=>`<div><span class="l">${l}</span><span class="v">${v}</span></div>`).join('')}</div>
+  </details>`;
+}
+
+function closedRow(r){
+  const up=Number(r.pl_pct)>=0;
+  return `<div class="row tight">
+    <div class="sym">${esc(r.symbol)}<small>${r.acct==='real'?'<span class="real">real</span>':esc(r.setup)}</small></div>
+    <div class="main"><div class="t">${holding(r)} → ${money(r.exit)}</div>
+      ${r.note?`<div class="miss">${esc(r.note)}</div>`:''}</div>
+    <div class="num"><span class="mid ${up?'up':'dn'}">${pct(r.pl_pct)}</span>
+      <span class="u">${esc(r.opened)} → ${esc(r.closed)}</span></div>
+  </div>`;
+}
+
+function renderTrades(d,state){
+  const A=$('#tab-trades');
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · trades</h1><span class="when">loading…</span></div>
+      <div class="perf">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:19px;width:60px"></div></div>'.repeat(4)}</div>
+      ${'<div class="sk" style="height:56px;margin-top:12px"></div>'.repeat(4)}`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · trades</h1><span class="when stale">no data</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. Positions cannot be marked, so no P/L is
+      shown. An empty book here would be wrong — this is missing data, not a closed book.</div></div>`;
+    return;
+  }
+
+  const o=(d.open||[]).slice().sort((a,b)=>(b.acct==='real')-(a.acct==='real'));
+  const c=d.closed||[], taken=d.taken||[];
+  const wins=c.filter(r=>Number(r.pl_pct)>=0), losses=c.filter(r=>Number(r.pl_pct)<0);
+  const realRows=o.filter(r=>r.acct==='real');
+  const real=realRows.length;
+  /* At risk means real money. Summing the paper accounts gave $18,475 on an
+     $8,500 account, which is a number that reads as a loss you could take. */
+  const atRisk=realRows.reduce((s,r)=>s+cost(r),0);
+  const onPaper=o.reduce((s,r)=>s+cost(r),0)-atRisk;
+
+  A.innerHTML=`
+  <div class="tmast">
+    <h1><b>Ledger</b> · trades</h1>
+    <span class="when">${esc(d.date)} · marked ${esc(d.stamp)}</span>
+  </div>
+
+  <details class="whatis">
+    <summary><span>Every trade taken, logged win or lose. <b class="not">Not recommendations.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>A position goes up here when I open it and stays after it closes. Most are <b>paper</b> — they test
+      whether a setup holds. Rows tagged <b class="not">REAL</b> are my own money.</p>
+      <p>Prices marked <b>alpaca</b> or <b>schwab</b> are a live bid/ask midpoint. <b>iv</b> and <b>est</b>
+      are a model estimate, not a quote.</p>
+    </div>
+  </details>
+
+  <div class="perf">
+    <div><span class="l">open</span><span class="v">${o.length}</span><span class="n">${real} real</span></div>
+    <div><span class="l">at risk</span><span class="v">${real?n0(atRisk):'$0'}</span>
+      <span class="n">real money${onPaper?' · '+n0(onPaper)+' on paper':''}</span></div>
+    <div><span class="l">closed</span><span class="v">${c.length}</span><span class="n">${wins.length}W · ${losses.length}L</span></div>
+    <div><span class="l">win rate</span><span class="v">${c.length?Math.round(wins.length/c.length*100)+'%':'—'}</span>
+      <span class="n">${c.length?'over '+c.length+' trade'+(c.length===1?'':'s'):'no closed trades'}</span></div>
+  </div>
+  ${c.length && c.length<20 ? `<p class="vquiet" style="margin-top:var(--s2)">${c.length} closed trade${c.length===1?'':'s'}
+    is not a track record. Treat the win rate as a tally, not a probability.</p>`:''}
+
+  <div class="sec">
+    <h2>Open <span class="tag trade">${o.length}</span></h2>
+    <p class="lede">What you hold, what it is doing, and the rule that applies. Open a row for the mechanics.</p>
+    ${o.length?o.map(position).join(''):`<p class="empty">Nothing open. Cash is a position.</p>`}
+  </div>
+
+  ${taken.length?`<div class="sec">
+    <h2>Closed · real money <span class="tag trade">${taken.length}</span></h2>
+    <p class="lede">What actually happened, and what it taught.</p>
+    ${taken.slice().reverse().map(t=>`<div class="row">
+      <div class="sym">${esc(t.sym)}<small><span class="real">real</span></small></div>
+      <div class="main"><div class="t">${esc(t.n)} ${esc(t.sym)} ${esc(t.contract)} at ${money(t.paid)}
+        → ${money(t.exit)}</div>
+        ${t.lesson?`<div class="miss">${esc(t.lesson)}</div>`:''}</div>
+      <div class="num"><span class="big ${t.pl>=0?'up':'dn'}">${t.pl>=0?'+':'−'}${n0(t.pl)}</span>
+        <span class="u">${pct(t.pct)} · ${esc(t.opened||'')} → ${esc(t.closed)}</span>
+        ${t.link?`<a class="pm" href="${esc(t.link)}">Post-mortem ↗</a>`:''}</div>
+    </div>`).join('')}
+  </div>`:''}
+
+  ${taken.filter(t=>t.link).length?`<div class="sec">
+    <h2>Post-mortems <span class="tag watch">what I got wrong</span></h2>
+    <p class="lede">A full write-up of a real trade: the entry, the exit, the stop, and what the perfect
+    version would have been.</p>
+    ${taken.filter(t=>t.link).slice().reverse().map(t=>`<a class="pmrow" href="${esc(t.link)}">
+      <span class="sym">${esc(t.sym)}<small>${esc(t.closed)}</small></span>
+      <span class="main"><span class="t">${esc(t.sym)} ${esc(t.contract)}</span>
+        <span class="miss">${esc(t.lesson||'Full write-up of the entry, the exit and the stop.')}</span></span>
+      <span class="num"><span class="mid ${t.pl>=0?'up':'dn'}">${t.pl>=0?'+':'−'}${n0(t.pl)}</span>
+        <span class="u">read it ↗</span></span></a>`).join('')}
+  </div>`:''}
+
+  <div class="sec">
+    <h2>Closed · paper <span class="tag watch">record</span></h2>
+    <p class="lede">Kept whole. A book that only shows winners is not a book.</p>
+    ${c.length?c.map(closedRow).join(''):`<p class="empty">Nothing closed yet.</p>`}
+  </div>
+
+  <details class="deep">
+    <summary>How a position is marked and closed</summary>
+    <div class="in">
+      <div class="chk"><span class="k">SH</span><span class="d"><b style="color:var(--ink)">Shares</b> —
+        when price reaches the target a floor is set there. The trade closes only if it falls back to the
+        floor, or at 252 sessions.</span><span class="r yes">automatic</span></div>
+      <div class="chk"><span class="k">C</span><span class="d"><b style="color:var(--ink)">Calls</b> —
+        marked at a real bid/ask midpoint where one is available, else Black-Scholes. Closed at expiry at
+        intrinsic value.</span><span class="r yes">automatic</span></div>
+      <div class="chk"><span class="k">$</span><span class="d"><b style="color:var(--ink)">Cap</b> —
+        $600 is the most in one option position, and no single name goes over 20% of the
+        account.</span><span class="r no">manual</span></div>
+      <div class="chk"><span class="k">E</span><span class="d"><b style="color:var(--ink)">Setup E is
+        retired.</b> Seven open positions still carry the tag. They were opened before the revenue condition
+        existed and are left marked rather than quietly relabelled.</span><span class="r no">retired</span></div>
+      <p class="more" style="padding-top:var(--s3)">No tight stops, ever. Six separate tests say wider always
+      beats tighter — a −10% stop returns +8.87% where a −50% stop returns +21.29%.</p>
+    </div>
+  </details>
+
+  <p class="foot">Prices: Yahoo Finance. Option marks tagged <b>schwab</b> or <b>alpaca</b> are a real bid/ask
+  midpoint; <b>iv</b> and <b>est</b> are Black-Scholes, a model, not a quote.</p>`;
+}
+
+/* ══ Watching ══════════════════════════════════ */
+/* Every row is (symbol, what it is, the next condition, price). The next condition
+   is read from the scanner's own fields. Where a thing can never become tradeable,
+   the row says that instead of inventing a path. */
+function wrow(sym,tag,what,next,px,unit){
+  return `<div class="wrow">
+    <div class="sym">${esc(sym)}<small>${tag}</small></div>
+    <div class="next">${what}<em>${next}</em></div>
+    <div class="px"><b>${f2(px)}</b><small>${unit||''}</small></div>
+  </div>`;
+}
+
+function sector(s,open){
+  const mine=new Set(s.ours||[]);
+  const hold=(s.hold||[]).map(h=>`<span class="${mine.has(h.sym)?'mine':''}"><b>${esc(h.sym)}</b> ${h.pct.toFixed(1)}%</span>`).join('');
+  return `<details class="sect${s.rank<=3?' top':''}"${open?' open':''}>
+    <summary>
+      <span class="rk">${s.rank}</span>
+      <span class="nm">${esc(s.name)}<small>${esc(s.sym)}</small></span>
+      <span class="g ${s.rel>0?'up':'dn'}">${pct(s.rel)}</span>
+      <span class="o">${(s.ours||[]).length} of yours</span>
+    </summary>
+    <div class="in">
+      <p style="margin:0">Rank ${s.rank} of 11 this week, ${s.d_week===0?'unchanged':(s.d_week>0?'up '+s.d_week:'down '+(-s.d_week))} on the week.
+      ${pct(s.rel)} against the S&amp;P over the same window. ${s.churn?`Top ten holdings turned over ${esc(s.churn)}.`:''}</p>
+      <div class="hold">${hold||'<span>holdings unavailable</span>'}</div>
+      ${(s.ours||[]).length?`<p style="margin:var(--s2) 0 0">Yours in here: <b style="color:var(--amber)">${(s.ours||[]).join(', ')}</b></p>`:''}
+    </div>
+  </details>`;
+}
+
+function renderWatching(d,state){
+  const A=$('#tab-watching');
+
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · watching</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:52px;margin-top:14px"></div>'.repeat(6)}`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · watching</h1><span class="when stale">no data</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. Nothing can be listed. An empty
+      watchlist would be wrong — this is missing data, not an empty list.</div></div>`;
+    return;
+  }
+
+  const near=d.blocked||[], D=d.D||[], W=d.weekly||[];
+  const crossed=W.filter(r=>r.state==='crossed'), soon=W.filter(r=>r.state!=='crossed');
+  const S=d.sectors||[];
+  const total=near.length+D.length+W.length;
+
+  const nearRows = D.map(r=>wrow(r.sym,'setup D',
+      `${r.dd.toFixed(1)}% below its high, RSI ${r.rsi.toFixed(0)}, up over 126 sessions.`,
+      `Cannot become tradeable. <b>Setup D never beat random picking</b> on the honest universe.`,
+      r.px,`+${r.up.toFixed(1)}% upside`)).join('');
+
+  const blockedRows = near.map(r=>wrow(r.sym,'setup F band',
+      `In the F price band, ${r.dd.toFixed(1)}% below its high.`,
+      r.why==='no SEC data'
+        ? `Needs <b>revenue from an SEC filing</b>. None is available for this name, so it cannot pass.`
+        : `Needs the <b>trend to repair</b> — 10 over 30 and 50 over 200.`,
+      r.px,`+${r.up.toFixed(1)}% to target`)).join('');
+
+  const weeklyRows = [
+    ...crossed.map(r=>wrow(r.sym,'crossed',
+      `Weekly 10 EMA is above the 30. The 30 is ${r.up?'rising':'falling'}.`,
+      r.up?`Already crossed. <b>Research only</b> — +0.49pp ex-top-five, p=0.363.`
+          :`Crossed, but the 30 EMA is still <b>falling</b>. That is the weak version.`,
+      r.px,`${pct(r.gap)} gap`)),
+    ...soon.map(r=>wrow(r.sym,'near',
+      `Weekly 10 EMA is ${Math.abs(r.gap).toFixed(1)}% under the 30.`,
+      `Needs the <b>10 to cross the 30</b> on a weekly close.`,
+      r.px,`${r.dd.toFixed(1)}% off high`))].join('');
+
+  A.innerHTML=`
+  <div class="tmast">
+    <h1><b>Ledger</b> · watching</h1>
+    <span class="when">${esc(d.date)} · scanned ${esc(d.stamp)}</span>
+  </div>
+
+  <details class="whatis">
+    <summary><span>Names that did <b class="not">not</b> fire, and what each one is waiting on.</span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Nothing on this page is a trade. A name is here because it is close to a setup, blocked by one
+      condition, or part of research that did not clear its test.</p>
+      <p>There is <b>no score and no ranking</b>. A near miss is not a weak signal — it is a name that did
+      not qualify.</p>
+    </div>
+  </details>
+
+  <div class="verdict" style="padding-top:var(--s4)">
+    <div class="eyebrow">what is being watched</div>
+    <p class="say">${total?`${total} name${total===1?'':'s'}, <b style="color:var(--ink2)">none tradeable</b>.`
+      :`Nothing on the <b style="color:var(--ink2)">watchlists</b>.`}</p>
+    <div class="vstat"><span><b>${D.length}</b> near</span><span>·</span>
+      <span><b>${near.length}</b> blocked</span><span>·</span>
+      <span><b>${W.length}</b> weekly</span></div>
+    <p class="vquiet">Signals live on Today. Everything here is one condition short, or research that failed
+    its test and is kept for the record.</p>
+  </div>
+
+  <div class="band"><h3>Near</h3><span class="n">${D.length}</span>
+    <p>Close to a setup's conditions, but the setup itself is watchlist only.</p></div>
+  ${D.length?nearRows:`<p class="empty">Nothing near.</p>`}
+
+  <div class="band"><h3>Blocked</h3><span class="n">${near.length}</span>
+    <p>In Setup F's price band and failing exactly one condition. Blocked names hit their target 39% of the
+    time against 71% for names that pass, so the block is doing real work.</p></div>
+  ${near.length?blockedRows:`<p class="empty">Nothing blocked.</p>`}
+
+  <div class="band"><h3>Weekly cross</h3><span class="n">${W.length}</span>
+    <p>The weekly 10/30 EMA cross. It beats the daily version by 3.2 points and still does not clear the
+    bar: +0.49pp once the top five names come out, p=0.363.</p></div>
+  ${W.length?weeklyRows:`<p class="empty">No crosses or near-crosses.</p>`}
+
+  <div class="sec">
+    <h2>Sector context <span class="tag watch">context, not signal</span></h2>
+    <p class="lede">Which sector is leading, and which of your names sit in it. Rotation was tested as a
+    strategy and as a filter, and failed both times. It is here to explain the tape, not to pick a name.</p>
+    ${S.length?S.slice(0,3).map((s,i)=>sector(s,i===0)).join('')
+      :`<p class="empty">Sector data unavailable.</p>`}
+    ${S.length>3?`<details class="deep" style="margin-top:var(--s3)">
+      <summary>The other ${S.length-3} sectors</summary>
+      <div class="in">${S.slice(3).map(s=>sector(s,false)).join('')}</div></details>`:''}
+  </div>
+
+  <p class="foot">Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Sector holdings: fund issuer
+  disclosures. Every backtest behind this page carries a survivorship caveat.</p>`;
+}
+
+/* ══ Setups ══════════════════════════════════ */
+const GROUP=[
+  ["Tradeable","on","These produce signals I act on. F is the only one that survived every test.",["F","VIX","S"]],
+  ["Watchlist only","","Shown, never acted on. Each failed a test that mattered, and the failure is printed below.",["D","C"]],
+  ["Retired","","Superseded. Open positions still carry the tag, so it stays readable rather than deleted.",["E"]]];
+
+function setup(k,d,on){
+  const v=(d.setups||{})[k]; if(!v) return '';
+  return `<details class="su${on?' on':''}">
+    <summary>
+      <span class="k">${esc(k==='VIX'?'VIX':k)}</span>
+      <span class="t">${esc(v.name)}<small>${esc(v.tag)}</small></span>
+    </summary>
+    <div class="in">
+      <p class="size">${esc(v.size)}</p>
+      <h4>It fires when</h4>
+      <ol>${v.rules.map(x=>`<li>${x}</li>`).join('')}</ol>
+      <h4>The evidence</h4>
+      <ul>${v.numbers.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="two">
+        <div><h4>When it works</h4><p>${v.works}</p></div>
+        <div><h4>When it does not</h4><p>${v.fails}</p></div>
+      </div>
+    </div>
+  </details>`;
+}
+
+function renderSetups(d,state){
+  const A=$('#tab-setups');
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · setups</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:58px;margin-top:14px"></div>'.repeat(6)}`; return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · setups</h1><span class="when stale">no data</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. The setup definitions live in the scan
+      output, so none can be shown. The setups themselves are unchanged — this is a missing file.</div></div>`; return;
+  }
+  const S=d.setups||{};
+  const live=GROUP[0][3].filter(k=>S[k]).length;
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · setups</h1>
+    <span class="when">${esc(d.date)} · definitions locked</span></div>
+
+  <details class="whatis">
+    <summary><span>Six setups. <b class="not">Two</b> produce trades. Every number was written down before the test ran.</span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>A setup is a list of conditions. If every condition is met at the close, it fires. There is no
+      judgement in the firing and no score.</p>
+      <p>Each one was tested against thousands of historical cases, then tested again with its five biggest
+      contributors removed. <b>A setup that only works because of five names does not work.</b> The ones that
+      failed that test are kept here, labelled, rather than deleted.</p>
+    </div>
+  </details>
+
+  <div class="verdict" style="padding-top:var(--s4)">
+    <div class="eyebrow">the reference</div>
+    <p class="say"><b>${live}</b> of ${Object.keys(S).length} setups are tradeable.</p>
+    <div class="vstat"><span><b>${live}</b> tradeable</span><span>·</span>
+      <span><b>${GROUP[1][3].filter(k=>S[k]).length}</b> watchlist only</span><span>·</span>
+      <span><b>${GROUP[2][3].filter(k=>S[k]).length}</b> retired</span></div>
+    <p class="vquiet">Open one to see its exact conditions, its evidence, and where it breaks.</p>
+  </div>
+
+  ${GROUP.map(([name,on,why,keys])=>`
+    <div class="sgrp">
+      <h3 class="${on}">${name}<span class="n">${keys.filter(k=>S[k]).length}</span></h3>
+      <p>${why}</p>
+      ${keys.map(k=>setup(k,d,!!on)).join('')}
+    </div>`).join('')}
+
+  <p class="foot">Every claim above is a number from a written test. Backtests carry a survivorship caveat:
+  the universe is names that still trade today, which flatters every result on this page.</p>`;
+}
+
+/* ══ Rules ══════════════════════════════════ */
 const RULES=[
  {g:"Size",st:"a",say:"$600 is the most in one option position.",
   why:"Set when the account was $8,000 — 7.5%. At $10,000 it becomes $750. It is a hard number, not a target.",
@@ -484,195 +1151,473 @@ const RULES=[
   why:"A loan payment is fixed. The return is not.",
   ev:"Cheapest loan costs <b>$960 a year</b> on $12,000. The best tested futures result earns $495."},
 ];
-function renderSectors(d){
-  const S=d.sectors||[];
-  if(!S.length){$('#tab-sectors').innerHTML='<p class="none">sector data unavailable</p>';return;}
-  const arrow=n=>n===0?'<span class="dim">—</span>'
-    :n>0?`<span class="up">▲${n}</span>`:`<span class="dn">▼${-n}</span>`;
-  const rows=S.map((r,ri)=>{
-    const N=r.track.length,W=150,H=20,X=i=>W-(i/(N-1))*W,Y=v=>2+((v-1)/10)*H;
-    const pts=r.track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
-    const col=r.rank<=3?'var(--amber)':'var(--dim)';
-    const main=`<tr class="${r.rank<=3?'top':''}" data-i="${ri}" tabindex="0" role="button" aria-expanded="false">`+
-      `<td class="nm">${esc(r.name)} <span class="dim">${esc(r.sym)}</span></td>`+
-      `<td class="r">${r.rank}</td><td class="d">${arrow(r.d_week)}</td><td class="d mo">${arrow(r.d_month)}</td>`+
-      `<td class="d ${r.up?'up':'dn'}">${r.gap>0?'+':''}${r.gap.toFixed(1)}%</td>`+
-      `<td class="d ${r.rel>0?'up':'dn'}">${r.rel>0?'+':''}${r.rel.toFixed(1)}%</td>`+
-      `<td class="trk"><svg viewBox="0 0 ${W} 26" preserveAspectRatio="none" role="img" aria-label="rank over ten weeks">`+
-      `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linejoin="round" opacity="${r.rank<=3?1:.55}"/>`+
-      `<circle cx="${X(0)}" cy="${Y(r.track[0])}" r="2.6" fill="${col}"/></svg></td></tr>`;
-    const hold=(r.hold||[]);
-    const mx=hold.length?Math.max(...hold.map(h=>h.pct)):1;
-    const own=new Set(r.ours||[]);
-    const body=hold.length
-      ? `<div class="mkhead">Top ${hold.length} holdings · <b>${own.size} of them are names we scan</b></div>`+
-        '<div class="mkin">'+hold.map(h=>
-          `<div class="mkrow ${own.has(h.sym)?'own':''}"><span class="s">${esc(h.sym)}</span>`+
-          `<span class="bar"><i style="width:${(h.pct/mx*100).toFixed(0)}%"></i></span>`+
-          `<span class="p">${h.pct.toFixed(1)}%</span></div>`).join('')+'</div>'
-      : '<p class="none">holdings unavailable</p>';
-    return main+`<tr class="mk" data-for="${ri}" hidden><td colspan="7" class="mkcell">${body}</td></tr>`;
-  }).join('');
-  $('#tab-sectors').innerHTML=
-    head('◷','Leadership board','<b>Context, not a signal.</b> Rotation was tested twice and carries none — buying last month’s leader loses to SPY by 0.25pp. Click a sector to see what it is made of.')+
-    '<table class="lb"><thead><tr><th>sector</th><th>rank</th><th>1 wk</th><th class="moh">1 mo</th><th>50 v 200</th><th>vs SPY 1mo</th><th class="trkh">rank, 10 weeks → now</th></tr></thead><tbody>'+rows+'</tbody></table>'+
-    `<div class="lbtop"><a class="runbtn" target="_blank" rel="noopener"
-       href="https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml">Refresh the board ↗</a>
-     <span class="dim">Runs the same scan that updates every tab. Takes about a minute.</span></div>`+
-    `<p class="churn">The top sector changed <b>${esc(S[0].churn)}</b> weeks in this window — that churn is why it cannot be traded. Rank 1 sits at the top of each track line, 11 at the bottom. Gold names in a makeup list are ones our scan already follows.</p>`;
-  const tb=$('#tab-sectors').querySelector('tbody');
-  const toggle=tr=>{
-    const i=tr.dataset.i, mk=tb.querySelector(`tr.mk[data-for="${i}"]`);
-    const open=!mk.hidden; mk.hidden=open; tr.classList.toggle('open',!open);
-    tr.setAttribute('aria-expanded',String(!open));
-  };
-  tb.querySelectorAll('tr[data-i]').forEach(tr=>{
-    tr.addEventListener('click',()=>toggle(tr));
-    tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(tr);}});
-  });
-}
 
-function renderTaken(d){
-  const T=d.taken||[];
-  if(!T.length) return '';
-  const w=T.filter(t=>t.pl>0).length, tot=T.reduce((s,t)=>s+t.pl,0);
-  return '<div class="taken">'+
-    head('■','Trades taken with real money','Every one of these passed no setup. Both outcomes came from the exit, not the entry. Each closed trade gets a post-mortem with the same five checkpoints.')+
-    T.map(t=>`<div class="tk">
-      <span class="sym">${esc(t.sym)}</span>
-      <span class="mid"><span class="con">${t.n} &times; ${esc(t.contract)} @ $${t.paid.toFixed(2)} &middot; $${t.cost}</span>
-        <span class="dates">${esc(t.opened)} → ${esc(t.closed)} &middot; exit $${t.exit.toFixed(2)} &middot; setup ${t.setup?esc(t.setup):'none'}</span></span>
-      <span class="pl"><b class="${t.pl>0?'up':'dn'}">${t.pl>0?'+':'−'}$${Math.abs(t.pl)}</b><small>${t.pct>0?'+':''}${t.pct}%</small></span>
-      <span class="lesson">${esc(t.lesson)}${t.link?` <a href="${esc(t.link)}">Read the post-mortem →</a>`:''}</span>
-    </div>`).join('')+
-    `<div class="tkfoot"><span><b>${T.length}</b> closed</span><span><b>${w}</b> won</span>`+
-    `<span>net <b class="${tot>0?'up':'dn'}">${tot>0?'+':'−'}$${Math.abs(tot)}</b></span>`+
-    `<span><b>0</b> passed a setup</span></div></div>`;
-}
+const LAB={a:'active',w:'armed',n:'never',d:'waiting'};
+const EXPLAIN={a:'On now. It governs the next trade you place.',
+  w:'Written and tested, switched off. The condition that turns it on is named.',
+  n:'A thing the evidence says never to do.',
+  d:'Waiting on something that has not happened.'};
+let FILTER='all';
 
-function renderRules(d){
-  const v=d.vix, band=v<16?["CALM","under 16"]:v<20?["NORMAL","16–20"]:v<25?["ELEVATED","20–25"]:["HIGH","25+"];
-  const shorts=v>=25, sd=v>=25;
-  const now=`<div class="rnow">
-    <div><span class="l">VIX right now</span><b>${v.toFixed(1)}</b><small>${band[0]} · ${band[1]}</small></div>
-    <div><span class="l">Shorts (Setup S)</span><b class="${shorts?'up':'dim'}">${shorts?'allowed':'no'}</b><small>${shorts?'VIX is at 25+':'needs VIX 25+'}</small></div>
-    <div><span class="l">Short-dated calls</span><b class="${sd?'up':'dim'}">${sd?'allowed':'no'}</b><small>${sd?'small size, ~$200':'needs VIX 25+'}</small></div>
-    <div><span class="l">Setup F window</span><b class="${v>=16&&v<20?'up':'dim'}">${v>=16&&v<20?'best':'ok'}</b><small>${v>=16&&v<20?'16–20 is +10.76pp':'16–20 is the best band'}</small></div>
+function rule(r){
+  return `<div class="rc" data-st="${r.st}"${FILTER!=='all'&&FILTER!==r.st?' hidden':''}>
+    <span class="st ${r.st}">${LAB[r.st]}</span>
+    <p class="say">${r.say}</p>
+    <p class="why">${r.why}</p>
+    <p class="ev">${r.ev}</p>
   </div>`;
-  const cls={a:'on',w:'armed',n:'never',d:''}, lab={a:'active',w:'armed',n:'never',d:'waiting'};
-  let out=head('§','The rules','Decisions, not signals. Each one is here because a test said so. The number under each rule is that test.')+now;
-  for(const g of ["Size","Buying calls","Getting out","Armed, not on"]){
-    out+=`<div class="rgrp"><h3>${g}</h3>`;
-    for(const r of RULES.filter(x=>x.g===g))
-      out+=`<div class="rule-c ${cls[r.st]}"><span class="st ${r.st}">${lab[r.st]}</span>
-        <p class="say">${r.say}</p><p class="why">${r.why}</p><p class="ev">${r.ev}</p></div>`;
-    out+=`</div>`;
+}
+
+function renderRules(d,state){
+  const A=$('#tab-rules');
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · rules</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:64px;margin-top:14px"></div>'.repeat(5)}`; return;
   }
-  const w=d.week||{days:[]};
-  if(w.days&&w.days.length){
-    out+=`<div class="recent">`+head('≡','What the scan produced','One row per session. Setup D is a watchlist count, not a signal.')+
-      tbl(w.days.slice().reverse().slice(0,10),[['date',r=>esc(r.date)],['VIX',r=>Number(r.vix).toFixed(1)],
-      ['regime',r=>`<span class="pill">${esc(r.regime)}</span>`],
-      ['VIX fires',r=>r.vix_fires?'<span class="up">yes</span>':'<span class="dim">no</span>'],
-      ['F',r=>r.F.length?r.F.map(esc).join(' '):'<span class="dim">—</span>'],
-      ['C',r=>r.C.length?r.C.map(esc).join(' '):'<span class="dim">—</span>'],
-      ['S',r=>r.S.length?r.S.map(esc).join(' '):'<span class="dim">—</span>'],
-      ['D',r=>`<span class="dim">${r.D.length}</span>`]],'history builds as the scan runs')+`</div>`;
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · rules</h1><span class="when stale">no live context</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. The rules below still apply — they do not
+      depend on today's scan — but the live context strip cannot be shown.</div></div>
+      ${['Size','Buying calls','Getting out','Armed, not on'].map(g=>`<div class="rgrp"><h3>${g}</h3>
+        ${RULES.filter(x=>x.g===g).map(rule).join('')}</div>`).join('')}`; return;
   }
-  $('#tab-rules').innerHTML=out;
+  const v=d.vix, band=v<16?['CALM','under 16']:v<20?['NORMAL','16–20']:v<25?['ELEVATED','20–25']:['HIGH','25+'];
+  const hi=v>=25;
+  const count=st=>RULES.filter(r=>r.st===st).length;
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · rules</h1>
+    <span class="when">${esc(d.date)} · VIX ${v.toFixed(1)} ${band[0]}</span></div>
+
+  <details class="whatis">
+    <summary><span>Decisions I made once, so I do not remake them badly at 10am. <b class="not">Each one has a test under it.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>A rule is not a signal. A signal says what fired today; a rule says what I am allowed to do about it.</p>
+      <p>Every rule carries the number that produced it. If the number changes, the rule changes — that is the
+      only way a rule here gets rewritten.</p>
+    </div>
+  </details>
+
+  <div class="ctx">
+    <div><span class="l">shorts · setup S</span><span class="v" style="font-size:var(--t-body);color:${hi?'var(--up)':'var(--dim)'}">
+      ${hi?'allowed':'blocked'}<small>${hi?'VIX is 25+':'needs VIX 25+'}</small></span></div>
+    <div><span class="l">short-dated calls</span><span class="v" style="font-size:var(--t-body);color:${hi?'var(--up)':'var(--dim)'}">
+      ${hi?'allowed, ~$200':'blocked'}<small>${hi?'small size only':'needs VIX 25+'}</small></span></div>
+    <div><span class="l">setup F window</span><span class="v" style="font-size:var(--t-body)">
+      ${v>=16&&v<20?'best':'ok'}<small>16–20 is +10.76pp</small></span></div>
+  </div>
+
+  <div class="filt" role="group" aria-label="Filter rules by state">
+    <button data-f="all" aria-pressed="${FILTER==='all'}">all ${RULES.length}</button>
+    <button data-f="a" aria-pressed="${FILTER==='a'}">active ${count('a')}</button>
+    <button data-f="w" aria-pressed="${FILTER==='w'}">armed ${count('w')}</button>
+    <button data-f="n" aria-pressed="${FILTER==='n'}">never ${count('n')}</button>
+    <button data-f="d" aria-pressed="${FILTER==='d'}">waiting ${count('d')}</button>
+    <span class="sp"></span>
+    <span class="lg" style="align-self:center">${FILTER==='all'?'':EXPLAIN[FILTER]}</span>
+  </div>
+
+  ${['Size','Buying calls','Getting out','Armed, not on'].map(g=>{
+    const rs=RULES.filter(x=>x.g===g).filter(x=>FILTER==='all'||x.st===FILTER);
+    return rs.length?`<div class="rgrp"><h3>${g}</h3>${rs.map(rule).join('')}</div>`:'';
+  }).join('')}
+
+  <p class="foot">Every rule above came from a test in this project. Where a rule contradicts an instinct, the
+  test won. The one rule with no number under it is the $600 cap, which is a choice about the account, not a
+  finding.</p>`;
+
+  A.querySelectorAll('.filt button').forEach(b=>b.addEventListener('click',()=>{
+    FILTER=b.dataset.f; paint();
+  }));
 }
 
-function renderWeek(d){
-  const w=d.week||{days:[],closed:[],by_setup:{},produced:[]};
-  const days=tbl(w.days.slice().reverse(),[['date',r=>esc(r.date)],['VIX',r=>Number(r.vix).toFixed(1)],['regime',r=>`<span class="pill">${esc(r.regime)}</span>`],
-    ['VIX fires',r=>r.vix_fires?'<span class="up">yes</span>':'<span class="dim">no</span>'],
-    ['F',r=>r.F.length?r.F.map(esc).join(' '):'<span class="dim">—</span>'],['C',r=>r.C.length?r.C.map(esc).join(' '):'<span class="dim">—</span>'],
-    ['S',r=>r.S.length?r.S.map(esc).join(' '):'<span class="dim">—</span>'],['D',r=>`<span class="dim">${r.D.length}</span>`]],'history builds as the scan runs each day');
-  const bs=Object.entries(w.by_setup).sort();
-  const verdict=bs.length?tbl(bs.map(([k,v])=>({k,...v})),[['setup',r=>`<span class="pill setup">${esc(r.k)}</span>`],
-    ['closed W/L',r=>`<span class="up">${r.wins}</span> / <span class="dn">${r.losses}</span>`],['closed avg',r=>`<span class="${cls(r.closed_mean)}">${pct(r.closed_mean)}</span>`],
-    ['open',r=>r.open_n],['open avg',r=>`<span class="${cls(r.open_mean)}">${pct(r.open_mean)}</span>`],
-    ['verdict',r=>{const m=r.closed_mean??r.open_mean;return m==null?'<span class="dim">—</span>':m>0?'<span class="up">working</span>':'<span class="dn">not working</span>'}]]):'<p class="none">no trades this week</p>';
-  const closedWk=tbl(w.closed,[['sym',r=>esc(r.symbol)],['setup',r=>`<span class="pill setup">${esc(r.setup)}</span>`],['closed',r=>esc(r.closed)],
-    ['P/L',r=>`<span class="${cls(r.pl_pct)}">${pct(r.pl_pct)}</span>`],['',r=>`<span class="pill ${r.result}">${r.result}</span>`]],'nothing closed this week');
-  $('#tab-week-retired').innerHTML=
-    head('W','Snapshot — what worked, what didn\'t','Per setup, over the last 7 days. "Working" means the average P/L is positive, closed first, open if nothing closed.')+verdict+
-    head('≡','Signals produced this week','One row per session the scan ran. D is a count — it is a watchlist, not a signal.')+days+
-    head('■','Closed this week','')+closedWk;
+/* ══ Sectors ══════════════════════════════════ */
+function spark(track){
+  /* rank 1 is best, so the scale is inverted. Eleven sectors, ten weeks. */
+  const N=track.length, W=100, H=18;
+  const X=i=>(i/(N-1))*W, Y=v=>1+((v-1)/10)*H;
+  const pts=track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+  const last=track[track.length-1];
+  return `<svg viewBox="-2 -2 ${W+8} ${H+4}" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="${pts}" fill="none" stroke="var(--dim)" stroke-width="1.5"
+      vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    <circle cx="${X(N-1).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="2.2"
+      fill="${last<=3?'var(--amber)':'var(--ink2)'}"/></svg>`;
 }
 
-function renderSetups(d){
-  // Two of six are the ones that actually produce trades. Say so.
-  const GROUP=[
-    ["Active","These produce signals. F is the only one that survived every test.",["F","VIX","S"]],
-    ["Watchlist only","Kept and shown, never acted on. Each failed a test that mattered.",["D","C"]],
-    ["Retired","Superseded. Open trades still carry the tag, so it stays readable.",["E"]]];
-  const one=k=>{
-    const v=(d.setups||{})[k]; if(!v) return '';
-    return `<details><summary><span class="k">${esc(k==='VIX'?'V':k)}</span>`+
-      `<span class="t">${esc(v.name)}</span><span class="g">${esc(v.tag)}</span></summary>`+
-      `<div class="body"><p class="size">${esc(v.size)}</p>`+
-      `<h4>The rule</h4><ol>${v.rules.map(x=>`<li>${x}</li>`).join('')}</ol>`+
-      `<h4>The numbers</h4><ul>${v.numbers.map(x=>`<li>${x}</li>`).join('')}</ul>`+
-      `<h4>When it works</h4><p>${v.works}</p>`+
-      `<h4>When it does not</h4><p>${v.fails}</p></div></details>`;
-  };
-  $('#tab-setups').innerHTML=
-    head('?','The setups','Click one. Every number comes from a test written down before it was run.')+
-    GROUP.map(([name,why,keys])=>
-      `<div class="sgrp"><h3>${name}<span>${why}</span></h3>${keys.map(one).join('')}</div>`).join('');
+function sector(s){
+  const mine=new Set(s.ours||[]);
+  const move=s.d_week===0?'held':(s.d_week>0?`up ${s.d_week}`:`down ${-s.d_week}`);
+  return `<details class="sct${s.rank<=3?' top':''}">
+    <summary>
+      <span class="rk">${s.rank}</span>
+      <span class="nm">${esc(s.name)}<small>${esc(s.sym)} · ${move} on the week</small></span>
+      <span class="num ${s.rel>0?'up':'dn'}">${pct(s.rel)}</span>
+      <span class="num o">${(s.ours||[]).length||'—'}</span>
+      <span class="spark">${spark(s.track||[])}</span>
+    </summary>
+    <div class="in">
+      <p>Rank <b style="color:var(--ink)">${s.rank} of 11</b>, ${move} on the week and
+      ${s.d_month===0?'level':(s.d_month>0?'up '+s.d_month:'down '+(-s.d_month))} on the month.
+      ${pct(s.rel)} against the S&amp;P. The fund is ${pct(s.gap)} from its own 200-day average.
+      ${s.churn?`Top ten holdings turned over <b style="color:var(--ink)">${esc(s.churn)}</b>.`:''}</p>
+      <div class="hold">${(s.hold||[]).map(h=>
+        `<span class="${mine.has(h.sym)?'mine':''}"><b>${esc(h.sym)}</b>${h.pct.toFixed(1)}%</span>`).join('')
+        || '<span>holdings unavailable</span>'}</div>
+      ${(s.ours||[]).length?`<p style="margin-top:var(--s3)">Yours in here:
+        <b style="color:var(--amber)">${(s.ours||[]).join(', ')}</b></p>`:
+        `<p style="margin-top:var(--s3);color:var(--dim)">None of your names are in this sector.</p>`}
+    </div>
+  </details>`;
 }
 
+function renderSectors(d,state){
+  const A=$('#tab-sectors');
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · sectors</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:44px;margin-top:10px"></div>'.repeat(8)}`; return;
+  }
+  if(state==='error'||state==='nodata'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · sectors</h1><span class="when stale">no sector data</span></div>
+      <div class="sec"><div class="err">Sector data could not be fetched. The eleven sector funds come from a
+      separate request to Yahoo, so this can fail while the rest of the scan succeeds. Nothing here is a signal,
+      so a failure costs context, not a trade.</div></div>`; return;
+  }
+  const S=d.sectors||[];
+  const top=S[0], ours=S.reduce((n,s)=>n+((s.ours||[]).length),0);
 
-function renderHead(d){
-  $('#stamp').textContent=`${d.date} · scanned ${d.stamp}`;
-  (function(){
-    // the workflow runs 13:15 and 21:15 UTC, Mon-Fri
-    const now=new Date(), SLOTS=[[13,15],[21,15]];
-    let next=null;
-    for(let k=0;k<7&&!next;k++){
-      const day=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+k));
-      const dow=day.getUTCDay(); if(dow===0||dow===6) continue;
-      for(const [H,M] of SLOTS){
-        const t=new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate(),H,M));
-        if(t>now){next=t;break;}
-      }
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · sectors</h1>
+    <span class="when">${esc(d.date)} · scanned ${esc(d.stamp)}</span></div>
+
+  <details class="whatis">
+    <summary><span>Which sector is leading, and where your names sit. <b class="not">Context, not signal.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Sectors are ranked each week on strength against the S&amp;P. The line shows ten weeks of that rank.</p>
+      <p>Rotation was tested twice in this project — as a strategy on its own, and as a filter on top of the
+      setups. <b>It failed both times.</b> It is on the site to explain what the tape is doing, never to pick
+      a name.</p>
+    </div>
+  </details>
+
+  <div class="verdict" style="padding-top:var(--s4)">
+    <div class="eyebrow">leadership</div>
+    <p class="say"><b>${esc(top?top.name:'—')}</b> leads.</p>
+    <div class="vstat"><span><b>${S.length}</b> sectors ranked</span><span>·</span>
+      <span><b>${ours}</b> of your names placed</span></div>
+    <p class="vquiet">Rank is strength against the S&amp;P over the same window. Open a sector for its
+    holdings — yours are marked in amber.</p>
+  </div>
+
+  <div class="sec" style="padding-top:var(--s4)">
+    <div class="lead hd"><span>rank</span><span>sector</span><span style="text-align:right">vs S&amp;P</span>
+      <span style="text-align:right" class="o">yours</span><span class="spark">10-week rank</span></div>
+    ${S.length?S.map(sector).join(''):'<p class="empty">No sector data.</p>'}
+  </div>
+
+  <p class="foot">Sector funds: the eleven SPDR select sector ETFs. Holdings: fund issuer disclosures via
+  Yahoo, updated on their schedule, not ours. Rank is relative strength against the S&amp;P over the same
+  window and is not a forecast.</p>`;
+}
+
+/* ══ Methodology ══════════════════════════════════ */
+const SECTIONS=[['prices','Prices'],['fundamentals','Fundamentals'],['marks','Option marks'],
+  ['backtests','Backtests'],['survivorship','Survivorship'],['stats','The statistics'],['log','Scan record']];
+
+function renderMethodology(d,state){
+  const A=$('#tab-methodology');
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · methodology</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:70px;margin-top:16px"></div>'.repeat(5)}`; return;
+  }
+  const days=((d.week&&d.week.days)||[]).slice().reverse();
+  const err=(d.errors||[]).length;
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · methodology</h1>
+    <span class="when">${state==='error'?'no live data':esc(d.date)+' · scanned '+esc(d.stamp)}</span></div>
+
+  <details class="whatis" open>
+    <summary><span>Where every number comes from, and what is wrong with it.
+      <b class="not">Read this before you trust anything else.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Nothing on this site is a forecast. Every claim is a measurement of what happened in a fixed
+      historical window, with a named source and a named flaw.</p>
+    </div>
+  </details>
+
+  <div class="mtoc">${SECTIONS.map(([id,t])=>`<a href="#m-${id}">${t}</a>`).join('')}</div>
+
+  <div class="msec" id="m-prices"><h2>Prices</h2>
+    <p>Daily open, high, low, close and volume from <b>Yahoo Finance</b>, cached locally and refreshed on each
+    scan. Split and dividend adjusted.</p>
+    <dl class="dt"><dt>Source</dt><dd>Yahoo Finance chart API, daily bars</dd></dl>
+    <dl class="dt"><dt>Universe</dt><dd><b>63 names</b>, fixed. Mega-cap tech plus the sector leaders that
+      surround it.</dd></dl>
+    <dl class="dt"><dt>Refresh</dt><dd>Twice each weekday, 13:15 and 21:15 UTC, by scheduled job</dd></dl>
+    <dl class="dt"><dt>Known gap</dt><dd>Intraday data is not held at all. Every test on this site is on
+      <b>daily closes</b>. An intraday idea cannot be checked here.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-fundamentals"><h2>Fundamentals</h2>
+    <p>Revenue comes from <b>SEC EDGAR XBRL company facts</b>, read at the <b>filing date</b>, not the period
+    date. That distinction is the whole point: using the period date would let a backtest see a number weeks
+    before it was public.</p>
+    <dl class="dt"><dt>Field</dt><dd>Revenue only. Earnings per share breaks across splits and is not used.</dd></dl>
+    <dl class="dt"><dt>Point in time</dt><dd>A filing is visible to the scanner only after its <b>filed</b>
+      date, exactly as it was to the market.</dd></dl>
+    <dl class="dt"><dt>Known gap</dt><dd>Some names return no usable SEC series. They are shown as
+      <b>blocked: no SEC data</b> rather than quietly dropped.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-marks"><h2>Option marks</h2>
+    <p>An option price on this site is one of four things, and the row always says which.</p>
+    <dl class="dt"><dt><b>schwab</b> / <b>alpaca</b></dt><dd>A <b>real bid/ask midpoint</b> from a live quote.
+      This is the good case.</dd></dl>
+    <dl class="dt"><dt><b>iv</b></dt><dd>Black-Scholes using implied volatility read from the option chain.
+      A model, informed by the market.</dd></dl>
+    <dl class="dt"><dt><b>est</b></dt><dd>Black-Scholes using 60-day realised volatility. A model with no
+      market input. The weakest of the four.</dd></dl>
+    <div class="warn2">A model price is <b>not a quote</b>. It ignores the spread, and on a wide spread the
+    difference is larger than the edge being measured. Never size a position off an <b>est</b> mark.</div>
+  </div>
+
+  <div class="msec" id="m-backtests"><h2>Backtests</h2>
+    <p>Every setup was written down before it was run. The bar a setup has to clear is not "it made money" —
+    it is that the result survives having its five biggest contributors removed.</p>
+    <dl class="dt"><dt>Baseline</dt><dd>Every bar in the same names over the same window. A setup is measured
+      against that, not against zero.</dd></dl>
+    <dl class="dt"><dt>Ex-top-five</dt><dd>The five names contributing most are dropped and the test is rerun.
+      <b>Shuffling returns and then picking the top five beats the baseline 100% of the time on nothing.</b></dd></dl>
+    <dl class="dt"><dt>Null model</dt><dd>2,000 random draws of the same size from the same pool, to see how
+      often noise produces the same edge.</dd></dl>
+    <dl class="dt"><dt>Era split</dt><dd>Results are split by period. A result that only exists in one era is
+      not a result.</dd></dl>
+    <dl class="dt"><dt>Look-ahead</dt><dd>Three look-ahead bugs have been found and fixed in this project.
+      The signature is always the same: <b>results improve as the lookback gets shorter</b>.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-survivorship"><h2>Survivorship</h2>
+    <p>This is the largest known flaw on the site and it is not fixable with the current data.</p>
+    <div class="warn2">The universe is <b>names that still trade today</b>. Companies that were delisted,
+    acquired or went to zero are not in it. Every backtest result on this site is therefore
+    <b>optimistic by an unknown amount</b>. Treat a positive result as an upper bound.</div>
+    <p>The fix is a delisted-securities dataset with delisting returns. It has been priced and not bought.</p>
+  </div>
+
+  <div class="msec" id="m-stats"><h2>The statistics</h2>
+    <dl class="dt"><dt>pp</dt><dd>Percentage points — the gap between two percentages. A setup at 58% against
+      a 55% baseline is <b>+3pp</b>.</dd></dl>
+    <dl class="dt"><dt>p-value</dt><dd>How often random draws produced an edge at least this large.
+      <b>p = 0.363 means noise did it 36% of the time.</b> Low is good; this site treats anything above 0.05
+      as not shown.</dd></dl>
+    <dl class="dt"><dt>Median, not mean</dt><dd>Option returns are heavily skewed. A mean is dragged by one
+      winner, so the median is quoted alongside it.</dd></dl>
+    <dl class="dt"><dt>Sample size</dt><dd>A win rate over a handful of closed trades is a tally, not a
+      probability. Counts are printed next to every rate on this site.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-log"><h2>Scan record</h2>
+    <p>One row per session the scan ran. Setup D is a watchlist count, not a signal.</p>
+    ${days.length?`<div class="scroll"><table class="log"><thead><tr>
+      <th>date</th><th>VIX</th><th>regime</th><th>VIX fires</th><th>F</th><th>C</th><th>S</th><th>D</th>
+      </tr></thead><tbody>${days.map(r=>`<tr>
+        <td>${esc(r.date)}</td><td>${Number(r.vix).toFixed(1)}</td><td>${esc(r.regime)}</td>
+        <td class="${r.vix_fires?'':'z'}">${r.vix_fires?'yes':'no'}</td>
+        <td class="${r.F.length?'':'z'}">${r.F.length?r.F.map(esc).join(' '):'—'}</td>
+        <td class="${r.C.length?'':'z'}">${r.C.length?r.C.map(esc).join(' '):'—'}</td>
+        <td class="${r.S.length?'':'z'}">${r.S.length?r.S.map(esc).join(' '):'—'}</td>
+        <td class="z">${r.D.length}</td></tr>`).join('')}</tbody></table></div>`
+      :`<p class="empty">History builds as the scan runs.</p>`}
+    ${err?`<p class="more">${err} name${err===1?'':'s'} failed to fetch on the last run. See System.</p>`:''}
+  </div>
+
+  <p class="foot">If a number on this site has no source named here, treat it as unsourced and tell me.</p>`;
+}
+
+/* ══ System ══════════════════════════════════ */
+const RUN='https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml';
+
+/* The workflow runs 13:15 and 21:15 UTC, Mon-Fri. Same arithmetic index.html uses. */
+function nextRun(){
+  const now=new Date(), SLOTS=[[13,15],[21,15]];
+  for(let k=0;k<7;k++){
+    const day=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+k));
+    if(day.getUTCDay()===0||day.getUTCDay()===6) continue;
+    for(const [H,M] of SLOTS){
+      const t=new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate(),H,M));
+      if(t>now) return t;
     }
-    const el=$('#nextrun'); if(!next){el.textContent='';return;}
-    const mins=Math.round((next-now)/60000);
-    const when = mins<60 ? `${mins} min` : mins<1440 ? `${Math.round(mins/60)} hr` : `${Math.round(mins/1440)} d`;
-    const local=next.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
-    // how old is the data we are showing?
-    let age='';
-    const m=String(d.stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
-    if(m){
-      const scanned=new Date(Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]));
-      const h=(now-scanned)/3600000;
-      age = h<1?`${Math.round(h*60)} min old` : h<48?`${Math.round(h)} hr old` : `${Math.round(h/24)} days old`;
-      if(h>20) el.classList.add('stale');
-    }
-    el.innerHTML = `${age?'data <b>'+age+'</b> · ':''}next run <b>${local}</b> (${when})`;
-  })();
-  $('#vixnum').textContent=d.vix.toFixed(2);
-  $('#vix5').textContent=d.vix5.map(x=>x.toFixed(1)).join(' → ');
-  const pos=Math.max(0,Math.min(100,(d.vix-8)/(40-8)*100));
-  requestAnimationFrame(()=>$('#marker').style.left=`calc(${pos}% - 1px)`);
-  $('#regime').textContent=d.regime;$('#advice').textContent=d.advice;
-  $('#qqq').textContent=f2(d.qqq);$('#qdd').textContent=pct(d.qdd);
-  $('#swing').hidden=d.vix<20;
+  }
+  return null;
+}
+function ageHours(stamp){
+  const m=String(stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+  if(!m) return null;
+  return (Date.now()-Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]))/3600000;
+}
+const human=h=>h==null?'—':h<1?`${Math.round(h*60)} min`:h<48?`${Math.round(h)} hr`:`${Math.round(h/24)} days`;
+
+function renderSystem(d,state){
+  const A=$('#tab-system');
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when">loading…</span></div>
+      <div class="big2">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:32px;width:110px"></div></div>'.repeat(3)}</div>`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when stale">page cannot load</span></div>
+      <div class="sec">
+        <div class="err">HTTP 404 fetching data.json. The scan has not published an output file, or the last
+        run failed before writing one.</div>
+        <div class="acts" style="margin-top:var(--s3)">
+          <a class="primary" href="${RUN}" target="_blank" rel="noopener">Run the scan now ↗</a>
+          <a href="${RUN}" target="_blank" rel="noopener">Last run log ↗</a>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const h=ageHours(d.stamp), next=nextRun();
+  const stale=h!=null&&h>20, errs=d.errors||[];
+  const mins=next?Math.round((next-Date.now())/60000):null;
+  const when=mins==null?'—':mins<60?`${mins} min`:mins<1440?`${Math.round(mins/60)} hr`:`${Math.round(mins/1440)} d`;
+  const marks=(d.open||[]).filter(r=>r.kind==='call');
+  const real=marks.filter(r=>r.mark==='alpaca'||r.mark==='schwab').length;
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · system</h1>
+    <span class="when${stale?' stale':''}">${stale?'stale':'healthy'}</span></div>
+
+  <details class="whatis">
+    <summary><span>Whether the scan ran, whether the data is current, and what broke.
+      <b class="not">Nothing here is a trade.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>The scan runs itself twice each weekday on a schedule. This page exists so a quiet day and a broken
+      job never look the same.</p>
+    </div>
+  </details>
+
+  <div class="big2">
+    <div><span class="l">last successful scan</span>
+      <span class="v ${stale?'bad':'ok'}">${human(h)} ago</span>
+      <span class="n">${esc(d.stamp||'—')}</span></div>
+    <div><span class="l">next scheduled run</span>
+      <span class="v">${when}</span>
+      <span class="n">${next?next.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}):'—'} your time</span></div>
+    <div><span class="l">fetch errors</span>
+      <span class="v ${errs.length?'bad':'ok'}">${errs.length}</span>
+      <span class="n">${errs.length?'names failed':'all names returned'}</span></div>
+  </div>
+
+  ${stale?`<div class="stalebar" style="margin-top:var(--s3)"><b>The data is ${human(h)} old.</b> A scheduled
+    run has not published. Everything on Today and Trades is from the last good run, not from now.</div>`:''}
+
+  <div class="sec">
+    <h2>Status</h2>
+    <p class="lede">Each check, and what it means if it is failing.</p>
+
+    <div class="stat ${stale?'bad':'ok'}"><span class="dot"></span>
+      <span class="t">Scheduled scan
+        <small>Runs 13:15 and 21:15 UTC, Monday to Friday. Last output written ${esc(d.stamp||'—')}.</small></span>
+      <span class="r">${stale?'stale':'on time'}</span></div>
+
+    <div class="stat ${errs.length?'warn':'ok'}"><span class="dot"></span>
+      <span class="t">Price fetch
+        <small>${errs.length?'Some names did not return. Their setups could not be evaluated this run.'
+          :'Every name in the universe returned daily bars.'}</small></span>
+      <span class="r">${errs.length?errs.length+' failed':'complete'}</span></div>
+    ${errs.length?`<div class="errl"><b>Failed:</b> ${esc(errs.map(e=>String(e).split(':')[0]).join(', '))}</div>`:''}
+
+    <div class="stat ${marks.length&&real===marks.length?'ok':marks.length&&real?'warn':''}"><span class="dot"></span>
+      <span class="t">Option quotes
+        <small>${real}/${marks.length} open calls marked at a real bid/ask. The rest fall back to
+        Black-Scholes, which is a model, not a quote.</small></span>
+      <span class="r">${marks.length?(real===marks.length?'live quotes':real+' of '+marks.length):'no calls open'}</span></div>
+
+    <div class="stat ok"><span class="dot"></span>
+      <span class="t">Published page
+        <small>Served from the repository, cached for 10 minutes. A change you just pushed can take that long
+        to appear.</small></span>
+      <span class="r">serving</span></div>
+  </div>
+
+  <div class="sec">
+    <h2>Actions</h2>
+    <p class="lede">Manual controls. These live here and nowhere else on the site.</p>
+    <div class="acts">
+      <a class="primary" href="${RUN}" target="_blank" rel="noopener">Run the scan now ↗</a>
+      <a href="${RUN}" target="_blank" rel="noopener">Run history ↗</a>
+      <a href="https://github.com/ArringtonC/stockcharter-scan" target="_blank" rel="noopener">Repository ↗</a>
+      <a href="../data.json" target="_blank" rel="noopener">Raw scan output ↗</a>
+    </div>
+    <p class="more">A manual run takes about a minute and overwrites the current output. It cannot place a
+    trade — the scanner has no broker connection and never has.</p>
+  </div>
+
+  <p class="foot">Scan schedule and run logs: repository actions. Nothing on this page affects a position.</p>`;
 }
 
-document.querySelectorAll('nav [role=tab]').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('nav [role=tab]').forEach(x=>x.setAttribute('aria-selected',x===b));
-  document.querySelectorAll('[role=tabpanel]').forEach(p=>p.hidden=p.id!=='tab-'+b.dataset.tab);
-  try{localStorage.setItem('tab',b.dataset.tab)}catch(e){}
-}));
 
-fetch('data.json?'+Date.now()).then(r=>r.json()).then(d=>{
-  renderHead(d);renderScan(d);renderTrades(d);renderSectors(d);renderRules(d);renderSetups(d);
-  let t='scan';try{t=localStorage.getItem('tab')||'scan'}catch(e){}
-  const b=document.querySelector(`nav [data-tab="${t}"]`);if(b)b.click();
-}).catch(e=>{$('#stamp').textContent='could not load data.json';$('#tab-scan').innerHTML=`<p class="err">${esc(e.message)}</p>`;});
+/* ── helpers, shared by every renderer ─────────────────────────────────────── */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f2=x=>Number(x).toFixed(2);
+const pct=(x,sign=true)=>x==null?'—':(sign&&Number(x)>0?'+':'')+Number(x).toFixed(1)+'%';
+const money=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
+
+/* ── navigation ────────────────────────────────────────────────────────────── */
+const PANELS=['today','trades','watching','research','system'];
+function show(tab){
+  document.querySelectorAll('nav [role=tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
+  PANELS.forEach(p=>$('#tab-'+p).hidden=p!==tab);
+  try{localStorage.setItem('tab',tab)}catch(e){}
+}
+document.querySelectorAll('nav [role=tab]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
+
+const SUBS=['setups','rules','sectors','methodology'];
+function showSub(s){
+  document.querySelectorAll('.sub [role=tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.sub===s));
+  SUBS.forEach(p=>$('#tab-'+p).hidden=p!==s);
+  try{localStorage.setItem('sub',s)}catch(e){}
+}
+document.querySelectorAll('.sub [role=tab]').forEach(b=>b.addEventListener('click',()=>showSub(b.dataset.sub)));
+
+/* ── boot ──────────────────────────────────────────────────────────────────── */
+function renderAll(d,state){
+  renderToday(d,state); renderTrades(d,state); renderWatching(d,state);
+  renderSetups(d,state); renderRules(d,state); renderSectors(d,state);
+  renderMethodology(d,state); renderSystem(d,state);
+  if(state==='error'){ $('#stamp').textContent='could not load data.json'; $('#stamp').classList.add('stale'); return; }
+  const live=(d.F||[]).length+(d.vix_fires?1:0)+(d.vix>=25?(d.S||[]).length:0);
+  $('#n-today').textContent=live;
+  $('#n-trades').textContent=(d.open||[]).length;
+  $('#n-watching').textContent=(d.blocked||[]).length+(d.D||[]).length+(d.weekly||[]).length;
+  const m=String(d.stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+  let age='';
+  if(m){
+    const h=(Date.now()-Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]))/3600000;
+    age = h<1?`${Math.round(h*60)} min old` : h<48?`${Math.round(h)} hr old` : `${Math.round(h/24)} days old`;
+    if(h>20) $('#stamp').classList.add('stale');
+  }
+  $('#stamp').innerHTML=`${esc(d.date)} · data <b>${age}</b>`;
+}
+
+renderAll({},'loading');
+fetch('data.json?'+Date.now())
+  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(d=>{
+    renderAll(d,'live');
+    let t='today',s='setups';
+    try{t=localStorage.getItem('tab')||'today';s=localStorage.getItem('sub')||'setups'}catch(e){}
+    show(PANELS.includes(t)?t:'today'); showSub(SUBS.includes(s)?s:'setups');
+  })
+  .catch(()=>renderAll({},'error'));
 </script>
 </body>
 </html>
