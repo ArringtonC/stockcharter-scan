@@ -556,7 +556,6 @@ function renderToday(d,state){
   const stale = state==='stale';
   const live  = fired(d);
   const blocked=d.blocked||[], watch=d.D||[], weekly=(d.weekly||[]).filter(r=>r.state==='crossed');
-  const universe=(d.F||[]).length+(d.D||[]).length+(d.C||[]).length+(d.S||[]).length+blocked.length;
   const CAP=4;
 
   /* ── 1. verdict ─────────────────────────────────────────────────────────── */
@@ -564,16 +563,19 @@ function renderToday(d,state){
     ? `<p class="say fires">${live.length===1?'One setup':live.length+' setups'} <b>fires</b> today.</p>`
     : `<p class="say">Nothing <b>fires</b> today.</p>`;
 
-  /* The names count was the union of setup hits, not the universe — it read "1 names"
-     on a quiet day. data.json carries no universe size, so the claim is dropped rather
-     than guessed. Adding `universe` to the scan output is a data change, and needs
-     approval before the count can come back. */
+  /* `scanned` is how many names actually returned data; `universe` is how many were
+     asked for. When they differ the line says so, because a flat "63 names" would be a
+     claim the run did not earn. Older data.json files carry neither, so both optional. */
+  const N = d.scanned ?? d.universe ?? null;
+  const missed = (d.universe!=null && d.scanned!=null) ? d.universe - d.scanned : 0;
   const stat = `<div class="vstat"><span><b>6</b> setups checked</span><span>·</span>
+    ${N!=null?`<span><b>${N}</b> name${N===1?'':'s'}${missed?` <span style="color:var(--dn)">of ${d.universe}</span>`:''}</span><span>·</span>`:''}
     <span><b>${live.length}</b> triggered</span></div>`;
 
   const quietLine = live.length
     ? `<p class="vquiet">A signal is a condition that was met, not a prediction. The $600 cap still applies.</p>`
-    : `<p class="vquiet">Quiet is expected — roughly 3 signals arrive per month.</p>`;
+    : `<p class="vquiet">Quiet is expected — roughly 3 signals arrive per month.${
+        missed?` <b style="color:var(--dn)">${missed} name${missed===1?'':'s'} failed to fetch</b>, so the count is short.`:''}</p>`;
 
   const firedRows = live.length ? live.map(r=>`<div class="row">
       <div class="sym">${esc(r.sym)}</div>
@@ -1355,8 +1357,9 @@ function renderMethodology(d,state){
     <p>Daily open, high, low, close and volume from <b>Yahoo Finance</b>, cached locally and refreshed on each
     scan. Split and dividend adjusted.</p>
     <dl class="dt"><dt>Source</dt><dd>Yahoo Finance chart API, daily bars</dd></dl>
-    <dl class="dt"><dt>Universe</dt><dd><b>63 names</b>, fixed. Mega-cap tech plus the sector leaders that
-      surround it.</dd></dl>
+    <dl class="dt"><dt>Universe</dt><dd><b>${d.universe??63} names</b>, fixed. Mega-cap tech plus the sector
+      leaders that surround it.${d.scanned!=null&&d.universe!=null&&d.scanned<d.universe
+      ?` <b style="color:var(--dn)">${d.universe-d.scanned} did not return on the last run.</b>`:''}</dd></dl>
     <dl class="dt"><dt>Refresh</dt><dd>Twice each weekday, 13:15 and 21:15 UTC, by scheduled job</dd></dl>
     <dl class="dt"><dt>Known gap</dt><dd>Intraday data is not held at all. Every test on this site is on
       <b>daily closes</b>. An intraday idea cannot be checked here.</dd></dl>

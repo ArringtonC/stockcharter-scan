@@ -226,6 +226,9 @@ def scan():
     for L in (F, D, C, blocked): L.sort(key=lambda r: -r["up"])
     return dict(date=str(datetime.date.today()),
                 stamp=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+                # how many names the scan actually evaluated. The page used to infer this
+                # from the union of setup hits, which read "1 names" on a quiet day.
+                universe=len(UNIVERSE), scanned=len(UNIVERSE) - len(err),
                 vix=vnow, vix5=vc[-5:], vix_hi10=max(vc[-11:]), qqq=qc[-1],
                 qdd=(qc[-1] / max(qc[-126:]) - 1) * 100, regime=regime, advice=advice,
                 peaked=peaked, falling=falling, vix_fires=peaked and falling,

@@ -173,19 +173,22 @@
   "vix_fires": false,
   "F": [],
   "D": [
-   "MU",
-   "META",
+   "DOCU",
    "PLTR",
+   "META",
+   "SNOW",
    "MRNA",
+   "MSFT",
+   "CRM",
+   "AMD",
    "MRK",
-   "OKTA",
-   "HPQ"
+   "PANW",
+   "WBD"
   ],
   "C": [
+   "INTC",
    "AMD"
   ],
-  "S": [
-   "NFLX"
-  ]
+  "S": []
  }
 ]

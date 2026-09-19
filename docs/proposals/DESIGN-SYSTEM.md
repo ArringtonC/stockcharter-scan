@@ -97,6 +97,8 @@ folder is the page as it stood before.
 
 ## Open items, carried forward
 
-- **Universe count.** Today wants "63 names" in its count line. `scan_daily.py`
-  must emit a `universe` field. That is a data change and waits for approval.
+- ~~Universe count~~ — closed 2026-09-18. `scan_daily.py` now emits `universe`
+  (63, how many were asked for) and `scanned` (how many returned). Today prints
+  `scanned`, and when the two differ it says **"59 names of 63"** in red plus a
+  line naming the shortfall. A flat count would be a claim the run did not earn.
 - ~~Run scan now has no home~~ — it lives on System now.
