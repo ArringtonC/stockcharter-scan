@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 7 additions. They move into review.css once this page is approved. */
+
+.mtoc{display:flex;flex-wrap:wrap;gap:var(--s1);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.mtoc a{text-decoration:none;border:1px solid var(--line2);border-radius:3px;padding:5px 10px;
+  color:var(--dim);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.mtoc a:hover,.mtoc a:focus-visible{border-color:var(--amber);color:var(--amber);outline:none}
+.msec{padding-top:var(--s5);scroll-margin-top:var(--s4)}
+.msec>h2{margin:0 0 var(--s2);font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.msec>p{margin:0 0 var(--s3);font-size:var(--t-data);color:var(--ink2);line-height:1.7;max-width:74ch}
+.msec>p b{color:var(--ink);font-weight:500}
+.dt{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:var(--s2) var(--s3);
+  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data)}
+.dt:last-of-type{border-bottom:1px solid var(--line)}
+.dt dt{font:500 var(--t-data) var(--mono);color:var(--ink);margin:0}
+.dt dd{margin:0;color:var(--ink2);line-height:1.65}
+.dt dd b{color:var(--ink);font-weight:500}
+.warn2{border-left:2px solid var(--dn);padding:var(--s2) 0 var(--s2) var(--s3);margin:var(--s3) 0;
+  font-size:var(--t-data);color:var(--ink2);line-height:1.7;max-width:74ch}
+.warn2 b{color:var(--dn);font-weight:600}
+.log{width:100%;border-collapse:collapse;font-size:var(--t-data);font-variant-numeric:tabular-nums}
+.log th{text-align:left;padding:var(--s1) var(--s2) var(--s1) 0;border-bottom:1px solid var(--line2);
+  font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.log td{padding:var(--s2) var(--s2) var(--s2) 0;border-bottom:1px solid var(--line);color:var(--ink2)}
+.log td:first-child{color:var(--ink)}
+.log .z{color:var(--dim)}
+@container (max-width:680px){.dt{grid-template-columns:1fr}.dt dt{margin-top:var(--s2)}}
+
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 7 of 8 · Methodology</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="nolog" aria-pressed="false">no history</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · methodology text, scattered in the footer and the Rules tab <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" data-tab="rules" src="../index.html" title="Current Ledger page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Methodology <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>Every data source</b> — Yahoo prices, SEC EDGAR revenue read at the filing date, option marks.</li>
+        <li><b>The four mark types</b> and what each one is worth, unchanged.</li>
+        <li><b>The survivorship caveat</b>, which was one sentence in the footer and is now a section.</li>
+        <li><b>The scan record</b>, moved here intact from the bottom of the Rules page.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>It has a home.</b> This content was a footer sentence plus a table under twelve unrelated rules.</li>
+        <li><b>Jump links</b> across the top, because this is a reference you arrive at with one question.</li>
+        <li><b>The known gap is stated per source.</b> Every section names its own flaw rather than pooling them.</li>
+        <li><b>The statistics are explained in plain words</b> — pp, p-value, median versus mean, sample size. A reader who does not know what p = 0.363 means cannot judge anything else on the site.</li>
+        <li><b>The survivorship warning is a red-edged block</b>, the only one on the site, because it qualifies every result.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>Two things worth knowing</h3>
+    <p style="margin-bottom:var(--s2)"><b>1.</b> The <b>How this works</b> block is the only one on the site that starts <b>open</b>. This page exists to be read, not skimmed past.</p><p><b>2.</b> The universe is stated here as <b>63 names</b>, which is correct and comes from <code>scan_daily.py</code>. Today still cannot print it, because <code>data.json</code> does not carry the number. Same one-field change, still waiting on you.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>Review the states above, plus <b>phone</b> and <b>light</b>. Nothing is applied to the live site until all eight pages pass the final consistency review.</p>
+  </div>
+
+</div>
+
+<script defer>
+
+const SECTIONS=[['prices','Prices'],['fundamentals','Fundamentals'],['marks','Option marks'],
+  ['backtests','Backtests'],['survivorship','Survivorship'],['stats','The statistics'],['log','Scan record']];
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · methodology</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:70px;margin-top:16px"></div>'.repeat(5)}`; return;
+  }
+  const days=((d.week&&d.week.days)||[]).slice().reverse();
+  const err=(d.errors||[]).length;
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · methodology</h1>
+    <span class="when">${state==='error'?'no live data':esc(d.date)+' · scanned '+esc(d.stamp)}</span></div>
+
+  <details class="whatis" open>
+    <summary><span>Where every number comes from, and what is wrong with it.
+      <b class="not">Read this before you trust anything else.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Nothing on this site is a forecast. Every claim is a measurement of what happened in a fixed
+      historical window, with a named source and a named flaw.</p>
+    </div>
+  </details>
+
+  <div class="mtoc">${SECTIONS.map(([id,t])=>`<a href="#m-${id}">${t}</a>`).join('')}</div>
+
+  <div class="msec" id="m-prices"><h2>Prices</h2>
+    <p>Daily open, high, low, close and volume from <b>Yahoo Finance</b>, cached locally and refreshed on each
+    scan. Split and dividend adjusted.</p>
+    <dl class="dt"><dt>Source</dt><dd>Yahoo Finance chart API, daily bars</dd></dl>
+    <dl class="dt"><dt>Universe</dt><dd><b>63 names</b>, fixed. Mega-cap tech plus the sector leaders that
+      surround it.</dd></dl>
+    <dl class="dt"><dt>Refresh</dt><dd>Twice each weekday, 13:15 and 21:15 UTC, by scheduled job</dd></dl>
+    <dl class="dt"><dt>Known gap</dt><dd>Intraday data is not held at all. Every test on this site is on
+      <b>daily closes</b>. An intraday idea cannot be checked here.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-fundamentals"><h2>Fundamentals</h2>
+    <p>Revenue comes from <b>SEC EDGAR XBRL company facts</b>, read at the <b>filing date</b>, not the period
+    date. That distinction is the whole point: using the period date would let a backtest see a number weeks
+    before it was public.</p>
+    <dl class="dt"><dt>Field</dt><dd>Revenue only. Earnings per share breaks across splits and is not used.</dd></dl>
+    <dl class="dt"><dt>Point in time</dt><dd>A filing is visible to the scanner only after its <b>filed</b>
+      date, exactly as it was to the market.</dd></dl>
+    <dl class="dt"><dt>Known gap</dt><dd>Some names return no usable SEC series. They are shown as
+      <b>blocked: no SEC data</b> rather than quietly dropped.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-marks"><h2>Option marks</h2>
+    <p>An option price on this site is one of four things, and the row always says which.</p>
+    <dl class="dt"><dt><b>schwab</b> / <b>alpaca</b></dt><dd>A <b>real bid/ask midpoint</b> from a live quote.
+      This is the good case.</dd></dl>
+    <dl class="dt"><dt><b>iv</b></dt><dd>Black-Scholes using implied volatility read from the option chain.
+      A model, informed by the market.</dd></dl>
+    <dl class="dt"><dt><b>est</b></dt><dd>Black-Scholes using 60-day realised volatility. A model with no
+      market input. The weakest of the four.</dd></dl>
+    <div class="warn2">A model price is <b>not a quote</b>. It ignores the spread, and on a wide spread the
+    difference is larger than the edge being measured. Never size a position off an <b>est</b> mark.</div>
+  </div>
+
+  <div class="msec" id="m-backtests"><h2>Backtests</h2>
+    <p>Every setup was written down before it was run. The bar a setup has to clear is not "it made money" —
+    it is that the result survives having its five biggest contributors removed.</p>
+    <dl class="dt"><dt>Baseline</dt><dd>Every bar in the same names over the same window. A setup is measured
+      against that, not against zero.</dd></dl>
+    <dl class="dt"><dt>Ex-top-five</dt><dd>The five names contributing most are dropped and the test is rerun.
+      <b>Shuffling returns and then picking the top five beats the baseline 100% of the time on nothing.</b></dd></dl>
+    <dl class="dt"><dt>Null model</dt><dd>2,000 random draws of the same size from the same pool, to see how
+      often noise produces the same edge.</dd></dl>
+    <dl class="dt"><dt>Era split</dt><dd>Results are split by period. A result that only exists in one era is
+      not a result.</dd></dl>
+    <dl class="dt"><dt>Look-ahead</dt><dd>Three look-ahead bugs have been found and fixed in this project.
+      The signature is always the same: <b>results improve as the lookback gets shorter</b>.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-survivorship"><h2>Survivorship</h2>
+    <p>This is the largest known flaw on the site and it is not fixable with the current data.</p>
+    <div class="warn2">The universe is <b>names that still trade today</b>. Companies that were delisted,
+    acquired or went to zero are not in it. Every backtest result on this site is therefore
+    <b>optimistic by an unknown amount</b>. Treat a positive result as an upper bound.</div>
+    <p>The fix is a delisted-securities dataset with delisting returns. It has been priced and not bought.</p>
+  </div>
+
+  <div class="msec" id="m-stats"><h2>The statistics</h2>
+    <dl class="dt"><dt>pp</dt><dd>Percentage points — the gap between two percentages. A setup at 58% against
+      a 55% baseline is <b>+3pp</b>.</dd></dl>
+    <dl class="dt"><dt>p-value</dt><dd>How often random draws produced an edge at least this large.
+      <b>p = 0.363 means noise did it 36% of the time.</b> Low is good; this site treats anything above 0.05
+      as not shown.</dd></dl>
+    <dl class="dt"><dt>Median, not mean</dt><dd>Option returns are heavily skewed. A mean is dragged by one
+      winner, so the median is quoted alongside it.</dd></dl>
+    <dl class="dt"><dt>Sample size</dt><dd>A win rate over a handful of closed trades is a tally, not a
+      probability. Counts are printed next to every rate on this site.</dd></dl>
+  </div>
+
+  <div class="msec" id="m-log"><h2>Scan record</h2>
+    <p>One row per session the scan ran. Setup D is a watchlist count, not a signal.</p>
+    ${days.length?`<div class="scroll"><table class="log"><thead><tr>
+      <th>date</th><th>VIX</th><th>regime</th><th>VIX fires</th><th>F</th><th>C</th><th>S</th><th>D</th>
+      </tr></thead><tbody>${days.map(r=>`<tr>
+        <td>${esc(r.date)}</td><td>${Number(r.vix).toFixed(1)}</td><td>${esc(r.regime)}</td>
+        <td class="${r.vix_fires?'':'z'}">${r.vix_fires?'yes':'no'}</td>
+        <td class="${r.F.length?'':'z'}">${r.F.length?r.F.map(esc).join(' '):'—'}</td>
+        <td class="${r.C.length?'':'z'}">${r.C.length?r.C.map(esc).join(' '):'—'}</td>
+        <td class="${r.S.length?'':'z'}">${r.S.length?r.S.map(esc).join(' '):'—'}</td>
+        <td class="z">${r.D.length}</td></tr>`).join('')}</tbody></table></div>`
+      :`<p class="empty">History builds as the scan runs.</p>`}
+    ${err?`<p class="more">${err} name${err===1?'':'s'} failed to fetch on the last run. See System.</p>`:''}
+  </div>
+
+  <p class="foot">If a number on this site has no source named here, treat it as unsourced and tell me.</p>`;
+}
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='nolog') d.week={days:[]};
+  return d;
+}
+
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>

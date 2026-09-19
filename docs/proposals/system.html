@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>System — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 8 additions. They move into review.css once this page is approved. */
+
+.big2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--s3);
+  padding:var(--s4) 0;border-bottom:1px solid var(--line)}
+.big2>div{display:flex;flex-direction:column;gap:var(--s1)}
+.big2 .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.big2 .v{font:600 clamp(24px,3.4vw,32px)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.big2 .v.ok{color:var(--up)} .big2 .v.bad{color:var(--dn)}
+.big2 .n{font-size:var(--t-data);color:var(--ink2)}
+.stat{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s3);align-items:baseline;
+  padding:var(--s3) 0;border-top:1px solid var(--line)}
+.stat:last-of-type{border-bottom:1px solid var(--line)}
+.stat .dot{width:8px;height:8px;border-radius:50%;background:var(--dim);align-self:center}
+.stat.ok .dot{background:var(--up)} .stat.bad .dot{background:var(--dn)} .stat.warn .dot{background:var(--amber)}
+.stat .t{font-size:var(--t-body);color:var(--ink)}
+.stat .t small{display:block;margin-top:3px;font-size:var(--t-data);color:var(--ink2);line-height:1.6}
+.stat .r{text-align:right;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.stat.ok .r{color:var(--up)} .stat.bad .r{color:var(--dn)} .stat.warn .r{color:var(--amber)}
+.acts{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+.acts a{text-decoration:none;border:1px solid var(--line2);border-radius:4px;padding:9px 14px;
+  color:var(--ink2);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.acts a.primary{border-color:var(--amber);color:var(--amber)}
+.acts a:hover,.acts a:focus-visible{border-color:var(--amber);color:var(--amber);background:var(--panel);outline:none}
+.errl{margin:var(--s2) 0 0;padding:var(--s2) var(--s3);border:1px solid var(--dn);border-left-width:3px;
+  border-radius:5px;background:var(--panel);font-size:var(--t-data);color:var(--ink2);line-height:1.7}
+.errl b{color:var(--dn)}
+@container (max-width:680px){.stat{grid-template-columns:auto minmax(0,1fr)}.stat .r{grid-column:2;text-align:left}}
+
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 8 of 8 · System</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">fresh</button>
+    <button data-s="stale" aria-pressed="false">stale</button>
+    <button data-s="fetcherr" aria-pressed="false">fetch error</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">no data</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · inventory — these controls are scattered across the live site <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" data-tab="scan" src="../index.html" title="Current Ledger page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · System <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>Automation transparency.</b> When it last ran, when it runs next, how old the data is.</li>
+        <li><b>The ability to run the scan by hand</b>, unchanged — it still triggers the same job.</li>
+        <li><b>The fetch error list</b>, which was a red line at the bottom of the Scan page.</li>
+        <li><b>The 10-minute cache note</b>, so a push that has not appeared yet does not read as a failure.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>Operational controls have a home.</b> Run scan now leaves the masthead, where it sat next to the product name on every page.</li>
+        <li><b>Stale is loud.</b> Three numbers at the top say last run, next run, and errors, and a stale scan turns the first one red with a banner.</li>
+        <li><b>Each check says what it means when it fails</b>, instead of showing a count and leaving you to guess.</li>
+        <li><b>Quote coverage is a status check now.</b> How many open calls carry a real bid/ask versus a model price is a health signal and was never surfaced.</li>
+        <li><b>A quiet day and a broken job cannot look the same.</b> That was the whole reason this page exists.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>One judgement call to check</h3>
+    <p>I added a line under Actions: <b>"It cannot place a trade — the scanner has no broker connection and never has."</b> With Alpaca keys now in the repository that is worth stating plainly, because the keys are data-only and someone reading the page should not have to wonder. Say if you would rather it not be on a public page at all.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>Review the states above, plus <b>phone</b> and <b>light</b>. This is the last page. Once it passes, the final whole-product consistency review runs and only then does <code>index.html</code> change.</p>
+  </div>
+
+</div>
+
+<script defer>
+
+const RUN='https://github.com/ArringtonC/stockcharter-scan/actions/workflows/daily.yml';
+
+/* The workflow runs 13:15 and 21:15 UTC, Mon-Fri. Same arithmetic index.html uses. */
+function nextRun(){
+  const now=new Date(), SLOTS=[[13,15],[21,15]];
+  for(let k=0;k<7;k++){
+    const day=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+k));
+    if(day.getUTCDay()===0||day.getUTCDay()===6) continue;
+    for(const [H,M] of SLOTS){
+      const t=new Date(Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate(),H,M));
+      if(t>now) return t;
+    }
+  }
+  return null;
+}
+function ageHours(stamp){
+  const m=String(stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+  if(!m) return null;
+  return (Date.now()-Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]))/3600000;
+}
+const human=h=>h==null?'—':h<1?`${Math.round(h*60)} min`:h<48?`${Math.round(h)} hr`:`${Math.round(h/24)} days`;
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when">loading…</span></div>
+      <div class="big2">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:32px;width:110px"></div></div>'.repeat(3)}</div>`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when stale">page cannot load</span></div>
+      <div class="sec">
+        <div class="err">HTTP 404 fetching data.json. The scan has not published an output file, or the last
+        run failed before writing one.</div>
+        <div class="acts" style="margin-top:var(--s3)">
+          <a class="primary" href="${RUN}" target="_blank" rel="noopener">Run the scan now ↗</a>
+          <a href="${RUN}" target="_blank" rel="noopener">Last run log ↗</a>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const h=ageHours(d.stamp), next=nextRun();
+  const stale=h!=null&&h>20, errs=d.errors||[];
+  const mins=next?Math.round((next-Date.now())/60000):null;
+  const when=mins==null?'—':mins<60?`${mins} min`:mins<1440?`${Math.round(mins/60)} hr`:`${Math.round(mins/1440)} d`;
+  const marks=(d.open||[]).filter(r=>r.kind==='call');
+  const real=marks.filter(r=>r.mark==='alpaca'||r.mark==='schwab').length;
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · system</h1>
+    <span class="when${stale?' stale':''}">${stale?'stale':'healthy'}</span></div>
+
+  <details class="whatis">
+    <summary><span>Whether the scan ran, whether the data is current, and what broke.
+      <b class="not">Nothing here is a trade.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>The scan runs itself twice each weekday on a schedule. This page exists so a quiet day and a broken
+      job never look the same.</p>
+    </div>
+  </details>
+
+  <div class="big2">
+    <div><span class="l">last successful scan</span>
+      <span class="v ${stale?'bad':'ok'}">${human(h)} ago</span>
+      <span class="n">${esc(d.stamp||'—')}</span></div>
+    <div><span class="l">next scheduled run</span>
+      <span class="v">${when}</span>
+      <span class="n">${next?next.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}):'—'} your time</span></div>
+    <div><span class="l">fetch errors</span>
+      <span class="v ${errs.length?'bad':'ok'}">${errs.length}</span>
+      <span class="n">${errs.length?'names failed':'all names returned'}</span></div>
+  </div>
+
+  ${stale?`<div class="stalebar" style="margin-top:var(--s3)"><b>The data is ${human(h)} old.</b> A scheduled
+    run has not published. Everything on Today and Trades is from the last good run, not from now.</div>`:''}
+
+  <div class="sec">
+    <h2>Status</h2>
+    <p class="lede">Each check, and what it means if it is failing.</p>
+
+    <div class="stat ${stale?'bad':'ok'}"><span class="dot"></span>
+      <span class="t">Scheduled scan
+        <small>Runs 13:15 and 21:15 UTC, Monday to Friday. Last output written ${esc(d.stamp||'—')}.</small></span>
+      <span class="r">${stale?'stale':'on time'}</span></div>
+
+    <div class="stat ${errs.length?'warn':'ok'}"><span class="dot"></span>
+      <span class="t">Price fetch
+        <small>${errs.length?'Some names did not return. Their setups could not be evaluated this run.'
+          :'Every name in the universe returned daily bars.'}</small></span>
+      <span class="r">${errs.length?errs.length+' failed':'complete'}</span></div>
+    ${errs.length?`<div class="errl"><b>Failed:</b> ${esc(errs.map(e=>String(e).split(':')[0]).join(', '))}</div>`:''}
+
+    <div class="stat ${marks.length&&real===marks.length?'ok':marks.length&&real?'warn':''}"><span class="dot"></span>
+      <span class="t">Option quotes
+        <small>${real}/${marks.length} open calls marked at a real bid/ask. The rest fall back to
+        Black-Scholes, which is a model, not a quote.</small></span>
+      <span class="r">${marks.length?(real===marks.length?'live quotes':real+' of '+marks.length):'no calls open'}</span></div>
+
+    <div class="stat ok"><span class="dot"></span>
+      <span class="t">Published page
+        <small>Served from the repository, cached for 10 minutes. A change you just pushed can take that long
+        to appear.</small></span>
+      <span class="r">serving</span></div>
+  </div>
+
+  <div class="sec">
+    <h2>Actions</h2>
+    <p class="lede">Manual controls. These live here and nowhere else on the site.</p>
+    <div class="acts">
+      <a class="primary" href="${RUN}" target="_blank" rel="noopener">Run the scan now ↗</a>
+      <a href="${RUN}" target="_blank" rel="noopener">Run history ↗</a>
+      <a href="https://github.com/ArringtonC/stockcharter-scan" target="_blank" rel="noopener">Repository ↗</a>
+      <a href="../data.json" target="_blank" rel="noopener">Raw scan output ↗</a>
+    </div>
+    <p class="more">A manual run takes about a minute and overwrites the current output. It cannot place a
+    trade — the scanner has no broker connection and never has.</p>
+  </div>
+
+  <p class="foot">Scan schedule and run logs: repository actions. Nothing on this page affects a position.</p>`;
+}
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='stale') d.stamp='2026-09-14 13:15 UTC';
+  if(state==='fetcherr') d.errors=['ARM: HTTP 404','CAVA: timeout','DDOG: HTTP 500'];
+  return d;
+}
+
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>

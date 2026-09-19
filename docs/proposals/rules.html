@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rules — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 5 additions. They move into review.css once this page is approved. */
+
+.filt{display:flex;flex-wrap:wrap;gap:var(--s1);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.filt button{appearance:none;cursor:pointer;background:none;border:1px solid var(--line2);border-radius:3px;
+  padding:5px 10px;color:var(--dim);font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.filt button[aria-pressed=true]{border-color:var(--amber);color:var(--amber)}
+.filt button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.filt .sp{flex:1}
+.rgrp{margin-top:var(--s5)}
+.rgrp>h3{margin:0 0 var(--s2);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:var(--s2)}
+.rgrp>h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.rc{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s1) var(--s3);align-items:start;
+  padding:var(--s3) 0;border-top:1px solid var(--line)}
+.rc:last-of-type{border-bottom:1px solid var(--line)}
+.rc .say{grid-column:1;font:500 var(--t-body)/1.4 var(--mono);color:var(--ink);margin:0}
+.rc .why{grid-column:1;margin:0;font-size:var(--t-data);color:var(--ink2);max-width:72ch;line-height:1.65}
+.rc .ev{grid-column:1;margin:var(--s1) 0 0;font-size:var(--t-data);color:var(--dim);line-height:1.65;max-width:72ch}
+.rc .ev b{color:var(--ink2);font-weight:500}
+.rc .st{grid-row:1/4;grid-column:2;align-self:start;white-space:nowrap;
+  font:600 var(--t-label)/1 var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border-radius:3px;padding:5px 9px;border:1px solid transparent}
+.st.a{background:var(--amber);color:#17100a}
+.st.w{border-color:var(--up);color:var(--up)}
+.st.n{border-color:var(--dn);color:var(--dn)}
+.st.d{border-color:var(--line2);color:var(--dim)}
+.rc[hidden]{display:none}
+@container (max-width:680px){.rc{grid-template-columns:1fr}.rc .st{grid-row:1;grid-column:1;justify-self:start}}
+
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 5 of 8 · Rules</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="panic" aria-pressed="false">VIX 25+</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · the current Rules page, live <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" data-tab="rules" src="../index.html" title="Current Ledger page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Rules <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>Every rule, its reasoning, and its evidence.</b> Not a word of the reasoning was rewritten.</li>
+        <li><b>The four states</b> — active, armed, never, waiting — and what each one means.</li>
+        <li><b>The live context strip</b>: whether shorts and short-dated calls are allowed right now.</li>
+        <li><b>The four groups</b>: size, buying calls, getting out, armed but off.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>It is a library now.</b> Filter by state — active, armed, never, waiting — because you read this page to answer one question, not to browse twelve rules.</li>
+        <li><b>The state tells you what it means.</b> Selecting a filter prints its definition, instead of leaving "armed" to be guessed.</li>
+        <li><b>Consistent card anatomy</b>: rule → why → evidence → state, the same order every time.</li>
+        <li><b>The filled state pill is spent once.</b> Only <b>active</b> gets the amber fill; the rest are outlines, so the page does not read as twelve equally urgent things.</li>
+        <li><b>The scan-history table left this page.</b> It is a record of what the scanner produced, which is Methodology, not a rule.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>One judgement call to check</h3>
+    <p>I moved the <b>"What the scan produced"</b> table off Rules. It is a log of the last ten sessions, and it sat under twelve decision rules for no reason other than space. It belongs on Methodology (page 7), where the scan record lives. If you read it as a rule-page item, say so and it comes back.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>Review the states above, plus <b>phone</b> and <b>light</b>. Nothing is applied to the live site until all eight pages pass the final consistency review.</p>
+  </div>
+
+</div>
+
+<script defer>
+const RULES=[
+ {g:"Size",st:"a",say:"$600 is the most in one option position.",
+  why:"Set when the account was $8,000 — 7.5%. At $10,000 it becomes $750. It is a hard number, not a target.",
+  ev:"Raising it to $750 moves the share of affordable 120-day calls from <b>20% to 25%</b>. The step that would matter is $2,000 a position, which needs a $27,000 account."},
+ {g:"Size",st:"a",say:"No single name over 20% of the account.",
+  why:"SG hit 25% on 11 September and was trimmed to 228 shares the same day.",
+  ev:"Sold 72 at <b>$6.945</b>. SG then rose to $7.18, which cost $11. The rule was still right."},
+ {g:"Size",st:"a",say:"If nothing fires, the trade is cash.",
+  why:"Roughly three signals a month across the whole list. Nine days out of ten, nothing fires. That is the design, not a fault.",
+  ev:"Setup F produced <b>198 signals in seven years</b> across 52 names. Setup VIX has not fired since April."},
+
+ {g:"Buying calls",st:"a",say:"Never under 45 days. Target 90 to 120.",
+  why:"Setup F needs about 100 sessions to reach its target. A short call expires before the thesis can happen.",
+  ev:"Median return against a random day: <b>21 days −14pp, 45 days +33pp, 90 days +51pp</b>. The real PYPL and BABA trades were 15 and 18 days."},
+ {g:"Buying calls",st:"a",say:"At the money, not deep in the money.",
+  why:"Deep ITM has the better win rate, but almost none of it fits $600 on a $180 stock.",
+  ev:"Best cell that fits the cap: <b>ATM, 120 days — +173% median, 73% win, 12% wiped</b>, about $340 a contract."},
+ {g:"Buying calls",st:"w",say:"Short-dated only at VIX 25+, and only small.",
+  why:"Not a ban. The base rate is brutal and only one condition changes it. Premium over 8% of the stock price is the worst single choice you can make.",
+  ev:"28-day ATM calls: <b>−57.6% median, 46% wiped out</b>. At VIX 25+ the median is −7.4%. Size these near <b>$200</b>, not $600."},
+
+ {g:"Getting out",st:"a",say:"Reach the target, then floor it there. Do not sell.",
+  why:"Your own idea, 10 September. It beat closing at the target on mean with an identical win rate and median.",
+  ev:"<b>+26.78% against +20.70%</b>, same 84% win. The scanner does this automatically on every share trade."},
+ {g:"Getting out",st:"n",say:"No tight stops. Ever.",
+  why:"Six separate tests. Every one says the same thing, and wider is always better than tighter.",
+  ev:"Stop ladder: <b>−10% gives +8.87%, −50% gives +21.29%</b>. A 30 EMA stop on BABA returned −47.5% against +24.6% for holding."},
+ {g:"Getting out",st:"a",say:"Share trades close at 252 sessions if the target never comes.",
+  why:"A hard limit so a dead trade cannot sit forever. It is also the one place the cap has cost real money.",
+  ev:"The BABA trade closed on the cap in February 2025 at +1.2%. Six weeks later BABA ran <b>$100 to $147</b>."},
+
+ {g:"Armed, not on",st:"w",say:"Re-entry turns on above 20% in one position.",
+  why:"Stop at the level, buy back when price reclaims it. It works — it is just insurance the $600 cap already bought.",
+  ev:"Cuts option wipeouts from <b>33% to 2%</b> and share blowups from 6.0% to 0.6%, for about half the mean. Off while positions stay small."},
+ {g:"Armed, not on",st:"d",say:"Futures wait for a strategy, not for an account size.",
+  why:"M2K becomes sizeable around $12,000. That is not the blocker.",
+  ev:"Six futures strategies tested, six failed. The best 25-year result is buy-and-hold at <b>+$495 a year</b> — less than the interest on any loan."},
+ {g:"Armed, not on",st:"n",say:"No borrowed money.",
+  why:"A loan payment is fixed. The return is not.",
+  ev:"Cheapest loan costs <b>$960 a year</b> on $12,000. The best tested futures result earns $495."},
+];
+
+const LAB={a:'active',w:'armed',n:'never',d:'waiting'};
+const EXPLAIN={a:'On now. It governs the next trade you place.',
+  w:'Written and tested, switched off. The condition that turns it on is named.',
+  n:'A thing the evidence says never to do.',
+  d:'Waiting on something that has not happened.'};
+let FILTER='all';
+
+function rule(r){
+  return `<div class="rc" data-st="${r.st}"${FILTER!=='all'&&FILTER!==r.st?' hidden':''}>
+    <span class="st ${r.st}">${LAB[r.st]}</span>
+    <p class="say">${r.say}</p>
+    <p class="why">${r.why}</p>
+    <p class="ev">${r.ev}</p>
+  </div>`;
+}
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · rules</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:64px;margin-top:14px"></div>'.repeat(5)}`; return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · rules</h1><span class="when stale">no live context</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. The rules below still apply — they do not
+      depend on today's scan — but the live context strip cannot be shown.</div></div>
+      ${['Size','Buying calls','Getting out','Armed, not on'].map(g=>`<div class="rgrp"><h3>${g}</h3>
+        ${RULES.filter(x=>x.g===g).map(rule).join('')}</div>`).join('')}`; return;
+  }
+  const v=d.vix, band=v<16?['CALM','under 16']:v<20?['NORMAL','16–20']:v<25?['ELEVATED','20–25']:['HIGH','25+'];
+  const hi=v>=25;
+  const count=st=>RULES.filter(r=>r.st===st).length;
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · rules</h1>
+    <span class="when">${esc(d.date)} · VIX ${v.toFixed(1)} ${band[0]}</span></div>
+
+  <details class="whatis">
+    <summary><span>Decisions I made once, so I do not remake them badly at 10am. <b class="not">Each one has a test under it.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>A rule is not a signal. A signal says what fired today; a rule says what I am allowed to do about it.</p>
+      <p>Every rule carries the number that produced it. If the number changes, the rule changes — that is the
+      only way a rule here gets rewritten.</p>
+    </div>
+  </details>
+
+  <div class="ctx">
+    <div><span class="l">shorts · setup S</span><span class="v" style="font-size:var(--t-body);color:${hi?'var(--up)':'var(--dim)'}">
+      ${hi?'allowed':'blocked'}<small>${hi?'VIX is 25+':'needs VIX 25+'}</small></span></div>
+    <div><span class="l">short-dated calls</span><span class="v" style="font-size:var(--t-body);color:${hi?'var(--up)':'var(--dim)'}">
+      ${hi?'allowed, ~$200':'blocked'}<small>${hi?'small size only':'needs VIX 25+'}</small></span></div>
+    <div><span class="l">setup F window</span><span class="v" style="font-size:var(--t-body)">
+      ${v>=16&&v<20?'best':'ok'}<small>16–20 is +10.76pp</small></span></div>
+  </div>
+
+  <div class="filt" role="group" aria-label="Filter rules by state">
+    <button data-f="all" aria-pressed="${FILTER==='all'}">all ${RULES.length}</button>
+    <button data-f="a" aria-pressed="${FILTER==='a'}">active ${count('a')}</button>
+    <button data-f="w" aria-pressed="${FILTER==='w'}">armed ${count('w')}</button>
+    <button data-f="n" aria-pressed="${FILTER==='n'}">never ${count('n')}</button>
+    <button data-f="d" aria-pressed="${FILTER==='d'}">waiting ${count('d')}</button>
+    <span class="sp"></span>
+    <span class="lg" style="align-self:center">${FILTER==='all'?'':EXPLAIN[FILTER]}</span>
+  </div>
+
+  ${['Size','Buying calls','Getting out','Armed, not on'].map(g=>{
+    const rs=RULES.filter(x=>x.g===g).filter(x=>FILTER==='all'||x.st===FILTER);
+    return rs.length?`<div class="rgrp"><h3>${g}</h3>${rs.map(rule).join('')}</div>`:'';
+  }).join('')}
+
+  <p class="foot">Every rule above came from a test in this project. Where a rule contradicts an instinct, the
+  test won. The one rule with no number under it is the $600 cap, which is a choice about the account, not a
+  finding.</p>`;
+
+  A.querySelectorAll('.filt button').forEach(b=>b.addEventListener('click',()=>{
+    FILTER=b.dataset.f; paint();
+  }));
+}
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='panic') d.vix=27.4;
+  return d;
+}
+
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>

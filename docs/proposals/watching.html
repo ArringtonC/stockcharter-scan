@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watching — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 3 additions. They move into review.css once Watching is approved. */
+.inv{padding:var(--s3);border-bottom:1px solid var(--line);background:var(--panel)}
+.inv h4{margin:0 0 var(--s2);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+.inv ol{margin:0;padding-left:1.3em;font-size:var(--t-data);color:var(--ink2)}
+.inv li{margin:var(--s1) 0}
+.inv b{color:var(--ink);font-weight:500}
+.inv .where{color:var(--amber)}
+
+/* status is the organising idea on this page, so it gets the left edge */
+.wrow{display:grid;grid-template-columns:7rem minmax(0,1fr) 7rem;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0;border-top:1px solid var(--line)}
+.wrow:last-of-type{border-bottom:1px solid var(--line)}
+.wrow .sym{font:600 var(--t-body) var(--mono);color:var(--ink);letter-spacing:.02em}
+.wrow .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.wrow .next{min-width:0;font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.wrow .next em{display:block;margin-top:var(--s1);font-style:normal;font-size:var(--t-data);color:var(--ink2)}
+.wrow .next em b{color:var(--dn);font-weight:500}
+.wrow .px{text-align:right;font-variant-numeric:tabular-nums}
+.wrow .px b{font:600 var(--t-body) var(--mono);color:var(--ink)}
+.wrow .px small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+
+/* the three states share one bar so none of them can read as a signal */
+.band{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin:var(--s5) 0 var(--s2)}
+.band h3{margin:0;font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.band .n{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:3px;padding:2px 7px;color:var(--dim)}
+.band p{flex:1 1 100%;margin:0;font-size:var(--t-data);color:var(--dim);max-width:74ch}
+
+/* sector context — expandable, never a recommendation */
+.sect{border-top:1px solid var(--line)}
+.sect:last-of-type{border-bottom:1px solid var(--line)}
+.sect>summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:2.5rem minmax(0,1fr) 5rem 6rem;
+  gap:var(--s3);align-items:baseline;padding:var(--s2) 0}
+.sect>summary::-webkit-details-marker{display:none}
+.sect>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.sect .rk{font:600 var(--t-body) var(--serif);color:var(--dim);font-variant-numeric:tabular-nums}
+.sect.top .rk{color:var(--amber)}
+.sect .nm{font-size:var(--t-body);color:var(--ink)}
+.sect .nm small{color:var(--dim);font-size:var(--t-label);letter-spacing:var(--tr);margin-left:var(--s1)}
+.sect .g,.sect .o{text-align:right;font-variant-numeric:tabular-nums;font:500 var(--t-data) var(--mono)}
+.sect .o{color:var(--dim)}
+.sect .in{padding:0 0 var(--s3) 2.5rem;font-size:var(--t-data);color:var(--ink2)}
+.sect .in .hold{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s1)}
+.sect .in .hold span{white-space:nowrap}
+.sect .in .hold b{color:var(--ink);font-weight:500}
+.sect .in .hold .mine{color:var(--amber)}
+@container (max-width:680px){
+  .wrow{grid-template-columns:minmax(0,1fr) auto}
+  .wrow .sym{grid-column:1;grid-row:1}
+  .wrow .px{grid-column:2;grid-row:1}
+  .wrow .next{grid-column:1/-1;grid-row:2}
+  .sect>summary{grid-template-columns:2.5rem minmax(0,1fr) 5rem}
+  .sect .o{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 3 of 8 · Watching</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="near" aria-pressed="false">near only</button>
+    <button data-s="blocked" aria-pressed="false">blocked only</button>
+    <button data-s="weekly" aria-pressed="false">weekly only</button>
+    <button data-s="empty" aria-pressed="false">empty</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · inventory, not a page <span id="beforenote"></span></figcaption>
+      <div class="inv">
+        <h4>Where this information lives today</h4>
+        <ol>
+          <li><b>Setup D</b> — seven names, watchlist only <span class="where">· Scan tab, third block down</span></li>
+          <li><b>Blocked F candidates</b> — 21 names <span class="where">· Scan tab, inside a collapsed disclosure</span></li>
+          <li><b>Weekly 10/30 cross</b> — ten names <span class="where">· Scan tab, nested inside that same disclosure</span></li>
+          <li><b>Sector leadership</b> — eleven sectors <span class="where">· its own Sectors tab</span></li>
+        </ol>
+        <p style="margin:var(--s2) 0 0;font-size:var(--t-data);color:var(--dim)">There has never been a Watching
+        page. The frame below is the real Scan tab, which holds the first three. Switch the frame to Sectors to
+        see the fourth.</p>
+      </div>
+      <div class="frame"><iframe id="beforeframe" data-tab="scan" src="../index.html" title="Current Ledger scan page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Watching <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>The four-way distinction.</b> Tested signal, watchlist-only research, blocked candidate and
+          market context stay four different things and are labelled as four different things.</li>
+        <li><b>Every condition and every number</b> — drawdown, RSI, the 10/30 gap, the F band, sector rank,
+          holdings, relative strength.</li>
+        <li><b>Why each one is not tradeable</b>, in its own words: Setup D never beat random picking, the
+          weekly cross is +0.49pp at p=0.363.</li>
+        <li><b>Sector leadership stays "context, not signal"</b> with expandable holdings.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>One home.</b> Four locations across two tabs become one page.</li>
+        <li><b>Status is the organising idea</b>, not setup name. Near · Blocked · Weekly, in that order,
+          because that is the order of how close a thing is.</li>
+        <li><b>Every row names its next condition</b> — what has to happen, or why nothing can.</li>
+        <li><b>Nothing is styled like a signal.</b> No amber, no green, no progress bar, no ranking. The
+          accent appears once, on your own names inside a sector.</li>
+        <li><b>Sector context is filtered to your names first.</b> Eleven sectors is a research page; which of
+          your 63 names sit in the leading sector is the part that belongs here.</li>
+        <li><b>Blocked says what blocked it</b> — "trend broken" and "no SEC data" were already in the data
+          and were never shown as the headline.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>Two judgement calls to check</h3>
+    <p style="margin-bottom:var(--s2)"><b>1. Order.</b> I sorted Near → Blocked → Weekly by how close each is
+    to being tradeable. Blocked sits above Weekly because a blocked name already passed the price test and
+    failed one condition, where a weekly cross passed a test that did not clear the bar. Say if you read that
+    the other way round.</p>
+    <p><b>2. Sectors.</b> The full eleven-sector board is research and I think it belongs on the Sectors page,
+    not here. Watching shows the leading sector expanded with your names marked, and the rest collapsed. If you
+    want the whole board here instead, that is one line.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>States to review: <b>near</b>, <b>blocked</b>, <b>weekly</b>, <b>empty</b>, <b>sector expansion</b>,
+    plus <b>phone</b> and <b>light</b>. Nothing moves to Setups until you approve this page.</p>
+  </div>
+
+</div>
+
+<script defer>
+/* Every row is (symbol, what it is, the next condition, price). The next condition
+   is read from the scanner's own fields. Where a thing can never become tradeable,
+   the row says that instead of inventing a path. */
+function wrow(sym,tag,what,next,px,unit){
+  return `<div class="wrow">
+    <div class="sym">${esc(sym)}<small>${tag}</small></div>
+    <div class="next">${what}<em>${next}</em></div>
+    <div class="px"><b>${f2(px)}</b><small>${unit||''}</small></div>
+  </div>`;
+}
+
+function sector(s,open){
+  const mine=new Set(s.ours||[]);
+  const hold=(s.hold||[]).map(h=>`<span class="${mine.has(h.sym)?'mine':''}"><b>${esc(h.sym)}</b> ${h.pct.toFixed(1)}%</span>`).join('');
+  return `<details class="sect${s.rank<=3?' top':''}"${open?' open':''}>
+    <summary>
+      <span class="rk">${s.rank}</span>
+      <span class="nm">${esc(s.name)}<small>${esc(s.sym)}</small></span>
+      <span class="g ${s.rel>0?'up':'dn'}">${pct(s.rel)}</span>
+      <span class="o">${(s.ours||[]).length} of yours</span>
+    </summary>
+    <div class="in">
+      <p style="margin:0">Rank ${s.rank} of 11 this week, ${s.d_week===0?'unchanged':(s.d_week>0?'up '+s.d_week:'down '+(-s.d_week))} on the week.
+      ${pct(s.rel)} against the S&amp;P over the same window. ${s.churn?`Top ten holdings turned over ${esc(s.churn)}.`:''}</p>
+      <div class="hold">${hold||'<span>holdings unavailable</span>'}</div>
+      ${(s.ours||[]).length?`<p style="margin:var(--s2) 0 0">Yours in here: <b style="color:var(--amber)">${(s.ours||[]).join(', ')}</b></p>`:''}
+    </div>
+  </details>`;
+}
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · watching</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:52px;margin-top:14px"></div>'.repeat(6)}`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · watching</h1><span class="when stale">no data</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. Nothing can be listed. An empty
+      watchlist would be wrong — this is missing data, not an empty list.</div></div>`;
+    return;
+  }
+
+  const near=d.blocked||[], D=d.D||[], W=d.weekly||[];
+  const crossed=W.filter(r=>r.state==='crossed'), soon=W.filter(r=>r.state!=='crossed');
+  const S=d.sectors||[];
+  const total=near.length+D.length+W.length;
+
+  const nearRows = D.map(r=>wrow(r.sym,'setup D',
+      `${r.dd.toFixed(1)}% below its high, RSI ${r.rsi.toFixed(0)}, up over 126 sessions.`,
+      `Cannot become tradeable. <b>Setup D never beat random picking</b> on the honest universe.`,
+      r.px,`+${r.up.toFixed(1)}% upside`)).join('');
+
+  const blockedRows = near.map(r=>wrow(r.sym,'setup F band',
+      `In the F price band, ${r.dd.toFixed(1)}% below its high.`,
+      r.why==='no SEC data'
+        ? `Needs <b>revenue from an SEC filing</b>. None is available for this name, so it cannot pass.`
+        : `Needs the <b>trend to repair</b> — 10 over 30 and 50 over 200.`,
+      r.px,`+${r.up.toFixed(1)}% to target`)).join('');
+
+  const weeklyRows = [
+    ...crossed.map(r=>wrow(r.sym,'crossed',
+      `Weekly 10 EMA is above the 30. The 30 is ${r.up?'rising':'falling'}.`,
+      r.up?`Already crossed. <b>Research only</b> — +0.49pp ex-top-five, p=0.363.`
+          :`Crossed, but the 30 EMA is still <b>falling</b>. That is the weak version.`,
+      r.px,`${pct(r.gap)} gap`)),
+    ...soon.map(r=>wrow(r.sym,'near',
+      `Weekly 10 EMA is ${Math.abs(r.gap).toFixed(1)}% under the 30.`,
+      `Needs the <b>10 to cross the 30</b> on a weekly close.`,
+      r.px,`${r.dd.toFixed(1)}% off high`))].join('');
+
+  A.innerHTML=`
+  <div class="tmast">
+    <h1><b>Ledger</b> · watching</h1>
+    <span class="when">${esc(d.date)} · scanned ${esc(d.stamp)}</span>
+  </div>
+
+  <details class="whatis">
+    <summary><span>Names that did <b class="not">not</b> fire, and what each one is waiting on.</span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Nothing on this page is a trade. A name is here because it is close to a setup, blocked by one
+      condition, or part of research that did not clear its test.</p>
+      <p>There is <b>no score and no ranking</b>. A near miss is not a weak signal — it is a name that did
+      not qualify.</p>
+    </div>
+  </details>
+
+  <div class="verdict" style="padding-top:var(--s4)">
+    <div class="eyebrow">what is being watched</div>
+    <p class="say">${total?`${total} name${total===1?'':'s'}, <b style="color:var(--ink2)">none tradeable</b>.`
+      :`Nothing on the <b style="color:var(--ink2)">watchlists</b>.`}</p>
+    <div class="vstat"><span><b>${D.length}</b> near</span><span>·</span>
+      <span><b>${near.length}</b> blocked</span><span>·</span>
+      <span><b>${W.length}</b> weekly</span></div>
+    <p class="vquiet">Signals live on Today. Everything here is one condition short, or research that failed
+    its test and is kept for the record.</p>
+  </div>
+
+  <div class="band"><h3>Near</h3><span class="n">${D.length}</span>
+    <p>Close to a setup's conditions, but the setup itself is watchlist only.</p></div>
+  ${D.length?nearRows:`<p class="empty">Nothing near.</p>`}
+
+  <div class="band"><h3>Blocked</h3><span class="n">${near.length}</span>
+    <p>In Setup F's price band and failing exactly one condition. Blocked names hit their target 39% of the
+    time against 71% for names that pass, so the block is doing real work.</p></div>
+  ${near.length?blockedRows:`<p class="empty">Nothing blocked.</p>`}
+
+  <div class="band"><h3>Weekly cross</h3><span class="n">${W.length}</span>
+    <p>The weekly 10/30 EMA cross. It beats the daily version by 3.2 points and still does not clear the
+    bar: +0.49pp once the top five names come out, p=0.363.</p></div>
+  ${W.length?weeklyRows:`<p class="empty">No crosses or near-crosses.</p>`}
+
+  <div class="sec">
+    <h2>Sector context <span class="tag watch">context, not signal</span></h2>
+    <p class="lede">Which sector is leading, and which of your names sit in it. Rotation was tested as a
+    strategy and as a filter, and failed both times. It is here to explain the tape, not to pick a name.</p>
+    ${S.length?S.slice(0,3).map((s,i)=>sector(s,i===0)).join('')
+      :`<p class="empty">Sector data unavailable.</p>`}
+    ${S.length>3?`<details class="deep" style="margin-top:var(--s3)">
+      <summary>The other ${S.length-3} sectors</summary>
+      <div class="in">${S.slice(3).map(s=>sector(s,false)).join('')}</div></details>`:''}
+  </div>
+
+  <p class="foot">Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Sector holdings: fund issuer
+  disclosures. Every backtest behind this page carries a survivorship caveat.</p>`;
+}
+
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='near')    { d.blocked=[]; d.weekly=[]; }
+  if(state==='blocked') { d.D=[]; d.weekly=[]; }
+  if(state==='weekly')  { d.D=[]; d.blocked=[]; }
+  if(state==='empty')   { d.D=[]; d.blocked=[]; d.weekly=[]; }
+  return d;
+}
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>

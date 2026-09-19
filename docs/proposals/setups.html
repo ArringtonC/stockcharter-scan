@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Setups — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 4 additions. They move into review.css once this page is approved. */
+
+.sgrp{margin-top:var(--s5)}
+.sgrp>h3{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s1);
+  font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.sgrp>h3 .n{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  border:1px solid var(--line2);border-radius:3px;padding:2px 7px;color:var(--dim)}
+.sgrp>h3.on .n{color:var(--amber);border-color:var(--amber)}
+.sgrp>p{margin:0 0 var(--s3);font-size:var(--t-data);color:var(--dim);max-width:74ch}
+.su{border-top:1px solid var(--line)}
+.su:last-of-type{border-bottom:1px solid var(--line)}
+.su>summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:2.6rem minmax(0,1fr) auto;
+  gap:var(--s3);align-items:baseline;padding:var(--s3) 0}
+.su>summary::-webkit-details-marker{display:none}
+.su>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.su>summary::after{content:'+';color:var(--dim)}
+.su[open]>summary::after{content:'\2212'}
+.su .k{font:700 var(--t-label) var(--mono);letter-spacing:var(--tr);text-align:center;
+  border:1px solid var(--line2);border-radius:3px;padding:4px 0;color:var(--dim)}
+.su.on .k{border-color:var(--amber);color:var(--amber)}
+.su .t{font:600 var(--t-body) var(--serif);font-size:var(--t-h2);color:var(--ink);letter-spacing:-.01em}
+.su .t small{display:block;margin-top:3px;font:400 var(--t-data) var(--mono);color:var(--dim);letter-spacing:0}
+.su .in{padding:0 0 var(--s4) 2.6rem}
+.su .size{margin:0 0 var(--s3);font:500 var(--t-data) var(--mono);color:var(--amber)}
+.su h4{margin:var(--s3) 0 var(--s1);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+.su ol,.su ul{margin:0;padding-left:1.3em;font-size:var(--t-data);color:var(--ink2);line-height:1.7}
+.su p{margin:0;font-size:var(--t-data);color:var(--ink2);line-height:1.7;max-width:74ch}
+.su .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s3)}
+@container (max-width:680px){.su .two{grid-template-columns:1fr}.su .in{padding-left:0}}
+
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 4 of 8 · Setups</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="one" aria-pressed="false">one setup</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · the current Setups page, live <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" data-tab="setups" src="../index.html" title="Current Ledger page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Setups <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>Every exact condition</b>, in the scanner's own words. Not one threshold was reworded.</li>
+        <li><b>All the evidence</b> — signal counts, mean return, win rate, wipeout rate, p-values, era splits.</li>
+        <li><b>When it works and when it does not</b>, both kept, side by side.</li>
+        <li><b>Tradeable versus watchlist-only versus retired</b> stays the top-level split.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>Consistent anatomy.</b> Every setup now reads the same way: it fires when → the evidence → works / does not.</li>
+        <li><b>The group tells you what to do with it.</b> "Tradeable" replaces "Active", because active did not say whether you act on it.</li>
+        <li><b>Failures are printed, not implied.</b> Each watchlist-only setup states the test it failed on its own row.</li>
+        <li><b>Works and does not sit side by side</b> instead of stacked, so neither reads as the afterthought.</li>
+        <li><b>The survivorship caveat moved to the footer</b> of this page, where the claims are.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>One judgement call to check</h3>
+    <p>I renamed the first group from <b>Active</b> to <b>Tradeable</b>. Active describes the scanner; tradeable describes what you do. Setup S is in it, though it needs VIX 25+ and so does nothing most days — it is tradeable when its condition holds, which is the honest reading. Say if you want S in its own group.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>Review the states above, plus <b>phone</b> and <b>light</b>. Nothing is applied to the live site until all eight pages pass the final consistency review.</p>
+  </div>
+
+</div>
+
+<script defer>
+
+const GROUP=[
+  ["Tradeable","on","These produce signals I act on. F is the only one that survived every test.",["F","VIX","S"]],
+  ["Watchlist only","","Shown, never acted on. Each failed a test that mattered, and the failure is printed below.",["D","C"]],
+  ["Retired","","Superseded. Open positions still carry the tag, so it stays readable rather than deleted.",["E"]]];
+
+function setup(k,d,on){
+  const v=(d.setups||{})[k]; if(!v) return '';
+  return `<details class="su${on?' on':''}">
+    <summary>
+      <span class="k">${esc(k==='VIX'?'VIX':k)}</span>
+      <span class="t">${esc(v.name)}<small>${esc(v.tag)}</small></span>
+    </summary>
+    <div class="in">
+      <p class="size">${esc(v.size)}</p>
+      <h4>It fires when</h4>
+      <ol>${v.rules.map(x=>`<li>${x}</li>`).join('')}</ol>
+      <h4>The evidence</h4>
+      <ul>${v.numbers.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="two">
+        <div><h4>When it works</h4><p>${v.works}</p></div>
+        <div><h4>When it does not</h4><p>${v.fails}</p></div>
+      </div>
+    </div>
+  </details>`;
+}
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · setups</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:58px;margin-top:14px"></div>'.repeat(6)}`; return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · setups</h1><span class="when stale">no data</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. The setup definitions live in the scan
+      output, so none can be shown. The setups themselves are unchanged — this is a missing file.</div></div>`; return;
+  }
+  const S=d.setups||{};
+  const live=GROUP[0][3].filter(k=>S[k]).length;
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · setups</h1>
+    <span class="when">${esc(d.date)} · definitions locked</span></div>
+
+  <details class="whatis">
+    <summary><span>Six setups. <b class="not">Two</b> produce trades. Every number was written down before the test ran.</span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>A setup is a list of conditions. If every condition is met at the close, it fires. There is no
+      judgement in the firing and no score.</p>
+      <p>Each one was tested against thousands of historical cases, then tested again with its five biggest
+      contributors removed. <b>A setup that only works because of five names does not work.</b> The ones that
+      failed that test are kept here, labelled, rather than deleted.</p>
+    </div>
+  </details>
+
+  <div class="verdict" style="padding-top:var(--s4)">
+    <div class="eyebrow">the reference</div>
+    <p class="say"><b>${live}</b> of ${Object.keys(S).length} setups are tradeable.</p>
+    <div class="vstat"><span><b>${live}</b> tradeable</span><span>·</span>
+      <span><b>${GROUP[1][3].filter(k=>S[k]).length}</b> watchlist only</span><span>·</span>
+      <span><b>${GROUP[2][3].filter(k=>S[k]).length}</b> retired</span></div>
+    <p class="vquiet">Open one to see its exact conditions, its evidence, and where it breaks.</p>
+  </div>
+
+  ${GROUP.map(([name,on,why,keys])=>`
+    <div class="sgrp">
+      <h3 class="${on}">${name}<span class="n">${keys.filter(k=>S[k]).length}</span></h3>
+      <p>${why}</p>
+      ${keys.map(k=>setup(k,d,!!on)).join('')}
+    </div>`).join('')}
+
+  <p class="foot">Every claim above is a number from a written test. Backtests carry a survivorship caveat:
+  the universe is names that still trade today, which flatters every result on this page.</p>`;
+}
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='one'){ d.setups={F:d.setups.F}; }
+  return d;
+}
+
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>

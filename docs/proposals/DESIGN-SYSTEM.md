@@ -87,13 +87,13 @@ is not touched until all eight pages pass and the final consistency review runs.
 | # | Page | Before | After | States | Approved |
 |---|---|---|---|---|---|
 | 1 | Today | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
-| 2 | Trades | ✓ | ✓ | ✓ | waiting |
-| 3 | Watching | | | | |
-| 4 | Setups | | | | |
-| 5 | Rules | | | | |
-| 6 | Sectors | | | | |
-| 7 | Methodology | | | | |
-| 8 | System | | | | |
+| 2 | Trades | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
+| 3 | Watching | ✓ | ✓ | ✓ | for review |
+| 4 | Setups | ✓ | ✓ | ✓ | for review |
+| 5 | Rules | ✓ | ✓ | ✓ | for review |
+| 6 | Sectors | ✓ | ✓ | ✓ | for review |
+| 7 | Methodology | ✓ | ✓ | ✓ | for review |
+| 8 | System | ✓ | ✓ | ✓ | for review |
 
 ## Open items, carried forward
 

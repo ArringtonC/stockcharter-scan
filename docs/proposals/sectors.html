@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sectors — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 6 additions. They move into review.css once this page is approved. */
+
+.lead{display:grid;grid-template-columns:2.6rem minmax(0,1fr) 5.5rem 5.5rem 6rem;gap:var(--s3);
+  align-items:baseline;padding:var(--s2) 0;border-top:1px solid var(--line)}
+.lead.hd{border-top:0;padding-bottom:var(--s1);font:600 var(--t-label) var(--mono);
+  letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.sct{border-top:1px solid var(--line)}
+.sct:last-of-type{border-bottom:1px solid var(--line)}
+.sct>summary{cursor:pointer;list-style:none;display:grid;
+  grid-template-columns:2.6rem minmax(0,1fr) 5.5rem 5.5rem 6rem;gap:var(--s3);
+  align-items:baseline;padding:var(--s3) 0}
+.sct>summary::-webkit-details-marker{display:none}
+.sct>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.sct:hover>summary{background:color-mix(in srgb,var(--amber) 4%,transparent)}
+.sct .rk{font:600 var(--t-h2)/1 var(--serif);color:var(--dim);font-variant-numeric:tabular-nums}
+.sct.top .rk{color:var(--amber)}
+.sct .nm{font-size:var(--t-body);color:var(--ink);min-width:0}
+.sct .nm small{display:block;margin-top:2px;font-size:var(--t-label);letter-spacing:var(--tr);color:var(--dim)}
+.sct .num{text-align:right;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums;color:var(--ink2)}
+.sct .num.up{color:var(--up)}.sct .num.dn{color:var(--dn)}
+.sct .spark{align-self:center}
+.sct .spark svg{display:block;width:100%;height:22px;overflow:visible}
+.sct .in{padding:0 0 var(--s4) 2.6rem}
+.sct .in p{margin:0 0 var(--s2);font-size:var(--t-data);color:var(--ink2);line-height:1.65;max-width:74ch}
+.hold{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s1) var(--s3);margin-top:var(--s2)}
+.hold span{font:500 var(--t-data) var(--mono);color:var(--ink2);font-variant-numeric:tabular-nums;
+  display:flex;justify-content:space-between;gap:var(--s2);border-bottom:1px solid var(--line);padding-bottom:3px}
+.hold span.mine{color:var(--amber)}
+.hold b{font-weight:600}
+@container (max-width:680px){
+  .lead,.sct>summary{grid-template-columns:2.2rem minmax(0,1fr) 4.5rem}
+  .lead .spark,.sct .spark,.lead .o,.sct .o{display:none}
+}
+
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 6 of 8 · Sectors</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="nodata" aria-pressed="false">no sector data</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">fetch error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · the current Sectors page, live <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" data-tab="sectors" src="../index.html" title="Current Ledger page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Sectors <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>The leadership board</b> — all eleven sectors, ranked, with the ten-week rank line.</li>
+        <li><b>Expandable holdings</b>, with your own names marked inside each sector.</li>
+        <li><b>"Context, not signal"</b> stays the governing idea and is now stated in the first line.</li>
+        <li><b>Every number</b>: rank, weekly and monthly rank change, relative strength, gap to the 200-day, churn.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>The refresh control is gone.</b> It belongs to System, page 8.</li>
+        <li><b>Rank moved to the left edge</b> and is the only thing sized like a number that matters.</li>
+        <li><b>The rank line got a scale.</b> It is inverted so up means better, and the final point is marked — before, it was a sparkline with no anchor.</li>
+        <li><b>The failed test is stated up front.</b> Rotation failed as a strategy and as a filter, and the page now says so before you read the board, not after.</li>
+        <li><b>Holdings became a two-column list</b> with your names in amber, instead of a paragraph of tickers.</li>
+        <li><b>Sectors with none of your names say so</b>, rather than showing an empty space.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>One judgement call to check</h3>
+    <p>The amber accent appears twice on this page: on the top three ranks, and on your own names inside a sector. Everywhere else the page is grey. That is deliberate — a leadership board where everything is coloured reads as eleven recommendations. If you want the relative-strength column coloured green and red throughout, say so, but I think it makes a context page look like a signal page.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>Review the states above, plus <b>phone</b> and <b>light</b>. Nothing is applied to the live site until all eight pages pass the final consistency review.</p>
+  </div>
+
+</div>
+
+<script defer>
+
+function spark(track){
+  /* rank 1 is best, so the scale is inverted. Eleven sectors, ten weeks. */
+  const N=track.length, W=100, H=18;
+  const X=i=>(i/(N-1))*W, Y=v=>1+((v-1)/10)*H;
+  const pts=track.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+  const last=track[track.length-1];
+  return `<svg viewBox="-2 -2 ${W+8} ${H+4}" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="${pts}" fill="none" stroke="var(--dim)" stroke-width="1.5"
+      vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    <circle cx="${X(N-1).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="2.2"
+      fill="${last<=3?'var(--amber)':'var(--ink2)'}"/></svg>`;
+}
+
+function sector(s){
+  const mine=new Set(s.ours||[]);
+  const move=s.d_week===0?'held':(s.d_week>0?`up ${s.d_week}`:`down ${-s.d_week}`);
+  return `<details class="sct${s.rank<=3?' top':''}">
+    <summary>
+      <span class="rk">${s.rank}</span>
+      <span class="nm">${esc(s.name)}<small>${esc(s.sym)} · ${move} on the week</small></span>
+      <span class="num ${s.rel>0?'up':'dn'}">${pct(s.rel)}</span>
+      <span class="num o">${(s.ours||[]).length||'—'}</span>
+      <span class="spark">${spark(s.track||[])}</span>
+    </summary>
+    <div class="in">
+      <p>Rank <b style="color:var(--ink)">${s.rank} of 11</b>, ${move} on the week and
+      ${s.d_month===0?'level':(s.d_month>0?'up '+s.d_month:'down '+(-s.d_month))} on the month.
+      ${pct(s.rel)} against the S&amp;P. The fund is ${pct(s.gap)} from its own 200-day average.
+      ${s.churn?`Top ten holdings turned over <b style="color:var(--ink)">${esc(s.churn)}</b>.`:''}</p>
+      <div class="hold">${(s.hold||[]).map(h=>
+        `<span class="${mine.has(h.sym)?'mine':''}"><b>${esc(h.sym)}</b>${h.pct.toFixed(1)}%</span>`).join('')
+        || '<span>holdings unavailable</span>'}</div>
+      ${(s.ours||[]).length?`<p style="margin-top:var(--s3)">Yours in here:
+        <b style="color:var(--amber)">${(s.ours||[]).join(', ')}</b></p>`:
+        `<p style="margin-top:var(--s3);color:var(--dim)">None of your names are in this sector.</p>`}
+    </div>
+  </details>`;
+}
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state}`;
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · sectors</h1><span class="when">loading…</span></div>
+      ${'<div class="sk" style="height:44px;margin-top:10px"></div>'.repeat(8)}`; return;
+  }
+  if(state==='error'||state==='nodata'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · sectors</h1><span class="when stale">no sector data</span></div>
+      <div class="sec"><div class="err">Sector data could not be fetched. The eleven sector funds come from a
+      separate request to Yahoo, so this can fail while the rest of the scan succeeds. Nothing here is a signal,
+      so a failure costs context, not a trade.</div></div>`; return;
+  }
+  const S=d.sectors||[];
+  const top=S[0], ours=S.reduce((n,s)=>n+((s.ours||[]).length),0);
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · sectors</h1>
+    <span class="when">${esc(d.date)} · scanned ${esc(d.stamp)}</span></div>
+
+  <details class="whatis">
+    <summary><span>Which sector is leading, and where your names sit. <b class="not">Context, not signal.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Sectors are ranked each week on strength against the S&amp;P. The line shows ten weeks of that rank.</p>
+      <p>Rotation was tested twice in this project — as a strategy on its own, and as a filter on top of the
+      setups. <b>It failed both times.</b> It is on the site to explain what the tape is doing, never to pick
+      a name.</p>
+    </div>
+  </details>
+
+  <div class="verdict" style="padding-top:var(--s4)">
+    <div class="eyebrow">leadership</div>
+    <p class="say"><b>${esc(top?top.name:'—')}</b> leads.</p>
+    <div class="vstat"><span><b>${S.length}</b> sectors ranked</span><span>·</span>
+      <span><b>${ours}</b> of your names placed</span></div>
+    <p class="vquiet">Rank is strength against the S&amp;P over the same window. Open a sector for its
+    holdings — yours are marked in amber.</p>
+  </div>
+
+  <div class="sec" style="padding-top:var(--s4)">
+    <div class="lead hd"><span>rank</span><span>sector</span><span style="text-align:right">vs S&amp;P</span>
+      <span style="text-align:right" class="o">yours</span><span class="spark">10-week rank</span></div>
+    ${S.length?S.map(sector).join(''):'<p class="empty">No sector data.</p>'}
+  </div>
+
+  <p class="foot">Sector funds: the eleven SPDR select sector ETFs. Holdings: fund issuer disclosures via
+  Yahoo, updated on their schedule, not ours. Rank is relative strength against the S&amp;P over the same
+  window and is not a forecast.</p>`;
+}
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='nodata') d.sectors=[];
+  return d;
+}
+
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>

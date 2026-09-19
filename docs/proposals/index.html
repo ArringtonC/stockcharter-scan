@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger Redesign Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+.board{max-width:1040px;margin:0 auto;padding:var(--s5) 18px 96px}
+.hd h1{margin:0;font:300 clamp(30px,5vw,44px)/1.1 var(--serif);letter-spacing:-.02em}
+.hd h1 b{font-weight:700;color:var(--amber)}
+.hd p{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.7;color:var(--ink2);max-width:62ch}
+.hd p b{color:var(--ink);font-weight:500}
+.pg{display:grid;grid-template-columns:2.4rem minmax(0,1fr) 7rem;gap:var(--s3);align-items:baseline;
+  padding:var(--s3) 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.pg:last-of-type{border-bottom:1px solid var(--line)}
+.pg:hover,.pg:focus-visible{background:color-mix(in srgb,var(--amber) 5%,transparent);outline:none}
+.pg .n{font:600 var(--t-h2)/1 var(--serif);color:var(--dim);font-variant-numeric:tabular-nums}
+.pg.done .n{color:var(--up)}
+.pg .t{min-width:0}
+.pg .t b{display:block;font:600 var(--t-body) var(--serif);font-size:var(--t-h2);color:var(--ink);letter-spacing:-.01em}
+.pg .t small{display:block;margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2);line-height:1.6}
+.pg .s{text-align:right;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.pg.done .s{color:var(--up)}
+.pg.now .s{color:var(--amber)}
+@media(max-width:620px){.pg{grid-template-columns:2.4rem minmax(0,1fr)}.pg .s{grid-column:2;text-align:left}}
+</style>
+</head>
+<body>
+<div class="board">
+  <div class="hd">
+    <h1><b>Ledger</b> redesign</h1>
+    <p>Eight pages, one at a time. Each shows the current page as <b>BEFORE</b>, the proposal as
+    <b>AFTER</b>, what was kept, what changed, and every state that page has to survive.</p>
+    <p><b>The live site has not changed.</b> <code>index.html</code> is edited only after all eight pass and
+    the final whole-product consistency review runs.</p>
+  </div>
+
+  <div style="margin-top:var(--s5)">
+  <a class="pg done" href="today.html"><span class="n">1</span>
+    <span class="t"><b>Today</b><small>The verdict first. VIX drops from a 76px hero to a context strip, empty
+    setups collapse, near-misses name the condition they are missing.</small></span>
+    <span class="s">approved</span></a>
+
+  <a class="pg done" href="trades.html"><span class="n">2</span>
+    <span class="t"><b>Trades</b><small>A ten-column table becomes a readable row — what you hold, P/L, the rule
+    that applies — with the mechanics behind a disclosure.</small></span>
+    <span class="s">approved</span></a>
+
+  <a class="pg now" href="watching.html"><span class="n">3</span>
+    <span class="t"><b>Watching</b><small>Four scattered locations across two tabs become one page, organised by
+    how close a name is: near, blocked, weekly.</small></span>
+    <span class="s">for review</span></a>
+
+  <a class="pg now" href="setups.html"><span class="n">4</span>
+    <span class="t"><b>Setups</b><small>One anatomy for all six: it fires when → the evidence → when it works
+    → when it does not. Grouped by whether you act on it.</small></span>
+    <span class="s">for review</span></a>
+
+  <a class="pg now" href="rules.html"><span class="n">5</span>
+    <span class="t"><b>Rules</b><small>A filterable library. Active, armed, never, waiting — and selecting a
+    state prints what that state means.</small></span>
+    <span class="s">for review</span></a>
+
+  <a class="pg now" href="sectors.html"><span class="n">6</span>
+    <span class="t"><b>Sectors</b><small>The leadership board with a real scale on the rank line, your own names
+    marked in each sector, and the refresh control moved out.</small></span>
+    <span class="s">for review</span></a>
+
+  <a class="pg now" href="methodology.html"><span class="n">7</span>
+    <span class="t"><b>Methodology</b><small>Where every number comes from and what is wrong with it. The
+    survivorship flaw gets a section instead of a footer clause.</small></span>
+    <span class="s">for review</span></a>
+
+  <a class="pg now" href="system.html"><span class="n">8</span>
+    <span class="t"><b>System</b><small>Last run, next run, data age, fetch errors, quote coverage, manual run.
+    So a quiet day and a broken job never look the same.</small></span>
+    <span class="s">for review</span></a>
+  </div>
+
+  <div class="gate" style="margin-top:var(--s5)">
+    <h3>Open items</h3>
+    <p style="margin-bottom:var(--s2)"><b>The universe count.</b> Today wants to print "63 names" and cannot.
+    <code>data.json</code> does not carry the number, so the claim was dropped rather than guessed. One new
+    field in <code>scan_daily.py</code> fixes it — a data change, waiting on you.</p>
+    <p><b>Each page carries its own judgement calls</b> in an amber block above its approval gate. Those are
+    the places I made a choice you might read differently.</p>
+  </div>
+
+  <p class="foot" style="max-width:62ch">The system itself is in <code>DESIGN-SYSTEM.md</code>, with tokens and
+  components in <code>review.css</code>. No page defines its own colours or type.</p>
+</div>
+</body>
+</html>
