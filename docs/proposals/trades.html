@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trades — Before and After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="review.css">
+<style>
+/* Page 2 additions. These belong to the system — they are here only until Trades
+   is approved, then they move into review.css. Everything else is inherited. */
+.pos{border-top:1px solid var(--line);padding:0}
+.pos:last-of-type{border-bottom:1px solid var(--line)}
+.pos>summary{cursor:pointer;list-style:none;display:grid;
+  grid-template-columns:7rem minmax(0,1fr) 7.5rem 8rem;gap:var(--s2) var(--s3);
+  align-items:baseline;padding:var(--s3) 0}
+.pos>summary::-webkit-details-marker{display:none}
+.pos>summary:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.pos:hover>summary{background:color-mix(in srgb,var(--amber) 4%,transparent)}
+.pos .sym{font:600 var(--t-body) var(--mono);color:var(--ink);letter-spacing:.02em}
+.pos .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.pos .say{min-width:0;font-size:var(--t-body);color:var(--ink);line-height:1.45}
+.pos .say .rule{display:block;margin-top:var(--s1);font-size:var(--t-data);color:var(--ink2)}
+.pos .pl{text-align:right;font-variant-numeric:tabular-nums}
+.pos .pl b{font:600 var(--t-h2)/1 var(--serif)}
+.pos .pl small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+.pos .st{text-align:right;font-variant-numeric:tabular-nums}
+.pos .st .bar{position:relative;display:block;height:5px;border-radius:3px;background:var(--line);margin:0 0 5px auto;width:100%}
+.pos .st .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:3px}
+.pos .st small{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.pos>summary::after{content:'+';grid-column:4;justify-self:end;color:var(--dim)}
+.pos .mech{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s3);
+  padding:0 0 var(--s4);border-left:2px solid var(--line2);padding-left:var(--s3);margin:0 0 var(--s3)}
+.pos .mech div{display:flex;flex-direction:column;gap:2px}
+.pos .mech .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.pos .mech .v{font:500 var(--t-data) var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.real{background:var(--dn);color:#fff;border-radius:3px;padding:1px 6px;font:700 var(--t-label) var(--mono);
+  letter-spacing:var(--tr);text-transform:uppercase}
+.setup{border:1px solid var(--amber);color:var(--amber);border-radius:3px;padding:1px 6px;
+  font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.setup.off{border-color:var(--line2);color:var(--dim)}
+.perf{display:flex;flex-wrap:wrap;gap:var(--s5);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.perf div{display:flex;flex-direction:column;gap:2px}
+.perf .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.perf .v{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.perf .n{font-size:var(--t-label);color:var(--dim)}
+@container (max-width:680px){
+  .pos>summary{grid-template-columns:minmax(0,1fr) auto}
+  .pos .sym{grid-column:1;grid-row:1}
+  .pos .pl{grid-column:2;grid-row:1}
+  .pos .say{grid-column:1/-1;grid-row:2}
+  .pos .st{grid-column:1/-1;grid-row:3;text-align:left}
+  .pos .st .bar{margin-left:0}
+  .pos>summary::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="chrome"><div class="in">
+  <span class="ttl">Ledger redesign · page 2 of 8 · Trades</span>
+  <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
+  <span class="lg">state</span>
+  <div class="seg" id="seg-state">
+    <button data-s="live" aria-pressed="true">live</button>
+    <button data-s="none" aria-pressed="false">no trades</button>
+    <button data-s="real" aria-pressed="false">real money</button>
+    <button data-s="long" aria-pressed="false">long text</button>
+    <button data-s="loading" aria-pressed="false">loading</button>
+    <button data-s="error" aria-pressed="false">error</button>
+  </div>
+  <span class="lg">width</span>
+  <div class="seg" id="seg-w">
+    <button data-w="wide" aria-pressed="true">desktop</button>
+    <button data-w="phone" aria-pressed="false">phone</button>
+  </div>
+  <span class="lg">theme</span>
+  <div class="seg" id="seg-t">
+    <button data-t="dark" aria-pressed="true">dark</button>
+    <button data-t="light" aria-pressed="false">light</button>
+  </div>
+</div></div>
+
+<div class="stage">
+
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · the current Trades page, live <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" data-tab="trades" src="../index.html" title="Current Ledger trades page"></iframe></div>
+    </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Trades <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
+
+  <div class="kc">
+    <section class="keep">
+      <h3>Kept</h3>
+      <ul>
+        <li><b>Every number.</b> Entry, mark, P/L, target, DTE, strike, expiry, contracts, sessions held —
+          all still on the page, none recalculated.</li>
+        <li><b>The mark source.</b> <code>alpaca</code> / <code>schwab</code> versus <code>iv</code> /
+          <code>est</code> is the difference between a quote and a model, and it stays visible.</li>
+        <li><b>REAL treatment.</b> Real-money rows keep the red tag and now sort to the top.</li>
+        <li><b>Open and closed stay separate</b>, and closed still splits win from loss.</li>
+        <li><b>The approved Today grammar</b> — same tokens, same rows, same tags, same disclosure pattern.</li>
+      </ul>
+    </section>
+    <section class="chg">
+      <h3>Changed</h3>
+      <ul>
+        <li><b>A ten-column table became a row you can read.</b> Symbol · what you hold in plain words ·
+          P/L · progress. Everything else expands.</li>
+        <li><b>The mechanics fold away.</b> Entry, mark, strike, expiry, DTE, contracts, sessions and cost
+          basis live behind the row, not across it.</li>
+        <li><b>The rule that applies is on the row.</b> "Floor set at $126.71" or "No stop. Target is the prior
+          high" — read from the existing setup and status fields, not invented.</li>
+        <li><b>Performance carries its sample size.</b> "67% win rate" over 3 closed trades now prints the 3.
+          A win rate on a handful of trades is not a win rate.</li>
+        <li><b>Setup E is marked retired</b> where it appears, instead of looking like a live setup.</li>
+        <li><b>Phone gets rows, not a sideways scroll.</b></li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>One judgement call to check</h3>
+    <p>Seven open positions carry <b>setup E</b>, which was retired. On the current page they look identical to
+    live setups. I tagged them <b>E · retired</b> in grey rather than hiding them, because they are real
+    positions and the record should show what they were opened under. Tell me if you would rather they read
+    differently.</p>
+  </div>
+
+  <div class="gate">
+    <h3>Stop · approval gate</h3>
+    <p>States to review: <b>open</b> (live), <b>no trades</b>, <b>real money</b>, <b>long contract text</b>,
+    <b>loading</b>, <b>error</b>, plus <b>phone</b> and <b>light</b>. Nothing moves to Watching until you
+    approve this page.</p>
+  </div>
+
+</div>
+
+<script defer>
+const KIND=r=>r.kind==='shares'?'shares':'call';
+const RETIRED=new Set(['E']);
+
+/* The rule that applies, read from fields the scanner already writes. Nothing here
+   is invented: shares arm a floor at the target, calls have no stop by design. */
+function ruleFor(r){
+  if(r.kind==='shares'){
+    return r.armed
+      ? `Floor set at ${money(r.target)}. It closes only if it falls back there.`
+      : `Reach ${money(r.target)}, then floor it there. Closes at 252 sessions if it never comes.`;
+  }
+  return r.dte!=null && r.dte<45
+    ? `No stop. ${r.dte} days left — under the 45-day floor.`
+    : `No stop. Target is the prior high.`;
+}
+
+function holding(r){
+  const n=Number(r.contracts||1);
+  if(r.kind==='shares'){
+    const sh=Math.max(1,Math.round(600/Number(r.entry)));
+    return `${sh} shares at ${money(r.entry)}`;
+  }
+  return `${n} ${esc(r.symbol)} ${r.strike} Call ${esc(String(r.expiry||'').slice(5))} at ${money(r.entry)}`;
+}
+
+function cost(r){
+  const n=Number(r.contracts||1);
+  return r.kind==='shares' ? Math.max(1,Math.round(600/Number(r.entry)))*Number(r.entry)
+                           : Number(r.entry)*100*n;
+}
+
+function position(r){
+  const up=Number(r.pl_pct)>=0, prog=Math.round((r.progress||0)*100);
+  const mech=[
+    ['entry', money(r.entry)],
+    ['mark now, '+(r.mark||'model'), r.now!=null?money(r.now):'—'],
+    ['cost basis', n0(cost(r))],
+    r.kind==='call'?['strike / expiry', '$'+esc(r.strike)+' · '+esc(r.expiry)]:null,
+    r.kind==='call'?['days left', r.dte!=null?r.dte+'d':'—']:null,
+    r.kind==='call'?['contracts', esc(r.contracts||'1')]:null,
+    r.kind==='shares'?['target', money(r.target)]:null,
+    ['held', (r.sessions??'—')+' sessions'],
+    ['opened', esc(r.opened)],
+    ['account', esc(r.acct)],
+  ].filter(Boolean);
+  return `<details class="pos">
+    <summary>
+      <span class="sym">${esc(r.symbol)}
+        <small>${r.acct==='real'?'<span class="real">real</span> ':''}${r.setup&&r.setup!=='none'
+          ?`<span class="setup${RETIRED.has(r.setup)?' off':''}">${esc(r.setup)}${RETIRED.has(r.setup)?' · retired':''}</span>`
+          :`<span class="setup off">no setup</span>`}</small></span>
+      <span class="say">${holding(r)}
+        <span class="rule">${ruleFor(r)}</span></span>
+      <span class="pl"><b class="${up?'up':'dn'}">${pct(r.pl_pct)}</b>
+        <small>${r.error?'quote failed':(r.mark||'model')}</small></span>
+      <span class="st">${r.kind==='shares'&&!r.armed
+          ? `<span class="bar"><i style="width:${Math.min(100,Math.max(0,prog))}%"></i></span>
+             <small>${r.to_target!=null?pct(r.to_target)+' to target':''}</small>`
+          : r.armed ? `<small class="up">floor set</small>`
+          : `<small>${r.dte!=null?r.dte+'d left':''}</small>`}</span>
+    </summary>
+    <div class="mech">${mech.map(([l,v])=>`<div><span class="l">${l}</span><span class="v">${v}</span></div>`).join('')}</div>
+  </details>`;
+}
+
+function closedRow(r){
+  const up=Number(r.pl_pct)>=0;
+  return `<div class="row tight">
+    <div class="sym">${esc(r.symbol)}<small>${r.acct==='real'?'<span class="real">real</span>':esc(r.setup)}</small></div>
+    <div class="main"><div class="t">${holding(r)} → ${money(r.exit)}</div>
+      ${r.note?`<div class="miss">${esc(r.note)}</div>`:''}</div>
+    <div class="num"><span class="mid ${up?'up':'dn'}">${pct(r.pl_pct)}</span>
+      <span class="u">${esc(r.opened)} → ${esc(r.closed)}</span></div>
+  </div>`;
+}
+
+function renderAfter(d,state){
+  const A=$('#after');
+  $('#statelabel').innerHTML = state==='live' ? '· live data'
+    : `· <span class="synth">state preview</span> &nbsp;${state.replace('none','no trades')}`;
+
+  if(state==='loading'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · trades</h1><span class="when">loading…</span></div>
+      <div class="perf">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:19px;width:60px"></div></div>'.repeat(4)}</div>
+      ${'<div class="sk" style="height:56px;margin-top:12px"></div>'.repeat(4)}`;
+    return;
+  }
+  if(state==='error'){
+    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · trades</h1><span class="when stale">no data</span></div>
+      <div class="sec"><div class="err">HTTP 404 fetching data.json. Positions cannot be marked, so no P/L is
+      shown. An empty book here would be wrong — this is missing data, not a closed book.</div></div>`;
+    return;
+  }
+
+  const o=(d.open||[]).slice().sort((a,b)=>(b.acct==='real')-(a.acct==='real'));
+  const c=d.closed||[], taken=d.taken||[];
+  const wins=c.filter(r=>Number(r.pl_pct)>=0), losses=c.filter(r=>Number(r.pl_pct)<0);
+  const realRows=o.filter(r=>r.acct==='real');
+  const real=realRows.length;
+  /* At risk means real money. Summing the paper accounts gave $18,475 on an
+     $8,500 account, which is a number that reads as a loss you could take. */
+  const atRisk=realRows.reduce((s,r)=>s+cost(r),0);
+  const onPaper=o.reduce((s,r)=>s+cost(r),0)-atRisk;
+
+  A.innerHTML=`
+  <div class="tmast">
+    <h1><b>Ledger</b> · trades</h1>
+    <span class="when">${esc(d.date)} · marked ${esc(d.stamp)}</span>
+  </div>
+
+  <details class="whatis">
+    <summary><span>Every trade taken, logged win or lose. <b class="not">Not recommendations.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>A position goes up here when I open it and stays after it closes. Most are <b>paper</b> — they test
+      whether a setup holds. Rows tagged <b class="not">REAL</b> are my own money.</p>
+      <p>Prices marked <b>alpaca</b> or <b>schwab</b> are a live bid/ask midpoint. <b>iv</b> and <b>est</b>
+      are a model estimate, not a quote.</p>
+    </div>
+  </details>
+
+  <div class="perf">
+    <div><span class="l">open</span><span class="v">${o.length}</span><span class="n">${real} real</span></div>
+    <div><span class="l">at risk</span><span class="v">${real?n0(atRisk):'$0'}</span>
+      <span class="n">real money${onPaper?' · '+n0(onPaper)+' on paper':''}</span></div>
+    <div><span class="l">closed</span><span class="v">${c.length}</span><span class="n">${wins.length}W · ${losses.length}L</span></div>
+    <div><span class="l">win rate</span><span class="v">${c.length?Math.round(wins.length/c.length*100)+'%':'—'}</span>
+      <span class="n">${c.length?'over '+c.length+' trade'+(c.length===1?'':'s'):'no closed trades'}</span></div>
+  </div>
+  ${c.length && c.length<20 ? `<p class="vquiet" style="margin-top:var(--s2)">${c.length} closed trade${c.length===1?'':'s'}
+    is not a track record. Treat the win rate as a tally, not a probability.</p>`:''}
+
+  <div class="sec">
+    <h2>Open <span class="tag trade">${o.length}</span></h2>
+    <p class="lede">What you hold, what it is doing, and the rule that applies. Open a row for the mechanics.</p>
+    ${o.length?o.map(position).join(''):`<p class="empty">Nothing open. Cash is a position.</p>`}
+  </div>
+
+  ${taken.length?`<div class="sec">
+    <h2>Closed · real money <span class="tag trade">${taken.length}</span></h2>
+    <p class="lede">What actually happened, and what it taught.</p>
+    ${taken.slice().reverse().map(t=>`<div class="row">
+      <div class="sym">${esc(t.sym)}<small><span class="real">real</span></small></div>
+      <div class="main"><div class="t">${esc(t.n)} ${esc(t.sym)} ${esc(t.contract)} at ${money(t.paid)}
+        → ${money(t.exit)}</div>
+        ${t.lesson?`<div class="miss">${esc(t.lesson)}</div>`:''}</div>
+      <div class="num"><span class="big ${t.pl>=0?'up':'dn'}">${t.pl>=0?'+':'−'}${n0(t.pl)}</span>
+        <span class="u">${pct(t.pct)} · ${esc(t.opened||'')} → ${esc(t.closed)}</span></div>
+    </div>`).join('')}
+  </div>`:''}
+
+  <div class="sec">
+    <h2>Closed · paper <span class="tag watch">record</span></h2>
+    <p class="lede">Kept whole. A book that only shows winners is not a book.</p>
+    ${c.length?c.map(closedRow).join(''):`<p class="empty">Nothing closed yet.</p>`}
+  </div>
+
+  <details class="deep">
+    <summary>How a position is marked and closed</summary>
+    <div class="in">
+      <div class="chk"><span class="k">SH</span><span class="d"><b style="color:var(--ink)">Shares</b> —
+        when price reaches the target a floor is set there. The trade closes only if it falls back to the
+        floor, or at 252 sessions.</span><span class="r yes">automatic</span></div>
+      <div class="chk"><span class="k">C</span><span class="d"><b style="color:var(--ink)">Calls</b> —
+        marked at a real bid/ask midpoint where one is available, else Black-Scholes. Closed at expiry at
+        intrinsic value.</span><span class="r yes">automatic</span></div>
+      <div class="chk"><span class="k">$</span><span class="d"><b style="color:var(--ink)">Cap</b> —
+        $600 is the most in one option position, and no single name goes over 20% of the
+        account.</span><span class="r no">manual</span></div>
+      <div class="chk"><span class="k">E</span><span class="d"><b style="color:var(--ink)">Setup E is
+        retired.</b> Seven open positions still carry the tag. They were opened before the revenue condition
+        existed and are left marked rather than quietly relabelled.</span><span class="r no">retired</span></div>
+      <p class="more" style="padding-top:var(--s3)">No tight stops, ever. Six separate tests say wider always
+      beats tighter — a −10% stop returns +8.87% where a −50% stop returns +21.29%.</p>
+    </div>
+  </details>
+
+  <p class="foot">Prices: Yahoo Finance. Option marks tagged <b>schwab</b> or <b>alpaca</b> are a real bid/ask
+  midpoint; <b>iv</b> and <b>est</b> are Black-Scholes, a model, not a quote.</p>`;
+}
+
+function shape(state){
+  const d=JSON.parse(JSON.stringify(LIVE));
+  if(state==='none'){ d.open=[];d.closed=[];d.taken=[]; }
+  if(state==='real'){ d.open=d.open.map(r=>({...r,acct:'real'})); }
+  if(state==='long'){
+    d.open=d.open.map(r=>r.kind==='call'
+      ? {...r,symbol:'BRKB',strike:'1250',expiry:'2028-01-21',contracts:'12'} : r);
+  }
+  return d;
+}
+</script>
+<script src="review.js" defer></script>
+</body>
+</html>
