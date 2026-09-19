@@ -50,15 +50,28 @@ h1,h2,h3{text-wrap:balance}
 .seg button:focus-visible{outline:2px solid var(--amber2);outline-offset:-2px}
 .lg{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
 
-.stage{max-width:1180px;margin:0 auto;padding:var(--s4) 18px 96px}
-.pane{border:1px solid var(--line);border-radius:6px;background:var(--bg);overflow:hidden;margin-bottom:var(--s5)}
-.pane>figcaption{display:flex;align-items:baseline;gap:var(--s3);padding:var(--s2) var(--s3);
+.stage{max-width:1600px;margin:0 auto;padding:var(--s4) 18px 96px}
+
+/* Both panes are the same height and scroll independently, so the comparison is
+   like for like. Stacking them made the after look longer than it is. */
+.panes{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin-bottom:var(--s5);align-items:start}
+body[data-v=before] .panes{grid-template-columns:1fr}
+body[data-v=after]  .panes{grid-template-columns:1fr}
+body[data-v=before] .pane.after{display:none}
+body[data-v=after]  .pane.before{display:none}
+@media(max-width:1100px){.panes{grid-template-columns:1fr}}
+
+.pane{margin:0;border:1px solid var(--line);border-radius:6px;background:var(--bg);overflow:hidden;min-width:0}
+.pane.after{border-color:var(--amber)}
+.pane>figcaption{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;padding:var(--s2) var(--s3);
   background:var(--bg2);border-bottom:1px solid var(--line);
   font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
 .pane>figcaption b{color:var(--ink)}
-.pane iframe{display:block;width:100%;height:760px;border:0;background:var(--bg)}
-.frame{margin:0 auto;transition:max-width .3s cubic-bezier(.2,.8,.2,1)}
-body[data-w=phone] .frame{max-width:390px}
+.pane.after>figcaption b{color:var(--amber)}
+.pane .frame{margin:0 auto;height:820px;overflow-y:auto;overflow-x:hidden;
+  transition:max-width .3s cubic-bezier(.2,.8,.2,1);scrollbar-width:thin}
+body[data-w=phone] .pane .frame{max-width:390px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.pane iframe{display:block;width:100%;height:2400px;border:0;background:var(--bg)}
 .synth{background:var(--dn);color:#fff;padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:.08em}
 
 /* ── THE PROPOSED TODAY PAGE ───────────────────────────────────────────────── */
@@ -172,6 +185,12 @@ body[data-w=phone] .frame{max-width:390px}
 <div class="chrome"><div class="in">
   <span class="ttl">Ledger redesign · page 1 of 8 · Today</span>
   <span class="sp"></span>
+  <span class="lg">view</span>
+  <div class="seg" id="seg-v">
+    <button data-v="both" aria-pressed="true">both</button>
+    <button data-v="before" aria-pressed="false">before</button>
+    <button data-v="after" aria-pressed="false">after</button>
+  </div>
   <span class="lg">state</span>
   <div class="seg" id="seg-state">
     <button data-s="live" aria-pressed="true">live</button>
@@ -196,15 +215,17 @@ body[data-w=phone] .frame{max-width:390px}
 
 <div class="stage">
 
-  <figure class="pane">
-    <figcaption><b>Before</b> · the current Scan page, live</figcaption>
-    <div class="frame"><iframe src="../index.html" title="Current Ledger scan page" loading="lazy"></iframe></div>
-  </figure>
+  <div class="panes">
+    <figure class="pane before">
+      <figcaption><b>Before</b> · the current Scan page, live <span id="beforenote"></span></figcaption>
+      <div class="frame"><iframe id="beforeframe" src="../index.html" title="Current Ledger scan page"></iframe></div>
+    </figure>
 
-  <figure class="pane">
-    <figcaption><b>Proposed after</b> · Today <span id="statelabel"></span></figcaption>
-    <div class="frame"><div id="after" class="today"></div></div>
-  </figure>
+    <figure class="pane after">
+      <figcaption><b>Proposed after</b> · Today <span id="statelabel"></span></figcaption>
+      <div class="frame"><div id="after" class="today"></div></div>
+    </figure>
+  </div>
 
   <div class="kc">
     <section class="keep">
@@ -432,6 +453,10 @@ document.querySelectorAll('#seg-state button').forEach(b=>b.addEventListener('cl
   document.querySelectorAll('#seg-state button').forEach(x=>x.setAttribute('aria-pressed',x===b));
   paint();
 }));
+document.querySelectorAll('#seg-v button').forEach(b=>b.addEventListener('click',()=>{
+  document.body.dataset.v=b.dataset.v;
+  document.querySelectorAll('#seg-v button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+}));
 document.querySelectorAll('#seg-w button').forEach(b=>b.addEventListener('click',()=>{
   document.body.dataset.w=b.dataset.w;
   document.querySelectorAll('#seg-w button').forEach(x=>x.setAttribute('aria-pressed',x===b));
@@ -441,6 +466,41 @@ document.querySelectorAll('#seg-t button').forEach(b=>b.addEventListener('click'
   document.querySelectorAll('#seg-t button').forEach(x=>x.setAttribute('aria-pressed',x===b));
 }));
 document.documentElement.dataset.theme='dark';
+document.body.dataset.v='both';
+
+/* The BEFORE pane is the real index.html, unmodified on disk. Two things are done
+   to it from here so the comparison is fair:
+     1. index.html restores your last tab from localStorage, so it can open on
+        Trades. Force it to Scan — that is the page being compared.
+     2. index.html has no [data-theme] override yet (that is one of the CHANGES
+        being proposed), so the light toggle is injected into the frame instead of
+        edited into the live file. */
+const LIGHT=`--bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
+  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;--amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;`;
+const DARK=`--bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;--amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;`;
+
+function themeFrame(t){
+  const f=document.getElementById('beforeframe');
+  try{
+    const doc=f.contentWindow.document;
+    let s=doc.getElementById('__review_theme');
+    if(!s){ s=doc.createElement('style'); s.id='__review_theme'; doc.head.appendChild(s); }
+    s.textContent=`:root{${t==='light'?LIGHT:DARK}}`;
+  }catch(e){}
+}
+(function(){
+  const f=document.getElementById('beforeframe'), note=document.getElementById('beforenote');
+  f.addEventListener('load',()=>{
+    try{
+      const b=f.contentWindow.document.querySelector('nav [data-tab="scan"]');
+      if(b) b.click(); else throw new Error('no tab');
+      themeFrame(document.documentElement.dataset.theme);
+    }catch(e){ note.innerHTML='· <span class="synth">click the Scan tab in this pane</span>'; }
+  });
+})();
+document.querySelectorAll('#seg-t button').forEach(b=>
+  b.addEventListener('click',()=>themeFrame(b.dataset.t)));
 
 renderAfter({},'loading');
 fetch('../data.json?'+Date.now()).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
