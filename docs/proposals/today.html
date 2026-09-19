@@ -68,7 +68,7 @@ body[data-v=after]  .pane.before{display:none}
   font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
 .pane>figcaption b{color:var(--ink)}
 .pane.after>figcaption b{color:var(--amber)}
-.pane .frame{margin:0 auto;height:820px;overflow-y:auto;overflow-x:hidden;
+.pane .frame{margin:0 auto;height:820px;overflow-y:auto;overflow-x:hidden;container-type:inline-size;
   transition:max-width .3s cubic-bezier(.2,.8,.2,1);scrollbar-width:thin}
 body[data-w=phone] .pane .frame{max-width:390px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
 .pane iframe{display:block;width:100%;height:2400px;border:0;background:var(--bg)}
@@ -76,7 +76,7 @@ body[data-w=phone] .pane .frame{max-width:390px;border-left:1px solid var(--line
 
 /* ── THE PROPOSED TODAY PAGE ───────────────────────────────────────────────── */
 .today{padding:var(--s4) var(--s4) var(--s5)}
-@media(max-width:720px){.today{padding:var(--s3) var(--s3) var(--s4)}}
+@container (max-width:720px){.today{padding:var(--s3) var(--s3) var(--s4)}}
 
 /* masthead — CHANGED: admin control removed, identity only */
 .tmast{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
@@ -94,6 +94,48 @@ body[data-w=phone] .pane .frame{max-width:390px;border-left:1px solid var(--line
 .verdict p.say.fires b{color:var(--up)}
 .verdict .sub{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:60ch}
 .verdict .sub b{color:var(--ink);font-weight:500}
+/* CHANGED: the paragraph became one scannable count line plus one sentence. */
+.vstat{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);
+  font:500 var(--t-data) var(--mono);color:var(--ink2);font-variant-numeric:tabular-nums}
+.vstat b{color:var(--ink);font-weight:600}
+.vquiet{margin:var(--s1) 0 0;font-size:var(--t-data);line-height:1.6;color:var(--dim);max-width:60ch}
+.vquiet b{color:var(--ink2);font-weight:500}
+.verdict .row:first-of-type{margin-top:var(--s4)}
+
+/* what this is — Karla asked "is this recommendations?", "is this an app?",
+   "how does it work?". One line answers all three; the detail folds away. */
+.whatis{margin-top:var(--s2);border-bottom:1px solid var(--line)}
+.whatis>summary{cursor:pointer;list-style:none;display:flex;gap:var(--s2);flex-wrap:wrap;
+  align-items:baseline;padding:var(--s2) 0;font-size:var(--t-data);color:var(--ink2)}
+.whatis>summary::-webkit-details-marker{display:none}
+.whatis>summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.whatis b.not{color:var(--dn);font-weight:600}
+.whatis .how{margin-left:auto;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--amber);white-space:nowrap}
+.whatis[open] .how::after{content:' ▴'}
+.whatis:not([open]) .how::after{content:' ▾'}
+.whatis .in{padding:0 0 var(--s3)}
+.whatis .in p{margin:0 0 var(--s2);font-size:var(--t-data);line-height:1.65;color:var(--ink2);max-width:66ch}
+.whatis .in b{color:var(--ink);font-weight:500}
+
+/* summary pair — Getting close and Watching sit together, above the trades */
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
+@container (max-width:820px){.sum{grid-template-columns:1fr;gap:var(--s5)}}
+.row.tight{padding:var(--s2) 0;align-items:center}
+.row.tight .miss{margin-top:0}
+.row .num .mid{font:600 var(--t-body) var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.row .num .mid.up{color:var(--up)}.row .num .mid.dn{color:var(--dn)}
+.more{margin:var(--s2) 0 0;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+
+/* recent activity — the week strip is five real scans, not a sparkline */
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:5px;overflow:hidden;margin-top:var(--s3)}
+.week>div{background:var(--panel);padding:var(--s2);text-align:center}
+.week>div.hit{background:color-mix(in srgb,var(--up) 14%,var(--panel))}
+.week .wd{display:block;font-size:var(--t-label);letter-spacing:var(--tr);color:var(--dim)}
+.week .wn{display:block;font:600 var(--t-h2)/1.2 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.week>div.hit .wn{color:var(--up)}
 
 /* market context — CHANGED: was a 76px hero, now one quiet strip */
 .ctx{display:flex;flex-wrap:wrap;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
@@ -128,7 +170,7 @@ body[data-w=phone] .pane .frame{max-width:390px;border-left:1px solid var(--line
 .row .num .big{font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
 .row .num .u{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin-top:3px}
 .row .num .up{color:var(--up)}.row .num .dn{color:var(--dn)}
-@media(max-width:560px){
+@container (max-width:560px){
   .row{grid-template-columns:1fr auto}
   .row .sym{grid-column:1}
   .row .num{grid-column:2;grid-row:1}
@@ -231,26 +273,43 @@ body[data-w=phone] .pane .frame{max-width:390px;border-left:1px solid var(--line
     <section class="keep">
       <h3>Kept</h3>
       <ul>
-        <li><b>"Most days nothing fires, and that is the point."</b> It is now the hero instead of a subtitle.</li>
-        <li><b>Signal truth.</b> The count still means only what can actually be traded today.</li>
-        <li><b>Market regime context.</b> VIX, its 5-day path, QQQ and its drawdown all survive.</li>
-        <li><b>Setup integrity.</b> No setup definition, threshold or calculation was touched.</li>
-        <li><b>Research-terminal identity.</b> Same serif, same mono, same palette, same tokens, same spacing scale.</li>
-        <li><b>Trades of the day</b> renders unchanged, above everything else.</li>
+        <li><b>The whole visual direction</b> — verdict hierarchy, compact VIX/QQQ strip, typography, palette,
+          spacing scale. All tokens still come from index.html unchanged.</li>
+        <li><b>Collapsed empty setups</b>, now behind <b>View all checks</b>.</li>
+        <li><b>Getting Close and Watching logic</b> — still read from the scanner's own fields, still no score.</li>
+        <li><b>Run scan now stays out</b> of the masthead. It belongs to System, page 8.</li>
+        <li><b>"Most days nothing fires"</b> survives as the one quiet line under the verdict.</li>
+        <li><b>No scanner logic or data was touched.</b> This file only reads data.json.</li>
       </ul>
     </section>
     <section class="chg">
-      <h3>Changed</h3>
+      <h3>Changed in this revision</h3>
       <ul>
-        <li><b>The verdict is the hero.</b> A plain sentence in serif answers the day before any number appears.</li>
-        <li><b>VIX shrinks</b> from a 76px hero to one value in a context strip. It is input, not answer.</li>
-        <li><b>Empty setups collapse.</b> Four headed sections with "none today" became one disclosure that states the count.</li>
-        <li><b>Getting close</b> is a real section. Each name says <b>which condition is missing</b>, read from the scanner's own <code>why</code> field.</li>
-        <li><b>Watching</b> separates watchlist-only research from signals, and is labelled as such.</li>
-        <li><b>Run scan now</b> leaves the masthead. It belongs to System, page 8.</li>
-        <li><b>Light mode is fixed.</b> The palette was behind a bare media query, so an explicit light choice lost to a dark OS.</li>
+        <li><b>New order.</b> Verdict → Market context → Getting Close / Watching → Trades of the day →
+          Recent activity → View all checks. The scanner is the primary experience again.</li>
+        <li><b>The paragraph is gone.</b> Under the verdict: one count line, then one sentence. The rest of the
+          explanation moved behind View all checks.</li>
+        <li><b>Getting Close and Watching are summaries</b> — four rows each, then "+N more".</li>
+        <li><b>Recent activity is new</b>, built from closed trades and the last five scans. Real data only.</li>
+        <li><b>Fired signals now sit inside the verdict</b> rather than in their own section, because the
+          verdict is the answer. Your order had no separate Signals block.</li>
+        <li><b>A one-line answer to "what is this"</b> — see the note below.</li>
       </ul>
     </section>
+  </div>
+
+  <div class="gate" style="border-color:var(--amber)">
+    <h3>Two things I changed that you did not ask for</h3>
+    <p style="margin-bottom:var(--s2)"><b>1. Karla's three questions.</b> She asked "Recommended stock buys?",
+    "Is this your app?" and "How does it work?" A first-time visitor cannot tell what this is, and reading it as
+    recommendations is the bad outcome. There is now one line under the masthead —
+    <b>"Arrington's own trades, logged win or lose. Not recommendations."</b> — with the how-it-works detail
+    folded behind it. Say the word and I will pull it.</p>
+    <p><b>2. I removed a number that was wrong.</b> The count line first read "30 names". That was the union of
+    setup hits, not the universe, and it printed <b>"1 names"</b> on a quiet day. The real universe is
+    <b>63 names</b>, but data.json does not carry that figure, so I dropped the claim rather than guess it.
+    To show it honestly, <code>scan_daily.py</code> needs to emit one new field. That is a data change, so it
+    waits for you.</p>
   </div>
 
   <div class="gate">
@@ -305,7 +364,7 @@ function renderAfter(d,state){
     A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when">loading…</span></div>
       <div class="verdict"><div class="eyebrow">the verdict</div>
         <div class="sk" style="height:46px;width:min(20ch,90%)"></div>
-        <div class="sk" style="height:14px;width:min(52ch,95%);margin-top:20px"></div></div>
+        <div class="sk" style="height:14px;width:min(40ch,95%);margin-top:20px"></div></div>
       <div class="ctx">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:19px;width:70px"></div></div>'.repeat(3)}</div>`;
     return;
   }
@@ -313,7 +372,7 @@ function renderAfter(d,state){
     A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when stale">no data</span></div>
       <div class="verdict"><div class="eyebrow">the verdict</div>
         <p class="say">Today is <b style="color:var(--dn)">unknown</b>.</p>
-        <p class="sub">The page could not load <b>data.json</b>, so nothing below is current. This is not a quiet
+        <p class="vquiet">The page could not load <b>data.json</b>, so nothing below is current. This is not a quiet
         day — it is a page with no data. Do not read it as "nothing fires".</p></div>
       <div class="sec"><div class="err">HTTP 404 fetching data.json. The last scan may have failed to publish.
         Check the workflow run, then reload.</div></div>`;
@@ -322,42 +381,75 @@ function renderAfter(d,state){
 
   const stale = state==='stale';
   const live  = fired(d);
-  const blocked=d.blocked||[], watch=d.D||[], weekly=d.weekly||[];
+  const blocked=d.blocked||[], watch=d.D||[], weekly=(d.weekly||[]).filter(r=>r.state==='crossed');
   const universe=(d.F||[]).length+(d.D||[]).length+(d.C||[]).length+(d.S||[]).length+blocked.length;
+  const CAP=4;
 
+  /* ── 1. verdict ─────────────────────────────────────────────────────────── */
   const say = live.length
     ? `<p class="say fires">${live.length===1?'One setup':live.length+' setups'} <b>fires</b> today.</p>`
     : `<p class="say">Nothing <b>fires</b> today.</p>`;
-  const sub = live.length
-    ? `<p class="sub">Read the trade before you place it. A signal is a condition that was met, <b>not a
-       prediction</b>. Size it at the $600 cap.</p>`
-    : `<p class="sub">All six setups were checked against ${universe?universe+" names":"every name"} in the universe. None met its
-       conditions. Roughly three signals arrive a month, so <b>nine days in ten look like this</b>. The checks
-       are below.</p>`;
 
-  const nearRows = blocked.length ? blocked.map(r=>`<div class="row">
-      <div class="sym">${esc(r.sym)}<small>setup F</small></div>
-      <div class="main"><div class="t">In the F price band, ${r.dd.toFixed(1)}% below its high.</div>
-        <div class="miss">Missing: <b>${esc(r.why)}</b></div></div>
-      <div class="num"><span class="big">${f2(r.px)}</span><span class="u">+${r.up.toFixed(1)}% to target</span></div>
-    </div>`).join('')
-    : `<p class="empty">No name is in a setup's price band with a single condition outstanding.</p>`;
+  /* The names count was the union of setup hits, not the universe — it read "1 names"
+     on a quiet day. data.json carries no universe size, so the claim is dropped rather
+     than guessed. Adding `universe` to the scan output is a data change, and needs
+     approval before the count can come back. */
+  const stat = `<div class="vstat"><span><b>6</b> setups checked</span><span>·</span>
+    <span><b>${live.length}</b> triggered</span></div>`;
 
-  const watchRows = (watch.length||weekly.length) ? (
-      watch.map(r=>`<div class="row">
-        <div class="sym">${esc(r.sym)}<small>setup D</small></div>
-        <div class="main"><div class="t">${r.dd.toFixed(1)}% below its high, RSI ${r.rsi.toFixed(0)}, up over 126 sessions.</div>
-          <div class="miss">Watchlist only. Setup D never beat random picking on the honest universe.</div></div>
-        <div class="num"><span class="big">${f2(r.px)}</span><span class="u">+${r.up.toFixed(1)}% upside</span></div>
-      </div>`).join('') +
-      weekly.filter(r=>r.state==='crossed').map(r=>`<div class="row">
-        <div class="sym">${esc(r.sym)}<small>weekly</small></div>
-        <div class="main"><div class="t">Weekly 10 EMA crossed the 30. The 30 is ${r.up?'rising':'falling'}.</div>
-          <div class="miss">Watchlist only. +0.49pp once the top five names come out, p=0.363.</div></div>
-        <div class="num"><span class="big">${f2(r.px)}</span><span class="u">${r.gap>0?'+':''}${r.gap.toFixed(1)}% gap</span></div>
-      </div>`).join('')
-    ) : `<p class="empty">Nothing on the watchlists today.</p>`;
+  const quietLine = live.length
+    ? `<p class="vquiet">A signal is a condition that was met, not a prediction. The $600 cap still applies.</p>`
+    : `<p class="vquiet">Quiet is expected — roughly 3 signals arrive per month.</p>`;
 
+  const firedRows = live.length ? live.map(r=>`<div class="row">
+      <div class="sym">${esc(r.sym)}</div>
+      <div class="main"><div class="t">${r.t}</div></div>
+      <div class="num"><span class="big">${r.num}</span><span class="u">${r.u}</span></div>
+    </div>`).join('') : '';
+
+  /* ── 3. getting close / watching, as a summary ──────────────────────────── */
+  const nearRows = blocked.length ? blocked.slice(0,CAP).map(r=>`<div class="row tight">
+      <div class="sym">${esc(r.sym)}</div>
+      <div class="main"><div class="miss">missing <b>${esc(r.why)}</b></div></div>
+      <div class="num"><span class="mid">${f2(r.px)}</span></div>
+    </div>`).join('') + (blocked.length>CAP?`<p class="more">+${blocked.length-CAP} more · view all checks</p>`:'')
+    : `<p class="empty">Nothing is one condition away.</p>`;
+
+  const wRows=[
+    ...watch.slice(0,CAP).map(r=>`<div class="row tight">
+      <div class="sym">${esc(r.sym)}<small>setup D</small></div>
+      <div class="main"><div class="miss">${r.dd.toFixed(1)}% off high · RSI ${r.rsi.toFixed(0)} · never beat random</div></div>
+      <div class="num"><span class="mid">${f2(r.px)}</span></div>
+    </div>`),
+    ...weekly.slice(0,2).map(r=>`<div class="row tight">
+      <div class="sym">${esc(r.sym)}<small>weekly</small></div>
+      <div class="main"><div class="miss">10 EMA crossed the 30, which is ${r.up?'rising':'falling'} · p=0.363</div></div>
+      <div class="num"><span class="mid">${f2(r.px)}</span></div>
+    </div>`)];
+  const extra=(watch.length>CAP?watch.length-CAP:0)+(weekly.length>2?weekly.length-2:0);
+  const watchRows = wRows.length
+    ? wRows.join('')+(extra?`<p class="more">+${extra} more · view all checks</p>`:'')
+    : `<p class="empty">Nothing on the watchlists.</p>`;
+
+  /* ── 5. recent activity, from closed trades and the last five scans ─────── */
+  const taken=(d.taken||[]).slice(-3).reverse();
+  const days=((d.week&&d.week.days)||[]).slice(-5);
+  const dayFired=x=>(x.F||[]).length+(x.vix_fires?1:0)+(x.vix>=25?(x.S||[]).length:0);
+  const activity = (taken.length||days.length) ? `
+    ${taken.map(t=>`<div class="row tight">
+      <div class="sym">${esc(t.sym)}<small>${esc(t.closed||'')}</small></div>
+      <div class="main"><div class="t">${esc(t.contract)} closed</div>
+        ${t.lesson?`<div class="miss">${esc(t.lesson)}</div>`:''}</div>
+      <div class="num"><span class="mid ${t.pl>=0?'up':'dn'}">${t.pl>=0?'+':'−'}${n0(t.pl)}</span>
+        <span class="u">${t.pct>=0?'+':''}${Number(t.pct).toFixed(1)}%</span></div>
+    </div>`).join('')}
+    ${days.length?`<div class="week">${days.map(x=>{const n=dayFired(x);return `<div${n?' class="hit"':''}>
+        <span class="wd">${esc(String(x.date).slice(5))}</span>
+        <span class="wn">${n||'—'}</span></div>`;}).join('')}</div>
+      <p class="more">the last ${days.length} scans · number of setups that fired</p>`:''}`
+    : `<p class="empty">No closed trades yet.</p>`;
+
+  /* ── 6. the checks ──────────────────────────────────────────────────────── */
   const check=(k,name,n,note)=>`<div class="chk"><span class="k">${k}</span>
     <span class="d"><b style="color:var(--ink)">${name}</b> — ${note}</span>
     <span class="r ${n?'yes':'no'}">${n?n+' fired':'none'}</span></div>`;
@@ -368,13 +460,26 @@ function renderAfter(d,state){
     <span class="when${stale?' stale':''}">${stale?'data 3 days old · scan has not run':esc(d.date)+' · scanned '+esc(d.stamp)}</span>
   </div>
 
+  <details class="whatis">
+    <summary><span>Arrington's own trades, logged win or lose. <b class="not">Not recommendations.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>I decide on a trade. The scanner checks it against six setups that were tested against thousands of
+      historical cases. Then it goes up here — whether it worked or not.</p>
+      <p>Setups that <b>failed</b> their test are labelled <b>watchlist only</b> and are kept for the record.
+      Nothing on this page is financial advice, and none of it is a prediction.</p>
+    </div>
+  </details>
+
   ${stale?`<div class="stalebar" style="margin-top:var(--s3)"><b>This data is 3 days old.</b> The last two scheduled
     scans did not publish. Prices and marks below are from the last good run, not from now.</div>`:''}
 
   <div class="verdict">
     <div class="eyebrow">the verdict</div>
     ${say}
-    ${sub}
+    ${stat}
+    ${quietLine}
+    ${firedRows}
   </div>
 
   <div class="ctx">
@@ -384,44 +489,42 @@ function renderAfter(d,state){
     ${d.vix>=20?`<p class="warn">VIX over 20 means bigger swings <b style="color:var(--ink)">both ways</b>. Size smaller, not bigger.</p>`:''}
   </div>
 
+  <div class="sec"><div class="sum">
+    <div>
+      <h2>Getting close <span class="tag watch">not a signal</span></h2>
+      <p class="lede">Inside a setup's band, one condition short. The missing condition is named. No score, no ranking.</p>
+      ${nearRows}
+    </div>
+    <div>
+      <h2>Watching <span class="tag watch">research only</span></h2>
+      <p class="lede">Here because the research is interesting, not because it is tradeable.</p>
+      ${watchRows}
+    </div>
+  </div></div>
+
   ${todayTrades(d)}
 
   <div class="sec">
-    <h2>Signals <span class="tag trade">tradeable</span></h2>
-    <p class="lede">A setup whose conditions were all met at today's close.</p>
-    ${live.length ? live.map(r=>`<div class="row">
-        <div class="sym">${esc(r.sym)}</div>
-        <div class="main"><div class="t">${r.t}</div></div>
-        <div class="num"><span class="big">${r.num}</span><span class="u">${r.u}</span></div>
-      </div>`).join('')
-      : `<p class="empty">None. This is the ordinary outcome.</p>`}
-  </div>
-
-  <div class="sec">
-    <h2>Getting close <span class="tag watch">not a signal</span></h2>
-    <p class="lede">Names inside a setup's price band with conditions still outstanding. The missing condition is
-    named. There is no score and no ranking — a near miss is not a weak signal.</p>
-    ${nearRows}
-  </div>
-
-  <div class="sec">
-    <h2>Watching <span class="tag watch">research, untested or failed</span></h2>
-    <p class="lede">Shown because the research is interesting, not because it is tradeable.</p>
-    ${watchRows}
+    <h2>Recent activity</h2>
+    <p class="lede">Closed trades and what the scanner has seen this week.</p>
+    ${activity}
   </div>
 
   <details class="deep">
-    <summary>The checks · all six setups, ${universe||'every'} names <span style="color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0"> </span></summary>
+    <summary>View all checks</summary>
     <div class="in">
       ${check('VIX','Setup VIX',d.vix_fires?1:0,'VIX 25+ in the last 10 sessions and falling 3 in a row. 10-day high '+d.vix_hi10.toFixed(1)+'.')}
-      ${check('F','Setup F',(d.F||[]).length,'20–45% below the 252-day high, 10&gt;30, 50&gt;200, revenue +25% from SEC filings.')}
-      ${check('D','Setup D',(d.D||[]).length,'5–20% below the high, up over 126 sessions, RSI over 55. Watchlist only.')}
-      ${check('C','Setup C',(d.C||[]).length,'10 EMA crosses the 50 SMA within 5 sessions, 50&gt;200, close clears the 20-day high.')}
+      ${check('F','Setup F',(d.F||[]).length,'20–45% below the 252-day high, 10&gt;30, 50&gt;200, revenue +25% from SEC filings. Target is the prior high, no stop.')}
+      ${check('D','Setup D',(d.D||[]).length,'5–20% below the high, up over 126 sessions, RSI over 55. Watchlist only — it never beat random picking on the honest universe.')}
+      ${check('C','Setup C',(d.C||[]).length,'10 EMA crosses the 50 SMA within 5 sessions, 50&gt;200, close clears the 20-day high. Tech only.')}
       ${check('S','Setup S',d.vix>=25?(d.S||[]).length:0,d.vix<25?'Needs VIX 25+. VIX is '+d.vix.toFixed(1)+', so this setup does nothing today.':'Close under the 20-day low with the 50 EMA under the 200.')}
       ${check('×','Blocked',blocked.length,'In the F price band but failing at least one condition. Blocked names hit 39% versus 71% for passers.')}
+      ${check('W','Weekly cross',weekly.length,'Weekly 10/30 EMA cross. +0.49pp once the top five names come out, p=0.363 — watchlist only.')}
       ${(d.errors&&d.errors.length)?`<div class="chk"><span class="k">!</span>
         <span class="d">${d.errors.length} names failed to fetch: ${esc(d.errors.map(e=>String(e).split(':')[0]).join(', '))}</span>
         <span class="r no">incomplete</span></div>`:''}
+      <p class="more" style="padding-top:var(--s3)">Three signals a month is the long-run rate, so nine days in ten
+      look like today. A quiet scan is the scanner working, not the scanner failing.</p>
     </div>
   </details>
 
