@@ -95,6 +95,14 @@ folder is the page as it stood before.
 | 7 | Methodology | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
 | 8 | System | ✓ | ✓ | ✓ | **✓ 2026-09-18** |
 
+## The account target
+
+`docs/plan.html` is the written plan. The headline is **$30,000 by December 2027**,
+not $3,000 a month — that is the destination and too far to aim at. The progress
+bar hardcodes the balance (`28.3%`, $8,500 of $30,000, as of 2026-09-18). There is
+no account-balance field anywhere in the data, so **update that number by hand** or
+it silently goes stale.
+
 ## Open items, carried forward
 
 - ~~Universe count~~ — closed 2026-09-18. `scan_daily.py` now emits `universe`

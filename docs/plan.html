@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Plan — $3,000 a Month</title>
+<title>The $30,000 Target</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="ledger.css">
@@ -73,6 +73,19 @@ tr.key td:first-child{color:var(--amber)}
 .chk .b{width:11px;height:11px;border:1px solid var(--line2);border-radius:2px;align-self:center}
 .chk b{color:var(--ink);font-weight:500}
 
+
+.prog{margin:var(--s5) 0 var(--s4)}
+.prog .bar{position:relative;height:10px;border-radius:5px;background:var(--line);overflow:visible}
+.prog .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:5px}
+.prog .bar .tick{position:absolute;top:-6px;width:2px;height:22px;background:var(--ink);
+  box-shadow:0 0 0 3px var(--bg);border-radius:1px}
+.prog .ends{display:flex;justify-content:space-between;margin-top:var(--s3);
+  font-size:var(--t-data);color:var(--ink2)}
+.prog .ends b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ms.target{border-top-color:var(--amber);border-bottom:1px solid var(--amber)}
+.ms.target .amt{color:var(--amber)}
+.ms.target .what{color:var(--ink)}
+.ms.after{opacity:.5}
 footer{margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid var(--line);
   font-size:var(--t-label);line-height:1.8;color:var(--dim);max-width:66ch}
 @container (max-width:620px){
@@ -86,11 +99,48 @@ footer{margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid var(--lin
 <a class="back" href="index.html">← Ledger</a>
 
 <div class="hero">
-  <div class="eyebrow">the plan · written 18 September 2026</div>
-  <h1>How <b>$8,500</b> becomes <b>$3,000</b> a month.</h1>
-  <p>Not by trading better. <b>By trading the same and getting bigger.</b> The arithmetic below is the
-  whole argument, and it says the account is the constraint — not the strategy.</p>
+  <div class="eyebrow">the target</div>
+  <h1>Get the account to <b>$30,000</b>.</h1>
+  <p>By <b>December 2027</b>. Then we re-plan, and not before. $3,000 a month is the destination —
+  <b>this is the next decision point</b>, and it is the only number worth aiming at right now.</p>
+
+  <div class="prog">
+    <div class="bar"><i style="width:28.3%"></i><span class="tick" style="left:28.3%"></span></div>
+    <div class="ends"><span><b>$8,500</b> today</span><span><b>$30,000</b> target</span></div>
+  </div>
+
+  <div class="sum2" style="border-bottom:0;padding-bottom:0">
+    <div><span class="l">to go</span><span class="v">$21,500</span><span class="n">28% of the way</span></div>
+    <div><span class="l">time</span><span class="v">15 mo</span><span class="n">to Dec 2027</span></div>
+    <div><span class="l">you deposit</span><span class="v ok">$1,000</span><span class="n">every month</span></div>
+    <div><span class="l">account earns</span><span class="v">~$430</span><span class="n">a month</span></div>
+  </div>
 </div>
+
+<h2>Why $30,000 and not $90,000</h2>
+<p class="l">One number changes what you are allowed to buy. The other is just further away.</p>
+<p>At $30,000 a <b>LEAPS contract costs 10% of the account</b> instead of 35%. That is the trade with an
+<b>87% win rate at 730 days</b> — the strongest result in this entire project, and the one your $600 cap
+currently locks you out of.</p>
+<p style="color:var(--ink)"><b>Nothing changes shape before $30,000. Everything changes shape at it.</b></p>
+<div class="hard"><p>Aiming at $90,000 from here means sizing for a 424% return. <b>Anything sized to reach
+that is sized to lose the account</b>, and on an option that takes a week.</p></div>
+
+<h2>The part that should make you comfortable</h2>
+<p class="l">The plan does not need you to get better. It needs you to keep feeding it.</p>
+<div class="scroll"><table>
+  <thead><tr><th>where it comes from</th><th class="r">over 15 months</th><th class="r">a month</th></tr></thead>
+  <tbody>
+    <tr><td>Starting account</td><td class="r">$8,500</td><td class="r">—</td></tr>
+    <tr><td>Your deposits</td><td class="r">$15,000</td><td class="r">$1,000</td></tr>
+    <tr class="key"><td>Trading</td><td class="r">~$6,500</td><td class="r">~$430</td></tr>
+    <tr><td><b>Total</b></td><td class="r"><b>$30,000</b></td><td class="r">—</td></tr>
+  </tbody>
+</table></div>
+<p style="margin-top:var(--s4)">That <b>$430 a month is exactly what the honest case below says this account
+can already produce</b> — $400 to $600. The target does not assume you improve. It assumes you keep doing
+what the account does and keep adding to it.</p>
+<p>If you fall behind the line, <b>the answer is a bigger deposit, not a bigger trade.</b></p>
 
 <h2>The arithmetic first</h2>
 <p class="l">This is the part that settles it. Everything after is a consequence.</p>
@@ -137,7 +187,7 @@ median of a number measured on companies that still exist. The ones that went to
 Everything below is about closing that gap.</p>
 
 <h2>The path</h2>
-<p class="l">40% a year, compounded monthly, plus $1,000 added each month. Projections, not promises.</p>
+<p class="l">40% a year, compounded monthly, plus $1,000 added each month. Projections, not promises. Everything past the target is context, not a plan.</p>
 
 <div class="ms now"><span class="amt">$8,500</span>
   <span class="what">Today<small>Two real trades closed. Net −$32. That is a start, not a record.</small></span>
@@ -145,13 +195,14 @@ Everything below is about closing that gap.</p>
 <div class="ms"><span class="amt">$15,000</span>
   <span class="what">First checkpoint<small>Enough to run four positions without the cap binding on every one.</small></span>
   <span class="when">Feb 2027</span></div>
-<div class="ms"><span class="amt">$30,000</span>
-  <span class="what">LEAPS become reachable<small>A $3,000 contract is 10% of the account. The 87% cell opens up.</small></span>
+<div class="ms target"><span class="amt">$30,000</span>
+  <span class="what">The target · stop here<small>A $3,000 contract is 10% of the account. The 87% cell opens
+  up, and the plan gets rewritten with numbers that do not exist yet.</small></span>
   <span class="when">Dec 2027</span></div>
-<div class="ms"><span class="amt">$60,000</span>
+<div class="ms after"><span class="amt">$60,000</span>
   <span class="what">$2,000 a month<small>At 40%, this account throws off $24,000 a year.</small></span>
   <span class="when">Jan 2029</span></div>
-<div class="ms"><span class="amt">$90,000</span>
+<div class="ms after"><span class="amt">$90,000</span>
   <span class="what">The target<small>$36,000 a year at 40%. $3,000 a month.</small></span>
   <span class="when">Nov 2029</span></div>
 
@@ -215,7 +266,7 @@ $1,000 a month of deposits.</b> Deposits are also the only part fully under your
 <div class="chk"><span class="b"></span><span>Did every trade taken <b>have a setup behind it</b>?</span></div>
 <div class="chk"><span class="b"></span><span>Did every call have <b>45 days or more</b> at entry?</span></div>
 <div class="chk"><span class="b"></span><span>Did any position exceed <b>$600</b>, or any name exceed <b>20%</b> of the account?</span></div>
-<div class="chk"><span class="b"></span><span>Is the account <b>on or above the line</b> in the path table?</span></div>
+<div class="chk"><span class="b"></span><span>Is the account <b>on or above the line</b> toward $30,000? <b style="color:var(--amber)">$15,000 by Feb 2027 · $30,000 by Dec 2027</b></span></div>
 
 <h2>What would make me wrong</h2>
 <p>Three things, and only these three:</p>
