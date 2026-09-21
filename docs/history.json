@@ -215,27 +215,28 @@
  },
  {
   "date": "2026-09-21",
-  "vix": 14.890000343322754,
+  "vix": 14.6899995803833,
   "regime": "CALM",
   "vix_fires": false,
-  "F": [],
+  "F": [
+   "NOW",
+   "BE"
+  ],
   "D": [
-   "DOCU",
-   "INTC",
+   "HOOD",
    "MU",
-   "PLTR",
+   "INTC",
    "GOOGL",
+   "SNOW",
+   "PLTR",
    "META",
-   "MRNA",
    "HPQ",
-   "MRK",
-   "NVDA"
+   "PANW",
+   "MRK"
   ],
   "C": [
    "AMD"
   ],
-  "S": [
-   "SPOT"
-  ]
+  "S": []
  }
 ]
