@@ -1,0 +1,66 @@
+{
+ "reports": [
+  {
+   "date": "2026-09-19",
+   "noticed": [
+    "behavioral",
+    "outcome_vs_decision",
+    "no_edge_yet",
+    "decay"
+   ],
+   "watching": [
+    {
+     "id": "next_real_clean",
+     "q": "Whether the next real trade comes from a documented setup.",
+     "n": 3
+    },
+    {
+     "id": "decay_SHOP",
+     "q": "What happens to SHOP 120C, 12 days out, as expiration approaches.",
+     "n": 1
+    },
+    {
+     "id": "deposit",
+     "q": "Whether the $1,000 deposit lands on the 1st.",
+     "n": 0
+    }
+   ],
+   "breaks": 5,
+   "break_kinds": [
+    "no setup",
+    "cap exceeded"
+   ]
+  },
+  {
+   "date": "2026-09-20",
+   "noticed": [
+    "behavioral",
+    "outcome_vs_decision",
+    "no_edge_yet",
+    "decay"
+   ],
+   "watching": [
+    {
+     "id": "next_real_clean",
+     "q": "Whether the next real trade comes from a documented setup.",
+     "n": 3
+    },
+    {
+     "id": "decay_SHOP",
+     "q": "What happens to SHOP 120C, 12 days out, as expiration approaches.",
+     "n": 1
+    },
+    {
+     "id": "deposit",
+     "q": "Whether the $1,000 deposit lands on the 1st.",
+     "n": 0
+    }
+   ],
+   "breaks": 3,
+   "break_kinds": [
+    "18d at entry, under 45",
+    "no setup"
+   ]
+  }
+ ]
+}

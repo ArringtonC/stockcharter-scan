@@ -593,58 +593,213 @@ def week(d, hist, closed, open_):
 # $8,500 the plan was drafted with was an estimate; this is the account.
 PLAN = dict(start=8355.13, deposit=1000.0, target=30000.0,
             target_date="2027-12-01", started="2026-09-20",
-            balance=8355.13, balance_as_of="2026-09-20")
+            balance=8355.13, balance_as_of="2026-09-20",
+            # add {"date": "2026-10-01", "amt": 1000} each time one lands
+            deposits=[])
+
+
+REPORT_STATE = os.path.join(DOCS, ".report-state.json")
+
+
+def _clean(t):
+    """Did this trade follow the rules that already existed when it was opened?
+    Returns (ok, [what broke]). Outcome is deliberately not consulted."""
+    bad = []
+    if (t.get("setup") or "none") in ("none", "", None):
+        bad.append("no setup")
+    if t.get("kind") == "call" and t.get("opened") and t.get("expiry"):
+        try:
+            held = (datetime.date.fromisoformat(t["expiry"])
+                    - datetime.date.fromisoformat(t["opened"])).days
+            if held < 45: bad.append(f"{held}d at entry, under 45")
+        except Exception:
+            pass
+    return (not bad), bad
 
 
 def report(d, hist, open_, closed):
+    """REMEMBER → NOTICE → EXPLAIN → DECIDE → WATCH.
+
+    The intelligence does more work so there is less to read. It picks the two to
+    four things that deserve attention this period rather than printing a fixed
+    dashboard, and it remembers what it said last time so the next report can
+    answer it.
+    """
     today = datetime.date.fromisoformat(d["date"])
     began = datetime.date.fromisoformat(PLAN["started"])
     months = max(0, (today.year - began.year) * 12 + today.month - began.month)
-    floor = PLAN["start"] + PLAN["deposit"] * months          # trading returns zero
+    deposited = sum(x["amt"] for x in PLAN["deposits"])
+    floor = PLAN["start"] + deposited
     bal = PLAN["balance"]
 
-    # scan activity — a quiet run is the scanner working, so count it plainly
-    sessions = len(hist)
+    # ── REMEMBER ──────────────────────────────────────────────────────────────
+    prev = {}
+    if os.path.exists(REPORT_STATE):
+        try: prev = json.load(open(REPORT_STATE))
+        except Exception: prev = {}
+    last = next((x for x in reversed(prev.get("reports") or []) if x.get("date") != d["date"]), {})
+
+    # ── facts ─────────────────────────────────────────────────────────────────
+    taken = d.get("taken", [])
+    real_open = [r for r in open_ if r["acct"] == "real"]
+    paper_open = [r for r in open_ if r["acct"] != "real"]
+    def avg(rows, k="pl_pct"):
+        v = [r[k] for r in rows if r.get(k) is not None]
+        return sum(v) / len(v) if v else None
+
+    # every real trade, closed and open, judged on process not outcome
+    real_all = [dict(sym=t["sym"], setup=t.get("setup"), kind="call",
+                     opened=t.get("opened"), expiry=None, pl=t.get("pct"), closed=True)
+                for t in taken]
+    for r in real_open:
+        real_all.append(dict(sym=r["symbol"], setup=r.get("setup"), kind=r.get("kind"),
+                             opened=r.get("opened"), expiry=r.get("expiry"),
+                             pl=r.get("pl_pct"), closed=False))
+    for t in real_all:
+        t["ok"], t["broke"] = _clean(t)
+    clean_n = sum(1 for t in real_all if t["ok"])
+    broke_n = len(real_all) - clean_n
+    break_kinds = sorted({b for t in real_all for b in t["broke"]})
+
     fired_days = [x for x in hist if x["F"] or x["vix_fires"] or (x["vix"] >= 25 and x["S"])]
     quiet_run = 0
     for x in reversed(hist):
         if x in fired_days: break
         quiet_run += 1
 
-    # positions, kept apart — paper is a test, real is money
-    real_open = [r for r in open_ if r["acct"] == "real"]
-    paper_open = [r for r in open_ if r["acct"] != "real"]
-    def avg(rows):
-        v = [r["pl_pct"] for r in rows if r.get("pl_pct") is not None]
-        return sum(v) / len(v) if v else None
-    taken = d.get("taken", [])
-    real_net = sum(t.get("pl", 0) for t in taken)
+    decay = sorted([r for r in open_ if r.get("kind") == "call" and (r.get("dte") or 99) <= 21],
+                   key=lambda r: r["dte"])
+    by_setup = (d.get("week") or {}).get("by_setup", {})
 
-    # the one thing worth interrupting for: a call in the decay window
-    decaying = sorted([r for r in open_ if r.get("kind") == "call" and (r.get("dte") or 99) <= 21],
-                      key=lambda r: r["dte"])
+    # pace: the plan needs this much from trading each month
+    need = round((PLAN["target"] - PLAN["start"] - PLAN["deposit"] * 15) / 15)
 
-    # rule breaks, counted rather than described
-    breaks = []
-    for t in taken:
-        if t.get("setup") in (None, "none"): breaks.append(f"{t['sym']} had no setup behind it")
-    for r in open_:
-        if r.get("kind") == "call" and (r.get("dte") or 99) < 45 and r["acct"] == "real":
-            breaks.append(f"{r['symbol']} is inside 45 days")
+    # ── NOTICE ────────────────────────────────────────────────────────────────
+    # Candidates are ranked; only the top few are shown. A fixed dashboard makes
+    # the reader do the ranking, which is the work the report should be doing.
+    N = []
+    if broke_n and broke_n == len(real_all) and real_all:
+        N.append(dict(k="behavioral", rank=100,
+            t="Your real trades have not followed your own entry rules.",
+            b=f"All {len(real_all)} real trade{'s' if len(real_all)>1 else ''} so far broke a rule that "
+              f"already existed: {', '.join(break_kinds)}. The scanner is producing qualifying setups — "
+              f"{len(fired_days)} of {len(hist)} sessions. The gap is between what it found and what was bought."))
+    winner_broke = [t for t in real_all if not t["ok"] and (t["pl"] or 0) > 0]
+    if winner_broke:
+        w = max(winner_broke, key=lambda t: t["pl"])
+        N.append(dict(k="outcome_vs_decision", rank=95,
+            t=f"{w['sym']} is up {w['pl']:.1f}%. That does not validate the entry.",
+            b=f"It broke a rule going in ({', '.join(w['broke'])}) and is winning anyway. "
+              f"<b>A good outcome is not a good decision.</b> Judge the entry on the rules it was "
+              f"taken under, or a lucky trade will teach the wrong lesson."))
+    if len(taken) < 20:
+        N.append(dict(k="no_edge_yet", rank=80,
+            t="Account growth depends on deposits, not on demonstrated edge.",
+            b=f"{len(taken)} closed real trade{'s' if len(taken)!=1 else ''} is not enough to say whether "
+              f"trading helps or hurts the ${PLAN['target']:,.0f} plan. Until it is, the deposits are "
+              f"doing the work and the floor line is the honest measure."))
+    if decay:
+        N.append(dict(k="decay", rank=70,
+            t=f"{len(decay)} call{'s' if len(decay)>1 else ''} inside the decay window.",
+            b="Under 45 days is the one thing the rules say not to own. These are already owned, so the "
+              "rule cannot undo them — it only says do not add another."))
+    if quiet_run >= 5:
+        N.append(dict(k="quiet", rank=60,
+            t=f"Nothing has fired in {quiet_run} sessions.",
+            b="Roughly three signals arrive a month, so this is the ordinary state and not a fault."))
+    if months >= 1 and not PLAN["deposits"]:
+        N.append(dict(k="no_deposit", rank=99,
+            t="No deposit has been recorded.",
+            b="The plan's single highest-leverage input is $1,000 on the 1st. Nothing here has seen one."))
+    noticed = sorted(N, key=lambda x: -x["rank"])[:4]
+
+    # ── DECIDE ────────────────────────────────────────────────────────────────
+    # Say why the decision exists. Never say what to do.
+    dec = []
+    for r in decay:
+        t = dict(setup=r.get("setup"), kind="call", opened=r.get("opened"), expiry=r.get("expiry"))
+        ok, broke = _clean(t)
+        dec.append(dict(
+            sym=r["symbol"], strike=r.get("strike"), dte=r["dte"], pl=r.get("pl_pct"),
+            acct=r["acct"],
+            why=("Your rules say you would not open this trade today"
+                 + (f" — {', '.join(broke)}." if broke else ".")),
+            open_q="You have not recorded how you intend to manage a position you already own that falls "
+                   "outside your current entry rules."))
+
+    # ── WATCH ─────────────────────────────────────────────────────────────────
+    W = []
+    W.append(dict(id="next_real_clean", q="Whether the next real trade comes from a documented setup.",
+                  n=len(real_all)))
+    if decay:
+        near = decay[0]
+        W.append(dict(id=f"decay_{near['symbol']}",
+                      q=f"What happens to {near['symbol']} {near.get('strike')}C, "
+                        f"{near['dte']} days out, as expiration approaches.",
+                      n=1))
+    W.append(dict(id="deposit", q=f"Whether the ${PLAN['deposit']:,.0f} deposit lands on the 1st.",
+                  n=len(PLAN["deposits"])))
+    watching = W[:3]
+
+    # ── resolve what we were watching last time ───────────────────────────────
+    resolved = []
+    for w in (last.get("watching") or []):
+        cur = next((x for x in watching if x["id"] == w["id"]), None)
+        if w["id"] == "next_real_clean":
+            if len(real_all) > w.get("n", 0):
+                new = real_all[-1]
+                resolved.append(dict(q=w["q"], a=("Yes — " + new["sym"] + " had a documented setup.") if new["ok"]
+                                     else f"No — {new['sym']} broke {', '.join(new['broke'])}.", ok=new["ok"]))
+            else:
+                resolved.append(dict(q=w["q"], a="No real trade was opened this period.", ok=None))
+        elif w["id"] == "deposit":
+            got = len(PLAN["deposits"]) > w.get("n", 0)
+            resolved.append(dict(q=w["q"], a="Landed." if got else "Not yet recorded.", ok=got))
+        elif w["id"].startswith("decay_"):
+            sym = w["id"][6:]
+            still = [r for r in open_ if r["symbol"] == sym and r.get("dte") is not None]
+            resolved.append(dict(q=w["q"],
+                a=(f"Still open, {still[0]['dte']} days left." if still else f"{sym} is no longer open."),
+                ok=None))
+
+    # ── behaviour, period over period ─────────────────────────────────────────
+    behaviour = None
+    if last:
+        was = last.get("breaks", 0)
+        recurring = sorted(set(break_kinds) & set(last.get("break_kinds", [])))
+        new = sorted(set(break_kinds) - set(last.get("break_kinds", [])))
+        behaviour = dict(was=was, now=broke_n, recurring=recurring, new=new)
+
+    # ── what must change, if the target date is to hold ────────────────────────
+    need_dep = round(max(0, (PLAN["target"] - bal) / 15))
+    yrs = 15 / 12
+    try:
+        need_ret = ((PLAN["target"] - PLAN["deposit"] * 15) / bal) ** (1 / yrs) - 1
+    except Exception:
+        need_ret = None
+
+    # ── save ──────────────────────────────────────────────────────────────────
+    reports = [x for x in (prev.get("reports") or []) if x.get("date") != d["date"]][-11:]
+    reports.append(dict(date=d["date"], noticed=[x["k"] for x in noticed],
+                        watching=watching, breaks=broke_n, break_kinds=break_kinds))
+    json.dump(dict(reports=reports), open(REPORT_STATE, "w"), indent=1)
 
     return dict(
+        first=hist[0]["date"] if hist else d["date"], sessions=len(hist),
+        fired_days=len(fired_days), quiet_run=quiet_run,
         months=months, floor=round(floor), balance=bal, as_of=PLAN["balance_as_of"],
         target=PLAN["target"], target_date=PLAN["target_date"],
         to_go=round(PLAN["target"] - bal), pct=round(bal / PLAN["target"] * 100, 1),
-        above_floor=bal >= floor, floor_meaningful=months >= 1,
-        sessions=sessions, fired_days=len(fired_days), quiet_run=quiet_run,
-        first=hist[0]["date"] if hist else d["date"],
+        above_floor=bal >= floor, floor_meaningful=bool(PLAN["deposits"]),
+        deposits=PLAN["deposits"], deposited=deposited, need=need,
+        need_dep=need_dep, need_ret=(round(need_ret * 100, 1) if need_ret else None),
         real_n=len(real_open), real_avg=avg(real_open),
         paper_n=len(paper_open), paper_avg=avg(paper_open),
-        closed_n=len(taken), real_net=real_net,
-        decaying=[dict(sym=r["symbol"], strike=r.get("strike"), dte=r["dte"],
-                       pl=r.get("pl_pct"), acct=r["acct"]) for r in decaying],
-        breaks=breaks,
+        closed_n=len(taken), real_net=sum(t.get("pl", 0) for t in taken),
+        clean_n=clean_n, broke_n=broke_n, trades=real_all,
+        by_setup=by_setup,
+        noticed=noticed, decisions=dec, watching=watching, resolved=resolved,
+        behaviour=behaviour,
     )
 
 

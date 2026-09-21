@@ -233,6 +233,54 @@ h1,h2,h3{text-wrap:balance}
   .lrow{grid-template-columns:1fr auto}.lrow .ls{grid-column:1/-1}
   .dec{grid-template-columns:1fr auto}.dec .what{grid-column:1/-1}
 }
+
+.nt{padding:var(--s3) 0;border-top:1px solid var(--line)}
+.nt:last-of-type{border-bottom:1px solid var(--line)}
+.nt .t{margin:0;font:500 var(--t-body)/1.4 var(--mono);color:var(--ink)}
+.nt .b{margin:var(--s2) 0 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:70ch}
+.nt .b b{color:var(--ink);font-weight:500}
+
+.must{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--s4);
+  margin-top:var(--s4);padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.must .l{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.must .v{display:block;margin-top:3px;font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.must .v small{display:block;margin-top:4px;font:400 var(--t-data) var(--mono);color:var(--ink2);letter-spacing:0}
+
+.dc{padding:var(--s3) 0;border-top:1px solid var(--line)}
+.dc:last-of-type{border-bottom:1px solid var(--line)}
+.dc .h{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
+.dc .sym{font:600 var(--t-body) var(--mono);color:var(--ink)}
+.dc .pl{margin-left:auto;font:600 var(--t-body) var(--mono);font-variant-numeric:tabular-nums}
+.dc .pl.up{color:var(--up)}.dc .pl.dn{color:var(--dn)}
+.dc .w{margin:var(--s2) 0 0;font-size:var(--t-data);line-height:1.7;color:var(--ink2)}
+.dc .q{margin:var(--s1) 0 0;font-size:var(--t-data);line-height:1.7;color:var(--dim);max-width:70ch}
+.dc .q b{color:var(--amber);font-weight:500}
+
+table.pr{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin-top:var(--s2)}
+table.pr th{text-align:left;padding:var(--s1) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line2);
+  font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+table.pr td{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line);
+  font-size:var(--t-data);color:var(--ink2)}
+table.pr td:first-child{color:var(--ink);font-weight:500}
+table.pr td.r,table.pr th.r{text-align:right;padding-right:0}
+table.pr td.z{color:var(--dim)}
+table.pr td.ok{color:var(--up)} table.pr td.no{color:var(--dn)}
+
+.bhv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4);
+  padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bhv .l{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.bhv .v{display:block;margin-top:3px;font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
+.bhv .v.up{color:var(--up)}.bhv .v.dn{color:var(--dn)}
+.bhv .v.s2{font:500 var(--t-data) var(--mono);color:var(--ink2)}
+.bhv .s{display:block;font-size:var(--t-data);color:var(--ink2)}
+
+.rs,.wt{display:grid;grid-template-columns:1.4rem minmax(0,1fr);gap:var(--s2);align-items:baseline;
+  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data);
+  line-height:1.7;color:var(--ink2)}
+.rs:last-of-type,.wt:last-of-type{border-bottom:1px solid var(--line)}
+.rs b,.wt b{color:var(--ink);font-weight:500}
+.rs .i{color:var(--dim);font-weight:600}
+.rs .i.ok{color:var(--up)} .rs .i.no{color:var(--dn)}
 /* ── Charts ───────────────────────────────────────────────────────────────── */
 .ch{border-top:1px solid var(--line);padding:var(--s3) 0}
 .ch:last-of-type{border-bottom:1px solid var(--line)}
@@ -1248,110 +1296,123 @@ function renderCharts(d,state){
 }
 
 /* ══ Report ══════════════════════════════════════════════════ */
-/* Everything else here says what is true now. This says what changed and what it
-   means. Interpretation, not judgment — it never congratulates and never scolds. */
+/* REMEMBER → NOTICE → EXPLAIN → DECIDE → WATCH.
+   The intelligence does more work so there is less to read. It picks what
+   deserves attention rather than printing a fixed dashboard, and it remembers
+   what it said last time so this report can answer it. */
 function renderReport(d,state){
   const A=$('#tab-report');
-  if(state==='loading'){A.innerHTML='<div class="sk" style="height:300px;margin-top:14px"></div>';return;}
+  if(state==='loading'){A.innerHTML='<div class="sk" style="height:320px;margin-top:14px"></div>';return;}
   if(state==='error'){A.innerHTML=`<div class="sec"><div class="err">HTTP 404 fetching data.json.
-    No report — this is missing data, not a quiet month.</div></div>`;return;}
+    No report — this is missing data, not a quiet period.</div></div>`;return;}
   const r=d.report; if(!r){A.innerHTML='<p class="empty">No report in this scan.</p>';return;}
-
   const m=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
   const sgn=x=>(x>=0?'+':'−')+m(x);
 
-  /* The headline notices the relationship, and says nothing a number can't carry. */
-  const lead = r.quiet_run>=5
-    ? `Nothing has fired in <b>${r.quiet_run} sessions</b>.<br>Your positions moved anyway.`
-    : r.decaying.length
-      ? `<b>${r.decaying.length} call${r.decaying.length===1?'':'s'}</b> ${r.decaying.length===1?'is':'are'} inside the decay window.<br>The rest of the book is quiet.`
-      : `The scan fired on <b>${r.fired_days} of ${r.sessions}</b> sessions.<br>Nothing needs you today.`;
+  const read=`<div class="cgs">
+    ${[['Scans',r.sessions,`${r.fired_days} produced a signal`,''],
+       ['Real money',sgn(r.real_net),`${r.closed_n} closed`,r.real_net>=0?'up':'dn'],
+       ['Open · real',r.real_avg==null?'—':pct(r.real_avg),`${r.real_n} position${r.real_n===1?'':'s'}`,r.real_avg>=0?'up':'dn'],
+       ['Open · paper',r.paper_avg==null?'—':pct(r.paper_avg),`${r.paper_n} positions`,r.paper_avg>=0?'up':'dn']]
+      .map(([l,v,s,c])=>`<div class="cg"><span class="l">${l}</span>
+        <span class="v ${c}">${v}</span><span class="s">${s}</span></div>`).join('')}
+  </div>`;
 
-  const chg=(label,val,sub,cls)=>`<div class="cg">
-    <span class="l">${label}</span>
-    <span class="v ${cls||''}">${val}</span>
-    <span class="s">${sub}</span></div>`;
-
-  return A.innerHTML=`
+  A.innerHTML=`
   <div class="tmast"><h1><b>Ledger</b> · the report</h1>
     <span class="when">${esc(d.date)} · since ${esc(r.first)}</span></div>
 
-  <div class="rlead"><p>${lead}</p></div>
-
-  <div class="rsec">
-    <h2>What changed <span class="since">since ${esc(r.first)}</span></h2>
-    <div class="cgs">
-      ${chg('Scans run', r.sessions, `${r.fired_days} produced a signal`)}
-      ${chg('Real money', sgn(r.real_net), `${r.closed_n} trades closed`, r.real_net>=0?'up':'dn')}
-      ${chg('Open · real', r.real_avg==null?'—':pct(r.real_avg), `${r.real_n} position${r.real_n===1?'':'s'}`, r.real_avg>=0?'up':'dn')}
-      ${chg('Open · paper', r.paper_avg==null?'—':pct(r.paper_avg), `${r.paper_n} positions`, r.paper_avg>=0?'up':'dn')}
-    </div>
-    <p class="read">${r.real_net<0 && r.real_avg>0
-      ? `Closed real trades are down <b>${m(r.real_net)}</b> while the one still open is up
-         <b>${pct(r.real_avg)}</b>. <b>Two closed trades is a tally, not a track record</b> —
-         the number that matters is which rules they broke, below.`
-      : `Paper and real are kept apart because they answer different questions. Paper tests whether a
-         setup holds. Real is the only line that spends money.`}</p>
+  <div class="rsec" style="padding-top:var(--s4)">
+    <h2>The read</h2>
+    ${read}
+    <p class="read">${r.broke_n===r.trades.length&&r.trades.length
+      ? `The scanner is finding opportunities — <b>${r.fired_days} of ${r.sessions}</b> sessions produced a
+         signal. <b>Not one real trade came from them.</b> The problem so far is behavioural, not analytical.`
+      : `Paper and real are kept apart because they answer different questions. Paper tests whether a setup
+         holds. Real is the only line that spends money.`}</p>
   </div>
 
-  <div class="rsec">
-    <h2>Your position</h2>
-    <div class="lines">
-      <div class="lrow"><span class="ll">Account</span>
-        <span class="lv">${m(r.balance)}</span>
-        <span class="ls">as of ${esc(r.as_of)}</span></div>
-      <div class="lrow ${r.above_floor?'ok':'bad'}"><span class="ll">Floor line</span>
-        <span class="lv">${m(r.floor)}</span>
-        <span class="ls">${r.months} month${r.months===1?'':'s'} of deposits, trading at zero</span></div>
-    </div>
-    <p class="read">${!r.floor_meaningful
-      ? `The floor line is your deposits with trading at zero. <b>It has nothing to say yet</b> — the first
-         deposit has not landed, so today it is simply your opening balance.`
-      : r.above_floor
-      ? `You are <b>on or above the floor</b>. The floor is just your deposits — it assumes trading makes
-         nothing. Staying above it is the whole requirement.`
-      : `You are <b>below the floor line</b>. The hole was dug by trading, not by deposits.
-         <b>The plan says stop for one month</b> and deposit only.`}</p>
-  </div>
+  ${r.noticed.length?`<div class="rsec">
+    <h2>What Ledger noticed</h2>
+    <p class="lede">${r.noticed.length} thing${r.noticed.length===1?'':'s'} that deserve attention this period.</p>
+    ${r.noticed.map(n=>`<div class="nt">
+      <p class="t">${n.t}</p><p class="b">${n.b}</p></div>`).join('')}
+  </div>`:''}
 
   <div class="rsec">
     <h2>Your path</h2>
     <div class="track">
       <div class="bar"><i style="width:${Math.min(100,r.pct)}%"></i></div>
       <div class="ends"><span><b>${m(r.balance)}</b> now</span>
-        <span><b>${m(r.target)}</b> by ${(()=>{
-          /* "2027-12-01" parses as UTC midnight, which is Nov 30 west of Greenwich.
-             Build it from the parts so the month is the month. */
-          const [y,mo]=r.target_date.split('-').map(Number);
+        <span><b>${m(r.target)}</b> by ${(()=>{const [y,mo]=r.target_date.split('-').map(Number);
           return new Date(y,mo-1,1).toLocaleDateString(undefined,{month:'short',year:'numeric'});})()}</span></div>
     </div>
-    <p class="read"><b>${m(r.to_go)}</b> to go, <b>${r.pct}%</b> of the way. At $1,000 a month with
-    trading flat, the deposits alone arrive seven months late — which is the entire cost of every
-    strategy failing. <a href="plan.html">The plan ↗</a></p>
+    <div class="must">
+      <div><span class="l">trading must add</span><span class="v">${m(r.need)}<small>a month</small></span></div>
+      <div><span class="l">or deposit</span><span class="v">${m(r.need_dep)}<small>a month, trading flat</small></span></div>
+      <div><span class="l">or return</span><span class="v">${r.need_ret==null?'—':r.need_ret+'%'}<small>a year at $1,000/mo</small></span></div>
+    </div>
+    <p class="read">Three ways the date holds. <b>Not a recommendation — the arithmetic of the plan.</b>
+    ${r.floor_meaningful
+      ? `Your floor line is ${m(r.floor)}; you are ${r.above_floor?'above it':'<b>below it</b>'}.`
+      : `No deposit is recorded yet, so the floor line is still just your opening balance.`}
+    <a href="plan.html">The plan ↗</a></p>
   </div>
 
-  ${r.decaying.length?`<div class="rsec">
-    <h2>Decisions you have not made</h2>
+  ${r.decisions.length?`<div class="rsec">
+    <h2>Decisions still open</h2>
     <p class="lede">Stated, not made for you.</p>
-    ${r.decaying.map(x=>`<div class="dec">
-      <span class="sym">${esc(x.sym)} ${esc(x.strike)}C<small>${esc(x.acct)}</small></span>
-      <span class="what">${x.dte} days left${x.dte<45?` · <b>inside your 45-day rule</b>`:''}</span>
-      <span class="pl ${x.pl>=0?'up':'dn'}">${pct(x.pl)}</span>
+    ${r.decisions.map(x=>`<div class="dc">
+      <div class="h"><span class="sym">${esc(x.sym)} ${esc(x.strike)} Call</span>
+        <span class="tag watch">${esc(x.acct)}</span>
+        <span class="pl ${x.pl>=0?'up':'dn'}">${pct(x.pl)}</span></div>
+      <p class="w">${x.dte} days remaining. ${esc(x.why)}</p>
+      <p class="q"><b>Still open:</b> ${esc(x.open_q)}</p>
     </div>`).join('')}
-    <p class="read">A call under 45 days is the one thing your rules say not to own. These are already
-    owned, so the rule cannot undo them — <b>it only tells you not to add another</b>.</p>
   </div>`:''}
 
-  ${r.breaks.length?`<div class="rsec">
-    <h2>Rules broken</h2>
-    <p class="lede">Counted, not scolded. Each one was written before the trade.</p>
-    ${r.breaks.map(b=>`<div class="brk"><span class="x">✕</span><span>${esc(b)}</span></div>`).join('')}
-    <p class="read">Every real trade so far broke a rule that already existed. That is the cheapest
-    thing on this page to fix, and it costs nothing.</p>
+  <div class="rsec">
+    <h2>Process, not results</h2>
+    <p class="lede">Every real trade, judged on the rules it was taken under. Outcome is not consulted.</p>
+    <div class="scroll"><table class="pr">
+      <thead><tr><th>trade</th><th>setup</th><th>rules</th><th class="r">result</th></tr></thead>
+      <tbody>${r.trades.map(t=>`<tr>
+        <td>${esc(t.sym)}</td>
+        <td class="${t.setup&&t.setup!=='none'?'':'z'}">${esc(t.setup&&t.setup!=='none'?t.setup:'none')}</td>
+        <td class="${t.ok?'ok':'no'}">${t.ok?'followed':esc(t.broke.join(', '))}</td>
+        <td class="r ${t.pl>=0?'up':'dn'}">${pct(t.pl)}</td></tr>`).join('')}</tbody>
+    </table></div>
+    <p class="read"><b>${r.clean_n} followed the rules, ${r.broke_n} did not.</b>
+    ${r.trades.length<20
+      ? ` ${r.trades.length} trade${r.trades.length===1?'':'s'} is far too few to compare the two groups —
+          this table is a record, not yet a finding. It becomes worth reading somewhere past twenty.`
+      : ` Compare the two groups above: that comparison is the point of this table.`}
+    Ledger does not assume the rules are right forever. <b>It keeps the record so they can be tested.</b></p>
+  </div>
+
+  ${r.behaviour?`<div class="rsec">
+    <h2>What changed in your behaviour</h2>
+    <div class="bhv">
+      <div><span class="l">last report</span><span class="v">${r.behaviour.was}</span><span class="s">breaks</span></div>
+      <div><span class="l">this report</span><span class="v ${r.behaviour.now<=r.behaviour.was?'up':'dn'}">${r.behaviour.now}</span><span class="s">breaks</span></div>
+      <div><span class="l">still recurring</span><span class="v s2">${r.behaviour.recurring.join(', ')||'none'}</span></div>
+      <div><span class="l">new</span><span class="v s2">${r.behaviour.new.join(', ')||'none'}</span></div>
+    </div>
   </div>`:''}
 
-  <p class="foot">The account figure is entered by hand and dated. Nothing on this site reads a broker
-  balance. Everything else here is computed from the scan, the trade book and the plan.</p>`;
+  <div class="rsec">
+    ${r.resolved.length?`<h2>What Ledger was watching</h2>
+      ${r.resolved.map(x=>`<div class="rs">
+        <span class="i ${x.ok===true?'ok':x.ok===false?'no':''}">${x.ok===true?'✓':x.ok===false?'✕':'·'}</span>
+        <span><b>${esc(x.q)}</b><br>${esc(x.a)}</span></div>`).join('')}`:''}
+    <h2${r.resolved.length?' style="margin-top:var(--s5)"':''}>What Ledger is watching</h2>
+    <p class="lede">The next report comes back to these.</p>
+    ${r.watching.map(w=>`<div class="wt"><span class="i">·</span><span>${esc(w.q)}</span></div>`).join('')}
+  </div>
+
+  <p class="foot">The account figure is entered by hand and dated; nothing here reads a broker balance.
+  A good outcome is not a good decision, and a bad outcome is not a bad decision — every judgement above is
+  made on the rules a trade was taken under, never on how it turned out.</p>`;
 }
 
 /* ══ Setups ══════════════════════════════════ */

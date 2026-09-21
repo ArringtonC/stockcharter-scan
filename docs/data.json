@@ -1,6 +1,6 @@
 {
  "date": "2026-09-20",
- "stamp": "2026-09-21 02:48 UTC",
+ "stamp": "2026-09-21 03:04 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.8100004196167,
@@ -1946,6 +1946,27 @@
   ],
   "closed": [],
   "by_setup": {
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -24.375655346015524
+   },
+   "none": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": 53.64705882352943
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": -9.21333488799345
+   },
    "E": {
     "wins": 0,
     "losses": 0,
@@ -1959,27 +1980,6 @@
     "closed_mean": null,
     "open_n": 2,
     "open_mean": -4.7549778560649845
-   },
-   "none": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": 53.64705882352943
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -24.375655346015524
-   },
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -9.21333488799345
    }
   },
   "produced": [
@@ -14115,6 +14115,10 @@
   }
  },
  "report": {
+  "first": "2026-09-10",
+  "sessions": 8,
+  "fired_days": 6,
+  "quiet_run": 2,
   "months": 0,
   "floor": 8355,
   "balance": 8355.13,
@@ -14125,36 +14129,151 @@
   "pct": 27.9,
   "above_floor": true,
   "floor_meaningful": false,
-  "sessions": 8,
-  "fired_days": 6,
-  "quiet_run": 2,
-  "first": "2026-09-10",
+  "deposits": [],
+  "deposited": 0,
+  "need": 443,
+  "need_dep": 1443,
+  "need_ret": 59.7,
   "real_n": 1,
   "real_avg": 53.64705882352943,
   "paper_n": 18,
   "paper_avg": -8.834017386204463,
   "closed_n": 2,
   "real_net": -32,
-  "decaying": [
+  "clean_n": 0,
+  "broke_n": 3,
+  "trades": [
+   {
+    "sym": "PYPL",
+    "setup": null,
+    "kind": "call",
+    "opened": "2026-09-10",
+    "expiry": null,
+    "pl": 15.1,
+    "closed": true,
+    "ok": false,
+    "broke": [
+     "no setup"
+    ]
+   },
+   {
+    "sym": "BABA",
+    "setup": null,
+    "kind": "call",
+    "opened": "2026-09-14",
+    "expiry": null,
+    "pl": -19.3,
+    "closed": true,
+    "ok": false,
+    "broke": [
+     "no setup"
+    ]
+   },
+   {
+    "sym": "BABA",
+    "setup": "none",
+    "kind": "call",
+    "opened": "2026-09-14",
+    "expiry": "2026-10-02",
+    "pl": 53.64705882352943,
+    "closed": false,
+    "ok": false,
+    "broke": [
+     "no setup",
+     "18d at entry, under 45"
+    ]
+   }
+  ],
+  "by_setup": {},
+  "noticed": [
+   {
+    "k": "behavioral",
+    "rank": 100,
+    "t": "Your real trades have not followed your own entry rules.",
+    "b": "All 3 real trades so far broke a rule that already existed: 18d at entry, under 45, no setup. The scanner is producing qualifying setups \u2014 6 of 8 sessions. The gap is between what it found and what was bought."
+   },
+   {
+    "k": "outcome_vs_decision",
+    "rank": 95,
+    "t": "BABA is up 53.6%. That does not validate the entry.",
+    "b": "It broke a rule going in (no setup, 18d at entry, under 45) and is winning anyway. <b>A good outcome is not a good decision.</b> Judge the entry on the rules it was taken under, or a lucky trade will teach the wrong lesson."
+   },
+   {
+    "k": "no_edge_yet",
+    "rank": 80,
+    "t": "Account growth depends on deposits, not on demonstrated edge.",
+    "b": "2 closed real trades is not enough to say whether trading helps or hurts the $30,000 plan. Until it is, the deposits are doing the work and the floor line is the honest measure."
+   },
+   {
+    "k": "decay",
+    "rank": 70,
+    "t": "2 calls inside the decay window.",
+    "b": "Under 45 days is the one thing the rules say not to own. These are already owned, so the rule cannot undo them \u2014 it only says do not add another."
+   }
+  ],
+  "decisions": [
    {
     "sym": "SHOP",
     "strike": "120",
     "dte": 12,
     "pl": -64.51843895452917,
-    "acct": "big"
+    "acct": "big",
+    "why": "Your rules say you would not open this trade today \u2014 28d at entry, under 45.",
+    "open_q": "You have not recorded how you intend to manage a position you already own that falls outside your current entry rules."
    },
    {
     "sym": "BABA",
     "strike": "109",
     "dte": 12,
     "pl": 53.64705882352943,
-    "acct": "real"
+    "acct": "real",
+    "why": "Your rules say you would not open this trade today \u2014 no setup, 18d at entry, under 45.",
+    "open_q": "You have not recorded how you intend to manage a position you already own that falls outside your current entry rules."
    }
   ],
-  "breaks": [
-   "PYPL had no setup behind it",
-   "BABA had no setup behind it",
-   "BABA is inside 45 days"
-  ]
+  "watching": [
+   {
+    "id": "next_real_clean",
+    "q": "Whether the next real trade comes from a documented setup.",
+    "n": 3
+   },
+   {
+    "id": "decay_SHOP",
+    "q": "What happens to SHOP 120C, 12 days out, as expiration approaches.",
+    "n": 1
+   },
+   {
+    "id": "deposit",
+    "q": "Whether the $1,000 deposit lands on the 1st.",
+    "n": 0
+   }
+  ],
+  "resolved": [
+   {
+    "q": "Whether the next real trade comes from a documented setup.",
+    "a": "No real trade was opened this period.",
+    "ok": null
+   },
+   {
+    "q": "What happens to SHOP 120C, 12 days out, as expiration approaches.",
+    "a": "Still open, 12 days left.",
+    "ok": null
+   },
+   {
+    "q": "Whether the $1,000 deposit lands on the 1st.",
+    "a": "Not yet recorded.",
+    "ok": false
+   }
+  ],
+  "behaviour": {
+   "was": 5,
+   "now": 3,
+   "recurring": [
+    "no setup"
+   ],
+   "new": [
+    "18d at entry, under 45"
+   ]
+  }
  }
 }
