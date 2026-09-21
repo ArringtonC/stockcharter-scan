@@ -894,19 +894,48 @@ def summary(d, open_):
     """One glance on a phone. Answer first, context last, no line long enough to
     wrap. Everything that was not an answer -- scan counts, revenue growth, the
     full URL -- was pushing the answer off the screen."""
+    cap = round(PLAN["balance"] * 0.07 / 50) * 50
+
+    def entry(sym, px, tgt, up):
+        """The trade in the words you would place it with, plus what it costs.
+        If the call does not fit the cap, say so and give the share count that
+        does -- knowing a trade exists is useless without knowing it is reachable."""
+        out = []
+        c = affordable(sym, px, budget=cap)
+        if c:
+            when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d")
+            line = f"<b>{sym} {when} {c['strike']:g} call</b>"
+            if c["over"]:
+                sh = max(1, int(cap // px))
+                out.append(f"{line} — ${c['cost']:,.0f}")
+                out.append(f"  over ${cap} cap · or {sh} share{'s' if sh != 1 else ''}, ${sh*px:,.0f}")
+            else:
+                out.append(f"{line} × {c['n']} — ${c['cost']:,.0f}")
+        else:
+            sh = max(1, int(cap // px))
+            out.append(f"<b>{sh} share{'s' if sh != 1 else ''} of {sym}</b> @ {px:,.2f} — ${sh*px:,.0f}")
+        out.append(f"  \u2192 {tgt:,.0f}  (+{up:.0f}%)")
+        return out
+
     buys = []
     for r in d["F"]:
-        buys.append(f"{r['sym']} {r['px']:,.0f} \u2192 <b>{r['tgt']:,.0f}</b>   +{r['up']:.0f}%")
+        buys += entry(r["sym"], r["px"], r["tgt"], r["up"]) + [""]
+    if buys and buys[-1] == "": buys.pop()
     if d["vix_fires"]:
-        buys.append(f"QQQ {d['qqq']:,.0f}   ATM call ~30d")
+        c = pick_contract("QQQ", d["qqq"], days=30, budget=1000)
+        if c:
+            when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d")
+            buys.append(f"<b>QQQ {when} {c['strike']:g} call</b> \u00d7 {max(1,c['n'])} — ${c['cost']:,.0f}")
+            buys.append("  hold 21 sessions")
     if d["vix"] >= 25:
         for r in d["S"]:
-            buys.append(f"{r['sym']} {r['px']:,.0f}   SHORT")
+            buys.append(f"<b>SHORT {r['sym']}</b> @ {r['px']:,.2f}")
+            buys.append(f"  {r['below']:.1f}% under its 20-day low")
 
     L = []
     if buys:
         L.append("<b>BUY</b>")
-        L += ["  " + b for b in buys]
+        L += [("  " + b) if b else "" for b in buys]
     else:
         L.append("<b>Nothing to buy today.</b>")
 
