@@ -215,7 +215,7 @@
  },
  {
   "date": "2026-09-21",
-  "vix": 14.859999656677246,
+  "vix": 14.890000343322754,
   "regime": "CALM",
   "vix_fires": false,
   "F": [],
@@ -227,8 +227,9 @@
    "GOOGL",
    "META",
    "MRNA",
+   "HPQ",
    "MRK",
-   "HPQ"
+   "NVDA"
   ],
   "C": [
    "AMD"
