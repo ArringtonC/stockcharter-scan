@@ -1789,8 +1789,17 @@ function renderSystem(d,state){
   if(state==='error'){
     A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when stale">page cannot load</span></div>
       <div class="sec">
-        <div class="err">HTTP 404 fetching data.json. The scan has not published an output file, or the last
-        run failed before writing one.</div>
+        <div class="err"><b>${esc(window.__loadErr||'Could not load')} — data.json</b><br>
+        Looking in <code>${esc(location.origin+location.pathname.replace(/[^/]*$/,''))}</code><br><br>
+        ${location.protocol==='file:'
+          ? `This page was opened as a <b>file</b>. A file:// page cannot read a sibling file, so nothing
+             will load. Use the published site instead.`
+          : location.hostname==='localhost'||location.hostname==='127.0.0.1'
+          ? `This is a <b>local server that is no longer running</b>. That is almost always the cause here,
+             not a failed scan. Use the published site instead.`
+          : `The scan has not published an output file, or the last run failed before writing one.`}
+        <br><br><a href="https://arringtonc.github.io/stockcharter-scan/"
+          style="color:var(--amber)">arringtonc.github.io/stockcharter-scan ↗</a></div>
         <div class="acts" style="margin-top:var(--s3)">
           <a class="primary" href="${RUN}" target="_blank" rel="noopener">Run the scan now ↗</a>
           <a href="${RUN}" target="_blank" rel="noopener">Last run log ↗</a>
@@ -1928,6 +1937,7 @@ function renderAll(d,state){
 }
 
 renderAll({},'loading');
+window.__loadErr=null;
 fetch('data.json?'+Date.now())
   .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
   .then(d=>{
@@ -1936,7 +1946,7 @@ fetch('data.json?'+Date.now())
     try{t=localStorage.getItem('tab')||'today';s=localStorage.getItem('sub')||'setups'}catch(e){}
     show(PANELS.includes(t)?t:'today'); showSub(SUBS.includes(s)?s:'setups');
   })
-  .catch(()=>renderAll({},'error'));
+  .catch(e=>{window.__loadErr=e&&e.message||'load failed';renderAll({},'error');});
 </script>
 </body>
 </html>
