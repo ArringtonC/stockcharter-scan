@@ -2,11 +2,14 @@ name: daily scan
 
 on:
   schedule:
-    # Hourly across your window. 12:00-21:00 UTC is 07:00-16:00 Central while
-    # daylight time is on, 06:00-15:00 after it ends -- GitHub cron is UTC only
-    # and does not shift. The 21:30 run is the one after the close.
-    - cron: '0 12-21 * * 1-5'
-    - cron: '30 21 * * 1-5'
+    # BACKSTOP ONLY -- for when the Mac is off. Measured on six scheduled runs,
+    # this cron fired 124 to 228 minutes late EVERY time; GitHub's scheduler is
+    # best-effort on public repos and the top of the hour is the worst slot. The
+    # real schedule is launchd on the Mac (run_local.sh). Hourly here would only
+    # queue up runs that arrive hours after they are useful, so it is twice a day
+    # on an odd minute.
+    - cron: '23 12 * * 1-5'
+    - cron: '23 21 * * 1-5'
   workflow_dispatch:
 
 permissions:
