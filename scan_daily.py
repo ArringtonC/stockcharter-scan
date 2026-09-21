@@ -898,28 +898,22 @@ def summary(d, open_):
 
     head = ("<b>" + (" · ".join(live) if live else "Nothing fires") + "</b>")
 
-    # When something fires, say what the trade IS. The setup card already defines
-    # it — at the money, 90-120 days, $600 cap, target the prior high, no stop.
+    # Name the trade, not the contract. Which strike and expiry to buy is his
+    # call -- pricing every fire meant an option-chain fetch per name and filled
+    # the message with numbers he did not ask for.
     trades = []
     for r in d["F"]:
-        c = affordable(r["sym"], r["px"])
-        if not c:
-            trades.append(f"  <b>{r['sym']}</b> — no contract quoted"); continue
-        if c["over"]:
-            trades.append(f"  <b>{r['sym']}</b> — fired, but <b>no contract fits $600</b>\n"
-                          f"    cheapest ATM in the rule window: {c['strike']:g}C "
-                          f"{c['expiry'][5:]} at ${c['cost']:,.0f} ({c['dte']}d)")
-            continue
         trades.append(
-            f"  <b>{r['sym']} {c['strike']:g} Call {c['expiry'][5:]}</b>\n"
-            f"    {c['n']}x @ ${c['px']:.2f} = <b>${c['cost']:,.0f}</b> · {c['dte']}d · {c['src']}\n"
-            f"    target ${r['tgt']:,.2f} (+{r['up']:.0f}%) · no stop")
+            f"  <b>{r['sym']}</b>  ${r['px']:,.2f} → <b>${r['tgt']:,.2f}</b> (+{r['up']:.0f}%)\n"
+            f"    {r['dd']:.0f}% below its high · revenue +{r['rev']:.0f}% · no stop")
     if d["vix_fires"]:
-        c = pick_contract("QQQ", d["qqq"], days=30, budget=1000)
-        if c and not c["over"]:
-            trades.append(f"  <b>QQQ {c['strike']:g} Call {c['expiry'][5:]}</b>\n"
-                          f"    {c['n']}x @ ${c['px']:.2f} = <b>${c['cost']:,.0f}</b> · {c['dte']}d · {c['src']}\n"
-                          f"    hold 21 sessions · no stop")
+        trades.append(f"  <b>QQQ</b>  ${d['qqq']:,.2f} · at-the-money call, about 30 days\n"
+                      f"    hold 21 sessions · no stop")
+    if d["vix"] >= 25:
+        for r in d["S"]:
+            trades.append(f"  <b>{r['sym']}</b>  ${r['px']:,.2f} · short, {r['below']:.1f}% under its 20-day low\n"
+                          f"    up to 10 sessions")
+
     ctx  = (f"VIX {d['vix']:.1f} {d['regime']} · QQQ {d['qqq']:.0f} ({d['qdd']:+.1f}% off high)")
     scan = f"{d['scanned']}/{d['universe']} scanned"
     if d["errors"]: scan += f" · <b>{len(d['errors'])} failed</b>"
