@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger · Readability Pass · Before &amp; After</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ledger.css">
+<style>
+.wrap{max-width:1040px;margin:0 auto;padding:var(--s4) 18px 96px}
+.back{display:inline-block;margin-bottom:var(--s4);font:500 var(--t-label) var(--mono);
+  letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+.back:hover,.back:focus-visible{color:var(--amber);outline:none}
+.hd h1{margin:0;font:300 clamp(28px,4.6vw,40px)/1.1 var(--serif);letter-spacing:-.02em;max-width:22ch}
+.hd h1 b{font-weight:700;color:var(--amber)}
+.hd p{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:66ch}
+.hd p b{color:var(--ink);font-weight:500}
+
+.item{margin-top:var(--s6);border-top:1px solid var(--line2);padding-top:var(--s3)}
+.ih{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s1)}
+.ih h2{margin:0;font:600 var(--t-h2)/1.2 var(--serif);letter-spacing:-.01em}
+.ih .where{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;
+  color:var(--dim);border:1px solid var(--line2);border-radius:3px;padding:2px 7px}
+.ih .sev{margin-left:auto;font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.sev.bug{background:var(--dn);color:#fff}
+.sev.read{border:1px solid var(--amber);color:var(--amber)}
+.item>p.why{margin:0 0 var(--s3);font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:74ch}
+.item>p.why b{color:var(--ink);font-weight:500}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.pane{border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+.pane.after{border-color:var(--up)}
+.pane>.ph{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2);
+  padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);
+  font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.pane.after>.ph{color:var(--up)}
+.pane pre{margin:0;padding:var(--s3);font:400 var(--t-data)/1.75 var(--mono);color:var(--ink2);
+  white-space:pre-wrap;overflow-x:auto}
+.pane pre b{color:var(--ink);font-weight:600}
+.pane pre i{font-style:normal;color:var(--dn)}
+.pane.after pre i{color:var(--up)}
+.foot2{margin-top:var(--s6);padding-top:var(--s3);border-top:1px solid var(--line);
+  font-size:var(--t-label);line-height:1.8;color:var(--dim);max-width:70ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../index.html">← Ledger</a>
+
+<div class="hd">
+  <h1>The scanner is <b>audited</b>. The page was not.</h1>
+  <p>Every number on Ledger is checked against a null model before it ships. The markup around
+  those numbers had never been looked at. This is one pass over the seven tabs and the plan —
+  <b>what was on screen, and what is there now.</b></p>
+  <p>Six findings. <b>Three were bugs that shipped</b> and none of them showed up in a syntax
+  check, a word count, or a tag-balance test. They were found by opening the page and looking
+  at it.</p>
+</div>
+
+<div class="item">
+  <div class="ih"><h2>A class name collided</h2><span class="where">Report</span><span class="sev bug">bug</span></div>
+  <p class="why"><code>.real</code> is the small red REAL badge. The Report marked real-money rows
+  with <code>&lt;tr class="real"&gt;</code>, which matched the same rule — so the whole row was
+  painted solid <code>var(--dn)</code> instead of the intended 5% tint. Grey text and green text
+  on a salmon block.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span><span>solid fill</span></div>
+<pre><i>████████████████████████████</i>
+<i>█</i> BABA 109C 11d   REAL   +98.2% <i>█</i>
+<i>████████████████████████████</i>
+   QCOM 240C 60d   small   +30.4%
+
+<i>.real { background: var(--dn) }</i>
+<i>matched the badge AND the row</i></pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span><span>8% tint</span></div>
+<pre>░░ BABA 109C 11d  <b>REAL</b>   +98.2% ░░
+   QCOM 240C 60d   small   +30.4%
+
+<i>tr.realmoney</i> — its own name
+badge keeps <i>.real</i>, row keeps the tint</pre></figure>
+  </div>
+</div>
+
+<div class="item">
+  <div class="ih"><h2>Every tab said Ledger twice</h2><span class="where">all 7 tabs</span><span class="sev read">readability</span></div>
+  <p class="why">Each renderer came from a standalone proposal page, so each carried its own
+  masthead. Inside the app that sits directly under the site masthead, which already says Ledger
+  and already highlights the tab. <b>24 duplicate mastheads removed.</b> The date was printed
+  three times in two lines.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span><span>3 dates, 2 brands</span></div>
+<pre><b>Ledger</b>          2026-09-21 · DATA 28 MIN OLD
+TODAY  TRADES  WATCHING  CHARTS …
+<i>Ledger · today</i>  <i>2026-09-21 · SCANNED 2026-09-21 18:00 UTC</i></pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span><span>1 date, 1 brand</span></div>
+<pre><b>Ledger</b>          2026-09-21 · DATA 28 MIN OLD
+TODAY  TRADES  WATCHING  CHARTS …
+                              <i>SCANNED 18:00 UTC</i></pre></figure>
+  </div>
+</div>
+
+<div class="item">
+  <div class="ih"><h2>A verb that never agreed</h2><span class="where">Today</span><span class="sev bug">bug</span></div>
+  <p class="why">The verdict is the largest type on the site and the first thing read. It had been
+  wrong on every day more than one setup fired.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span></div>
+<pre>2 setups <i>fires</i> today.</pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span></div>
+<pre>2 setups <i>fire</i> today.
+One setup <i>fires</i> today.</pre></figure>
+  </div>
+</div>
+
+<div class="item">
+  <div class="ih"><h2>Right-aligned columns ran into the next one</h2><span class="where">Plan</span><span class="sev bug">bug</span></div>
+  <p class="why"><code>td.r</code> zeroed <code>padding-right</code>. That is correct for a last
+  column and wrong in the middle — the text had nothing between it and the next cell.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span></div>
+<pre>IF TRADING RETURNS…  <i>$30,000 ARRIVESWHAT IT COSTS YOU</i>
+40% a year               <i>Dec 2027The plan.</i>
+Exactly nothing          <i>Jul 2028Seven months.</i></pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span></div>
+<pre>IF TRADING RETURNS…   $30,000 ARRIVES   WHAT IT COSTS YOU
+40% a year                   Dec 2027   The plan.
+Exactly nothing              Jul 2028   Seven months.</pre></figure>
+  </div>
+</div>
+
+<div class="item">
+  <div class="ih"><h2>The plan explained itself four times</h2><span class="where">Plan</span><span class="sev read">readability</span></div>
+  <p class="why">The floor line had its own section, then reappeared under three more. The
+  checkpoint table printed the same sentence on all four rows — that is a column header, not a
+  row. <b>Nothing was dropped</b>: the LEAPS correction went from three paragraphs to one line,
+  the failure branches from prose to a table.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span><span>1,239 words</span></div>
+<pre>Dec 2026   $12,174   <i>Below $11,355 means trading is losing money.</i>
+Mar 2027   $16,329   <i>Below $14,355 means trading is losing money.</i>
+Jun 2027   $20,848   <i>Below $17,355 means trading is losing money.</i>
+Sep 2027   $25,764   <i>Below $20,355 means trading is losing money.</i>
+
+<i>25 &lt;b&gt; tags mid-sentence, chopping it into fragments</i></pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span><span>737 words</span></div>
+<pre>BY         GOAL      <i>FLOOR · DEPOSITS ONLY</i>
+Dec 2026   $12,174   $11,355
+Mar 2027   $16,329   $14,355
+Jun 2027   $20,848   $17,355
+Sep 2027   $25,764   $20,355
+
+<i>said once, in the header</i>   ·   10 &lt;b&gt; tags</pre></figure>
+  </div>
+</div>
+
+<div class="item">
+  <div class="ih"><h2>The most-used colour was the only one failing</h2><span class="where">every page</span><span class="sev bug">bug</span></div>
+  <p class="why"><code>--dim</code> carries every label, caption and timestamp on the site, at
+  10.5px. It was the weakest token in both themes and the only one under WCAG AA. Tuned against
+  <code>--panel</code>, the harder of the two surfaces it sits on. <code>--amber</code> in light
+  was 4.2:1 across 44 elements.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span><span>below AA</span></div>
+<pre>          <b>token</b>      <b>on bg</b>   <b>on panel</b>
+dark   --dim  #6E6B64   <i>3.60</i>     <i>3.27</i>
+light  --dim  #8A877E   <i>3.18</i>     <i>3.41</i>
+light  --amber #9A6A12  <i>4.19</i>     <i>4.49</i>
+
+<i>every other token was already 5:1 to 15:1</i></pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span><span>AA on both surfaces</span></div>
+<pre>          <b>token</b>      <b>on bg</b>   <b>on panel</b>
+dark   --dim  #85827B   <i>5.00</i>     <i>4.53</i>
+light  --dim  #716E65   <i>4.52</i>     <i>4.84</i>
+light  --amber #926511  <i>4.55</i>     <i>4.88</i>
+
+<i>ink2 still 7.6:1 — the hierarchy holds</i></pre></figure>
+  </div>
+</div>
+
+<p class="foot2">Measured on the live site, 21 September 2026. Contrast is computed against the
+composited background — every translucent layer walked and flattened — not against the page
+colour, because a badge sits on its own fill. Two earlier readings in this pass were wrong for
+exactly that reason and are not in this list.</p>
+</div>
+</body>
+</html>

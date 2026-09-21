@@ -4,7 +4,7 @@
 /* ── KEPT VERBATIM FROM index.html. No new design language was invented. ───── */
 :root{
   --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
-  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#85827B;
   --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
   --serif:'Fraunces',Georgia,serif;
@@ -15,15 +15,15 @@
    choice could never win over a dark OS. Same colors, three states now. */
 @media(prefers-color-scheme:light){:root:not([data-theme=dark]){
   --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
-  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
-  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
+  --ink:#17181C;--ink2:#4A4C55;--dim:#716E65;
+  --amber:#926511;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
 :root[data-theme=light]{
   --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
-  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
-  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}
+  --ink:#17181C;--ink2:#4A4C55;--dim:#716E65;
+  --amber:#926511;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}
 :root[data-theme=dark]{
   --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
-  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#85827B;
   --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;}
 
 *{box-sizing:border-box}

@@ -13,7 +13,7 @@
 /* ── KEPT VERBATIM FROM index.html. No new design language was invented. ───── */
 :root{
   --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
-  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#85827B;
   --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
   --serif:'Fraunces',Georgia,serif;
@@ -24,15 +24,15 @@
    choice could never win over a dark OS. Same colors, three states now. */
 @media(prefers-color-scheme:light){:root:not([data-theme=dark]){
   --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
-  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
-  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
+  --ink:#17181C;--ink2:#4A4C55;--dim:#716E65;
+  --amber:#926511;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}}
 :root[data-theme=light]{
   --bg:#F4F1EA;--bg2:#ECE8DF;--panel:#FBF9F4;--line:#D9D3C6;--line2:#C6BFAF;
-  --ink:#17181C;--ink2:#4A4C55;--dim:#8A877E;
-  --amber:#9A6A12;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}
+  --ink:#17181C;--ink2:#4A4C55;--dim:#716E65;
+  --amber:#926511;--amber2:#7A5208;--up:#1E6E44;--dn:#B23A2A;}
 :root[data-theme=dark]{
   --bg:#0E0F12;--bg2:#141518;--panel:#191A1F;--line:#26282F;--line2:#33363F;
-  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#6E6B64;
+  --ink:#E8E4DB;--ink2:#A8A49B;--dim:#85827B;
   --amber:#E2A73B;--amber2:#F5C866;--up:#5FBF84;--dn:#E06B5A;}
 
 *{box-sizing:border-box}
@@ -47,8 +47,8 @@ h1,h2,h3{text-wrap:balance}
 
 
 /* masthead — CHANGED: admin control removed, identity only */
-.tmast{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
-  border-bottom:1px solid var(--line2);padding-bottom:var(--s2)}
+.tmast{display:flex;align-items:baseline;justify-content:flex-end;gap:var(--s3);flex-wrap:wrap;
+  border-bottom:1px solid var(--line);padding-bottom:var(--s2)}
 .tmast h1{font:300 var(--t-h2)/1 var(--serif);margin:0;letter-spacing:-.01em}
 .tmast h1 b{font-weight:700;color:var(--amber)}
 .tmast .when{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
@@ -214,7 +214,9 @@ table.tw td b{color:var(--ink);font-weight:600}
 table.tw td.r,table.tw th.r{text-align:right;padding-right:0}
 table.tw td.z{color:var(--dim)}
 table.tw td.cl{color:var(--dim)} table.tw td.op{color:var(--amber)}
-table.tw tr.real td{background:color-mix(in srgb,var(--dn) 5%,transparent)}
+/* NOT .real -- that is the red REAL badge, and a <tr class="real"> matched it,
+   painting the whole row solid var(--dn) with unreadable text on top. */
+table.tw tr.realmoney td{background:color-mix(in srgb,var(--dn) 8%,transparent)}
 .rt{color:#fff;background:var(--dn);border-radius:3px;padding:1px 6px;
   font:700 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
 
@@ -652,7 +654,7 @@ function renderToday(d,state){
   const A=$('#tab-today');
 
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       <div class="verdict"><div class="eyebrow">the verdict</div>
         <div class="sk" style="height:46px;width:min(20ch,90%)"></div>
         <div class="sk" style="height:14px;width:min(40ch,95%);margin-top:20px"></div></div>
@@ -660,7 +662,7 @@ function renderToday(d,state){
     return;
   }
   if(state==='error'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · today</h1><span class="when stale">no data</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">no data</span></div>
       <div class="verdict"><div class="eyebrow">the verdict</div>
         <p class="say">Today is <b style="color:var(--dn)">unknown</b>.</p>
         <p class="vquiet">The page could not load <b>data.json</b>, so nothing below is current. This is not a quiet
@@ -677,7 +679,7 @@ function renderToday(d,state){
 
   /* ── 1. verdict ─────────────────────────────────────────────────────────── */
   const say = live.length
-    ? `<p class="say fires">${live.length===1?'One setup':live.length+' setups'} <b>fires</b> today.</p>`
+    ? `<p class="say fires">${live.length===1?'One setup <b>fires</b>':live.length+' setups <b>fire</b>'} today.</p>`
     : `<p class="say">Nothing <b>fires</b> today.</p>`;
 
   /* `scanned` is how many names actually returned data; `universe` is how many were
@@ -749,8 +751,7 @@ function renderToday(d,state){
 
   A.innerHTML=`
   <div class="tmast">
-    <h1><b>Ledger</b> · today</h1>
-    <span class="when${stale?' stale':''}">${stale?'data 3 days old · scan has not run':esc(d.date)+' · scanned '+esc(d.stamp)}</span>
+    <span class="when${stale?' stale':''}">${stale?'data 3 days old · scan has not run':'scanned '+esc(String(d.stamp).slice(11))}</span>
   </div>
 
   <details class="whatis">
@@ -910,13 +911,13 @@ function closedRow(r){
 function renderTrades(d,state){
   const A=$('#tab-trades');
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · trades</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       <div class="perf">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:19px;width:60px"></div></div>'.repeat(4)}</div>
       ${'<div class="sk" style="height:56px;margin-top:12px"></div>'.repeat(4)}`;
     return;
   }
   if(state==='error'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · trades</h1><span class="when stale">no data</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">no data</span></div>
       <div class="sec"><div class="err">HTTP 404 fetching data.json. Positions cannot be marked, so no P/L is
       shown. An empty book here would be wrong — this is missing data, not a closed book.</div></div>`;
     return;
@@ -934,8 +935,7 @@ function renderTrades(d,state){
 
   A.innerHTML=`
   <div class="tmast">
-    <h1><b>Ledger</b> · trades</h1>
-    <span class="when">${esc(d.date)} · marked ${esc(d.stamp)}</span>
+    <span class="when">marked ${esc(String(d.stamp).slice(11))}</span>
   </div>
 
   <details class="whatis">
@@ -1057,12 +1057,12 @@ function renderWatching(d,state){
   const A=$('#tab-watching');
 
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · watching</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       ${'<div class="sk" style="height:52px;margin-top:14px"></div>'.repeat(6)}`;
     return;
   }
   if(state==='error'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · watching</h1><span class="when stale">no data</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">no data</span></div>
       <div class="sec"><div class="err">HTTP 404 fetching data.json. Nothing can be listed. An empty
       watchlist would be wrong — this is missing data, not an empty list.</div></div>`;
     return;
@@ -1098,8 +1098,7 @@ function renderWatching(d,state){
 
   A.innerHTML=`
   <div class="tmast">
-    <h1><b>Ledger</b> · watching</h1>
-    <span class="when">${esc(d.date)} · scanned ${esc(d.stamp)}</span>
+    <span class="when">scanned ${esc(String(d.stamp).slice(11))}</span>
   </div>
 
   <details class="whatis">
@@ -1352,8 +1351,8 @@ function renderCharts(d,state){
     ${list.map(k=>chart(k,ch[k],held[k])).join('')}</div>`:'';
 
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · charts</h1>
-    <span class="when">${esc(d.date)} · ${keys.length} names · 180 sessions available</span></div>
+  <div class="tmast">
+    <span class="when">${keys.length} names · 180 sessions available</span></div>
 
   <details class="whatis">
     <summary><span>Only names you hold or that fired. <b class="not">Not every ticker.</b></span>
@@ -1443,7 +1442,7 @@ function renderReport(d,state){
   <h3 class="rh">Positions</h3>
   <div class="scroll"><table class="tw">
     <thead><tr><th>position</th><th></th><th class="r">last week</th><th class="r">this week</th><th class="r">P/L</th></tr></thead>
-    <tbody>${r.positions.map(p=>`<tr${p.acct==='real'?' class="real"':''}>
+    <tbody>${r.positions.map(p=>`<tr${p.acct==='real'?' class="realmoney"':''}>
       <td><b>${esc(p.sym)}</b> ${p.kind==='call'?esc(p.strike)+'C':'shares'}${
         p.dte!=null?` <span class="z">${p.dte}d</span>`:''}</td>
       <td class="z">${p.acct==='real'?'<span class="rt">real</span>':esc(p.acct)}</td>
@@ -1503,19 +1502,19 @@ function setup(k,d,on){
 function renderSetups(d,state){
   const A=$('#tab-setups');
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · setups</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       ${'<div class="sk" style="height:58px;margin-top:14px"></div>'.repeat(6)}`; return;
   }
   if(state==='error'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · setups</h1><span class="when stale">no data</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">no data</span></div>
       <div class="sec"><div class="err">HTTP 404 fetching data.json. The setup definitions live in the scan
       output, so none can be shown. The setups themselves are unchanged — this is a missing file.</div></div>`; return;
   }
   const S=d.setups||{};
   const live=GROUP[0][3].filter(k=>S[k]).length;
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · setups</h1>
-    <span class="when">${esc(d.date)} · definitions locked</span></div>
+  <div class="tmast">
+    <span class="when">definitions locked</span></div>
 
   <details class="whatis">
     <summary><span>Six setups. <b class="not">Two</b> produce trades. Every number was written down before the test ran.</span>
@@ -1611,11 +1610,11 @@ function rule(r){
 function renderRules(d,state){
   const A=$('#tab-rules');
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · rules</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       ${'<div class="sk" style="height:64px;margin-top:14px"></div>'.repeat(5)}`; return;
   }
   if(state==='error'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · rules</h1><span class="when stale">no live context</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">no live context</span></div>
       <div class="sec"><div class="err">HTTP 404 fetching data.json. The rules below still apply — they do not
       depend on today's scan — but the live context strip cannot be shown.</div></div>
       ${['Size','Buying calls','Getting out','Armed, not on'].map(g=>`<div class="rgrp"><h3>${g}</h3>
@@ -1626,7 +1625,7 @@ function renderRules(d,state){
   const count=st=>RULES.filter(r=>r.st===st).length;
 
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · rules</h1>
+  <div class="tmast">
     <span class="when">${esc(d.date)} · VIX ${v.toFixed(1)} ${band[0]}</span></div>
 
   <details class="whatis">
@@ -1728,11 +1727,11 @@ function sector(s){
 function renderSectors(d,state){
   const A=$('#tab-sectors');
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · sectors</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       ${'<div class="sk" style="height:44px;margin-top:10px"></div>'.repeat(8)}`; return;
   }
   if(state==='error'||state==='nodata'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · sectors</h1><span class="when stale">no sector data</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">no sector data</span></div>
       <div class="sec"><div class="err">Sector data could not be fetched. The eleven sector funds come from a
       separate request to Yahoo, so this can fail while the rest of the scan succeeds. Nothing here is a signal,
       so a failure costs context, not a trade.</div></div>`; return;
@@ -1741,8 +1740,8 @@ function renderSectors(d,state){
   const top=S[0], ours=S.reduce((n,s)=>n+((s.ours||[]).length),0);
 
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · sectors</h1>
-    <span class="when">${esc(d.date)} · scanned ${esc(d.stamp)}</span></div>
+  <div class="tmast">
+    <span class="when">scanned ${esc(String(d.stamp).slice(11))}</span></div>
 
   <details class="whatis">
     <summary><span>Which sector is leading, and where your names sit. <b class="not">Context, not signal.</b></span>
@@ -1782,14 +1781,14 @@ const SECTIONS=[['prices','Prices'],['fundamentals','Fundamentals'],['marks','Op
 function renderMethodology(d,state){
   const A=$('#tab-methodology');
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · methodology</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       ${'<div class="sk" style="height:70px;margin-top:16px"></div>'.repeat(5)}`; return;
   }
   const days=((d.week&&d.week.days)||[]).slice().reverse();
   const err=(d.errors||[]).length;
 
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · methodology</h1>
+  <div class="tmast">
     <span class="when">${state==='error'?'no live data':esc(d.date)+' · scanned '+esc(d.stamp)}</span></div>
 
   <details class="whatis" open>
@@ -1918,12 +1917,12 @@ const human=h=>h==null?'—':h<1?`${Math.round(h*60)} min`:h<48?`${Math.round(h)
 function renderSystem(d,state){
   const A=$('#tab-system');
   if(state==='loading'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when">loading…</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when">loading…</span></div>
       <div class="big2">${'<div><span class="l">&nbsp;</span><div class="sk" style="height:32px;width:110px"></div></div>'.repeat(3)}</div>`;
     return;
   }
   if(state==='error'){
-    A.innerHTML=`<div class="tmast"><h1><b>Ledger</b> · system</h1><span class="when stale">page cannot load</span></div>
+    A.innerHTML=`<div class="tmast"><span class="when stale">page cannot load</span></div>
       <div class="sec">
         <div class="err"><b>${esc(window.__loadErr||'Could not load')} — data.json</b><br>
         Looking in <code>${esc(location.origin+location.pathname.replace(/[^/]*$/,''))}</code><br><br>
@@ -1952,7 +1951,7 @@ function renderSystem(d,state){
   const real=marks.filter(r=>r.mark==='alpaca'||r.mark==='schwab').length;
 
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · system</h1>
+  <div class="tmast">
     <span class="when${stale?' stale':''}">${stale?'stale':'healthy'}</span></div>
 
   <details class="whatis">
