@@ -34,15 +34,29 @@ echo "Bot is @$NAME"
 
 echo
 echo "Step 2 — open Telegram, find @$NAME, and send it any message. Say hi."
-printf "Press return once you have sent it: "
-read -r _
+echo "Waiting for it…"
 
-CHAT=$(curl -s "https://api.telegram.org/bot$TOK/getUpdates" | python3 -c \
-  'import sys,json
-d=json.load(sys.stdin); r=d.get("result",[])
+# No "press return" prompt here. A pasted token leaves a newline in the buffer,
+# the prompt swallowed it, and the script raced past before any message existed.
+# Polling removes the interaction instead of trying to fix the buffer.
+CHAT=""
+for i in $(seq 1 40); do
+  CHAT=$(curl -s "https://api.telegram.org/bot$TOK/getUpdates" | python3 -c \
+    'import sys,json
+try: d=json.load(sys.stdin)
+except Exception: d={}
+r=[x for x in d.get("result",[]) if "message" in x]
 print(r[-1]["message"]["chat"]["id"] if r else "")')
+  [ -n "$CHAT" ] && break
+  printf "."
+  sleep 3
+done
+echo
+
 if [ -z "$CHAT" ]; then
-  echo "No message seen yet. Send the bot a message, then rerun this script."; exit 1
+  echo "Never saw a message. Open Telegram, search @$NAME, tap Start, send 'hi',"
+  echo "then run this script again."
+  exit 1
 fi
 echo "Found you: chat $CHAT"
 
