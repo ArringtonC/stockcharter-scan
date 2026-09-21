@@ -1,6 +1,6 @@
 {
  "date": "2026-09-20",
- "stamp": "2026-09-21 02:40 UTC",
+ "stamp": "2026-09-21 02:44 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.8100004196167,
@@ -1953,6 +1953,13 @@
     "open_n": 1,
     "open_mean": 53.64705882352943
    },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -4.7549778560649845
+   },
    "F": {
     "wins": 0,
     "losses": 0,
@@ -1973,13 +1980,6 @@
     "closed_mean": null,
     "open_n": 7,
     "open_mean": -5.179671761652171
-   },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -4.7549778560649845
    }
   },
   "produced": [
@@ -14113,5 +14113,47 @@
     713.1
    ]
   }
+ },
+ "report": {
+  "months": 0,
+  "floor": 8500,
+  "balance": 8500.0,
+  "as_of": "2026-09-18",
+  "target": 30000.0,
+  "target_date": "2027-12-01",
+  "to_go": 21500,
+  "pct": 28.3,
+  "above_floor": true,
+  "sessions": 8,
+  "fired_days": 6,
+  "quiet_run": 2,
+  "first": "2026-09-10",
+  "real_n": 1,
+  "real_avg": 53.64705882352943,
+  "paper_n": 18,
+  "paper_avg": -8.834017386204463,
+  "closed_n": 2,
+  "real_net": -32,
+  "decaying": [
+   {
+    "sym": "SHOP",
+    "strike": "120",
+    "dte": 12,
+    "pl": -64.51843895452917,
+    "acct": "big"
+   },
+   {
+    "sym": "BABA",
+    "strike": "109",
+    "dte": 12,
+    "pl": 53.64705882352943,
+    "acct": "real"
+   }
+  ],
+  "breaks": [
+   "PYPL had no setup behind it",
+   "BABA had no setup behind it",
+   "BABA is inside 45 days"
+  ]
  }
 }

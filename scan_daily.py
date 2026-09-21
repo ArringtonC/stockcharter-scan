@@ -578,6 +578,74 @@ def week(d, hist, closed, open_):
                 produced=[dict(date=a, sym=b, setup=c) for a, b, c in produced])
 
 
+# ── the report ─────────────────────────────────────────────────────────────────
+# Everything else on this site says what is true right now. This says what
+# changed and what it means, which is the only thing a daily scan cannot tell you.
+#
+# Four obligations, borrowed and kept honest:
+#   notice a relationship you could miss · distinguish a changed number from a
+#   changed situation · say why a number matters in YOUR plan · make an unresolved
+#   decision obvious without making it for you.
+#
+# The plan's own constants. Update BALANCE when you deposit or the account moves;
+# nothing else on this site knows what your account is actually worth.
+PLAN = dict(start=8500.0, deposit=1000.0, target=30000.0,
+            target_date="2027-12-01", started="2026-09-18",
+            balance=8500.0, balance_as_of="2026-09-18")
+
+
+def report(d, hist, open_, closed):
+    today = datetime.date.fromisoformat(d["date"])
+    began = datetime.date.fromisoformat(PLAN["started"])
+    months = max(0, (today.year - began.year) * 12 + today.month - began.month)
+    floor = PLAN["start"] + PLAN["deposit"] * months          # trading returns zero
+    bal = PLAN["balance"]
+
+    # scan activity — a quiet run is the scanner working, so count it plainly
+    sessions = len(hist)
+    fired_days = [x for x in hist if x["F"] or x["vix_fires"] or (x["vix"] >= 25 and x["S"])]
+    quiet_run = 0
+    for x in reversed(hist):
+        if x in fired_days: break
+        quiet_run += 1
+
+    # positions, kept apart — paper is a test, real is money
+    real_open = [r for r in open_ if r["acct"] == "real"]
+    paper_open = [r for r in open_ if r["acct"] != "real"]
+    def avg(rows):
+        v = [r["pl_pct"] for r in rows if r.get("pl_pct") is not None]
+        return sum(v) / len(v) if v else None
+    taken = d.get("taken", [])
+    real_net = sum(t.get("pl", 0) for t in taken)
+
+    # the one thing worth interrupting for: a call in the decay window
+    decaying = sorted([r for r in open_ if r.get("kind") == "call" and (r.get("dte") or 99) <= 21],
+                      key=lambda r: r["dte"])
+
+    # rule breaks, counted rather than described
+    breaks = []
+    for t in taken:
+        if t.get("setup") in (None, "none"): breaks.append(f"{t['sym']} had no setup behind it")
+    for r in open_:
+        if r.get("kind") == "call" and (r.get("dte") or 99) < 45 and r["acct"] == "real":
+            breaks.append(f"{r['symbol']} is inside 45 days")
+
+    return dict(
+        months=months, floor=round(floor), balance=bal, as_of=PLAN["balance_as_of"],
+        target=PLAN["target"], target_date=PLAN["target_date"],
+        to_go=round(PLAN["target"] - bal), pct=round(bal / PLAN["target"] * 100, 1),
+        above_floor=bal >= floor,
+        sessions=sessions, fired_days=len(fired_days), quiet_run=quiet_run,
+        first=hist[0]["date"] if hist else d["date"],
+        real_n=len(real_open), real_avg=avg(real_open),
+        paper_n=len(paper_open), paper_avg=avg(paper_open),
+        closed_n=len(taken), real_net=real_net,
+        decaying=[dict(sym=r["symbol"], strike=r.get("strike"), dte=r["dte"],
+                       pl=r.get("pl_pct"), acct=r["acct"]) for r in decaying],
+        breaks=breaks,
+    )
+
+
 # ── charts ─────────────────────────────────────────────────────────────────────
 # bars() already cached every name's 2-year history while the scan ran, so this
 # costs one extra fetch (the S&P) and writes only the names you actually hold or
@@ -775,7 +843,7 @@ if __name__ == "__main__":
     hist = [h for h in hist if h["date"] != d["date"]] + [entry]
     json.dump(hist, open(HIST, "w"), indent=1)
     d.update(open=open_, closed=closed, week=week(d, hist, closed, open_), setups=SETUPS,
-             charts=chart_data(d, open_))
+             charts=chart_data(d, open_), report=report(d, hist, open_, closed))
     json.dump(d, open(os.path.join(DOCS, "data.json"), "w"), indent=1, default=str)
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"

@@ -175,6 +175,64 @@ h1,h2,h3{text-wrap:balance}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 
+
+/* ── Report ───────────────────────────────────────────────────────────────── */
+.rlead{padding:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line)}
+.rlead p{margin:0;font:300 clamp(26px,4.4vw,40px)/1.2 var(--serif);letter-spacing:-.02em;
+  color:var(--ink2);max-width:26ch}
+.rlead b{font-weight:600;color:var(--ink)}
+.rsec{padding-top:var(--s5)}
+.rsec>h2{margin:0 0 var(--s3);font:600 var(--t-h2)/1.25 var(--serif);letter-spacing:-.01em;
+  display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
+.rsec>h2 .since{font:400 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim)}
+.rsec>p.lede{margin:calc(-1 * var(--s2)) 0 var(--s3);font-size:var(--t-data);color:var(--dim)}
+.rsec p.read{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:68ch}
+.rsec p.read b{color:var(--ink);font-weight:500}
+.rsec p.read a{color:var(--amber)}
+
+.cgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4);
+  padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cg{display:flex;flex-direction:column;gap:3px}
+.cg .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.cg .v{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.cg .v.up{color:var(--up)}.cg .v.dn{color:var(--dn)}
+.cg .s{font-size:var(--t-data);color:var(--ink2)}
+
+.lines{border-top:1px solid var(--line)}
+.lrow{display:grid;grid-template-columns:8rem auto minmax(0,1fr);gap:var(--s3);align-items:baseline;
+  padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.lrow .ll{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.lrow .lv{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
+.lrow.ok .lv{color:var(--up)} .lrow.bad .lv{color:var(--dn)}
+.lrow .ls{font-size:var(--t-data);color:var(--ink2)}
+
+.track{padding:var(--s3) 0 0}
+.track .bar{position:relative;height:8px;border-radius:4px;background:var(--line)}
+.track .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:4px}
+.track .ends{display:flex;justify-content:space-between;margin-top:var(--s2);
+  font:500 var(--t-data) var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+.track .ends b{color:var(--ink)}
+
+.dec{display:grid;grid-template-columns:10rem minmax(0,1fr) auto;gap:var(--s3);align-items:baseline;
+  padding:var(--s3) 0;border-top:1px solid var(--line)}
+.dec:last-of-type{border-bottom:1px solid var(--line)}
+.dec .sym{font:600 var(--t-body) var(--mono);color:var(--ink)}
+.dec .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--dim);font-weight:500}
+.dec .what{font-size:var(--t-data);color:var(--ink2)}
+.dec .what b{color:var(--dn);font-weight:500}
+.dec .pl{font:600 var(--t-body) var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.dec .pl.up{color:var(--up)}.dec .pl.dn{color:var(--dn)}
+
+.brk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s3);align-items:baseline;
+  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data);color:var(--ink2)}
+.brk:last-of-type{border-bottom:1px solid var(--line)}
+.brk .x{color:var(--dn);font-weight:600}
+@container (max-width:620px){
+  .lrow{grid-template-columns:1fr auto}.lrow .ls{grid-column:1/-1}
+  .dec{grid-template-columns:1fr auto}.dec .what{grid-column:1/-1}
+}
 /* ── Charts ───────────────────────────────────────────────────────────────── */
 .ch{border-top:1px solid var(--line);padding:var(--s3) 0}
 .ch:last-of-type{border-bottom:1px solid var(--line)}
@@ -514,6 +572,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
     <button role="tab" data-tab="trades" aria-selected="false">Trades<span class="n" id="n-trades"></span></button>
     <button role="tab" data-tab="watching" aria-selected="false">Watching<span class="n" id="n-watching"></span></button>
     <button role="tab" data-tab="charts" aria-selected="false">Charts<span class="n" id="n-charts"></span></button>
+    <button role="tab" data-tab="report" aria-selected="false">Report</button>
     <button role="tab" data-tab="research" aria-selected="false">Research</button>
     <button role="tab" data-tab="system" aria-selected="false">System</button>
   </nav>
@@ -523,6 +582,8 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
   <section role="tabpanel" id="tab-watching" class="today" hidden></section>
 
   <section role="tabpanel" id="tab-charts" class="today" hidden></section>
+
+  <section role="tabpanel" id="tab-report" class="today" hidden></section>
 
   <section role="tabpanel" id="tab-research" hidden>
     <div class="sub" role="tablist" aria-label="Research">
@@ -1186,6 +1247,110 @@ function renderCharts(d,state){
   ${block('Fired or watched','watch','Names the scan surfaced that you do not hold.',other)}`;
 }
 
+/* ══ Report ══════════════════════════════════════════════════ */
+/* Everything else here says what is true now. This says what changed and what it
+   means. Interpretation, not judgment — it never congratulates and never scolds. */
+function renderReport(d,state){
+  const A=$('#tab-report');
+  if(state==='loading'){A.innerHTML='<div class="sk" style="height:300px;margin-top:14px"></div>';return;}
+  if(state==='error'){A.innerHTML=`<div class="sec"><div class="err">HTTP 404 fetching data.json.
+    No report — this is missing data, not a quiet month.</div></div>`;return;}
+  const r=d.report; if(!r){A.innerHTML='<p class="empty">No report in this scan.</p>';return;}
+
+  const m=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
+  const sgn=x=>(x>=0?'+':'−')+m(x);
+
+  /* The headline notices the relationship, and says nothing a number can't carry. */
+  const lead = r.quiet_run>=5
+    ? `Nothing has fired in <b>${r.quiet_run} sessions</b>.<br>Your positions moved anyway.`
+    : r.decaying.length
+      ? `<b>${r.decaying.length} call${r.decaying.length===1?'':'s'}</b> ${r.decaying.length===1?'is':'are'} inside the decay window.<br>The rest of the book is quiet.`
+      : `The scan fired on <b>${r.fired_days} of ${r.sessions}</b> sessions.<br>Nothing needs you today.`;
+
+  const chg=(label,val,sub,cls)=>`<div class="cg">
+    <span class="l">${label}</span>
+    <span class="v ${cls||''}">${val}</span>
+    <span class="s">${sub}</span></div>`;
+
+  return A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · the report</h1>
+    <span class="when">${esc(d.date)} · since ${esc(r.first)}</span></div>
+
+  <div class="rlead"><p>${lead}</p></div>
+
+  <div class="rsec">
+    <h2>What changed <span class="since">since ${esc(r.first)}</span></h2>
+    <div class="cgs">
+      ${chg('Scans run', r.sessions, `${r.fired_days} produced a signal`)}
+      ${chg('Real money', sgn(r.real_net), `${r.closed_n} trades closed`, r.real_net>=0?'up':'dn')}
+      ${chg('Open · real', r.real_avg==null?'—':pct(r.real_avg), `${r.real_n} position${r.real_n===1?'':'s'}`, r.real_avg>=0?'up':'dn')}
+      ${chg('Open · paper', r.paper_avg==null?'—':pct(r.paper_avg), `${r.paper_n} positions`, r.paper_avg>=0?'up':'dn')}
+    </div>
+    <p class="read">${r.real_net<0 && r.real_avg>0
+      ? `Closed real trades are down <b>${m(r.real_net)}</b> while the one still open is up
+         <b>${pct(r.real_avg)}</b>. <b>Two closed trades is a tally, not a track record</b> —
+         the number that matters is which rules they broke, below.`
+      : `Paper and real are kept apart because they answer different questions. Paper tests whether a
+         setup holds. Real is the only line that spends money.`}</p>
+  </div>
+
+  <div class="rsec">
+    <h2>Your position</h2>
+    <div class="lines">
+      <div class="lrow"><span class="ll">Account</span>
+        <span class="lv">${m(r.balance)}</span>
+        <span class="ls">as of ${esc(r.as_of)}</span></div>
+      <div class="lrow ${r.above_floor?'ok':'bad'}"><span class="ll">Floor line</span>
+        <span class="lv">${m(r.floor)}</span>
+        <span class="ls">${r.months} month${r.months===1?'':'s'} of deposits, trading at zero</span></div>
+    </div>
+    <p class="read">${r.above_floor
+      ? `You are <b>on or above the floor</b>. The floor is just your deposits — it assumes trading makes
+         nothing. Staying above it is the whole requirement.`
+      : `You are <b>below the floor line</b>. The hole was dug by trading, not by deposits.
+         <b>The plan says stop for one month</b> and deposit only.`}</p>
+  </div>
+
+  <div class="rsec">
+    <h2>Your path</h2>
+    <div class="track">
+      <div class="bar"><i style="width:${Math.min(100,r.pct)}%"></i></div>
+      <div class="ends"><span><b>${m(r.balance)}</b> now</span>
+        <span><b>${m(r.target)}</b> by ${(()=>{
+          /* "2027-12-01" parses as UTC midnight, which is Nov 30 west of Greenwich.
+             Build it from the parts so the month is the month. */
+          const [y,mo]=r.target_date.split('-').map(Number);
+          return new Date(y,mo-1,1).toLocaleDateString(undefined,{month:'short',year:'numeric'});})()}</span></div>
+    </div>
+    <p class="read"><b>${m(r.to_go)}</b> to go, <b>${r.pct}%</b> of the way. At $1,000 a month with
+    trading flat, the deposits alone arrive seven months late — which is the entire cost of every
+    strategy failing. <a href="plan.html">The plan ↗</a></p>
+  </div>
+
+  ${r.decaying.length?`<div class="rsec">
+    <h2>Decisions you have not made</h2>
+    <p class="lede">Stated, not made for you.</p>
+    ${r.decaying.map(x=>`<div class="dec">
+      <span class="sym">${esc(x.sym)} ${esc(x.strike)}C<small>${esc(x.acct)}</small></span>
+      <span class="what">${x.dte} days left${x.dte<45?` · <b>inside your 45-day rule</b>`:''}</span>
+      <span class="pl ${x.pl>=0?'up':'dn'}">${pct(x.pl)}</span>
+    </div>`).join('')}
+    <p class="read">A call under 45 days is the one thing your rules say not to own. These are already
+    owned, so the rule cannot undo them — <b>it only tells you not to add another</b>.</p>
+  </div>`:''}
+
+  ${r.breaks.length?`<div class="rsec">
+    <h2>Rules broken</h2>
+    <p class="lede">Counted, not scolded. Each one was written before the trade.</p>
+    ${r.breaks.map(b=>`<div class="brk"><span class="x">✕</span><span>${esc(b)}</span></div>`).join('')}
+    <p class="read">Every real trade so far broke a rule that already existed. That is the cheapest
+    thing on this page to fix, and it costs nothing.</p>
+  </div>`:''}
+
+  <p class="foot">The account figure is entered by hand and dated. Nothing on this site reads a broker
+  balance. Everything else here is computed from the scan, the trade book and the plan.</p>`;
+}
+
 /* ══ Setups ══════════════════════════════════ */
 const GROUP=[
   ["Tradeable","on","These produce signals I act on. F is the only one that survived every test.",["F","VIX","S"]],
@@ -1734,7 +1899,7 @@ const money=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,m
 const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
 
 /* ── navigation ────────────────────────────────────────────────────────────── */
-const PANELS=['today','trades','watching','charts','research','system'];
+const PANELS=['today','trades','watching','charts','report','research','system'];
 function show(tab){
   document.querySelectorAll('nav [role=tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
   PANELS.forEach(p=>$('#tab-'+p).hidden=p!==tab);
@@ -1752,7 +1917,7 @@ document.querySelectorAll('.sub [role=tab]').forEach(b=>b.addEventListener('clic
 
 /* ── boot ──────────────────────────────────────────────────────────────────── */
 function renderAll(d,state){
-  renderToday(d,state); renderTrades(d,state); renderWatching(d,state); renderCharts(d,state);
+  renderToday(d,state); renderTrades(d,state); renderWatching(d,state); renderCharts(d,state); renderReport(d,state);
   renderSetups(d,state); renderRules(d,state); renderSectors(d,state);
   renderMethodology(d,state); renderSystem(d,state);
   if(state==='error'){ $('#stamp').textContent='could not load data.json'; $('#stamp').classList.add('stale'); return; }
