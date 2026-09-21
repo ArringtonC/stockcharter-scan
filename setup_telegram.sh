@@ -20,20 +20,32 @@ MSG
   exit 1
 fi
 
-echo "Step 1 — in Telegram, message @BotFather, send /newbot, follow the prompts."
-echo "It replies with a token that looks like 8123456789:AAF...xyz"
-printf "Paste the token (hidden): "
-read -rs TOK; echo
+# A run that got as far as a valid token saved it, so a retry needs no paste.
+TOK=""
+[ -f "$ENVF" ] && TOK=$(grep '^export TELEGRAM_TOKEN=' "$ENVF" 2>/dev/null | cut -d= -f2-)
 
-if [ -z "$TOK" ]; then echo "token required"; exit 1; fi
+if [ -n "$TOK" ]; then
+  echo "Using the token you already gave me."
+else
+  echo "Step 1 — in Telegram, message @BotFather, send /newbot, follow the prompts."
+  echo "It replies with a token that looks like 8123456789:AAF...xyz"
+  printf "Paste the token (hidden): "
+  read -rs TOK; echo
+  if [ -z "$TOK" ]; then echo "token required"; exit 1; fi
+fi
 
 NAME=$(curl -s "https://api.telegram.org/bot$TOK/getMe" | python3 -c \
   'import sys,json; d=json.load(sys.stdin); print(d["result"]["username"] if d.get("ok") else "")')
 if [ -z "$NAME" ]; then echo "that token did not work. Check it and rerun."; exit 1; fi
 echo "Bot is @$NAME"
+umask 077
+grep -v '^export TELEGRAM_TOKEN=' "$ENVF" 2>/dev/null > "$ENVF.tmp" || true
+printf 'export TELEGRAM_TOKEN=%s\n' "$TOK" >> "$ENVF.tmp"
+mv "$ENVF.tmp" "$ENVF"; chmod 600 "$ENVF"
 
 echo
-echo "Step 2 — open Telegram, find @$NAME, and send it any message. Say hi."
+echo "Step 2 — open this link, tap START, send anything:"
+echo "    https://t.me/$NAME"
 echo "Waiting for it…"
 
 # No "press return" prompt here. A pasted token leaves a newline in the buffer,
@@ -61,8 +73,8 @@ fi
 echo "Found you: chat $CHAT"
 
 umask 077
-grep -v '^export TELEGRAM_' "$ENVF" 2>/dev/null > "$ENVF.tmp" || true
-printf 'export TELEGRAM_TOKEN=%s\nexport TELEGRAM_CHAT=%s\n' "$TOK" "$CHAT" >> "$ENVF.tmp"
+grep -v '^export TELEGRAM_CHAT=' "$ENVF" 2>/dev/null > "$ENVF.tmp" || true
+printf 'export TELEGRAM_CHAT=%s\n' "$CHAT" >> "$ENVF.tmp"
 mv "$ENVF.tmp" "$ENVF"; chmod 600 "$ENVF"
 echo "wrote $ENVF"
 
