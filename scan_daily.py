@@ -13,7 +13,7 @@ trades.csv is the paper book. This script marks it to market and auto-closes:
           falls back to that floor, or at 252 sessions. (Tested: +6pp over closing at target.)
   calls   mark with a real quote (Schwab, then Alpaca), falling back to Black-Scholes; close at expiry at intrinsic
 """
-import urllib.request, json, datetime, time, os, gzip, csv, math
+import urllib.request, urllib.parse, json, datetime, time, os, gzip, csv, math
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.join(HERE, "docs")
@@ -578,6 +578,52 @@ def week(d, hist, closed, open_):
                 produced=[dict(date=a, sym=b, setup=c) for a, b, c in produced])
 
 
+# ── push ───────────────────────────────────────────────────────────────────────
+# Nine days in ten this message saves you opening the page at all. On the tenth
+# it reaches you before the open. No token set means it silently does nothing.
+def notify(text):
+    tok, chat = os.environ.get("TELEGRAM_TOKEN"), os.environ.get("TELEGRAM_CHAT")
+    if not (tok and chat): return False
+    try:
+        body = urllib.parse.urlencode(dict(chat_id=chat, text=text,
+                                           parse_mode="HTML",
+                                           disable_web_page_preview="true")).encode()
+        urllib.request.urlopen(
+            urllib.request.Request(f"https://api.telegram.org/bot{tok}/sendMessage", data=body),
+            timeout=20).read()
+        return True
+    except Exception as e:
+        print(f"notify failed: {str(e)[:60]}")
+        return False
+
+
+def summary(d, open_):
+    """What you would want on a phone screen, and nothing else."""
+    live = [f"Setup F: {', '.join(x['sym'] for x in d['F'])}"] if d["F"] else []
+    if d["vix_fires"]: live.append(f"Setup VIX fires — ATM QQQ call, ~30 DTE, $1,000")
+    if d["vix"] >= 25 and d["S"]: live.append(f"Setup S: {', '.join(x['sym'] for x in d['S'])}")
+
+    head = ("<b>" + (" · ".join(live) if live else "Nothing fires") + "</b>")
+    ctx  = (f"VIX {d['vix']:.1f} {d['regime']} · QQQ {d['qqq']:.0f} ({d['qdd']:+.1f}% off high)")
+    scan = f"{d['scanned']}/{d['universe']} scanned"
+    if d["errors"]: scan += f" · <b>{len(d['errors'])} failed</b>"
+
+    lines = [f"📊 <b>Ledger</b> · {d['date']}", head, ctx, scan]
+
+    # a call inside 21 days is the one thing worth interrupting you for
+    soon = [r for r in open_ if r.get("kind") == "call" and (r.get("dte") or 99) <= 21]
+    if soon:
+        lines.append("")
+        lines.append("<b>Expiring soon</b>")
+        for r in sorted(soon, key=lambda r: r["dte"]):
+            pl = r.get("pl_pct")
+            lines.append(f"  {r['symbol']} {r['strike']}C · {r['dte']}d · "
+                         + (f"{pl:+.0f}%" if pl is not None else "—"))
+    lines.append("")
+    lines.append("https://arringtonc.github.io/stockcharter-scan/")
+    return "\n".join(lines)
+
+
 if __name__ == "__main__":
     os.makedirs(DOCS, exist_ok=True)
     d = scan()
@@ -592,3 +638,4 @@ if __name__ == "__main__":
     json.dump(d, open(os.path.join(DOCS, "data.json"), "w"), indent=1, default=str)
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}")
+    if notify(summary(d, open_)): print("  pushed to telegram")
