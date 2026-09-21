@@ -837,15 +837,16 @@ const RETIRED=new Set(['E']);
 
 /* The rule that applies, read from fields the scanner already writes. Nothing here
    is invented: shares arm a floor at the target, calls have no stop by design. */
+/* Only what differs. "Closes at 252 sessions if it never comes" was on 11 rows
+   and "Target is the prior high" on 5 -- both are the mechanic for the whole
+   book, so they moved to the section lede and the disclosure. */
 function ruleFor(r){
   if(r.kind==='shares'){
-    return r.armed
-      ? `Floor set at ${money(r.target)}. It closes only if it falls back there.`
-      : `Reach ${money(r.target)}, then floor it there. Closes at 252 sessions if it never comes.`;
+    return r.armed ? `Floor set at ${money(r.target)}` : `Target ${money(r.target)}`;
   }
   return r.dte!=null && r.dte<45
-    ? `No stop. ${r.dte} days left — under the 45-day floor.`
-    : `No stop. Target is the prior high.`;
+    ? `<b style="color:var(--dn)">${r.dte} days left — under the 45-day floor</b>`
+    : `${r.dte!=null?r.dte+' days left':''}`;
 }
 
 function holding(r){
@@ -962,7 +963,9 @@ function renderTrades(d,state){
 
   <div class="sec">
     <h2>Open <span class="tag trade">${o.length}</span></h2>
-    <p class="lede">What you hold, what it is doing, and the rule that applies. Open a row for the mechanics.</p>
+    <p class="lede">What you hold and what it is doing. Open a row for the mechanics.
+    <b>Shares</b> set a floor at the target and close there, or at 252 sessions.
+    <b>Calls</b> have no stop and target the prior high.</p>
     ${o.length?o.map(position).join(''):`<p class="empty">Nothing open. Cash is a position.</p>`}
   </div>
 
@@ -1029,7 +1032,7 @@ function renderTrades(d,state){
 function wrow(sym,tag,what,next,px,unit){
   return `<div class="wrow">
     <div class="sym">${esc(sym)}<small>${tag}</small></div>
-    <div class="next">${what}<em>${next}</em></div>
+    <div class="next">${what}${next?`<em>${next}</em>`:''}</div>
     <div class="px"><b>${f2(px)}</b><small>${unit||''}</small></div>
   </div>`;
 }
@@ -1074,26 +1077,22 @@ function renderWatching(d,state){
   const total=near.length+D.length+W.length;
 
   const nearRows = D.map(r=>wrow(r.sym,'setup D',
-      `${r.dd.toFixed(1)}% below its high, RSI ${r.rsi.toFixed(0)}, up over 126 sessions.`,
-      `Cannot become tradeable. <b>Setup D never beat random picking</b> on the honest universe.`,
+      `${r.dd.toFixed(1)}% below its high, RSI ${r.rsi.toFixed(0)}`, '',
       r.px,`+${r.up.toFixed(1)}% upside`)).join('');
 
+  // the row says only which condition is missing; the header says what that means
   const blockedRows = near.map(r=>wrow(r.sym,'setup F band',
-      `In the F price band, ${r.dd.toFixed(1)}% below its high.`,
-      r.why==='no SEC data'
-        ? `Needs <b>revenue from an SEC filing</b>. None is available for this name, so it cannot pass.`
-        : `Needs the <b>trend to repair</b> — 10 over 30 and 50 over 200.`,
+      `${r.dd.toFixed(1)}% below its high`,
+      r.why==='no SEC data' ? `missing <b>SEC revenue</b>` : `missing <b>trend</b>`,
       r.px,`+${r.up.toFixed(1)}% to target`)).join('');
 
   const weeklyRows = [
     ...crossed.map(r=>wrow(r.sym,'crossed',
-      `Weekly 10 EMA is above the 30. The 30 is ${r.up?'rising':'falling'}.`,
-      r.up?`Already crossed. <b>Research only</b> — +0.49pp ex-top-five, p=0.363.`
-          :`Crossed, but the 30 EMA is still <b>falling</b>. That is the weak version.`,
+      `10 EMA above the 30`,
+      r.up?'':`the 30 is still <b>falling</b> — the weak version`,
       r.px,`${pct(r.gap)} gap`)),
     ...soon.map(r=>wrow(r.sym,'near',
-      `Weekly 10 EMA is ${Math.abs(r.gap).toFixed(1)}% under the 30.`,
-      `Needs the <b>10 to cross the 30</b> on a weekly close.`,
+      `${Math.abs(r.gap).toFixed(1)}% under the 30`, '',
       r.px,`${r.dd.toFixed(1)}% off high`))].join('');
 
   A.innerHTML=`
@@ -1124,17 +1123,20 @@ function renderWatching(d,state){
   </div>
 
   <div class="band"><h3>Near</h3><span class="n">${D.length}</span>
-    <p>Close to a setup's conditions, but the setup itself is watchlist only.</p></div>
+    <p>Close to Setup D's conditions — but <b>D never beat random picking</b> on the honest
+    universe, so none of these can become tradeable.</p></div>
   ${D.length?nearRows:`<p class="empty">Nothing near.</p>`}
 
   <div class="band"><h3>Blocked</h3><span class="n">${near.length}</span>
-    <p>In Setup F's price band and failing exactly one condition. Blocked names hit their target 39% of the
-    time against 71% for names that pass, so the block is doing real work.</p></div>
+    <p>In Setup F's price band, failing exactly one condition — the trend (10 over 30, 50 over 200)
+    or SEC revenue. Blocked names hit their target 39% of the time against 71% for names that
+    pass, so the block is doing real work.</p></div>
   ${near.length?blockedRows:`<p class="empty">Nothing blocked.</p>`}
 
   <div class="band"><h3>Weekly cross</h3><span class="n">${W.length}</span>
-    <p>The weekly 10/30 EMA cross. It beats the daily version by 3.2 points and still does not clear the
-    bar: +0.49pp once the top five names come out, p=0.363.</p></div>
+    <p>The weekly 10/30 EMA cross. <b>Crossed</b> means the 10 is above the 30; <b>near</b> means it
+    is not yet. Research only — it beats the daily version by 3.2 points and still does not clear
+    the bar at +0.49pp ex-top-five, p=0.363.</p></div>
   ${W.length?weeklyRows:`<p class="empty">No crosses or near-crosses.</p>`}
 
   <div class="sec">

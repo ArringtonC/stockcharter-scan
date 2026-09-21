@@ -55,7 +55,7 @@
   <p>Every number on Ledger is checked against a null model before it ships. The markup around
   those numbers had never been looked at. This is one pass over the seven tabs and the plan —
   <b>what was on screen, and what is there now.</b></p>
-  <p>Six findings. <b>Three were bugs that shipped</b> and none of them showed up in a syntax
+  <p>Seven findings. <b>Three were bugs that shipped</b> and none of them showed up in a syntax
   check, a word count, or a tag-balance test. They were found by opening the page and looking
   at it.</p>
 </div>
@@ -177,6 +177,37 @@ light  --dim  #716E65   <i>4.52</i>     <i>4.84</i>
 light  --amber #926511  <i>4.55</i>     <i>4.88</i>
 
 <i>ink2 still 7.6:1 — the hierarchy holds</i></pre></figure>
+  </div>
+</div>
+
+
+<div class="item">
+  <div class="ih"><h2>Rows reprinted the whole group's reason</h2><span class="where">Watching · Trades</span><span class="sev read">readability</span></div>
+  <p class="why">Same shape as the plan's checkpoint table, found by counting repeated sentences per
+  page. <b>"Needs the trend to repair" appeared 15 times</b>, "Setup D never beat random picking" 10,
+  "Closes at 252 sessions if it never comes" 11. Each is the reason the <b>group</b> cannot be
+  traded — that is the section header's job. The row's job is only what differs.</p>
+  <div class="grid">
+    <figure class="pane"><div class="ph"><span>Before</span><span>Watching · 1,248 words</span></div>
+<pre>HOOD  setup D
+  19.1% below its high, RSI 63, up over 126 sessions.
+  <i>Cannot become tradeable. Setup D never beat random
+  picking on the honest universe.</i>
+MU    setup D
+  17.2% below its high, RSI 61, up over 126 sessions.
+  <i>Cannot become tradeable. Setup D never beat random
+  picking on the honest universe.</i>
+<i>…8 more, each carrying the same two sentences</i></pre></figure>
+    <figure class="pane after"><div class="ph"><span>After</span><span>711 words</span></div>
+<pre><b>Near</b> <i>10</i>  Close to Setup D's conditions — but
+        <i>D never beat random picking</i> on the honest
+        universe, so none can become tradeable.
+
+HOOD  19.1% below its high, RSI 63     +23.6%
+MU    17.2% below its high, RSI 61     +20.8%
+U     17.0% below its high, RSI 56     +20.6%
+
+<i>said once · rows are scannable</i></pre></figure>
   </div>
 </div>
 
