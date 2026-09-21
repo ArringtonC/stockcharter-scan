@@ -177,110 +177,61 @@ h1,h2,h3{text-wrap:balance}
 
 
 /* ── Report ───────────────────────────────────────────────────────────────── */
-.rlead{padding:var(--s5) 0 var(--s4);border-bottom:1px solid var(--line)}
-.rlead p{margin:0;font:300 clamp(26px,4.4vw,40px)/1.2 var(--serif);letter-spacing:-.02em;
-  color:var(--ink2);max-width:26ch}
-.rlead b{font-weight:600;color:var(--ink)}
-.rsec{padding-top:var(--s5)}
-.rsec>h2{margin:0 0 var(--s3);font:600 var(--t-h2)/1.25 var(--serif);letter-spacing:-.01em;
-  display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
-.rsec>h2 .since{font:400 var(--t-label) var(--mono);letter-spacing:var(--tr);
+.rhead{padding:var(--s4) 0 var(--s5)}
+.rhead h1{margin:0;font:400 clamp(34px,5.5vw,46px)/1.05 var(--serif);letter-spacing:-.025em;color:var(--ink)}
+.rhead .sub{margin:var(--s2) 0 0;font:300 italic var(--t-h2)/1.3 var(--serif);color:var(--ink2)}
+.rhead .when{margin:var(--s3) 0 0;font-size:var(--t-data);color:var(--dim)}
+h3.rh{margin:var(--s6) 0 var(--s3);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);
   text-transform:uppercase;color:var(--dim)}
-.rsec>p.lede{margin:calc(-1 * var(--s2)) 0 var(--s3);font-size:var(--t-data);color:var(--dim)}
-.rsec p.read{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:68ch}
-.rsec p.read b{color:var(--ink);font-weight:500}
-.rsec p.read a{color:var(--amber)}
 
-.cgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4);
-  padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.cg{display:flex;flex-direction:column;gap:3px}
-.cg .l{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-.cg .v{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
-.cg .v.up{color:var(--up)}.cg .v.dn{color:var(--dn)}
-.cg .s{font-size:var(--t-data);color:var(--ink2)}
+.wcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--s2)}
+.wc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:var(--s3)}
+.wc .l{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.wc .v{display:block;margin:var(--s2) 0 var(--s1);font:600 clamp(26px,3.6vw,34px)/1 var(--serif);
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.wc .s{display:block;font-size:var(--t-data);color:var(--ink2)}
 
-.lines{border-top:1px solid var(--line)}
-.lrow{display:grid;grid-template-columns:8rem auto minmax(0,1fr);gap:var(--s3);align-items:baseline;
-  padding:var(--s3) 0;border-bottom:1px solid var(--line)}
-.lrow .ll{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-.lrow .lv{font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
-.lrow.ok .lv{color:var(--up)} .lrow.bad .lv{color:var(--dn)}
-.lrow .ls{font-size:var(--t-data);color:var(--ink2)}
-
-.track{padding:var(--s3) 0 0}
-.track .bar{position:relative;height:8px;border-radius:4px;background:var(--line)}
-.track .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:4px}
-.track .ends{display:flex;justify-content:space-between;margin-top:var(--s2);
+.wbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--s2)}
+.wb{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:var(--s3)}
+.wb .l{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.wb .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s2) 0 var(--s3)}
+.wb .two>div+div{border-left:1px solid var(--line);padding-left:var(--s3)}
+.wb .w{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.wb .n{display:block;margin-top:3px;font:600 var(--t-h2)/1 var(--serif);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.wb .pill{display:block;text-align:center;border-radius:5px;padding:7px;background:var(--bg2);
   font:500 var(--t-data) var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
-.track .ends b{color:var(--ink)}
+.wb .pill.up{color:var(--up);background:color-mix(in srgb,var(--up) 12%,transparent)}
+.wb .pill.dn{color:var(--dn);background:color-mix(in srgb,var(--dn) 12%,transparent)}
+.wb .sb{display:block;margin-top:var(--s2);font-size:var(--t-data);color:var(--ink2);text-align:center}
 
-.dec{display:grid;grid-template-columns:10rem minmax(0,1fr) auto;gap:var(--s3);align-items:baseline;
-  padding:var(--s3) 0;border-top:1px solid var(--line)}
-.dec:last-of-type{border-bottom:1px solid var(--line)}
-.dec .sym{font:600 var(--t-body) var(--mono);color:var(--ink)}
-.dec .sym small{display:block;margin-top:3px;font-size:var(--t-label);letter-spacing:var(--tr);
-  text-transform:uppercase;color:var(--dim);font-weight:500}
-.dec .what{font-size:var(--t-data);color:var(--ink2)}
-.dec .what b{color:var(--dn);font-weight:500}
-.dec .pl{font:600 var(--t-body) var(--mono);font-variant-numeric:tabular-nums;text-align:right}
-.dec .pl.up{color:var(--up)}.dec .pl.dn{color:var(--dn)}
-
-.brk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s3);align-items:baseline;
-  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data);color:var(--ink2)}
-.brk:last-of-type{border-bottom:1px solid var(--line)}
-.brk .x{color:var(--dn);font-weight:600}
-@container (max-width:620px){
-  .lrow{grid-template-columns:1fr auto}.lrow .ls{grid-column:1/-1}
-  .dec{grid-template-columns:1fr auto}.dec .what{grid-column:1/-1}
-}
-
-.nt{padding:var(--s3) 0;border-top:1px solid var(--line)}
-.nt:last-of-type{border-bottom:1px solid var(--line)}
-.nt .t{margin:0;font:500 var(--t-body)/1.4 var(--mono);color:var(--ink)}
-.nt .b{margin:var(--s2) 0 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:70ch}
-.nt .b b{color:var(--ink);font-weight:500}
-
-.must{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--s4);
-  margin-top:var(--s4);padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.must .l{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-.must .v{display:block;margin-top:3px;font:600 var(--t-h2)/1 var(--serif);color:var(--ink);font-variant-numeric:tabular-nums}
-.must .v small{display:block;margin-top:4px;font:400 var(--t-data) var(--mono);color:var(--ink2);letter-spacing:0}
-
-.dc{padding:var(--s3) 0;border-top:1px solid var(--line)}
-.dc:last-of-type{border-bottom:1px solid var(--line)}
-.dc .h{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
-.dc .sym{font:600 var(--t-body) var(--mono);color:var(--ink)}
-.dc .pl{margin-left:auto;font:600 var(--t-body) var(--mono);font-variant-numeric:tabular-nums}
-.dc .pl.up{color:var(--up)}.dc .pl.dn{color:var(--dn)}
-.dc .w{margin:var(--s2) 0 0;font-size:var(--t-data);line-height:1.7;color:var(--ink2)}
-.dc .q{margin:var(--s1) 0 0;font-size:var(--t-data);line-height:1.7;color:var(--dim);max-width:70ch}
-.dc .q b{color:var(--amber);font-weight:500}
-
-table.pr{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin-top:var(--s2)}
-table.pr th{text-align:left;padding:var(--s1) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line2);
+table.tw{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.tw th{text-align:left;padding:var(--s1) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line2);
   font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-table.pr td{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line);
+table.tw td{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line);
   font-size:var(--t-data);color:var(--ink2)}
-table.pr td:first-child{color:var(--ink);font-weight:500}
-table.pr td.r,table.pr th.r{text-align:right;padding-right:0}
-table.pr td.z{color:var(--dim)}
-table.pr td.ok{color:var(--up)} table.pr td.no{color:var(--dn)}
+table.tw td b{color:var(--ink);font-weight:600}
+table.tw td.r,table.tw th.r{text-align:right;padding-right:0}
+table.tw td.z{color:var(--dim)}
+table.tw td.cl{color:var(--dim)} table.tw td.op{color:var(--amber)}
+table.tw tr.real td{background:color-mix(in srgb,var(--dn) 5%,transparent)}
+.rt{color:#fff;background:var(--dn);border-radius:3px;padding:1px 6px;
+  font:700 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
 
-.bhv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4);
-  padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.bhv .l{display:block;font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
-.bhv .v{display:block;margin-top:3px;font:600 var(--t-h2)/1 var(--serif);color:var(--ink)}
-.bhv .v.up{color:var(--up)}.bhv .v.dn{color:var(--dn)}
-.bhv .v.s2{font:500 var(--t-data) var(--mono);color:var(--ink2)}
-.bhv .s{display:block;font-size:var(--t-data);color:var(--ink2)}
+.nl{margin:0;padding-left:1.1em}
+.nl li{margin:var(--s2) 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:72ch}
+.note2{margin:var(--s3) 0 0;font-size:var(--t-data);line-height:1.75;color:var(--ink2);max-width:72ch}
+.note2 b{color:var(--ink);font-weight:500}
+.note2 a{color:var(--amber)}
 
-.rs,.wt{display:grid;grid-template-columns:1.4rem minmax(0,1fr);gap:var(--s2);align-items:baseline;
-  padding:var(--s2) 0;border-top:1px solid var(--line);font-size:var(--t-data);
-  line-height:1.7;color:var(--ink2)}
-.rs:last-of-type,.wt:last-of-type{border-bottom:1px solid var(--line)}
-.rs b,.wt b{color:var(--ink);font-weight:500}
-.rs .i{color:var(--dim);font-weight:600}
-.rs .i.ok{color:var(--up)} .rs .i.no{color:var(--dn)}
+.gl .bar{position:relative;height:8px;border-radius:4px;background:var(--line)}
+.gl .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:4px}
+.gl .ends{display:flex;justify-content:space-between;margin-top:var(--s2);
+  font:500 var(--t-data) var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+.gl .ends b{color:var(--ink)}
+@container (max-width:620px){.wb .two{grid-template-columns:1fr}
+  .wb .two>div+div{border-left:0;border-top:1px solid var(--line);padding:var(--s2) 0 0}}
+
 /* ── Charts ───────────────────────────────────────────────────────────────── */
 .ch{border-top:1px solid var(--line);padding:var(--s3) 0}
 .ch:last-of-type{border-bottom:1px solid var(--line)}
@@ -1296,123 +1247,99 @@ function renderCharts(d,state){
 }
 
 /* ══ Report ══════════════════════════════════════════════════ */
-/* REMEMBER → NOTICE → EXPLAIN → DECIDE → WATCH.
-   The intelligence does more work so there is less to read. It picks what
-   deserves attention rather than printing a fixed dashboard, and it remembers
-   what it said last time so this report can answer it. */
+/* One week, with last week beside it. Before and after is the whole device: a
+   number alone says nothing, the same number twice says everything. */
 function renderReport(d,state){
   const A=$('#tab-report');
   if(state==='loading'){A.innerHTML='<div class="sk" style="height:320px;margin-top:14px"></div>';return;}
   if(state==='error'){A.innerHTML=`<div class="sec"><div class="err">HTTP 404 fetching data.json.
-    No report — this is missing data, not a quiet period.</div></div>`;return;}
+    No report — this is missing data, not a quiet week.</div></div>`;return;}
   const r=d.report; if(!r){A.innerHTML='<p class="empty">No report in this scan.</p>';return;}
-  const m=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
-  const sgn=x=>(x>=0?'+':'−')+m(x);
 
-  const read=`<div class="cgs">
-    ${[['Scans',r.sessions,`${r.fired_days} produced a signal`,''],
-       ['Real money',sgn(r.real_net),`${r.closed_n} closed`,r.real_net>=0?'up':'dn'],
-       ['Open · real',r.real_avg==null?'—':pct(r.real_avg),`${r.real_n} position${r.real_n===1?'':'s'}`,r.real_avg>=0?'up':'dn'],
-       ['Open · paper',r.paper_avg==null?'—':pct(r.paper_avg),`${r.paper_n} positions`,r.paper_avg>=0?'up':'dn']]
-      .map(([l,v,s,c])=>`<div class="cg"><span class="l">${l}</span>
-        <span class="v ${c}">${v}</span><span class="s">${s}</span></div>`).join('')}
-  </div>`;
+  const M=x=>(x<0?'−':'')+'$'+Math.round(Math.abs(x)).toLocaleString();
+  const fmt=(v,f)=>v==null?'—':f==='money'?M(v):pct(v);
+  const day=s=>{const [y,m,dd]=String(s).split('-').map(Number);
+    return new Date(y,m-1,dd).toLocaleDateString(undefined,{day:'numeric',month:'short'});};
+
+  const card=(l,v,s,c)=>`<div class="wc"><span class="l">${l}</span>
+    <span class="v ${c||''}">${v}</span><span class="s">${s}</span></div>`;
+
+  const ba=c=>{
+    const up=c.delta!=null&&c.delta>0, dn=c.delta!=null&&c.delta<0;
+    return `<div class="wb">
+      <span class="l">${c.label}</span>
+      <div class="two">
+        <div><span class="w">last week</span><span class="n">${fmt(c.before,c.fmt)}</span></div>
+        <div><span class="w">this week</span><span class="n">${fmt(c.after,c.fmt)}</span></div>
+      </div>
+      <span class="pill ${up?'up':dn?'dn':''}">${c.delta==null
+        ? 'no prior week'
+        : `${up?'↑ +':dn?'↓ −':''}${c.fmt==='money'?M(Math.abs(c.delta)).replace('−',''):Math.abs(c.delta).toFixed(1)+'pp'}`}</span>
+      ${c.sub?`<span class="sb">${c.sub}</span>`:''}
+    </div>`;};
 
   A.innerHTML=`
-  <div class="tmast"><h1><b>Ledger</b> · the report</h1>
-    <span class="when">${esc(d.date)} · since ${esc(r.first)}</span></div>
-
-  <div class="rsec" style="padding-top:var(--s4)">
-    <h2>The read</h2>
-    ${read}
-    <p class="read">${r.broke_n===r.trades.length&&r.trades.length
-      ? `The scanner is finding opportunities — <b>${r.fired_days} of ${r.sessions}</b> sessions produced a
-         signal. <b>Not one real trade came from them.</b> The problem so far is behavioural, not analytical.`
-      : `Paper and real are kept apart because they answer different questions. Paper tests whether a setup
-         holds. Real is the only line that spends money.`}</p>
+  <div class="rhead">
+    <h1>Your report</h1>
+    <p class="sub">Here's your week.</p>
+    <p class="when">${day(r.from_)} – ${day(r.to_)} · ${r.final?'final':'in progress'}${
+      r.had_before?` · compared with the week of ${day(r.before_date)}`:''}</p>
   </div>
 
-  ${r.noticed.length?`<div class="rsec">
-    <h2>What Ledger noticed</h2>
-    <p class="lede">${r.noticed.length} thing${r.noticed.length===1?'':'s'} that deserve attention this period.</p>
-    ${r.noticed.map(n=>`<div class="nt">
-      <p class="t">${n.t}</p><p class="b">${n.b}</p></div>`).join('')}
-  </div>`:''}
+  <h3 class="rh">Where you are</h3>
+  <div class="wcs">
+    ${card('Account', M(r.here.balance), `as of ${day(r.here.as_of)}`)}
+    ${card('Open', r.here.open_n, `${r.here.real_n} real · ${r.here.open_n-r.here.real_n} paper`)}
+    ${card('Signals', r.here.fired, `of ${r.here.sessions} scans this week`)}
+  </div>
 
-  <div class="rsec">
-    <h2>Your path</h2>
-    <div class="track">
-      <div class="bar"><i style="width:${Math.min(100,r.pct)}%"></i></div>
-      <div class="ends"><span><b>${m(r.balance)}</b> now</span>
-        <span><b>${m(r.target)}</b> by ${(()=>{const [y,mo]=r.target_date.split('-').map(Number);
-          return new Date(y,mo-1,1).toLocaleDateString(undefined,{month:'short',year:'numeric'});})()}</span></div>
-    </div>
-    <div class="must">
-      <div><span class="l">trading must add</span><span class="v">${m(r.need)}<small>a month</small></span></div>
-      <div><span class="l">or deposit</span><span class="v">${m(r.need_dep)}<small>a month, trading flat</small></span></div>
-      <div><span class="l">or return</span><span class="v">${r.need_ret==null?'—':r.need_ret+'%'}<small>a year at $1,000/mo</small></span></div>
-    </div>
-    <p class="read">Three ways the date holds. <b>Not a recommendation — the arithmetic of the plan.</b>
-    ${r.floor_meaningful
-      ? `Your floor line is ${m(r.floor)}; you are ${r.above_floor?'above it':'<b>below it</b>'}.`
-      : `No deposit is recorded yet, so the floor line is still just your opening balance.`}
+  <h3 class="rh">What changed</h3>
+  <div class="wbs">${r.changed.map(ba).join('')}</div>
+  ${!r.had_before?`<p class="note2">This is the first week on record, so there is nothing to compare
+    against yet. Next Friday these fill in.</p>`:''}
+
+  <h3 class="rh">Trades this week</h3>
+  ${r.trades.length?`<div class="scroll"><table class="tw">
+    <thead><tr><th>day</th><th>what</th><th></th><th class="r">result</th></tr></thead>
+    <tbody>${r.trades.map(t=>`<tr>
+      <td>${day(t.on)}</td>
+      <td><b>${esc(t.sym)}</b> ${esc(t.what||'')}</td>
+      <td class="${t.act==='closed'?'cl':'op'}">${t.act}</td>
+      <td class="r ${(t.pl??t.pct??0)>=0?'up':'dn'}">${t.pl!=null?M(t.pl):pct(t.pct)}</td>
+    </tr>`).join('')}</tbody></table></div>`
+    :`<p class="empty">Nothing opened or closed this week.</p>`}
+
+  <h3 class="rh">Positions</h3>
+  <div class="scroll"><table class="tw">
+    <thead><tr><th>position</th><th></th><th class="r">last week</th><th class="r">this week</th><th class="r">P/L</th></tr></thead>
+    <tbody>${r.positions.map(p=>`<tr${p.acct==='real'?' class="real"':''}>
+      <td><b>${esc(p.sym)}</b> ${p.kind==='call'?esc(p.strike)+'C':'shares'}${
+        p.dte!=null?` <span class="z">${p.dte}d</span>`:''}</td>
+      <td class="z">${p.acct==='real'?'<span class="rt">real</span>':esc(p.acct)}</td>
+      <td class="r z">${p.before==null?(p.isnew?'new':'—'):f2(p.before)}</td>
+      <td class="r">${p.after==null?'—':f2(p.after)}</td>
+      <td class="r ${(p.after_pl||0)>=0?'up':'dn'}">${pct(p.after_pl)}</td>
+    </tr>`).join('')}</tbody></table></div>
+  ${r.gone.length?`<p class="note2">Closed since last week: ${r.gone.map(g=>esc(g.sym)).join(', ')}.</p>`:''}
+
+  <h3 class="rh">Notes</h3>
+  <ul class="nl">${r.notes.map(n=>`<li>${n}</li>`).join('')}</ul>
+
+  <h3 class="rh">The goal</h3>
+  <div class="gl">
+    <div class="bar"><i style="width:${Math.min(100,r.goal.pct)}%"></i></div>
+    <div class="ends"><span><b>${M(r.goal.balance)}</b> now</span>
+      <span><b>${M(r.goal.target)}</b> by ${(()=>{const [y,mo]=r.goal.target_date.split('-').map(Number);
+        return new Date(y,mo-1,1).toLocaleDateString(undefined,{month:'short',year:'numeric'});})()}</span></div>
+  </div>
+  <p class="note2"><b>${M(r.goal.to_go)}</b> to go — ${r.goal.pct}% of the way.
+    The plan needs <b>${M(r.goal.need)} a month</b> from trading on top of the $1,000 deposit.
+    ${r.goal.deposits.length?`${r.goal.deposits.length} deposit${r.goal.deposits.length===1?'':'s'} recorded.`
+      :`<b>No deposit recorded yet.</b>`}
     <a href="plan.html">The plan ↗</a></p>
-  </div>
-
-  ${r.decisions.length?`<div class="rsec">
-    <h2>Decisions still open</h2>
-    <p class="lede">Stated, not made for you.</p>
-    ${r.decisions.map(x=>`<div class="dc">
-      <div class="h"><span class="sym">${esc(x.sym)} ${esc(x.strike)} Call</span>
-        <span class="tag watch">${esc(x.acct)}</span>
-        <span class="pl ${x.pl>=0?'up':'dn'}">${pct(x.pl)}</span></div>
-      <p class="w">${x.dte} days remaining. ${esc(x.why)}</p>
-      <p class="q"><b>Still open:</b> ${esc(x.open_q)}</p>
-    </div>`).join('')}
-  </div>`:''}
-
-  <div class="rsec">
-    <h2>Process, not results</h2>
-    <p class="lede">Every real trade, judged on the rules it was taken under. Outcome is not consulted.</p>
-    <div class="scroll"><table class="pr">
-      <thead><tr><th>trade</th><th>setup</th><th>rules</th><th class="r">result</th></tr></thead>
-      <tbody>${r.trades.map(t=>`<tr>
-        <td>${esc(t.sym)}</td>
-        <td class="${t.setup&&t.setup!=='none'?'':'z'}">${esc(t.setup&&t.setup!=='none'?t.setup:'none')}</td>
-        <td class="${t.ok?'ok':'no'}">${t.ok?'followed':esc(t.broke.join(', '))}</td>
-        <td class="r ${t.pl>=0?'up':'dn'}">${pct(t.pl)}</td></tr>`).join('')}</tbody>
-    </table></div>
-    <p class="read"><b>${r.clean_n} followed the rules, ${r.broke_n} did not.</b>
-    ${r.trades.length<20
-      ? ` ${r.trades.length} trade${r.trades.length===1?'':'s'} is far too few to compare the two groups —
-          this table is a record, not yet a finding. It becomes worth reading somewhere past twenty.`
-      : ` Compare the two groups above: that comparison is the point of this table.`}
-    Ledger does not assume the rules are right forever. <b>It keeps the record so they can be tested.</b></p>
-  </div>
-
-  ${r.behaviour?`<div class="rsec">
-    <h2>What changed in your behaviour</h2>
-    <div class="bhv">
-      <div><span class="l">last report</span><span class="v">${r.behaviour.was}</span><span class="s">breaks</span></div>
-      <div><span class="l">this report</span><span class="v ${r.behaviour.now<=r.behaviour.was?'up':'dn'}">${r.behaviour.now}</span><span class="s">breaks</span></div>
-      <div><span class="l">still recurring</span><span class="v s2">${r.behaviour.recurring.join(', ')||'none'}</span></div>
-      <div><span class="l">new</span><span class="v s2">${r.behaviour.new.join(', ')||'none'}</span></div>
-    </div>
-  </div>`:''}
-
-  <div class="rsec">
-    ${r.resolved.length?`<h2>What Ledger was watching</h2>
-      ${r.resolved.map(x=>`<div class="rs">
-        <span class="i ${x.ok===true?'ok':x.ok===false?'no':''}">${x.ok===true?'✓':x.ok===false?'✕':'·'}</span>
-        <span><b>${esc(x.q)}</b><br>${esc(x.a)}</span></div>`).join('')}`:''}
-    <h2${r.resolved.length?' style="margin-top:var(--s5)"':''}>What Ledger is watching</h2>
-    <p class="lede">The next report comes back to these.</p>
-    ${r.watching.map(w=>`<div class="wt"><span class="i">·</span><span>${esc(w.q)}</span></div>`).join('')}
-  </div>
 
   <p class="foot">The account figure is entered by hand and dated; nothing here reads a broker balance.
-  A good outcome is not a good decision, and a bad outcome is not a bad decision — every judgement above is
-  made on the rules a trade was taken under, never on how it turned out.</p>`;
+  Judgements are made on the rules a trade was taken under, never on how it turned out.</p>`;
 }
 
 /* ══ Setups ══════════════════════════════════ */
