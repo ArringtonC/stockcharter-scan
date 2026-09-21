@@ -589,9 +589,11 @@ def week(d, hist, closed, open_):
 #
 # The plan's own constants. Update BALANCE when you deposit or the account moves;
 # nothing else on this site knows what your account is actually worth.
-PLAN = dict(start=8500.0, deposit=1000.0, target=30000.0,
-            target_date="2027-12-01", started="2026-09-18",
-            balance=8500.0, balance_as_of="2026-09-18")
+# start is the real balance on the day the plan began, not a round number. The
+# $8,500 the plan was drafted with was an estimate; this is the account.
+PLAN = dict(start=8355.13, deposit=1000.0, target=30000.0,
+            target_date="2027-12-01", started="2026-09-20",
+            balance=8355.13, balance_as_of="2026-09-20")
 
 
 def report(d, hist, open_, closed):
@@ -634,7 +636,7 @@ def report(d, hist, open_, closed):
         months=months, floor=round(floor), balance=bal, as_of=PLAN["balance_as_of"],
         target=PLAN["target"], target_date=PLAN["target_date"],
         to_go=round(PLAN["target"] - bal), pct=round(bal / PLAN["target"] * 100, 1),
-        above_floor=bal >= floor,
+        above_floor=bal >= floor, floor_meaningful=months >= 1,
         sessions=sessions, fired_days=len(fired_days), quiet_run=quiet_run,
         first=hist[0]["date"] if hist else d["date"],
         real_n=len(real_open), real_avg=avg(real_open),

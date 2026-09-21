@@ -1304,7 +1304,10 @@ function renderReport(d,state){
         <span class="lv">${m(r.floor)}</span>
         <span class="ls">${r.months} month${r.months===1?'':'s'} of deposits, trading at zero</span></div>
     </div>
-    <p class="read">${r.above_floor
+    <p class="read">${!r.floor_meaningful
+      ? `The floor line is your deposits with trading at zero. <b>It has nothing to say yet</b> — the first
+         deposit has not landed, so today it is simply your opening balance.`
+      : r.above_floor
       ? `You are <b>on or above the floor</b>. The floor is just your deposits — it assumes trading makes
          nothing. Staying above it is the whole requirement.`
       : `You are <b>below the floor line</b>. The hole was dug by trading, not by deposits.
