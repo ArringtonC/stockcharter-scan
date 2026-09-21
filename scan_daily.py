@@ -891,55 +891,41 @@ def notify(text):
 
 
 def summary(d, open_):
-    """What you would want on a phone screen, and nothing else."""
-    live = [f"Setup F: {', '.join(x['sym'] for x in d['F'])}"] if d["F"] else []
-    if d["vix_fires"]: live.append("Setup VIX fires")
-    if d["vix"] >= 25 and d["S"]: live.append(f"Setup S: {', '.join(x['sym'] for x in d['S'])}")
-
-    head = ("<b>" + (" · ".join(live) if live else "Nothing fires") + "</b>")
-
-    # Name the trade, not the contract. Which strike and expiry to buy is his
-    # call -- pricing every fire meant an option-chain fetch per name and filled
-    # the message with numbers he did not ask for.
-    trades = []
+    """One glance on a phone. Answer first, context last, no line long enough to
+    wrap. Everything that was not an answer -- scan counts, revenue growth, the
+    full URL -- was pushing the answer off the screen."""
+    buys = []
     for r in d["F"]:
-        trades.append(
-            f"  <b>{r['sym']}</b>  ${r['px']:,.2f} → <b>${r['tgt']:,.2f}</b> (+{r['up']:.0f}%)\n"
-            f"    {r['dd']:.0f}% below its high · revenue +{r['rev']:.0f}% · no stop")
+        buys.append(f"{r['sym']} {r['px']:,.0f} \u2192 <b>{r['tgt']:,.0f}</b>   +{r['up']:.0f}%")
     if d["vix_fires"]:
-        trades.append(f"  <b>QQQ</b>  ${d['qqq']:,.2f} · at-the-money call, about 30 days\n"
-                      f"    hold 21 sessions · no stop")
+        buys.append(f"QQQ {d['qqq']:,.0f}   ATM call ~30d")
     if d["vix"] >= 25:
         for r in d["S"]:
-            trades.append(f"  <b>{r['sym']}</b>  ${r['px']:,.2f} · short, {r['below']:.1f}% under its 20-day low\n"
-                          f"    up to 10 sessions")
+            buys.append(f"{r['sym']} {r['px']:,.0f}   SHORT")
 
-    ctx  = (f"VIX {d['vix']:.1f} {d['regime']} · QQQ {d['qqq']:.0f} ({d['qdd']:+.1f}% off high)")
-    scan = f"{d['scanned']}/{d['universe']} scanned"
-    if d["errors"]: scan += f" · <b>{len(d['errors'])} failed</b>"
+    L = []
+    if buys:
+        L.append("<b>BUY</b>")
+        L += ["  " + b for b in buys]
+    else:
+        L.append("<b>Nothing to buy today.</b>")
 
-    lines = [f"📊 <b>Ledger</b> · {d['date']}", head, ctx, scan]
-    # Setups are defined on daily CLOSES. Before 3pm ET the last bar is still
-    # moving, so an intraday fire is provisional and has to say so.
-    if datetime.datetime.now(datetime.timezone.utc).hour < 20:
-        lines.append("<i>intraday — the close is not in yet</i>")
-    if trades:
-        lines.append("")
-        lines.append("<b>The trade</b>")
-        lines += trades
+    # Only real money with a clock on it. Paper does not need to reach his phone.
+    clock = [r for r in open_ if r["acct"] == "real" and r.get("kind") == "call"
+             and (r.get("dte") or 99) <= 21]
+    if clock:
+        L.append("")
+        L.append("<b>DECIDE</b>")
+        for r in clock:
+            L.append(f"  {r['symbol']} {r['strike']}C  {r['pl_pct']:+.0f}%  ·  {r['dte']}d left")
 
-    # a call inside 21 days is the one thing worth interrupting you for
-    soon = [r for r in open_ if r.get("kind") == "call" and (r.get("dte") or 99) <= 21]
-    if soon:
-        lines.append("")
-        lines.append("<b>Expiring soon</b>")
-        for r in sorted(soon, key=lambda r: r["dte"]):
-            pl = r.get("pl_pct")
-            lines.append(f"  {r['symbol']} {r['strike']}C · {r['dte']}d · "
-                         + (f"{pl:+.0f}%" if pl is not None else "—"))
-    lines.append("")
-    lines.append("https://arringtonc.github.io/stockcharter-scan/")
-    return "\n".join(lines)
+    intra = datetime.datetime.now(datetime.timezone.utc).hour < 20
+    L.append("")
+    L.append('<a href="https://arringtonc.github.io/stockcharter-scan/">Ledger</a>'
+             + f" · VIX {d['vix']:.1f} {d['regime'].lower()}"
+             + (" · intraday" if intra else "")
+             + (f" · <b>{len(d['errors'])} failed</b>" if d["errors"] else ""))
+    return "\n".join(L)
 
 
 if __name__ == "__main__":
