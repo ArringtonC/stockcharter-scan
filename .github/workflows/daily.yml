@@ -2,8 +2,11 @@ name: daily scan
 
 on:
   schedule:
-    - cron: '15 13 * * 1-5'   # 08:15 Central, before the open
-    - cron: '15 21 * * 1-5'   # 16:15 Eastern, after the close
+    # Hourly across your window. 12:00-21:00 UTC is 07:00-16:00 Central while
+    # daylight time is on, 06:00-15:00 after it ends -- GitHub cron is UTC only
+    # and does not shift. The 21:30 run is the one after the close.
+    - cron: '0 12-21 * * 1-5'
+    - cron: '30 21 * * 1-5'
   workflow_dispatch:
 
 permissions:

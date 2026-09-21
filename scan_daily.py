@@ -652,6 +652,41 @@ def pick_contract(sym, spot, days=120, budget=600):
     return None
 
 
+# ── when to actually send ──────────────────────────────────────────────────────
+# Running hourly does not mean messaging hourly. Ten identical "nothing fires"
+# notes a day is how an alert becomes wallpaper. This pushes on the first run of
+# the day, on the closing run, and otherwise only when something changed.
+ALERT_STATE = os.path.join(DOCS, ".alert-state.json")
+
+def alert_key(d, open_):
+    """What would make this message worth reading. Price alone is not it."""
+    fired = sorted([x["sym"] for x in d["F"]]
+                   + (["VIX"] if d["vix_fires"] else [])
+                   + ([x["sym"] for x in d["S"]] if d["vix"] >= 25 else []))
+    soon = sorted(f"{r['symbol']}{r.get('dte')}" for r in open_
+                  if r.get("kind") == "call" and (r.get("dte") or 99) <= 21)
+    return json.dumps(dict(date=d["date"], fired=fired, soon=soon,
+                           errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
+
+
+def should_push(d, open_):
+    """(send?, why). Closing run and first-of-day always go; the rest must earn it."""
+    now = datetime.datetime.now(datetime.timezone.utc)
+    closing = now.hour >= 20                       # after 3pm ET, the session is done
+    prev = {}
+    if os.path.exists(ALERT_STATE):
+        try: prev = json.load(open(ALERT_STATE))
+        except Exception: prev = {}
+    key = alert_key(d, open_)
+    first = prev.get("date") != d["date"]
+    changed = prev.get("key") != key
+    json.dump(dict(date=d["date"], key=key, at=now.isoformat()), open(ALERT_STATE, "w"))
+    if closing: return True, "close"
+    if first:   return True, "first run today"
+    if changed: return True, "something changed"
+    return False, "nothing changed"
+
+
 # ── push ───────────────────────────────────────────────────────────────────────
 # Nine days in ten this message saves you opening the page at all. On the tenth
 # it reaches you before the open. No token set means it silently does nothing.
@@ -706,6 +741,10 @@ def summary(d, open_):
     if d["errors"]: scan += f" · <b>{len(d['errors'])} failed</b>"
 
     lines = [f"📊 <b>Ledger</b> · {d['date']}", head, ctx, scan]
+    # Setups are defined on daily CLOSES. Before 3pm ET the last bar is still
+    # moving, so an intraday fire is provisional and has to say so.
+    if datetime.datetime.now(datetime.timezone.utc).hour < 20:
+        lines.append("<i>intraday — the close is not in yet</i>")
     if trades:
         lines.append("")
         lines.append("<b>The trade</b>")
@@ -741,4 +780,6 @@ if __name__ == "__main__":
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
-    if notify(summary(d, open_)): print("  pushed to telegram")
+    send, why = should_push(d, open_)
+    if send and notify(summary(d, open_)): print(f"  pushed to telegram ({why})")
+    elif not send: print(f"  no push — {why}")
