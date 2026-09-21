@@ -57,7 +57,11 @@ th{text-align:left;padding:var(--s1) var(--s3) var(--s2) 0;border-bottom:1px sol
 td{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line);
   font-size:var(--t-data);color:var(--ink2);vertical-align:baseline}
 td:first-child{color:var(--ink)}
-td.r,th.r{text-align:right;padding-right:0}
+/* a right-aligned cell only loses its right padding when it is LAST; mid-table
+   it must keep the gap or its text butts against the next column --
+   "Dec 2027The plan." */
+td.r,th.r{text-align:right}
+td.r:last-child,th.r:last-child{padding-right:0}
 tr.key td{color:var(--ink)}
 .scroll{overflow-x:auto}
 
@@ -110,157 +114,86 @@ footer a{color:var(--ink2)}
 
 <div class="ref" id="why">
   <div class="eyebrow">the reasoning · reference, not the plan</div>
-<h2>The thing that makes this work</h2>
-<p class="l">Your deposits alone get there seven months late. That is the whole plan in one sentence.</p>
 
+<h2>Why the deposit is the plan</h2>
+<p class="l">Your deposits alone get there seven months late. That is the whole argument.</p>
 <div class="scroll"><table>
-  <thead><tr><th>if trading returns…</th><th class="r">$30,000 arrives</th><th>cost of being wrong</th></tr></thead>
+  <thead><tr><th>if trading returns…</th><th class="r">$30,000 arrives</th><th>what it costs you</th></tr></thead>
   <tbody>
     <tr class="key"><td>40% a year</td><td class="r">Dec 2027</td><td>The plan.</td></tr>
-    <tr><td><b>Exactly nothing</b></td><td class="r">Jul 2028</td>
-      <td><b>Seven months late.</b> That is the entire downside of every strategy failing.</td></tr>
-    <tr><td>Losses</td><td class="r">Never, if unchecked</td>
-      <td>The only way this fails. Losses dig a hole the deposits have to fill first.</td></tr>
+    <tr><td><b>Exactly nothing</b></td><td class="r">Jul 2028</td><td>Seven months. That is every strategy failing.</td></tr>
+    <tr><td>Losses</td><td class="r">Never</td><td>The only real risk. A hole the deposits must fill first.</td></tr>
   </tbody>
 </table></div>
-
-<p style="margin-top:var(--s4);color:var(--ink)"><b>So the job is not to make money. The job is to not lose
-it.</b> The deposits do the work. Trading either speeds it up by seven months or it does not — but a bad year
-of trading is the only thing that can actually stop this.</p>
-
-<div class="hard"><p>Read that again before you take a trade that did not fire. <b>A missed trade costs you
-nothing. A rule-broken trade is the only real risk to the plan.</b></p></div>
+<p>So the job is not to make money. It is to not lose it. A missed trade costs nothing;
+a rule-broken trade is the only thing that can stop this.</p>
 
 <h2>The two lines</h2>
-<p class="l">Track both. One is the goal. The other is the alarm.</p>
-
+<p class="l">One is the goal. The other is the alarm. Below the floor, trading is losing money —
+stop for a month and deposit only.</p>
 <div class="scroll"><table>
-  <thead><tr><th>checkpoint</th><th>date</th><th class="r">target line</th><th class="r">floor line</th><th>what it means</th></tr></thead>
+  <thead><tr><th>by</th><th class="r">goal</th><th class="r">floor · deposits only</th></tr></thead>
   <tbody>
-    <tr><td>Month 3</td><td>Dec 2026</td>
-      <td class="r">$12,174</td><td class="r">$11,355</td>
-      <td>Below $11,355 means trading is losing money.</td></tr>
-    <tr><td>Month 6</td><td>Mar 2027</td>
-      <td class="r">$16,329</td><td class="r">$14,355</td>
-      <td>Below $14,355 means trading is losing money.</td></tr>
-    <tr><td>Month 9</td><td>Jun 2027</td>
-      <td class="r">$20,848</td><td class="r">$17,355</td>
-      <td>Below $17,355 means trading is losing money.</td></tr>
-    <tr><td>Month 12</td><td>Sep 2027</td>
-      <td class="r">$25,764</td><td class="r">$20,355</td>
-      <td>Below $20,355 means trading is losing money.</td></tr>
-    <tr class="key"><td>Month 15</td><td>Dec 2027</td>
-      <td class="r">$31,111</td><td class="r">$23,355</td>
-      <td><b>Target reached.</b></td></tr>
+    <tr><td>Dec 2026</td><td class="r">$12,174</td><td class="r">$11,355</td></tr>
+    <tr><td>Mar 2027</td><td class="r">$16,329</td><td class="r">$14,355</td></tr>
+    <tr><td>Jun 2027</td><td class="r">$20,848</td><td class="r">$17,355</td></tr>
+    <tr><td>Sep 2027</td><td class="r">$25,764</td><td class="r">$20,355</td></tr>
+    <tr class="key"><td>Dec 2027</td><td class="r">$31,111</td><td class="r">$23,355</td></tr>
   </tbody>
 </table></div>
-
-<p style="margin-top:var(--s4)"><b>The floor line is just your deposits.</b> $8,355 plus $1,000 a month,
-assuming trading makes exactly zero.</p>
-<p>Between the two lines is fine. <b>Below the floor line means trading is destroying capital</b>, and that
-is the one signal that requires you to stop and change something.</p>
 
 <h2>What you actually do</h2>
-<p class="l">This is the part the old page was missing. Most of it is nothing.</p>
+<p class="l">Most of it is nothing.</p>
+<div class="step"><span class="i">—</span><div><h3>Every day</h3>
+  <p>Nothing. The scan runs itself. Watching it is how you take a trade that did not fire.</p></div></div>
+<div class="step"><span class="i">7</span><div><h3>Once a week · five minutes</h3>
+  <p>Open Today. If a setup fired, place it at the cap. If not, close the tab. Glance at System —
+  a stale scan and a quiet market look identical from outside.</p></div></div>
+<div class="step"><span class="i">1</span><div><h3>The 1st · the deposit</h3>
+  <p>$1,000, automatic, before you see it. You can do more — hold that back. An extra deposit is
+  the repair tool for falling behind.</p></div></div>
+<div class="step"><span class="i">✓</span><div><h3>Month end · five questions</h3>
+  <p>Deposit in? Every trade had a setup? Every call 45+ days? Nothing over the cap? Above the floor?
+  Five yeses means it worked — <b>even in a month you lost money.</b></p></div></div>
 
-<div class="step"><span class="i">◷</span><div>
-  <h3>Every day — nothing</h3>
-  <p>The scan runs itself at 9:15am and 5:15pm ET. You do not need to watch it, and watching it is how you
-  end up taking a trade that did not fire.</p>
-  <p class="ev"><b>Nine days in ten nothing fires.</b> That is the design, not a fault.</p>
-</div></div>
-
-<div class="step"><span class="i">7</span><div>
-  <h3>Once a week — five minutes</h3>
-  <p>Open Today. If a setup fired, read the trade and place it at the cap. If nothing fired, close the tab.</p>
-  <p class="ev">Check the <b>System</b> page while you are there. A stale scan and a quiet market look the
-  same from the outside, and only that page tells them apart.</p>
-</div></div>
-
-<div class="step"><span class="i">1</span><div>
-  <h3>The 1st of the month — the deposit</h3>
-  <p>$1,000, automatic, before you see it. You said you could do more; hold it in reserve rather than raising
-  the number, because an extra deposit is the repair tool when you fall behind the line.</p>
-</div></div>
-
-<div class="step"><span class="i">✓</span><div>
-  <h3>Month end — the five questions</h3>
-  <p>Deposit in? Every trade had a setup? Every call had 45+ days? Nothing over the cap? Account above the
-  floor line?</p>
-  <p class="ev">Five yeses means the plan is working, <b>even in a month you lost money.</b> That is the
-  point of having rules instead of results.</p>
-</div></div>
-
-<h2>What you can put in one position</h2>
-<p class="l">7% of the account, rounded to $50. The cap grows as the account does.</p>
-
+<h2>What fits in one position</h2>
+<p class="l">7% of the account. It grows as the account does.</p>
 <div class="scroll"><table>
-  <thead><tr><th>account</th><th class="r">cap</th><th class="r">4 positions</th><th class="r">a $3k LEAPS is</th><th>note</th></tr></thead>
+  <thead><tr><th>account</th><th class="r">cap</th><th class="r">a $3k LEAPS is</th><th>note</th></tr></thead>
   <tbody>
-    <tr class="key"><td>$8,355</td><td class="r">$600</td>
-      <td class="r">$2,400</td><td class="r">35%</td>
-      <td>Today. The cap you already run.</td></tr>
-    <tr><td>$15,000</td><td class="r">$1,050</td>
-      <td class="r">$4,200</td><td class="r">20%</td>
-      <td>First checkpoint. Four positions still fit.</td></tr>
-    <tr><td>$20,000</td><td class="r">$1,400</td>
-      <td class="r">$5,600</td><td class="r">15%</td>
-      <td>A LEAPS is 15% of the account — still too much.</td></tr>
-    <tr class="key"><td>$30,000</td><td class="r">$2,100</td>
-      <td class="r">$8,400</td><td class="r">10%</td>
-      <td><b>The target.</b> A LEAPS is 10%. One exception to the 7% rule, or wait.</td></tr>
-    <tr><td>$43,000</td><td class="r">$3,000</td>
-      <td class="r">$12,000</td><td class="r">7%</td>
-      <td>A LEAPS finally fits inside 7%. No exception needed.</td></tr>
+    <tr class="key"><td>$8,355</td><td class="r">$600</td><td class="r">35%</td><td>Today.</td></tr>
+    <tr><td>$15,000</td><td class="r">$1,050</td><td class="r">20%</td><td>Four positions still fit.</td></tr>
+    <tr class="key"><td>$30,000</td><td class="r">$2,100</td><td class="r">10%</td><td><b>The target.</b> Needs one exception to the 7% rule.</td></tr>
+    <tr><td>$43,000</td><td class="r">$3,000</td><td class="r">7%</td><td>A LEAPS fits the rule. No exception.</td></tr>
   </tbody>
 </table></div>
-
-<div class="hard"><p><b>A correction to my own plan.</b> I said $30,000 makes LEAPS reachable at 10% of the
-account. Your cap rule is 7%, so at $30,000 a LEAPS still breaks it. The honest options are: take one
-deliberate exception for LEAPS only — a 730-day contract at an 87% win rate is a different animal from a
-120-day call — or wait until <b>$43,000</b>, where it fits the rule. <b>That is a decision for December 2027,
-not today.</b></p></div>
+<p>At $30,000 a LEAPS is 10% of the account and still breaks the 7% cap. Take one deliberate
+exception for LEAPS only, or wait for $43,000. <b>A December 2027 decision, not today's.</b></p>
 
 <h2>When it goes wrong</h2>
-<p class="l">Written now, while nothing is at stake, so it is not decided in a bad week.</p>
-
+<p class="l">Decided now, while nothing is at stake.</p>
 <div class="scroll"><table>
-  <thead><tr><th>if this happens</th><th>you do this</th><th>why</th></tr></thead>
+  <thead><tr><th>if this happens</th><th>do this</th><th>why</th></tr></thead>
   <tbody>
-    <tr><td>A month with no signals</td><td><b>Nothing.</b> Do not go looking.</td>
-      <td>Normal. Three signals a month is the long-run rate across the whole list.</td></tr>
-    <tr><td>Three losses in a row</td><td>Halve the cap until one wins</td>
-      <td>Costs you very little if it is variance. Saves a lot if the setup has stopped working.</td></tr>
-    <tr class="key"><td>Below the floor line</td><td><b>Stop trading for one month.</b> Deposits only.</td>
-      <td>The hole was dug by trading. Not trading is the only thing guaranteed to stop digging.</td></tr>
-    <tr><td>Down 25% from the peak</td><td>Read every trade against the rules and find which one broke</td>
-      <td>In this account, drawdowns have come from broken rules, not from bad setups.</td></tr>
-    <tr><td>Something is running and you are not in it</td><td><b>Let it go.</b></td>
-      <td>This already happened. BABA broke out, you chased, and it cost $82 on an 18-day call your own rule
-      said not to buy.</td></tr>
+    <tr><td>A month with no signals</td><td><b>Nothing.</b></td><td>Normal. Three a month is the rate.</td></tr>
+    <tr><td>Three losses in a row</td><td>Halve the cap</td><td>Cheap if it is variance. Saves a lot if it is not.</td></tr>
+    <tr class="key"><td>Below the floor line</td><td><b>Stop for a month.</b></td><td>The hole was dug by trading.</td></tr>
+    <tr><td>Down 25% from the peak</td><td>Find which rule broke</td><td>Drawdowns here came from broken rules, not bad setups.</td></tr>
+    <tr><td>Something runs without you</td><td><b>Let it go.</b></td><td>BABA cost $82 that way, on an 18-day call.</td></tr>
   </tbody>
 </table></div>
 
-<h2>The two trades that prove rule 02</h2>
-<p>PYPL had no setup behind it and <b>won anyway</b>, which is worse than losing — it taught the wrong
-lesson. BABA was an 18-day call when the rule says 45 minimum, and it cost $82.</p>
-<p>Net on real money: <b>−$32 across two trades, both of which broke a rule already written down.</b></p>
-
 <h2>Why $30,000 and not $90,000</h2>
-<p class="l">One number changes what you are allowed to buy. The other is just further away.</p>
-<p>At $30,000 a LEAPS contract is <b>10% of the account instead of 35%</b>. That is the trade with an
-<b>87% win rate at 730 days</b> — the strongest result in this project, and the one your cap currently locks
-you out of.</p>
-<p style="color:var(--ink)"><b>Nothing changes shape before $30,000. Everything changes shape at it.</b></p>
+<p>At $30,000 a LEAPS is 10% of the account instead of 35%. That is the 87%-win trade your cap
+locks you out of today. Nothing changes shape before it; everything changes at it.</p>
 
 <h2>What would make me wrong</h2>
-<p><b>A tested edge that survives the bar.</b> Fifty ideas failed this year. The fifty-first might not. That
-changes the return line, not the floor line.</p>
-<p><b>A bigger deposit.</b> You said you can do more. Every extra dollar moves the date forward further than
-any strategy found so far — but hold it as the repair tool until you need it.</p>
-<p><b>Buying the delisted-securities data.</b> $500 once. Every backtest here is inflated by an unknown
-amount because the companies that died are not in the sample. Until that is fixed, the 40% line is optimistic
-and the floor line is not.</p>
+<p><b>A tested edge.</b> Fifty ideas failed this year. The fifty-first might not — that moves the
+goal line, never the floor.</p>
+<p><b>A bigger deposit.</b> Worth more than any edge found so far. Hold it as the repair tool.</p>
+<p><b>The delisted-name data, $500 once.</b> Every backtest here is optimistic by an unknown amount
+because the companies that died are missing. Until that is fixed the 40% line is flattering — the
+floor line is not.</p>
 
 <footer>
 Written 18 September 2026. Projections assume 40% annual return compounded monthly and $1,000 added each
