@@ -891,69 +891,75 @@ def notify(text):
 
 
 def summary(d, open_):
-    """One glance on a phone. Answer first, context last, no line long enough to
-    wrap. Everything that was not an answer -- scan counts, revenue growth, the
-    full URL -- was pushing the answer off the screen."""
+    """BUY -> UPDATE -> CLOSED. One job per line, so the whole thing reads without
+    doing any arithmetic: what it is, what to do, what it is worth."""
     cap = round(PLAN["balance"] * 0.07 / 50) * 50
+    D = lambda x: f"${x:,.0f}"
 
-    def entry(sym, px, tgt, up):
-        """The trade in the words you would place it with, plus what it costs.
-        If the call does not fit the cap, say so and give the share count that
-        does -- knowing a trade exists is useless without knowing it is reachable."""
-        out = []
+    def when(iso):
+        return datetime.date.fromisoformat(iso).strftime("%b %-d").upper()
+
+    B = []
+    for r in d["F"]:
+        sym, px = r["sym"], r["px"]
         c = affordable(sym, px, budget=cap)
+        B.append(f"<b>BUY {sym}</b>")
         if c:
-            when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d")
-            line = f"<b>{sym} {when} {c['strike']:g} call</b>"
+            B.append(f"{when(c['expiry'])} · ${c['strike']:g} CALL")
             if c["over"]:
+                # the setup wants the call; the cap only reaches the stock
                 sh = max(1, int(cap // px))
-                out.append(f"{line} — ${c['cost']:,.0f}")
-                out.append(f"  over ${cap} cap · or {sh} share{'s' if sh != 1 else ''}, ${sh*px:,.0f}")
+                B.append(f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}"
+                         f"   <i>call is {D(c['cost'])}</i>")
             else:
-                out.append(f"{line} × {c['n']} — ${c['cost']:,.0f}")
+                n = c["n"]
+                B.append(f"BUY {n} CONTRACT{'S' if n != 1 else ''} · {D(c['cost'])}")
         else:
             sh = max(1, int(cap // px))
-            out.append(f"<b>{sh} share{'s' if sh != 1 else ''} of {sym}</b> @ {px:,.2f} — ${sh*px:,.0f}")
-        out.append(f"  \u2192 {tgt:,.0f}  (+{up:.0f}%)")
-        return out
+            B.append(f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}")
+        B.append(f"TARGET ${r['tgt']:,.0f} · +{r['up']:.0f}%")
+        B.append("")
 
-    buys = []
-    for r in d["F"]:
-        buys += entry(r["sym"], r["px"], r["tgt"], r["up"]) + [""]
-    if buys and buys[-1] == "": buys.pop()
     if d["vix_fires"]:
         c = pick_contract("QQQ", d["qqq"], days=30, budget=1000)
         if c:
-            when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d")
-            buys.append(f"<b>QQQ {when} {c['strike']:g} call</b> \u00d7 {max(1,c['n'])} — ${c['cost']:,.0f}")
-            buys.append("  hold 21 sessions")
+            n = max(1, c["n"])
+            B += [f"<b>BUY QQQ</b>", f"{when(c['expiry'])} · ${c['strike']:g} CALL",
+                  f"BUY {n} CONTRACT{'S' if n != 1 else ''} · {D(c['cost'])}",
+                  "HOLD 21 SESSIONS", ""]
     if d["vix"] >= 25:
         for r in d["S"]:
-            buys.append(f"<b>SHORT {r['sym']}</b> @ {r['px']:,.2f}")
-            buys.append(f"  {r['below']:.1f}% under its 20-day low")
+            B += [f"<b>SHORT {r['sym']}</b>", f"${r['px']:,.2f} · {r['below']:.1f}% UNDER 20-DAY LOW",
+                  "UP TO 10 SESSIONS", ""]
 
-    L = []
-    if buys:
-        L.append("<b>BUY</b>")
-        L += [("  " + b) if b else "" for b in buys]
-    else:
-        L.append("<b>Nothing to buy today.</b>")
+    # every real position, where it started and where it is
+    U = []
+    for r in open_:
+        if r["acct"] != "real": continue
+        n = int(r.get("contracts") or 1)
+        mult = 100 if r.get("kind") == "call" else 1
+        a, b = float(r["entry"]) * mult * n, (r.get("now") or 0) * mult * n
+        head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
+               else f"{r['symbol']} · {n} SHARES"
+        U += ["<b>↑ UPDATE</b>" if b >= a else "<b>↓ UPDATE</b>", head,
+              f"{D(a)} → <b>{D(b)}</b> · {r['pl_pct']:+.0f}%"
+              + (f"   <i>{r['dte']}d left</i>" if r.get("dte") is not None else ""), ""]
 
-    # Only real money with a clock on it. Paper does not need to reach his phone.
-    clock = [r for r in open_ if r["acct"] == "real" and r.get("kind") == "call"
-             and (r.get("dte") or 99) <= 21]
-    if clock:
-        L.append("")
-        L.append("<b>DECIDE</b>")
-        for r in clock:
-            L.append(f"  {r['symbol']} {r['strike']}C  {r['pl_pct']:+.0f}%  ·  {r['dte']}d left")
+    C = []
+    for t in d.get("taken", []):
+        if t.get("closed") != d["date"]: continue
+        C += ["<b>✓ CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
+              f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b> · {t['pct']:+.0f}% FINAL", ""]
+
+    L = C + B + U
+    if not L: L = ["<b>NOTHING TO BUY TODAY</b>", ""]
+    while L and L[-1] == "": L.pop()
 
     intra = datetime.datetime.now(datetime.timezone.utc).hour < 20
-    L.append("")
-    L.append('<a href="https://arringtonc.github.io/stockcharter-scan/">Ledger</a>'
-             + f" · VIX {d['vix']:.1f} {d['regime'].lower()}"
-             + (" · intraday" if intra else "")
-             + (f" · <b>{len(d['errors'])} failed</b>" if d["errors"] else ""))
+    L += ["", '<a href="https://arringtonc.github.io/stockcharter-scan/">Ledger</a>'
+          + f" · VIX {d['vix']:.1f} {d['regime'].lower()}"
+          + (" · intraday" if intra else "")
+          + (f" · <b>{len(d['errors'])} failed</b>" if d["errors"] else "")]
     return "\n".join(L)
 
 
