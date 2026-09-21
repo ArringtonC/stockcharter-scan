@@ -578,6 +578,32 @@ def week(d, hist, closed, open_):
                 produced=[dict(date=a, sym=b, setup=c) for a, b, c in produced])
 
 
+# ── charts ─────────────────────────────────────────────────────────────────────
+# bars() already cached every name's 2-year history while the scan ran, so this
+# costs one extra fetch (the S&P) and writes only the names you actually hold or
+# that fired. 51 charts of names you do not own would go stale and never be opened.
+def chart_data(d, open_, n=180):
+    want = {r["symbol"] for r in open_}
+    want |= {x["sym"] for k in ("F", "C", "S") for x in d.get(k, [])}
+    out = {}
+    for sym in sorted(want) + ["^GSPC", "QQQ"]:
+        try:
+            b = bars(sym)
+        except Exception:
+            continue
+        if len(b) < 60: continue
+        b = b[-n:]
+        c = [x[1] for x in b]
+        e10, e30 = ema(c, 10), ema(c, 30)
+        out[sym] = dict(
+            d=[x[0] for x in b],
+            c=[round(x, 2) for x in c],
+            e10=[round(x, 2) for x in e10],
+            e30=[round(x, 2) for x in e30],
+        )
+    return out
+
+
 def third_friday(d):
     """The monthly expiry for d's month. Standard chains are deepest here."""
     f = datetime.date(d.year, d.month, 1)
@@ -709,8 +735,10 @@ if __name__ == "__main__":
                  C=[x["sym"] for x in d["C"]], S=[x["sym"] for x in d["S"]])
     hist = [h for h in hist if h["date"] != d["date"]] + [entry]
     json.dump(hist, open(HIST, "w"), indent=1)
-    d.update(open=open_, closed=closed, week=week(d, hist, closed, open_), setups=SETUPS)
+    d.update(open=open_, closed=closed, week=week(d, hist, closed, open_), setups=SETUPS,
+             charts=chart_data(d, open_))
     json.dump(d, open(os.path.join(DOCS, "data.json"), "w"), indent=1, default=str)
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
-          f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}")
+          f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
+          f"  charts={len(d['charts'])}")
     if notify(summary(d, open_)): print("  pushed to telegram")

@@ -174,6 +174,25 @@ h1,h2,h3{text-wrap:balance}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+
+/* ── Charts ───────────────────────────────────────────────────────────────── */
+.ch{border-top:1px solid var(--line);padding:var(--s3) 0}
+.ch:last-of-type{border-bottom:1px solid var(--line)}
+.chh{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2)}
+.chh .s{font:600 var(--t-h2) var(--serif);color:var(--ink);letter-spacing:-.01em}
+.chh .p{font:600 var(--t-body) var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.chh .d{font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums}
+.chh .d.up{color:var(--up)}.chh .d.dn{color:var(--dn)}
+.chh .w{font-size:var(--t-label);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.chh .h{margin-left:auto;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);
+  text-transform:uppercase;color:var(--amber);white-space:nowrap}
+.ch svg{display:block;width:100%;height:210px;overflow:visible}
+.chf{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);margin-top:var(--s1);
+  font-size:var(--t-label);letter-spacing:var(--tr);color:var(--dim);font-variant-numeric:tabular-nums}
+.chf .k{display:flex;align-items:center;gap:4px;text-transform:uppercase}
+.chf i{display:inline-block;width:12px;height:1px;vertical-align:middle}
+.chf .i10{background:var(--ink2)}.chf .i30{background:var(--dim)}
+@container (max-width:620px){.ch svg{height:170px}.chh .h{margin-left:0;flex-basis:100%}}
 /* ── app shell ─────────────────────────────────────────────────────────────── */
 .wrap{max-width:1040px;margin:0 auto;padding:var(--s4) 18px 96px}
 .mast{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
@@ -494,6 +513,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
     <button role="tab" data-tab="today" aria-selected="true">Today<span class="n" id="n-today"></span></button>
     <button role="tab" data-tab="trades" aria-selected="false">Trades<span class="n" id="n-trades"></span></button>
     <button role="tab" data-tab="watching" aria-selected="false">Watching<span class="n" id="n-watching"></span></button>
+    <button role="tab" data-tab="charts" aria-selected="false">Charts<span class="n" id="n-charts"></span></button>
     <button role="tab" data-tab="research" aria-selected="false">Research</button>
     <button role="tab" data-tab="system" aria-selected="false">System</button>
   </nav>
@@ -501,6 +521,8 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
   <section role="tabpanel" id="tab-today" class="today"></section>
   <section role="tabpanel" id="tab-trades" class="today" hidden></section>
   <section role="tabpanel" id="tab-watching" class="today" hidden></section>
+
+  <section role="tabpanel" id="tab-charts" class="today" hidden></section>
 
   <section role="tabpanel" id="tab-research" hidden>
     <div class="sub" role="tablist" aria-label="Research">
@@ -1047,6 +1069,121 @@ function renderWatching(d,state){
 
   <p class="foot">Prices: Yahoo Finance. Revenue: SEC EDGAR XBRL, filing-dated. Sector holdings: fund issuer
   disclosures. Every backtest behind this page carries a survivorship caveat.</p>`;
+}
+
+/* ══ Charts ══════════════════════════════════════════════════ */
+/* Inline SVG, no library. One scale places the line, the EMAs, the markers and
+   every label, so a label always names a value the chart actually reaches. */
+function chart(sym, s, pos){
+  const W=760, H=210, P={t:14,r:62,b:22,l:8};
+  const c=s.c, n=c.length;
+  const marks=(pos||[]).flatMap(p=>[Number(p.entry)||null, Number(p.target)||null]).filter(Boolean);
+  const lo=Math.min(...c, ...marks), hi=Math.max(...c, ...marks);
+  const pad=(hi-lo)*0.08 || 1;
+  const y0=lo-pad, y1=hi+pad;
+  const X=i=>P.l+(i/(n-1))*(W-P.l-P.r);
+  const Y=v=>P.t+(1-(v-y0)/(y1-y0))*(H-P.t-P.b);
+  const path=a=>a.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('');
+
+  const last=c[n-1], first=c[0], chg=(last/first-1)*100;
+  const up=last>=first;
+
+  // four gridlines on round-ish numbers the data actually spans
+  const step=(y1-y0)/4;
+  const grid=[0,1,2,3,4].map(k=>{const v=y0+step*k;return`
+    <line x1="${P.l}" y1="${Y(v).toFixed(1)}" x2="${W-P.r}" y2="${Y(v).toFixed(1)}"
+      stroke="var(--line)" stroke-width="1"/>
+    <text x="${W-P.r+6}" y="${(Y(v)+3.5).toFixed(1)}" fill="var(--dim)"
+      font-size="9.5" font-family="var(--mono)">${v>=1000?v.toFixed(0):v.toFixed(2)}</text>`;}).join('');
+
+  // your entry and target, drawn on the same scale as the price
+  const lines=(pos||[]).map(p=>{
+    const e=Number(p.entry), t=Number(p.target);
+    const a=p.kind==='shares'&&e?`
+      <line x1="${P.l}" y1="${Y(e).toFixed(1)}" x2="${W-P.r}" y2="${Y(e).toFixed(1)}"
+        stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="${P.l+4}" y="${(Y(e)-5).toFixed(1)}" fill="var(--amber)" font-size="9.5"
+        font-family="var(--mono)">entry ${e.toFixed(2)}</text>`:'';
+    const b=p.kind==='shares'&&t?`
+      <line x1="${P.l}" y1="${Y(t).toFixed(1)}" x2="${W-P.r}" y2="${Y(t).toFixed(1)}"
+        stroke="var(--up)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="${P.l+4}" y="${(Y(t)-5).toFixed(1)}" fill="var(--up)" font-size="9.5"
+        font-family="var(--mono)">target ${t.toFixed(2)}</text>`:'';
+    const k=p.kind==='call'&&Number(p.strike)?`
+      <line x1="${P.l}" y1="${Y(Number(p.strike)).toFixed(1)}" x2="${W-P.r}" y2="${Y(Number(p.strike)).toFixed(1)}"
+        stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="${P.l+4}" y="${(Y(Number(p.strike))-5).toFixed(1)}" fill="var(--amber)" font-size="9.5"
+        font-family="var(--mono)">strike ${Number(p.strike).toFixed(0)}</text>`:'';
+    return a+b+k;
+  }).join('');
+
+  const held=(pos||[]).map(p=>p.kind==='call'
+      ? `${esc(p.strike)}C ${esc(String(p.expiry).slice(5))} · ${p.dte}d · ${pct(p.pl_pct)}`
+      : `shares · ${pct(p.pl_pct)}`).join(' · ');
+
+  return `<div class="ch">
+    <div class="chh">
+      <span class="s">${esc(sym.replace('^GSPC','S&P 500'))}</span>
+      <span class="p">${last>=1000?last.toFixed(0):last.toFixed(2)}</span>
+      <span class="d ${up?'up':'dn'}">${pct(chg)}</span>
+      <span class="w">${n} sessions</span>
+      ${held?`<span class="h">${held}</span>`:''}
+    </div>
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img"
+         aria-label="${esc(sym)} price, ${n} sessions, ${pct(chg)}">
+      ${grid}
+      <path d="${path(s.e30)}" fill="none" stroke="var(--dim)" stroke-width="1" opacity=".55"/>
+      <path d="${path(s.e10)}" fill="none" stroke="var(--ink2)" stroke-width="1" opacity=".55"/>
+      ${lines}
+      <path d="${path(c)}" fill="none" stroke="${up?'var(--up)':'var(--dn)'}"
+        stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="${X(n-1).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="2.6"
+        fill="${up?'var(--up)':'var(--dn)'}"/>
+    </svg>
+    <div class="chf"><span>${esc(s.d[0])}</span>
+      <span class="k"><i class="i10"></i>10 EMA &nbsp;<i class="i30"></i>30 EMA</span>
+      <span>${esc(s.d[n-1])}</span></div>
+  </div>`;
+}
+
+function renderCharts(d,state){
+  const A=$('#tab-charts');
+  if(state==='loading'){A.innerHTML=`<div class="sk" style="height:230px;margin-top:14px"></div>`.repeat(3);return;}
+  if(state==='error'){A.innerHTML=`<div class="sec"><div class="err">HTTP 404 fetching data.json.
+    No price history to draw.</div></div>`;return;}
+  const ch=d.charts||{};
+  const keys=Object.keys(ch);
+  if(!keys.length){A.innerHTML=`<p class="empty">No chart data in this scan.</p>`;return;}
+
+  const held={}; (d.open||[]).forEach(r=>{(held[r.symbol]=held[r.symbol]||[]).push(r);});
+  const fired=new Set([...(d.F||[]),...(d.C||[]),...(d.S||[])].map(x=>x.sym));
+  const idx=keys.filter(k=>k.startsWith('^')||k==='QQQ');
+  const mine=keys.filter(k=>held[k]).sort();
+  const other=keys.filter(k=>!held[k]&&!idx.includes(k)).sort();
+
+  const block=(title,tag,lede,list)=> list.length?`<div class="sec">
+    <h2>${title} <span class="tag ${tag}">${list.length}</span></h2>
+    <p class="lede">${lede}</p>
+    ${list.map(k=>chart(k,ch[k],held[k])).join('')}</div>`:'';
+
+  A.innerHTML=`
+  <div class="tmast"><h1><b>Ledger</b> · charts</h1>
+    <span class="when">${esc(d.date)} · ${keys.length} names · 180 sessions</span></div>
+
+  <details class="whatis">
+    <summary><span>Only names you hold or that fired. <b class="not">Not every ticker.</b></span>
+      <span class="how">How this works</span></summary>
+    <div class="in">
+      <p>Daily closes, 180 sessions, with the 10 and 30 EMA. Your entry, target or strike is drawn on the
+      same scale as the price, so the gap you see is the gap that exists.</p>
+      <p>There is no chart for a name you do not own and that has not fired. Fifty-one charts of nothing
+      would go stale and never be opened.</p>
+    </div>
+  </details>
+
+  ${block('Market','watch','The index and the tape you trade against.',idx)}
+  ${block('Your positions','trade','Entry, target and strike drawn at their real level.',mine)}
+  ${block('Fired or watched','watch','Names the scan surfaced that you do not hold.',other)}`;
 }
 
 /* ══ Setups ══════════════════════════════════ */
@@ -1597,7 +1734,7 @@ const money=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,m
 const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
 
 /* ── navigation ────────────────────────────────────────────────────────────── */
-const PANELS=['today','trades','watching','research','system'];
+const PANELS=['today','trades','watching','charts','research','system'];
 function show(tab){
   document.querySelectorAll('nav [role=tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
   PANELS.forEach(p=>$('#tab-'+p).hidden=p!==tab);
@@ -1615,7 +1752,7 @@ document.querySelectorAll('.sub [role=tab]').forEach(b=>b.addEventListener('clic
 
 /* ── boot ──────────────────────────────────────────────────────────────────── */
 function renderAll(d,state){
-  renderToday(d,state); renderTrades(d,state); renderWatching(d,state);
+  renderToday(d,state); renderTrades(d,state); renderWatching(d,state); renderCharts(d,state);
   renderSetups(d,state); renderRules(d,state); renderSectors(d,state);
   renderMethodology(d,state); renderSystem(d,state);
   if(state==='error'){ $('#stamp').textContent='could not load data.json'; $('#stamp').classList.add('stale'); return; }
@@ -1623,6 +1760,7 @@ function renderAll(d,state){
   $('#n-today').textContent=live;
   $('#n-trades').textContent=(d.open||[]).length;
   $('#n-watching').textContent=(d.blocked||[]).length+(d.D||[]).length+(d.weekly||[]).length;
+  $('#n-charts').textContent=Object.keys(d.charts||{}).length;
   const m=String(d.stamp||'').match(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
   let age='';
   if(m){
