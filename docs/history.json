@@ -190,5 +190,27 @@
    "AMD"
   ],
   "S": []
+ },
+ {
+  "date": "2026-09-20",
+  "vix": 14.8100004196167,
+  "regime": "CALM",
+  "vix_fires": false,
+  "F": [],
+  "D": [
+   "MU",
+   "META",
+   "PLTR",
+   "MRNA",
+   "MRK",
+   "OKTA",
+   "HPQ"
+  ],
+  "C": [
+   "AMD"
+  ],
+  "S": [
+   "NFLX"
+  ]
  }
 ]
