@@ -215,7 +215,7 @@
  },
  {
   "date": "2026-09-21",
-  "vix": 14.970000267028809,
+  "vix": 14.989999771118164,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -224,20 +224,21 @@
   ],
   "D": [
    "HOOD",
-   "U",
    "MU",
+   "U",
    "INTC",
    "GOOGL",
    "PLTR",
+   "MSFT",
    "HPQ",
-   "META",
    "PANW",
-   "MRNA",
-   "MRK"
+   "META"
   ],
   "C": [
    "AMD"
   ],
-  "S": []
+  "S": [
+   "IBM"
+  ]
  }
 ]
