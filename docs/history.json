@@ -212,5 +212,30 @@
   "S": [
    "NFLX"
   ]
+ },
+ {
+  "date": "2026-09-21",
+  "vix": 14.869999885559082,
+  "regime": "CALM",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "BE"
+  ],
+  "D": [
+   "DOCU",
+   "HOOD",
+   "INTC",
+   "MU",
+   "GOOGL",
+   "PLTR",
+   "META",
+   "MRNA",
+   "MRK"
+  ],
+  "C": [
+   "AMD"
+  ],
+  "S": []
  }
 ]

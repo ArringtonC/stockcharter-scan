@@ -203,6 +203,210 @@
      "setup": "C"
     }
    }
+  },
+  {
+   "week": "2026-W39",
+   "date": "2026-09-21",
+   "balance": 8355.13,
+   "real_pl": 78.0,
+   "paper_pl": -6.6,
+   "real_net": -32,
+   "open_n": 19,
+   "real_n": 1,
+   "fired": 1,
+   "sessions": 1,
+   "pos": {
+    "2026-09-03-NFLX-sh": {
+     "sym": "NFLX",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 72.06500244140625,
+     "pl": -12.82810881649178,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-IBM-sh": {
+     "sym": "IBM",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 232.8699951171875,
+     "pl": -0.7839482266680187,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-AVGO-sh": {
+     "sym": "AVGO",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 354.5199890136719,
+     "pl": -0.7391675961272659,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-WDAY-sh": {
+     "sym": "WDAY",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 195.1300048828125,
+     "pl": -5.6978518834271625,
+     "acct": "paper",
+     "setup": "D"
+    },
+    "2026-09-03-MSFT-sh": {
+     "sym": "MSFT",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 494.1050109863281,
+     "pl": -3.139455228901411,
+     "acct": "paper",
+     "setup": "D"
+    },
+    "2026-09-08-BE-sh": {
+     "sym": "BE",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 271.67999267578125,
+     "pl": -1.998415454952307,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-HOOD-sh": {
+     "sym": "HOOD",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 124.84500122070312,
+     "pl": 6.395944452618996,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-MU-sh": {
+     "sym": "MU",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 1045.6715087890625,
+     "pl": 4.539970486579747,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-SHOP-sh": {
+     "sym": "SHOP",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 128.8800048828125,
+     "pl": -3.892613808491796,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-04-DOCU-big": {
+     "sym": "DOCU",
+     "kind": "call",
+     "strike": "37.5",
+     "dte": 116,
+     "now": 33.035,
+     "pl": 25.943576057948903,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-04-DOCU-small": {
+     "sym": "DOCU",
+     "kind": "call",
+     "strike": "65",
+     "dte": 25,
+     "now": 5.955,
+     "pl": 22.028688524590166,
+     "acct": "small",
+     "setup": "E"
+    },
+    "2026-09-04-WDAY-big": {
+     "sym": "WDAY",
+     "kind": "call",
+     "strike": "170",
+     "dte": 88,
+     "now": 33.46,
+     "pl": -11.598414795244382,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-04-SHOP-big": {
+     "sym": "SHOP",
+     "kind": "call",
+     "strike": "120",
+     "dte": 11,
+     "now": 9.925,
+     "pl": -64.46473326172574,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-11-QCOM-sh": {
+     "sym": "QCOM",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 179.6999969482422,
+     "pl": -2.108189274804051,
+     "acct": "paper",
+     "setup": "C"
+    },
+    "2026-09-14-BABA-real": {
+     "sym": "BABA",
+     "kind": "call",
+     "strike": "109",
+     "dte": 11,
+     "now": 7.565,
+     "pl": 78.0,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-16-NOW": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 138.50100708007812,
+     "pl": -1.9531310490739529,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-16-NOW-call": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "176",
+     "dte": 88,
+     "now": 4.945,
+     "pl": -16.890756302521005,
+     "acct": "small",
+     "setup": "F"
+    },
+    "2026-09-17-NOW-170c": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "170",
+     "dte": 60,
+     "now": 4.16,
+     "pl": -11.864406779661007,
+     "acct": "small",
+     "setup": "F"
+    },
+    "2026-09-17-QCOM-240c": {
+     "sym": "QCOM",
+     "kind": "call",
+     "strike": "240",
+     "dte": 60,
+     "now": 2.2344999999999997,
+     "pl": -39.932795698924735,
+     "acct": "small",
+     "setup": "C"
+    }
+   }
   }
  ]
 }
