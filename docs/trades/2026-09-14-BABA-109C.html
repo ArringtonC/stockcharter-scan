@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The BABA Post-Mortem</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -89,8 +93,15 @@ table.k tr:last-child td{border-bottom:none}
  color:var(--ink2);line-height:1.75;max-width:64ch}
 .close b{color:var(--ink);font-weight:500}
 
-.chartwrap{margin-top:var(--s4);padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow-x:auto}
-.chartwrap svg{display:block;width:100%;min-width:720px;height:auto}
+.chartwrap{margin-top:var(--s4);border:1px solid var(--line);border-radius:7px;background:var(--panel);overflow:hidden}
+.charthead{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
+ padding:var(--s3);border-bottom:1px solid var(--line)}
+.charthead b{font:500 16px var(--serif);color:var(--ink)}
+.chartread{display:flex;gap:var(--s2);flex-wrap:wrap;font:500 10.5px var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+.chartread span{white-space:nowrap}.chartread strong{color:var(--ink2);font-weight:600}
+.tradechart{width:100%;height:390px;background:var(--bg)}
+.charterr{display:grid;place-items:center;height:100%;padding:var(--s4);color:var(--dn);font-size:12.5px;text-align:center}
+@media(max-width:680px){.tradechart{height:320px}.charthead{align-items:flex-start;flex-direction:column}}
 .legend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s2);font-size:11.5px;color:var(--ink2)}
 .legend i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:6px;border-radius:1px}
 
@@ -147,54 +158,77 @@ Both are fixable, and one of them was my error.</p>
 
 
 <h2>The trade on the chart</h2>
-<p class="sub">BABA's daily closes since entry, with every stop level drawn. Only the one that was used
-was ever touched.</p>
-<div class="chartwrap"><svg viewBox="0 0 1010 340" role="img" aria-label="BABA daily closes since entry with each candidate stop level">
-<line x1="54" x2="816" y1="267.7" y2="267.7" stroke="var(--line)"/>
-<text x="46" y="271.7" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">104</text>
-<line x1="54" x2="816" y1="223.4" y2="223.4" stroke="var(--line)"/>
-<text x="46" y="227.4" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">106</text>
-<line x1="54" x2="816" y1="179.1" y2="179.1" stroke="var(--line)"/>
-<text x="46" y="183.1" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">108</text>
-<line x1="54" x2="816" y1="134.8" y2="134.8" stroke="var(--line)"/>
-<text x="46" y="138.8" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">110</text>
-<line x1="54" x2="816" y1="90.4" y2="90.4" stroke="var(--line)"/>
-<text x="46" y="94.4" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">112</text>
-<line x1="54" x2="816" y1="46.1" y2="46.1" stroke="var(--line)"/>
-<text x="46" y="50.1" text-anchor="end" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">114</text>
-<line x1="54" x2="816" y1="185.2" y2="185.2" stroke="var(--dn)" stroke-width="1.4" stroke-dasharray="5 4"/>
-<text x="822" y="189.2" fill="var(--dn)" font-size="10.5" font-family="var(--mono)">$107.72 · 1.38% — used</text>
-<line x1="54" x2="816" y1="272.8" y2="272.8" stroke="var(--up)" stroke-width="1.4" stroke-dasharray="5 4"/>
-<text x="822" y="276.8" fill="var(--up)" font-size="10.5" font-family="var(--mono)">$103.77 · 5%</text>
-<line x1="54" x2="816" y1="151.8" y2="151.8" stroke="var(--line2)" stroke-width="1"/>
-<text x="822" y="155.8" fill="var(--dim)" font-size="10.5" font-family="var(--mono)">$109.23 · entry</text>
-<line x1="54.0" x2="54.0" y1="119.5" y2="156.9" stroke="var(--line2)" stroke-width="2"/>
-<line x1="181.0" x2="181.0" y1="125.2" y2="182.8" stroke="var(--line2)" stroke-width="2"/>
-<line x1="308.0" x2="308.0" y1="107.1" y2="150.7" stroke="var(--line2)" stroke-width="2"/>
-<line x1="435.0" x2="435.0" y1="165.1" y2="209.2" stroke="var(--line2)" stroke-width="2"/>
-<line x1="562.0" x2="562.0" y1="153.8" y2="194.3" stroke="var(--line2)" stroke-width="2"/>
-<line x1="689.0" x2="689.0" y1="51.2" y2="115.7" stroke="var(--line2)" stroke-width="2"/>
-<line x1="816.0" x2="816.0" y1="67.0" y2="67.0" stroke="var(--line2)" stroke-width="2"/>
-<polyline points="54.0,150.3 181.0,151.8 308.0,149.4 435.0,195.2 562.0,167.1 689.0,66.7 816.0,67.0" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="181.0" cy="151.8" r="5" fill="var(--amber)" stroke="var(--bg)" stroke-width="2"/>
-<text x="181.0" y="137.8" text-anchor="middle" fill="var(--amber)" font-size="10.5" font-family="var(--mono)" font-weight="600">BOUGHT $4.25</text>
-<circle cx="435.0" cy="195.2" r="5" fill="var(--dn)" stroke="var(--bg)" stroke-width="2"/>
-<text x="435.0" y="215.2" text-anchor="middle" fill="var(--dn)" font-size="10.5" font-family="var(--mono)" font-weight="600">CUT $3.43</text>
-<circle cx="816.0" cy="67.0" r="5" fill="var(--up)" stroke="var(--bg)" stroke-width="2"/>
-<text x="816.0" y="53.0" text-anchor="middle" fill="var(--up)" font-size="10.5" font-family="var(--mono)" font-weight="600">$6.45</text>
-<text x="54.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-11</text>
-<text x="181.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-14</text>
-<text x="308.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-15</text>
-<text x="435.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-16</text>
-<text x="562.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-17</text>
-<text x="689.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">09-18</text>
-<text x="816.0" y="328" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="var(--mono)">now</text>
-</svg></div>
+<p class="sub">BABA's daily candles around the trade, with volume and every stop level drawn. Only the one
+that was used was ever touched. Historical bars are archived through September 18; the chart uses
+the closing data retrieved September 21, which may differ from the earlier marks in this review.</p>
+<div class="chartwrap">
+  <div class="charthead"><b>BABA · daily candles</b><div class="chartread" id="trade-chart-read" aria-live="polite"></div></div>
+  <div class="tradechart" id="trade-chart" role="img"
+    aria-label="Interactive BABA daily candlestick chart showing the entry, used stop and wider stop"></div>
+</div>
 <div class="legend">
-  <span><i style="background:var(--ink)"></i>close</span>
+  <span><i style="background:linear-gradient(90deg,var(--up),var(--dn))"></i>daily OHLC + volume</span>
   <span><i style="background:var(--dn)"></i>the stop that was used, 1.38%</span>
   <span><i style="background:var(--up)"></i>5% and wider — never touched</span>
+  <span>Buy $4.25 · cut $3.43 per option</span>
 </div>
+<p class="ev"><a href="https://www.tradingview.com/" style="color:var(--amber)">TradingView Lightweight Charts™</a>
+ · Copyright (с) 2025 TradingView, Inc.</p>
+
+<script src="../vendor/lightweight-charts.standalone.production.js"></script>
+<script>
+(async()=>{
+  const host=document.getElementById('trade-chart'),read=document.getElementById('trade-chart-read');
+  try{
+    const s=await fetch('2026-09-14-BABA-chart.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+    if(!s||!window.LightweightCharts)throw new Error('Chart data unavailable');
+    const rows=s.d.map((date,i)=>({date,i})).filter(x=>x.date>='2026-08-17'&&x.date<='2026-09-18');
+    if(!rows.length||!s.o||!s.h||!s.l||!s.v)throw new Error('OHLCV data unavailable');
+    const L=window.LightweightCharts,root=getComputedStyle(document.documentElement),css=k=>root.getPropertyValue(k).trim();
+    const C={bg:css('--bg'),panel:css('--panel'),line:css('--line'),line2:css('--line2'),ink2:css('--ink2'),
+      dim:css('--dim'),amber:css('--amber'),up:css('--up'),dn:css('--dn')};
+    const api=L.createChart(host,{width:host.clientWidth,height:host.clientHeight,
+      layout:{background:{type:L.ColorType.Solid,color:C.bg},textColor:C.dim,
+        fontFamily:"'IBM Plex Mono',ui-monospace,Menlo,monospace",fontSize:11},
+      grid:{vertLines:{color:C.line},horzLines:{color:C.line}},
+      crosshair:{mode:L.CrosshairMode.Normal,vertLine:{color:C.line2,labelBackgroundColor:C.panel},
+        horzLine:{color:C.line2,labelBackgroundColor:C.panel}},
+      rightPriceScale:{borderColor:C.line2,scaleMargins:{top:.1,bottom:.28}},
+      timeScale:{borderColor:C.line2,timeVisible:false,rightOffset:2,barSpacing:18,minBarSpacing:5},
+      handleScroll:{mouseWheel:true,pressedMouseMove:true,horzTouchDrag:true,vertTouchDrag:false},
+      handleScale:{axisPressedMouseMove:true,mouseWheel:true,pinch:true},
+      localization:{locale:'en-US',priceFormatter:x=>Number(x).toFixed(2)}});
+    const candles=api.addSeries(L.CandlestickSeries,{upColor:C.up,downColor:C.dn,borderVisible:false,
+      wickUpColor:C.up,wickDownColor:C.dn,priceLineColor:C.amber});
+    const candleData=rows.map(({date,i})=>({time:date,open:Number(s.o[i]),high:Number(s.h[i]),
+      low:Number(s.l[i]),close:Number(s.c[i])}));
+    candles.setData(candleData);
+    const volume=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceScaleId:'volume',
+      lastValueVisible:false,priceLineVisible:false});
+    const volumeData=rows.map(({date,i})=>({time:date,value:Number(s.v[i]||0),
+      color:Number(s.c[i])>=Number(s.o[i])?C.up+'70':C.dn+'70'}));
+    volume.setData(volumeData);api.priceScale('volume').applyOptions({visible:false,scaleMargins:{top:.78,bottom:0}});
+    [{price:109.23,title:'ENTRY',color:C.amber},{price:107.72,title:'USED STOP',color:C.dn},
+     {price:103.77,title:'5% STOP',color:C.up}].forEach(x=>candles.createPriceLine({...x,lineWidth:1,
+       lineStyle:L.LineStyle.Dashed,axisLabelVisible:true}));
+    L.createSeriesMarkers(candles,[
+      {time:'2026-09-14',position:'belowBar',color:C.amber,shape:'arrowUp',text:host.clientWidth<520?'BUY':'BUY $4.25'},
+      {time:'2026-09-16',position:'aboveBar',color:C.dn,shape:'arrowDown',text:host.clientWidth<520?'CUT':'CUT $3.43'}
+    ]);
+    const vfmt=x=>x>=1e9?(x/1e9).toFixed(1)+'B':x>=1e6?(x/1e6).toFixed(1)+'M':x>=1e3?(x/1e3).toFixed(0)+'K':String(x||0);
+    const show=(bar,vol,time)=>{if(!bar)return;read.innerHTML=`<span>${String(time).slice(5)}</span>
+      <span>O <strong>${bar.open.toFixed(2)}</strong></span><span>H <strong>${bar.high.toFixed(2)}</strong></span>
+      <span>L <strong>${bar.low.toFixed(2)}</strong></span><span>C <strong>${bar.close.toFixed(2)}</strong></span>
+      <span>Vol <strong>${vfmt(vol&&vol.value)}</strong></span>`;};
+    show(candleData.at(-1),volumeData.at(-1),candleData.at(-1).time);
+    api.subscribeCrosshairMove(p=>{if(!p.time||!p.point){show(candleData.at(-1),volumeData.at(-1),candleData.at(-1).time);return;}
+      show(p.seriesData.get(candles),p.seriesData.get(volume),p.time);});
+    api.timeScale().fitContent();
+    const ro=new ResizeObserver(()=>{if(host.clientWidth)api.applyOptions({width:host.clientWidth,height:host.clientHeight})});
+    ro.observe(host);
+  }catch(e){console.error(e);host.innerHTML='<div class="charterr">The interactive trade chart could not load.</div>'}
+})();
+</script>
 
 <h2>Five checkpoints, in order</h2>
 <p class="sub">Each one is a place the trade could have changed. The first is the one that mattered most.</p>
