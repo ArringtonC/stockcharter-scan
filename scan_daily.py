@@ -578,6 +578,54 @@ def week(d, hist, closed, open_):
                 produced=[dict(date=a, sym=b, setup=c) for a, b, c in produced])
 
 
+def third_friday(d):
+    """The monthly expiry for d's month. Standard chains are deepest here."""
+    f = datetime.date(d.year, d.month, 1)
+    f += datetime.timedelta(days=(4 - f.weekday()) % 7)      # first Friday
+    return f + datetime.timedelta(days=14)
+
+
+def affordable(sym, spot, budget=600):
+    """Walk the rule's own window - 120 down to 45 days - for the first ATM call
+    that fits the cap. Below 45 days the rule says don't, so it stops there and
+    reports the cheapest thing it saw instead of breaking a rule to find a fit."""
+    best = None
+    for days in (120, 90, 60, 45):
+        c = pick_contract(sym, spot, days=days, budget=budget)
+        if not c: continue
+        if not c["over"]: return c
+        if best is None or c["cost"] < best["cost"]: best = c
+    return best
+
+
+def pick_contract(sym, spot, days=120, budget=600):
+    """The actual trade a fired setup implies, priced.
+
+    Not a recommendation and nothing here is invented — the rules already say
+    at-the-money, 90-120 days, $600 cap. This just resolves them to a contract
+    that exists and asks what it costs. Returns None if nothing fits.
+    """
+    target = datetime.date.today() + datetime.timedelta(days=days)
+    for m in (0, 1, -1, 2):                                   # nearest monthly that lists
+        exp = third_friday(datetime.date(target.year + (target.month - 1 + m) // 12,
+                                         (target.month - 1 + m) % 12 + 1, 1))
+        if exp <= datetime.date.today(): continue
+        e = exp.isoformat()
+        chain_iv(sym, e, spot)                                # warms _CHAIN with real strikes
+        strikes = [k for k in _CHAIN.get((sym, e), {}) if isinstance(k, float)]
+        if not strikes: continue
+        strike = min(strikes, key=lambda k: abs(k - spot))     # at the money
+        dte = (exp - datetime.date.today()).days
+        px, src = option_mark(sym, e, strike, spot, dte, 0.45)
+        if not px or px <= 0: continue
+        n = int(budget // (px * 100))
+        if n < 1: return dict(expiry=e, strike=strike, px=px, src=src, dte=dte,
+                              n=0, cost=px * 100, over=True)
+        return dict(expiry=e, strike=strike, px=px, src=src, dte=dte,
+                    n=n, cost=px * 100 * n, over=False)
+    return None
+
+
 # ── push ───────────────────────────────────────────────────────────────────────
 # Nine days in ten this message saves you opening the page at all. On the tenth
 # it reaches you before the open. No token set means it silently does nothing.
@@ -600,15 +648,42 @@ def notify(text):
 def summary(d, open_):
     """What you would want on a phone screen, and nothing else."""
     live = [f"Setup F: {', '.join(x['sym'] for x in d['F'])}"] if d["F"] else []
-    if d["vix_fires"]: live.append(f"Setup VIX fires — ATM QQQ call, ~30 DTE, $1,000")
+    if d["vix_fires"]: live.append("Setup VIX fires")
     if d["vix"] >= 25 and d["S"]: live.append(f"Setup S: {', '.join(x['sym'] for x in d['S'])}")
 
     head = ("<b>" + (" · ".join(live) if live else "Nothing fires") + "</b>")
+
+    # When something fires, say what the trade IS. The setup card already defines
+    # it — at the money, 90-120 days, $600 cap, target the prior high, no stop.
+    trades = []
+    for r in d["F"]:
+        c = affordable(r["sym"], r["px"])
+        if not c:
+            trades.append(f"  <b>{r['sym']}</b> — no contract quoted"); continue
+        if c["over"]:
+            trades.append(f"  <b>{r['sym']}</b> — fired, but <b>no contract fits $600</b>\n"
+                          f"    cheapest ATM in the rule window: {c['strike']:g}C "
+                          f"{c['expiry'][5:]} at ${c['cost']:,.0f} ({c['dte']}d)")
+            continue
+        trades.append(
+            f"  <b>{r['sym']} {c['strike']:g} Call {c['expiry'][5:]}</b>\n"
+            f"    {c['n']}x @ ${c['px']:.2f} = <b>${c['cost']:,.0f}</b> · {c['dte']}d · {c['src']}\n"
+            f"    target ${r['tgt']:,.2f} (+{r['up']:.0f}%) · no stop")
+    if d["vix_fires"]:
+        c = pick_contract("QQQ", d["qqq"], days=30, budget=1000)
+        if c and not c["over"]:
+            trades.append(f"  <b>QQQ {c['strike']:g} Call {c['expiry'][5:]}</b>\n"
+                          f"    {c['n']}x @ ${c['px']:.2f} = <b>${c['cost']:,.0f}</b> · {c['dte']}d · {c['src']}\n"
+                          f"    hold 21 sessions · no stop")
     ctx  = (f"VIX {d['vix']:.1f} {d['regime']} · QQQ {d['qqq']:.0f} ({d['qdd']:+.1f}% off high)")
     scan = f"{d['scanned']}/{d['universe']} scanned"
     if d["errors"]: scan += f" · <b>{len(d['errors'])} failed</b>"
 
     lines = [f"📊 <b>Ledger</b> · {d['date']}", head, ctx, scan]
+    if trades:
+        lines.append("")
+        lines.append("<b>The trade</b>")
+        lines += trades
 
     # a call inside 21 days is the one thing worth interrupting you for
     soon = [r for r in open_ if r.get("kind") == "call" and (r.get("dte") or 99) <= 21]
