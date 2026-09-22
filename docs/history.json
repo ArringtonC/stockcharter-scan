@@ -242,7 +242,7 @@
  },
  {
   "date": "2026-09-22",
-  "vix": 14.300000190734863,
+  "vix": 14.229999542236328,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -254,11 +254,13 @@
    "SHOP",
    "U",
    "INTC",
-   "MU",
    "GOOGL",
+   "MU",
    "SNOW",
    "PLTR",
-   "DELL"
+   "DELL",
+   "PANW",
+   "META"
   ],
   "C": [],
   "S": [
