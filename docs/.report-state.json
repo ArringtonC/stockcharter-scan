@@ -209,9 +209,9 @@
    "date": "2026-09-22",
    "balance": 8355.13,
    "real_pl": null,
-   "paper_pl": -0.8,
+   "paper_pl": 3.9,
    "real_net": -32,
-   "open_n": 18,
+   "open_n": 19,
    "real_n": 0,
    "fired": 2,
    "sessions": 2,
@@ -395,6 +395,16 @@
      "pl": 47.58064516129033,
      "acct": "small",
      "setup": "C"
+    },
+    "2026-09-16-BABA-paper": {
+     "sym": "BABA",
+     "kind": "call",
+     "strike": "109",
+     "dte": 10,
+     "now": 8.025,
+     "pl": 88.82352941176472,
+     "acct": "paper",
+     "setup": "none"
     }
    }
   }
