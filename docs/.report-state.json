@@ -208,11 +208,11 @@
    "week": "2026-W39",
    "date": "2026-09-22",
    "balance": 8355.13,
-   "real_pl": 88.8,
+   "real_pl": null,
    "paper_pl": -0.8,
    "real_net": -32,
-   "open_n": 19,
-   "real_n": 1,
+   "open_n": 18,
+   "real_n": 0,
    "fired": 2,
    "sessions": 2,
    "pos": {
@@ -355,16 +355,6 @@
      "pl": 5.807046754665279,
      "acct": "paper",
      "setup": "C"
-    },
-    "2026-09-14-BABA-real": {
-     "sym": "BABA",
-     "kind": "call",
-     "strike": "109",
-     "dte": 10,
-     "now": 8.025,
-     "pl": 88.82352941176472,
-     "acct": "real",
-     "setup": "none"
     },
     "2026-09-16-NOW": {
      "sym": "NOW",
