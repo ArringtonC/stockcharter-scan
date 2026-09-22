@@ -1,6 +1,6 @@
 {
  "date": "2026-09-22",
- "stamp": "2026-09-22 21:30 UTC",
+ "stamp": "2026-09-22 23:40 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.210000038146973,
@@ -1991,12 +1991,12 @@
    }
   ],
   "by_setup": {
-   "F": {
+   "C": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -2.4138446505426567
+    "open_n": 2,
+    "open_mean": 39.48779434096766
    },
    "E": {
     "wins": 0,
@@ -2005,19 +2005,12 @@
     "open_n": 7,
     "open_mean": -3.0116988834728367
    },
-   "D": {
+   "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -5.704194967181358
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": 39.48779434096766
+    "open_n": 7,
+    "open_mean": -2.4138446505426567
    },
    "none": {
     "wins": 0,
@@ -2025,6 +2018,13 @@
     "closed_mean": -19.3,
     "open_n": 1,
     "open_mean": 91.41176470588235
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -5.704194967181358
    }
   },
   "produced": [
