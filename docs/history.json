@@ -242,7 +242,7 @@
  },
  {
   "date": "2026-09-22",
-  "vix": 14.199999809265137,
+  "vix": 14.210000038146973,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -250,19 +250,17 @@
    "BE"
   ],
   "D": [
-   "SHOP",
    "HOOD",
+   "SHOP",
    "U",
-   "INTC",
    "GOOGL",
+   "INTC",
    "MU",
    "SNOW",
    "PLTR",
-   "MSFT",
    "DELL",
-   "PANW",
-   "REGN",
-   "META"
+   "META",
+   "PANW"
   ],
   "C": [
    "AMD"
