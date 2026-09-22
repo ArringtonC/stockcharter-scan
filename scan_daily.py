@@ -956,8 +956,13 @@ def summary(d, open_):
     while L and L[-1] == "": L.pop()
 
     intra = datetime.datetime.now(datetime.timezone.utc).hour < 20
+    # direction earns one word: it flips the sign at 20-25 and is the whole of
+    # Setup VIX at 25+ (thesis/vix-trend.md, 2026-09-22). Under 16 it changes nothing.
+    v5 = d.get("vix5") or []
+    dirn = ("" if len(v5) < 5 or abs(d["vix"] / v5[0] - 1) < 0.03
+            else (" rising" if d["vix"] > v5[0] else " falling"))
     L += ["", '<a href="https://arringtonc.github.io/stockcharter-scan/">Ledger</a>'
-          + f" · VIX {d['vix']:.1f} {d['regime'].lower()}"
+          + f" · VIX {d['vix']:.1f} {d['regime'].lower()}{dirn}"
           + (" · intraday" if intra else "")
           + (f" · <b>{len(d['errors'])} failed</b>" if d["errors"] else "")]
     return "\n".join(L)
