@@ -447,6 +447,11 @@ TAKEN = [
          pl=-82, pct=-19.3, setup=None,
          lesson="Stop was 1.38% from entry against a 1.40% median day. A 5% stop was never touched and returns +$220.",
          link="trades/2026-09-14-BABA-109C.html"),
+    dict(sym="QQQ", contract="748 Call 9/25", n=1, paid=2.24, cost=224,
+         opened="2026-09-23", closed="2026-09-23", exit=1.00,
+         pl=-124, pct=-55.4, setup=None,
+         lesson="Bought the day after a $20 jump, near the open high, 2 days to expiry. No setup fired on QQQ.",
+         link=None),
 ]
 
 TODAY = [
@@ -915,7 +920,9 @@ def alert_key(d, open_):
                    + ([x["sym"] for x in d["S"]] if d["vix"] >= 25 else []))
     soon = sorted(f"{r['symbol']}{r.get('dte')}" for r in open_
                   if r.get("kind") == "call" and (r.get("dte") or 99) <= 21)
-    return json.dumps(dict(date=d["date"], fired=fired, soon=soon, move=move_bucket(d.get("market", {})),
+    steps = sorted(f"{r['symbol']}{int((r.get('pl_pct') or 0) // 10)}{'!' if (r.get('dte') or 99) <= 7 else ''}"
+                   for r in open_ if r.get("acct") == "real")
+    return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps, move=move_bucket(d.get("market", {})),
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
 
@@ -956,7 +963,16 @@ def notify(text):
         return False
 
 
-def summary(d, open_):
+def left(dte, today=None):
+    """114d left is information; the last week is a warning; the last 3 days name the day."""
+    if dte is None: return ""
+    if dte <= 3:
+        day = (today or datetime.date.today()) + datetime.timedelta(days=dte)
+        return "<b>EXPIRES TODAY</b>" if dte <= 0 else f"<b>EXPIRES {day.strftime('%a').upper()}</b>"
+    return f"<b>⚠ {dte}d left</b>" if dte <= 10 else f"{dte}d left"
+
+
+def summary(d, open_, closed=()):
     """BUY -> UPDATE -> CLOSED. One job per line, so the whole thing reads without
     doing any arithmetic: what it is, what to do, what it is worth."""
     cap = round(PLAN["balance"] * 0.07 / 50) * 50
@@ -1009,14 +1025,22 @@ def summary(d, open_):
                else f"{r['symbol']} · {n} SHARES"
         U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>", head,
               f"START {D(a)} → NOW <b>{D(b)}</b>",
-              f"{r['pl_pct']:+.0f}%" + (f" · {r['dte']}d left" if r.get("dte") is not None else ""), ""]
+              f"{'+' if b >= a else '−'}{D(abs(b - a))} · {r['pl_pct']:+.0f}%"
+              + (f" · {left(r['dte'])}" if r.get("dte") is not None else ""), ""]
 
     C = []
-    for t in d.get("taken", []):
-        if t.get("closed") != d["date"]: continue
+    done = [t for t in d.get("taken", []) if t.get("closed") == d["date"]]
+    seen = {t["sym"] for t in done}
+    for r in closed:
+        if r.get("acct") != "real" or r.get("closed") != d["date"] or r["symbol"] in seen: continue
+        n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
+        a = float(r["entry"]) * mult * n
+        done.append(dict(sym=r["symbol"], contract=f"{float(r['strike']):g}C {r.get('expiry') or ''}",
+                         cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
+    for t in done:
         C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
               f"START {D(t['cost'])} → EXIT <b>{D(t['cost'] + t['pl'])}</b>",
-              f"FINAL {t['pct']:+.0f}%", ""]
+              f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
     M = []
     m = d.get("market", {})
@@ -1077,5 +1101,5 @@ if __name__ == "__main__":
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
     send, why = should_push(d, open_)
-    if send and notify(summary(d, open_)): print(f"  pushed to telegram ({why})")
+    if send and notify(summary(d, open_, closed)): print(f"  pushed to telegram ({why})")
     elif not send: print(f"  no push — {why}")
