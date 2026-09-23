@@ -1035,10 +1035,10 @@ def summary(d, open_, closed=()):
         if r.get("acct") != "real" or r.get("closed") != d["date"] or r["symbol"] in seen: continue
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
-        done.append(dict(sym=r["symbol"], contract=f"{float(r['strike']):g}C {r.get('expiry') or ''}",
+        done.append(dict(sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
     for t in done:
-        C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
+        C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
               f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
