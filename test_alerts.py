@@ -12,7 +12,8 @@ pos = lambda pl, dte: dict(symbol="DOCU", acct="real", kind="call", contracts=1,
 
 # BUY: call under the cap -> contracts; over the cap -> shares plus the reason
 t = S.summary(base(F=[dict(sym="CHEAP", px=19, tgt=25, up=30), dict(sym="DEAR", px=140, tgt=195, up=39)]), [])
-assert "BUY 2 CONTRACTS · $240" in t and "BUY 4 SHARES · $560" in t and "1 CALL COSTS $1,391 · OVER CAP" in t
+assert "<b>BUY CHEAP $19.00</b>" in t and "$20 CALL · $1.20" in t and "BUY 2 CALLS · $240" in t
+assert "$140 CALL · $13.91" in t and "OVER CAP → BUY 4 SHARES · $560" in t
 
 # UPDATE: losses show, dollars show, the last week warns, the last 3 days name the day
 t = S.summary(base(), [pos(-19, 58)]); assert "↓ TRADE UPDATE" in t and "−$498 · -19% · 58d left" in t

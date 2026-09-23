@@ -985,20 +985,17 @@ def summary(d, open_, closed=()):
     for r in d["F"]:
         sym, px = r["sym"], r["px"]
         c = affordable(sym, px, budget=cap)
-        B.append(f"<b>BUY {sym}</b>" + (" · CORE" if sym in CORE else ""))
+        B.append(f"<b>BUY {sym} ${px:,.2f}</b>" + (" · CORE" if sym in CORE else ""))
+        sh = max(1, int(cap // px))
+        shares = f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}"
         if c:
-            B.append(f"{when(c['expiry'])} · ${c['strike']:g} CALL")
-            if c["over"]:
-                # the setup wants the call; the cap only reaches the stock
-                sh = max(1, int(cap // px))
-                B.append(f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}")
-                B.append(f"1 CALL COSTS {D(c['cost'])} · OVER CAP")
-            else:
-                n = c["n"]
-                B.append(f"BUY {n} CONTRACT{'S' if n != 1 else ''} · {D(c['cost'])}")
+            # price per share of one call, the number a broker shows
+            B.append(f"{when(c['expiry'])} · ${c['strike']:g} CALL · ${c['cost'] / max(c['n'], 1) / 100:,.2f}")
+            # over the cap the setup still wants the call; the cap only reaches the stock
+            B.append(f"OVER CAP → {shares}" if c["over"] else
+                     f"BUY {c['n']} CALL{'S' if c['n'] != 1 else ''} · {D(c['cost'])}")
         else:
-            sh = max(1, int(cap // px))
-            B.append(f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}")
+            B.append(shares)
         B.append(f"TARGET ${r['tgt']:,.0f} · +{r['up']:.0f}%")
         B.append("")
 
@@ -1029,14 +1026,16 @@ def summary(d, open_, closed=()):
               + (f" · {left(r['dte'])}" if r.get("dte") is not None else ""), ""]
 
     C = []
-    done = [t for t in d.get("taken", []) if t.get("closed") == d["date"]]
-    seen = {t["sym"] for t in done}
+    # the trade log first (it knows the expiry), TAKEN only for anything the log lacks
+    done = []
     for r in closed:
-        if r.get("acct") != "real" or r.get("closed") != d["date"] or r["symbol"] in seen: continue
+        if r.get("acct") != "real" or r.get("closed") != d["date"]: continue
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
         done.append(dict(sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
+    seen = {t["sym"] for t in done}
+    done += [t for t in d.get("taken", []) if t.get("closed") == d["date"] and t["sym"] not in seen]
     for t in done:
         C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
