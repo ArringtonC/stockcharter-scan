@@ -272,7 +272,7 @@
  },
  {
   "date": "2026-09-23",
-  "vix": 15.0,
+  "vix": 15.079999923706055,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -283,10 +283,9 @@
    "DOCU",
    "HOOD",
    "TXN",
-   "MU",
    "U",
+   "MU",
    "INTC",
-   "SNOW",
    "MSFT",
    "DELL",
    "PLTR",
@@ -294,7 +293,6 @@
   ],
   "C": [],
   "S": [
-   "ADBE",
    "TTD"
   ]
  }
