@@ -14,6 +14,7 @@ trades.csv is the paper book. This script marks it to market and auto-closes:
   calls   mark with a real quote (Schwab, then Alpaca), falling back to Black-Scholes; close at expiry at intrinsic
 """
 import urllib.request, urllib.parse, json, datetime, time, os, gzip, csv, math
+from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.join(HERE, "docs")
@@ -26,6 +27,18 @@ UNIVERSE = """AAPL MSFT NVDA AMZN GOOGL META NFLX TSLA AMD INTC MU QCOM AVGO TXN
 CRM ADBE ORCL CSCO IBM HPQ DELL NOW WDAY PANW ZS OKTA SHOP XYZ PYPL TTD ROKU
 SPOT DOCU JNJ PFE MRK ABBV LLY BMY AMGN GILD BIIB REGN VRTX MRNA XOM CVX OXY
 SLB HAL COP DVN CAVA SG HOOD BE COIN PLTR U WBD F GM SNOW""".split()
+
+# Part 2: the basket he trades. Part 1 (UNIVERSE, the setups) is untouched; these
+# only tag alerts CORE, and the ones outside UNIVERSE run the same check() on the side.
+CORE = "AAPL NVDA TSLA BAC BE GOOGL AMZN META QQQ SPY".split()
+PART2 = [s for s in CORE if s not in UNIVERSE]
+
+# Known-in-advance market days, Central time. From bls.gov/schedule and
+# federalreserve.gov on 2026-09-23. ponytail: typed by hand; add 2027 in December.
+EVENTS = {"2026-10-02": "jobs report 7:30 CT", "2026-10-14": "CPI 7:30 CT",
+          "2026-10-28": "Fed decision 1:00 CT", "2026-11-06": "jobs report 7:30 CT",
+          "2026-11-10": "CPI 7:30 CT", "2026-12-04": "jobs report 7:30 CT",
+          "2026-12-09": "Fed decision 1:00 CT", "2026-12-10": "CPI 7:30 CT"}
 
 TCOLS = ["id", "kind", "acct", "opened", "symbol", "setup", "entry", "target", "strike",
          "expiry", "contracts", "status", "closed", "exit", "pl_pct", "note"]
@@ -185,6 +198,38 @@ def revenue_growth(sym):
     return _rev[sym]
 
 
+def check(sym, F, D, C, S, blocked):
+    """Every setup rule for one name. Part 1 and part 2 both run exactly this."""
+    b = bars(sym)
+    if len(b) < 260: return
+    c = [x[1] for x in b]; h = [x[2] for x in b]; lo = [x[3] for x in b]
+    i = len(c) - 1; px = c[i]
+    e10, e30, e50, e200 = ema(c, 10), ema(c, 30), ema(c, 50), ema(c, 200)
+    s50 = sma(c, 50); r14 = rsi(c)[i]
+    hi252 = max(h[-252:]); dd = 1 - px / hi252
+    hi20 = max(h[i - 20:i]); lo20 = min(lo[i - 20:i])
+    trend = e10[i] > e30[i] and e50[i] > e200[i]
+    cross = any(j > 0 and s50[j] and s50[j - 1] and e10[j] > s50[j] and e10[j - 1] <= s50[j - 1]
+                for j in range(i - 4, i + 1))
+    up = (hi252 / px - 1) * 100
+    if cross and e50[i] > e200[i] and px > hi20:
+        C.append(dict(sym=sym, px=px, tgt=hi252, up=up))
+    if 0.05 <= dd < 0.20 and i >= 126 and px > c[i - 126] and r14 and r14 > 55:
+        D.append(dict(sym=sym, px=px, dd=dd * 100, rsi=r14, up=up))
+    if 0.20 <= dd < 0.45:
+        if trend:
+            rg = revenue_growth(sym)
+            if rg is not None and rg > 0.25:
+                F.append(dict(sym=sym, px=px, dd=dd * 100, tgt=hi252, up=up, rev=rg * 100))
+            else:
+                blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up,
+                                    why=f"revenue {rg*100:+.0f}%" if rg is not None else "no SEC data"))
+        else:
+            blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up, why="trend broken"))
+    if px < lo20 and e50[i] < e200[i]:
+        S.append(dict(sym=sym, px=px, lo20=lo20, below=(px / lo20 - 1) * 100))
+
+
 def scan():
     err = []
     v = bars("^VIX", "6mo"); vc = [x[1] for x in v]
@@ -198,34 +243,7 @@ def scan():
     F, D, C, S, blocked = [], [], [], [], []
     for sym in UNIVERSE:
         try:
-            b = bars(sym)
-            if len(b) < 260: continue
-            c = [x[1] for x in b]; h = [x[2] for x in b]; lo = [x[3] for x in b]
-            i = len(c) - 1; px = c[i]
-            e10, e30, e50, e200 = ema(c, 10), ema(c, 30), ema(c, 50), ema(c, 200)
-            s50 = sma(c, 50); r14 = rsi(c)[i]
-            hi252 = max(h[-252:]); dd = 1 - px / hi252
-            hi20 = max(h[i - 20:i]); lo20 = min(lo[i - 20:i])
-            trend = e10[i] > e30[i] and e50[i] > e200[i]
-            cross = any(j > 0 and s50[j] and s50[j - 1] and e10[j] > s50[j] and e10[j - 1] <= s50[j - 1]
-                        for j in range(i - 4, i + 1))
-            up = (hi252 / px - 1) * 100
-            if cross and e50[i] > e200[i] and px > hi20:
-                C.append(dict(sym=sym, px=px, tgt=hi252, up=up))
-            if 0.05 <= dd < 0.20 and i >= 126 and px > c[i - 126] and r14 and r14 > 55:
-                D.append(dict(sym=sym, px=px, dd=dd * 100, rsi=r14, up=up))
-            if 0.20 <= dd < 0.45:
-                if trend:
-                    rg = revenue_growth(sym)
-                    if rg is not None and rg > 0.25:
-                        F.append(dict(sym=sym, px=px, dd=dd * 100, tgt=hi252, up=up, rev=rg * 100))
-                    else:
-                        blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up,
-                                            why=f"revenue {rg*100:+.0f}%" if rg is not None else "no SEC data"))
-                else:
-                    blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up, why="trend broken"))
-            if px < lo20 and e50[i] < e200[i]:
-                S.append(dict(sym=sym, px=px, lo20=lo20, below=(px / lo20 - 1) * 100))
+            check(sym, F, D, C, S, blocked)
             time.sleep(0.05)
         except Exception as e:
             err.append(f"{sym}: {str(e)[:40]}")
@@ -281,11 +299,11 @@ def chain_iv(sym, expiry, strike):
 #   2 Alpaca   (ALPACA_KEY / ALPACA_SECRET)                   real bid/ask, free tier
 #   3 Yahoo chain IV  -> Black-Scholes                        no credentials needed
 #   4 60-day realized vol -> Black-Scholes                    always available
-def occ(sym, expiry, strike, pad=True):
+def occ(sym, expiry, strike, pad=True, right="C"):
     """OCC option symbol. Schwab pads the root to 6 chars; Alpaca does not."""
     y, m, d = expiry.split("-")
     root = f"{sym:<6s}" if pad else sym
-    return f"{root}{y[2:]}{m}{d}C{int(round(float(strike) * 1000)):08d}"
+    return f"{root}{y[2:]}{m}{d}{right}{int(round(float(strike) * 1000)):08d}"
 
 _TOK = {}
 def schwab_quote(sym, expiry, strike):
@@ -311,12 +329,12 @@ def schwab_quote(sym, expiry, strike):
     except Exception:
         return None
 
-def alpaca_quote(sym, expiry, strike):
+def alpaca_quote(sym, expiry, strike, right="C"):
     """Mid of the real bid/ask from Alpaca's free options feed. None without keys."""
     k, sec = os.environ.get("ALPACA_KEY"), os.environ.get("ALPACA_SECRET")
     if not (k and sec): return None
     try:
-        o = occ(sym, expiry, strike, pad=False)
+        o = occ(sym, expiry, strike, pad=False, right=right)
         rq = urllib.request.Request(
             f"https://data.alpaca.markets/v1beta1/options/quotes/latest?symbols={o}",
             headers={"APCA-API-KEY-ID": k, "APCA-API-SECRET-KEY": sec})
@@ -840,6 +858,51 @@ def pick_contract(sym, spot, days=120, budget=600):
 # Running hourly does not mean messaging hourly. Ten identical "nothing fires"
 # notes a day is how an alert becomes wallpaper. This pushes on the first run of
 # the day, on the closing run, and otherwise only when something changed.
+def market(d, open_):
+    """What can be known about today's index move, before and during. None of it
+    says which way -- thesis/scalp.md: nothing predicted QQQ/SPY direction."""
+    m = dict(events=[EVENTS[d["date"]]] if d["date"] in EVENTS else [])
+    for s in ("QQQ", "SPY", "NQ=F"):
+        try:
+            q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=1d&interval=5m")["chart"]["result"][0]["meta"]
+            m[s] = (q["regularMarketPrice"] / q["chartPreviousClose"] - 1) * 100
+        except Exception:
+            pass
+    # earnings today for the basket or anything held
+    try:
+        mine = set(CORE) | {r["symbol"] for r in open_}
+        rows = get(f"https://api.nasdaq.com/api/calendar/earnings?date={d['date']}",
+                   {"User-Agent": "Mozilla/5.0", "Accept": "application/json"})["data"]["rows"] or []
+        m["events"] += [f"{r['symbol']} earnings" + (" after close" if "after" in r["time"] else
+                        " before open" if "pre" in r["time"] else "") for r in rows if r["symbol"] in mine]
+    except Exception:
+        pass
+    # expected move = QQQ at-the-money straddle to the nearest Friday
+    try:
+        t = datetime.date.fromisoformat(d["date"]); fri = t + datetime.timedelta((4 - t.weekday()) % 7)
+        k = round(d["qqq"]); c = alpaca_quote("QQQ", str(fri), k); p = alpaca_quote("QQQ", str(fri), k, "P")
+        if c and p: m["exp_move"], m["exp_by"] = c + p, fri.strftime("%a")
+    except Exception:
+        pass
+    # biggest basket movers, only once today's bar exists
+    mv = []
+    for s in CORE:
+        if s in ("QQQ", "SPY"): continue
+        b = _bars.get(s) or []
+        if len(b) > 1 and b[-1][0] == d["date"]: mv.append((s, (b[-1][1] / b[-2][1] - 1) * 100))
+    m["movers"] = sorted(mv, key=lambda x: -abs(x[1]))[:3]
+    return m
+
+
+def move_bucket(m):
+    """QQQ+1 / SPY-2 ... the push fires when this changes, i.e. on crossing 1% or 2%."""
+    b = []
+    for s in ("QQQ", "SPY"):
+        v = m.get(s)
+        if v is not None and abs(v) >= 1: b.append(f"{s}{'+' if v > 0 else '-'}{min(int(abs(v)), 2)}")
+    return b
+
+
 ALERT_STATE = os.path.join(DOCS, ".alert-state.json")
 
 def alert_key(d, open_):
@@ -849,7 +912,7 @@ def alert_key(d, open_):
                    + ([x["sym"] for x in d["S"]] if d["vix"] >= 25 else []))
     soon = sorted(f"{r['symbol']}{r.get('dte')}" for r in open_
                   if r.get("kind") == "call" and (r.get("dte") or 99) <= 21)
-    return json.dumps(dict(date=d["date"], fired=fired, soon=soon,
+    return json.dumps(dict(date=d["date"], fired=fired, soon=soon, move=move_bucket(d.get("market", {})),
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
 
@@ -903,7 +966,7 @@ def summary(d, open_):
     for r in d["F"]:
         sym, px = r["sym"], r["px"]
         c = affordable(sym, px, budget=cap)
-        B.append(f"<b>BUY {sym}</b>")
+        B.append(f"<b>BUY {sym}</b>" + (" · CORE" if sym in CORE else ""))
         if c:
             B.append(f"{when(c['expiry'])} · ${c['strike']:g} CALL")
             if c["over"]:
@@ -951,8 +1014,23 @@ def summary(d, open_):
         C += ["<b>✓ CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b> · {t['pct']:+.0f}% FINAL", ""]
 
-    L = C + B + U
-    if not L: L = ["<b>NOTHING TO BUY TODAY</b>", ""]
+    M = []
+    m = d.get("market", {})
+    pct = lambda s: f"{s.replace('=F', '')} {m[s]:+.1f}%" if m.get(s) is not None else None
+    ny = datetime.datetime.now(ZoneInfo("America/New_York"))
+    open_now = (ny.hour, ny.minute) >= (9, 30)
+    if not open_now:
+        M += ["<b>BEFORE THE OPEN</b>", pct("NQ=F") and f"NASDAQ FUTURES {m['NQ=F']:+.1f}%"]
+    elif move_bucket(m):
+        M += [f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} " + " · ".join(filter(None, (pct("QQQ"), pct("SPY")))) + "</b>",
+              " · ".join(f"{s} {v:+.1f}%" for s, v in m.get("movers", [])) or None]
+    if M:
+        M += [e.upper() for e in m.get("events", [])]
+        if m.get("exp_move"): M.append(f"QQQ EXPECTED ±${m['exp_move']:.0f} BY {m['exp_by'].upper()}")
+        M = [x for x in M if x] + ["<i>not a signal</i>", ""]
+
+    L = M + C + B + U
+    if not (C + B + U): L = M + ["<b>NOTHING TO BUY TODAY</b>", ""]
     while L and L[-1] == "": L.pop()
 
     intra = datetime.datetime.now(datetime.timezone.utc).hour < 20
@@ -972,6 +1050,13 @@ if __name__ == "__main__":
     os.makedirs(DOCS, exist_ok=True)
     d = scan()
     open_, closed = mark_trades()
+    p2 = dict(F=[], D=[], C=[], S=[], blocked=[])
+    for sym in PART2:
+        try: check(sym, p2["F"], p2["D"], p2["C"], p2["S"], p2["blocked"])
+        except Exception as e: d["errors"].append(f"{sym}: {str(e)[:40]}")
+    # part 2 F fires join the BUY list; D/C/S stay watchlist-only exactly as in part 1
+    d["F"] += p2["F"]; d["part2"] = p2
+    d["market"] = market(d, open_)
     hist = json.load(open(HIST)) if os.path.exists(HIST) else []
     entry = dict(date=d["date"], vix=d["vix"], regime=d["regime"], vix_fires=d["vix_fires"],
                  F=[x["sym"] for x in d["F"]], D=[x["sym"] for x in d["D"]],
