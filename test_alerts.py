@@ -28,6 +28,6 @@ assert S.should_push(d, [pos(31, 114)])[0]
 row = dict(symbol="QQQ", acct="real", kind="call", contracts=1, entry="2.24", exit="1.00",
            pl_pct="-55.4", closed=today, strike="748", expiry="2026-09-25")
 t = S.summary(base(), [], [row])
-assert "✓ TRADE CLOSED" in t and "START $224 → EXIT <b>$100</b>" in t and "FINAL −$124 · -55%" in t
+assert "✓ TRADE CLOSED" in t and "$224 → <b>$100</b>" in t and "FINAL −$124 · -55%" in t
 assert "TRADE UPDATE" not in t
 print("alerts ok")

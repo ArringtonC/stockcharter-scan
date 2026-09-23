@@ -1024,7 +1024,7 @@ def summary(d, open_, closed=()):
         head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
                else f"{r['symbol']} · {n} SHARES"
         U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>", head,
-              f"START {D(a)} → NOW <b>{D(b)}</b>",
+              f"{D(a)} → <b>{D(b)}</b>",
               f"{'+' if b >= a else '−'}{D(abs(b - a))} · {r['pl_pct']:+.0f}%"
               + (f" · {left(r['dte'])}" if r.get("dte") is not None else ""), ""]
 
@@ -1039,7 +1039,7 @@ def summary(d, open_, closed=()):
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
     for t in done:
         C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
-              f"START {D(t['cost'])} → EXIT <b>{D(t['cost'] + t['pl'])}</b>",
+              f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
               f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
     M = []
