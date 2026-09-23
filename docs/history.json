@@ -272,7 +272,7 @@
  },
  {
   "date": "2026-09-23",
-  "vix": 15.09000015258789,
+  "vix": 15.109999656677246,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -280,21 +280,21 @@
    "BE"
   ],
   "D": [
+   "DOCU",
    "HOOD",
-   "TXN",
    "U",
    "INTC",
    "MU",
    "MSFT",
-   "PLTR",
    "DELL",
-   "MRK"
+   "PLTR",
+   "MRK",
+   "MRNA"
   ],
   "C": [],
   "S": [
    "ADBE",
-   "TTD",
-   "SPOT"
+   "TTD"
   ]
  }
 ]
