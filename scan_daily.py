@@ -990,10 +990,11 @@ def summary(d, open_, closed=()):
         shares = f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}"
         if c:
             # price per share of one call, the number a broker shows
-            B.append(f"{when(c['expiry'])} · ${c['strike']:g} CALL · ${c['cost'] / max(c['n'], 1) / 100:,.2f}")
+            n = max(c["n"], 1)
+            B.append(f"{when(c['expiry'])} · {n} × ${c['strike']:g} CALL{'S' if n != 1 else ''}"
+                     f" · ${c['cost'] / n / 100:,.2f}")
             # over the cap the setup still wants the call; the cap only reaches the stock
-            B.append(f"OVER CAP → {shares}" if c["over"] else
-                     f"BUY {c['n']} CALL{'S' if c['n'] != 1 else ''} · {D(c['cost'])}")
+            B.append(f"OVER CAP → {shares}" if c["over"] else f"{D(c['cost'])} TOTAL")
         else:
             B.append(shares)
         B.append(f"TARGET ${r['tgt']:,.0f} · +{r['up']:.0f}%")
