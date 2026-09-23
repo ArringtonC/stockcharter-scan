@@ -975,8 +975,8 @@ def summary(d, open_):
             if c["over"]:
                 # the setup wants the call; the cap only reaches the stock
                 sh = max(1, int(cap // px))
-                B.append(f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}"
-                         f"   <i>call is {D(c['cost'])}</i>")
+                B.append(f"BUY {sh} SHARE{'S' if sh != 1 else ''} · {D(sh*px)}")
+                B.append(f"1 CALL COSTS {D(c['cost'])} · OVER CAP")
             else:
                 n = c["n"]
                 B.append(f"BUY {n} CONTRACT{'S' if n != 1 else ''} · {D(c['cost'])}")
@@ -1007,15 +1007,16 @@ def summary(d, open_):
         a, b = float(r["entry"]) * mult * n, (r.get("now") or 0) * mult * n
         head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
                else f"{r['symbol']} · {n} SHARES"
-        U += ["<b>↑ UPDATE</b>" if b >= a else "<b>↓ UPDATE</b>", head,
-              f"{D(a)} → <b>{D(b)}</b> · {r['pl_pct']:+.0f}%"
-              + (f"   <i>{r['dte']}d left</i>" if r.get("dte") is not None else ""), ""]
+        U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>", head,
+              f"START {D(a)} → NOW <b>{D(b)}</b>",
+              f"{r['pl_pct']:+.0f}%" + (f" · {r['dte']}d left" if r.get("dte") is not None else ""), ""]
 
     C = []
     for t in d.get("taken", []):
         if t.get("closed") != d["date"]: continue
-        C += ["<b>✓ CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
-              f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b> · {t['pct']:+.0f}% FINAL", ""]
+        C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}",
+              f"START {D(t['cost'])} → EXIT <b>{D(t['cost'] + t['pl'])}</b>",
+              f"FINAL {t['pct']:+.0f}%", ""]
 
     M = []
     m = d.get("market", {})
