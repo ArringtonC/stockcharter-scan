@@ -866,6 +866,7 @@ def market(d, open_):
         try:
             q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=1d&interval=5m")["chart"]["result"][0]["meta"]
             m[s] = (q["regularMarketPrice"] / q["chartPreviousClose"] - 1) * 100
+            m[s + "_px"] = q["regularMarketPrice"]
         except Exception:
             pass
     # earnings today for the basket or anything held
@@ -877,13 +878,15 @@ def market(d, open_):
                         " before open" if "pre" in r["time"] else "") for r in rows if r["symbol"] in mine]
     except Exception:
         pass
-    # expected move = QQQ at-the-money straddle to the nearest Friday
-    try:
-        t = datetime.date.fromisoformat(d["date"]); fri = t + datetime.timedelta((4 - t.weekday()) % 7)
-        k = round(d["qqq"]); c = alpaca_quote("QQQ", str(fri), k); p = alpaca_quote("QQQ", str(fri), k, "P")
-        if c and p: m["exp_move"], m["exp_by"] = c + p, fri.strftime("%a")
-    except Exception:
-        pass
+    # expected move = at-the-money straddle to the nearest Friday
+    t = datetime.date.fromisoformat(d["date"]); fri = t + datetime.timedelta((4 - t.weekday()) % 7)
+    m["exp_by"] = fri.strftime("%a")
+    for s in ("QQQ", "SPY"):
+        try:
+            k = round(m.get(s + "_px") or d["qqq"]); c = alpaca_quote(s, str(fri), k); p = alpaca_quote(s, str(fri), k, "P")
+            if c and p: m[s + "_exp"] = c + p
+        except Exception:
+            pass
     # biggest basket movers, only once today's bar exists
     mv = []
     for s in CORE:
@@ -1016,18 +1019,21 @@ def summary(d, open_):
 
     M = []
     m = d.get("market", {})
-    pct = lambda s: f"{s.replace('=F', '')} {m[s]:+.1f}%" if m.get(s) is not None else None
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    open_now = (ny.hour, ny.minute) >= (9, 30)
-    if not open_now:
-        M += ["<b>BEFORE THE OPEN</b>", pct("NQ=F") and f"NASDAQ FUTURES {m['NQ=F']:+.1f}%"]
+    if (ny.hour, ny.minute) < (9, 30):
+        M.append("<b>BEFORE THE OPEN</b>")
+        if m.get("NQ=F") is not None: M.append(f"NASDAQ FUTURES {m['NQ=F']:+.1f}%")
     elif move_bucket(m):
-        M += [f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} " + " · ".join(filter(None, (pct("QQQ"), pct("SPY")))) + "</b>",
-              " · ".join(f"{s} {v:+.1f}%" for s, v in m.get("movers", [])) or None]
-    if M:
-        M += [e.upper() for e in m.get("events", [])]
-        if m.get("exp_move"): M.append(f"QQQ EXPECTED ±${m['exp_move']:.0f} BY {m['exp_by'].upper()}")
-        M = [x for x in M if x] + ["<i>not a signal</i>", ""]
+        M.append(f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY</b>")
+    # price, day move, expected move by Friday -- every message
+    for s in ("QQQ", "SPY"):
+        if m.get(s + "_px"):
+            M.append(f"{s} ${m[s + '_px']:,.2f} {m[s]:+.1f}%"
+                     + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
+    if move_bucket(m) and m.get("movers"):
+        M.append(" · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"]))
+    M += [e.upper() for e in m.get("events", [])]
+    if M: M += ["<i>not a signal</i>", ""]
 
     L = M + C + B + U
     if not (C + B + U): L = M + ["<b>NOTHING TO BUY TODAY</b>", ""]
