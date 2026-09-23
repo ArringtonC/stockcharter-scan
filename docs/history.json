@@ -272,7 +272,7 @@
  },
  {
   "date": "2026-09-23",
-  "vix": 14.670000076293945,
+  "vix": 14.800000190734863,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -280,15 +280,14 @@
    "BE"
   ],
   "D": [
-   "TXN",
    "HOOD",
    "INTC",
    "MU",
    "SNOW",
    "MSFT",
-   "DELL",
    "PLTR",
-   "MRK"
+   "DELL",
+   "NVDA"
   ],
   "C": [],
   "S": [
