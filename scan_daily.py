@@ -1051,7 +1051,8 @@ def summary(d, open_, closed=()):
     M = []
     m = d.get("market", {})
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    if (ny.hour, ny.minute) < (9, 30):
+    pre = (ny.hour, ny.minute) < (9, 30)
+    if pre:
         M.append("<b>BEFORE THE OPEN</b>")
         if m.get("NQ=F") is not None: M.append(f"NASDAQ FUTURES {m['NQ=F']:+.1f}%")
     elif move_bucket(m):
@@ -1059,7 +1060,8 @@ def summary(d, open_, closed=()):
     # price, day move, expected move by Friday -- every message
     for s in ("QQQ", "SPY"):
         if m.get(s + "_px"):
-            M.append(f"{s} ${m[s + '_px']:,.2f} {m[s]:+.1f}%"
+            # before the open Yahoo's day change is still yesterday's; futures carry today
+            M.append(f"{s} ${m[s + '_px']:,.2f}" + ("" if pre else f" {m[s]:+.1f}%")
                      + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
     if move_bucket(m) and m.get("movers"):
         M.append(" · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"]))
