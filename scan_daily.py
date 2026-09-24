@@ -868,11 +868,12 @@ def market(d, open_):
     """What can be known about today's index move, before and during. None of it
     says which way -- thesis/scalp.md: nothing predicted QQQ/SPY direction."""
     m = dict(events=[EVENTS[d["date"]]] if d["date"] in EVENTS else [])
-    for s in ("QQQ", "SPY", "NQ=F"):
+    for s in ("QQQ", "SPY", "NQ=F", "CL=F", "^TNX", "^VIX"):
         try:
             q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=1d&interval=5m")["chart"]["result"][0]["meta"]
             m[s] = (q["regularMarketPrice"] / q["chartPreviousClose"] - 1) * 100
             m[s + "_px"] = q["regularMarketPrice"]
+            m[s + "_chg"] = q["regularMarketPrice"] - q["chartPreviousClose"]
         except Exception:
             pass
     # earnings today for the basket or anything held
@@ -1055,6 +1056,10 @@ def summary(d, open_, closed=()):
     if pre:
         M.append("<b>BEFORE THE OPEN</b>")
         if m.get("NQ=F") is not None: M.append(f"NASDAQ FUTURES {m['NQ=F']:+.1f}%")
+        # the three that moved Thursday 2026-09-24: yields up, oil, fear
+        if m.get("CL=F_px"): M.append(f"OIL ${m['CL=F_px']:.2f} {m['CL=F']:+.1f}%")
+        if m.get("^TNX_px"): M.append(f"10Y RATE {m['^TNX_px']:.2f}% {m['^TNX_chg']:+.2f}")
+        if m.get("^VIX_px"): M.append(f"VIX {m['^VIX_px']:.1f} {m['^VIX_chg']:+.1f}")
     elif move_bucket(m):
         M.append(f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY</b>")
     # price, day move, expected move by Friday -- every message
