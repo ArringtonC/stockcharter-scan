@@ -894,6 +894,25 @@ def market(d, open_):
             if c and p: m[s + "_exp"] = c + p
         except Exception:
             pass
+    # two market headlines for the write-up; keyword filter, no AI
+    try:
+        import re, html
+        heads = []
+        for u in ("https://www.cnbc.com/id/100003114/device/rss/rss.html",
+                  "https://www.cnbc.com/id/20910258/device/rss/rss.html"):
+            x = urllib.request.urlopen(urllib.request.Request(u, headers=YF), timeout=20).read().decode()
+            heads += [html.unescape(t) for t in re.findall(r"<item>.*?<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", x, re.S)]
+        key = re.compile(r"yield|rate|fed|oil|crude|stock|futures|nasdaq|s&p|dow|inflation|cpi|jobs|treasur|tariff|chip", re.I)
+        m["heads"] = [h for h in dict.fromkeys(heads) if key.search(h)][:2]
+    except Exception:
+        m["heads"] = []
+    # is the 10-year at a multi-year high? (monthly history, highest-since year)
+    try:
+        t = bars("^TNX", "max"); now = m.get("^TNX_px")
+        older = [x for x in t if x[0] < d["date"][:4] and max(x[1], x[2]) >= now]
+        m["tnx_since"] = older[-1][0][:4] if older else None
+    except Exception:
+        pass
     # biggest basket movers, only once today's bar exists
     mv = []
     for s in CORE:
@@ -973,6 +992,41 @@ def notify(text):
         return False
 
 
+def premarket_writeup(d, m):
+    """Plain sentences from the numbers, the way a person would brief it. Rules, not AI."""
+    W, P = [], []
+    nq = m.get("NQ=F")
+    if nq is not None:
+        size = "a big open" if abs(nq) >= 1 else "a normal open" if abs(nq) >= 0.3 else "a flat open"
+        P.append(f"<b>Nasdaq futures are {'up' if nq > 0 else 'down'} {abs(nq):.1f}%</b>, {size}.")
+    r, rc = m.get("^TNX_px"), m.get("^TNX_chg")
+    if r is not None:
+        since = f", the highest since {m['tnx_since']}" if m.get("tnx_since") and int(m["tnx_since"]) < int(d["date"][:4]) - 1 else ""
+        if rc >= 0.05: P.append(f"Rates jumped: the 10-year is {r:.2f}%{since}. Rising rates hit tech and QQQ hardest.")
+        elif rc <= -0.05: P.append(f"Rates fell to {r:.2f}%. Falling rates help tech.")
+        else: P.append(f"Rates are steady at {r:.2f}%{since}.")
+    o = m.get("CL=F")
+    if o is not None and abs(o) >= 1:
+        P.append(f"Oil is {'up' if o > 0 else 'down'} {abs(o):.1f}% to ${m['CL=F_px']:.0f}"
+                 + (", which feeds inflation fear." if o > 0 else ", which eases inflation fear."))
+    v, vc = m.get("^VIX_px"), m.get("^VIX_chg")
+    if v is not None:
+        zone = "calm" if v < 16 else "normal" if v < 20 else "elevated, big swings both ways" if v < 25 else "high"
+        P.append(f"VIX is {v:.1f} ({'+' if vc >= 0 else ''}{vc:.1f}), {zone}.")
+    W.append(" ".join(P))
+    for e in m.get("events", []): W += ["", f"<b>Today:</b> {e}."]
+    if m.get("heads"): W += [""] + [f"· <i>{h}</i>" for h in m["heads"]]
+    for s in ("QQQ", "SPY"):
+        if m.get(s + "_px"):
+            W.append(("" if s == "SPY" else "\n") + f"{s} ${m[s + '_px']:,.2f}"
+                     + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
+    f = [x["sym"] for x in d.get("F", [])]
+    W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
+    if nq is not None and abs(nq) >= 1:
+        W.append("<b>Big open expected. Do not trade the first 30 minutes.</b>")
+    return W
+
+
 def market_report(d):
     """Message 1 of 2: where the market is. Separate from the trades on purpose."""
     M = []
@@ -980,18 +1034,13 @@ def market_report(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     pre = (ny.hour, ny.minute) < (9, 30)
     if pre:
-        M.append("<b>PREMARKET REPORT</b>")
-        if m.get("NQ=F") is not None: M.append(f"NASDAQ FUTURES {m['NQ=F']:+.1f}%")
-        # the three that moved Thursday 2026-09-24: yields up, oil, fear
-        if m.get("CL=F_px"): M.append(f"OIL ${m['CL=F_px']:.2f} {m['CL=F']:+.1f}%")
-        if m.get("^TNX_px"): M.append(f"10Y RATE {m['^TNX_px']:.2f}% {m['^TNX_chg']:+.2f}")
-        if m.get("^VIX_px"): M.append(f"VIX {m['^VIX_px']:.1f} {m['^VIX_chg']:+.1f}")
+        M += ["<b>PREMARKET REPORT</b>", ""] + premarket_writeup(d, m) + [""]
     elif move_bucket(m):
         M.append(f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY</b>")
     else:
         M.append("<b>MARKET REPORT</b>")
     # price, day move, expected move by Friday -- every message
-    for s in ("QQQ", "SPY"):
+    for s in ("QQQ", "SPY") if not pre else ():
         if m.get(s + "_px"):
             # before the open Yahoo's day change is still yesterday's; futures carry today
             M.append(f"{s} ${m[s + '_px']:,.2f}" + ("" if pre else f" {m[s]:+.1f}%")
