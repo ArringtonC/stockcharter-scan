@@ -1,6 +1,6 @@
 {
  "date": "2026-09-24",
- "stamp": "2026-09-24 21:30 UTC",
+ "stamp": "2026-09-24 23:55 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 15.670000076293945,
@@ -1352,12 +1352,12 @@
   "SPY": -0.08205154921139268,
   "SPY_px": 767.18,
   "SPY_chg": -0.6299999999999955,
-  "NQ=F": -0.09263849048017914,
-  "NQ=F_px": 30736.25,
-  "NQ=F_chg": -28.5,
-  "CL=F": 2.821180555555558,
-  "CL=F_px": 94.76,
-  "CL=F_chg": 2.6000000000000085,
+  "NQ=F": -0.19014033006411468,
+  "NQ=F_px": 30708.25,
+  "NQ=F_chg": -58.5,
+  "CL=F": -0.7187400908994723,
+  "CL=F_px": 93.93,
+  "CL=F_chg": -0.6799999999999926,
   "^TNX": 0.9385999217833341,
   "^TNX_px": 5.162,
   "^TNX_chg": 0.04800000000000004,
@@ -1369,15 +1369,15 @@
   "SPY_exp": 4.27,
   "QQQ_pre": [
    741.1,
-   740.0063
+   739.48
   ],
   "SPY_pre": [
    767.18,
-   766.43
+   766.03
   ],
   "USO_pre": [
    153.09,
-   152.49
+   151.07
   ],
   "^VIX_pre": [
    15.18,
@@ -1385,7 +1385,7 @@
   ],
   "heads": [
    "Senate narrowly votes down resolution calling for end to Iran war",
-   "Surging Treasury yields pose a brand new problem for Kevin Warsh and the Fed"
+   "30-year fixed mortgage rate jumps sharply Thursday to 7.45%"
   ],
   "tnx_since": "2007",
   "movers": [
@@ -2178,13 +2178,6 @@
    }
   ],
   "by_setup": {
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 12,
-    "open_mean": -2.8919103787516516
-   },
    "D": {
     "wins": 0,
     "losses": 0,
@@ -2205,6 +2198,13 @@
     "closed_mean": null,
     "open_n": 7,
     "open_mean": 1.0593695172864297
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 12,
+    "open_mean": -2.8919103787516516
    },
    "C": {
     "wins": 0,
