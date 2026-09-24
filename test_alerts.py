@@ -32,3 +32,17 @@ t = S.summary(base(), [], [row])
 assert "✓ TRADE CLOSED" in t and "$224 → <b>$100</b>" in t and "FINAL −$124 · -55%" in t
 assert "TRADE UPDATE" not in t
 print("alerts ok")
+
+# CLOSED winner, and a bot trade's whole life: logged buy -> update -> near target -> closed
+import autotrade as A
+rs = []; A.log_buy(rs, dict(sym="BE", qty=2, tgt=351.28), 275.02, datetime.date.today())
+live = lambda spot: {**rs[0], "now": spot, "pl_pct": (spot / 275.02 - 1) * 100, "to_target": (351.28 / spot - 1) * 100}
+t = S.summary(base(), [live(300)])
+assert "↑ TRADE UPDATE</b> · 🤖 PAPER" in t and "BE · 2 SHARES" in t and "$550 → <b>$600</b>" in t and "NEAR TARGET" not in t
+t = S.summary(base(), [live(340)]); assert "NEAR TARGET $351.28</b> · 3% away" in t
+assert S.should_push(base(), [live(340)])[0]       # entering the last 5% pushes by itself
+A.close_filled(rs, {"BE": (351.28, today)})
+t = S.summary(base(), [], [rs[0]])
+assert "✓ TRADE CLOSED</b> · 🤖 PAPER" in t and "$550 → <b>$703</b>" in t and "FINAL +$153 · +28%" in t
+assert "TRADE UPDATE" not in t
+print("lifecycle ok")

@@ -540,7 +540,8 @@ def mark_trades():
             b = bars(r["symbol"]); after = [x for x in b if x[0] > r["opened"]]
             spot = b[-1][1]; entry = float(r["entry"]); tgt = float(r["target"] or 0)
             sessions = len(after)
-            if r["status"] == "open":
+            # the paper bot's broker orders own its exits; autotrade.py syncs them in
+            if r["status"] == "open" and r.get("acct") != "paper-auto":
                 if r["kind"] == "shares":
                     # arm a floor at the target the first time the high touches it;
                     # close only if a later low falls back to that floor (or at 252)
@@ -921,7 +922,8 @@ def alert_key(d, open_):
     soon = sorted(f"{r['symbol']}{r.get('dte')}" for r in open_
                   if r.get("kind") == "call" and (r.get("dte") or 99) <= 21)
     steps = sorted(f"{r['symbol']}{int((r.get('pl_pct') or 0) // 10)}{'!' if (r.get('dte') or 99) <= 7 else ''}"
-                   for r in open_ if r.get("acct") == "real")
+                   f"{'^' if (r.get('to_target') if r.get('to_target') is not None else 99) <= 5 else ''}"
+                   for r in open_ if r.get("acct") in ("real", "paper-auto"))
     return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps, move=move_bucket(d.get("market", {})),
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
@@ -1015,30 +1017,34 @@ def summary(d, open_, closed=()):
     # every real position, where it started and where it is
     U = []
     for r in open_:
-        if r["acct"] != "real": continue
+        if r["acct"] not in ("real", "paper-auto"): continue
         n = int(r.get("contracts") or 1)
         mult = 100 if r.get("kind") == "call" else 1
         a, b = float(r["entry"]) * mult * n, (r.get("now") or 0) * mult * n
         head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
                else f"{r['symbol']} · {n} SHARES"
-        U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>", head,
+        bot = " · 🤖 PAPER" if r["acct"] == "paper-auto" else ""
+        U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>{bot}", head,
               f"{D(a)} → <b>{D(b)}</b>",
               f"{'+' if b >= a else '−'}{D(abs(b - a))} · {r['pl_pct']:+.0f}%"
-              + (f" · {left(r['dte'])}" if r.get("dte") is not None else ""), ""]
+              + (f" · {left(r['dte'])}" if r.get("dte") is not None else "")]
+        if r.get("to_target") is not None and r["to_target"] <= 5:
+            U.append(f"<b>NEAR TARGET ${float(r['target']):,.2f}</b> · {max(r['to_target'], 0):.0f}% away")
+        U.append("")
 
     C = []
     # the trade log first (it knows the expiry), TAKEN only for anything the log lacks
     done = []
     for r in closed:
-        if r.get("acct") != "real" or r.get("closed") != d["date"]: continue
+        if r.get("acct") not in ("real", "paper-auto") or r.get("closed") != d["date"]: continue
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
-        done.append(dict(sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
+        done.append(dict(bot=r["acct"] == "paper-auto", sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
     seen = {t["sym"] for t in done}
     done += [t for t in d.get("taken", []) if t.get("closed") == d["date"] and t["sym"] not in seen]
     for t in done:
-        C += ["<b>✓ TRADE CLOSED</b>", f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
+        C += ["<b>✓ TRADE CLOSED</b>" + (" · 🤖 PAPER" if t.get("bot") else ""), f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
               f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
