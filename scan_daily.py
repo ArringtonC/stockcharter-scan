@@ -925,26 +925,33 @@ def alert_key(d, open_):
     steps = sorted(f"{r['symbol']}{int((r.get('pl_pct') or 0) // 10)}{'!' if (r.get('dte') or 99) <= 7 else ''}"
                    f"{'^' if (r.get('to_target') if r.get('to_target') is not None else 99) <= 5 else ''}"
                    for r in open_ if r.get("acct") in ("real", "paper-auto"))
-    return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps, move=move_bucket(d.get("market", {})),
+    return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps,
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
 
-def should_push(d, open_):
-    """(send?, why). Closing run and first-of-day always go; the rest must earn it."""
+def should_push(d, open_, name="key", key=None):
+    """(send?, why). Closing run and first-of-day always go; the rest must earn it.
+    name="key" is the trade report; name="mkt" the market report, keyed on the 1%/2% bucket."""
     now = datetime.datetime.now(datetime.timezone.utc)
     closing = now.hour >= 20                       # after 3pm ET, the session is done
     prev = {}
     if os.path.exists(ALERT_STATE):
         try: prev = json.load(open(ALERT_STATE))
         except Exception: prev = {}
-    key = alert_key(d, open_)
-    first = prev.get("date") != d["date"]
-    changed = prev.get("key") != key
-    json.dump(dict(date=d["date"], key=key, at=now.isoformat()), open(ALERT_STATE, "w"))
+    key = key or alert_key(d, open_)
+    first = prev.get("date") != d["date"] or name not in prev
+    changed = prev.get(name) != key
+    json.dump({**(prev if prev.get("date") == d["date"] else {}),
+               "date": d["date"], name: key, "at": now.isoformat()}, open(ALERT_STATE, "w"))
     if closing: return True, "close"
     if first:   return True, "first run today"
     if changed: return True, "something changed"
     return False, "nothing changed"
+
+
+def market_key(d):
+    ny = datetime.datetime.now(ZoneInfo("America/New_York"))
+    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {}))])
 
 
 # ── push ───────────────────────────────────────────────────────────────────────
@@ -964,6 +971,36 @@ def notify(text):
     except Exception as e:
         print(f"notify failed: {str(e)[:60]}")
         return False
+
+
+def market_report(d):
+    """Message 1 of 2: where the market is. Separate from the trades on purpose."""
+    M = []
+    m = d.get("market", {})
+    ny = datetime.datetime.now(ZoneInfo("America/New_York"))
+    pre = (ny.hour, ny.minute) < (9, 30)
+    if pre:
+        M.append("<b>PREMARKET REPORT</b>")
+        if m.get("NQ=F") is not None: M.append(f"NASDAQ FUTURES {m['NQ=F']:+.1f}%")
+        # the three that moved Thursday 2026-09-24: yields up, oil, fear
+        if m.get("CL=F_px"): M.append(f"OIL ${m['CL=F_px']:.2f} {m['CL=F']:+.1f}%")
+        if m.get("^TNX_px"): M.append(f"10Y RATE {m['^TNX_px']:.2f}% {m['^TNX_chg']:+.2f}")
+        if m.get("^VIX_px"): M.append(f"VIX {m['^VIX_px']:.1f} {m['^VIX_chg']:+.1f}")
+    elif move_bucket(m):
+        M.append(f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY</b>")
+    else:
+        M.append("<b>MARKET REPORT</b>")
+    # price, day move, expected move by Friday -- every message
+    for s in ("QQQ", "SPY"):
+        if m.get(s + "_px"):
+            # before the open Yahoo's day change is still yesterday's; futures carry today
+            M.append(f"{s} ${m[s + '_px']:,.2f}" + ("" if pre else f" {m[s]:+.1f}%")
+                     + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
+    if move_bucket(m) and m.get("movers"):
+        M.append(" · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"]))
+    M += [e.upper() for e in m.get("events", [])]
+    M += ["<i>not a signal</i>"]
+    return "\n".join(M)
 
 
 def left(dte, today=None):
@@ -1049,32 +1086,8 @@ def summary(d, open_, closed=()):
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
               f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
-    M = []
-    m = d.get("market", {})
-    ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    pre = (ny.hour, ny.minute) < (9, 30)
-    if pre:
-        M.append("<b>BEFORE THE OPEN</b>")
-        if m.get("NQ=F") is not None: M.append(f"NASDAQ FUTURES {m['NQ=F']:+.1f}%")
-        # the three that moved Thursday 2026-09-24: yields up, oil, fear
-        if m.get("CL=F_px"): M.append(f"OIL ${m['CL=F_px']:.2f} {m['CL=F']:+.1f}%")
-        if m.get("^TNX_px"): M.append(f"10Y RATE {m['^TNX_px']:.2f}% {m['^TNX_chg']:+.2f}")
-        if m.get("^VIX_px"): M.append(f"VIX {m['^VIX_px']:.1f} {m['^VIX_chg']:+.1f}")
-    elif move_bucket(m):
-        M.append(f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY</b>")
-    # price, day move, expected move by Friday -- every message
-    for s in ("QQQ", "SPY"):
-        if m.get(s + "_px"):
-            # before the open Yahoo's day change is still yesterday's; futures carry today
-            M.append(f"{s} ${m[s + '_px']:,.2f}" + ("" if pre else f" {m[s]:+.1f}%")
-                     + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
-    if move_bucket(m) and m.get("movers"):
-        M.append(" · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"]))
-    M += [e.upper() for e in m.get("events", [])]
-    if M: M += ["<i>not a signal</i>", ""]
-
-    L = M + C + B + U
-    if not (C + B + U): L = M + ["<b>NOTHING TO BUY TODAY</b>", ""]
+    L = ["<b>TRADE REPORT</b>", ""] + C + B + U
+    if not (C + B + U): L += ["NOTHING TO BUY TODAY", ""]
     while L and L[-1] == "": L.pop()
 
     intra = datetime.datetime.now(datetime.timezone.utc).hour < 20
@@ -1113,6 +1126,9 @@ if __name__ == "__main__":
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
-    send, why = should_push(d, open_)
-    if send and notify(summary(d, open_, closed)): print(f"  pushed to telegram ({why})")
-    elif not send: print(f"  no push — {why}")
+    # two messages: the market, then the trades. Each sends only when it has news.
+    for label, (send, why), text in (
+            ("market", should_push(d, open_, "mkt", market_key(d)), lambda: market_report(d)),
+            ("trades", should_push(d, open_), lambda: summary(d, open_, closed))):
+        if send and notify(text()): print(f"  {label} pushed to telegram ({why})")
+        elif not send: print(f"  {label}: no push — {why}")
