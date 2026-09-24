@@ -1,21 +1,21 @@
 {
- "date": "2026-09-23",
- "stamp": "2026-09-23 23:48 UTC",
+ "date": "2026-09-24",
+ "stamp": "2026-09-24 09:43 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 15.180000305175781,
+ "vix": 16.270000457763672,
  "vix5": [
-  17.709999084472656,
   15.4399995803833,
   14.8100004196167,
   14.869999885559082,
-  15.180000305175781
+  15.180000305175781,
+  16.270000457763672
  ],
  "vix_hi10": 17.84000015258789,
  "qqq": 741.2100219726562,
  "qdd": -0.8361651213807164,
- "regime": "CALM",
- "advice": "Setup F edge is negative here. Run nothing new.",
+ "regime": "NORMAL",
+ "advice": "Setup F adds the most here (+10.76pp vs baseline). It pays more at 25+. No shorts.",
  "peaked": false,
  "falling": false,
  "vix_fires": false,
@@ -1117,7 +1117,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 485,
+   "days": 484,
    "now": 7.710000038146973,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1161,7 +1161,7 @@
    "exit": "Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
-   "days": 58,
+   "days": 57,
    "now": 197.24000549316406,
    "target": 253.72,
    "cost": 392.0,
@@ -1183,7 +1183,7 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 485,
+   "days": 484,
    "now": 5.289999961853027,
    "target": 12.34,
    "cost": 468.0,
@@ -1249,7 +1249,7 @@
   {
    "sym": "ZS",
    "px": 214.4499969482422,
-   "gap": 4.601000800709485,
+   "gap": 4.902765839313689,
    "dd": 36.363095889259746,
    "hi": 336.989990234375,
    "up": true,
@@ -1259,7 +1259,7 @@
   {
    "sym": "META",
    "px": 744.0999755859375,
-   "gap": 3.3347625181305904,
+   "gap": 3.4238700325965876,
    "dd": 2.591968607843975,
    "hi": 763.9000244140625,
    "up": true,
@@ -1269,7 +1269,7 @@
   {
    "sym": "QCOM",
    "px": 197.24000549316406,
-   "gap": 2.4825776025290462,
+   "gap": 2.436411197149333,
    "dd": 24.115114149144677,
    "hi": 259.9200134277344,
    "up": true,
@@ -1277,19 +1277,9 @@
    "band": true
   },
   {
-   "sym": "AVGO",
-   "px": 354.989990234375,
-   "gap": -0.6197853981120928,
-   "dd": 28.284850457702014,
-   "hi": 495.0,
-   "up": false,
-   "state": "near",
-   "band": true
-  },
-  {
    "sym": "HAL",
    "px": 33.0099983215332,
-   "gap": -0.6846148904926608,
+   "gap": -0.786385803755765,
    "dd": 24.27162604730242,
    "hi": 43.59000015258789,
    "up": false,
@@ -1297,9 +1287,19 @@
    "band": true
   },
   {
+   "sym": "AVGO",
+   "px": 354.989990234375,
+   "gap": -0.8576185840920254,
+   "dd": 28.284850457702014,
+   "hi": 495.0,
+   "up": false,
+   "state": "near",
+   "band": true
+  },
+  {
    "sym": "COIN",
    "px": 198.1300048828125,
-   "gap": -1.379939221744076,
+   "gap": -1.5111235021853697,
    "dd": 50.73353812447265,
    "hi": 402.1600036621094,
    "up": true,
@@ -1309,17 +1309,17 @@
   {
    "sym": "SG",
    "px": 7.710000038146973,
-   "gap": -2.452803927137976,
+   "gap": -2.189074951139606,
    "dd": 27.469426574390233,
    "hi": 10.630000114440918,
-   "up": false,
+   "up": true,
    "state": "near",
    "band": true
   },
   {
    "sym": "ADBE",
    "px": 240.69000244140625,
-   "gap": -2.65197653082396,
+   "gap": -2.5623541315427474,
    "dd": 33.82183272944276,
    "hi": 363.70001220703125,
    "up": false,
@@ -1329,7 +1329,7 @@
   {
    "sym": "TSLA",
    "px": 380.1199951171875,
-   "gap": -2.6524869475796247,
+   "gap": -2.6241127292026794,
    "dd": 23.797685514216894,
    "hi": 498.8299865722656,
    "up": false,
@@ -1339,7 +1339,7 @@
   {
    "sym": "IBM",
    "px": 232.75999450683594,
-   "gap": -4.617417636074869,
+   "gap": -4.585892637989406,
    "dd": 29.98856990637733,
    "hi": 332.4599914550781,
    "up": false,
@@ -1360,25 +1360,12 @@
   "QQQ_px": 741.21,
   "SPY": -0.7202151594300377,
   "SPY_px": 767.81,
-  "NQ=F": 0.022753313451273627,
-  "NQ=F_px": 30771.75,
+  "NQ=F": -1.077531915585206,
+  "NQ=F_px": 30433.25,
   "exp_by": "Fri",
   "QQQ_exp": 7.95,
   "SPY_exp": 5.5600000000000005,
-  "movers": [
-   [
-    "GOOGL",
-    -3.795995258808027
-   ],
-   [
-    "AMZN",
-    -2.2393880111205244
-   ],
-   [
-    "NVDA",
-    -1.4680826154739757
-   ]
-  ]
+  "movers": []
  },
  "open": [
   {
@@ -1608,7 +1595,7 @@
    "now": 32.185,
    "spot": 69.48999786376953,
    "intrinsic": 31.98999786376953,
-   "dte": 114,
+   "dte": 113,
    "sessions": 11,
    "mark": "alpaca"
   },
@@ -1632,7 +1619,7 @@
    "now": 5.975,
    "spot": 69.48999786376953,
    "intrinsic": 4.489997863769531,
-   "dte": 23,
+   "dte": 22,
    "sessions": 11,
    "mark": "alpaca"
   },
@@ -1656,7 +1643,7 @@
    "now": 31.44,
    "spot": 192.3800048828125,
    "intrinsic": 22.3800048828125,
-   "dte": 86,
+   "dte": 85,
    "sessions": 11,
    "mark": "alpaca"
   },
@@ -1680,7 +1667,7 @@
    "now": 23.22,
    "spot": 142.33999633789062,
    "intrinsic": 22.339996337890625,
-   "dte": 9,
+   "dte": 8,
    "sessions": 12,
    "mark": "alpaca"
   },
@@ -1750,7 +1737,7 @@
    "now": 5.470000000000001,
    "spot": 140.77999877929688,
    "intrinsic": 0.0,
-   "dte": 86,
+   "dte": 85,
    "sessions": 5,
    "mark": "alpaca"
   },
@@ -1774,7 +1761,7 @@
    "now": 4.605,
    "spot": 140.77999877929688,
    "intrinsic": 0.0,
-   "dte": 58,
+   "dte": 57,
    "sessions": 4,
    "mark": "alpaca"
   },
@@ -1798,7 +1785,7 @@
    "now": 5.725,
    "spot": 197.24000549316406,
    "intrinsic": 0.0,
-   "dte": 58,
+   "dte": 57,
    "sessions": 4,
    "mark": "alpaca"
   },
@@ -1822,9 +1809,55 @@
    "now": 3.865,
    "spot": 110.80000305175781,
    "intrinsic": 1.8000030517578125,
-   "dte": 9,
+   "dte": 8,
    "sessions": 5,
    "mark": "alpaca"
+  },
+  {
+   "id": "2026-09-23-NOW-auto",
+   "kind": "shares",
+   "acct": "paper-auto",
+   "opened": "2026-09-23",
+   "symbol": "NOW",
+   "setup": "F",
+   "entry": "140.62",
+   "target": "194.73",
+   "strike": "",
+   "expiry": "",
+   "contracts": "4",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": 0.11378095526728416,
+   "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
+   "now": 140.77999877929688,
+   "to_target": 38.322206058036286,
+   "progress": 0.002956917007888939,
+   "sessions": 0,
+   "armed": false
+  },
+  {
+   "id": "2026-09-23-BE-auto",
+   "kind": "shares",
+   "acct": "paper-auto",
+   "opened": "2026-09-23",
+   "symbol": "BE",
+   "setup": "F",
+   "entry": "275.02",
+   "target": "351.28",
+   "strike": "",
+   "expiry": "",
+   "contracts": "2",
+   "status": "open",
+   "closed": "",
+   "exit": "",
+   "pl_pct": 0.061814573996898936,
+   "note": "Paper bot. Setup F fired; 2 shares at market, GTC sell at the target.",
+   "now": 275.19000244140625,
+   "to_target": 27.64998614904075,
+   "progress": 0.0022292478547897747,
+   "sessions": 0,
+   "armed": false
   }
  ],
  "closed": [
@@ -1888,31 +1921,6 @@
  ],
  "week": {
   "days": [
-   {
-    "date": "2026-09-18",
-    "vix": 14.8100004196167,
-    "regime": "CALM",
-    "vix_fires": false,
-    "F": [],
-    "D": [
-     "DOCU",
-     "PLTR",
-     "META",
-     "SNOW",
-     "MRNA",
-     "MSFT",
-     "CRM",
-     "AMD",
-     "MRK",
-     "PANW",
-     "WBD"
-    ],
-    "C": [
-     "INTC",
-     "AMD"
-    ],
-    "S": []
-   },
    {
     "date": "2026-09-20",
     "vix": 14.8100004196167,
@@ -2018,6 +2026,33 @@
     "S": [
      "TTD"
     ]
+   },
+   {
+    "date": "2026-09-24",
+    "vix": 16.270000457763672,
+    "regime": "NORMAL",
+    "vix_fires": false,
+    "F": [
+     "NOW",
+     "BE",
+     "HOOD"
+    ],
+    "D": [
+     "DOCU",
+     "TXN",
+     "U",
+     "MU",
+     "INTC",
+     "MSFT",
+     "DELL",
+     "PLTR",
+     "MRK",
+     "MRNA"
+    ],
+    "C": [],
+    "S": [
+     "TTD"
+    ]
    }
   ],
   "closed": [
@@ -2039,34 +2074,15 @@
     "pl_pct": "-55.4",
     "note": "REAL. 1x 748C 9/25 at $2.24, sold $1.00 same day: -$124. No setup fired on QQQ; 2 DTE, bought with QQQ 1% off its high. Contract count assumed 1 -- fix if more.",
     "result": "loss"
-   },
-   {
-    "id": "2026-09-14-BABA-real",
-    "kind": "call",
-    "acct": "real",
-    "opened": "2026-09-14",
-    "symbol": "BABA",
-    "setup": "none",
-    "entry": "4.25",
-    "target": "116.00",
-    "strike": "109",
-    "expiry": "2026-10-02",
-    "contracts": "1",
-    "status": "closed",
-    "closed": "2026-09-16",
-    "exit": "3.43",
-    "pl_pct": "-19.3",
-    "note": "REAL. 1x 109C 10/2 at $4.25. Fails the F trend filter (10<30, 50<200), 88% time value, 18 DTE. Plan: sell at $116 (30 EMA) or +100%; cut on a close under $107.72; out by 09-29 unless past $113.25. CLOSED 2026-09-16 at $3.43 (-82). Row was left open by mistake after the close was logged in TAKEN; the site showed it as a live real position for six days.",
-    "result": "loss"
    }
   ],
   "by_setup": {
-   "F": {
+   "none": {
     "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": 0.8995695789005007
+    "losses": 1,
+    "closed_mean": -55.4,
+    "open_n": 1,
+    "open_mean": -9.058823529411764
    },
    "D": {
     "wins": 0,
@@ -2089,80 +2105,15 @@
     "open_n": 7,
     "open_mean": -0.5395156522959396
    },
-   "none": {
+   "F": {
     "wins": 0,
-    "losses": 2,
-    "closed_mean": -37.35,
-    "open_n": 1,
-    "open_mean": -9.058823529411764
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 9,
+    "open_mean": 0.7191758423964099
    }
   },
   "produced": [
-   {
-    "date": "2026-09-18",
-    "sym": "AMD",
-    "setup": "C"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "AMD",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "CRM",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "DOCU",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "INTC",
-    "setup": "C"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "META",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "MRK",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "MRNA",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "MSFT",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "PANW",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "PLTR",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "SNOW",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-18",
-    "sym": "WBD",
-    "setup": "D"
-   },
    {
     "date": "2026-09-20",
     "sym": "AMD",
@@ -2425,6 +2376,76 @@
    },
    {
     "date": "2026-09-23",
+    "sym": "U",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "BE",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "DELL",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "DOCU",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "HOOD",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "INTC",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "MRK",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "MRNA",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "MSFT",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "MU",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "NOW",
+    "setup": "F"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "PLTR",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "TTD",
+    "setup": "S"
+   },
+   {
+    "date": "2026-09-24",
+    "sym": "TXN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-24",
     "sym": "U",
     "setup": "D"
    }
@@ -3634,7 +3655,7 @@
     44032800,
     26498600,
     20570800,
-    22438949
+    23333600
    ],
    "e10": [
     343.77,
@@ -5092,7 +5113,7 @@
     13250900,
     9540700,
     14786000,
-    12103664
+    12177700
    ],
    "e10": [
     150.9,
@@ -6550,7 +6571,7 @@
     73471700,
     14545000,
     10586100,
-    8157245
+    8169300
    ],
    "e10": [
     103.05,
@@ -8008,7 +8029,7 @@
     3161700,
     7160700,
     3279600,
-    3335549
+    3403000
    ],
    "e10": [
     64.34,
@@ -8738,7 +8759,7 @@
     113.34,
     125.04,
     123.0,
-    122.57
+    122.78
    ],
    "h": [
     124.35,
@@ -8920,7 +8941,7 @@
     120.57,
     126.41,
     126.16,
-    126.73
+    126.74
    ],
    "l": [
     118.05,
@@ -9102,7 +9123,7 @@
     111.06,
     121.5,
     122.46,
-    122.28
+    122.24
    ],
    "c": [
     121.7,
@@ -9466,7 +9487,7 @@
     39358800,
     28301500,
     16047600,
-    19001709
+    19023400
    ],
    "e10": [
     121.7,
@@ -10924,7 +10945,7 @@
     5901300,
     13413800,
     8200100,
-    4518779
+    4536600
    ],
    "e10": [
     294.97,
@@ -12018,7 +12039,7 @@
     491.1,
     491.33,
     493.65,
-    495.9
+    495.88
    ],
    "c": [
     478.51,
@@ -12382,7 +12403,7 @@
     39622300,
     27959900,
     21652800,
-    19296597
+    19415500
    ],
    "e10": [
     478.51,
@@ -13112,7 +13133,7 @@
     984.72,
     1044.99,
     1032.85,
-    1099.94
+    1100.07
    ],
    "h": [
     344.55,
@@ -13840,7 +13861,7 @@
     35803500,
     28174400,
     29189700,
-    21405071
+    21470000
    ],
    "e10": [
     343.43,
@@ -14570,7 +14591,7 @@
     71.27,
     71.82,
     73.69,
-    72.06
+    72.08
    ],
    "h": [
     91.64,
@@ -15298,7 +15319,7 @@
     114413500,
     36948000,
     34372500,
-    32606518
+    32756600
    ],
    "e10": [
     90.65,
@@ -16756,7 +16777,7 @@
     19250600,
     10893000,
     12580700,
-    10770338
+    11348400
    ],
    "e10": [
     148.81,
@@ -17850,7 +17871,7 @@
     175.97,
     179.23,
     191.66,
-    193.23
+    193.22
    ],
    "c": [
     182.45,
@@ -18214,7 +18235,7 @@
     54480300,
     18444600,
     11533800,
-    9685834
+    9713400
    ],
    "e10": [
     182.45,
@@ -19126,7 +19147,7 @@
     129.4,
     138.03,
     150.18,
-    151.26
+    151.29
    ],
    "l": [
     160.34,
@@ -19672,7 +19693,7 @@
     11101600,
     16650100,
     25466400,
-    20854829
+    20884000
    ],
    "e10": [
     168.45,
@@ -21130,7 +21151,7 @@
     149238300,
     21873400,
     29613700,
-    27947005
+    28052700
    ],
    "e10": [
     39.74,
@@ -22588,7 +22609,7 @@
     4250900,
     7808400,
     2023500,
-    1989612
+    1991300
    ],
    "e10": [
     208.9,
@@ -24046,7 +24067,7 @@
     5058210000,
     8858350000,
     4828050000,
-    2977393000
+    5110910000
    ],
    "e10": [
     6902.05,
@@ -24776,7 +24797,7 @@
     718.83,
     727.89,
     740.98,
-    746.99
+    746.97
    ],
    "h": [
     624.02,
@@ -24958,7 +24979,7 @@
     721.73,
     743.22,
     748.35,
-    747.12
+    747.13
    ],
    "l": [
     618.54,
@@ -25504,7 +25525,7 @@
     48478700,
     46730600,
     40128800,
-    32952535
+    33099900
    ],
    "e10": [
     623.42,
@@ -25883,12 +25904,12 @@
   "here": {
    "balance": 8355.13,
    "as_of": "2026-09-20",
-   "open_n": 19,
+   "open_n": 21,
    "real_n": 0,
    "real_pl": null,
-   "paper_pl": 2.4,
-   "fired": 3,
-   "sessions": 3
+   "paper_pl": 2.2,
+   "fired": 4,
+   "sessions": 4
   },
   "changed": [
    {
@@ -25910,10 +25931,10 @@
    {
     "label": "Open \u00b7 paper",
     "before": -8.8,
-    "after": 2.4,
+    "after": 2.2,
     "fmt": "pct",
-    "sub": "19 positions",
-    "delta": 11.2
+    "sub": "21 positions",
+    "delta": 11.0
    },
    {
     "label": "Closed real money",
@@ -25932,6 +25953,22 @@
     "on": "2026-09-23",
     "pl": -124,
     "pct": -55.4
+   },
+   {
+    "sym": "NOW",
+    "what": "shares",
+    "act": "opened",
+    "on": "2026-09-23",
+    "pl": null,
+    "pct": 0.11378095526728416
+   },
+   {
+    "sym": "BE",
+    "what": "shares",
+    "act": "opened",
+    "on": "2026-09-23",
+    "pl": null,
+    "pct": 0.061814573996898936
    }
   ],
   "positions": [
@@ -25939,7 +25976,7 @@
     "sym": "QCOM",
     "kind": "call",
     "strike": "240",
-    "dte": 58,
+    "dte": 57,
     "acct": "small",
     "setup": "C",
     "before": 2.025,
@@ -25952,7 +25989,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 114,
+    "dte": 113,
     "acct": "big",
     "setup": "E",
     "before": 32.775,
@@ -25965,7 +26002,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "65",
-    "dte": 23,
+    "dte": 22,
     "acct": "small",
     "setup": "E",
     "before": 6.385,
@@ -26025,6 +26062,32 @@
     "before_pl": 2.113516017406014,
     "after_pl": 4.567919676361165,
     "isnew": false
+   },
+   {
+    "sym": "NOW",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": null,
+    "after": 140.77999877929688,
+    "before_pl": null,
+    "after_pl": 0.11378095526728416,
+    "isnew": true
+   },
+   {
+    "sym": "BE",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": null,
+    "after": 275.19000244140625,
+    "before_pl": null,
+    "after_pl": 0.061814573996898936,
+    "isnew": true
    },
    {
     "sym": "NOW",
@@ -26095,7 +26158,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "170",
-    "dte": 58,
+    "dte": 57,
     "acct": "small",
     "setup": "F",
     "before": 3.4749999999999996,
@@ -26121,7 +26184,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 86,
+    "dte": 85,
     "acct": "small",
     "setup": "F",
     "before": 4.205,
@@ -26134,7 +26197,7 @@
     "sym": "BABA",
     "kind": "call",
     "strike": "109",
-    "dte": 9,
+    "dte": 8,
     "acct": "paper",
     "setup": "none",
     "before": null,
@@ -26160,7 +26223,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "120",
-    "dte": 9,
+    "dte": 8,
     "acct": "big",
     "setup": "E",
     "before": 9.91,
@@ -26173,7 +26236,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 86,
+    "dte": 85,
     "acct": "big",
     "setup": "E",
     "before": 33.195,
@@ -26191,8 +26254,8 @@
    }
   ],
   "notes": [
-   "All 3 real trades so far were taken outside the rules (no setup). The scanner fired on 3 of 3 sessions this week. The gap is between what it found and what was bought.",
-   "2 calls under 21 days: SHOP 9d, BABA 9d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
+   "All 3 real trades so far were taken outside the rules (no setup). The scanner fired on 4 of 4 sessions this week. The gap is between what it found and what was bought.",
+   "2 calls under 21 days: SHOP 8d, BABA 8d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
   "goal": {

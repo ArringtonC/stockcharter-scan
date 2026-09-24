@@ -296,5 +296,32 @@
   "S": [
    "TTD"
   ]
+ },
+ {
+  "date": "2026-09-24",
+  "vix": 16.270000457763672,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "BE",
+   "HOOD"
+  ],
+  "D": [
+   "DOCU",
+   "TXN",
+   "U",
+   "MU",
+   "INTC",
+   "MSFT",
+   "DELL",
+   "PLTR",
+   "MRK",
+   "MRNA"
+  ],
+  "C": [],
+  "S": [
+   "TTD"
+  ]
  }
 ]
