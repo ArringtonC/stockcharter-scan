@@ -299,29 +299,26 @@
  },
  {
   "date": "2026-09-24",
-  "vix": 15.9399995803833,
+  "vix": 15.720000267028809,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
-   "BE",
    "NOW",
+   "BE",
+   "SHOP",
    "HOOD"
   ],
   "D": [
-   "DOCU",
-   "TXN",
    "U",
    "MU",
    "INTC",
-   "CRM",
-   "MSFT",
-   "PLTR",
-   "MRNA",
-   "MRK"
+   "LLY",
+   "PLTR"
   ],
   "C": [],
   "S": [
-   "ORCL"
+   "ORCL",
+   "IBM"
   ]
  }
 ]
