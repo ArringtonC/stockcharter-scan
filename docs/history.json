@@ -299,12 +299,12 @@
  },
  {
   "date": "2026-09-24",
-  "vix": 16.149999618530273,
-  "regime": "NORMAL",
+  "vix": 15.9399995803833,
+  "regime": "CALM",
   "vix_fires": false,
   "F": [
-   "NOW",
    "BE",
+   "NOW",
    "HOOD"
   ],
   "D": [
@@ -313,15 +313,15 @@
    "U",
    "MU",
    "INTC",
+   "CRM",
    "MSFT",
-   "DELL",
    "PLTR",
-   "MRK",
-   "MRNA"
+   "MRNA",
+   "MRK"
   ],
   "C": [],
   "S": [
-   "TTD"
+   "ORCL"
   ]
  }
 ]
