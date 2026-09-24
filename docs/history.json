@@ -299,8 +299,8 @@
  },
  {
   "date": "2026-09-24",
-  "vix": 15.779999732971191,
-  "regime": "CALM",
+  "vix": 16.100000381469727,
+  "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "NOW",
@@ -309,9 +309,8 @@
    "HOOD"
   ],
   "D": [
-   "DOCU",
-   "MU",
    "U",
+   "MU",
    "INTC",
    "LLY",
    "PLTR"
