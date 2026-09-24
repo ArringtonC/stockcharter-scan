@@ -894,6 +894,16 @@ def market(d, open_):
             if c and p: m[s + "_exp"] = c + p
         except Exception:
             pass
+    # premarket last trade vs yesterday's close, for the price lines
+    for s in ("QQQ", "SPY", "USO", "^VIX"):
+        try:
+            r = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=1d&interval=1m&includePrePost=true")["chart"]["result"][0]
+            last = [c for c in r["indicators"]["quote"][0]["close"] if c]
+            # regularMarketPrice is yesterday's close before the open; chartPreviousClose is the day before that
+            base = r["meta"]["regularMarketPrice"] if s != "^VIX" else m.get("^VIX_px", 0) - m.get("^VIX_chg", 0)
+            if last and base: m[s + "_pre"] = (base, last[-1])
+        except Exception:
+            pass
     # two market headlines for the write-up; keyword filter, no AI
     try:
         import re, html
@@ -1016,10 +1026,18 @@ def premarket_writeup(d, m):
     W.append(" ".join(P))
     for e in m.get("events", []): W += ["", f"<b>Today:</b> {e}."]
     if m.get("heads"): W += [""] + [f"· <i>{h}</i>" for h in m["heads"]]
-    for s in ("QQQ", "SPY"):
-        if m.get(s + "_px"):
-            W.append(("" if s == "SPY" else "\n") + f"{s} ${m[s + '_px']:,.2f}"
-                     + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
+    # yesterday's close -> premarket now, the same arrow as the trade cards
+    W.append("")
+    for s in ("QQQ", "SPY", "USO", "^VIX"):
+        name = s.lstrip("^")
+        if not m.get(s + "_pre"):   # no premarket print yet: yesterday's close alone
+            if m.get(s + "_px"): W.append(f"{name} ${m[s + '_px']:,.2f}")
+            continue
+        a, b = m[s + "_pre"]
+        chg = f"{b - a:+.1f}" if s == "^VIX" else f"{(b / a - 1) * 100:+.1f}%"
+        u = "" if s == "^VIX" else "$"   # VIX is points, not dollars
+        W.append(f"{name} {u}{a:,.2f} → <b>{u}{b:,.2f}</b> {chg}"
+                 + (f" · ±${m[s + '_exp']:.0f} {m['exp_by']}" if m.get(s + "_exp") else ""))
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if nq is not None and abs(nq) >= 1:
