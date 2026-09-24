@@ -23,5 +23,5 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-23-QQQ-real,call,real,2026-09-23,QQQ,none,2.24,,748,2026-09-25,1,closed,2026-09-23,1.00,-55.4,"REAL. 1x 748C 9/25 at $2.24, sold $1.00 same day: -$124. No setup fired on QQQ; 2 DTE, bought with QQQ 1% off its high. Contract count assumed 1 -- fix if more."
 2026-09-23-NOW-auto,shares,paper-auto,2026-09-23,NOW,F,140.62,194.73,,,4,open,,,,"Paper bot. Setup F fired; 4 shares at market, GTC sell at the target."
 2026-09-23-BE-auto,shares,paper-auto,2026-09-23,BE,F,275.02,351.28,,,2,open,,,,"Paper bot. Setup F fired; 2 shares at market, GTC sell at the target."
-2026-09-24-HOOD-auto,shares,paper-auto,2026-09-24,HOOD,F,121.26,153.86,,,4,open,,,,"Paper bot. Setup F fired; 4 shares at market, GTC sell at the target."
+2026-09-24-HOOD-auto,shares,paper-auto,2026-09-24,HOOD,F,122.36,153.86,,,4,open,,,,"Paper bot. Setup F fired; 4 shares at market, GTC sell at the target."
 2026-09-24-SHOP-auto,shares,paper-auto,2026-09-24,SHOP,F,142.56,182.19,,,4,open,,,,"Paper bot. Setup F fired; 4 shares at market, GTC sell at the target."

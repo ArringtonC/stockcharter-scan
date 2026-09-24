@@ -64,14 +64,19 @@ def close_filled(rs, sells):
 
 def sync():
     """Before the scan: any bot position Alpaca has sold is closed in trades.csv."""
-    rs = rows(); held = {p["symbol"] for p in call("/positions")}
+    rs = rows(); pos = {p["symbol"]: p for p in call("/positions")}; held = set(pos)
+    # a buy logged before its fill reported carries the scan price; the broker's average wins
+    for r in rs:
+        if r.get("acct") == "paper-auto" and r["status"] == "open" and r["symbol"] in pos:
+            r["entry"] = f"{float(pos[r['symbol']]['avg_entry_price']):.2f}"
     want = {r["symbol"] for r in rs if r.get("acct") == "paper-auto" and r["status"] == "open"} - held
     sells = {}
     for sym in want:
         o = [x for x in call(f"/orders?status=closed&symbols={sym}&direction=desc&limit=20")
              if x["side"] == "sell" and x["status"] == "filled"]
         if o: sells[sym] = (float(o[0]["filled_avg_price"]), o[0]["filled_at"][:10])
-    if sells: save(close_filled(rs, sells)); print(f"auto: closed {sorted(sells)}")
+    save(close_filled(rs, sells))
+    if sells: print(f"auto: closed {sorted(sells)}")
 
 
 def main():
