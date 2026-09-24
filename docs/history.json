@@ -299,16 +299,20 @@
  },
  {
   "date": "2026-09-24",
-  "vix": 15.619999885559082,
+  "vix": 15.779999732971191,
   "regime": "CALM",
   "vix_fires": false,
-  "F": [],
+  "F": [
+   "NOW",
+   "BE",
+   "SHOP",
+   "HOOD"
+  ],
   "D": [
    "DOCU",
    "MU",
    "U",
    "INTC",
-   "SNOW",
    "LLY",
    "PLTR"
   ],
