@@ -322,28 +322,29 @@
  },
  {
   "date": "2026-09-25",
-  "vix": 15.130000114440918,
+  "vix": 15.649999618530273,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
    "NOW",
-   "BE",
-   "SHOP",
-   "HOOD"
+   "HOOD",
+   "SHOP"
   ],
   "D": [
+   "BE",
    "DOCU",
+   "TXN",
    "MU",
-   "SNOW",
    "INTC",
-   "DELL",
-   "LLY",
+   "SNOW",
    "PLTR",
-   "MRK"
+   "MSFT",
+   "OKTA",
+   "DELL",
+   "MRK",
+   "GILD"
   ],
   "C": [],
-  "S": [
-   "IBM"
-  ]
+  "S": []
  }
 ]
