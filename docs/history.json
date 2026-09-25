@@ -322,7 +322,7 @@
  },
  {
   "date": "2026-09-25",
-  "vix": 15.0,
+  "vix": 14.859999656677246,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -336,14 +336,18 @@
    "MU",
    "INTC",
    "SNOW",
+   "LLY",
    "PLTR",
    "OKTA",
+   "AMGN",
    "MSFT",
-   "MRK"
+   "MRK",
+   "DELL"
   ],
   "C": [],
   "S": [
-   "ADBE"
+   "ADBE",
+   "IBM"
   ]
  }
 ]
