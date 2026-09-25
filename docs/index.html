@@ -650,6 +650,25 @@ function fired(d){
   return out;
 }
 
+/* S&P 500 adds and drops. Index funds must buy what joins and sell what leaves,
+   so these names move for reasons that have nothing to do with the setups. */
+function spChanges(d){
+  const L=(d.sp500||[]).slice(0,6); if(!L.length) return '';
+  const mine=new Set([...(d.F||[]),...(d.D||[]),...(d.C||[]),...(d.blocked||[])].map(r=>r.sym).concat(['AAPL','NVDA','TSLA','BAC','BE','GOOGL','AMZN','META','QQQ','SPY','TTD']));
+  const today=d.date;
+  const tag=t=>t?`<b>${esc(t)}</b>${mine.has(t)?' <span class="tag watch">you scan it</span>':''}`:'';
+  return `<div class="sec">
+    <h2>S&amp;P 500 changes <span class="tag watch">not a signal</span></h2>
+    <p class="lede">Index funds must buy every stock that joins and sell every one that leaves. That forced trading can move a price for days around the date.</p>
+    ${L.map(c=>`<div class="row tight">
+      <div class="sym">${esc(c.effective.slice(5))}<small>${c.effective>today?'upcoming':'effective'}</small></div>
+      <div class="main"><div class="t">${c.added?`${tag(c.added)} joins`:''}${c.added&&c.removed?' · ':''}${c.removed?`${tag(c.removed)} leaves`:''}</div>
+        <div class="miss">${esc(c.added_name||'')}${c.added_name&&c.removed_name?' replaces ':''}${esc(c.removed_name||'')}. ${esc(c.reason)}</div></div>
+    </div>`).join('')}
+    <p class="more">From Wikipedia's record of S&amp;P Dow Jones Indices announcements.</p>
+  </div>`;
+}
+
 function renderToday(d,state){
   const A=$('#tab-today');
 
@@ -797,6 +816,8 @@ function renderToday(d,state){
   </div></div>
 
   ${todayTrades(d)}
+
+  ${spChanges(d)}
 
   <div class="sec">
     <h2>Recent activity</h2>

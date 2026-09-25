@@ -1,6 +1,6 @@
 {
  "date": "2026-09-25",
- "stamp": "2026-09-25 21:30 UTC",
+ "stamp": "2026-09-25 23:50 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -1405,23 +1405,23 @@
   "SPY_exp": 0.67,
   "QQQ_pre": [
    744.5,
-   745.4457
+   745.3177
   ],
   "SPY_pre": [
    771.35,
-   772.28
+   772.17
   ],
   "USO_pre": [
    148.33,
-   148.4
+   148.62
   ],
   "^VIX_pre": [
    15.67,
    14.869999885559082
   ],
   "heads": [
-   " Meta's 'powerful breakout' sets up a unique trading strategy, says Mike Khouw",
-   "History shows financial calamities occur when rates rise rapidly like this: 'Something always breaks'"
+   "History shows financial calamities occur when rates rise rapidly like this: 'Something always breaks'",
+   " Meta's 'powerful breakout' sets up a unique trading strategy, says Mike Khouw"
   ],
   "tnx_since": "2007",
   "movers": [
@@ -1439,6 +1439,116 @@
    ]
   ]
  },
+ "sp500": [
+  {
+   "effective": "2026-09-21",
+   "added": "BE",
+   "added_name": "Bloom Energy",
+   "removed": "TAP",
+   "removed_name": "Molson Coors",
+   "reason": "Market capitalization changes.",
+   "announced": "September 4, 2026"
+  },
+  {
+   "effective": "2026-09-21",
+   "added": "P",
+   "added_name": "Everpure",
+   "removed": "TTD",
+   "removed_name": "The Trade Desk",
+   "reason": "Market capitalization changes.",
+   "announced": ""
+  },
+  {
+   "effective": "2026-09-21",
+   "added": "ILMN",
+   "added_name": "Illumina, Inc.",
+   "removed": "BLDR",
+   "removed_name": "Builders FirstSource",
+   "reason": "Market capitalization changes.",
+   "announced": ""
+  },
+  {
+   "effective": "2026-08-18",
+   "added": "RDDT",
+   "added_name": "Reddit",
+   "removed": "AVB",
+   "removed_name": "AvalonBay Communities",
+   "reason": "Equity Residential (now Vivmark Residential) acquired AvalonBay Communities.",
+   "announced": ""
+  },
+  {
+   "effective": "2026-08-05",
+   "added": "FERG",
+   "added_name": "Ferguson Enterprises",
+   "removed": "EA",
+   "removed_name": "Electronic Arts",
+   "reason": "An investor consortium comprising Saudi Arabia's Public Investment Fund (PIF), Silver Lake, and Affinity Partners acquir",
+   "announced": "July 31, 2026"
+  },
+  {
+   "effective": "2026-06-30",
+   "added": "",
+   "added_name": "",
+   "removed": "CAG",
+   "removed_name": "Conagra Brands",
+   "reason": "Market capitalization changes.",
+   "announced": "June 23, 2026"
+  },
+  {
+   "effective": "2026-06-29",
+   "added": "HONA",
+   "added_name": "Honeywell Aerospace",
+   "removed": "",
+   "removed_name": "",
+   "reason": "Honeywell completed the corporate spin-off of Honeywell Aerospace.",
+   "announced": ""
+  },
+  {
+   "effective": "2026-06-22",
+   "added": "MRVL",
+   "added_name": "Marvell Technology",
+   "removed": "POOL",
+   "removed_name": "Pool Corporation",
+   "reason": "Market capitalization changes.",
+   "announced": "2026-06-05"
+  },
+  {
+   "effective": "2026-06-22",
+   "added": "FLEX",
+   "added_name": "Flex Ltd.",
+   "removed": "CPB",
+   "removed_name": "Campbell's",
+   "reason": "Market capitalization changes.",
+   "announced": ""
+  },
+  {
+   "effective": "2026-06-02",
+   "added": "",
+   "added_name": "",
+   "removed": "EPAM",
+   "removed_name": "EPAM Systems",
+   "reason": "Market capitalization changes.",
+   "announced": "May 27, 2026"
+  },
+  {
+   "effective": "2026-06-01",
+   "added": "FDXF",
+   "added_name": "FedEx Freight",
+   "removed": "",
+   "removed_name": "",
+   "reason": "FedEx Corp. completed the corporate spin-off of FedEx Freight Holding.",
+   "announced": ""
+  },
+  {
+   "effective": "2026-05-07",
+   "added": "VEEV",
+   "added_name": "Veeva Systems",
+   "removed": "CTRA",
+   "removed_name": "Coterra Energy",
+   "reason": "Devon Energy acquired Coterra Energy.",
+   "announced": "2026-04-30"
+  }
+ ],
  "open": [
   {
    "id": "2026-09-03-NFLX-sh",
@@ -2221,12 +2331,12 @@
    }
   ],
   "by_setup": {
-   "E": {
+   "none": {
     "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -8.417814987060018
+    "losses": 1,
+    "closed_mean": -55.4,
+    "open_n": 1,
+    "open_mean": -42.705882352941174
    },
    "F": {
     "wins": 0,
@@ -2235,13 +2345,6 @@
     "open_n": 12,
     "open_mean": -4.528042426424979
    },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -3.6284429234798634
-   },
    "C": {
     "wins": 0,
     "losses": 0,
@@ -2249,12 +2352,19 @@
     "open_n": 2,
     "open_mean": 40.361174851483185
    },
-   "none": {
+   "E": {
     "wins": 0,
-    "losses": 1,
-    "closed_mean": -55.4,
-    "open_n": 1,
-    "open_mean": -42.705882352941174
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": -8.417814987060018
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -3.6284429234798634
    }
   },
   "produced": [

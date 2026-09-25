@@ -2,6 +2,11 @@
 import datetime, os, tempfile, scan_daily as S
 today = str(datetime.date.today())
 S.ALERT_STATE = os.path.join(tempfile.mkdtemp(), "state.json")
+# pin the clock mid-session so the closing-run rule (always push after 3pm ET) cannot fire
+class _DT(datetime.datetime):
+    @classmethod
+    def now(cls, tz=None): return datetime.datetime(2026, 9, 24, 16, 0, tzinfo=datetime.timezone.utc).astimezone(tz) if tz else datetime.datetime(2026, 9, 24, 11, 0)
+S.datetime = type("M", (), {"datetime": _DT, "date": datetime.date, "timedelta": datetime.timedelta, "timezone": datetime.timezone})
 S.affordable = lambda sym, px, budget: FAKE[sym]
 FAKE = {"CHEAP": dict(expiry="2026-11-20", strike=20, cost=240, n=2, over=False),
         "DEAR": dict(expiry="2026-11-20", strike=140, cost=1391, n=1, over=True)}
@@ -57,3 +62,9 @@ print("lifecycle ok")
 
 assert S.to_discord('<b>BUY NOW</b> <i>x</i> <a href="https://a.b/">Ledger</a> &amp;') == '**BUY NOW** *x* [Ledger](<https://a.b/>) &'
 print("discord ok")
+
+# S&P 500 change inside the last week shows in the write-up, flagged when it is a scanned name
+sp = base(sp500=[dict(effective=today, added="BE", added_name="Bloom Energy", removed="TAP",
+                      removed_name="Molson Coors", reason="", announced="")])
+w = "\n".join(S.writeup(sp, {}, True)); assert "<b>S&P 500:</b> <b>BE</b> (you scan it) joins" in w and "replacing <b>TAP</b>" in w
+print("sp500 line ok")

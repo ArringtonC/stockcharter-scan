@@ -864,6 +864,31 @@ def pick_contract(sym, spot, days=120, budget=600):
 # Running hourly does not mean messaging hourly. Ten identical "nothing fires"
 # notes a day is how an alert becomes wallpaper. This pushes on the first run of
 # the day, on the closing run, and otherwise only when something changed.
+def sp500_changes(n=12):
+    """Recent adds/drops to the S&P 500, newest first, from Wikipedia's historical-components
+    table (editors list announced changes there before they take effect). ponytail: wikitext
+    parsed by hand; switch to S&P's own announcements feed if this table ever changes shape."""
+    import re
+    url = "https://en.wikipedia.org/w/index.php?title=Historical_components_of_the_S%26P_500&action=raw"
+    txt = urllib.request.urlopen(urllib.request.Request(
+        url, headers={"User-Agent": "Ledger/1.0 (stockcharter-scan)"}), timeout=20).read().decode()
+    body = txt[txt.index('id="changes"'):]
+    out = []
+    for row in body.split("\n|-\n")[2:]:
+        cells = [c.strip() for c in re.findall(r"^\|\|(.*)$", row, re.M)]
+        if len(cells) < 6: continue
+        try: eff = datetime.datetime.strptime(cells[0], "%B %d, %Y").date()
+        except ValueError: continue
+        name = lambda c: re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]*)\]\]", r"\1", c).strip()
+        ann = re.search(r"\|\s*date\s*=\s*([^|}]+)", row)
+        out.append(dict(effective=str(eff), added=cells[1], added_name=name(cells[2]),
+                        removed=cells[3], removed_name=name(cells[4]),
+                        reason=re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]*)\]\]", r"\1", cells[5])[:120],
+                        announced=ann.group(1).strip() if ann else ""))
+        if len(out) >= n: break
+    return out
+
+
 def market(d, open_):
     """What can be known about today's index move, before and during. None of it
     says which way -- thesis/scalp.md: nothing predicted QQQ/SPY direction."""
@@ -980,7 +1005,8 @@ def should_push(d, open_, name="key", key=None):
 
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {}))])
+    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})),
+                       sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
 
 
 # ── push ───────────────────────────────────────────────────────────────────────
@@ -1070,6 +1096,16 @@ def writeup(d, m, pre=True):
         u = "" if s == "^VIX" else "$"   # VIX is points, not dollars
         W.append(f"{name} {u}{a:,.2f} → <b>{u}{b:,.2f}</b> {chg}"
                  + (f" · ±${m[s + '_exp']:.0f} {m['exp_by']}" if m.get(s + "_exp") else ""))
+    # S&P 500 changes effective in the last 7 days or still ahead -- index funds must trade them
+    today = datetime.date.fromisoformat(d["date"]); mine = set(UNIVERSE) | set(CORE)
+    for c in d.get("sp500", []):
+        days = (datetime.date.fromisoformat(c["effective"]) - today).days
+        if days < -7: continue
+        when = f"on {datetime.date.fromisoformat(c['effective']).strftime('%b %-d')}"
+        who = lambda t: f"<b>{t}</b>" + (" (you scan it)" if t in mine else "")
+        if c["added"]: W.append(f"<b>S&P 500:</b> {who(c['added'])} joins {'' if days < 0 else 'effective '}{when}"
+                                + (f", replacing {who(c['removed'])}" if c["removed"] else "") + ".")
+        elif c["removed"]: W.append(f"<b>S&P 500:</b> {who(c['removed'])} leaves {when}.")
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if pre and nq is not None and abs(nq) >= 1:
@@ -1200,6 +1236,8 @@ if __name__ == "__main__":
     # part 2 F fires join the BUY list; D/C/S stay watchlist-only exactly as in part 1
     d["F"] += p2["F"]; d["part2"] = p2
     d["market"] = market(d, open_)
+    try: d["sp500"] = sp500_changes()
+    except Exception as e: d["sp500"] = []; d["errors"].append(f"sp500: {str(e)[:40]}")
     hist = json.load(open(HIST)) if os.path.exists(HIST) else []
     entry = dict(date=d["date"], vix=d["vix"], regime=d["regime"], vix_fires=d["vix_fires"],
                  F=[x["sym"] for x in d["F"]], D=[x["sym"] for x in d["D"]],
