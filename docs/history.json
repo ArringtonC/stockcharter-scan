@@ -322,7 +322,7 @@
  },
  {
   "date": "2026-09-25",
-  "vix": 15.010000228881836,
+  "vix": 15.0,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -331,22 +331,19 @@
    "SHOP"
   ],
   "D": [
-   "TXN",
    "BE",
+   "TXN",
    "MU",
    "INTC",
    "SNOW",
    "PLTR",
-   "MSFT",
    "OKTA",
-   "MRK",
-   "GILD",
-   "PANW"
+   "MSFT",
+   "MRK"
   ],
   "C": [],
   "S": [
-   "ADBE",
-   "IBM"
+   "ADBE"
   ]
  }
 ]
