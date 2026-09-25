@@ -1,6 +1,6 @@
 {
  "date": "2026-09-25",
- "stamp": "2026-09-25 23:50 UTC",
+ "stamp": "2026-09-25 23:58 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -1405,15 +1405,15 @@
   "SPY_exp": 0.67,
   "QQQ_pre": [
    744.5,
-   745.3177
+   745.28
   ],
   "SPY_pre": [
    771.35,
-   772.17
+   772.0015
   ],
   "USO_pre": [
    148.33,
-   148.62
+   148.55
   ],
   "^VIX_pre": [
    15.67,
@@ -2331,19 +2331,19 @@
    }
   ],
   "by_setup": {
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": -8.417814987060018
+   },
    "none": {
     "wins": 0,
     "losses": 1,
     "closed_mean": -55.4,
     "open_n": 1,
     "open_mean": -42.705882352941174
-   },
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 12,
-    "open_mean": -4.528042426424979
    },
    "C": {
     "wins": 0,
@@ -2352,12 +2352,12 @@
     "open_n": 2,
     "open_mean": 40.361174851483185
    },
-   "E": {
+   "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -8.417814987060018
+    "open_n": 12,
+    "open_mean": -4.528042426424979
    },
    "D": {
     "wins": 0,
