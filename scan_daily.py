@@ -868,7 +868,7 @@ def market(d, open_):
     """What can be known about today's index move, before and during. None of it
     says which way -- thesis/scalp.md: nothing predicted QQQ/SPY direction."""
     m = dict(events=[EVENTS[d["date"]]] if d["date"] in EVENTS else [])
-    for s in ("QQQ", "SPY", "NQ=F", "CL=F", "^TNX", "^VIX"):
+    for s in ("QQQ", "SPY", "USO", "NQ=F", "CL=F", "^TNX", "^VIX"):
         try:
             q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=1d&interval=5m")["chart"]["result"][0]["meta"]
             m[s] = (q["regularMarketPrice"] / q["chartPreviousClose"] - 1) * 100
@@ -1025,10 +1025,15 @@ def notify(text):
         return False
 
 
-def premarket_writeup(d, m):
-    """Plain sentences from the numbers, the way a person would brief it. Rules, not AI."""
+def writeup(d, m, pre=True):
+    """Plain sentences from the numbers, the way a person would brief it. Rules, not AI.
+    Before the open it leads with futures; during the day with QQQ's move so far."""
     W, P = [], []
-    nq = m.get("NQ=F")
+    nq = m.get("NQ=F") if pre else None
+    q = m.get("QQQ")
+    if not pre and q is not None:
+        size = "a big day" if abs(q) >= 1 else "a normal day" if abs(q) >= 0.3 else "a quiet day"
+        P.append(f"<b>QQQ is {'up' if q > 0 else 'down'} {abs(q):.1f}% today</b>, {size}.")
     if nq is not None:
         size = "a big open" if abs(nq) >= 1 else "a normal open" if abs(nq) >= 0.3 else "a flat open"
         P.append(f"<b>Nasdaq futures are {'up' if nq > 0 else 'down'} {abs(nq):.1f}%</b>, {size}.")
@@ -1049,10 +1054,14 @@ def premarket_writeup(d, m):
     W.append(" ".join(P))
     for e in m.get("events", []): W += ["", f"<b>Today:</b> {e}."]
     if m.get("heads"): W += [""] + [f"· <i>{h}</i>" for h in m["heads"]]
-    # yesterday's close -> premarket now, the same arrow as the trade cards
+    if not pre and move_bucket(m) and m.get("movers"):
+        W += ["", "Biggest basket moves: " + " · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"])]
+    # yesterday's close -> now, the same arrow as the trade cards
     W.append("")
     for s in ("QQQ", "SPY", "USO", "^VIX"):
         name = s.lstrip("^")
+        if not pre and m.get(s + "_px") and m.get(s) is not None:   # in session: prior close from the day change
+            m = {**m, s + "_pre": (m[s + "_px"] / (1 + m[s] / 100), m[s + "_px"])}
         if not m.get(s + "_pre"):   # no premarket print yet: yesterday's close alone
             if m.get(s + "_px"): W.append(f"{name} ${m[s + '_px']:,.2f}")
             continue
@@ -1063,7 +1072,7 @@ def premarket_writeup(d, m):
                  + (f" · ±${m[s + '_exp']:.0f} {m['exp_by']}" if m.get(s + "_exp") else ""))
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
-    if nq is not None and abs(nq) >= 1:
+    if pre and nq is not None and abs(nq) >= 1:
         W.append("<b>Big open expected. Do not trade the first 30 minutes.</b>")
     return W
 
@@ -1074,22 +1083,9 @@ def market_report(d):
     m = d.get("market", {})
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     pre = (ny.hour, ny.minute) < (9, 30)
-    if pre:
-        M += ["<b>PREMARKET REPORT</b>", ""] + premarket_writeup(d, m) + [""]
-    elif move_bucket(m):
-        M.append(f"<b>{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY</b>")
-    else:
-        M.append("<b>MARKET REPORT</b>")
-    # price, day move, expected move by Friday -- every message
-    for s in ("QQQ", "SPY") if not pre else ():
-        if m.get(s + "_px"):
-            # before the open Yahoo's day change is still yesterday's; futures carry today
-            M.append(f"{s} ${m[s + '_px']:,.2f}" + ("" if pre else f" {m[s]:+.1f}%")
-                     + (f" · ±${m[s + '_exp']:.0f} by {m['exp_by']}" if m.get(s + "_exp") else ""))
-    if move_bucket(m) and m.get("movers"):
-        M.append(" · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"]))
-    M += [e.upper() for e in m.get("events", [])]
-    M += ["<i>not a signal</i>"]
+    head = ("PREMARKET REPORT" if pre else
+            f"{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY" if move_bucket(m) else "MARKET REPORT")
+    M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + ["", "<i>not a signal</i>"]
     return "\n".join(M)
 
 

@@ -44,8 +44,8 @@ assert S.should_push(base(), [live(340)])[0]       # entering the last 5% pushes
 
 # the two reports are separate messages with separate memory
 m = base(market={"QQQ": 1.4, "QQQ_px": 750, "SPY": 0.6, "SPY_px": 770, "movers": [("NVDA", 3.1)]})
-r = S.market_report(m); assert "QQQ $750" in r and "TRADE REPORT" not in r and "BUY" not in r
-assert S.summary(m, []).startswith("<b>TRADE REPORT</b>") and "QQQ $750" not in S.summary(m, [])
+r = S.market_report(m); assert "$750.00" in r and "TRADE REPORT" not in r and "BUY" not in r
+assert S.summary(m, []).startswith("<b>TRADE REPORT</b>") and "$750" not in S.summary(m, [])
 mk = S.market_key(m); S.should_push(m, [], "mkt", mk)
 assert S.should_push(m, [], "mkt", mk) == (False, "nothing changed")
 m["market"]["QQQ"] = 2.3; assert S.should_push(m, [], "mkt", S.market_key(m))[0]   # crossing 2% pushes
