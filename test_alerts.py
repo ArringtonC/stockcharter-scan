@@ -54,3 +54,6 @@ t = S.summary(base(), [], [rs[0]])
 assert "✓ TRADE CLOSED</b> · 🤖 PAPER" in t and "$550 → <b>$703</b>" in t and "FINAL +$153 · +28%" in t
 assert "TRADE UPDATE" not in t
 print("lifecycle ok")
+
+assert S.to_discord('<b>BUY NOW</b> <i>x</i> <a href="https://a.b/">Ledger</a> &amp;') == '**BUY NOW** *x* [Ledger](<https://a.b/>) &'
+print("discord ok")

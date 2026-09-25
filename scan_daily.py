@@ -986,7 +986,30 @@ def market_key(d):
 # ── push ───────────────────────────────────────────────────────────────────────
 # Nine days in ten this message saves you opening the page at all. On the tenth
 # it reaches you before the open. No token set means it silently does nothing.
+def to_discord(text):
+    """Telegram HTML -> Discord markdown. The same message, both places."""
+    import re, html
+    t = re.sub(r'<a href="([^"]+)">(.*?)</a>', r"[\2](<\1>)", text)
+    t = t.replace("<b>", "**").replace("</b>", "**").replace("<i>", "*").replace("</i>", "*")
+    return html.unescape(t)
+
+
+def discord(text):
+    """Post to a Discord channel webhook (DISCORD_WEBHOOK). Unset means it does nothing."""
+    url = os.environ.get("DISCORD_WEBHOOK")
+    if not url: return False
+    try:
+        urllib.request.urlopen(urllib.request.Request(
+            url, data=json.dumps(dict(content=to_discord(text)[:2000])).encode(),
+            headers={"Content-Type": "application/json", "User-Agent": "Ledger (stockcharter-scan)"}), timeout=20).read()
+        return True
+    except Exception as e:
+        print(f"discord failed: {str(e)[:60]}")
+        return False
+
+
 def notify(text):
+    discord(text)
     tok, chat = os.environ.get("TELEGRAM_TOKEN"), os.environ.get("TELEGRAM_CHAT")
     if not (tok and chat): return False
     try:
