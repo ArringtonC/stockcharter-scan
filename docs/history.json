@@ -319,5 +319,28 @@
   "S": [
    "IBM"
   ]
+ },
+ {
+  "date": "2026-09-25",
+  "vix": 15.0600004196167,
+  "regime": "CALM",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "BE",
+   "HOOD",
+   "SHOP"
+  ],
+  "D": [
+   "MU",
+   "INTC",
+   "LLY",
+   "PLTR",
+   "MRK"
+  ],
+  "C": [],
+  "S": [
+   "IBM"
+  ]
  }
 ]
