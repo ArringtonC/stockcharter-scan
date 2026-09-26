@@ -1,6 +1,6 @@
 {
  "date": "2026-09-26",
- "stamp": "2026-09-26 13:30 UTC",
+ "stamp": "2026-09-26 15:00 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -1420,7 +1420,7 @@
    14.869999885559082
   ],
   "heads": [
-   "Audemars Piguet says its Royal Pop collaboration with Swatch is breaking sales records, despite luxury watch slump and tariffs",
+   "The 10-year Treasury yield is at its highest in nearly two decades. How we got here",
    "History shows financial calamities occur when rates rise rapidly like this: 'Something always breaks'"
   ],
   "tnx_since": "2007",
@@ -1925,14 +1925,14 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -35.210053860357945,
+   "pl_pct": -36.970338983050844,
    "note": "Stock $140.01. Setup F, 50/200 cross held through the Fed. $170C Nov-20, 100% time value, needs +32%. Target = +$1,000 on one contract.",
-   "now": 3.0580854577911047,
+   "now": 2.975,
    "spot": 135.6199951171875,
    "intrinsic": 0.0,
    "dte": 55,
    "sessions": 6,
-   "mark": "iv"
+   "mark": "alpaca"
   },
   {
    "id": "2026-09-17-QCOM-240c",
@@ -2320,26 +2320,19 @@
    }
   ],
   "by_setup": {
-   "E": {
+   "none": {
     "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -8.416950122830034
+    "losses": 1,
+    "closed_mean": -55.4,
+    "open_n": 1,
+    "open_mean": -42.705882352941174
    },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 12,
-    "open_mean": -4.381351999533904
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": 40.361174851483185
+    "open_mean": -4.528042426424979
    },
    "D": {
     "wins": 0,
@@ -2348,12 +2341,19 @@
     "open_n": 2,
     "open_mean": -3.6284429234798634
    },
-   "none": {
+   "E": {
     "wins": 0,
-    "losses": 1,
-    "closed_mean": -55.4,
-    "open_n": 1,
-    "open_mean": -42.705882352941174
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": -8.416950122830034
+   },
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": 40.361174851483185
    }
   },
   "produced": [
@@ -26175,7 +26175,7 @@
    "open_n": 24,
    "real_n": 1,
    "real_pl": -1.9,
-   "paper_pl": -3.4,
+   "paper_pl": -3.5,
    "fired": 6,
    "sessions": 6
   },
@@ -26199,10 +26199,10 @@
    {
     "label": "Open \u00b7 paper",
     "before": -8.8,
-    "after": -3.4,
+    "after": -3.5,
     "fmt": "pct",
     "sub": "23 positions",
-    "delta": 5.4
+    "delta": 5.3
    },
    {
     "label": "Closed real money",
@@ -26558,9 +26558,9 @@
     "acct": "small",
     "setup": "F",
     "before": 3.4749999999999996,
-    "after": 3.0580854577911047,
+    "after": 2.975,
     "before_pl": -26.3771186440678,
-    "after_pl": -35.210053860357945,
+    "after_pl": -36.970338983050844,
     "isnew": false
    },
    {
