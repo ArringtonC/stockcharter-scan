@@ -348,5 +348,34 @@
    "ADBE",
    "IBM"
   ]
+ },
+ {
+  "date": "2026-09-26",
+  "vix": 14.869999885559082,
+  "regime": "CALM",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "HOOD",
+   "SHOP"
+  ],
+  "D": [
+   "BE",
+   "TXN",
+   "MU",
+   "INTC",
+   "PLTR",
+   "LLY",
+   "OKTA",
+   "AMGN",
+   "MSFT",
+   "DELL",
+   "MRK"
+  ],
+  "C": [],
+  "S": [
+   "ADBE",
+   "IBM"
+  ]
  }
 ]
