@@ -659,7 +659,7 @@ function spChanges(d){
   const tag=t=>t?`<b>${esc(t)}</b>${mine.has(t)?' <span class="tag watch">you scan it</span>':''}`:'';
   return `<div class="sec">
     <h2>S&amp;P 500 changes <span class="tag watch">not a signal</span></h2>
-    <p class="lede">Index funds must buy every stock that joins and sell every one that leaves. That forced trading can move a price for days around the date.</p>
+    <p class="lede">Index funds must buy every stock that joins. Since 2021, joiners beat SPY by 4.3 points in the 10 sessions before joining, but most of that comes before the news is public. Buying after the announcement earned nothing once the top 5 are removed, and in the 20 sessions after joining they trailed SPY by 2.3 points.</p>
     ${L.map(c=>`<div class="row tight">
       <div class="sym">${esc(c.effective.slice(5))}<small>${c.effective>today?'upcoming':'effective'}</small></div>
       <div class="main"><div class="t">${c.added?`${tag(c.added)} joins`:''}${c.added&&c.removed?' · ':''}${c.removed?`${tag(c.removed)} leaves`:''}</div>
