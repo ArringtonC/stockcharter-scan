@@ -1,6 +1,6 @@
 {
  "date": "2026-09-26",
- "stamp": "2026-09-26 15:00 UTC",
+ "stamp": "2026-09-26 16:30 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -1421,7 +1421,7 @@
   ],
   "heads": [
    "The 10-year Treasury yield is at its highest in nearly two decades. How we got here",
-   "History shows financial calamities occur when rates rise rapidly like this: 'Something always breaks'"
+   "Audemars Piguet says its Royal Pop collaboration with Swatch is breaking sales records, despite luxury watch slump and tariffs"
   ],
   "tnx_since": "2007",
   "movers": []
@@ -2320,13 +2320,6 @@
    }
   ],
   "by_setup": {
-   "none": {
-    "wins": 0,
-    "losses": 1,
-    "closed_mean": -55.4,
-    "open_n": 1,
-    "open_mean": -42.705882352941174
-   },
    "F": {
     "wins": 0,
     "losses": 0,
@@ -2347,6 +2340,13 @@
     "closed_mean": null,
     "open_n": 7,
     "open_mean": -8.416950122830034
+   },
+   "none": {
+    "wins": 0,
+    "losses": 1,
+    "closed_mean": -55.4,
+    "open_n": 1,
+    "open_mean": -42.705882352941174
    },
    "C": {
     "wins": 0,
