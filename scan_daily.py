@@ -1022,7 +1022,8 @@ def to_discord(text):
 
 # channel -> env var holding that channel's webhook. Any unset one falls back to DISCORD_WEBHOOK.
 ROUTES = {"market": "DISCORD_WEBHOOK_MARKET", "trades": "DISCORD_WEBHOOK_TRADES",
-          "updates": "DISCORD_WEBHOOK_UPDATES", "ledger": "DISCORD_WEBHOOK_LEDGER"}
+          "updates": "DISCORD_WEBHOOK_UPDATES", "ledger": "DISCORD_WEBHOOK_LEDGER",
+          "paper": "DISCORD_WEBHOOK_PAPER"}
 
 
 def discord(text, route=None):

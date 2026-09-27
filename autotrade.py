@@ -7,7 +7,7 @@ the scanner shows (D, C, S, weekly) is watchlist-only and never traded here.
 A trial started 2026-09-23 to compare the rule against Arrington's own trades
 for one week before any real-money broker (Schwab) is considered."""
 import csv, json, os, sys, time, datetime, urllib.request
-from scan_daily import notify, DOCS, TRADES, TCOLS
+from scan_daily import notify, discord, DOCS, TRADES, TCOLS
 
 API = "https://paper-api.alpaca.markets/v2"     # ponytail: hard-coded paper; real money is a separate decision
 CAP = 600
@@ -79,6 +79,35 @@ def sync():
     if sells: print(f"auto: closed {sorted(sells)}")
 
 
+START = 100_000.0   # the paper account's opening balance
+
+
+def recap_text(acct, positions):
+    """Start -> now for the whole paper account, then each open trade. Pure, so it can be tested."""
+    D = lambda x: f"${x:,.2f}"; S = lambda x: f"{'+' if x >= 0 else '−'}${abs(x):,.2f}"
+    eq = float(acct["equity"]); pl = eq - START
+    L = ["<b>🤖 PAPER PORTFOLIO</b>", "",
+         f"START {D(START)}", f"NOW <b>{D(eq)}</b> · {S(pl)} · {pl / START * 100:+.2f}%",
+         f"CASH {D(float(acct['cash']))} · IN TRADES {D(eq - float(acct['cash']))}", ""]
+    for p in sorted(positions, key=lambda p: p["symbol"]):
+        a, b = float(p["cost_basis"]), float(p["market_value"])
+        L += [f"<b>{p['symbol']}</b> · {int(float(p['qty']))} SHARES",
+              f"{D(a)} → <b>{D(b)}</b> · {S(b - a)} · {(b / a - 1) * 100:+.1f}%", ""]
+    if not positions: L += ["No open trades.", ""]
+    L.append("<i>Alpaca paper account · not real money</i>")
+    return "\n".join(L)
+
+
+def recap(force=False):
+    """Once a day after the close (or when forced): the paper account, to #paper-portfolio."""
+    state = json.load(open(STATE)) if os.path.exists(STATE) else {}
+    today = str(datetime.date.today())
+    after_close = datetime.datetime.now(datetime.timezone.utc).hour >= 20
+    if not force and (not after_close or state.get("_recap") == today): return
+    if discord(recap_text(call("/account"), call("/positions")), "paper"):
+        state["_recap"] = today; json.dump(state, open(STATE, "w")); print("auto: recap posted")
+
+
 def main():
     if not call("/clock")["is_open"]: return print("auto: market closed")
     d = json.load(open(os.path.join(DOCS, "data.json")))
@@ -116,8 +145,14 @@ if __name__ == "__main__":
         assert rs[0]["acct"] == "paper-auto" and rs[0]["entry"] == "275.02" and rs[0]["status"] == "open"
         close_filled(rs, {"BE": (351.28, "2026-10-20")})
         assert rs[0]["status"] == "closed" and rs[0]["pl_pct"] == "27.7" and rs[0]["exit"] == "351.28"
+        r = recap_text({"equity": "100123.45", "cash": "97000"},
+                       [{"symbol": "BE", "qty": "2", "cost_basis": "550.04", "market_value": "577.40"}])
+        assert "START $100,000.00" in r and "NOW <b>$100,123.45</b> · +$123.45 · +0.12%" in r
+        assert "$550.04 → <b>$577.40</b> · +$27.36 · +5.0%" in r
         print("autotrade ok")
     elif sys.argv[1:] == ["sync"]:
-        sync()
+        sync(); recap()
+    elif sys.argv[1:] == ["recap"]:
+        recap(force=True)
     else:
         main()
