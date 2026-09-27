@@ -75,3 +75,10 @@ p = S.summary(base(F=[dict(sym="DEAR", px=140, tgt=195, up=39)]), [pos(-19, 58)]
 assert "BUY DEAR" in p["trades"] and "TRADE UPDATE" in p["updates"] and "TRADE CLOSED" in p["ledger"]
 assert "BUY" not in p["updates"] + p["ledger"] and "UPDATE" not in p["trades"]
 print("routing ok")
+
+# real-money cards never reach Discord
+live_real = {**pos(5, 90), "acct": "real"}
+pub = lambda R: [r for r in R if r.get("acct") != "real"]
+p = S.summary({**base(), "taken": []}, pub([live_real]), pub([row]), parts=True)
+assert not p["updates"] and not p["ledger"], p
+print("private ok")

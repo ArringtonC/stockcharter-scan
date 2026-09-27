@@ -148,7 +148,7 @@ def occ_label(sym):
     return f"{m[1]} {int(m[6]) / 1000:g}{m[5]} {m[3]}/{m[4]}" if m else sym
 
 
-def recap_text(acct, positions, trades, plan=PLAN):
+def recap_text(acct, positions, trades, plan=PLAN, real=True):
     """Three books, each START -> NOW then its open trades. Pure, so it can be tested.
       REAL      his account, from the plan's start balance
       F CALLS   the Alpaca paper bot, $100k
@@ -158,15 +158,17 @@ def recap_text(acct, positions, trades, plan=PLAN):
     head = lambda a, b: f"START {D(a)} → NOW <b>{D(b)}</b> · {S(b - a)} · {(b / a - 1) * 100:+.2f}%"
     L = ["<b>📒 PORTFOLIOS</b>", ""]
 
+    if not real: trades = [r for r in trades if r.get("acct") != "real"]
+    show_real = real
     real = [r for r in trades if r.get("acct") == "real" and (r["status"] == "open" or r.get("closed", "") >= plan["started"])]
     rd = [dollars(r, CAP) for r in real]
     start = plan["start"] + sum(x["amt"] for x in plan.get("deposits", []))
     # the broker's own balance when we have one; trade math only adds what opened since then
     now_real = plan.get("balance", start) + sum(b - a for (a, b, _), r in zip(rd, real)
                                                  if r.get("opened", "") > plan.get("balance_as_of", ""))
-    L += ["<b>💵 REAL</b>", head(start, now_real)
+    if show_real: L += ["<b>💵 REAL</b>", head(start, now_real)
           + (f" · Schwab {plan['balance_as_of'][5:].replace('-', '/')}" if plan.get("balance_as_of") else "")]
-    L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
+    if show_real: L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
 
     eq = float(acct["equity"])
     L += ["<b>🤖 SETUP F · CALLS</b>", head(START, eq)]
@@ -193,7 +195,11 @@ def recap(force=False):
     after_close = datetime.datetime.now(datetime.timezone.utc).hour >= 20
     if not force and (not after_close or state.get("_recap") == today): return
     d = json.load(open(os.path.join(DOCS, "data.json")))
-    if discord(recap_text(call("/account"), call("/positions"), d.get("open", []) + d.get("closed", [])), "paper"):
+    acct, pos, tr = call("/account"), call("/positions"), d.get("open", []) + d.get("closed", [])
+    # Discord is a server other people may join: paper books only. The real account goes to
+    # the private Telegram chat and nowhere else.
+    notify(recap_text(acct, pos, tr), discord_too=False)
+    if discord(recap_text(acct, pos, tr, real=False), "paper"):
         state["_recap"] = today; json.dump(state, open(STATE, "w")); print("auto: recap posted")
 
 
@@ -250,6 +256,8 @@ if __name__ == "__main__":
         assert "BE 270C 01/15 · $4,000.00 → <b>$4,500.00</b>" in r
         assert "💡 IDEAS</b>\nSTART $100,000.00 → NOW <b>$100,673.00</b> · +$673.00" in r, r
         assert "closed: BABA 109C 10/02 +$410.00" in r
+        pub = recap_text({"equity": "100500"}, [], tr, dict(start=8355.13, started="2026-09-20", deposits=[]), real=False)
+        assert "REAL" not in pub and "8,355" not in pub and "NOW 1 SH" not in pub, pub
         print("autotrade ok")
     elif sys.argv[1:] == ["sync"]:
         sync(); recap()
