@@ -7,10 +7,12 @@ Since 2026-09-27 (Arrington: "lets do the pure setup F whatever it is"):
   hold   no stop. Target = the prior high, set at entry.
   floor  when the stock REACHES the target, do not sell: place a stop at the target and
          let it run. Sell only if it falls back to that floor, or after 252 sessions.
-Variants (LEAPS, calls) are for later, as separate books. The 4 share positions bought
+Second book, same signals (acct bot-leaps, since 2026-09-27): the at-the-money call nearest
+730 days out (thesis/leaps.md: 87% win, 9% wiped out -- the best F option structure tested),
+7% of a $100k book per trade, sold when the stock reaches the target or 30 days before expiry. The 4 share positions bought
 09-23/24 (acct paper-auto, $600 each) now follow the same floor rule."""
 import csv, json, os, re, sys, time, datetime, urllib.request
-from scan_daily import notify, discord, DOCS, TRADES, TCOLS, PLAN, bars
+from scan_daily import notify, discord, DOCS, TRADES, TCOLS, PLAN, bars, alpaca_quote, occ
 
 API = "https://paper-api.alpaca.markets/v2"     # ponytail: hard-coded paper; real money is a separate decision
 CAP = 600            # the old shares version, kept for sizing the Ideas share rows
@@ -44,6 +46,37 @@ def floor_action(row, highs_since, sessions, has_stop):
     if sessions >= 252: return "sell"                      # the time limit
     if not has_stop and max(highs_since, default=0) >= float(row["target"]): return "floor"
     return None
+
+
+def leap_pick(sym, spot, budget, today, contracts=None, ask=None):
+    """The LEAPS a fire implies: expiry >= 540 days, nearest to 730; strike nearest spot among
+    contracts with open interest >= 100; as many as the budget buys at the ask. None if none fits."""
+    if contracts is None:
+        q = f"/options/contracts?underlying_symbols={sym}&type=call&limit=1000" \
+            f"&expiration_date_gte={today + datetime.timedelta(540)}&strike_price_gte={spot * .85:.0f}&strike_price_lte={spot * 1.15:.0f}"
+        contracts = call(q).get("option_contracts", [])
+    ok = [c for c in contracts if int(c.get("open_interest") or 0) >= 100]
+    if not ok: return None
+    goal = today + datetime.timedelta(730)
+    exp = min({c["expiration_date"] for c in ok}, key=lambda e: abs((datetime.date.fromisoformat(e) - goal).days))
+    c = min((c for c in ok if c["expiration_date"] == exp), key=lambda c: abs(float(c["strike_price"]) - spot))
+    k = float(c["strike_price"])
+    px = ask(sym, exp, k) if ask else leap_ask(sym, exp, k)
+    if not px: return None
+    n = int(budget // (px * 100))
+    return dict(expiry=exp, strike=k, px=px, n=n, cost=px * 100 * n) if n >= 1 else None
+
+
+def leap_ask(sym, exp, k):
+    """The ask, not the mid: what a market buy actually pays."""
+    o = occ(sym, exp, k, pad=False)
+    try:
+        rq = urllib.request.Request(f"https://data.alpaca.markets/v1beta1/options/quotes/latest?symbols={o}",
+                                    headers={"APCA-API-KEY-ID": os.environ["ALPACA_KEY"], "APCA-API-SECRET-KEY": os.environ["ALPACA_SECRET"]})
+        q = json.load(urllib.request.urlopen(rq, timeout=20))["quotes"][o]
+        return float(q["ap"]) if q.get("ap") else None
+    except Exception:
+        return alpaca_quote(sym, exp, k)
 
 
 def rows():
@@ -114,6 +147,22 @@ def sync():
                 for o in mine_o: call(f"/orders/{o['id']}", method="DELETE")
                 call("/orders", dict(symbol=sym, qty=qty, side="sell", type="market", time_in_force="day"))
                 print(f"auto: {sym} 252 sessions -- sold")
+    # LEAPS: sell at the stock target or 30 days before expiry, on real fills
+    if call("/clock")["is_open"]:
+        today = datetime.date.today()
+        for r in rs:
+            if r.get("acct") != "bot-leaps" or r["status"] != "open": continue
+            spot = bars(r["symbol"], "5d")[-1][1]
+            dte = (datetime.date.fromisoformat(r["expiry"]) - today).days
+            why = "target" if spot >= float(r["target"]) else "30 days left" if dte <= 30 else None
+            if not why: continue
+            o = call("/orders", dict(symbol=occ(r["symbol"], r["expiry"], r["strike"], pad=False),
+                                     qty=r["contracts"], side="sell", type="market", time_in_force="day"))
+            px = fill_price(o["id"], None)
+            if px is None: continue
+            r.update(status="closed", closed=str(today), exit=f"{px:.2f}",
+                     pl_pct=f"{(px / float(r['entry']) - 1) * 100:.1f}", note=r["note"] + f" Sold: {why}.")
+            print(f"auto: LEAPS {r['symbol']} sold ({why})")
     held = set(pos)
     want = {r["symbol"] for r in mine} - held
     sells = {}
@@ -173,12 +222,14 @@ def recap_text(acct, positions, trades, plan=PLAN, real=True):
           + (f" · Schwab {plan['balance_as_of'][5:].replace('-', '/')}" if plan.get("balance_as_of") else "")]
     if show_real: L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
 
-    eq = float(acct["equity"])
-    L += ["<b>🤖 SETUP F</b>", head(START, eq)]
-    L += [row(occ_label(p["symbol"]) if len(p["symbol"]) > 6 else f"{p['symbol']} {int(float(p['qty']))} SH",
-              float(p["cost_basis"]), float(p["market_value"])) for p in sorted(positions, key=lambda p: p["symbol"])] \
-         or ["No open trades."]
-    L.append("")
+    for title, accts in (("🤖 SETUP F", ("bot", "paper-auto")), ("🤖 SETUP F · LEAPS", ("bot-leaps",))):
+        bk = [r for r in trades if r.get("acct") in accts]
+        dd = [dollars(r, START * RISK) for r in bk]
+        L += [f"<b>{title}</b>", head(START, START + sum(b - a for a, b, _ in dd))]
+        L += [row(lab, a, b) for (a, b, lab), r in zip(dd, bk) if r["status"] == "open"] or ["No open trades."]
+        done = [(a, b, lab) for (a, b, lab), r in zip(dd, bk) if r["status"] == "closed"]
+        if done: L.append("closed: " + " · ".join(f"{lab} {S(b - a)}" for a, b, lab in done))
+        L.append("")
 
     ideas = [r for r in trades if r.get("acct") in IDEAS]
     idd = [dollars(r, START * RISK) for r in ideas]
@@ -213,7 +264,7 @@ def main():
     held = {r["symbol"] for r in rs if r.get("acct") in ("bot", "paper-auto") and r["status"] == "open"}
     state = json.load(open(STATE)) if os.path.exists(STATE) else {}
     today = datetime.date.today()
-    budget = float(call("/account")["equity"]) * RISK
+    budget = START * RISK   # two books share one Alpaca account; each sizes off its own $100k
     for t in plan(d["F"], held, state, today, budget):
         try:
             o = call("/orders", dict(symbol=t["sym"], qty=str(t["qty"]), side="buy", type="market", time_in_force="day"))
@@ -230,6 +281,33 @@ def main():
             print(f"auto: bought {t['qty']} {t['sym']} at {fill}, target {t['tgt']}")
         except Exception as e:
             print(f"auto: {t['sym']} failed: {str(e)[:80]}")
+    # second book: the same fires as 2-year calls, 7% of its own $100k
+    lheld = {r["symbol"] for r in rs if r.get("acct") == "bot-leaps" and r["status"] == "open"}
+    for f in d["F"]:
+        sym = f["sym"]; last = state.get("leap:" + sym)
+        if sym in lheld or (last and (today - datetime.date.fromisoformat(last)).days < 30): continue
+        try:
+            c = leap_pick(sym, f["px"], START * RISK, today)
+            if not c: print(f"auto: LEAPS {sym} -- no liquid 2-year call fits ${START * RISK:,.0f}"); continue
+            o = call("/orders", dict(symbol=occ(sym, c["expiry"], c["strike"], pad=False), qty=str(c["n"]),
+                                     side="buy", type="market", time_in_force="day"))
+            fill = fill_price(o["id"], None)
+            if fill is None: print(f"auto: LEAPS {sym} buy did not fill"); continue
+            state["leap:" + sym] = str(today)
+            rs.append(dict(id=f"{today}-{sym}-leap", kind="call", acct="bot-leaps", opened=str(today), symbol=sym,
+                           setup="F", entry=f"{fill:.2f}", target=f"{f['tgt']:.2f}", strike=f"{c['strike']:g}",
+                           expiry=c["expiry"], contracts=str(c["n"]), status="open",
+                           note=f"F LEAPS. {c['n']}x ${c['strike']:g}C {c['expiry']} (~2 years), 7% of a $100k book. "
+                                f"Sells when the stock reaches ${f['tgt']:.2f} or 30 days before expiry."))
+            when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d %Y").upper()
+            notify(f"<b>🤖 PAPER BOUGHT {sym} ${f['px']:,.2f}</b>\n"
+                   f"{when} · {c['n']} × ${c['strike']:g} CALL{'S' if c['n'] != 1 else ''} · ${fill:,.2f}\n"
+                   f"${fill * 100 * c['n']:,.0f} TOTAL · 7% OF $100K\n"
+                   f"SELL WHEN STOCK HITS ${f['tgt']:,.2f}\n"
+                   f"<i>Setup F LEAPS · Alpaca paper · not real money</i>", "trades")
+            print(f"auto: LEAPS bought {c['n']} {sym} {c['strike']:g}C {c['expiry']} at {fill}")
+        except Exception as e:
+            print(f"auto: LEAPS {sym} failed: {str(e)[:80]}")
     json.dump(state, open(STATE, "w")); save(rs)
 
 
@@ -248,15 +326,24 @@ if __name__ == "__main__":
         rs = []; log_buy(rs, f[0] | {"qty": 25}, 274.0, t, acct="bot")
         assert rs[0]["acct"] == "bot" and rs[0]["id"].endswith("-BE-f") and rs[0]["contracts"] == "25"
         close_filled(rs, {"BE": (351.28, "2026-12-01")}); assert rs[0]["status"] == "closed"
+        CS = [dict(expiration_date="2028-01-21", strike_price="140", open_interest=1897),
+              dict(expiration_date="2028-12-15", strike_price="140", open_interest=167),
+              dict(expiration_date="2028-12-15", strike_price="135", open_interest=146),
+              dict(expiration_date="2029-01-19", strike_price="140", open_interest=49)]
+        lp = leap_pick("NOW", 138, 7000, t, CS, ask=lambda s, e, k: 50.65)
+        assert lp == dict(expiry="2028-12-15", strike=140.0, px=50.65, n=1, cost=5065.0), lp
+        assert leap_pick("BE", 290, 7000, t, CS, ask=lambda s, e, k: 101.0) is None      # over budget: skip
         tr = [dict(acct="real", kind="shares", symbol="NOW", entry="138.26", now=140.26, contracts="1", status="open", opened="2026-09-24"),
               dict(acct="small", kind="call", symbol="QCOM", strike="240", expiry="2026-11-20", contracts="1",
                    entry="3.72", now=6.35, status="open"),
               dict(acct="paper", kind="call", symbol="BABA", strike="109", expiry="2026-10-02", contracts="1",
                    entry="4.25", exit="8.35", status="closed", closed="2026-09-21")]
-        r = recap_text({"equity": "100500"}, [{"symbol": "BE270115C00270000", "qty": "1", "cost_basis": "4000", "market_value": "4500"}],
-                       tr, dict(start=8355.13, started="2026-09-20", deposits=[], balance=8355.13, balance_as_of="2026-09-20"))
+        tr0 = [dict(acct="bot-leaps", kind="call", symbol="BE", strike="270", expiry="2028-01-21", contracts="1",
+                    entry="40", now=45.0, status="open")]
+        r = recap_text({"equity": "100500"}, [],
+                       tr + tr0, dict(start=8355.13, started="2026-09-20", deposits=[], balance=8355.13, balance_as_of="2026-09-20"))
         assert "START $8,355.13 → NOW <b>$8,357.13</b> · +$2.00 · +0.02% · Schwab 09/20" in r, r
-        assert "BE 270C 01/15 · $4,000.00 → <b>$4,500.00</b>" in r
+        assert "SETUP F · LEAPS</b>\nSTART $100,000.00 → NOW <b>$100,500.00</b>" in r and "BE 270C 01/21 · $4,000.00 → <b>$4,500.00</b>" in r, r
         assert "💡 IDEAS</b>\nSTART $100,000.00 → NOW <b>$100,673.00</b> · +$673.00" in r, r
         assert "closed: BABA 109C 10/02 +$410.00" in r
         pub = recap_text({"equity": "100500"}, [], tr, dict(start=8355.13, started="2026-09-20", deposits=[]), real=False)
