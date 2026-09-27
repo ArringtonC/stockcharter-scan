@@ -82,19 +82,36 @@ def sync():
 START = 100_000.0   # the paper account's opening balance
 
 
-def recap_text(acct, positions):
-    """Start -> now for the whole paper account, then each open trade. Pure, so it can be tested."""
+def book_rows(open_):
+    """The Ledger paper book (paper/small/big rows in trades.csv) as (label, cost, value).
+    Calls: 100 x contracts. Share rows carry no count, so they are sized like the rule: $600."""
+    out = []
+    for r in open_:
+        if r.get("acct") not in ("paper", "small", "big") or r.get("now") is None: continue
+        e, now = float(r["entry"]), float(r["now"])
+        if r["kind"] == "call":
+            n = int(r.get("contracts") or 1) * 100
+            lab = f"{r['symbol']} {float(r['strike']):g}C {r['expiry'][5:].replace('-', '/')}"
+        else:
+            n = max(1, int(CAP // e)); lab = f"{r['symbol']} {n} SH"
+        out.append((lab, e * n, now * n))
+    return out
+
+
+def recap_text(acct, positions, book=()):
+    """Start -> now for every paper trade: the Ledger book, then the auto bot. Pure, so it can be tested."""
     D = lambda x: f"${x:,.2f}"; S = lambda x: f"{'+' if x >= 0 else '−'}${abs(x):,.2f}"
-    eq = float(acct["equity"]); pl = eq - START
-    L = ["<b>🤖 PAPER PORTFOLIO</b>", "",
-         f"START {D(START)}", f"NOW <b>{D(eq)}</b> · {S(pl)} · {pl / START * 100:+.2f}%",
-         f"CASH {D(float(acct['cash']))} · IN TRADES {D(eq - float(acct['cash']))}", ""]
-    for p in sorted(positions, key=lambda p: p["symbol"]):
-        a, b = float(p["cost_basis"]), float(p["market_value"])
-        L += [f"<b>{p['symbol']}</b> · {int(float(p['qty']))} SHARES",
-              f"{D(a)} → <b>{D(b)}</b> · {S(b - a)} · {(b / a - 1) * 100:+.1f}%", ""]
-    if not positions: L += ["No open trades.", ""]
-    L.append("<i>Alpaca paper account · not real money</i>")
+    row = lambda lab, a, b: f"{lab} · {D(a)} → <b>{D(b)}</b> · {S(b - a)} · {(b / a - 1) * 100:+.0f}%"
+    L = ["<b>📒 PAPER PORTFOLIO</b>", ""]
+    if book:
+        a, b = sum(x[1] for x in book), sum(x[2] for x in book)
+        L += ["<b>LEDGER PAPER TRADES</b>", f"START {D(a)} → NOW <b>{D(b)}</b> · {S(b - a)} · {(b / a - 1) * 100:+.1f}%", ""]
+        L += [row(*x) for x in sorted(book, key=lambda x: x[2] - x[1], reverse=True)] + [""]
+    eq = float(acct["equity"])
+    L += ["<b>🤖 AUTO BOT (Alpaca)</b>", f"START {D(START)} → NOW <b>{D(eq)}</b> · {S(eq - START)} · {(eq / START - 1) * 100:+.2f}%", ""]
+    L += [row(f"{p['symbol']} {int(float(p['qty']))} SH", float(p["cost_basis"]), float(p["market_value"]))
+          for p in sorted(positions, key=lambda p: p["symbol"])] or ["No open trades."]
+    L += ["", "<i>paper · not real money</i>"]
     return "\n".join(L)
 
 
@@ -104,7 +121,8 @@ def recap(force=False):
     today = str(datetime.date.today())
     after_close = datetime.datetime.now(datetime.timezone.utc).hour >= 20
     if not force and (not after_close or state.get("_recap") == today): return
-    if discord(recap_text(call("/account"), call("/positions")), "paper"):
+    book = book_rows(json.load(open(os.path.join(DOCS, "data.json"))).get("open", []))
+    if discord(recap_text(call("/account"), call("/positions"), book), "paper"):
         state["_recap"] = today; json.dump(state, open(STATE, "w")); print("auto: recap posted")
 
 
@@ -147,8 +165,13 @@ if __name__ == "__main__":
         assert rs[0]["status"] == "closed" and rs[0]["pl_pct"] == "27.7" and rs[0]["exit"] == "351.28"
         r = recap_text({"equity": "100123.45", "cash": "97000"},
                        [{"symbol": "BE", "qty": "2", "cost_basis": "550.04", "market_value": "577.40"}])
-        assert "START $100,000.00" in r and "NOW <b>$100,123.45</b> · +$123.45 · +0.12%" in r
-        assert "$550.04 → <b>$577.40</b> · +$27.36 · +5.0%" in r
+        assert "START $100,000.00 → NOW <b>$100,123.45</b> · +$123.45 · +0.12%" in r
+        assert "BE 2 SH · $550.04 → <b>$577.40</b> · +$27.36 · +5%" in r
+        b = book_rows([dict(acct="small", kind="call", symbol="QCOM", strike="240", expiry="2026-11-20",
+                            contracts="1", entry="3.72", now=6.35),
+                       dict(acct="paper", kind="shares", symbol="MU", entry="1000.26", now=1082.28),
+                       dict(acct="paper-auto", kind="shares", symbol="BE", entry="275", now=288)])
+        assert b == [("QCOM 240C 11/20", 372.0, 635.0), ("MU 1 SH", 1000.26, 1082.28)], b
         print("autotrade ok")
     elif sys.argv[1:] == ["sync"]:
         sync(); recap()
