@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
-"""Paper auto-trader: Setup F with calls, on the Alpaca PAPER account ($100k). Runs after the scan.
+"""Paper auto-trader: pure Setup F, exactly as written, on the Alpaca PAPER account ($100k).
 
-Since 2026-09-26 (Arrington: "Setup F with calls ... test as if we had a 100k account"):
-  buy    each F fire -> the at-the-money call the scanner already picks (120 -> 45 days),
-         sized at 7% of account equity, his own position rule. One buy per name per 30 days.
-  sell   when the stock reaches the F target (the prior high), or 21 days before expiry,
-         whichever comes first. F has no stop, so the calls have none either.
-The 4 share positions bought 09-23/24 under the old $600-shares version keep their
-GTC sells and close on their own. Nothing but Setup F is ever traded here."""
+Since 2026-09-27 (Arrington: "lets do the pure setup F whatever it is"):
+  buy    each F fire -> shares at market, 7% of account equity (his own position rule).
+         One buy per name per 30 days.
+  hold   no stop. Target = the prior high, set at entry.
+  floor  when the stock REACHES the target, do not sell: place a stop at the target and
+         let it run. Sell only if it falls back to that floor, or after 252 sessions.
+Variants (LEAPS, calls) are for later, as separate books. The 4 share positions bought
+09-23/24 (acct paper-auto, $600 each) now follow the same floor rule."""
 import csv, json, os, re, sys, time, datetime, urllib.request
-from scan_daily import notify, discord, DOCS, TRADES, TCOLS, PLAN, affordable, occ, bars
+from scan_daily import notify, discord, DOCS, TRADES, TCOLS, PLAN, bars
 
 API = "https://paper-api.alpaca.markets/v2"     # ponytail: hard-coded paper; real money is a separate decision
 CAP = 600            # the old shares version, kept for sizing the Ideas share rows
 RISK = 0.07          # 7% of equity per trade -- Arrington's own rule, applied to $100k
-EXIT_DTE = 21        # sell calls this many days before expiry if the target has not hit
 STATE = os.path.expanduser("~/.ledger-auto.json")  # outside the public repo
 
 
@@ -26,33 +26,23 @@ def call(path, body=None, method=None):
     return json.load(urllib.request.urlopen(rq, timeout=20))
 
 
-def plan(fires, held, state, today):
+def plan(fires, held, state, today, budget=CAP):
     """Which F fires to buy, and how many shares. Pure, so it can be tested."""
     out = []
     for r in fires:
         sym, px = r["sym"], r["px"]
         last = state.get(sym)
         if sym in held or (last and (today - datetime.date.fromisoformat(last)).days < 30): continue
-        qty = int(CAP // px)
+        qty = int(budget // px)
         if qty >= 1: out.append(dict(sym=sym, qty=qty, px=px, tgt=round(r["tgt"], 2)))
     return out
 
 
-def plan_calls(fires, held, state, today, budget, pick=affordable):
-    """F fires -> (fire, contract) to buy. pick(sym, px, budget) is the scanner's own picker."""
-    out = []
-    for r in fires:
-        sym = r["sym"]; last = state.get("call:" + sym)
-        if sym in held or (last and (today - datetime.date.fromisoformat(last)).days < 30): continue
-        c = pick(sym, r["px"], budget)
-        if c and not c["over"] and c["n"] >= 1: out.append((r, c))
-    return out
-
-
-def exit_due(row, spot, today):
-    """Why a bot call should be sold now, or None. Target first, then time."""
-    if spot >= float(row["target"]): return "target"
-    if (datetime.date.fromisoformat(row["expiry"]) - today).days <= EXIT_DTE: return f"{EXIT_DTE} days left"
+def floor_action(row, highs_since, sessions, has_stop):
+    """What pure F wants done with an open position now. Pure, so it can be tested.
+    highs_since: daily highs after the entry date."""
+    if sessions >= 252: return "sell"                      # the time limit
+    if not has_stop and max(highs_since, default=0) >= float(row["target"]): return "floor"
     return None
 
 
@@ -66,60 +56,71 @@ def save(rs):
         for r in rs: w.writerow({k: r.get(k, "") for k in TCOLS})
 
 
-def log_buy(rs, t, fill, today):
+def log_buy(rs, t, fill, today, acct="paper-auto", note=None):
     """The bot's buy as a trades.csv row, so the page and the cards see it."""
-    rs.append(dict(id=f"{today}-{t['sym']}-auto", kind="shares", acct="paper-auto", opened=str(today),
-                   symbol=t["sym"], setup="F", entry=f"{fill:.2f}", target=f"{t['tgt']:.2f}",
+    rs.append(dict(id=f"{today}-{t['sym']}-{'auto' if acct == 'paper-auto' else 'f'}", kind="shares", acct=acct,
+                   opened=str(today), symbol=t["sym"], setup="F", entry=f"{fill:.2f}", target=f"{t['tgt']:.2f}",
                    contracts=str(t["qty"]), status="open",
-                   note=f"Paper bot. Setup F fired; {t['qty']} shares at market, GTC sell at the target."))
-
-
-def log_call(rs, r, c, fill, n, today):
-    rs.append(dict(id=f"{today}-{r['sym']}-fcall", kind="call", acct="bot", opened=str(today),
-                   symbol=r["sym"], setup="F", entry=f"{fill:.2f}", target=f"{r['tgt']:.2f}",
-                   strike=f"{c['strike']:g}", expiry=c["expiry"], contracts=str(n), status="open",
-                   note=f"F-calls bot. {n}x ${c['strike']:g}C {c['expiry']}, 7% of equity. "
-                        f"Sells at the stock target ${r['tgt']:.2f} or {EXIT_DTE} days before expiry."))
+                   note=note or f"Paper bot. Setup F fired; {t['qty']} shares at market, GTC sell at the target."))
 
 
 def close_filled(rs, sells):
     """sells: {symbol: (price, date)} for take-profit fills. Closes the matching open rows."""
     for r in rs:
-        if r.get("acct") == "paper-auto" and r["status"] == "open" and r["symbol"] in sells:
+        if r.get("acct") in ("paper-auto", "bot") and r["status"] == "open" and r["symbol"] in sells:
             px, day = sells[r["symbol"]]
             r.update(status="closed", closed=day, exit=f"{px:.2f}",
                      pl_pct=f"{(px / float(r['entry']) - 1) * 100:.1f}")
     return rs
 
 
+def fill_price(oid, fallback, wait=30):
+    """The broker's real fill. Polls up to `wait` seconds; None if it never filled."""
+    for _ in range(wait):
+        o = call(f"/orders/{oid}")
+        if o.get("filled_avg_price"): return float(o["filled_avg_price"])
+        if o.get("status") in ("canceled", "expired", "rejected"): return None
+        time.sleep(1)
+    return fallback
+
+
 def sync():
-    """Before the scan: any bot position Alpaca has sold is closed in trades.csv."""
-    rs = rows(); pos = {p["symbol"]: p for p in call("/positions")}; held = set(pos)
-    # a buy logged before its fill reported carries the scan price; the broker's average wins
-    for r in rs:
-        if r.get("acct") == "paper-auto" and r["status"] == "open" and r["symbol"] in pos:
-            r["entry"] = f"{float(pos[r['symbol']]['avg_entry_price']):.2f}"
-    want = {r["symbol"] for r in rs if r.get("acct") == "paper-auto" and r["status"] == "open"} - held
+    """Before the scan: real entries, floors at the target, the 252-session limit, and
+    closes for anything Alpaca has sold."""
+    rs = rows(); pos = {p["symbol"]: p for p in call("/positions")}
+    mine = [r for r in rs if r.get("acct") in ("paper-auto", "bot") and r["status"] == "open"]
+    for r in mine:   # a buy logged before its fill reported carries the scan price; the broker wins
+        if r["symbol"] in pos: r["entry"] = f"{float(pos[r['symbol']]['avg_entry_price']):.2f}"
+    if call("/clock")["is_open"]:
+        orders = call("/orders?status=open&nested=true")
+        for r in mine:
+            if r["symbol"] not in pos: continue
+            sym = r["symbol"]; mine_o = [o for o in orders if o["symbol"] == sym]
+            # the old $600 bot put a take-profit limit at the target; pure F floors instead
+            for o in mine_o:
+                if o["side"] == "sell" and o["type"] == "limit":
+                    call(f"/orders/{o['id']}", method="DELETE"); print(f"auto: {sym} take-profit removed, floor rule instead")
+            has_stop = any(o["side"] == "sell" and o["type"] == "stop" for o in mine_o)
+            after = [x for x in bars(sym, "2y") if x[0] > r["opened"]]
+            act = floor_action(r, [x[2] for x in after], len(after), has_stop)
+            qty = str(int(float(pos[sym]["qty"])))
+            if act == "floor":
+                call("/orders", dict(symbol=sym, qty=qty, side="sell", type="stop",
+                                     stop_price=r["target"], time_in_force="gtc"))
+                print(f"auto: {sym} reached ${r['target']} -- floor set there, letting it run")
+                notify(f"<b>🤖 PAPER · {sym} HIT TARGET ${float(r['target']):,.2f}</b>\n"
+                       f"FLOOR SET AT THE TARGET · LETTING IT RUN\n<i>pure Setup F · not real money</i>", "updates")
+            elif act == "sell":
+                for o in mine_o: call(f"/orders/{o['id']}", method="DELETE")
+                call("/orders", dict(symbol=sym, qty=qty, side="sell", type="market", time_in_force="day"))
+                print(f"auto: {sym} 252 sessions -- sold")
+    held = set(pos)
+    want = {r["symbol"] for r in mine} - held
     sells = {}
     for sym in want:
         o = [x for x in call(f"/orders?status=closed&symbols={sym}&direction=desc&limit=20")
              if x["side"] == "sell" and x["status"] == "filled"]
         if o: sells[sym] = (float(o[0]["filled_avg_price"]), o[0]["filled_at"][:10])
-    # calls: sell on target or time. Needs an open market; otherwise the next run does it.
-    if call("/clock")["is_open"]:
-        today = datetime.date.today()
-        for r in rs:
-            if r.get("acct") != "bot" or r["status"] != "open": continue
-            why = exit_due(r, bars(r["symbol"], "5d")[-1][1], today)
-            if not why: continue
-            o = call("/orders", dict(symbol=occ(r["symbol"], r["expiry"], r["strike"], pad=False),
-                                     qty=r["contracts"], side="sell", type="market", time_in_force="day"))
-            time.sleep(2); f = call(f"/orders/{o['id']}")
-            if f.get("filled_avg_price"):
-                px = float(f["filled_avg_price"])
-                r.update(status="closed", closed=str(today), exit=f"{px:.2f}",
-                         pl_pct=f"{(px / float(r['entry']) - 1) * 100:.1f}", note=r["note"] + f" Sold: {why}.")
-                print(f"auto: sold {r['symbol']} call ({why})")
     save(close_filled(rs, sells))
     if sells: print(f"auto: closed {sorted(sells)}")
 
@@ -173,7 +174,7 @@ def recap_text(acct, positions, trades, plan=PLAN, real=True):
     if show_real: L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
 
     eq = float(acct["equity"])
-    L += ["<b>🤖 SETUP F · CALLS</b>", head(START, eq)]
+    L += ["<b>🤖 SETUP F</b>", head(START, eq)]
     L += [row(occ_label(p["symbol"]) if len(p["symbol"]) > 6 else f"{p['symbol']} {int(float(p['qty']))} SH",
               float(p["cost_basis"]), float(p["market_value"])) for p in sorted(positions, key=lambda p: p["symbol"])] \
          or ["No open trades."]
@@ -186,7 +187,7 @@ def recap_text(acct, positions, trades, plan=PLAN, real=True):
     L += [row(lab, a, b) for (a, b, lab), r in sorted(zip(idd, ideas), key=lambda x: x[0][0] - x[0][1])
           if r["status"] == "open"]
     if done: L.append(f"closed: " + " · ".join(f"{lab} {S(b - a)}" for a, b, lab in done))
-    L += ["", "<i>F CALLS and IDEAS are paper · not real money</i>"]
+    L += ["", "<i>SETUP F and IDEAS are paper · not real money</i>"]
     return "\n".join(L)
 
 
@@ -209,44 +210,44 @@ def main():
     if not call("/clock")["is_open"]: return print("auto: market closed")
     d = json.load(open(os.path.join(DOCS, "data.json")))
     rs = rows()
-    # the legacy share positions do not block calls: this book tests F-with-calls on its own
-    held = {r["symbol"] for r in rs if r.get("acct") == "bot" and r["status"] == "open"}
+    held = {r["symbol"] for r in rs if r.get("acct") in ("bot", "paper-auto") and r["status"] == "open"}
     state = json.load(open(STATE)) if os.path.exists(STATE) else {}
     today = datetime.date.today()
     budget = float(call("/account")["equity"]) * RISK
-    for r, c in plan_calls(d["F"], held, state, today, budget):
+    for t in plan(d["F"], held, state, today, budget):
         try:
-            o = call("/orders", dict(symbol=occ(r["sym"], c["expiry"], c["strike"], pad=False),
-                                     qty=str(c["n"]), side="buy", type="market", time_in_force="day"))
-            time.sleep(2)
-            fill = float(call(f"/orders/{o['id']}").get("filled_avg_price") or c["px"])
-            state["call:" + r["sym"]] = str(today); log_call(rs, r, c, fill, c["n"], today)
-            when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d").upper()
-            notify(f"<b>🤖 PAPER BOUGHT {r['sym']} ${r['px']:,.2f}</b>\n"
-                   f"{when} · {c['n']} × ${c['strike']:g} CALL{'S' if c['n'] != 1 else ''} · ${fill:,.2f}\n"
-                   f"${fill * 100 * c['n']:,.0f} TOTAL · 7% OF $100K\n"
-                   f"SELL AT STOCK ${r['tgt']:,.2f} OR {EXIT_DTE} DAYS BEFORE EXPIRY\n"
-                   f"<i>Setup F with calls · Alpaca paper · not real money</i>", "trades")
-            print(f"auto: bought {c['n']} {r['sym']} {c['strike']:g}C {c['expiry']}")
+            o = call("/orders", dict(symbol=t["sym"], qty=str(t["qty"]), side="buy", type="market", time_in_force="day"))
+            fill = fill_price(o["id"], None)
+            if fill is None: print(f"auto: {t['sym']} buy did not fill"); continue
+            state[t["sym"]] = str(today)
+            log_buy(rs, t, fill, today, acct="bot",
+                    note=f"Pure Setup F. {t['qty']} shares, 7% of equity. Target ${t['tgt']:.2f}; no stop; "
+                         f"floor at the target once reached; out at 252 sessions.")
+            notify(f"<b>🤖 PAPER BOUGHT {t['sym']} ${fill:,.2f}</b>\n"
+                   f"{t['qty']} SHARES · ${t['qty'] * fill:,.0f} · 7% OF THE ACCOUNT\n"
+                   f"TARGET ${t['tgt']:,.2f} · +{(t['tgt'] / fill - 1) * 100:.0f}% · NO STOP\n"
+                   f"<i>pure Setup F · Alpaca paper · not real money</i>", "trades")
+            print(f"auto: bought {t['qty']} {t['sym']} at {fill}, target {t['tgt']}")
         except Exception as e:
-            print(f"auto: {r['sym']} failed: {str(e)[:80]}")
+            print(f"auto: {t['sym']} failed: {str(e)[:80]}")
     json.dump(state, open(STATE, "w")); save(rs)
 
 
 if __name__ == "__main__":
     if os.environ.get("AUTOTEST"):
         t = datetime.date(2026, 9, 28)
-        C = dict(expiry="2027-01-15", strike=270, px=40.0, n=1, cost=4000, over=False)
-        pick = lambda sym, px, budget: None if sym == "BIG" else C
-        f = [dict(sym="BE", px=274, tgt=351.28), dict(sym="NOW", px=140, tgt=194.73), dict(sym="BIG", px=900, tgt=1000)]
-        p = plan_calls(f, {"NOW"}, {"call:BE": "2026-09-10", "HOOD": "2026-09-27"}, t, 7000, pick)
-        assert p == [], p                                   # BE bought 18 days ago, NOW held, BIG unaffordable
-        p = plan_calls(f, set(), {}, t, 7000, pick); assert [x[0]["sym"] for x in p] == ["BE", "NOW"], p
-        row = dict(target="351.28", expiry="2027-01-15")
-        assert exit_due(row, 352, t) == "target" and exit_due(row, 300, t) is None
-        assert exit_due(row, 300, datetime.date(2026, 12, 26)) == "21 days left"
-        rs = []; log_call(rs, f[0], C, 40.0, 1, t)
-        assert rs[0]["acct"] == "bot" and rs[0]["kind"] == "call" and rs[0]["strike"] == "270"
+        f = [dict(sym="BE", px=274, tgt=351.28), dict(sym="NOW", px=140, tgt=194.73), dict(sym="BIG", px=9000, tgt=10000)]
+        p = plan(f, {"NOW"}, {"BE": "2026-09-10"}, t, 7000)
+        assert p == [], p                                   # BE bought 18 days ago, NOW held, BIG > $7k a share
+        p = plan(f, set(), {}, t, 7000); assert [(x["sym"], x["qty"]) for x in p] == [("BE", 25), ("NOW", 50)], p
+        row = dict(target="351.28")
+        assert floor_action(row, [300, 340], 60, False) is None           # not there yet: hold, no stop
+        assert floor_action(row, [300, 352], 60, False) == "floor"        # touched the target: set the floor
+        assert floor_action(row, [300, 352], 61, True) is None            # floor already in place
+        assert floor_action(row, [300], 252, False) == "sell"             # the 252-session limit
+        rs = []; log_buy(rs, f[0] | {"qty": 25}, 274.0, t, acct="bot")
+        assert rs[0]["acct"] == "bot" and rs[0]["id"].endswith("-BE-f") and rs[0]["contracts"] == "25"
+        close_filled(rs, {"BE": (351.28, "2026-12-01")}); assert rs[0]["status"] == "closed"
         tr = [dict(acct="real", kind="shares", symbol="NOW", entry="138.26", now=140.26, contracts="1", status="open", opened="2026-09-24"),
               dict(acct="small", kind="call", symbol="QCOM", strike="240", expiry="2026-11-20", contracts="1",
                    entry="3.72", now=6.35, status="open"),
