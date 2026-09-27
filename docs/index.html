@@ -650,6 +650,9 @@ function fired(d){
   return out;
 }
 
+/* Three books since 2026-09-26: real money, the Setup-F-calls bot, and ideas. */
+const book=a=>({real:'real','paper-auto':'F bot',bot:'F bot',paper:'idea',small:'idea',big:'idea'})[a]||a;
+
 /* S&P 500 adds and drops. Index funds must buy what joins and sell what leaves,
    so these names move for reasons that have nothing to do with the setups. */
 function spChanges(d){
@@ -897,7 +900,7 @@ function position(r){
     r.kind==='shares'?['target', money(r.target)]:null,
     ['held', (r.sessions??'—')+' sessions'],
     ['opened', esc(r.opened)],
-    ['account', esc(r.acct)],
+    ['account', esc(book(r.acct))],
   ].filter(Boolean);
   return `<details class="pos">
     <summary>
@@ -1468,7 +1471,7 @@ function renderReport(d,state){
     <tbody>${r.positions.map(p=>`<tr${p.acct==='real'?' class="realmoney"':''}>
       <td><b>${esc(p.sym)}</b> ${p.kind==='call'?esc(p.strike)+'C':'shares'}${
         p.dte!=null?` <span class="z">${p.dte}d</span>`:''}</td>
-      <td class="z">${p.acct==='real'?'<span class="rt">real</span>':esc(p.acct)}</td>
+      <td class="z">${p.acct==='real'?'<span class="rt">real</span>':esc(book(p.acct))}</td>
       <td class="r z">${p.before==null?(p.isnew?'new':'—'):f2(p.before)}</td>
       <td class="r">${p.after==null?'—':f2(p.after)}</td>
       <td class="r ${(p.after_pl||0)>=0?'up':'dn'}">${pct(p.after_pl)}</td>

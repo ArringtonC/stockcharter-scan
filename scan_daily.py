@@ -541,7 +541,7 @@ def mark_trades():
             spot = b[-1][1]; entry = float(r["entry"]); tgt = float(r["target"] or 0)
             sessions = len(after)
             # the paper bot's broker orders own its exits; autotrade.py syncs them in
-            if r["status"] == "open" and r.get("acct") != "paper-auto":
+            if r["status"] == "open" and r.get("acct") not in ("paper-auto", "bot"):
                 if r["kind"] == "shares":
                     # arm a floor at the target the first time the high touches it;
                     # close only if a later low falls back to that floor (or at 252)
@@ -978,7 +978,7 @@ def alert_key(d, open_):
                   if r.get("kind") == "call" and (r.get("dte") or 99) <= 21)
     steps = sorted(f"{r['symbol']}{int((r.get('pl_pct') or 0) // 10)}{'!' if (r.get('dte') or 99) <= 7 else ''}"
                    f"{'^' if (r.get('to_target') if r.get('to_target') is not None else 99) <= 5 else ''}"
-                   for r in open_ if r.get("acct") in ("real", "paper-auto"))
+                   for r in open_ if r.get("acct") in ("real", "paper-auto", "bot"))
     return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps,
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
@@ -1183,13 +1183,13 @@ def summary(d, open_, closed=(), parts=False):
     # every real position, where it started and where it is
     U = []
     for r in open_:
-        if r["acct"] not in ("real", "paper-auto"): continue
+        if r["acct"] not in ("real", "paper-auto", "bot"): continue
         n = int(r.get("contracts") or 1)
         mult = 100 if r.get("kind") == "call" else 1
         a, b = float(r["entry"]) * mult * n, (r.get("now") or 0) * mult * n
         head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
                else f"{r['symbol']} · {n} SHARES"
-        bot = " · 🤖 PAPER" if r["acct"] == "paper-auto" else ""
+        bot = " · 🤖 PAPER" if r["acct"] in ("paper-auto", "bot") else ""
         U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>{bot}", head,
               f"{D(a)} → <b>{D(b)}</b>",
               f"{'+' if b >= a else '−'}{D(abs(b - a))} · {r['pl_pct']:+.0f}%"
@@ -1202,10 +1202,10 @@ def summary(d, open_, closed=(), parts=False):
     # the trade log first (it knows the expiry), TAKEN only for anything the log lacks
     done = []
     for r in closed:
-        if r.get("acct") not in ("real", "paper-auto") or r.get("closed") != d["date"]: continue
+        if r.get("acct") not in ("real", "paper-auto", "bot") or r.get("closed") != d["date"]: continue
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
-        done.append(dict(bot=r["acct"] == "paper-auto", sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
+        done.append(dict(bot=r["acct"] in ("paper-auto", "bot"), sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
     seen = {t["sym"] for t in done}
     done += [t for t in d.get("taken", []) if t.get("closed") == d["date"] and t["sym"] not in seen]
