@@ -625,7 +625,7 @@ PLAN = dict(start=8355.13, deposit=1000.0, target=30000.0,
             target_date="2027-12-01", started="2026-09-20",
             balance=9675.16, balance_as_of="2026-09-26",   # Schwab: $6,698.25 cash + $2,976.91 positions
             # add {"date": "2026-10-01", "amt": 1000} each time one lands
-            deposits=[])
+            deposits=[{"date": "2026-09-22", "amt": 1200.0}])   # ACH into Futures ...116
 
 
 REPORT_STATE = os.path.join(DOCS, ".report-state.json")

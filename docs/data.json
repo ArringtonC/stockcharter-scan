@@ -1,6 +1,6 @@
 {
  "date": "2026-09-26",
- "stamp": "2026-09-27 01:37 UTC",
+ "stamp": "2026-09-27 01:54 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -2429,27 +2429,6 @@
    }
   ],
   "by_setup": {
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -3.6284429234798634
-   },
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 12,
-    "open_mean": -4.519164489409465
-   },
-   "none": {
-    "wins": 1,
-    "losses": 1,
-    "closed_mean": 20.55,
-    "open_n": 3,
-    "open_mean": 8.151350357479314
-   },
    "C": {
     "wins": 0,
     "losses": 0,
@@ -2463,6 +2442,27 @@
     "closed_mean": null,
     "open_n": 7,
     "open_mean": -8.416950122830034
+   },
+   "none": {
+    "wins": 1,
+    "losses": 1,
+    "closed_mean": 20.55,
+    "open_n": 3,
+    "open_mean": 8.151350357479314
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 12,
+    "open_mean": -4.519164489409465
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -3.6284429234798634
    }
   },
   "produced": [
@@ -28201,8 +28201,13 @@
    "pct": 32.3,
    "to_go": 20325,
    "target_date": "2027-12-01",
-   "floor": 8355,
-   "deposits": [],
+   "floor": 9555,
+   "deposits": [
+    {
+     "date": "2026-09-22",
+     "amt": 1200.0
+    }
+   ],
    "need": 443,
    "as_of": "2026-09-26"
   }
