@@ -1268,7 +1268,8 @@ if __name__ == "__main__":
         else:
             notify(text(), discord_too=False)            # Telegram: one trade report
             # Discord may have other members: no real-money cards there, Telegram only
-            pub = lambda R: [r for r in R if r.get("acct") != "real"]
-            for route, part in summary({**d, "taken": []}, pub(open_), pub(closed), parts=True).items():
+            from autotrade import SHARE_REAL
+            pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
+            for route, part in summary(d if SHARE_REAL else {**d, "taken": []}, pub(open_), pub(closed), parts=True).items():
                 if part: discord(part, route)            # Discord: one post per channel
         print(f"  {label} pushed ({why})")

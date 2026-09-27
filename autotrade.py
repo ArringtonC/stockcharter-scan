@@ -124,6 +124,8 @@ def sync():
     if sells: print(f"auto: closed {sorted(sells)}")
 
 
+# Arrington 2026-09-26: "we can do the real portfolio ... IDC". Flip to False if others join.
+SHARE_REAL = True
 START = 100_000.0   # the paper account's opening balance
 
 
@@ -199,7 +201,7 @@ def recap(force=False):
     # Discord is a server other people may join: paper books only. The real account goes to
     # the private Telegram chat and nowhere else.
     notify(recap_text(acct, pos, tr), discord_too=False)
-    if discord(recap_text(acct, pos, tr, real=False), "paper"):
+    if discord(recap_text(acct, pos, tr, real=SHARE_REAL), "paper"):
         state["_recap"] = today; json.dump(state, open(STATE, "w")); print("auto: recap posted")
 
 
