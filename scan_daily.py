@@ -939,7 +939,7 @@ def market(d, open_):
             heads += [html.unescape(t) for t in re.findall(r"<item>.*?<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", x, re.S)]
         # war and diplomacy move oil and rates before the numbers do; they rank first
         geo = re.compile(r"\b(iran|israel|russia|ukraine|china|xi|opec|war|strike|sanction|peace|ceasefire)", re.I)
-        mkt = re.compile(r"yield|rate|fed|warsh|oil|crude|stock|futures|nasdaq|s&p|dow|inflation|cpi|jobs|treasur|tariff|chip", re.I)
+        mkt = re.compile(r"\b(yields?|rates?|fed|warsh|oil|crude|stocks?|futures|nasdaq|s&p|dow|inflation|cpi|jobs|treasur\w*|tariffs?|chips?)\b", re.I)
         u = list(dict.fromkeys(heads))
         m["heads"] = ([h for h in u if geo.search(h)][:2] + [h for h in u if mkt.search(h) and not geo.search(h)])[:3]
     except Exception:
