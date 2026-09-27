@@ -937,8 +937,11 @@ def market(d, open_):
                   "https://www.cnbc.com/id/20910258/device/rss/rss.html"):
             x = urllib.request.urlopen(urllib.request.Request(u, headers=YF), timeout=20).read().decode()
             heads += [html.unescape(t) for t in re.findall(r"<item>.*?<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", x, re.S)]
-        key = re.compile(r"yield|rate|fed|oil|crude|stock|futures|nasdaq|s&p|dow|inflation|cpi|jobs|treasur|tariff|chip", re.I)
-        m["heads"] = [h for h in dict.fromkeys(heads) if key.search(h)][:2]
+        # war and diplomacy move oil and rates before the numbers do; they rank first
+        geo = re.compile(r"\b(iran|israel|russia|ukraine|china|xi|opec|war|strike|sanction|peace|ceasefire)", re.I)
+        mkt = re.compile(r"yield|rate|fed|warsh|oil|crude|stock|futures|nasdaq|s&p|dow|inflation|cpi|jobs|treasur|tariff|chip", re.I)
+        u = list(dict.fromkeys(heads))
+        m["heads"] = ([h for h in u if geo.search(h)][:2] + [h for h in u if mkt.search(h) and not geo.search(h)])[:3]
     except Exception:
         m["heads"] = []
     # is the 10-year at a multi-year high? (monthly history, highest-since year)
