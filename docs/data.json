@@ -1,6 +1,6 @@
 {
  "date": "2026-09-27",
- "stamp": "2026-09-27 21:31 UTC",
+ "stamp": "2026-09-27 23:31 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -1388,12 +1388,12 @@
   "USO": -3.109282121627799,
   "USO_px": 148.33,
   "USO_chg": -4.759999999999991,
-  "NQ=F": 0.0,
-  "NQ=F_px": 30889.25,
-  "NQ=F_chg": 0.0,
-  "CL=F": 0.0,
-  "CL=F_px": 92.41,
-  "CL=F_chg": 0.0,
+  "NQ=F": -0.2104291946227299,
+  "NQ=F_px": 30824.25,
+  "NQ=F_chg": -65.0,
+  "CL=F": 1.255275403094891,
+  "CL=F_px": 93.57,
+  "CL=F_chg": 1.1599999999999966,
   "^TNX": 0.42619139868269595,
   "^TNX_px": 5.184,
   "^TNX_chg": 0.02200000000000024,
@@ -1403,6 +1403,44 @@
   "exp_by": "Fri",
   "QQQ_exp": 13.995,
   "SPY_exp": 9.725000000000001,
+  "fut": [
+   [
+    "S&P",
+    7785.0,
+    -0.24026910139356428,
+    true
+   ],
+   [
+    "Nasdaq",
+    30824.25,
+    -0.2104291946227299,
+    true
+   ],
+   [
+    "Dow",
+    52004.0,
+    -0.3048137568774756,
+    true
+   ],
+   [
+    "Russell",
+    2847.39990234375,
+    -0.4161908957142191,
+    true
+   ],
+   [
+    "Oil",
+    93.56999969482422,
+    1.2552710602158346,
+    true
+   ],
+   [
+    "Gold",
+    4299.7001953125,
+    -0.497546955202921,
+    true
+   ]
+  ],
   "QQQ_pre": [
    744.5,
    745.4
@@ -1420,7 +1458,8 @@
    14.869999885559082
   ],
   "heads": [
-   "At NFL games this season, drone defense tech aims to bring down disruptions",
+   "Iran's foreign minister says Tehran ready for 'doomsday' war with U.S., but leaves diplomacy on the table",
+   "Trump, Xi wrap state visit centered on spectacle over substance. Here are the top takeaways",
    "Debt-hungry AI companies face increased risk as bond yields spike"
   ],
   "tnx_since": "2007",
