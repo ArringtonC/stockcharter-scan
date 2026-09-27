@@ -919,6 +919,7 @@ def market(d, open_):
             if c and p: m[s + "_exp"] = c + p
         except Exception:
             pass
+    m["fut"] = futures()
     # premarket last trade vs yesterday's close, for the price lines
     for s in ("QQQ", "SPY", "USO", "^VIX"):
         try:
@@ -959,6 +960,34 @@ def market(d, open_):
         if len(b) > 1 and b[-1][0] == d["date"]: mv.append((s, (b[-1][1] / b[-2][1] - 1) * 100))
     m["movers"] = sorted(mv, key=lambda x: -abs(x[1]))[:3]
     return m
+
+
+FUTS = [("ES=F", "S&P"), ("NQ=F", "Nasdaq"), ("YM=F", "Dow"), ("RTY=F", "Russell"), ("CL=F", "Oil"), ("GC=F", "Gold")]
+
+
+def session_start(now):
+    """Most recent CME open: 5 PM Central, Sunday through Thursday."""
+    t = now.replace(hour=17, minute=0, second=0, microsecond=0)
+    if t > now: t -= datetime.timedelta(days=1)
+    while t.weekday() in (4, 5): t -= datetime.timedelta(days=1)   # no session opens Fri or Sat
+    return t
+
+
+def futures(now=None):
+    """[(name, price, % vs the prior session's close, trading now?)] for the main futures."""
+    ct = ZoneInfo("America/Chicago"); now = now or datetime.datetime.now(ct); s0 = session_start(now)
+    out = []
+    for sym, name in FUTS:
+        try:
+            q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=5d&interval=15m")["chart"]["result"][0]
+            pts = [(datetime.datetime.fromtimestamp(t, ct), c) for t, c in zip(q["timestamp"], q["indicators"]["quote"][0]["close"]) if c]
+            last = pts[-1]; live = last[0] >= s0
+            base = s0 if live else session_start(s0 - datetime.timedelta(minutes=1))
+            prev = [c for t, c in pts if t < base]
+            if prev: out.append((name, last[1], (last[1] / prev[-1] - 1) * 100, live))
+        except Exception:
+            pass
+    return out
 
 
 def move_bucket(m):
@@ -1064,12 +1093,17 @@ def writeup(d, m, pre=True):
     """Plain sentences from the numbers, the way a person would brief it. Rules, not AI.
     Before the open it leads with futures; during the day with QQQ's move so far."""
     W, P = [], []
-    nq = m.get("NQ=F") if pre else None
+    # the 15-minute futures series knows about the Sunday open; the daily quote does not
+    nq = next((c for n, p, c, live in m.get("fut") or [] if n == "Nasdaq"), m.get("NQ=F")) if pre else None
     q = m.get("QQQ")
     if not pre and q is not None:
         size = "a big day" if abs(q) >= 1 else "a normal day" if abs(q) >= 0.3 else "a quiet day"
         P.append(f"<b>QQQ is {'up' if q > 0 else 'down'} {abs(q):.1f}% today</b>, {size}.")
-    if nq is not None:
+    nq_live = next((live for n, p, c, live in m.get("fut") or [] if n == "Nasdaq"), True)
+    if nq is not None and not nq_live:   # weekend: say what the last session did, not "an open"
+        P.append(f"<b>Futures are closed until Sunday 5 PM CT.</b> The last session, Nasdaq futures "
+                 f"{'rose' if nq > 0 else 'fell'} {abs(nq):.1f}%.")
+    elif nq is not None:
         size = "a big open" if abs(nq) >= 1 else "a normal open" if abs(nq) >= 0.3 else "a flat open"
         P.append(f"<b>Nasdaq futures are {'up' if nq > 0 else 'down'} {abs(nq):.1f}%</b>, {size}.")
     r, rc = m.get("^TNX_px"), m.get("^TNX_chg")
@@ -1091,6 +1125,11 @@ def writeup(d, m, pre=True):
     if m.get("heads"): W += [""] + [f"· <i>{h}</i>" for h in m["heads"]]
     if not pre and move_bucket(m) and m.get("movers"):
         W += ["", "Biggest basket moves: " + " · ".join(f"{s} {v:+.1f}%" for s, v in m["movers"])]
+    fut = m.get("fut") or []
+    if pre and fut:
+        live = any(f[3] for f in fut)
+        W += ["", "<b>FUTURES</b>" + ("" if live else " · closed, last session")]
+        W += [f"{n} {p:,.2f} {c:+.1f}%" for n, p, c, _ in fut]
     # yesterday's close -> now, the same arrow as the trade cards
     W.append("")
     for s in ("QQQ", "SPY", "USO", "^VIX"):
@@ -1127,8 +1166,10 @@ def market_report(d):
     M = []
     m = d.get("market", {})
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    pre = (ny.hour, ny.minute) < (9, 30)
-    head = ("PREMARKET REPORT" if pre else
+    weekend = ny.weekday() >= 5
+    pre = weekend or (ny.hour, ny.minute) < (9, 30)   # on weekends the futures are the only live market
+    head = (("SUNDAY FUTURES" if ny.weekday() == 6 and ny.hour >= 18 else "WEEKEND REPORT") if weekend else
+            "PREMARKET REPORT" if pre else
             f"{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY" if move_bucket(m) else "MARKET REPORT")
     M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + ["", "<i>not a signal</i>"]
     return "\n".join(M)

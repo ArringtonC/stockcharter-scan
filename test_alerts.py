@@ -82,3 +82,11 @@ pub = lambda R: [r for r in R if r.get("acct") != "real"]
 p = S.summary({**base(), "taken": []}, pub([live_real]), pub([row]), parts=True)
 assert not p["updates"] and not p["ledger"], p
 print("private ok")
+
+# futures sessions: CME opens 5 PM Central Sunday-Thursday
+ct = S.ZoneInfo("America/Chicago"); D = datetime.datetime
+assert S.session_start(D(2026, 9, 28, 8, 0, tzinfo=ct)) == D(2026, 9, 27, 17, 0, tzinfo=ct)   # Mon morning -> Sun open
+assert S.session_start(D(2026, 9, 27, 12, 0, tzinfo=ct)) == D(2026, 9, 24, 17, 0, tzinfo=ct)  # Sun noon -> Thu open
+assert S.session_start(D(2026, 9, 27, 17, 30, tzinfo=ct)) == D(2026, 9, 27, 17, 0, tzinfo=ct) # Sun after the open
+w = "\n".join(S.writeup(base(), {"fut": [("S&P", 7803.75, -0.3, True)]}, True)); assert "<b>FUTURES</b>\nS&P 7,803.75 -0.3%" in w
+print("futures ok")
