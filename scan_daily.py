@@ -623,7 +623,7 @@ def week(d, hist, closed, open_):
 # $8,500 the plan was drafted with was an estimate; this is the account.
 PLAN = dict(start=8355.13, deposit=1000.0, target=30000.0,
             target_date="2027-12-01", started="2026-09-20",
-            balance=8355.13, balance_as_of="2026-09-20",
+            balance=9675.16, balance_as_of="2026-09-26",   # Schwab: $6,698.25 cash + $2,976.91 positions
             # add {"date": "2026-10-01", "amt": 1000} each time one lands
             deposits=[])
 

@@ -207,12 +207,12 @@
   {
    "week": "2026-W39",
    "date": "2026-09-26",
-   "balance": 8355.13,
-   "real_pl": -1.9,
+   "balance": 9675.16,
+   "real_pl": 5.7,
    "paper_pl": 2.1,
    "real_net": -156,
-   "open_n": 24,
-   "real_n": 1,
+   "open_n": 27,
+   "real_n": 4,
    "fired": 6,
    "sessions": 6,
    "pos": {
@@ -442,7 +442,7 @@
      "strike": "",
      "dte": null,
      "now": 135.6199951171875,
-     "pl": -1.9094495029744585,
+     "pl": -1.8029142587882907,
      "acct": "real",
      "setup": "F"
     },
@@ -455,6 +455,36 @@
      "pl": 85.8793324775353,
      "acct": "big",
      "setup": "C"
+    },
+    "2026-09-26-SG-real": {
+     "sym": "SG",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 8.239999771118164,
+     "pl": 18.72172104887422,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-26-SG-3c-real": {
+     "sym": "SG",
+     "kind": "call",
+     "strike": "3",
+     "dte": 482,
+     "now": 5.779999999999999,
+     "pl": 24.12489799424471,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-26-SNAP-5c-real": {
+     "sym": "SNAP",
+     "kind": "call",
+     "strike": "5",
+     "dte": 482,
+     "now": 1.915,
+     "pl": -18.392567970680986,
+     "acct": "real",
+     "setup": "none"
     }
    }
   }

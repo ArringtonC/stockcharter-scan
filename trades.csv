@@ -25,5 +25,8 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-23-BE-auto,shares,paper-auto,2026-09-23,BE,F,275.02,351.28,,,2,open,,,,"Paper bot. Setup F fired; 2 shares at market, GTC sell at the target."
 2026-09-24-HOOD-auto,shares,paper-auto,2026-09-24,HOOD,F,122.36,153.86,,,4,open,,,,"Paper bot. Setup F fired; 4 shares at market, GTC sell at the target."
 2026-09-24-SHOP-auto,shares,paper-auto,2026-09-24,SHOP,F,142.56,182.19,,,4,open,,,,"Paper bot. Setup F fired; 4 shares at market, GTC sell at the target."
-2026-09-24-NOW-real,shares,real,2026-09-24,NOW,F,138.26,194.73,,,1,open,,,,"REAL. 1 share of NOW on the Setup F fire, target the prior high $194.73, no stop. Price logged at the 9:10 scan ($138.26); fix if the fill differed."
+2026-09-24-NOW-real,shares,real,2026-09-24,NOW,F,138.11,194.73,,,1,open,,,,"REAL. 1 share of NOW on the Setup F fire, target the prior high $194.73, no stop. Fill $138.11 per Schwab."
 2026-09-11-QCOM-175c,call,big,2026-09-11,QCOM,C,15.58,,175,2026-10-16,1,open,,,,"The QCOM call quoted 09-11: $175C Oct-16 at $1,558, QCOM $183.89, Setup C fired. 0.67 delta, 43% time value, over the $600 cap. Tracked as paper."
+2026-09-26-SG-real,shares,real,2026-09-26,SG,none,6.9406,,,,228,open,,,,REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded.
+2026-09-26-SG-3c-real,call,real,2026-09-26,SG,none,4.6566,,3,2028-01-21,1,open,,,,REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded.
+2026-09-26-SNAP-5c-real,call,real,2026-09-26,SNAP,none,2.3466,,5,2028-01-21,2,open,,,,REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded.

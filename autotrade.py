@@ -161,7 +161,11 @@ def recap_text(acct, positions, trades, plan=PLAN):
     real = [r for r in trades if r.get("acct") == "real" and (r["status"] == "open" or r.get("closed", "") >= plan["started"])]
     rd = [dollars(r, CAP) for r in real]
     start = plan["start"] + sum(x["amt"] for x in plan.get("deposits", []))
-    L += ["<b>💵 REAL</b>", head(start, start + sum(b - a for a, b, _ in rd))]
+    # the broker's own balance when we have one; trade math only adds what opened since then
+    now_real = plan.get("balance", start) + sum(b - a for (a, b, _), r in zip(rd, real)
+                                                 if r.get("opened", "") > plan.get("balance_as_of", ""))
+    L += ["<b>💵 REAL</b>", head(start, now_real)
+          + (f" · Schwab {plan['balance_as_of'][5:].replace('-', '/')}" if plan.get("balance_as_of") else "")]
     L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
 
     eq = float(acct["equity"])
@@ -235,14 +239,14 @@ if __name__ == "__main__":
         assert exit_due(row, 300, datetime.date(2026, 12, 26)) == "21 days left"
         rs = []; log_call(rs, f[0], C, 40.0, 1, t)
         assert rs[0]["acct"] == "bot" and rs[0]["kind"] == "call" and rs[0]["strike"] == "270"
-        tr = [dict(acct="real", kind="shares", symbol="NOW", entry="138.26", now=140.26, contracts="1", status="open"),
+        tr = [dict(acct="real", kind="shares", symbol="NOW", entry="138.26", now=140.26, contracts="1", status="open", opened="2026-09-24"),
               dict(acct="small", kind="call", symbol="QCOM", strike="240", expiry="2026-11-20", contracts="1",
                    entry="3.72", now=6.35, status="open"),
               dict(acct="paper", kind="call", symbol="BABA", strike="109", expiry="2026-10-02", contracts="1",
                    entry="4.25", exit="8.35", status="closed", closed="2026-09-21")]
         r = recap_text({"equity": "100500"}, [{"symbol": "BE270115C00270000", "qty": "1", "cost_basis": "4000", "market_value": "4500"}],
-                       tr, dict(start=8355.13, started="2026-09-20", deposits=[]))
-        assert "START $8,355.13 → NOW <b>$8,357.13</b> · +$2.00" in r, r
+                       tr, dict(start=8355.13, started="2026-09-20", deposits=[], balance=8355.13, balance_as_of="2026-09-20"))
+        assert "START $8,355.13 → NOW <b>$8,357.13</b> · +$2.00 · +0.02% · Schwab 09/20" in r, r
         assert "BE 270C 01/15 · $4,000.00 → <b>$4,500.00</b>" in r
         assert "💡 IDEAS</b>\nSTART $100,000.00 → NOW <b>$100,673.00</b> · +$673.00" in r, r
         assert "closed: BABA 109C 10/02 +$410.00" in r

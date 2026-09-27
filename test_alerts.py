@@ -2,6 +2,7 @@
 import datetime, os, tempfile, scan_daily as S
 today = str(datetime.date.today())
 S.ALERT_STATE = os.path.join(tempfile.mkdtemp(), "state.json")
+S.PLAN = {**S.PLAN, "balance": 8355.13}   # pins the 7% cap at $600 for these checks
 # pin the clock mid-session so the closing-run rule (always push after 3pm ET) cannot fire
 class _DT(datetime.datetime):
     @classmethod
