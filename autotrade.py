@@ -247,7 +247,8 @@ def recap(force=False):
     state = json.load(open(STATE)) if os.path.exists(STATE) else {}
     today = str(datetime.date.today())
     after_close = datetime.datetime.now(datetime.timezone.utc).hour >= 20
-    if not force and (not after_close or state.get("_recap") == today): return
+    weekday = datetime.date.today().weekday() < 5    # no recap on weekends: nothing traded
+    if not force and (not weekday or not after_close or state.get("_recap") == today): return
     d = json.load(open(os.path.join(DOCS, "data.json")))
     acct, pos, tr = call("/account"), call("/positions"), d.get("open", []) + d.get("closed", [])
     # Discord is a server other people may join: paper books only. The real account goes to

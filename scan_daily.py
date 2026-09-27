@@ -1304,10 +1304,12 @@ if __name__ == "__main__":
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
     # two messages: the market, then the trades. Each sends only when it has news.
+    sunday = datetime.datetime.now(ZoneInfo("America/Chicago")).weekday() == 6
     for label, (send, why), text in (
             ("market", should_push(d, open_, "mkt", market_key(d)), lambda: market_report(d)),
             ("trades", should_push(d, open_), lambda: summary(d, open_, closed))):
         if not send: print(f"  {label}: no push — {why}"); continue
+        if sunday and label == "trades": print("  trades: Sunday -- market report only"); continue
         if label == "market": notify(text(), "market")
         else:
             notify(text(), discord_too=False)            # Telegram: one trade report
