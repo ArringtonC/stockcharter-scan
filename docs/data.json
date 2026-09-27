@@ -1,6 +1,6 @@
 {
  "date": "2026-09-27",
- "stamp": "2026-09-27 16:43 UTC",
+ "stamp": "2026-09-27 19:42 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 14.869999885559082,
@@ -1388,15 +1388,15 @@
   "USO": -3.109282121627799,
   "USO_px": 148.33,
   "USO_chg": -4.759999999999991,
-  "NQ=F": 0.39815710141630767,
+  "NQ=F": 0.0,
   "NQ=F_px": 30889.25,
-  "NQ=F_chg": 122.5,
-  "CL=F": -2.3253355882042137,
+  "NQ=F_chg": 0.0,
+  "CL=F": 0.0,
   "CL=F_px": 92.41,
-  "CL=F_chg": -2.200000000000003,
-  "^TNX": 0.426197235152892,
+  "CL=F_chg": 0.0,
+  "^TNX": 0.42619139868269595,
   "^TNX_px": 5.184,
-  "^TNX_chg": 0.022000300000000195,
+  "^TNX_chg": 0.02200000000000024,
   "^VIX": -5.105296745373334,
   "^VIX_px": 14.87,
   "^VIX_chg": -0.8000000000000007,
@@ -1420,8 +1420,8 @@
    14.869999885559082
   ],
   "heads": [
-   "Debt-hungry AI companies face increased risk as bond yields spike",
-   "At NFL games this season, drone defense tech aims to bring down disruptions"
+   "At NFL games this season, drone defense tech aims to bring down disruptions",
+   "Debt-hungry AI companies face increased risk as bond yields spike"
   ],
   "tnx_since": "2007",
   "movers": []
@@ -2651,19 +2651,19 @@
     "open_n": 12,
     "open_mean": -4.519164489409465
    },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -3.6284429234798634
-   },
    "none": {
     "wins": 2,
     "losses": 2,
     "closed_mean": 9.700000000000001,
     "open_n": 3,
     "open_mean": 8.151350357479314
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -3.6284429234798634
    },
    "C": {
     "wins": 0,
