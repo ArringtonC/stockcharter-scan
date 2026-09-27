@@ -209,9 +209,9 @@
    "date": "2026-09-26",
    "balance": 8355.13,
    "real_pl": -1.9,
-   "paper_pl": -1.7,
+   "paper_pl": 2.1,
    "real_net": -156,
-   "open_n": 23,
+   "open_n": 24,
    "real_n": 1,
    "fired": 6,
    "sessions": 6,
@@ -445,6 +445,16 @@
      "pl": -1.9094495029744585,
      "acct": "real",
      "setup": "F"
+    },
+    "2026-09-11-QCOM-175c": {
+     "sym": "QCOM",
+     "kind": "call",
+     "strike": "175",
+     "dte": 20,
+     "now": 28.96,
+     "pl": 85.8793324775353,
+     "acct": "big",
+     "setup": "C"
     }
    }
   }
