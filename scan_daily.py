@@ -1020,9 +1020,14 @@ def to_discord(text):
     return html.unescape(t)
 
 
-def discord(text):
-    """Post to a Discord channel webhook (DISCORD_WEBHOOK). Unset means it does nothing."""
-    url = os.environ.get("DISCORD_WEBHOOK")
+# channel -> env var holding that channel's webhook. Any unset one falls back to DISCORD_WEBHOOK.
+ROUTES = {"market": "DISCORD_WEBHOOK_MARKET", "trades": "DISCORD_WEBHOOK_TRADES",
+          "updates": "DISCORD_WEBHOOK_UPDATES", "ledger": "DISCORD_WEBHOOK_LEDGER"}
+
+
+def discord(text, route=None):
+    """Post to a Discord channel webhook. Unset means it does nothing."""
+    url = os.environ.get(ROUTES.get(route, "")) or os.environ.get("DISCORD_WEBHOOK")
     if not url: return False
     try:
         urllib.request.urlopen(urllib.request.Request(
@@ -1034,8 +1039,8 @@ def discord(text):
         return False
 
 
-def notify(text):
-    discord(text)
+def notify(text, route=None, discord_too=True):
+    if discord_too: discord(text, route)
     tok, chat = os.environ.get("TELEGRAM_TOKEN"), os.environ.get("TELEGRAM_CHAT")
     if not (tok and chat): return False
     try:
@@ -1134,7 +1139,7 @@ def left(dte, today=None):
     return f"<b>⚠ {dte}d left</b>" if dte <= 10 else f"{dte}d left"
 
 
-def summary(d, open_, closed=()):
+def summary(d, open_, closed=(), parts=False):
     """BUY -> UPDATE -> CLOSED. One job per line, so the whole thing reads without
     doing any arithmetic: what it is, what to do, what it is worth."""
     cap = round(PLAN["balance"] * 0.07 / 50) * 50
@@ -1208,6 +1213,9 @@ def summary(d, open_, closed=()):
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
               f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
+    if parts:   # Discord splits the report by channel: new buys, movement, finished trades
+        j = lambda X: "\n".join(X).strip()
+        return dict(trades=j(["<b>NEW TRADES</b>", ""] + B) if B else "", updates=j(U), ledger=j(C))
     L = ["<b>TRADE REPORT</b>", ""] + C + B + U
     if not (C + B + U): L += ["NOTHING TO BUY TODAY", ""]
     while L and L[-1] == "": L.pop()
@@ -1254,5 +1262,10 @@ if __name__ == "__main__":
     for label, (send, why), text in (
             ("market", should_push(d, open_, "mkt", market_key(d)), lambda: market_report(d)),
             ("trades", should_push(d, open_), lambda: summary(d, open_, closed))):
-        if send and notify(text()): print(f"  {label} pushed to telegram ({why})")
-        elif not send: print(f"  {label}: no push — {why}")
+        if not send: print(f"  {label}: no push — {why}"); continue
+        if label == "market": notify(text(), "market")
+        else:
+            notify(text(), discord_too=False)            # Telegram: one trade report
+            for route, part in summary(d, open_, closed, parts=True).items():
+                if part: discord(part, route)            # Discord: one post per channel
+        print(f"  {label} pushed ({why})")

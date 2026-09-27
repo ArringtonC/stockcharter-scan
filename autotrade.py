@@ -97,7 +97,7 @@ def main():
             notify(f"<b>🤖 PAPER BOUGHT {t['sym']} ${t['px']:,.2f}</b>\n"
                    f"{t['qty']} SHARES · ${t['qty'] * t['px']:,.0f}\n"
                    f"SELL ORDER AT ${t['tgt']:,.2f} · +{(t['tgt'] / t['px'] - 1) * 100:.0f}%\n"
-                   f"<i>Alpaca paper account · not real money</i>")
+                   f"<i>Alpaca paper account · not real money</i>", "trades")
             print(f"auto: bought {t['qty']} {t['sym']}, sell at {t['tgt']}")
         except Exception as e:
             print(f"auto: {t['sym']} failed: {str(e)[:80]}")

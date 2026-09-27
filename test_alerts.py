@@ -68,3 +68,9 @@ sp = base(sp500=[dict(effective=today, added="BE", added_name="Bloom Energy", re
                       removed_name="Molson Coors", reason="", announced="")])
 w = "\n".join(S.writeup(sp, {}, True)); assert "<b>S&P 500:</b> <b>BE</b> (you scan it) joins" in w and "replacing <b>TAP</b>" in w
 print("sp500 line ok")
+
+# Discord routing: buys, movement and finished trades land in separate channels
+p = S.summary(base(F=[dict(sym="DEAR", px=140, tgt=195, up=39)]), [pos(-19, 58)], [row], parts=True)
+assert "BUY DEAR" in p["trades"] and "TRADE UPDATE" in p["updates"] and "TRADE CLOSED" in p["ledger"]
+assert "BUY" not in p["updates"] + p["ledger"] and "UPDATE" not in p["trades"]
+print("routing ok")

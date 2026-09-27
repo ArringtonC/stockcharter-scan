@@ -34,6 +34,10 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK_MARKET: ${{ secrets.DISCORD_WEBHOOK_MARKET }}
+          DISCORD_WEBHOOK_TRADES: ${{ secrets.DISCORD_WEBHOOK_TRADES }}
+          DISCORD_WEBHOOK_UPDATES: ${{ secrets.DISCORD_WEBHOOK_UPDATES }}
+          DISCORD_WEBHOOK_LEDGER: ${{ secrets.DISCORD_WEBHOOK_LEDGER }}
         run: python3 scan_daily.py
       - name: commit
         run: |
