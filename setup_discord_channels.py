@@ -8,7 +8,7 @@ Creates what is missing, moves what exists (no duplicates), makes a "Ledger" web
 each STOCKBOT channel, and writes the four webhook URLs into ~/.stockcharter.env and the
 GitHub secrets. Uses OOZEBOT's token from ~/.hermes/.env (or asks for it, hidden).
 OOZEBOT needs Manage Channels and Manage Webhooks on the server."""
-import getpass, json, os, re, subprocess, urllib.request
+import getpass, json, os, re, subprocess, urllib.request, urllib.error
 
 GUILD = "1533631423498424490"          # OOZEMeter server (oozemeter/research/WEEKLY-CHANNELS.md)
 LAYOUT = {"COMMUNITY": ["general", "oozebot"],
@@ -33,7 +33,11 @@ def api(method, path, body=None):
                                 data=json.dumps(body).encode() if body is not None else None,
                                 headers={"Authorization": f"Bot {TOK}", "Content-Type": "application/json",
                                          "User-Agent": "DiscordBot (stockcharter-scan, 1)"})
-    r = urllib.request.urlopen(rq, timeout=20).read()
+    try: r = urllib.request.urlopen(rq, timeout=20).read()
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"Discord said {e.code} on {method} {path}: {e.read().decode()[:200]}\n"
+                         "403 = OOZEBOT lacks a permission: Server Settings -> Roles -> its role -> "
+                         "turn on Manage Channels and Manage Webhooks, then rerun.")
     return json.loads(r) if r else None
 
 
