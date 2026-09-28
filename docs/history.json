@@ -409,7 +409,7 @@
  },
  {
   "date": "2026-09-28",
-  "vix": 16.030000686645508,
+  "vix": 16.06999969482422,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -424,11 +424,10 @@
    "MU",
    "PLTR",
    "LLY",
-   "MSFT",
    "META",
+   "MSFT",
    "AMGN",
-   "MRK",
-   "AMD"
+   "MRK"
   ],
   "C": [],
   "S": [
