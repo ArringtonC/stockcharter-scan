@@ -35,7 +35,9 @@ PART2 = [s for s in CORE if s not in UNIVERSE]
 
 # Known-in-advance market days, Central time. From bls.gov/schedule and
 # federalreserve.gov on 2026-09-23. ponytail: typed by hand; add 2027 in December.
-EVENTS = {"2026-10-02": "jobs report 7:30 CT", "2026-10-14": "CPI 7:30 CT",
+EVENTS = {"2026-09-29": "job openings (JOLTS) 9:00 CT",
+          "2026-09-30": "inflation + GDP 7:30 CT",   # added 2026-09-28 from a market video's calendar
+          "2026-10-02": "jobs report 7:30 CT", "2026-10-14": "CPI 7:30 CT",
           "2026-10-28": "Fed decision 1:00 CT", "2026-11-06": "jobs report 7:30 CT",
           "2026-11-10": "CPI 7:30 CT", "2026-12-04": "jobs report 7:30 CT",
           "2026-12-09": "Fed decision 1:00 CT", "2026-12-10": "CPI 7:30 CT"}
