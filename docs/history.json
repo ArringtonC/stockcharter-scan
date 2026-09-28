@@ -409,8 +409,8 @@
  },
  {
   "date": "2026-09-28",
-  "vix": 15.880000114440918,
-  "regime": "CALM",
+  "vix": 16.06999969482422,
+  "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "NOW",
@@ -424,19 +424,17 @@
    "MU",
    "PLTR",
    "LLY",
-   "MSFT",
    "META",
+   "MSFT",
    "AMGN",
-   "AMD",
-   "MRK",
-   "OKTA"
+   "VRTX",
+   "MRK"
   ],
-  "C": [
-   "TXN"
-  ],
+  "C": [],
   "S": [
    "NFLX",
    "ADBE",
+   "ORCL",
    "IBM",
    "TTD"
   ]
