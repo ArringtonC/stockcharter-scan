@@ -487,6 +487,290 @@
      "setup": "none"
     }
    }
+  },
+  {
+   "week": "2026-W40",
+   "date": "2026-09-28",
+   "balance": 9675.16,
+   "real_pl": 5.7,
+   "paper_pl": 2.1,
+   "real_net": -159,
+   "open_n": 27,
+   "real_n": 4,
+   "fired": 1,
+   "sessions": 1,
+   "pos": {
+    "2026-09-03-NFLX-sh": {
+     "sym": "NFLX",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 71.1500015258789,
+     "pl": -13.93492013320563,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-IBM-sh": {
+     "sym": "IBM",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 225.50999450683594,
+     "pl": -3.91973307194583,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-AVGO-sh": {
+     "sym": "AVGO",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 352.80999755859375,
+     "pl": -1.2179422223670855,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-WDAY-sh": {
+     "sym": "WDAY",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 189.4499969482422,
+     "pl": -8.442877948848738,
+     "acct": "paper",
+     "setup": "D"
+    },
+    "2026-09-03-MSFT-sh": {
+     "sym": "MSFT",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 516.1699829101562,
+     "pl": 1.1859921018890107,
+     "acct": "paper",
+     "setup": "D"
+    },
+    "2026-09-08-BE-sh": {
+     "sym": "BE",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 288.70001220703125,
+     "pl": 4.141119763015366,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-HOOD-sh": {
+     "sym": "HOOD",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 119.4000015258789,
+     "pl": 1.7555833695916956,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-MU-sh": {
+     "sym": "MU",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 1082.280029296875,
+     "pl": 8.199870963237066,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-SHOP-sh": {
+     "sym": "SHOP",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 142.25,
+     "pl": 6.077554064131241,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-04-DOCU-big": {
+     "sym": "DOCU",
+     "kind": "call",
+     "strike": "37.5",
+     "dte": 109,
+     "now": 30.939999999999998,
+     "pl": 17.956538314906577,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-04-DOCU-small": {
+     "sym": "DOCU",
+     "kind": "call",
+     "strike": "65",
+     "dte": 18,
+     "now": 3.89,
+     "pl": -20.28688524590163,
+     "acct": "small",
+     "setup": "E"
+    },
+    "2026-09-04-WDAY-big": {
+     "sym": "WDAY",
+     "kind": "call",
+     "strike": "170",
+     "dte": 81,
+     "now": 30.25,
+     "pl": -20.079260237780716,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-04-SHOP-big": {
+     "sym": "SHOP",
+     "kind": "call",
+     "strike": "120",
+     "dte": 4,
+     "now": 23.060000000000002,
+     "pl": -17.436448263515924,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-11-QCOM-sh": {
+     "sym": "QCOM",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 201.97000122070312,
+     "pl": 10.02342497178359,
+     "acct": "paper",
+     "setup": "C"
+    },
+    "2026-09-16-NOW": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 135.6199951171875,
+     "pl": -3.992641145980813,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-16-NOW-call": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "176",
+     "dte": 81,
+     "now": 4.14,
+     "pl": -30.420168067226893,
+     "acct": "small",
+     "setup": "F"
+    },
+    "2026-09-17-NOW-170c": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "170",
+     "dte": 53,
+     "now": 2.975,
+     "pl": -36.970338983050844,
+     "acct": "small",
+     "setup": "F"
+    },
+    "2026-09-17-QCOM-240c": {
+     "sym": "QCOM",
+     "kind": "call",
+     "strike": "240",
+     "dte": 53,
+     "now": 6.35,
+     "pl": 70.69892473118277,
+     "acct": "small",
+     "setup": "C"
+    },
+    "2026-09-23-NOW-auto": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 135.6199951171875,
+     "pl": -3.5556854521494152,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-23-BE-auto": {
+     "sym": "BE",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 288.70001220703125,
+     "pl": 4.974188134328883,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-24-HOOD-auto": {
+     "sym": "HOOD",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 119.4000015258789,
+     "pl": -2.4190899592359427,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-24-SHOP-auto": {
+     "sym": "SHOP",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 142.25,
+     "pl": -0.2174523007856366,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-24-NOW-real": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 135.6199951171875,
+     "pl": -1.8029142587882907,
+     "acct": "real",
+     "setup": "F"
+    },
+    "2026-09-11-QCOM-175c": {
+     "sym": "QCOM",
+     "kind": "call",
+     "strike": "175",
+     "dte": 18,
+     "now": 28.96,
+     "pl": 85.8793324775353,
+     "acct": "big",
+     "setup": "C"
+    },
+    "2026-09-26-SG-real": {
+     "sym": "SG",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 8.239999771118164,
+     "pl": 18.72172104887422,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-26-SG-3c-real": {
+     "sym": "SG",
+     "kind": "call",
+     "strike": "3",
+     "dte": 480,
+     "now": 5.779999999999999,
+     "pl": 24.12489799424471,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-26-SNAP-5c-real": {
+     "sym": "SNAP",
+     "kind": "call",
+     "strike": "5",
+     "dte": 480,
+     "now": 1.915,
+     "pl": -18.392567970680986,
+     "acct": "real",
+     "setup": "none"
+    }
+   }
   }
  ]
 }
