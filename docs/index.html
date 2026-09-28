@@ -653,6 +653,58 @@ function fired(d){
 /* Three books since 2026-09-26: real money, the Setup-F-calls bot, and ideas. */
 const book=a=>({real:'real','paper-auto':'F bot',bot:'F bot','bot-leaps':'F LEAPS bot',paper:'idea',small:'idea',big:'idea'})[a]||a;
 
+/* The AI-bubble plan: which phase we are in, what each phase means, and the two
+   things that move it. Phase logic lives in scan_daily.bubble(); this only draws it. */
+function trendChart(pts, thr, thrLabel, unit, badIsUp, label){
+  const N=pts.length; if(N<2) return '';
+  const W=600,H=150,P={l:40,r:10,t:12,b:22};
+  const vs=pts.map(p=>p[1]).concat([thr]), lo=Math.min(...vs), hi=Math.max(...vs), pad=(hi-lo)*.12||1;
+  const y0=lo-pad, y1=hi+pad, X=i=>P.l+(i/(N-1))*(W-P.l-P.r), Y=v=>P.t+(1-(v-y0)/(y1-y0))*(H-P.t-P.b);
+  const line=pts.map((p,i)=>`${X(i).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(' ');
+  const last=pts[N-1][1], crossed=badIsUp?last>=thr:last<=thr, col=crossed?'var(--dn)':'var(--up)';
+  const ticks=[y0+pad, (y0+y1)/2, y1-pad].map(v=>`<text x="${P.l-6}" y="${(Y(v)+3).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--dim)">${v.toFixed(1)}${unit}</text>`).join('');
+  const ends=`<text x="${P.l}" y="${H-6}" font-size="10" fill="var(--dim)">${esc(pts[0][0])}</text>
+    <text x="${W-P.r}" y="${H-6}" text-anchor="end" font-size="10" fill="var(--dim)">${esc(pts[N-1][0])}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(label)}" style="display:block;max-width:100%">
+    ${ticks}${ends}
+    <line x1="${P.l}" x2="${W-P.r}" y1="${Y(thr).toFixed(1)}" y2="${Y(thr).toFixed(1)}" stroke="var(--amber)" stroke-dasharray="5 4" stroke-width="1.2"/>
+    <text x="${P.l+4}" y="${(Y(thr)-5).toFixed(1)}" font-size="10" fill="var(--amber)">${esc(thrLabel)}</text>
+    <polyline points="${line}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${X(N-1).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="3.5" fill="${col}"/></svg>`;
+}
+
+function bubblePlan(d){
+  const b=d.bubble; if(!b) return '';
+  const ph=b.phases[b.phase-1];
+  const ipoNames=Object.keys(b.ipo||{}), priced=ipoNames.filter(k=>b.ipo[k]);
+  const sig=(ok,txt)=>`<div class="row tight"><div class="sym">${ok?'✅':'⬜'}</div><div class="main"><div class="t">${txt}</div></div></div>`;
+  return `<div class="sec" id="bubble-plan">
+    <h2>AI bubble plan <span class="tag ${b.phase>1?'':'watch'}">phase ${b.phase} of 4</span></h2>
+    <p class="lede"><b style="color:var(--ink)">Phase ${b.phase}: ${esc(ph.name)}</b> since ${esc(b.since)}. The 10 biggest AI stocks are over 40% of the US market,
+      the level past bubbles peaked at (BofA). BofA's playbook: stay in until two signals fire, then step out in stages.</p>
+    <div style="border:1px solid var(--line2);border-left:3px solid var(--amber);padding:10px 14px;margin:10px 0 14px">
+      <div style="font-weight:600;margin-bottom:4px">Do now</div>
+      ${ph.do.map(x=>`<div>· ${esc(x)}</div>`).join('')}
+    </div>
+    <h3 style="margin:14px 0 6px">The two signals</h3>
+    ${sig(!!b.cpi_fired,`<b>1. Inflation 4%+</b> · CPI is <b>${b.cpi.toFixed(1)}%</b> (${esc(b.cpi_month)})${b.cpi_fired?` · <b>fired ${esc(b.cpi_fired)}</b> (${esc(b.cpi_peak[0])} hit ${b.cpi_peak[1].toFixed(1)}%). Once fired, a signal stays fired.`:` · needs +${(4-b.cpi).toFixed(1)} pts`}`)}
+    ${sig(!!b.ipo_fired,`<b>2. A mega-IPO prices</b> · ${ipoNames.map(k=>`${esc(k)} ${b.ipo[k]?'priced '+esc(b.ipo[k]):'not yet'}`).join(' · ')}`)}
+    ${trendChart(b.cpi_series,4,'4% = signal 1','%',true,'CPI inflation over the last 3 years against the 4% signal line')}
+    <p class="more">Inflation, % vs a year earlier. Crossing the dashed line fires signal 1.</p>
+    <h3 style="margin:14px 0 6px">The drop (Phase 4 trigger)</h3>
+    ${trendChart(b.qqq_dd,-20,'−20% = the drop','%',false,'QQQ distance from its high over the last year against the minus 20 percent line')}
+    <p class="more">QQQ, % below its high. Phase 4 needs Phase 3 first, then QQQ under the dashed line and VIX 25+ falling 3 days.
+      Now: ${b.qqq_off.toFixed(1)}% off the high · VIX ${b.vix.toFixed(1)}.</p>
+    <h3 style="margin:14px 0 6px">The four phases</h3>
+    ${b.phases.map(p=>`<div class="row" style="${p.n===b.phase?'background:var(--panel);outline:1px solid var(--amber)':'opacity:.72'}">
+      <div class="sym">${p.n}<small>${p.n===b.phase?'now':''}</small></div>
+      <div class="main"><div class="t"><b>${esc(p.name)}</b> · ${esc(p.when)}</div>
+        <div class="miss">${p.do.map(esc).join(' · ')}</div></div></div>`).join('')}
+    <p class="more">Replayed on 1973, 2000 and 2021 with $1,000/month: beat holding by +3%, +1% and +9%, with smaller drops.
+      In 2021 it sold QQQ on Dec 1, eight trading days after the top. Not a prediction; the date of the top is unknowable.</p>
+  </div>`;
+}
+
 /* S&P 500 adds and drops. Index funds must buy what joins and sell what leaves,
    so these names move for reasons that have nothing to do with the setups. */
 function spChanges(d){
@@ -819,6 +871,8 @@ function renderToday(d,state){
   </div></div>
 
   ${todayTrades(d)}
+
+  ${bubblePlan(d)}
 
   ${spChanges(d)}
 

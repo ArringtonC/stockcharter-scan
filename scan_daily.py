@@ -891,6 +891,63 @@ def sp500_changes(n=12):
     return out
 
 
+# ── the AI-bubble plan (2026-09-28; BofA/Hartnett's two signals; thesis/bubble-plan.md) ──
+# Signal 2 is typed by hand: set the date the day SpaceX or OpenAI prices its IPO.
+IPO_SIGNALS = {"SpaceX": None, "OpenAI": None}
+BUBBLE_STATE = os.path.join(DOCS, ".bubble-state.json")
+PHASES = [
+    dict(n=1, name="Ride it", when="No signal has fired",
+         do=["Deposits: 60% SPY / 40% QQQ", "Take Setup F BUY cards (~7% each)", "Hold what you own"]),
+    dict(n=2, name="One signal", when="CPI 4%+ OR a SpaceX/OpenAI IPO prices",
+         do=["Stop adding to QQQ -- new deposits go to SPY only", "Sell half of any position up 50%+", "Keep taking F cards"]),
+    dict(n=3, name="Both signals", when="CPI 4%+ AND a mega-IPO has priced",
+         do=["Sell the QQQ part, keep SPY", "Deposits pile up as cash", "No puts, no shorting"]),
+    dict(n=4, name="The drop", when="Phase 3, then QQQ 20%+ off its high AND VIX 25+ falling 3 days",
+         do=["Put the cash into QQQ (Setup VIX)", "F fires more after drops -- take the cards", "Deposits back to 60/40"]),
+]
+
+
+def cpi_yoy(months=36):
+    """[(month, CPI % vs a year earlier)] from FRED, newest last."""
+    x = urllib.request.urlopen(urllib.request.Request("https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS",
+                               headers=YF), timeout=20).read().decode().strip().split("\n")[1:]
+    v = {r.split(",")[0][:7]: float(r.split(",")[1]) for r in x if r.split(",")[1]}
+    ks = sorted(v)
+    return [(k, round((v[k] / v[f"{int(k[:4]) - 1}{k[4:]}"] - 1) * 100, 2)) for k in ks[-months:] if f"{int(k[:4]) - 1}{k[4:]}" in v]
+
+
+def bubble(d):
+    """Current phase of the AI-bubble plan + the two chart series for the site."""
+    st_ = json.load(open(BUBBLE_STATE)) if os.path.exists(BUBBLE_STATE) else {}
+    cpi = cpi_yoy(); now_cpi = cpi[-1][1]
+    # a signal stays fired once it fires (the replay's rule). Look back a year, dated the
+    # 15th of the next month -- when that CPI number was actually published.
+    hot = [m for m, v in cpi[-12:] if v >= 4]
+    if hot and not st_.get("cpi"):
+        y_, m_ = int(hot[0][:4]), int(hot[0][5:])
+        st_["cpi"] = f"{y_ + (m_ == 12)}-{m_ % 12 + 1:02d}-15"
+    ipo = {k: v for k, v in IPO_SIGNALS.items() if v}
+    if ipo and not st_.get("ipo"): st_["ipo"] = min(ipo.values())
+    q = bars("QQQ", "2y"); qc = [x[1] for x in q]; hi = max(qc)
+    off = (qc[-1] / hi - 1) * 100
+    v = bars("^VIX", "6mo"); vc = [x[1] for x in v]
+    vix_buy = max(vc[-11:]) >= 25 and vc[-1] < vc[-2] < vc[-3]
+    phase = 1 + bool(st_.get("cpi")) + bool(st_.get("ipo"))
+    if st_.get("phase") == 4 or (phase == 3 and off <= -20 and vix_buy): phase = 4
+    if phase != st_.get("phase"):
+        st_["phase"] = phase
+        st_["since"] = max([x for x in (st_.get("cpi"), st_.get("ipo")) if x], default=d["date"]) if phase in (2, 3) else d["date"]
+    json.dump(st_, open(BUBBLE_STATE, "w"))
+    runhi, dd = 0, []
+    for x in q[::5] + [q[-1]]:
+        runhi = max(runhi, x[1]); dd.append((x[0], round((x[1] / runhi - 1) * 100, 1)))
+    return dict(phase=phase, since=st_["since"], phases=PHASES, cpi=now_cpi, cpi_month=cpi[-1][0],
+                cpi_peak=max(cpi[-12:], key=lambda x: x[1]),
+                cpi_fired=st_.get("cpi"), ipo=IPO_SIGNALS, ipo_fired=st_.get("ipo"),
+                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix=vc[-1], vix_buy=vix_buy,
+                cpi_series=cpi, qqq_dd=dd)
+
+
 def market(d, open_):
     """What can be known about today's index move, before and during. None of it
     says which way -- thesis/scalp.md: nothing predicted QQQ/SPY direction."""
@@ -1039,7 +1096,7 @@ def should_push(d, open_, name="key", key=None):
 
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})),
+    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
                        sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
 
 
@@ -1156,6 +1213,11 @@ def writeup(d, m, pre=True):
         if c["added"]: W.append(f"<b>S&P 500:</b> {who(c['added'])} joins {'' if days < 0 else 'effective '}{when}"
                                 + (f", replacing {who(c['removed'])}" if c["removed"] else "") + ".")
         elif c["removed"]: W.append(f"<b>S&P 500:</b> {who(c['removed'])} leaves {when}.")
+    bb = d.get("bubble")
+    if bb and bb["phase"] > 1:
+        ph = bb["phases"][bb["phase"] - 1]
+        W += ["", f"<b>AI BUBBLE PLAN · PHASE {bb['phase']}: {ph['name'].upper()}</b> (since {bb['since'][5:]})"] \
+             + [f"· {x}" for x in ph["do"]]
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if pre and nq is not None and abs(nq) >= 1:
@@ -1291,6 +1353,8 @@ if __name__ == "__main__":
     # part 2 F fires join the BUY list; D/C/S stay watchlist-only exactly as in part 1
     d["F"] += p2["F"]; d["part2"] = p2
     d["market"] = market(d, open_)
+    try: d["bubble"] = bubble(d)
+    except Exception as e: d["errors"].append(f"bubble: {str(e)[:40]}")
     try: d["sp500"] = sp500_changes()
     except Exception as e: d["sp500"] = []; d["errors"].append(f"sp500: {str(e)[:40]}")
     hist = json.load(open(HIST)) if os.path.exists(HIST) else []
