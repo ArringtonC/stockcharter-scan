@@ -910,7 +910,7 @@ PHASES = [
 def cpi_yoy(months=36):
     """[(month, CPI % vs a year earlier)] from FRED, newest last."""
     x = urllib.request.urlopen(urllib.request.Request("https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS",
-                               headers=YF), timeout=20).read().decode().strip().split("\n")[1:]
+                               headers=YF), timeout=45).read().decode().strip().split("\n")[1:]
     v = {r.split(",")[0][:7]: float(r.split(",")[1]) for r in x if r.split(",")[1]}
     ks = sorted(v)
     return [(k, round((v[k] / v[f"{int(k[:4]) - 1}{k[4:]}"] - 1) * 100, 2)) for k in ks[-months:] if f"{int(k[:4]) - 1}{k[4:]}" in v]
@@ -1354,7 +1354,11 @@ if __name__ == "__main__":
     d["F"] += p2["F"]; d["part2"] = p2
     d["market"] = market(d, open_)
     try: d["bubble"] = bubble(d)
-    except Exception as e: d["errors"].append(f"bubble: {str(e)[:40]}")
+    except Exception as e:
+        # FRED times out from GitHub's runners now and then: keep the last good reading
+        # rather than blanking the section (seen 2026-09-29 01:05 UTC)
+        try: d["bubble"] = json.load(open(os.path.join(DOCS, "data.json")))["bubble"]; print(f"  bubble: kept last reading ({str(e)[:40]})")
+        except Exception: d["errors"].append(f"bubble: {str(e)[:40]}")
     try: d["sp500"] = sp500_changes()
     except Exception as e: d["sp500"] = []; d["errors"].append(f"sp500: {str(e)[:40]}")
     hist = json.load(open(HIST)) if os.path.exists(HIST) else []
