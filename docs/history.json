@@ -440,8 +440,8 @@
  },
  {
   "date": "2026-09-29",
-  "vix": 15.930000305175781,
-  "regime": "CALM",
+  "vix": 16.299999237060547,
+  "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "NOW",
@@ -449,13 +449,12 @@
   ],
   "D": [
    "SHOP",
-   "SG",
    "INTC",
-   "BE",
+   "SG",
    "TXN",
+   "BE",
    "MU",
    "PLTR",
-   "DELL",
    "MSFT",
    "META",
    "AMGN",
