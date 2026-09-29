@@ -437,5 +437,34 @@
    "IBM",
    "TTD"
   ]
+ },
+ {
+  "date": "2026-09-29",
+  "vix": 16.06999969482422,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "HOOD",
+   "SHOP"
+  ],
+  "D": [
+   "BE",
+   "TXN",
+   "MU",
+   "INTC",
+   "PLTR",
+   "LLY",
+   "OKTA",
+   "AMGN",
+   "MSFT",
+   "DELL",
+   "MRK"
+  ],
+  "C": [],
+  "S": [
+   "ADBE",
+   "IBM"
+  ]
  }
 ]
