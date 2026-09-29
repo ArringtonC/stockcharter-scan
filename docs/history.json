@@ -440,13 +440,13 @@
  },
  {
   "date": "2026-09-29",
-  "vix": 15.890000343322754,
+  "vix": 15.8100004196167,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
    "NOW",
-   "BE",
    "HOOD",
+   "BE",
    "SHOP"
   ],
   "D": [
@@ -454,9 +454,10 @@
    "TXN",
    "MU",
    "PLTR",
-   "LLY",
    "META",
+   "LLY",
    "MSFT",
+   "DELL",
    "AMGN",
    "MRK"
   ],
@@ -464,8 +465,6 @@
   "S": [
    "NFLX",
    "ADBE",
-   "ORCL",
-   "IBM",
    "TTD"
   ]
  }
