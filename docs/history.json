@@ -440,7 +440,7 @@
  },
  {
   "date": "2026-09-29",
-  "vix": 16.299999237060547,
+  "vix": 16.25,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -451,14 +451,15 @@
    "SHOP",
    "INTC",
    "SG",
-   "TXN",
    "BE",
+   "TXN",
    "MU",
    "PLTR",
    "MSFT",
+   "LLY",
    "META",
    "AMGN",
-   "MRNA"
+   "MRK"
   ],
   "C": [
    "TXN"
