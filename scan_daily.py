@@ -1239,6 +1239,21 @@ def market_report(d):
     return "\n".join(M)
 
 
+def panic_day(sym, look=21):
+    """Latest day in the last `look` sessions the stock fell 5%+ on 3x its 50-day volume, or None.
+    thesis/volume/volume.md: those keep lagging for about a month (-1.46pp without top 5)."""
+    try:
+        b = bars(sym)
+        for i in range(len(b) - 1, max(len(b) - 1 - look, 51), -1):
+            v = [x[5] for x in b[i - 50:i] if x[5]]
+            if not b[i][5] or len(v) < 40: continue
+            chg, rv = b[i][1] / b[i - 1][1] - 1, b[i][5] / (sum(v) / len(v))
+            if chg <= -0.05 and rv >= 3: return (b[i][0], chg * 100, rv)
+    except Exception:
+        pass
+    return None
+
+
 def left(dte, today=None):
     """114d left is information; the last week is a warning; the last 3 days name the day."""
     if dte is None: return ""
@@ -1274,6 +1289,8 @@ def summary(d, open_, closed=(), parts=False):
         else:
             B.append(shares)
         B.append(f"TARGET ${r['tgt']:,.0f} · +{r['up']:.0f}%")
+        p = panic_day(sym)
+        if p: B.append(f"⚠ PANIC SELL {p[0][5:]}: {p[1]:.0f}% ON {p[2]:.1f}× VOLUME · <i>these usually keep lagging a month</i>")
         B.append("")
 
     if d["vix_fires"]:

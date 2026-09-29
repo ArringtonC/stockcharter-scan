@@ -9,6 +9,7 @@ class _DT(datetime.datetime):
     def now(cls, tz=None): return datetime.datetime(2026, 9, 24, 16, 0, tzinfo=datetime.timezone.utc).astimezone(tz) if tz else datetime.datetime(2026, 9, 24, 11, 0)
 S.datetime = type("M", (), {"datetime": _DT, "date": datetime.date, "timedelta": datetime.timedelta, "timezone": datetime.timezone})
 S.affordable = lambda sym, px, budget: FAKE[sym]
+S.panic_day = lambda sym: ("2026-09-24", -6.2, 3.4) if sym == "DEAR" else None
 FAKE = {"CHEAP": dict(expiry="2026-11-20", strike=20, cost=240, n=2, over=False),
         "DEAR": dict(expiry="2026-11-20", strike=140, cost=1391, n=1, over=True)}
 base = lambda **k: {**dict(date=today, F=[], S=[], vix=15, vix5=[15]*5, regime="CALM", vix_fires=False,
@@ -90,3 +91,8 @@ assert S.session_start(D(2026, 9, 27, 12, 0, tzinfo=ct)) == D(2026, 9, 24, 17, 0
 assert S.session_start(D(2026, 9, 27, 17, 30, tzinfo=ct)) == D(2026, 9, 27, 17, 0, tzinfo=ct) # Sun after the open
 w = "\n".join(S.writeup(base(), {"fut": [("S&P", 7803.75, -0.3, True)]}, True)); assert "<b>FUTURES</b>\nS&P 7,803.75 -0.3%" in w
 print("futures ok")
+
+# volume "don't" rule: a recent panic day shows on the BUY card, and only there
+t = S.summary(base(F=[dict(sym="CHEAP", px=19, tgt=25, up=30), dict(sym="DEAR", px=140, tgt=195, up=39)]), [])
+assert "⚠ PANIC SELL 09-24: -6% ON 3.4× VOLUME" in t and t.count("PANIC SELL") == 1
+print("panic ok")
