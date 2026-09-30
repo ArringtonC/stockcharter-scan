@@ -1071,6 +1071,7 @@ def alert_key(d, open_):
                    f"{'^' if (r.get('to_target') if r.get('to_target') is not None else 99) <= 5 else ''}"
                    for r in open_ if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps"))
     return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps,
+                           watch=sorted(w["sym"] + w["date"] for w in d.get("watch", [])),
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
 
@@ -1254,6 +1255,52 @@ def panic_day(sym, look=21):
     return None
 
 
+# ── pattern #1 forward test (2026-09-29): falling channel -> base -> breakout ──────────
+# thesis/patterns: no edge 2016-2026 (60% fail within 10 days, 67% reach the old high within
+# a year). Arrington spots it on his own charts (SG, META), so CORE names get a WATCH card --
+# never a BUY card -- and every one is logged to docs/pattern-watch.json for a live record.
+WATCH_LOG = os.path.join(DOCS, "pattern-watch.json")
+
+
+def channel_breakout(sym, recent=3):
+    """Pattern #1 breakout in the last `recent` sessions, or None. Same rule as thesis/patterns/patterns.py."""
+    b_ = bars(sym)
+    d = [x[0] for x in b_]; c = [x[1] for x in b_]; h = [x[2] for x in b_]; l = [x[3] for x in b_]
+    if len(b_) < 300: return None
+    e10, e30 = ema(c, 10), ema(c, 30)
+    for b in range(len(b_) - 1, len(b_) - 1 - recent, -1):
+        p = max(range(b - 252, b - 60), key=lambda k: h[k])
+        if h[p] < max(h[b - 252:b]) or b - 15 <= p + 20: continue
+        t = min(range(p + 20, b - 15), key=lambda k: l[k])
+        if l[t] > h[p] * 0.75 or min(l[t + 1:b]) < l[t]: continue
+        piv = [k for k in range(p + 10, b - 10) if h[k] == max(h[k - 5:k + 6]) and h[k] < h[p]]
+        if not piv: continue
+        q = max(piv, key=lambda k: h[k]); slope = (h[q] - h[p]) / (q - p)
+        if slope >= 0: continue
+        base_hi = max(h[b - 25:b])
+        if c[b] > base_hi and c[b] > h[p] + slope * (b - p) and e10[b] > e30[b] and c[b - 1] <= max(h[b - 26:b - 1]):
+            return dict(sym=sym, date=d[b], close=c[b], base_high=base_hi, peak=h[p], peak_date=d[p], low=l[t],
+                        e10=e10[-1], e30=e30[-1], e30_up=e30[-1] > e30[-11], above30=c[-1] > e30[-1])
+    return None
+
+
+def watch_patterns(d):
+    """Scan CORE for pattern #1; append new ones to the live log."""
+    log = json.load(open(WATCH_LOG)) if os.path.exists(WATCH_LOG) else []
+    seen = {(x["sym"], x["date"]) for x in log}; hits = []
+    for s in CORE:
+        try:
+            w = channel_breakout(s)
+        except Exception:
+            w = None
+        if w:
+            hits.append(w)
+            if (w["sym"], w["date"]) not in seen:
+                log.append({**w, "pattern": "channel-base-breakout", "logged": d["date"]})
+    json.dump(log, open(WATCH_LOG, "w"), indent=1)
+    return hits
+
+
 def left(dte, today=None):
     """114d left is information; the last week is a warning; the last 3 days name the day."""
     if dte is None: return ""
@@ -1293,6 +1340,15 @@ def summary(d, open_, closed=(), parts=False):
         if p: B.append(f"⚠ PANIC SELL {p[0][5:]}: {p[1]:.0f}% ON {p[2]:.1f}× VOLUME · <i>these usually keep lagging a month</i>")
         B.append("")
 
+    W_ = []
+    for w in d.get("watch", []):
+        W_ += [f"<b>👀 WATCH {w['sym']} ${w['close']:,.2f}</b>" + (" · CORE" if w["sym"] in CORE else ""),
+               f"CHANNEL BREAKOUT {w['date'][5:]} · OVER ${w['base_high']:,.2f}",
+               f"OLD HIGH ${w['peak']:,.2f} · +{(w['peak'] / w['close'] - 1) * 100:.0f}%",
+               (f"10 EMA ${w['e10']:,.2f} {'>' if w['e10'] > w['e30'] else '<'} 30 EMA ${w['e30']:,.2f}"
+                f" · 30 {'rising' if w.get('e30_up') else 'flat/falling'}"
+                f" · price {'above' if w.get('above30') else 'BELOW'} the 30") if w.get("e10") else "",
+               "<i>not a buy · 40% hold, 67% reach the old high in a year</i>", ""]
     if d["vix_fires"]:
         c = pick_contract("QQQ", d["qqq"], days=30, budget=1000)
         if c:
@@ -1341,8 +1397,8 @@ def summary(d, open_, closed=(), parts=False):
 
     if parts:   # Discord splits the report by channel: new buys, movement, finished trades
         j = lambda X: "\n".join(X).strip()
-        return dict(trades=j(["<b>NEW TRADES</b>", ""] + B) if B else "", updates=j(U), ledger=j(C))
-    L = ["<b>TRADE REPORT</b>", ""] + C + B + U
+        return dict(trades=j(["<b>NEW TRADES</b>", ""] + B + W_) if B + W_ else "", updates=j(U), ledger=j(C))
+    L = ["<b>TRADE REPORT</b>", ""] + C + B + W_ + U
     if not (C + B + U): L += ["NOTHING TO BUY TODAY", ""]
     while L and L[-1] == "": L.pop()
 
@@ -1370,6 +1426,8 @@ if __name__ == "__main__":
     # part 2 F fires join the BUY list; D/C/S stay watchlist-only exactly as in part 1
     d["F"] += p2["F"]; d["part2"] = p2
     d["market"] = market(d, open_)
+    try: d["watch"] = watch_patterns(d)
+    except Exception as e: d["watch"] = []; d["errors"].append(f"watch: {str(e)[:40]}")
     try: d["bubble"] = bubble(d)
     except Exception as e:
         # FRED times out from GitHub's runners now and then: keep the last good reading
