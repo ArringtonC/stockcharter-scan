@@ -42,3 +42,4 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-28-NOW-leap,call,bot-leaps,2026-09-28,NOW,F,47.25,192.97,135,2028-12-15,1,open,,,,"F LEAPS. 1x $135C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $192.97 or 30 days before expiry."
 2026-09-28-SHOP-leap,call,bot-leaps,2026-09-28,SHOP,F,53.50,182.19,140,2028-12-15,1,open,,,,"F LEAPS. 1x $140C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $182.19 or 30 days before expiry."
 2026-09-28-HOOD-leap,call,bot-leaps,2026-09-28,HOOD,F,50.00,153.86,120,2028-12-15,1,open,,,,"F LEAPS. 1x $120C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $153.86 or 30 days before expiry."
+2026-09-30-ZS-f,shares,bot,2026-09-30,ZS,F,200.79,336.99,,,34,open,,,,"Pure Setup F. 34 shares, 7% of equity. Target $336.99; no stop; floor at the target once reached; out at 252 sessions."
