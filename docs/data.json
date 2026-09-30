@@ -1,15 +1,15 @@
 {
- "date": "2026-09-29",
- "stamp": "2026-09-30 04:19 UTC",
+ "date": "2026-09-30",
+ "stamp": "2026-09-30 12:00 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 16.040000915527344,
+ "vix": 16.1200008392334,
  "vix5": [
-  15.180000305175781,
   15.670000076293945,
   14.869999885559082,
   16.06999969482422,
-  16.040000915527344
+  16.040000915527344,
+  16.1200008392334
  ],
  "vix_hi10": 17.709999084472656,
  "qqq": 737.9299926757812,
@@ -1116,7 +1116,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 479,
+   "days": 478,
    "now": 8.739999771118164,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1160,7 +1160,7 @@
    "exit": "Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
-   "days": 52,
+   "days": 51,
    "now": 184.10000610351562,
    "target": 253.72,
    "cost": 392.0,
@@ -1182,7 +1182,7 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 479,
+   "days": 478,
    "now": 5.340000152587891,
    "target": 12.34,
    "cost": 468.0,
@@ -1365,7 +1365,8 @@
  },
  "market": {
   "events": [
-   "job openings (JOLTS) 9:00 CT"
+   "inflation + GDP 7:30 CT",
+   "MU earnings after close"
   ],
   "QQQ": 0.19008051267428439,
   "QQQ_px": 737.93,
@@ -1376,95 +1377,82 @@
   "USO": -4.439704019732016,
   "USO_px": 143.35,
   "USO_chg": -6.659999999999997,
-  "NQ=F": 0.09636350273165561,
-  "NQ=F_px": 30642.75,
-  "NQ=F_chg": 29.5,
-  "CL=F": 0.4363392257775711,
-  "CL=F_px": 89.77,
-  "CL=F_chg": 0.39000000000000057,
+  "NQ=F": -0.19272700546332233,
+  "NQ=F_px": 30554.25,
+  "NQ=F_chg": -59.0,
+  "CL=F": 1.5887223092414526,
+  "CL=F_px": 90.8,
+  "CL=F_chg": 1.4200000000000017,
   "^TNX": 0.2862595419847347,
   "^TNX_px": 5.255,
   "^TNX_chg": 0.01499999999999968,
-  "^VIX": -0.18668326073429942,
-  "^VIX_px": 16.04,
-  "^VIX_chg": -0.030000000000001137,
+  "^VIX": 0.4987531172069959,
+  "^VIX_px": 16.12,
+  "^VIX_chg": 0.08000000000000185,
   "exp_by": "Fri",
   "QQQ_exp": 11.254999999999999,
   "SPY_exp": 7.965,
   "fut": [
    [
     "S&P",
-    7749.0,
-    0.13892029851709786,
+    7726.75,
+    -0.14861241236713285,
     true
    ],
    [
     "Nasdaq",
-    30641.25,
-    -0.037517025389244285,
+    30554.25,
+    -0.32134147833391413,
     true
    ],
    [
     "Dow",
-    51892.0,
-    0.26470872379480426,
+    51650.0,
+    -0.2028789488938254,
     true
    ],
    [
     "Russell",
-    2837.60009765625,
-    0.21897985188767954,
+    2822.699951171875,
+    -0.3072667751621183,
     true
    ],
    [
     "Oil",
-    89.7699966430664,
-    0.9332068572934338,
+    90.80000305175781,
+    2.0912981327799507,
     true
    ],
    [
     "Gold",
-    4205.0,
-    -0.23724792408066353,
+    4215.89990234375,
+    0.021349996292996387,
     true
    ]
   ],
   "QQQ_pre": [
    737.93,
-   740.3
+   737.2613
   ],
   "SPY_pre": [
    764.2,
-   766.0693
+   764.6301
   ],
   "USO_pre": [
    143.35,
-   143.5
+   145.5
   ],
   "^VIX_pre": [
-   16.07,
-   16.030000686645508
+   16.04,
+   16.1200008392334
   ],
   "heads": [
-   "Beijing warns of retaliation if Europe imposes curbs on Chinese businesses ",
-   "China factory activity snaps 2-month contractionary streak in September ",
-   "Hedge funds hold a record share of the $30 trillion Treasury market. What could go wrong?"
+   "Trump denies offering Iran sanctions relief; Tehran receives U.S. proposal following Qatar talks",
+   "Russia targets data centers in Kyiv as NATO condemns Moscow\u2019s \u2018irresponsible nuclear rhetoric\u2019",
+   "The Fed's main inflation measure will be released Wednesday. Here's what to expect"
   ],
   "tnx_since": "2007",
-  "movers": [
-   [
-    "BE",
-    10.79621311293466
-   ],
-   [
-    "META",
-    3.2377495134637835
-   ],
-   [
-    "AAPL",
-    -2.6595745160542417
-   ]
-  ]
+  "movers": []
  },
  "watch": [
   {
@@ -1541,7 +1529,7 @@
   "qqq": 737.9299926757812,
   "qqq_hi": 747.4600219726562,
   "qqq_off": -1.3,
-  "vix": 16.040000915527344,
+  "vix": 16.1200008392334,
   "vix_buy": false,
   "cpi_series": [
    [
@@ -2238,7 +2226,7 @@
    "now": 30.11,
    "spot": 66.9800033569336,
    "intrinsic": 29.480003356933594,
-   "dte": 108,
+   "dte": 107,
    "sessions": 16,
    "mark": "alpaca"
   },
@@ -2262,7 +2250,7 @@
    "now": 3.76,
    "spot": 66.9800033569336,
    "intrinsic": 1.9800033569335938,
-   "dte": 17,
+   "dte": 16,
    "sessions": 16,
    "mark": "alpaca"
   },
@@ -2286,7 +2274,7 @@
    "now": 29.060000000000002,
    "spot": 189.1699981689453,
    "intrinsic": 19.169998168945312,
-   "dte": 80,
+   "dte": 79,
    "sessions": 16,
    "mark": "alpaca"
   },
@@ -2310,7 +2298,7 @@
    "now": 28.025,
    "spot": 148.25999450683594,
    "intrinsic": 28.259994506835938,
-   "dte": 3,
+   "dte": 2,
    "sessions": 16,
    "mark": "alpaca"
   },
@@ -2380,7 +2368,7 @@
    "now": 2.495,
    "spot": 129.94000244140625,
    "intrinsic": 0.0,
-   "dte": 80,
+   "dte": 79,
    "sessions": 9,
    "mark": "alpaca"
   },
@@ -2404,7 +2392,7 @@
    "now": 1.865,
    "spot": 129.94000244140625,
    "intrinsic": 0.0,
-   "dte": 52,
+   "dte": 51,
    "sessions": 8,
    "mark": "alpaca"
   },
@@ -2428,7 +2416,7 @@
    "now": 2.495,
    "spot": 184.10000610351562,
    "intrinsic": 0.0,
-   "dte": 52,
+   "dte": 51,
    "sessions": 8,
    "mark": "alpaca"
   },
@@ -2567,7 +2555,7 @@
    "now": 13.379999999999999,
    "spot": 184.10000610351562,
    "intrinsic": 9.100006103515625,
-   "dte": 17,
+   "dte": 16,
    "sessions": 12,
    "mark": "alpaca"
   },
@@ -2614,7 +2602,7 @@
    "now": 6.195,
    "spot": 8.739999771118164,
    "intrinsic": 5.739999771118164,
-   "dte": 479,
+   "dte": 478,
    "sessions": 2,
    "mark": "alpaca"
   },
@@ -2638,7 +2626,7 @@
    "now": 1.855,
    "spot": 5.340000152587891,
    "intrinsic": 0.3400001525878906,
-   "dte": 479,
+   "dte": 478,
    "sessions": 2,
    "mark": "alpaca"
   },
@@ -2662,7 +2650,7 @@
    "now": 46.405,
    "spot": 129.94000244140625,
    "intrinsic": 0.0,
-   "dte": 808,
+   "dte": 807,
    "sessions": 1,
    "mark": "alpaca"
   },
@@ -2686,7 +2674,7 @@
    "now": 60.355000000000004,
    "spot": 148.25999450683594,
    "intrinsic": 8.259994506835938,
-   "dte": 808,
+   "dte": 807,
    "sessions": 1,
    "mark": "alpaca"
   },
@@ -2710,7 +2698,7 @@
    "now": 46.045,
    "spot": 116.22000122070312,
    "intrinsic": 0.0,
-   "dte": 808,
+   "dte": 807,
    "sessions": 1,
    "mark": "alpaca"
   }
@@ -3056,39 +3044,37 @@
     ]
    },
    {
-    "date": "2026-09-30",
+    "date": "2026-09-29",
     "vix": 16.040000915527344,
     "regime": "NORMAL",
     "vix_fires": false,
     "F": [
      "NOW",
-     "BE",
-     "HOOD",
-     "SHOP"
+     "HOOD"
     ],
     "D": [
+     "SHOP",
      "INTC",
+     "SG",
+     "BE",
      "TXN",
      "MU",
      "PLTR",
      "LLY",
-     "META",
      "MSFT",
-     "AMGN",
-     "MRK"
+     "META",
+     "AMGN"
     ],
-    "C": [],
+    "C": [
+     "TXN"
+    ],
     "S": [
-     "NFLX",
-     "ADBE",
-     "ORCL",
-     "IBM",
      "TTD"
     ]
    },
    {
-    "date": "2026-09-29",
-    "vix": 16.040000915527344,
+    "date": "2026-09-30",
+    "vix": 16.1200008392334,
     "regime": "NORMAL",
     "vix_fires": false,
     "F": [
@@ -3154,49 +3140,9 @@
     "pl_pct": "-49.8",
     "note": "REAL. 1x 748C 9/25 at $2.24, sold $1.00 same day: -$124. No setup fired on QQQ; 2 DTE, bought with QQQ 1% off its high. Contract count assumed 1 -- fix if more. Fills corrected from Schwab history 09-26.",
     "result": "loss"
-   },
-   {
-    "id": "2026-09-22-QQQ-752c-real",
-    "kind": "call",
-    "acct": "real",
-    "opened": "2026-09-22",
-    "symbol": "QQQ",
-    "setup": "none",
-    "entry": "1.38",
-    "target": "",
-    "strike": "752",
-    "expiry": "2026-09-24",
-    "contracts": "1",
-    "status": "closed",
-    "closed": "2026-09-22",
-    "exit": "1.44",
-    "pl_pct": "4.3",
-    "note": "REAL. From Schwab order history (pasted 09-26). No setup.",
-    "result": "win"
    }
   ],
   "by_setup": {
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 15,
-    "open_mean": -7.395740186881715
-   },
-   "E": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 7,
-    "open_mean": -7.550450101797801
-   },
-   "none": {
-    "wins": 1,
-    "losses": 2,
-    "closed_mean": -19.23333333333333,
-    "open_n": 3,
-    "open_mean": 12.671076718635655
-   },
    "D": {
     "wins": 0,
     "losses": 0,
@@ -3204,12 +3150,33 @@
     "open_n": 2,
     "open_mean": -4.402797253193681
    },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 15,
+    "open_mean": -7.395740186881715
+   },
+   "none": {
+    "wins": 0,
+    "losses": 2,
+    "closed_mean": -31.0,
+    "open_n": 3,
+    "open_mean": 12.671076718635655
+   },
    "C": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 3,
     "open_mean": -15.58735117476886
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 7,
+    "open_mean": -7.550450101797801
    }
   },
   "produced": [
@@ -3540,28 +3507,18 @@
    },
    {
     "date": "2026-09-30",
-    "sym": "ADBE",
-    "setup": "S"
-   },
-   {
-    "date": "2026-09-30",
     "sym": "AMGN",
     "setup": "D"
    },
    {
     "date": "2026-09-30",
     "sym": "BE",
-    "setup": "F"
+    "setup": "D"
    },
    {
     "date": "2026-09-30",
     "sym": "HOOD",
     "setup": "F"
-   },
-   {
-    "date": "2026-09-30",
-    "sym": "IBM",
-    "setup": "S"
    },
    {
     "date": "2026-09-30",
@@ -3580,11 +3537,6 @@
    },
    {
     "date": "2026-09-30",
-    "sym": "MRK",
-    "setup": "D"
-   },
-   {
-    "date": "2026-09-30",
     "sym": "MSFT",
     "setup": "D"
    },
@@ -3595,18 +3547,8 @@
    },
    {
     "date": "2026-09-30",
-    "sym": "NFLX",
-    "setup": "S"
-   },
-   {
-    "date": "2026-09-30",
     "sym": "NOW",
     "setup": "F"
-   },
-   {
-    "date": "2026-09-30",
-    "sym": "ORCL",
-    "setup": "S"
    },
    {
     "date": "2026-09-30",
@@ -3615,13 +3557,23 @@
    },
    {
     "date": "2026-09-30",
+    "sym": "SG",
+    "setup": "D"
+   },
+   {
+    "date": "2026-09-30",
     "sym": "SHOP",
-    "setup": "F"
+    "setup": "D"
    },
    {
     "date": "2026-09-30",
     "sym": "TTD",
     "setup": "S"
+   },
+   {
+    "date": "2026-09-30",
+    "sym": "TXN",
+    "setup": "C"
    },
    {
     "date": "2026-09-30",
@@ -30071,7 +30023,7 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 479,
+    "dte": 478,
     "acct": "real",
     "setup": "none",
     "before": 5.779999999999999,
@@ -30110,7 +30062,7 @@
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 479,
+    "dte": 478,
     "acct": "real",
     "setup": "none",
     "before": 1.915,
@@ -30123,7 +30075,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 108,
+    "dte": 107,
     "acct": "big",
     "setup": "E",
     "before": 30.939999999999998,
@@ -30136,7 +30088,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 808,
+    "dte": 807,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -30214,7 +30166,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "120",
-    "dte": 3,
+    "dte": 2,
     "acct": "big",
     "setup": "E",
     "before": 23.060000000000002,
@@ -30279,7 +30231,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 808,
+    "dte": 807,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -30331,7 +30283,7 @@
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 808,
+    "dte": 807,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -30370,7 +30322,7 @@
     "sym": "QCOM",
     "kind": "call",
     "strike": "175",
-    "dte": 17,
+    "dte": 16,
     "acct": "big",
     "setup": "C",
     "before": 28.96,
@@ -30396,7 +30348,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "65",
-    "dte": 17,
+    "dte": 16,
     "acct": "small",
     "setup": "E",
     "before": 3.89,
@@ -30409,7 +30361,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 80,
+    "dte": 79,
     "acct": "big",
     "setup": "E",
     "before": 30.25,
@@ -30422,7 +30374,7 @@
     "sym": "QCOM",
     "kind": "call",
     "strike": "240",
-    "dte": 52,
+    "dte": 51,
     "acct": "small",
     "setup": "C",
     "before": 6.35,
@@ -30435,7 +30387,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 80,
+    "dte": 79,
     "acct": "small",
     "setup": "F",
     "before": 4.14,
@@ -30448,7 +30400,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "170",
-    "dte": 52,
+    "dte": 51,
     "acct": "small",
     "setup": "F",
     "before": 2.975,
@@ -30461,7 +30413,7 @@
   "gone": [],
   "notes": [
    "SG is up 25.9% on a trade that broke a rule going in. A good outcome is not a good decision.",
-   "3 calls under 21 days: SHOP 3d, DOCU 17d, QCOM 17d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
+   "3 calls under 21 days: SHOP 2d, DOCU 16d, QCOM 16d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
   "goal": {
