@@ -469,8 +469,8 @@
  },
  {
   "date": "2026-09-30",
-  "vix": 15.899999618530273,
-  "regime": "CALM",
+  "vix": 16.34000015258789,
+  "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS",
@@ -481,8 +481,8 @@
   "D": [
    "SHOP",
    "SG",
-   "INTC",
    "TXN",
+   "INTC",
    "MU",
    "SNOW",
    "PLTR",
@@ -492,6 +492,8 @@
    "AMGN"
   ],
   "C": [],
-  "S": []
+  "S": [
+   "SPOT"
+  ]
  }
 ]
