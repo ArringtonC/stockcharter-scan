@@ -469,7 +469,7 @@
  },
  {
   "date": "2026-09-30",
-  "vix": 15.850000381469727,
+  "vix": 15.859999656677246,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -480,18 +480,16 @@
   ],
   "D": [
    "SHOP",
+   "SG",
    "INTC",
    "TXN",
-   "SG",
    "MU",
-   "GOOGL",
    "SNOW",
-   "MRNA",
    "PLTR",
+   "MRNA",
    "MSFT",
-   "AMD",
-   "AMGN",
-   "META"
+   "META",
+   "AMGN"
   ],
   "C": [],
   "S": []
