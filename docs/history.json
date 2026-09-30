@@ -466,5 +466,36 @@
   "S": [
    "TTD"
   ]
+ },
+ {
+  "date": "2026-09-30",
+  "vix": 16.040000915527344,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "BE",
+   "HOOD",
+   "SHOP"
+  ],
+  "D": [
+   "INTC",
+   "TXN",
+   "MU",
+   "PLTR",
+   "LLY",
+   "META",
+   "MSFT",
+   "AMGN",
+   "MRK"
+  ],
+  "C": [],
+  "S": [
+   "NFLX",
+   "ADBE",
+   "ORCL",
+   "IBM",
+   "TTD"
+  ]
  }
 ]
