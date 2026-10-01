@@ -495,5 +495,34 @@
   "S": [
    "SPOT"
   ]
+ },
+ {
+  "date": "2026-10-01",
+  "vix": 16.34000015258789,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "NOW",
+   "HOOD"
+  ],
+  "D": [
+   "SHOP",
+   "INTC",
+   "SG",
+   "BE",
+   "TXN",
+   "MU",
+   "PLTR",
+   "LLY",
+   "MSFT",
+   "META",
+   "AMGN"
+  ],
+  "C": [
+   "TXN"
+  ],
+  "S": [
+   "TTD"
+  ]
  }
 ]
