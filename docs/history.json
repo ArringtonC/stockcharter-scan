@@ -498,7 +498,7 @@
  },
  {
   "date": "2026-10-01",
-  "vix": 17.09000015258789,
+  "vix": 16.3700008392334,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -508,17 +508,17 @@
    "BE"
   ],
   "D": [
-   "SHOP",
    "SG",
+   "SHOP",
    "U",
-   "MU",
    "TXN",
    "INTC",
+   "MU",
    "SNOW",
    "PLTR",
    "MRNA",
-   "DOCU",
    "MSFT",
+   "DOCU",
    "META"
   ],
   "C": [],
