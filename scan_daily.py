@@ -893,7 +893,7 @@ def sp500_changes(n=12):
 
 # ── the AI-bubble plan (2026-09-28; BofA/Hartnett's two signals; thesis/bubble-plan.md) ──
 # Signal 2 is typed by hand: set the date the day SpaceX or OpenAI prices its IPO.
-IPO_SIGNALS = {"SpaceX": None, "OpenAI": None}
+IPO_SIGNALS = {"SpaceX": "2026-06-11", "OpenAI": None}   # SpaceX priced 2026-06-11 at $135 (SPCX, $75B raised)
 BUBBLE_STATE = os.path.join(DOCS, ".bubble-state.json")
 PHASES = [
     dict(n=1, name="Ride it", when="No signal has fired",
