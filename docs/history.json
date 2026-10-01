@@ -498,7 +498,7 @@
  },
  {
   "date": "2026-10-01",
-  "vix": 16.3700008392334,
+  "vix": 16.639999389648438,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -517,8 +517,8 @@
    "SNOW",
    "PLTR",
    "MRNA",
-   "MSFT",
    "DOCU",
+   "MSFT",
    "META"
   ],
   "C": [],
