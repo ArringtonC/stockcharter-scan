@@ -498,31 +498,30 @@
  },
  {
   "date": "2026-10-01",
-  "vix": 16.389999389648438,
+  "vix": 17.020000457763672,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS",
+   "NOW",
    "HOOD",
-   "NOW"
+   "BE"
   ],
   "D": [
-   "BE",
    "SG",
    "SHOP",
+   "MU",
    "TXN",
    "INTC",
-   "MU",
    "SNOW",
-   "MRNA",
    "PLTR",
    "DOCU",
    "MSFT",
-   "META",
-   "AMGN"
+   "META"
   ],
   "C": [],
   "S": [
+   "NFLX",
    "SPOT"
   ]
  }
