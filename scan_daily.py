@@ -934,6 +934,7 @@ def bubble(d):
     vix_buy = max(vc[-11:]) >= 25 and vc[-1] < vc[-2] < vc[-3]
     phase = 1 + bool(st_.get("cpi")) + bool(st_.get("ipo"))
     if st_.get("phase") == 4 or (phase == 3 and off <= -20 and vix_buy): phase = 4
+    changed_from = st_.get("phase") if st_.get("phase") and phase != st_.get("phase") else None
     if phase != st_.get("phase"):
         st_["phase"] = phase
         st_["since"] = max([x for x in (st_.get("cpi"), st_.get("ipo")) if x], default=d["date"]) if phase in (2, 3) else d["date"]
@@ -941,7 +942,7 @@ def bubble(d):
     runhi, dd = 0, []
     for x in q[::5] + [q[-1]]:
         runhi = max(runhi, x[1]); dd.append((x[0], round((x[1] / runhi - 1) * 100, 1)))
-    return dict(phase=phase, since=st_["since"], phases=PHASES, cpi=now_cpi, cpi_month=cpi[-1][0],
+    return dict(phase=phase, since=st_["since"], phases=PHASES, changed_from=changed_from, cpi=now_cpi, cpi_month=cpi[-1][0],
                 cpi_peak=max(cpi[-12:], key=lambda x: x[1]),
                 cpi_fired=st_.get("cpi"), ipo=IPO_SIGNALS, ipo_fired=st_.get("ipo"),
                 qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix=vc[-1], vix_buy=vix_buy,
@@ -980,6 +981,13 @@ def playbook():
         out["household"] = dict(score=j["ooze"], prev=j.get("prevOoze"), month=j.get("monthLabel"))
     except Exception as e:
         out["household_err"] = str(e)[:60]
+    # remember the last reading of each light so a change can be announced once
+    path = os.path.join(DOCS, ".playbook-state.json")
+    prev = json.load(open(path)) if os.path.exists(path) else {}
+    now = dict(rule_a=out.get("rule_a", {}).get("invested"), curve=out.get("curve", {}).get("inverted"),
+               household=(out.get("household", {}).get("score") or 0) >= 50)
+    out["flips"] = {k: v for k, v in now.items() if v is not None and k in prev and prev[k] is not None and prev[k] != v}
+    json.dump({k: (v if v is not None else prev.get(k)) for k, v in now.items()}, open(path, "w"))
     return out
 
 
@@ -1133,6 +1141,7 @@ def should_push(d, open_, name="key", key=None):
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
+                       sorted(((d.get("playbook") or {}).get("flips") or {}).items()),
                        sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
 
 
@@ -1261,6 +1270,34 @@ def writeup(d, m, pre=True):
     return W
 
 
+ALERT_TEXT = {
+    ("rule_a", False): ("🚨 BEAR RULE A FIRED", ["S&P closed 20 days in a row under its 200-day line",
+                         "Move the SPY core to cash · deposits wait in cash", "Back in after 20 closes above the line"]),
+    ("rule_a", True): ("✅ BEAR RULE A CLEARED", ["S&P closed 20 days in a row back above its 200-day line", "Buy back the SPY core"]),
+    ("household", True): ("🟡 HOUSEHOLD SCORE 50+", ["No new Setup F trades", "Deposits wait in cash"]),
+    ("household", False): ("✅ HOUSEHOLD SCORE BACK UNDER 50", ["Setup F trades back on"]),
+    ("curve", True): ("🟡 YIELD CURVE INVERTED", ["Recession odds up for the next 1-3 years", "Watch the banks first: XLF, KRE", "Nothing to sell on this alone"]),
+    ("curve", False): ("✅ YIELD CURVE BACK TO NORMAL", ["Recessions often start after this -- keep watching"]),
+}
+
+
+def alerts(d, m):
+    """Loud lines at the very top of the market report, on the run where something changed."""
+    A = []
+    bb = d.get("bubble") or {}
+    if bb.get("changed_from"):
+        ph = bb["phases"][bb["phase"] - 1]
+        A += [f"<b>🚨 AI BUBBLE PLAN: PHASE {bb['changed_from']} → PHASE {bb['phase']} ({ph['name'].upper()})</b>"] + [f"· {x}" for x in ph["do"]] + [""]
+    for k, v in ((d.get("playbook") or {}).get("flips") or {}).items():
+        t, lines = ALERT_TEXT[(k, v)]
+        A += [f"<b>{t}</b>"] + [f"· {x}" for x in lines] + [""]
+    import re
+    ipo = [h for h in (m.get("heads") or []) if re.search(r"\b(SpaceX|OpenAI)\b.*\b(IPO|prices|pricing|debut|listing)\b", h, re.I)]
+    if ipo and not any((d.get("bubble") or {}).get("ipo", {}).values()):
+        A += ["<b>⚠ POSSIBLE BUBBLE SIGNAL 2 (mega-IPO)</b>", f"· <i>{ipo[0]}</i>", "· Tell Claude to confirm it -- that would move the plan to Phase 3", ""]
+    return A
+
+
 def market_report(d):
     """Message 1 of 2: where the market is. Separate from the trades on purpose."""
     M = []
@@ -1272,6 +1309,7 @@ def market_report(d):
             "PREMARKET REPORT" if pre else
             f"{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY" if move_bucket(m) else "MARKET REPORT")
     M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + ["", "<i>not a signal</i>"]
+    M = alerts(d, m) + M
     return "\n".join(M)
 
 

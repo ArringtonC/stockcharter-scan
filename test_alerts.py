@@ -104,3 +104,13 @@ assert "👀 WATCH META $653.69</b> · CORE" in t and "OVER $624.80" in t and "n
 assert "10 EMA $735.20 > 30 EMA $701.40 · 30 rising · price above the 30" in t
 assert "WATCH META" in S.summary(base(watch=[w]), [], parts=True)["trades"]
 print("watch ok")
+
+# phase change and light flips put a loud banner at the top of the market report
+ph = [dict(n=i, name=n, when="", do=["x"]) for i, n in ((1, "Ride it"), (2, "One signal"), (3, "Both signals"), (4, "The drop"))]
+mm = base(bubble=dict(phase=3, changed_from=2, phases=ph, ipo={}, since="2026-11-02"), playbook=dict(flips={"rule_a": False}),
+          market={"heads": ["OpenAI prices IPO at $1 trillion valuation"]})
+r = S.market_report(mm)
+assert r.startswith("<b>🚨 AI BUBBLE PLAN: PHASE 2 → PHASE 3 (BOTH SIGNALS)</b>"), r[:80]
+assert "🚨 BEAR RULE A FIRED" in r and "POSSIBLE BUBBLE SIGNAL 2" in r
+assert "PHASE" not in S.market_report(base(bubble=dict(phase=2, changed_from=None, phases=ph, ipo={}, since="2026-06-15"), market={}))[:30]
+print("phase alerts ok")
