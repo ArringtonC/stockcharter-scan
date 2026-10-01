@@ -288,6 +288,7 @@ nav button{appearance:none;background:none;border:0;white-space:nowrap;cursor:po
   border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--dim);
   font:500 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;padding:12px 16px}
 nav button:hover{color:var(--ink2)}
+table.pb{width:100%;border-collapse:collapse}table.pb th,table.pb td{text-align:left;vertical-align:top;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
 nav button[aria-selected=true]{color:var(--amber);border-bottom-color:var(--amber)}
 nav button:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
 nav .n{display:inline-block;min-width:18px;margin-left:6px;font-size:var(--t-label);padding:1px 5px;
@@ -594,6 +595,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
     <button role="tab" data-tab="trades" aria-selected="false">Trades<span class="n" id="n-trades"></span></button>
     <button role="tab" data-tab="watching" aria-selected="false">Watching<span class="n" id="n-watching"></span></button>
     <button role="tab" data-tab="charts" aria-selected="false">Charts<span class="n" id="n-charts"></span></button>
+    <button role="tab" data-tab="playbook" aria-selected="false">Playbook</button>
     <button role="tab" data-tab="report" aria-selected="false">Report</button>
     <button role="tab" data-tab="research" aria-selected="false">Research</button>
     <button role="tab" data-tab="system" aria-selected="false">System</button>
@@ -605,6 +607,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
 
   <section role="tabpanel" id="tab-charts" class="today" hidden></section>
 
+  <section role="tabpanel" id="tab-playbook" class="today" hidden></section>
   <section role="tabpanel" id="tab-report" class="today" hidden></section>
 
   <section role="tabpanel" id="tab-research" hidden>
@@ -652,6 +655,77 @@ function fired(d){
 
 /* Three books since 2026-09-26: real money, the Setup-F-calls bot, and ideas. */
 const book=a=>({real:'real','paper-auto':'F bot',bot:'F bot','bot-leaps':'F LEAPS bot',paper:'idea',small:'idea',big:'idea'})[a]||a;
+
+/* Playbook: everything to remember in one place -- where we are, what each phase means, and the
+   warning lights with what the research says each one is good for. Live values from data.json. */
+function renderPlaybook(d,state){
+  const A=$('#tab-playbook'); if(state==='loading'||state==='error'||!d){A.innerHTML='';return;}
+  const pb=d.playbook||{}, b=d.bubble||{}, ra=pb.rule_a, cv=pb.curve, hh=pb.household;
+  const light=(c)=>`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--${c});margin-right:8px"></span>`;
+  const tile=(c,title,val,sub)=>`<div class="row"><div class="sym">${light(c)}</div><div class="main">
+      <div class="t"><b>${title}</b> · ${val}</div><div class="miss">${sub}</div></div></div>`;
+  const ph=(b.phases||[])[ (b.phase||1)-1 ]||{name:'',do:[]};
+  const raC = !ra?'dim':!ra.invested?'dn':ra.above?'up':'amber';
+  const cvC = !cv?'dim':cv.inverted?'dn':cv.value<0.25?'amber':'up';
+  const hhC = !hh?'dim':hh.score>=50?'dn':hh.score>=40?'amber':'up';
+  A.innerHTML=`
+  <div class="sec">
+    <h2>Where we are</h2>
+    <p class="lede">The one place to check before changing anything. Green = carry on. Amber = watch. Red = act.</p>
+    ${tile(b.phase>=3?'dn':b.phase===2?'amber':'up', `AI bubble plan: Phase ${b.phase||'?'}`, esc(ph.name||''),
+       (ph.do||[]).map(esc).join(' · '))}
+    ${tile(raC,'Bear rule A',
+       ra?`S&P ${ra.gap>=0?'+':''}${ra.gap.toFixed(1)}% vs its 200-day line · ${ra.streak} closes ${ra.above?'above':'below'}`:'no data',
+       ra?(ra.invested?(ra.above?'Invested. Fires after 20 closes in a row under the line.':`Below the line: ${ra.streak} of 20 closes. Still invested.`)
+          :'FIRED: the SPY core is in cash until 20 closes back above the line.'):'')}
+    ${tile(hhC,'Household Ooze Score', hh?`${hh.score} (${esc(hh.month||'')})`:'no data',
+       'Yellow light at 50+: no new F trades, deposits wait in cash. It confirms stress; it does not warn early.')}
+    ${tile(cvC,'Yield curve (10-year minus 3-month)', cv?`${cv.value>=0?'+':''}${cv.value.toFixed(2)} (${esc(cv.date)})`:'no data',
+       cv&&cv.inverted?'INVERTED: recession odds up for the next 1-3 years. Watch the banks (XLF, KRE) first.':'Normal. Inversion = heads-up for a recession 11-31 months out, and for bank stress.')}
+  </div>
+
+  <div class="sec">
+    <h2>The four phases <span class="tag watch">AI bubble plan</span></h2>
+    <p class="lede">BofA's playbook: the AI giants are 40%+ of the market, like past bubble peaks. Stay in until two signals fire, then step out in stages.</p>
+    ${(b.phases||[]).map(p=>`<div class="row" style="${p.n===b.phase?'background:var(--panel);outline:1px solid var(--amber)':''}">
+      <div class="sym">${p.n}<small>${p.n===b.phase?'now':''}</small></div>
+      <div class="main"><div class="t"><b>${esc(p.name)}</b> · ${esc(p.when)}</div><div class="miss">${p.do.map(esc).join(' · ')}</div></div></div>`).join('')}
+  </div>
+
+  <div class="sec">
+    <h2>What works in which market</h2>
+    <p class="lede">From the 2017-2025 replays and 1951-2026 index tests.</p>
+    <table class="pb"><thead><tr><th>Market</th><th>What works</th><th>Evidence</th></tr></thead><tbody>
+      <tr><td>Calm, steady climb</td><td>The SPY core. F sits in cash, so park F's idle cash in SPY.</td><td>2017: F alone +3%, F with cash in SPY +20%</td></tr>
+      <tr><td>Choppy / after a drop</td><td>Setup F BUY cards</td><td>2018 +16% vs SPY -7%, 2020 +89%, 2025 +60%</td></tr>
+      <tr><td>Bear market</td><td>Rule A: 20 closes under the 200-day, the SPY core goes to cash</td><td>2008 -6% vs -48%, 2000-02 -7% vs -40%, 2022 -7% vs -19%</td></tr>
+      <tr><td>Panic bottom</td><td>Setup VIX: VIX 25+ then falling 3 days, buy QQQ</td><td>the tested crash buy</td></tr>
+      <tr><td>Crash (household 50+ AND under the trend line)</td><td>Optional: deposits into a short until the trend turns</td><td>+3.4% vs SPY, one real episode (2008)</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec">
+    <h2>Warning lights: what each is good for</h2>
+    <table class="pb"><thead><tr><th>Light</th><th>Lead time</th><th>Use it for</th></tr></thead><tbody>
+      <tr><td>Yield curve inverts</td><td>Recession 11-31 months later; stock peak 0-21 months, sometimes none</td><td>Heads-up. Watch banks. Don't sell on it.</td></tr>
+      <tr><td>Household score rises 8+ in 3 months</td><td>16-24 months early</td><td>Heads-up only</td></tr>
+      <tr><td>Household score 50+</td><td>None: it arrived at the 2007 top</td><td>Confirms stress: stop new F trades</td></tr>
+      <tr><td>Rule A (20 closes under the 200-day)</td><td>Late: after the first part of the drop</td><td>The one to act on: ~1 switch a year</td></tr>
+      <tr><td>Mega-IPO prices (SpaceX, OpenAI)</td><td>Bubble-top tell (BofA)</td><td>Bubble plan signal 2</td></tr>
+      <tr><td>CPI 4%+</td><td>Policy tightening risk</td><td>Bubble plan signal 1 (fired Jun 2026)</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="sec">
+    <h2>Rules that don't change</h2>
+    <div class="row tight"><div class="sym">7%</div><div class="main"><div class="t">Max per position (~$700 now). SG is over it: don't add.</div></div></div>
+    <div class="row tight"><div class="sym">F</div><div class="main"><div class="t">Only a Setup F BUY card is a trade. WATCH cards and chart patterns are not.</div></div></div>
+    <div class="row tight"><div class="sym">45d</div><div class="main"><div class="t">No options under 45 days unless a setup fired. Same-day options cost $670 in September.</div></div></div>
+    <div class="row tight"><div class="sym">⚠</div><div class="main"><div class="t">Don't buy a single stock's panic (-5% on 3x volume): it usually lags for a month.</div></div></div>
+    <div class="row tight"><div class="sym">$</div><div class="main"><div class="t">Deposits do most of the work: $1,000 a month. In Phase 2 they go to SPY only.</div></div></div>
+    <p class="more">Sources: thesis/plan-backtest.md, portfolio-gaps.md, bubble-plan.md, volume/volume.md in the research repo.</p>
+  </div>`;
+}
 
 /* The AI-bubble plan: which phase we are in, what each phase means, and the two
    things that move it. Phase logic lives in scan_daily.bubble(); this only draws it. */
@@ -2114,7 +2188,7 @@ const money=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,m
 const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
 
 /* ── navigation ────────────────────────────────────────────────────────────── */
-const PANELS=['today','trades','watching','charts','report','research','system'];
+const PANELS=['today','trades','watching','charts','playbook','report','research','system'];
 function show(tab){
   document.querySelectorAll('nav [role=tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
   PANELS.forEach(p=>$('#tab-'+p).hidden=p!==tab);
@@ -2134,7 +2208,7 @@ document.querySelectorAll('.sub [role=tab]').forEach(b=>b.addEventListener('clic
 
 /* ── boot ──────────────────────────────────────────────────────────────────── */
 function renderAll(d,state){
-  renderToday(d,state); renderTrades(d,state); renderWatching(d,state); renderCharts(d,state); renderReport(d,state);
+  renderToday(d,state); renderPlaybook(d,state); renderTrades(d,state); renderWatching(d,state); renderCharts(d,state); renderReport(d,state);
   renderSetups(d,state); renderRules(d,state); renderSectors(d,state);
   renderMethodology(d,state); renderSystem(d,state);
   if(state==='error'){ $('#stamp').textContent='could not load data.json'; $('#stamp').classList.add('stale'); return; }

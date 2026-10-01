@@ -948,6 +948,41 @@ def bubble(d):
                 cpi_series=cpi, qqq_dd=dd)
 
 
+def playbook():
+    """Live status of every bear-watch light (thesis/plan-backtest.md, portfolio-gaps.md)."""
+    out = {}
+    try:   # Rule A: S&P 500 vs its 200-day line, with the 20-close confirmation
+        q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=2y&interval=1d")["chart"]["result"][0]
+        c = [x for x in q["indicators"]["quote"][0]["close"] if x]
+        sma = [sum(c[i - 199:i + 1]) / 200 for i in range(199, len(c))]; cc = c[199:]
+        state, run = True, 0
+        for x, m in zip(cc, sma):
+            side = x > m; run = run + 1 if side != state else 0
+            if run >= 20: state, run = side, 0
+        streak = 0
+        for x, m in zip(reversed(cc), reversed(sma)):
+            if (x > m) != (cc[-1] > sma[-1]): break
+            streak += 1
+        out["rule_a"] = dict(spx=cc[-1], sma200=sma[-1], gap=(cc[-1] / sma[-1] - 1) * 100,
+                             above=cc[-1] > sma[-1], streak=streak, invested=state, pending=run)
+    except Exception as e:
+        out["rule_a_err"] = str(e)[:60]
+    try:   # yield curve, 10-year minus 3-month (FRED, daily)
+        x = urllib.request.urlopen(urllib.request.Request("https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y3M",
+                                   headers=YF), timeout=45).read().decode().strip().split("\n")
+        last = [r.split(",") for r in x[-400:] if r.split(",")[1] not in ("", ".")]
+        v = float(last[-1][1]); inv_days = sum(1 for r in last[-250:] if float(r[1]) < 0)
+        out["curve"] = dict(value=v, date=last[-1][0], inverted=v < 0, inverted_days_1y=inv_days)
+    except Exception as e:
+        out["curve_err"] = str(e)[:60]
+    try:   # OOZEMeter household score (public repo)
+        j = get("https://raw.githubusercontent.com/ArringtonC/oozemeter/main/data/latest.json")
+        out["household"] = dict(score=j["ooze"], prev=j.get("prevOoze"), month=j.get("monthLabel"))
+    except Exception as e:
+        out["household_err"] = str(e)[:60]
+    return out
+
+
 def market(d, open_):
     """What can be known about today's index move, before and during. None of it
     says which way -- thesis/scalp.md: nothing predicted QQQ/SPY direction."""
@@ -1426,6 +1461,8 @@ if __name__ == "__main__":
     # part 2 F fires join the BUY list; D/C/S stay watchlist-only exactly as in part 1
     d["F"] += p2["F"]; d["part2"] = p2
     d["market"] = market(d, open_)
+    try: d["playbook"] = playbook()
+    except Exception as e: d["errors"].append(f"playbook: {str(e)[:40]}")
     try: d["watch"] = watch_patterns(d)
     except Exception as e: d["watch"] = []; d["errors"].append(f"watch: {str(e)[:40]}")
     try: d["bubble"] = bubble(d)
