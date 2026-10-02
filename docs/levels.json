@@ -9,5 +9,16 @@
   "target_up": 199.0,
   "target_down": 185.0,
   "fired": null
+ },
+ {
+  "symbol": "WDC",
+  "pattern": "Toshiba gap-down: gap fill vs breakdown",
+  "tf": "1d",
+  "logged": "2026-10-02",
+  "up": 462.56,
+  "down": 415.0,
+  "target_up": 475.0,
+  "target_down": 400.0,
+  "fired": null
  }
 ]
