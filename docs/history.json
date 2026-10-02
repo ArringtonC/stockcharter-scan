@@ -528,7 +528,7 @@
  },
  {
   "date": "2026-10-02",
-  "vix": 15.609999656677246,
+  "vix": 15.460000038146973,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -537,23 +537,28 @@
    "HOOD"
   ],
   "D": [
-   "BE",
    "SG",
    "SHOP",
-   "TXN",
-   "INTC",
+   "BE",
    "U",
+   "CSCO",
    "MU",
-   "SNOW",
+   "INTC",
+   "TXN",
    "MRNA",
+   "SNOW",
+   "DOCU",
    "MSFT",
    "PLTR",
    "META",
-   "DOCU"
+   "DELL"
   ],
-  "C": [],
+  "C": [
+   "TXN"
+  ],
   "S": [
-   "NFLX"
+   "NFLX",
+   "SPOT"
   ]
  }
 ]

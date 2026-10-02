@@ -23,6 +23,10 @@
   "down": 415.0,
   "target_up": 475.0,
   "target_down": 400.0,
-  "fired": null
+  "fired": {
+   "way": "down",
+   "price": 399.325,
+   "at": "2026-10-02 11:00"
+  }
  }
 ]
