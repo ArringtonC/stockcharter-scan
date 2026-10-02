@@ -1115,6 +1115,7 @@ def alert_key(d, open_):
                    for r in open_ if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps"))
     return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps,
                            watch=sorted(w["sym"] + w["date"] for w in d.get("watch", [])),
+                           levels=sorted(x["symbol"] + x["way"] for x in d.get("levels", [])),
                            errs=len(d["errors"]), regime=d["regime"]), sort_keys=True)
 
 
@@ -1374,6 +1375,29 @@ def watch_patterns(d):
     return hits
 
 
+# ── chart levels Arrington logs from his own charts (thesis/patterns/patterns.db, table levels) ──
+LEVELS = os.path.join(DOCS, "levels.json")
+
+
+def check_levels():
+    """Price through a logged chart trigger -> one card, once. Price = the latest quote at run time."""
+    if not os.path.exists(LEVELS): return []
+    L = json.load(open(LEVELS)); hits = []
+    for x in L:
+        if x.get("fired"): continue
+        try:
+            q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{x['symbol']}?range=1d&interval=5m")["chart"]["result"][0]["meta"]
+            p = q["regularMarketPrice"]
+        except Exception:
+            continue
+        way = "up" if p >= x["up"] else "down" if p <= x["down"] else None
+        if way:
+            x["fired"] = dict(way=way, price=p, at=datetime.datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d %H:%M"))
+            hits.append({**x, "price": p, "way": way})
+    json.dump(L, open(LEVELS, "w"), indent=1)
+    return hits
+
+
 def left(dte, today=None):
     """114d left is information; the last week is a warning; the last 3 days name the day."""
     if dte is None: return ""
@@ -1414,6 +1438,12 @@ def summary(d, open_, closed=(), parts=False):
         B.append("")
 
     W_ = []
+    for x in d.get("levels", []):
+        up = x["way"] == "up"
+        W_ += [f"<b>📍 LEVEL {x['symbol']} ${x['price']:,.2f} · {'BROKE OUT' if up else 'BROKE DOWN'}</b>",
+               f"YOUR {x['tf']} CHART: {x['pattern'].upper()}",
+               f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f} · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
+               f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
     for w in d.get("watch", []):
         W_ += [f"<b>👀 WATCH {w['sym']} ${w['close']:,.2f}</b>" + (" · CORE" if w["sym"] in CORE else ""),
                f"CHANNEL BREAKOUT {w['date'][5:]} · OVER ${w['base_high']:,.2f}",
@@ -1501,6 +1531,8 @@ if __name__ == "__main__":
     d["market"] = market(d, open_)
     try: d["playbook"] = playbook()
     except Exception as e: d["errors"].append(f"playbook: {str(e)[:40]}")
+    try: d["levels"] = check_levels()
+    except Exception as e: d["levels"] = []; d["errors"].append(f"levels: {str(e)[:40]}")
     try: d["watch"] = watch_patterns(d)
     except Exception as e: d["watch"] = []; d["errors"].append(f"watch: {str(e)[:40]}")
     try: d["bubble"] = bubble(d)

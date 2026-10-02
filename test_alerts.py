@@ -114,3 +114,10 @@ assert r.startswith("<b>🚨 AI BUBBLE PLAN: PHASE 2 → PHASE 3 (BOTH SIGNALS)<
 assert "🚨 BEAR RULE A FIRED" in r and "POSSIBLE BUBBLE SIGNAL 2" in r
 assert "PHASE" not in S.market_report(base(bubble=dict(phase=2, changed_from=None, phases=ph, ipo={}, since="2026-06-15"), market={}))[:30]
 print("phase alerts ok")
+
+# a logged chart level that breaks gets one card
+lv = dict(symbol="PLTR", pattern="ascending triangle after a trendline break", tf="30m", up=192.0, down=188.7,
+          target_up=199.0, target_down=185.0, price=192.4, way="up")
+t = S.summary(base(levels=[lv]), [])
+assert "📍 LEVEL PLTR $192.40 · BROKE OUT" in t and "OVER $192.00 · TARGET $199.00" in t and "close back under $188.70" in t
+print("levels ok")

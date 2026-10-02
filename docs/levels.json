@@ -1,0 +1,13 @@
+[
+ {
+  "symbol": "PLTR",
+  "pattern": "ascending triangle after a trendline break",
+  "tf": "30m",
+  "logged": "2026-10-01",
+  "up": 192.0,
+  "down": 188.7,
+  "target_up": 199.0,
+  "target_down": 185.0,
+  "fired": null
+ }
+]
