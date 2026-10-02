@@ -1,21 +1,21 @@
 {
- "date": "2026-10-01",
- "stamp": "2026-10-02 02:58 UTC",
+ "date": "2026-10-02",
+ "stamp": "2026-10-02 11:47 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 16.389999389648438,
+ "vix": 15.960000038146973,
  "vix5": [
-  14.869999885559082,
   16.06999969482422,
   16.040000915527344,
   16.34000015258789,
-  16.389999389648438
+  16.389999389648438,
+  15.960000038146973
  ],
  "vix_hi10": 16.389999389648438,
  "qqq": 742.030029296875,
  "qdd": -0.7264592775745649,
- "regime": "NORMAL",
- "advice": "Setup F adds the most here (+10.76pp vs baseline). It pays more at 25+. No shorts.",
+ "regime": "CALM",
+ "advice": "Setup F edge is negative here. Run nothing new.",
  "peaked": false,
  "falling": false,
  "vix_fires": false,
@@ -1118,7 +1118,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 477,
+   "days": 476,
    "now": 8.680000305175781,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1162,7 +1162,7 @@
    "exit": "Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
-   "days": 50,
+   "days": 49,
    "now": 182.08999633789062,
    "target": 253.72,
    "cost": 392.0,
@@ -1184,7 +1184,7 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 477,
+   "days": 476,
    "now": 5.650000095367432,
    "target": 12.34,
    "cost": 468.0,
@@ -1376,7 +1376,9 @@
   "blocked": []
  },
  "market": {
-  "events": [],
+  "events": [
+   "jobs report 7:30 CT"
+  ],
   "QQQ": 0.3055003582194349,
   "QQQ_px": 742.03,
   "QQQ_chg": 2.259999999999991,
@@ -1386,95 +1388,82 @@
   "USO": 2.9932720032953553,
   "USO_px": 150.02,
   "USO_chg": 4.360000000000014,
-  "NQ=F": 0.3795451959493601,
-  "NQ=F_px": 30877.25,
-  "NQ=F_chg": 116.75,
-  "CL=F": -0.11844513836545278,
-  "CL=F_px": 92.76,
-  "CL=F_chg": -0.10999999999999943,
+  "NQ=F": 0.7038247102615358,
+  "NQ=F_px": 30977.0,
+  "NQ=F_chg": 216.5,
+  "CL=F": -4.037902444276941,
+  "CL=F_px": 89.12,
+  "CL=F_chg": -3.75,
   "^TNX": -1.0580011335726391,
   "^TNX_px": 5.237,
   "^TNX_chg": -0.05600000000000005,
-  "^VIX": 0.3059975520195879,
-  "^VIX_px": 16.39,
-  "^VIX_chg": 0.05000000000000071,
+  "^VIX": -2.623550945698594,
+  "^VIX_px": 15.96,
+  "^VIX_chg": -0.4299999999999997,
   "exp_by": "Fri",
   "QQQ_exp": 6.935,
   "SPY_exp": 5.175,
   "fut": [
    [
     "S&P",
-    7740.5,
-    0.2006472491909328,
+    7763.0,
+    0.4919093851132761,
     true
    ],
    [
     "Nasdaq",
-    30877.25,
-    0.3444773936710499,
+    30971.75,
+    0.6515822399155047,
     true
    ],
    [
     "Dow",
-    51330.0,
-    0.18737557090995338,
+    51516.0,
+    0.5504157395479492,
     true
    ],
    [
     "Russell",
-    2832.89990234375,
-    0.10954319959493031,
+    2846.89990234375,
+    0.6042778012780969,
     true
    ],
    [
     "Oil",
-    92.76000213623047,
-    -0.1614481971440096,
+    89.12999725341797,
+    -4.068460079324021,
     true
    ],
    [
     "Gold",
-    4189.60009765625,
-    -0.43252312077621813,
+    4211.7001953125,
+    0.09269430120355526,
     true
    ]
   ],
   "QQQ_pre": [
    742.03,
-   743.605
+   746.2311
   ],
   "SPY_pre": [
    763.99,
-   764.73
+   767.32
   ],
   "USO_pre": [
    150.02,
-   149.5
+   144.18
   ],
   "^VIX_pre": [
-   16.34,
-   16.3799991607666
+   16.39,
+   15.960000038146973
   ],
   "heads": [
-   "Boeing engineers and technical workers approve new contract, avoiding strike",
-   "Treasury sanctions operation targets Iran's auto, rail industries in latest economic attack",
-   "Trump could target three Fed governors. Removing them may be harder than it looks"
+   "U.S. to send third carrier group to Mideast as Trump warns of new Iran strikes",
+   "Big Pharma turns to China for new drugs as patent cliff drives multibillion-dollar deals",
+   "The September jobs report will be released Friday. Here's what to expect"
   ],
   "tnx_since": "2007",
-  "movers": [
-   [
-    "GOOGL",
-    -1.6972787043119886
-   ],
-   [
-    "BAC",
-    -1.286056878586661
-   ],
-   [
-    "NVDA",
-    1.0859075551783226
-   ]
-  ]
+  "movers": []
  },
  "playbook": {
   "rule_a": {
@@ -1499,6 +1488,7 @@
   },
   "flips": {}
  },
+ "levels": [],
  "watch": [],
  "bubble": {
   "phase": 3,
@@ -1561,7 +1551,7 @@
   "qqq": 742.030029296875,
   "qqq_hi": 747.4600219726562,
   "qqq_off": -0.7,
-  "vix": 16.389999389648438,
+  "vix": 15.960000038146973,
   "vix_buy": false,
   "cpi_series": [
    [
@@ -2258,7 +2248,7 @@
    "now": 33.025,
    "spot": 69.73999786376953,
    "intrinsic": 32.23999786376953,
-   "dte": 106,
+   "dte": 105,
    "sessions": 18,
    "mark": "alpaca"
   },
@@ -2282,7 +2272,7 @@
    "now": 5.745,
    "spot": 69.73999786376953,
    "intrinsic": 4.739997863769531,
-   "dte": 15,
+   "dte": 14,
    "sessions": 18,
    "mark": "alpaca"
   },
@@ -2306,7 +2296,7 @@
    "now": 27.395000000000003,
    "spot": 186.75,
    "intrinsic": 16.75,
-   "dte": 78,
+   "dte": 77,
    "sessions": 18,
    "mark": "alpaca"
   },
@@ -2376,7 +2366,7 @@
    "now": 3.67,
    "spot": 137.75999450683594,
    "intrinsic": 0.0,
-   "dte": 78,
+   "dte": 77,
    "sessions": 11,
    "mark": "alpaca"
   },
@@ -2400,7 +2390,7 @@
    "now": 2.875,
    "spot": 137.75999450683594,
    "intrinsic": 0.0,
-   "dte": 50,
+   "dte": 49,
    "sessions": 10,
    "mark": "alpaca"
   },
@@ -2424,7 +2414,7 @@
    "now": 2.145,
    "spot": 182.08999633789062,
    "intrinsic": 0.0,
-   "dte": 50,
+   "dte": 49,
    "sessions": 10,
    "mark": "alpaca"
   },
@@ -2563,7 +2553,7 @@
    "now": 11.365,
    "spot": 182.08999633789062,
    "intrinsic": 7.089996337890625,
-   "dte": 15,
+   "dte": 14,
    "sessions": 14,
    "mark": "alpaca"
   },
@@ -2610,7 +2600,7 @@
    "now": 6.279999999999999,
    "spot": 8.680000305175781,
    "intrinsic": 5.680000305175781,
-   "dte": 477,
+   "dte": 476,
    "sessions": 4,
    "mark": "alpaca"
   },
@@ -2634,7 +2624,7 @@
    "now": 2.0700000000000003,
    "spot": 5.650000095367432,
    "intrinsic": 0.6500000953674316,
-   "dte": 477,
+   "dte": 476,
    "sessions": 4,
    "mark": "alpaca"
   },
@@ -2658,7 +2648,7 @@
    "now": 50.56,
    "spot": 137.75999450683594,
    "intrinsic": 2.7599945068359375,
-   "dte": 806,
+   "dte": 805,
    "sessions": 3,
    "mark": "alpaca"
   },
@@ -2682,7 +2672,7 @@
    "now": 59.099999999999994,
    "spot": 149.08999633789062,
    "intrinsic": 9.089996337890625,
-   "dte": 806,
+   "dte": 805,
    "sessions": 3,
    "mark": "alpaca"
   },
@@ -2706,7 +2696,7 @@
    "now": 41.849999999999994,
    "spot": 111.1500015258789,
    "intrinsic": 0.0,
-   "dte": 806,
+   "dte": 805,
    "sessions": 3,
    "mark": "alpaca"
   },
@@ -2753,7 +2743,7 @@
    "now": 65.375,
    "spot": 198.77999877929688,
    "intrinsic": 0.0,
-   "dte": 624,
+   "dte": 623,
    "sessions": 0,
    "mark": "alpaca"
   }
@@ -3213,7 +3203,7 @@
     ]
    },
    {
-    "date": "2026-10-02",
+    "date": "2026-10-01",
     "vix": 16.389999389648438,
     "regime": "NORMAL",
     "vix_fires": false,
@@ -3224,27 +3214,28 @@
      "BE"
     ],
     "D": [
-     "SHOP",
      "SG",
+     "SHOP",
+     "U",
      "TXN",
      "INTC",
      "MU",
      "SNOW",
-     "PLTR",
      "MRNA",
+     "PLTR",
      "MSFT",
-     "META",
-     "AMGN"
+     "DOCU",
+     "META"
     ],
     "C": [],
     "S": [
-     "SPOT"
+     "NFLX"
     ]
    },
    {
-    "date": "2026-10-01",
-    "vix": 16.389999389648438,
-    "regime": "NORMAL",
+    "date": "2026-10-02",
+    "vix": 15.960000038146973,
+    "regime": "CALM",
     "vix_fires": false,
     "F": [
      "ZS",
@@ -3408,19 +3399,12 @@
    }
   ],
   "by_setup": {
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 17,
-    "open_mean": -4.441427539053532
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
+   "none": {
+    "wins": 3,
+    "losses": 3,
+    "closed_mean": -2.349999999999999,
     "open_n": 3,
-    "open_mean": -23.399619634488545
+    "open_mean": 16.045439176653876
    },
    "E": {
     "wins": 1,
@@ -3429,12 +3413,12 @@
     "open_n": 6,
     "open_mean": -1.5960517120679085
    },
-   "none": {
-    "wins": 3,
-    "losses": 3,
-    "closed_mean": -2.349999999999999,
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
     "open_n": 3,
-    "open_mean": 16.045439176653876
+    "open_mean": -23.399619634488545
    },
    "D": {
     "wins": 0,
@@ -3442,6 +3426,13 @@
     "closed_mean": null,
     "open_n": 2,
     "open_mean": -4.611182201659875
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 17,
+    "open_mean": -4.441427539053532
    }
   },
   "produced": [
@@ -3777,13 +3768,13 @@
    },
    {
     "date": "2026-10-02",
-    "sym": "AMGN",
-    "setup": "D"
+    "sym": "BE",
+    "setup": "F"
    },
    {
     "date": "2026-10-02",
-    "sym": "BE",
-    "setup": "F"
+    "sym": "DOCU",
+    "setup": "D"
    },
    {
     "date": "2026-10-02",
@@ -3817,6 +3808,11 @@
    },
    {
     "date": "2026-10-02",
+    "sym": "NFLX",
+    "setup": "S"
+   },
+   {
+    "date": "2026-10-02",
     "sym": "NOW",
     "setup": "F"
    },
@@ -3842,12 +3838,12 @@
    },
    {
     "date": "2026-10-02",
-    "sym": "SPOT",
-    "setup": "S"
+    "sym": "TXN",
+    "setup": "D"
    },
    {
     "date": "2026-10-02",
-    "sym": "TXN",
+    "sym": "U",
     "setup": "D"
    },
    {
@@ -26931,7 +26927,7 @@
     5129710000,
     5023590000,
     4276550000,
-    3202348000
+    5783800000
    ],
    "e10": [
     6926.6,
@@ -28856,7 +28852,7 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 477,
+    "dte": 476,
     "acct": "real",
     "setup": "none",
     "before": 5.779999999999999,
@@ -28895,7 +28891,7 @@
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 477,
+    "dte": 476,
     "acct": "real",
     "setup": "none",
     "before": 1.915,
@@ -28908,7 +28904,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 106,
+    "dte": 105,
     "acct": "big",
     "setup": "E",
     "before": 30.939999999999998,
@@ -28921,7 +28917,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "65",
-    "dte": 15,
+    "dte": 14,
     "acct": "small",
     "setup": "E",
     "before": 3.89,
@@ -28947,7 +28943,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 806,
+    "dte": 805,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -28973,7 +28969,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 806,
+    "dte": 805,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -29129,7 +29125,7 @@
     "sym": "ZS",
     "kind": "call",
     "strike": "200",
-    "dte": 624,
+    "dte": 623,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -29168,7 +29164,7 @@
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 806,
+    "dte": 805,
     "acct": "bot-leaps",
     "setup": "F",
     "before": null,
@@ -29194,7 +29190,7 @@
     "sym": "QCOM",
     "kind": "call",
     "strike": "175",
-    "dte": 15,
+    "dte": 14,
     "acct": "big",
     "setup": "C",
     "before": 28.96,
@@ -29207,7 +29203,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 78,
+    "dte": 77,
     "acct": "big",
     "setup": "E",
     "before": 30.25,
@@ -29220,7 +29216,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 78,
+    "dte": 77,
     "acct": "small",
     "setup": "F",
     "before": 4.14,
@@ -29233,7 +29229,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "170",
-    "dte": 50,
+    "dte": 49,
     "acct": "small",
     "setup": "F",
     "before": 2.975,
@@ -29246,7 +29242,7 @@
     "sym": "QCOM",
     "kind": "call",
     "strike": "240",
-    "dte": 50,
+    "dte": 49,
     "acct": "small",
     "setup": "C",
     "before": 6.35,
@@ -29265,7 +29261,7 @@
   ],
   "notes": [
    "SG is up 25.1% on a trade that broke a rule going in. A good outcome is not a good decision.",
-   "2 calls under 21 days: DOCU 15d, QCOM 15d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
+   "2 calls under 21 days: DOCU 14d, QCOM 14d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
   "goal": {

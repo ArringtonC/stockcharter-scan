@@ -497,7 +497,7 @@
   ]
  },
  {
-  "date": "2026-10-02",
+  "date": "2026-10-01",
   "vix": 16.389999389648438,
   "regime": "NORMAL",
   "vix_fires": false,
@@ -508,27 +508,28 @@
    "BE"
   ],
   "D": [
-   "SHOP",
    "SG",
+   "SHOP",
+   "U",
    "TXN",
    "INTC",
    "MU",
    "SNOW",
-   "PLTR",
    "MRNA",
+   "PLTR",
    "MSFT",
-   "META",
-   "AMGN"
+   "DOCU",
+   "META"
   ],
   "C": [],
   "S": [
-   "SPOT"
+   "NFLX"
   ]
  },
  {
-  "date": "2026-10-01",
-  "vix": 16.389999389648438,
-  "regime": "NORMAL",
+  "date": "2026-10-02",
+  "vix": 15.960000038146973,
+  "regime": "CALM",
   "vix_fires": false,
   "F": [
    "ZS",
