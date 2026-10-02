@@ -528,8 +528,8 @@
  },
  {
   "date": "2026-10-02",
-  "vix": 15.960000038146973,
-  "regime": "CALM",
+  "vix": 16.049999237060547,
+  "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS",
