@@ -44,3 +44,8 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-28-HOOD-leap,call,bot-leaps,2026-09-28,HOOD,F,50.00,153.86,120,2028-12-15,1,open,,,,"F LEAPS. 1x $120C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $153.86 or 30 days before expiry."
 2026-09-30-ZS-f,shares,bot,2026-09-30,ZS,F,200.79,336.99,,,34,open,,,,"Pure Setup F. 34 shares, 7% of equity. Target $336.99; no stop; floor at the target once reached; out at 252 sessions."
 2026-10-01-ZS-leap,call,bot-leaps,2026-10-01,ZS,F,69.25,336.99,200,2028-06-16,1,open,,,,"F LEAPS. 1x $200C 2028-06-16 (~2 years), 7% of a $100k book. Sells when the stock reaches $336.99 or 30 days before expiry."
+2026-09-28-QQQ-745c-real,call,real,2026-09-28,QQQ,none,2.81,,745,2026-10-02,1,closed,2026-09-28,1.99,-29.2,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
+2026-09-30-QQQ-746c-real,call,real,2026-09-30,QQQ,none,2.48,,746,2026-10-02,1,closed,2026-09-30,2.93,18.1,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
+2026-09-30-QQQ-746c-realb,call,real,2026-09-30,QQQ,none,3.04,,746,2026-10-02,1,closed,2026-09-30,2.99,-1.6,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
+2026-09-30-PLTR-192.5c-real,call,real,2026-09-30,PLTR,none,1.70,,192.5,2026-10-02,1,closed,2026-09-30,1.85,8.8,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
+2026-09-30-PLTR-190c-real,call,real,2026-09-30,PLTR,none,2.54,,190,2026-10-02,1,closed,2026-09-30,2.59,2.0,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.

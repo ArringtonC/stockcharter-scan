@@ -497,6 +497,35 @@
   ]
  },
  {
+  "date": "2026-10-02",
+  "vix": 16.389999389648438,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW",
+   "HOOD",
+   "BE"
+  ],
+  "D": [
+   "SHOP",
+   "SG",
+   "TXN",
+   "INTC",
+   "MU",
+   "SNOW",
+   "PLTR",
+   "MRNA",
+   "MSFT",
+   "META",
+   "AMGN"
+  ],
+  "C": [],
+  "S": [
+   "SPOT"
+  ]
+ },
+ {
   "date": "2026-10-01",
   "vix": 16.389999389648438,
   "regime": "NORMAL",
@@ -524,35 +553,6 @@
   "C": [],
   "S": [
    "NFLX"
-  ]
- },
- {
-  "date": "2026-10-02",
-  "vix": 16.389999389648438,
-  "regime": "NORMAL",
-  "vix_fires": false,
-  "F": [
-   "ZS",
-   "NOW",
-   "HOOD",
-   "BE"
-  ],
-  "D": [
-   "SHOP",
-   "SG",
-   "TXN",
-   "INTC",
-   "MU",
-   "SNOW",
-   "PLTR",
-   "MRNA",
-   "MSFT",
-   "META",
-   "AMGN"
-  ],
-  "C": [],
-  "S": [
-   "SPOT"
   ]
  }
 ]
