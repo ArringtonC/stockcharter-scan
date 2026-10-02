@@ -1044,7 +1044,9 @@ def market(d, open_):
         geo = re.compile(r"\b(iran|israel|russia|ukraine|china|xi|opec|war|strike|sanction|peace|ceasefire)", re.I)
         mkt = re.compile(r"\b(yields?|rates?|fed|warsh|oil|crude|stocks?|futures|nasdaq|s&p|dow|inflation|cpi|jobs|treasur\w*|tariffs?|chips?)\b", re.I)
         u = list(dict.fromkeys(heads))
-        m["heads"] = ([h for h in u if geo.search(h)][:2] + [h for h in u if mkt.search(h) and not geo.search(h)])[:3]
+        ipo = re.compile(rf"\b({MEGA_IPOS})\b.*\b(IPO|prices|priced|pricing|debut|listing|goes public)\b", re.I)
+        m["heads"] = ([h for h in u if ipo.search(h)][:1] + [h for h in u if geo.search(h) and not ipo.search(h)][:2]
+                      + [h for h in u if mkt.search(h) and not geo.search(h) and not ipo.search(h)])[:3]
     except Exception:
         m["heads"] = []
     # is the 10-year at a multi-year high? (monthly history, highest-since year)
@@ -1143,6 +1145,7 @@ def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
                        sorted(((d.get("playbook") or {}).get("flips") or {}).items()),
+                       mega_ipo_headlines(d.get("market", {}))[:1],
                        sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
 
 
@@ -1292,11 +1295,21 @@ def alerts(d, m):
     for k, v in ((d.get("playbook") or {}).get("flips") or {}).items():
         t, lines = ALERT_TEXT[(k, v)]
         A += [f"<b>{t}</b>"] + [f"· {x}" for x in lines] + [""]
-    import re
-    ipo = [h for h in (m.get("heads") or []) if re.search(r"\b(SpaceX|OpenAI)\b.*\b(IPO|prices|pricing|debut|listing)\b", h, re.I)]
+    ipo = mega_ipo_headlines(m)
     if ipo and not any((d.get("bubble") or {}).get("ipo", {}).values()):
         A += ["<b>⚠ POSSIBLE BUBBLE SIGNAL 2 (mega-IPO)</b>", f"· <i>{ipo[0]}</i>", "· Tell Claude to confirm it -- that would move the plan to Phase 3", ""]
+    elif ipo:   # signal 2 already fired: another mega-IPO is a late-bubble heads-up, not a phase change
+        A += ["<b>⚠ ANOTHER MEGA-IPO (late-bubble sign)</b>", f"· <i>{ipo[0]}</i>",
+              "· Signal 2 already fired (SpaceX) -- no phase change", "· Bubbles tend to top as the biggest companies sell stock", ""]
     return A
+
+
+MEGA_IPOS = r"SpaceX|OpenAI|Anthropic|xAI"   # 2026-10-02: Anthropic reported to target a ~$2T listing by Nov 2026
+
+
+def mega_ipo_headlines(m):
+    import re
+    return [h for h in (m.get("heads") or []) if re.search(rf"\b({MEGA_IPOS})\b.*\b(IPO|prices|priced|pricing|debut|listing|goes public)\b", h, re.I)]
 
 
 def market_report(d):

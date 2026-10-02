@@ -121,3 +121,9 @@ lv = dict(symbol="PLTR", pattern="ascending triangle after a trendline break", t
 t = S.summary(base(levels=[lv]), [])
 assert "📍 LEVEL PLTR $192.40 · BROKE OUT" in t and "OVER $192.00 · TARGET $199.00" in t and "close back under $188.70" in t
 print("levels ok")
+
+# another mega-IPO after signal 2 already fired: a heads-up, not a phase change
+mm2 = base(bubble=dict(phase=3, changed_from=None, phases=ph, ipo={"SpaceX": "2026-06-11"}, since="2026-06-15"),
+           market={"heads": ["Anthropic prices IPO, raising $100 billion"]})
+r = S.market_report(mm2); assert "⚠ ANOTHER MEGA-IPO (late-bubble sign)" in r and "PHASE 3 →" not in r, r[:200]
+print("mega-ipo ok")
