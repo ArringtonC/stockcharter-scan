@@ -1445,7 +1445,7 @@ def summary(d, open_, closed=(), parts=False):
                f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f} · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
                f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
     for w in d.get("watch", []):
-        W_ += [f"<b>👀 WATCH {w['sym']} ${w['close']:,.2f}</b>" + (" · CORE" if w["sym"] in CORE else ""),
+        W_ += [f"<b>👀 SETUP G · WATCH {w['sym']} ${w['close']:,.2f}</b>" + (" · CORE" if w["sym"] in CORE else ""),
                f"CHANNEL BREAKOUT {w['date'][5:]} · OVER ${w['base_high']:,.2f}",
                f"OLD HIGH ${w['peak']:,.2f} · +{(w['peak'] / w['close'] - 1) * 100:.0f}%",
                (f"10 EMA ${w['e10']:,.2f} {'>' if w['e10'] > w['e30'] else '<'} 30 EMA ${w['e30']:,.2f}"

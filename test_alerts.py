@@ -100,9 +100,9 @@ print("panic ok")
 # pattern WATCH cards: shown, never phrased as a buy, and routed with the new trades
 w = dict(sym="META", date="2026-09-09", close=653.69, base_high=624.8, peak=790.8, e10=735.2, e30=701.4, e30_up=True, above30=True)
 t = S.summary(base(watch=[w]), [])
-assert "👀 WATCH META $653.69</b> · CORE" in t and "OVER $624.80" in t and "not a buy" in t and "BUY META" not in t
+assert "👀 SETUP G · WATCH META $653.69</b> · CORE" in t and "OVER $624.80" in t and "not a buy" in t and "BUY META" not in t
 assert "10 EMA $735.20 > 30 EMA $701.40 · 30 rising · price above the 30" in t
-assert "WATCH META" in S.summary(base(watch=[w]), [], parts=True)["trades"]
+assert "SETUP G · WATCH META" in S.summary(base(watch=[w]), [], parts=True)["trades"]
 print("watch ok")
 
 # phase change and light flips put a loud banner at the top of the market report
