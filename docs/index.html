@@ -1408,11 +1408,23 @@ function mountOneChart(item){
   };
   const s10=line(s.e10,'#43a047',2); line(s.e30,'#1e88e5',2);
   // the EMA cross, as on TradingView: green when the 10 crosses over the 30, red when it crosses under
-  if(s10&&L.createSeriesMarkers){
-    const mk=[];
-    for(let i=1;i<n;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1]))
-      mk.push({time:dates[i],position:'atPriceMiddle',price:Number(s.e30[i]),shape:'square',size:2,color:a?'#43a047':'#e53935'});}
-    L.createSeriesMarkers(s10,mk);
+  if(s10){
+    const X=[];
+    for(let i=1;i<n;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1])) X.push({time:dates[i],price:Number(s.e30[i]),up:a});}
+    // drawn on the canvas: the library has no + or X marker shape. Big green + up, big red X down.
+    s10.attachPrimitive({
+      paneViews:()=>[{renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:c})=>{
+        X.forEach(m=>{
+          const x=api.timeScale().timeToCoordinate(m.time), y=s10.priceToCoordinate(m.price);
+          if(x==null||y==null)return;
+          const r=m.up?13:10; c.lineCap='round';
+          const pen=(w,col)=>{c.lineWidth=w;c.strokeStyle=col;c.beginPath();
+            if(m.up){c.moveTo(x-r,y);c.lineTo(x+r,y);c.moveTo(x,y-r);c.lineTo(x,y+r);}
+            else{const q=r*.75;c.moveTo(x-q,y-q);c.lineTo(x+q,y+q);c.moveTo(x+q,y-q);c.lineTo(x-q,y+q);}
+            c.stroke();};
+          pen(9,C.bg); pen(5,m.up?'#00e676':'#ff1744');
+        });})})}]
+    });
   }
 
   let volumeSeries=null;
@@ -1521,7 +1533,7 @@ function renderCharts(d,state){
     <summary><span>Only names you hold or that fired. <b class="not">Not every ticker.</b></span>
       <span class="how">How this works</span></summary>
     <div class="in">
-      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A green mark = the 10 crossed over the 30; red = it crossed under. Drag to pan, scroll or pinch to zoom, and move
+      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Drag to pan, scroll or pinch to zoom, and move
       across a chart to inspect exact open, high, low, close and volume.</p>
       <p>Your entry, target or strike is drawn on the same price scale, so the gap you see is the gap that exists.</p>
       <p>There is no chart for a name you do not own and that has not fired. Fifty-one charts of nothing
