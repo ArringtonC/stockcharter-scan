@@ -1276,12 +1276,15 @@ def _chart(sym, title, lines, start=-190, mark=None):
     try:
         import io, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
     except ImportError: return None
-    b = bars(sym); c = [x[1] for x in b]; e30, e200 = ema(c, 30), ema(c, 200); b = b[start:]; n = len(b)
+    b = bars(sym); c = [x[1] for x in b]; e10, e30 = ema(c, 10)[start:], ema(c, 30)[start:]; b = b[start:]; n = len(b)
     fig, ax = plt.subplots(figsize=(8, 5), dpi=110)
     for k, (_, cl, hi, lo, op, _v) in enumerate(b):
-        col = "#2e7d32" if cl >= op else "#c62828"
+        col = "#26a69a" if cl >= op else "#ef5350"   # TradingView colors
         ax.vlines(k, lo, hi, color=col, lw=0.8); ax.bar(k, abs(cl - op) or cl * 0.001, bottom=min(cl, op), color=col, width=0.7)
-    ax.plot(e30[-n:], color="#1565c0", lw=1.4, label="30-day EMA"); ax.plot(e200[-n:], color="#757575", lw=1.4, label="200-day EMA")
+    ax.plot(e10, color="#43a047", lw=1.6, label="10 EMA"); ax.plot(e30, color="#1e88e5", lw=1.6, label="30 EMA")
+    for k in range(1, n):   # the EMA cross: green + when the 10 crosses over the 30, red + when it crosses under
+        if (e10[k] > e30[k]) != (e10[k - 1] > e30[k - 1]):
+            ax.plot(k, e30[k], "P", ms=11, color="#43a047" if e10[k] > e30[k] else "#e53935", mec="white", mew=0.8, zorder=5)
     box = dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5)
     for y, lbl, col, ls in lines:
         ax.axhline(y, color=col, ls=ls, lw=1.2); ax.text(2, y, lbl, va="bottom", fontsize=10, color=col, bbox=box)
