@@ -1424,8 +1424,10 @@ function mountOneChart(item){
       axisLabelVisible:true,title});
   };
   (item.pos||[]).forEach(p=>{
-    if(p.kind==='shares'){mark(p.entry,'ENTRY',C.amber);mark(p.target,'TARGET',C.up)}
+    if(p.kind==='shares')mark(p.entry,'ENTRY',C.amber);
     if(p.kind==='call')mark(p.strike,`${p.strike}C`,C.amber);
+    // same rule as the Discord charts: once the target is touched, the stop sits at the target
+    mark(p.target,p.armed?'STOP AT TARGET':'TARGET',p.armed?C.dn:C.up);
   });
   // Price lines alone do not expand the library's autoscale range.
   // Include held-position levels so a distant target or strike stays visible.
