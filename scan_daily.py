@@ -1177,7 +1177,7 @@ def position_events(open_, closed, d):
     return ev
 
 
-def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None):
+def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
     """Who gets what, when (Arrington 2026-10-03):
       every run   market report when it has news (first run of the day = the premarket briefing)
       weekdays    a trade message ONLY for new things: a new Setup F opportunity, a new Setup G watch,
@@ -1186,6 +1186,7 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None):
       Sunday      the futures briefing only (market report)
     Paper fills (the bots' confirmed orders) are sent by autotrade.py to #paper-portfolio, apart from these."""
     send_tg = send_tg or (lambda t: notify(t, discord_too=False)); send_dc = send_dc or discord
+    send_file = send_file or (lambda t, png, r: discord_file(t, png, r) if send_dc is discord else send_dc(t, r))
     from autotrade import SHARE_REAL
     pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
     out = []
@@ -1210,8 +1211,13 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None):
             msg = summary(nd, ev_open, ev_closed, title=("NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
                           + (" · AFTER CLOSE · for tomorrow" if late else ""))
             send_tg(msg)
-            for route, part in summary(nd, pub(ev_open), pub(ev_closed), parts=True, after_close=late).items():
+            for route, part in summary({**nd, "F": []}, pub(ev_open), pub(ev_closed), parts=True, after_close=late).items():
                 if part: send_dc(part, route)
+            for r in nd["F"]:   # one message per new Setup F trade: its chart, the card under it
+                card = summary({**nd, "F": [r], "watch": [], "levels": [], "vix_fires": False}, [], parts=True, after_close=late)["trades"]
+                try: png = chart_f(r["sym"], r["px"], r["tgt"], option="CALL" in card)
+                except Exception as e: png = None; print(f"  chart {r['sym']} failed: {str(e)[:40]}")
+                send_file(card, png, "trades")
             fresh(d, mark=True)
             st_ = json.load(open(SENT)); st_["E"] = sorted(sent_e | {"|".join(e) for e in ev}); json.dump(st_, open(SENT, "w"), indent=1)
             out.append(("trades", f"F {[r['sym'] for r in nd['F']]} · G {[w['sym'] for w in nd['watch']]} · events {ev}"))
@@ -1258,6 +1264,49 @@ def discord(text, route=None):
     except Exception as e:
         print(f"discord failed: {str(e)[:60]}")
         return False
+
+
+def chart_f(sym, px, tgt, option=False):
+    """PNG of a Setup F fire for Discord: ~9 months of daily candles, the 30 and 200-day EMAs,
+    entry and target lines. None if matplotlib is missing (the card still goes out as text)."""
+    try:
+        import io, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    except ImportError: return None
+    b = bars(sym); c = [x[1] for x in b]; e30, e200 = ema(c, 30), ema(c, 200); b = b[-190:]; n = len(b)
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=110)
+    for i, (_, cl, hi, lo, op, _v) in enumerate(b):
+        col = "#2e7d32" if cl >= op else "#c62828"
+        ax.vlines(i, lo, hi, color=col, lw=0.8); ax.bar(i, abs(cl - op) or cl * 0.001, bottom=min(cl, op), color=col, width=0.7)
+    ax.plot(e30[-n:], color="#1565c0", lw=1.4, label="30-day EMA"); ax.plot(e200[-n:], color="#757575", lw=1.4, label="200-day EMA")
+    ax.axhline(tgt, color="#2e7d32", ls="--", lw=1.2); ax.axhline(px, color="#000", ls=":", lw=1.2)
+    box = dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5)
+    ax.text(2, tgt, f"TARGET ${tgt:,.2f} (old high) · +{(tgt / px - 1) * 100:.0f}%", va="bottom", fontsize=10, color="#2e7d32", bbox=box)
+    ax.text(2, px, f"ENTRY ${px:,.2f}", va="bottom", fontsize=10, bbox=box)
+    ax.plot(n - 1, px, "o", ms=8, mfc="none", mec="#000", mew=1.5); ax.set_xlim(-2, n + 2)
+    step = max(1, n // 6); ax.set_xticks(range(0, n, step),
+        [datetime.date.fromisoformat(b[i][0]).strftime("%b") for i in range(0, n, step)], fontsize=9)
+    ax.set_title(f"{sym} · Setup F signal {b[-1][0][5:]} · daily" + (" · UNDERLYING STOCK, not the call" if option else ""), fontsize=12, loc="left")
+    ax.legend(loc="lower left", fontsize=9, frameon=False); ax.grid(alpha=0.2); fig.tight_layout()
+    buf = io.BytesIO(); fig.savefig(buf, format="png"); plt.close(fig)
+    return buf.getvalue()
+
+
+def discord_file(text, png, route=None, name="chart.png"):
+    """Webhook post with one image attached (multipart). Falls back to text only."""
+    if route == "watch" and not os.environ.get("DISCORD_WEBHOOK_WATCH"): route = "updates"
+    url = os.environ.get(ROUTES.get(route, "")) or os.environ.get("DISCORD_WEBHOOK")
+    if not url: return False
+    if not png: return discord(text, route)
+    k = "ledgerboundary7MA4YWxk"
+    body = (f"--{k}\r\nContent-Disposition: form-data; name=\"payload_json\"\r\nContent-Type: application/json\r\n\r\n"
+            + json.dumps(dict(content=to_discord(text)[:2000])) + f"\r\n--{k}\r\nContent-Disposition: form-data; name=\"files[0]\"; "
+            f"filename=\"{name}\"\r\nContent-Type: image/png\r\n\r\n").encode() + png + f"\r\n--{k}--\r\n".encode()
+    try:
+        urllib.request.urlopen(urllib.request.Request(url, data=body, headers={"Content-Type": f"multipart/form-data; boundary={k}",
+                               "User-Agent": "Ledger (stockcharter-scan)"}), timeout=30).read()
+        return True
+    except Exception as e:
+        print(f"discord chart failed: {str(e)[:60]}"); return discord(text, route)
 
 
 def notify(text, route=None, discord_too=True):
