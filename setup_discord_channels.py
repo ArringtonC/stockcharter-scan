@@ -60,15 +60,17 @@ for cname, names in LAYOUT.items():
                 or api("POST", f"/channels/{c['id']}/webhooks", {"name": "Ledger"})
             hooks[ROUTE[n]] = f"https://discord.com/api/webhooks/{h['id']}/{h['token']}"
 
+old = open(ENVF).read() if os.path.exists(ENVF) else ""
 lines = [l for l in open(ENVF).read().splitlines() if not any(l.startswith(f"export {k}=") for k in hooks)] if os.path.exists(ENVF) else []
 lines += [f'export {k}="{v}"' for k, v in hooks.items()]
 open(ENVF, "w").write("\n".join(lines) + "\n"); os.chmod(ENVF, 0o600)
 print(f"wrote {len(hooks)} webhooks to {ENVF}")
 for k, v in hooks.items():
     subprocess.run(["gh", "secret", "set", k, "--repo", "ArringtonC/stockcharter-scan"], input=v.encode(), check=False)
+    if f"export {k}=" in old: continue      # test-post new channels only, no repeats
     urllib.request.urlopen(urllib.request.Request(v, data=json.dumps({"content": f"**Ledger** posts here: `{k.split('_')[-1].lower()}`"}).encode(),
                            headers={"Content-Type": "application/json", "User-Agent": "Ledger"}), timeout=20)
-print("done: each STOCKBOT channel got a test post")
+print("done: new STOCKBOT channels got a test post")
 
 
 START_HERE = """**Start here · how the Ledger posts work**
@@ -87,6 +89,8 @@ START_HERE = """**Start here · how the Ledger posts work**
 
 Backtests found Setup F was the only setup with an edge. That is a test on past prices, not a promise. Not financial advice."""
 sh = txt.get("start-here") or next(c for c in api("GET", f"/guilds/{GUILD}/channels") if c["name"] == "start-here")
-if not api("GET", f"/channels/{sh['id']}/pins"):          # post + pin once, never twice
-    m = api("POST", f"/channels/{sh['id']}/messages", {"content": START_HERE})
-    api("PUT", f"/channels/{sh['id']}/pins/{m['id']}"); print("posted and pinned #start-here")
+if not api("GET", f"/channels/{sh['id']}/pins"):          # post once, pin once, never twice
+    m = next((x for x in api("GET", f"/channels/{sh['id']}/messages?limit=20") if x["content"].startswith("**Start here")), None) \
+        or api("POST", f"/channels/{sh['id']}/messages", {"content": START_HERE})
+    try: api("PUT", f"/channels/{sh['id']}/pins/{m['id']}"); print("pinned #start-here")
+    except SystemExit: print("posted #start-here; pin it by hand (OOZEBOT needs Pin Messages)")
