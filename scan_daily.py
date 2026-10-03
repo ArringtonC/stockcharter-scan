@@ -836,9 +836,77 @@ def flags(h, l, c):
     return out
 
 
-def chart_data(d, open_, n=504):   # 2 years: 1y view + room to scroll back
+def ihs(h, l, c, since):
+    """Inverse head & shoulders breakouts at index >= since. Same rule as thesis/patterns/ihs.py
+    (a 25%+ fall from a 1-year high to the head, shoulders 3%+ above it and within 12% of each other,
+    first close over the flat neckline). Target = neckline + (neckline - head); stop = right shoulder."""
+    out, used = [], set()
+    for b in range(max(320, since), len(c)):
+        hd = min(range(b - 150, b - 30), key=lambda k: l[k])
+        if hd in used or min(l[hd + 1:b]) < l[hd]: continue
+        pk = max(range(max(0, hd - 252), hd), key=lambda k: h[k])
+        if l[hd] > h[pk] * 0.75: continue
+        lo_ls = max(pk, hd - 60)
+        if hd - 8 <= lo_ls or b - 2 <= hd + 8: continue
+        ls = min(range(lo_ls, hd - 8), key=lambda k: l[k]); rs = min(range(hd + 8, b - 2), key=lambda k: l[k])
+        if l[ls] < l[hd] * 1.03 or l[rs] < l[hd] * 1.03 or abs(l[ls] - l[rs]) / max(l[ls], l[rs]) > 0.12: continue
+        neck = max(h[ls:rs + 1])
+        if not (c[b] > neck and all(c[k] <= neck for k in range(rs, b))): continue
+        out.append(dict(ls=ls, hd=hd, rs=rs, b=b, neck=neck, target=neck + (neck - l[hd]))); used.add(hd)
+    return out
+
+
+def patterns_for(b, n):
+    """Every pattern the scanner knows, drawn on the site chart as notes (none is a tested edge).
+    b = full daily bars; only patterns inside the last n bars. Each: kind, lines [[t0,y0,t1,y1,dashed]],
+    label {time, text, up}, end (date the pattern last updated)."""
+    D = [x[0] for x in b]; c = [x[1] for x in b]; h = [x[2] for x in b]; l = [x[3] for x in b]
+    lo = len(b) - n; out = []
+    for f in [f for f in flags(h[lo:], l[lo:], c[lo:]) if f["brk"] or f["f1"] >= n - 5][-2:]:   # latest 2: broke out or still forming
+        g = lambda k: D[lo + k]; bull = f["kind"] == "bull flag"; fs = f["p1"] + 1
+        out.append(dict(kind=f["kind"], end=g(f["brk"] or f["f1"]),
+            lines=[[g(f["p0"]), c[lo + f["p0"]], g(f["p1"]), c[lo + f["p1"]], 0],
+                   [g(fs), f["top"][0], g(f["f1"]), f["top"][1], 1], [g(fs), f["bot"][0], g(f["f1"]), f["bot"][1], 1]],
+            label=dict(time=g(f["brk"] or f["f1"]), up=bull, text=f["kind"].upper() + ("" if f["brk"] else " · forming"))))
+    for p in ihs(h, l, c, lo)[-1:]:
+        out.append(dict(kind="inverse head & shoulders", end=D[p["b"]],
+            lines=[[D[p["ls"]], p["neck"], D[p["b"]], p["neck"], 1],
+                   [D[p["ls"]], l[p["ls"]], D[p["hd"]], l[p["hd"]], 0], [D[p["hd"]], l[p["hd"]], D[p["rs"]], l[p["rs"]], 0],
+                   [D[p["rs"]], l[p["rs"]], D[p["b"]], c[p["b"]], 0]],
+            label=dict(time=D[p["b"]], up=True, text="INVERSE H&S")))
+    return out
+
+
+def chart_data(d, open_, n=504):
     want = {r["symbol"] for r in open_}
-    want |= {x["sym"] for k in ("F", "C", "S") for x in d.get(k, [])}
+    want |= {x["sym"] for k in ("F", "C", "S", "watch") for x in d.get(k, [])}
+    lv = {}
+    try:
+        for x in json.load(open(LEVELS)): lv.setdefault(x["symbol"], []).append(x)
+    except Exception: pass
+    want |= set(lv)
+    PAT = {}
+    for sym in set(UNIVERSE) | set(CORE) | want:       # a pattern anywhere in the scan gets a chart
+        try:
+            b = bars(sym)
+            if len(b) < 340: continue
+            ps = patterns_for(b, 180)
+            w = next((x for x in d.get("watch", []) if x["sym"] == sym), None) or channel_breakout(sym, recent=10)
+            if w:
+                ps.append(dict(kind="channel breakout", end=w["date"],
+                    lines=[[w["peak_date"], w["peak"], b[-1][0], w["peak"], 1],          # the old high = the target
+                           [b[[x[0] for x in b].index(w["date"]) - 25][0], w["base_high"], w["date"], w["base_high"], 1]],   # the base it cleared
+                    label=dict(time=w["date"], up=True, text="CHANNEL BREAKOUT")))
+            for x in lv.get(sym, []):
+                t0 = max(x["logged"], b[-60][0])
+                for y, name in ((x["up"], "BREAKOUT"), (x["down"], "BREAKDOWN")):
+                    ps.append(dict(kind="level", end=x["logged"], lines=[[t0, y, b[-1][0], y, 1]],
+                                   label=dict(time=b[-1][0], up=name == "BREAKOUT", text=f"{name} ${y:,.2f} · {x['pattern']}")))
+            if ps: PAT[sym] = ps
+            recent = b[-10][0]
+            if any(p["end"] >= recent for p in ps if p["kind"] != "level"): want.add(sym)
+        except Exception:
+            continue
     out = {}
     for sym in sorted(want) + ["^GSPC", "QQQ"]:
         try:
@@ -859,12 +927,7 @@ def chart_data(d, open_, n=504):   # 2 years: 1y view + room to scroll back
             v=[int(x[5]) for x in b],
             e10=[round(x, 2) for x in e10],
             e30=[round(x, 2) for x in e30],
-            # chart notes, not tested setups: drawn on the site so the eye can check them
-            pat=[dict(kind=f["kind"], p0=b[f["p0"]][0], p1=b[f["p1"]][0], f1=b[f["f1"]][0],
-                      y0=round(c[f["p0"]], 2), y1=round(c[f["p1"]], 2), top=[round(x, 2) for x in f["top"]],
-                      bot=[round(x, 2) for x in f["bot"]], brk=b[f["brk"]][0] if f["brk"] else None,
-                      target=round(f["target"], 2) if f["target"] else None)
-                 for f in flags([x[2] for x in b], [x[3] for x in b], c)],
+            pat=PAT.get(sym, []),   # chart notes, not tested setups: drawn so the eye can check them
         )
     return out
 

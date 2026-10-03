@@ -1428,20 +1428,20 @@ function mountOneChart(item){
     });
   }
 
-  // chart patterns (flags), drawn as notes: pole, the flag's two edges, a label at the breakout
-  // only the last 2 flags that broke out, or one still forming (ended in the last 5 sessions): more is clutter
-  const pats=(Array.isArray(s.pat)?s.pat:[]).filter(p=>p.brk||dates.indexOf(p.f1)>=n-5).slice(-2), pm=[];
+  // every detected pattern (flags, inverse H&S, Setup G channel breakout, logged levels), drawn as notes
+  const pats=Array.isArray(s.pat)?s.pat:[], pm=[], first=dates[0];
   pats.forEach(p=>{
-    const bull=p.kind==='bull flag', col=bull?'#00e676':'#ff1744', i1=dates.indexOf(p.p1), fs=dates[i1+1];
-    if(i1<0||!fs)return;
-    const seg=(t0,y0,t1,y1,style)=>{const ls=api.addSeries(L.LineSeries,{color:col,lineWidth:2,lineStyle:style,
-      priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false,autoscaleInfoProvider:()=>null});
-      ls.setData([{time:t0,value:y0},{time:t1,value:y1}]);};
-    seg(p.p0,p.y0,p.p1,p.y1,L.LineStyle.Solid);
-    seg(fs,p.top[0],p.f1,p.top[1],L.LineStyle.Dashed); seg(fs,p.bot[0],p.f1,p.bot[1],L.LineStyle.Dashed);
-    pm.push({time:p.brk||p.f1,position:bull?'belowBar':'aboveBar',shape:bull?'arrowUp':'arrowDown',color:col,
-      text:(bull?'BULL FLAG':'BEAR FLAG')+(p.brk?'':' · forming')});
+    const col=p.kind==='level'?C.amber:(p.label.up?'#00e676':'#ff1744');
+    (p.lines||[]).forEach(([t0,y0,t1,y1,dash])=>{
+      if(t1<first||(t0<first&&y0!==y1))return; if(t0<first)t0=first; if(t0===t1)return;   // a slanted line cut at the edge would lie
+      const ls=api.addSeries(L.LineSeries,{color:col,lineWidth:2,lineStyle:dash?L.LineStyle.Dashed:L.LineStyle.Solid,
+        priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false,autoscaleInfoProvider:()=>null});
+      ls.setData([{time:t0,value:Number(y0)},{time:t1,value:Number(y1)}]);
+    });
+    if(p.label&&p.label.time>=first&&p.kind!=='level')pm.push({time:p.label.time,position:p.label.up?'belowBar':'aboveBar',
+      shape:p.label.up?'arrowUp':'arrowDown',color:col,text:p.label.text});
   });
+  pm.sort((a,b)=>a.time<b.time?-1:1);
   if(pm.length&&L.createSeriesMarkers)L.createSeriesMarkers(priceSeries,pm);
 
   let volumeSeries=null;
@@ -1533,8 +1533,11 @@ function renderCharts(d,state){
 
   const held={}; (d.open||[]).forEach(r=>{(held[r.symbol]=held[r.symbol]||[]).push(r);});
   const idx=keys.filter(k=>k.startsWith('^')||k==='QQQ');
-  const mine=keys.filter(k=>held[k]&&!idx.includes(k)).sort();
-  const other=keys.filter(k=>!held[k]&&!idx.includes(k)).sort();
+  const recentPat=k=>{const s=ch[k],ds=s.d||[],cut=ds[Math.max(0,ds.length-10)];
+    return (s.pat||[]).some(p=>p.kind!=='level'&&p.end>=cut);};
+  const pat=keys.filter(k=>!idx.includes(k)&&recentPat(k)).sort();
+  const mine=keys.filter(k=>held[k]&&!idx.includes(k)&&!pat.includes(k)).sort();
+  const other=keys.filter(k=>!held[k]&&!idx.includes(k)&&!pat.includes(k)).sort();
   CHART_QUEUE=keys.map(sym=>({sym,s:ch[sym],pos:held[sym]||[]}));
 
   const block=(title,tag,lede,list)=> list.length?`<div class="sec">
@@ -1547,10 +1550,10 @@ function renderCharts(d,state){
     <span class="when">${keys.length} names · up to 2 years</span></div>
 
   <details class="whatis">
-    <summary><span>Only names you hold or that fired. <b class="not">Not every ticker.</b></span>
+    <summary><span>Names you hold, that fired, or with a pattern. <b class="not">Not every ticker.</b></span>
       <span class="how">How this works</span></summary>
     <div class="in">
-      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Green and red slanted lines mark bull and bear flags: a chart note, not a tested setup (flags showed no reliable edge, thesis/patterns/flags_test.py). Drag to pan, scroll or pinch to zoom, and move
+      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Detected patterns are drawn in green (bullish) or red (bearish): flags, inverse head &amp; shoulders, the Setup G channel breakout. Amber lines are levels logged from your own charts. All are chart notes; none showed a reliable edge alone. Drag to pan, scroll or pinch to zoom, and move
       across a chart to inspect exact open, high, low, close and volume.</p>
       <p>Your entry, target or strike is drawn on the same price scale, so the gap you see is the gap that exists.</p>
       <p>There is no chart for a name you do not own and that has not fired. Fifty-one charts of nothing
@@ -1558,6 +1561,7 @@ function renderCharts(d,state){
     </div>
   </details>
 
+  ${block('Patterns detected','trade','A pattern showed up in the last 10 sessions: '+pat.map(k=>k+' ('+[...new Set((ch[k].pat||[]).filter(p=>p.kind!=='level'&&p.end>=ch[k].d[Math.max(0,ch[k].d.length-10)]).map(p=>p.kind))].join(', ')+')').join(' · ')+'. Chart notes, not tested setups.',pat)}
   ${block('Market','watch','The index and the tape you trade against.',idx)}
   ${block('Your positions','trade','Entry, target and strike drawn at their real level.',mine)}
   ${block('Fired or watched','watch','Names the scan surfaced that you do not hold.',other)}
