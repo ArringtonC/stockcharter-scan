@@ -100,9 +100,9 @@ print("panic ok")
 # pattern WATCH cards: shown, never phrased as a buy, and routed with the new trades
 w = dict(sym="META", date="2026-09-09", close=653.69, base_high=624.8, peak=790.8, e10=735.2, e30=701.4, e30_up=True, above30=True)
 t = S.summary(base(watch=[w]), [])
-assert "👀 SETUP G · WATCH META $653.69</b> · CORE" in t and "OVER $624.80" in t and "not a buy" in t and "BUY META" not in t
+assert "👀 SETUP G · WATCH META $653.69</b> · CORE" in t and "OVER $624.80" in t and "NOT AN ENTRY" in t and "BUY META" not in t
 assert "10 EMA $735.20 > 30 EMA $701.40 · 30 rising · price above the 30" in t
-assert "SETUP G · WATCH META" in S.summary(base(watch=[w]), [], parts=True)["trades"]
+assert "SETUP G · WATCH META" in S.summary(base(watch=[w]), [], parts=True)["watch"]
 print("watch ok")
 
 # phase change and light flips put a loud banner at the top of the market report
@@ -155,3 +155,13 @@ assert any("BUY NEWB" in t for _, t in runs[0]) and any("ZS" in t for _, t in ru
 got = []; S.dispatch(dd2, [held], [], 5, send_tg=got.append, send_dc=lambda t, r: None)
 assert "WEEKEND REPORT" in got[-1] and "ZS" in got[-1]
 print("dispatch twice ok")
+
+# #trades holds only buys; G watches go to the watch part; weekend closes say CLOSED THIS WEEK + date
+w = dict(sym="SG", close=9.1, date=today, base_high=8.8, peak=12.0)
+p = S.summary(base(F=[dict(sym="CHEAP", px=19, tgt=25, up=30)], watch=[w]), [], parts=True)
+assert "BUY CHEAP" in p["trades"] and "SETUP G" not in p["trades"] and "SETUP G · WATCH SG" in p["watch"]
+assert "AFTER CLOSE" in S.summary(base(F=[dict(sym="CHEAP", px=19, tgt=25, up=30)]), [], parts=True, after_close=True)["trades"]
+cl = dict(id="X", symbol="DOCU", acct="real", kind="stock", contracts=1, entry="100", exit="110", pl_pct=10, closed=today, expiry=None, strike=None)
+assert "✓ CLOSED THIS WEEK · " + datetime.date.today().strftime("%b %-d").upper() in S.summary(base(), [], [cl], closed_days=7)
+assert "✓ TRADE CLOSED" in S.summary(base(), [], [cl])
+print("channels + wording ok")

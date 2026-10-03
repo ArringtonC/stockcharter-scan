@@ -1206,9 +1206,11 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None):
         ids = {i for _, i in ev}
         ev_open = [r for r in open_ if r["id"] in ids]; ev_closed = [r for r in closed if r["id"] in ids]
         if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("vix_fires") or ev:
-            msg = summary(nd, ev_open, ev_closed, title="NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
+            late = datetime.datetime.now(ZoneInfo("America/Chicago")).hour >= 15   # the 16:30 run: act tomorrow
+            msg = summary(nd, ev_open, ev_closed, title=("NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
+                          + (" · AFTER CLOSE · for tomorrow" if late else ""))
             send_tg(msg)
-            for route, part in summary(nd, pub(ev_open), pub(ev_closed), parts=True).items():
+            for route, part in summary(nd, pub(ev_open), pub(ev_closed), parts=True, after_close=late).items():
                 if part: send_dc(part, route)
             fresh(d, mark=True)
             st_ = json.load(open(SENT)); st_["E"] = sorted(sent_e | {"|".join(e) for e in ev}); json.dump(st_, open(SENT, "w"), indent=1)
@@ -1238,13 +1240,14 @@ def to_discord(text):
 
 
 # channel -> env var holding that channel's webhook. Any unset one falls back to DISCORD_WEBHOOK.
-ROUTES = {"market": "DISCORD_WEBHOOK_MARKET", "trades": "DISCORD_WEBHOOK_TRADES",
+ROUTES = {"watch": "DISCORD_WEBHOOK_WATCH", "market": "DISCORD_WEBHOOK_MARKET", "trades": "DISCORD_WEBHOOK_TRADES",
           "updates": "DISCORD_WEBHOOK_UPDATES", "ledger": "DISCORD_WEBHOOK_LEDGER",
           "paper": "DISCORD_WEBHOOK_PAPER"}
 
 
 def discord(text, route=None):
     """Post to a Discord channel webhook. Unset means it does nothing."""
+    if route == "watch" and not os.environ.get("DISCORD_WEBHOOK_WATCH"): route = "updates"
     url = os.environ.get(ROUTES.get(route, "")) or os.environ.get("DISCORD_WEBHOOK")
     if not url: return False
     try:
@@ -1346,7 +1349,7 @@ def writeup(d, m, pre=True):
     if bb and bb["phase"] > 1:
         ph = bb["phases"][bb["phase"] - 1]
         W += ["", f"<b>AI BUBBLE PLAN · PHASE {bb['phase']}: {ph['name'].upper()}</b> (since {bb['since'][5:]})"] \
-             + [f"· {x}" for x in ph["do"]]
+             + [f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]]
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if pre and nq is not None and abs(nq) >= 1:
@@ -1371,7 +1374,7 @@ def alerts(d, m):
     bb = d.get("bubble") or {}
     if bb.get("changed_from"):
         ph = bb["phases"][bb["phase"] - 1]
-        A += [f"<b>🚨 AI BUBBLE PLAN: PHASE {bb['changed_from']} → PHASE {bb['phase']} ({ph['name'].upper()})</b>"] + [f"· {x}" for x in ph["do"]] + [""]
+        A += [f"<b>🚨 AI BUBBLE PLAN: PHASE {bb['changed_from']} → PHASE {bb['phase']} ({ph['name'].upper()})</b>", f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]] + [""]
     for k, v in ((d.get("playbook") or {}).get("flips") or {}).items():
         t, lines = ALERT_TEXT[(k, v)]
         A += [f"<b>{t}</b>"] + [f"· {x}" for x in lines] + [""]
@@ -1500,7 +1503,7 @@ def left(dte, today=None):
     return f"<b>⚠ {dte}d left</b>" if dte <= 10 else f"{dte}d left"
 
 
-def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=0):
+def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=0, after_close=False):
     """BUY -> UPDATE -> CLOSED. One job per line, so the whole thing reads without
     doing any arithmetic: what it is, what to do, what it is worth."""
     cap = round(PLAN["balance"] * 0.07 / 50) * 50
@@ -1526,6 +1529,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
         else:
             B.append(shares)
         B.append(f"TARGET ${r['tgt']:,.0f} · +{r['up']:.0f}%")
+        B.append("EXIT: at the target the stop moves up to it · else sell after 1 year · calls: sell 30 days before expiry")
         p = panic_day(sym)
         if p: B.append(f"⚠ PANIC SELL {p[0][5:]}: {p[1]:.0f}% ON {p[2]:.1f}× VOLUME · <i>these usually keep lagging a month</i>")
         B.append("")
@@ -1534,7 +1538,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
     for x in d.get("levels", []):
         up = x["way"] == "up"
         W_ += [f"<b>📍 LEVEL {x['symbol']} ${x['price']:,.2f} · {'BROKE OUT' if up else 'BROKE DOWN'}</b>",
-               f"YOUR {x['tf']} CHART: {x['pattern'].upper()}",
+               f"{x['tf']} CHART NOTE: {x['pattern'].upper()}",
                f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f} · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
                f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
     for w in d.get("watch", []):
@@ -1544,7 +1548,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
                (f"10 EMA ${w['e10']:,.2f} {'>' if w['e10'] > w['e30'] else '<'} 30 EMA ${w['e30']:,.2f}"
                 f" · 30 {'rising' if w.get('e30_up') else 'flat/falling'}"
                 f" · price {'above' if w.get('above30') else 'BELOW'} the 30") if w.get("e10") else "",
-               "<i>not a buy · 40% hold, 67% reach the old high in a year</i>", ""]
+               "<i>WATCH, NOT AN ENTRY: a chart pattern with no tested edge yet · 40% hold, 67% reach the old high in a year</i>", ""]
     if d["vix_fires"]:
         c = pick_contract("QQQ", d["qqq"], days=30, budget=1000)
         if c:
@@ -1566,7 +1570,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
         a, b = float(r["entry"]) * mult * n, (r.get("now") or 0) * mult * n
         head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
                else f"{r['symbol']} · {n} SHARES"
-        bot = " · 🤖 PAPER" if r["acct"] in ("paper-auto", "bot", "bot-leaps") else ""
+        bot = " · 🤖 PAPER" if r["acct"] in ("paper-auto", "bot", "bot-leaps") else " · 👤 ARRINGTON'S REAL ACCOUNT"
         U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>{bot}", head,
               f"{D(a)} → <b>{D(b)}</b>",
               f"{'+' if b >= a else '−'}{D(abs(b - a))} · {r['pl_pct']:+.0f}%"
@@ -1584,17 +1588,19 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
         done.append(dict(bot=r["acct"] in ("paper-auto", "bot", "bot-leaps"), sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
-                         cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
+                         cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0), closed=r["closed"]))
     seen = {t["sym"] for t in done}
     done += [t for t in d.get("taken", []) if since <= (t.get("closed") or "") <= d["date"] and t["sym"] not in seen]
     for t in done:
-        C += ["<b>✓ TRADE CLOSED</b>" + (" · 🤖 PAPER" if t.get("bot") else ""), f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
+        C += [(f"<b>✓ CLOSED THIS WEEK · {when(t['closed'])}</b>" if closed_days else "<b>✓ TRADE CLOSED</b>") + (" · 🤖 PAPER" if t.get("bot") else " · 👤 ARRINGTON'S REAL ACCOUNT"), f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
               f"FINAL {'+' if t['pl'] >= 0 else '−'}{D(abs(t['pl']))} · {t['pct']:+.0f}%", ""]
 
     if parts:   # Discord splits the report by channel: new buys, movement, finished trades
         j = lambda X: "\n".join(X).strip()
-        return dict(trades=j(["<b>NEW TRADES</b>", ""] + B + W_) if B + W_ else "", updates=j(U), ledger=j(C))
+        head = "<b>NEW TRADES · AFTER CLOSE · for tomorrow</b>" if after_close else "<b>NEW TRADES</b>"
+        return dict(trades=j([head, ""] + B) if B else "", watch=j(["<b>WATCHLIST</b>", ""] + W_) if W_ else "",
+                    updates=j(U), ledger=j(C))
     L = [f"<b>{title}</b>", ""] + C + B + W_ + U
     if not (C + B + U): L += ["NOTHING TO BUY TODAY", ""]
     while L and L[-1] == "": L.pop()

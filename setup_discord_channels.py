@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """One-time Discord layout for the OOZEMeter server, run by YOU in a terminal.
 
-  COMMUNITY: #general  #oozebot
-  STOCKBOT:  #market-report  #trades  #trade-updates  #ledger
+  COMMUNITY: #start-here  #general  #oozebot
+  STOCKBOT:  #market-report  #trades  #trade-updates  #ledger  #paper-portfolio  #watchlist
 
 Creates what is missing, moves what exists (no duplicates), makes a "Ledger" webhook in
 each STOCKBOT channel, and writes the four webhook URLs into ~/.stockcharter.env and the
@@ -11,11 +11,11 @@ OOZEBOT needs Manage Channels and Manage Webhooks on the server."""
 import getpass, json, os, re, subprocess, urllib.request, urllib.error
 
 GUILD = "1533631423498424490"          # OOZEMeter server (oozemeter/research/WEEKLY-CHANNELS.md)
-LAYOUT = {"COMMUNITY": ["general", "oozebot"],
-          "STOCKBOT": ["market-report", "trades", "trade-updates", "ledger", "paper-portfolio"]}
+LAYOUT = {"COMMUNITY": ["start-here", "general", "oozebot"],
+          "STOCKBOT": ["market-report", "trades", "trade-updates", "ledger", "paper-portfolio", "watchlist"]}
 ROUTE = {"market-report": "DISCORD_WEBHOOK_MARKET", "trades": "DISCORD_WEBHOOK_TRADES",
          "trade-updates": "DISCORD_WEBHOOK_UPDATES", "ledger": "DISCORD_WEBHOOK_LEDGER",
-         "paper-portfolio": "DISCORD_WEBHOOK_PAPER"}
+         "paper-portfolio": "DISCORD_WEBHOOK_PAPER", "watchlist": "DISCORD_WEBHOOK_WATCH"}
 ENVF = os.path.expanduser("~/.stockcharter.env")
 
 
@@ -69,3 +69,24 @@ for k, v in hooks.items():
     urllib.request.urlopen(urllib.request.Request(v, data=json.dumps({"content": f"**Ledger** posts here: `{k.split('_')[-1].lower()}`"}).encode(),
                            headers={"Content-Type": "application/json", "User-Agent": "Ledger"}), timeout=20)
 print("done: each STOCKBOT channel got a test post")
+
+
+START_HERE = """**Start here · how the Ledger posts work**
+
+**#market-report** What the market is doing before the open and why it matters. Includes the AI bubble plan: 4 steps (ride it → one warning sign → both signs → the drop). The phase line says which step we are in and what it means.
+**#trades** New Setup F trades only. Each card has the entry price, the target, and the exit rule.
+**#watchlist** Chart notes (Setup G) and price levels. These are NOT entries. Nothing here has a tested edge.
+**#trade-updates** Changes to trades already posted: near target, last week before expiry, closed.
+**#ledger** Finished trades, with close date and result.
+**#paper-portfolio** 🤖 SIMULATED trades on a paper account (fake money). Fills here are real orders on a practice account, not real money.
+**#general** Questions and talk.
+
+**Setup F** = a strong stock that fell 20-45% from its 1-year high while its trend is still up (10-day average over the 30-day, 50-day over the 200-day). Target = the old high. Exit: once it touches the target the stop moves up to it; otherwise sell after 1 year.
+**How to read a card:** BUY NAME $price → the option or shares to buy → the cost → TARGET → EXIT.
+**Labels:** 🤖 PAPER = simulated. 👤 ARRINGTON'S REAL ACCOUNT = one member's real trades, shown as-is.
+
+Backtests found Setup F was the only setup with an edge. That is a test on past prices, not a promise. Not financial advice."""
+sh = txt.get("start-here") or next(c for c in api("GET", f"/guilds/{GUILD}/channels") if c["name"] == "start-here")
+if not api("GET", f"/channels/{sh['id']}/pins"):          # post + pin once, never twice
+    m = api("POST", f"/channels/{sh['id']}/messages", {"content": START_HERE})
+    api("PUT", f"/channels/{sh['id']}/pins/{m['id']}"); print("posted and pinned #start-here")
