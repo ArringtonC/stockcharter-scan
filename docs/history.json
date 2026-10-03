@@ -569,26 +569,31 @@
   "F": [
    "ZS",
    "NOW",
-   "HOOD",
-   "BE"
+   "HOOD"
   ],
   "D": [
-   "SG",
+   "BE",
    "SHOP",
    "U",
-   "TXN",
    "INTC",
+   "SG",
    "MU",
+   "CSCO",
+   "TXN",
    "SNOW",
-   "MRNA",
    "PLTR",
-   "MSFT",
+   "MRNA",
    "DOCU",
-   "META"
+   "META",
+   "MSFT",
+   "DELL"
   ],
-  "C": [],
+  "C": [
+   "TXN"
+  ],
   "S": [
-   "NFLX"
+   "NFLX",
+   "SPOT"
   ]
  }
 ]
