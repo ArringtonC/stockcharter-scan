@@ -1340,7 +1340,8 @@ function chart(sym,s,pos){
         <button type="button" data-range="22">1m</button>
         <button type="button" data-range="66">3m</button>
         <button type="button" data-range="126" class="on">6m</button>
-        <button type="button" data-range="0">all</button>
+        <button type="button" data-range="252">1y</button>
+        <button type="button" data-range="0">2y</button>
       </div>
       <div class="chread" id="${id}-read" aria-live="polite"></div>
     </div>
@@ -1543,7 +1544,7 @@ function renderCharts(d,state){
 
   A.innerHTML=`
   <div class="tmast">
-    <span class="when">${keys.length} names · 180 sessions available</span></div>
+    <span class="when">${keys.length} names · up to 2 years</span></div>
 
   <details class="whatis">
     <summary><span>Only names you hold or that fired. <b class="not">Not every ticker.</b></span>

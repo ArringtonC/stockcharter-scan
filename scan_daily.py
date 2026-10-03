@@ -836,7 +836,7 @@ def flags(h, l, c):
     return out
 
 
-def chart_data(d, open_, n=180):
+def chart_data(d, open_, n=504):   # 2 years: 1y view + room to scroll back
     want = {r["symbol"] for r in open_}
     want |= {x["sym"] for k in ("F", "C", "S") for x in d.get(k, [])}
     out = {}
@@ -846,9 +846,10 @@ def chart_data(d, open_, n=180):
         except Exception:
             continue
         if len(b) < 60: continue
+        full = [x[1] for x in b]   # EMAs on the whole history, then cut, so the first bars are right
+        e10, e30 = ema(full, 10)[-n:], ema(full, 30)[-n:]
         b = b[-n:]
         c = [x[1] for x in b]
-        e10, e30 = ema(c, 10), ema(c, 30)
         out[sym] = dict(
             d=[x[0] for x in b],
             o=[round(x[4], 2) for x in b],
