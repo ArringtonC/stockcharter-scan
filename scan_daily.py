@@ -1229,6 +1229,9 @@ def writeup(d, m, pre=True):
         size = "a big day" if abs(q) >= 1 else "a normal day" if abs(q) >= 0.3 else "a quiet day"
         P.append(f"<b>QQQ is {'up' if q > 0 else 'down'} {abs(q):.1f}% today</b>, {size}.")
     nq_live = next((live for n, p, c, live in m.get("fut") or [] if n == "Nasdaq"), True)
+    ct = datetime.datetime.now(ZoneInfo("America/Chicago"))
+    if ct.weekday() == 5 or (ct.weekday() == 6 and ct.hour < 17) or (ct.weekday() == 4 and ct.hour >= 16):
+        nq_live = False     # futures are shut from Friday 4 PM to Sunday 5 PM CT
     if nq is not None and not nq_live:   # weekend: say what the last session did, not "an open"
         P.append(f"<b>Futures are closed until Sunday 5 PM CT.</b> The last session, Nasdaq futures "
                  f"{'rose' if nq > 0 else 'fell'} {abs(nq):.1f}%.")
