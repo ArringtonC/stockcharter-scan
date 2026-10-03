@@ -788,6 +788,54 @@ def report(d, hist, open_, closed):
 # bars() already cached every name's 2-year history while the scan ran, so this
 # costs one extra fetch (the S&P) and writes only the names you actually hold or
 # that fired. 51 charts of names you do not own would go stale and never be opened.
+def flags(h, l, c):
+    """Bull and bear flags (Setup G note, 2026-10-03; rule fixed before testing):
+      pole     close moves 15%+ in 15 sessions or fewer (bear: falls 15%+)
+      flag     the next 5-20 sessions drift against the pole in a channel: the line through the highs
+               and the line through the lows both slope against the pole (or flat), and the flag gives
+               back no more than half the pole
+      breakout first close through the flag's far line (bull: above the top line) -> signal
+      target   breakout + pole height (the "measured move"); stop = the flag's other edge
+    Returns [dict(kind, p0, p1, f1, top=(y at p1, y at f1), bot=(...), brk index or None, target, stop)]."""
+    def fit(ys):
+        n = len(ys); mx = (n - 1) / 2; my = sum(ys) / n
+        sl = sum((i - mx) * (y - my) for i, y in enumerate(ys)) / sum((i - mx) ** 2 for i in range(n))
+        return sl, my - sl * mx
+    out, i = [], 15
+    while i < len(c) - 5:
+        found = None
+        for bull in (True, False):
+            lo = min(range(i - 15, i), key=lambda k: c[k]) if bull else max(range(i - 15, i), key=lambda k: c[k])
+            move = c[i] / c[lo] - 1
+            if (move < 0.15) if bull else (move > -0.15): continue
+            if c[i] != (max if bull else min)(c[lo:i + 1]): continue
+            for L in range(20, 4, -1):          # the longest flag that holds
+                j = i + L
+                if j >= len(c): continue
+                hs, ls = h[i + 1:j + 1], l[i + 1:j + 1]
+                (sh, ih), (sl_, il) = fit(hs), fit(ls)
+                pole = abs(c[i] - c[lo])
+                giveback = (c[i] - min(ls)) if bull else (max(hs) - c[i])
+                if (sh > 0 or sl_ > 0) if bull else (sh < 0 or sl_ < 0): continue
+                if giveback > pole / 2: continue
+                if not all((x <= ih + sh * k * 1.0 + 0.02 * c[i]) for k, x in enumerate(hs)) or \
+                   not all((x >= il + sl_ * k - 0.02 * c[i]) for k, x in enumerate(ls)): continue
+                brk = None
+                for k in range(j + 1, min(len(c), j + 6)):
+                    edge = (ih + sh * (k - i - 1)) if bull else (il + sl_ * (k - i - 1))
+                    if (c[k] > edge) if bull else (c[k] < edge): brk = k; break
+                    if (c[k] < il + sl_ * (k - i - 1)) if bull else (c[k] > ih + sh * (k - i - 1)): break
+                top = (ih, ih + sh * (L - 1)); bot = (il, il + sl_ * (L - 1))
+                found = dict(kind="bull flag" if bull else "bear flag", p0=lo, p1=i, f1=j, top=top, bot=bot, brk=brk,
+                             target=(c[brk] + pole if bull else c[brk] - pole) if brk else None,
+                             stop=(bot[1] if bull else top[1]))
+                break
+            if found: break
+        if found: out.append(found); i = found["f1"] + 1
+        else: i += 1
+    return out
+
+
 def chart_data(d, open_, n=180):
     want = {r["symbol"] for r in open_}
     want |= {x["sym"] for k in ("F", "C", "S") for x in d.get(k, [])}
@@ -810,6 +858,12 @@ def chart_data(d, open_, n=180):
             v=[int(x[5]) for x in b],
             e10=[round(x, 2) for x in e10],
             e30=[round(x, 2) for x in e30],
+            # chart notes, not tested setups: drawn on the site so the eye can check them
+            pat=[dict(kind=f["kind"], p0=b[f["p0"]][0], p1=b[f["p1"]][0], f1=b[f["f1"]][0],
+                      y0=round(c[f["p0"]], 2), y1=round(c[f["p1"]], 2), top=[round(x, 2) for x in f["top"]],
+                      bot=[round(x, 2) for x in f["bot"]], brk=b[f["brk"]][0] if f["brk"] else None,
+                      target=round(f["target"], 2) if f["target"] else None)
+                 for f in flags([x[2] for x in b], [x[3] for x in b], c)],
         )
     return out
 

@@ -1427,6 +1427,22 @@ function mountOneChart(item){
     });
   }
 
+  // chart patterns (flags), drawn as notes: pole, the flag's two edges, a label at the breakout
+  // only the last 2 flags that broke out, or one still forming (ended in the last 5 sessions): more is clutter
+  const pats=(Array.isArray(s.pat)?s.pat:[]).filter(p=>p.brk||dates.indexOf(p.f1)>=n-5).slice(-2), pm=[];
+  pats.forEach(p=>{
+    const bull=p.kind==='bull flag', col=bull?'#00e676':'#ff1744', i1=dates.indexOf(p.p1), fs=dates[i1+1];
+    if(i1<0||!fs)return;
+    const seg=(t0,y0,t1,y1,style)=>{const ls=api.addSeries(L.LineSeries,{color:col,lineWidth:2,lineStyle:style,
+      priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false,autoscaleInfoProvider:()=>null});
+      ls.setData([{time:t0,value:y0},{time:t1,value:y1}]);};
+    seg(p.p0,p.y0,p.p1,p.y1,L.LineStyle.Solid);
+    seg(fs,p.top[0],p.f1,p.top[1],L.LineStyle.Dashed); seg(fs,p.bot[0],p.f1,p.bot[1],L.LineStyle.Dashed);
+    pm.push({time:p.brk||p.f1,position:bull?'belowBar':'aboveBar',shape:bull?'arrowUp':'arrowDown',color:col,
+      text:(bull?'BULL FLAG':'BEAR FLAG')+(p.brk?'':' · forming')});
+  });
+  if(pm.length&&L.createSeriesMarkers)L.createSeriesMarkers(priceSeries,pm);
+
   let volumeSeries=null;
   if(Array.isArray(s.v)&&s.v.length===n&&s.v.some(Number)){
     volumeSeries=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceScaleId:'volume',
@@ -1533,7 +1549,7 @@ function renderCharts(d,state){
     <summary><span>Only names you hold or that fired. <b class="not">Not every ticker.</b></span>
       <span class="how">How this works</span></summary>
     <div class="in">
-      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Drag to pan, scroll or pinch to zoom, and move
+      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Green and red slanted lines mark bull and bear flags: a chart note, not a tested setup (flags showed no reliable edge, thesis/patterns/flags_test.py). Drag to pan, scroll or pinch to zoom, and move
       across a chart to inspect exact open, high, low, close and volume.</p>
       <p>Your entry, target or strike is drawn on the same price scale, so the gap you see is the gap that exists.</p>
       <p>There is no chart for a name you do not own and that has not fired. Fifty-one charts of nothing
