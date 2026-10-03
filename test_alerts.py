@@ -138,3 +138,20 @@ dd2 = {**dd, "F": dd["F"] + [dict(sym="NEWB", px=50, tgt=70, up=40)]}
 assert [r["sym"] for r in S.fresh(dd2)["F"]] == ["NEWB"]
 assert "NEW TRADE" in S.summary(S.fresh(dd2), [], [], title="NEW TRADE") and "BUY NEWB" in S.summary(S.fresh(dd2), [], [], title="NEW TRADE")
 print("fresh ok")
+
+# the same scan twice on a weekday: run 1 sends the new fires + the market report, run 2 sends nothing
+S.SENT = os.path.join(tempfile.mkdtemp(), "sent.json"); S.ALERT_STATE = os.path.join(tempfile.mkdtemp(), "a.json")
+S.market_report = lambda d: "MARKET REPORT"; S.market_key = lambda d: "k"
+held = dict(id="ZS-1", symbol="ZS", acct="bot", kind="stock", entry="200.79", now=212, pl_pct=5.6, to_target=3, target="219", expiry=None)
+runs = []
+for _ in (1, 2):
+    got = []
+    S.dispatch(dd2, [held], [], 0, send_tg=lambda t: got.append(("tg", t)), send_dc=lambda t, r: got.append((r, t)))
+    runs.append(got)
+print("  run 1 sent:", [(w, t.splitlines()[0][:50]) for w, t in runs[0]])
+print("  run 2 sent:", runs[1])
+assert any("BUY NEWB" in t for _, t in runs[0]) and any("ZS" in t for _, t in runs[0]) and runs[1] == []
+# Saturday: every open position is in the weekend report, even ones already sent
+got = []; S.dispatch(dd2, [held], [], 5, send_tg=got.append, send_dc=lambda t, r: None)
+assert "WEEKEND REPORT" in got[-1] and "ZS" in got[-1]
+print("dispatch twice ok")

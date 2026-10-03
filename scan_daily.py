@@ -1162,6 +1162,62 @@ def fresh(d, mark=False):
     return {**d, "F": newF, "watch": newG, "taken": [], "vix_fires": newV}
 
 
+def position_events(open_, closed, d):
+    """Meaningful position events (real and bot books), each one sent once: a position closed today,
+    entering the last 5% before its target, or entering its last 7 days before expiry."""
+    ev = []
+    for r in closed:
+        if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps") and r.get("closed") == d["date"]:
+            ev.append(("closed", r["id"]))
+    for r in open_:
+        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps"): continue
+        if r.get("to_target") is not None and r["to_target"] <= 5: ev.append(("near", r["id"]))
+        if r.get("expiry") and (datetime.date.fromisoformat(r["expiry"]) - datetime.date.fromisoformat(d["date"])).days <= 7:
+            ev.append(("expiry", r["id"]))
+    return ev
+
+
+def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None):
+    """Who gets what, when (Arrington 2026-10-03):
+      every run   market report when it has news (first run of the day = the premarket briefing)
+      weekdays    a trade message ONLY for new things: a new Setup F opportunity, a new Setup G watch,
+                  a level break, a new Setup VIX, or a meaningful position event -- each sent once
+      Saturday    the weekend report: every position, the week's closes, all current F fires
+      Sunday      the futures briefing only (market report)
+    Paper fills (the bots' confirmed orders) are sent by autotrade.py to #paper-portfolio, apart from these."""
+    send_tg = send_tg or (lambda t: notify(t, discord_too=False)); send_dc = send_dc or discord
+    from autotrade import SHARE_REAL
+    pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
+    out = []
+    send, why = should_push(d, open_, "mkt", market_key(d))
+    if send:
+        t = market_report(d); send_tg(t); send_dc(t, "market"); out.append(("market", why))
+    if dow == 5:
+        full = dict(title="WEEKEND REPORT · ALL TRADES", closed_days=7)
+        send_tg(summary(d, open_, closed, **full))
+        for route, part in summary(d if SHARE_REAL else {**d, "taken": []}, pub(open_), pub(closed), parts=True, **full).items():
+            if part: send_dc(part, route)
+        out.append(("weekend", "all positions"))
+    elif dow < 5:
+        nd = fresh(d)
+        st_ = json.load(open(SENT)) if os.path.exists(SENT) else {"F": {}, "G": {}}
+        sent_e = set(st_.get("E", []))
+        ev = [e for e in position_events(open_, closed, d) if "|".join(e) not in sent_e]
+        ids = {i for _, i in ev}
+        ev_open = [r for r in open_ if r["id"] in ids]; ev_closed = [r for r in closed if r["id"] in ids]
+        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("vix_fires") or ev:
+            msg = summary(nd, ev_open, ev_closed, title="NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
+            send_tg(msg)
+            for route, part in summary(nd, pub(ev_open), pub(ev_closed), parts=True).items():
+                if part: send_dc(part, route)
+            fresh(d, mark=True)
+            st_ = json.load(open(SENT)); st_["E"] = sorted(sent_e | {"|".join(e) for e in ev}); json.dump(st_, open(SENT, "w"), indent=1)
+            out.append(("trades", f"F {[r['sym'] for r in nd['F']]} · G {[w['sym'] for w in nd['watch']]} · events {ev}"))
+    for o in out: print(f"  {o[0]} pushed ({o[1]})")
+    if not out: print("  nothing new to send")
+    return out
+
+
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
@@ -1593,28 +1649,4 @@ if __name__ == "__main__":
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
-    # Weekdays: the market report, plus a trade report ONLY when something is new (a new Setup F
-    # fire, a new Setup G watch, a level break). Saturday: the weekend report with everything.
-    # Sunday evening: the futures report only.
-    dow = datetime.datetime.now(ZoneInfo("America/Chicago")).weekday()
-    from autotrade import SHARE_REAL
-    pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
-    send, why = should_push(d, open_, "mkt", market_key(d))
-    if send: notify(market_report(d), "market"); print(f"  market pushed ({why})")
-    else: print(f"  market: no push — {why}")
-    if dow == 5:      # Saturday: everything -- all F fires, every position, the week's closes
-        full = dict(title="WEEKEND REPORT · ALL TRADES", closed_days=7)
-        notify(summary(d, open_, closed, **full), discord_too=False)
-        for route, part in summary(d if SHARE_REAL else {**d, "taken": []}, pub(open_), pub(closed), parts=True, **full).items():
-            if part: discord(part, route)
-        print("  weekend trade report pushed")
-    elif dow < 5:
-        nd = fresh(d)
-        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("vix_fires"):
-            notify(summary(nd, [], [], title="NEW TRADE"), discord_too=False)
-            for route, part in summary(nd, [], [], parts=True).items():
-                if part: discord(part, route)
-            fresh(d, mark=True)
-            print(f"  new trades pushed: F {[r['sym'] for r in nd['F']]} G {[w['sym'] for w in nd['watch']]}")
-        else:
-            print("  trades: nothing new")
+    dispatch(d, open_, closed, datetime.datetime.now(ZoneInfo("America/Chicago")).weekday())

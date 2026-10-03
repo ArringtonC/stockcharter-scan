@@ -276,10 +276,10 @@ def main():
             log_buy(rs, t, fill, today, acct="bot",
                     note=f"Pure Setup F. {t['qty']} shares, 7% of equity. Target ${t['tgt']:.2f}; no stop; "
                          f"floor at the target once reached; out at 252 sessions.")
-            notify(f"<b>🤖 PAPER BOUGHT {t['sym']} ${fill:,.2f}</b>\n"
+            notify(f"<b>🤖 PAPER FILL · BOUGHT {t['sym']} ${fill:,.2f}</b>\n"
                    f"{t['qty']} SHARES · ${t['qty'] * fill:,.0f} · 7% OF THE ACCOUNT\n"
                    f"TARGET ${t['tgt']:,.2f} · +{(t['tgt'] / fill - 1) * 100:.0f}% · NO STOP\n"
-                   f"<i>pure Setup F · Alpaca paper · not real money</i>", "trades")
+                   f"<i>CONFIRMED PAPER FILL · pure Setup F · Alpaca · not real money</i>", "paper")
             print(f"auto: bought {t['qty']} {t['sym']} at {fill}, target {t['tgt']}")
         except Exception as e:
             print(f"auto: {t['sym']} failed: {str(e)[:80]}")
@@ -302,11 +302,11 @@ def main():
                            note=f"F LEAPS. {c['n']}x ${c['strike']:g}C {c['expiry']} (~2 years), 7% of a $100k book. "
                                 f"Sells when the stock reaches ${f['tgt']:.2f} or 30 days before expiry."))
             when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d %Y").upper()
-            notify(f"<b>🤖 PAPER BOUGHT {sym} ${f['px']:,.2f}</b>\n"
+            notify(f"<b>🤖 PAPER FILL · BOUGHT {sym} ${f['px']:,.2f}</b>\n"
                    f"{when} · {c['n']} × ${c['strike']:g} CALL{'S' if c['n'] != 1 else ''} · ${fill:,.2f}\n"
                    f"${fill * 100 * c['n']:,.0f} TOTAL · 7% OF $100K\n"
                    f"SELL WHEN STOCK HITS ${f['tgt']:,.2f}\n"
-                   f"<i>Setup F LEAPS · Alpaca paper · not real money</i>", "trades")
+                   f"<i>CONFIRMED PAPER FILL · Setup F LEAPS · Alpaca · not real money</i>", "paper")
             print(f"auto: LEAPS bought {c['n']} {sym} {c['strike']:g}C {c['expiry']} at {fill}")
         except Exception as e:
             print(f"auto: LEAPS {sym} failed: {str(e)[:80]}")
