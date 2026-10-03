@@ -1141,6 +1141,27 @@ def should_push(d, open_, name="key", key=None):
     return False, "nothing changed"
 
 
+SENT = os.path.join(DOCS, ".sent-trades.json")
+
+
+def fresh(d, mark=False):
+    """Weekdays only send what is NEW: a Setup F fire not sent in the last 30 days, a Setup G
+    watch not sent before, and level breaks (those fire once anyway). Arrington 2026-10-03:
+    "one or two new trades vs sending all the trades"."""
+    st_ = json.load(open(SENT)) if os.path.exists(SENT) else {"F": {}, "G": {}}
+    today = datetime.date.fromisoformat(d["date"])
+    newF = [r for r in d.get("F", []) if r["sym"] not in st_["F"]
+            or (today - datetime.date.fromisoformat(st_["F"][r["sym"]])).days > 30]
+    newG = [w for w in d.get("watch", []) if w["sym"] + w["date"] not in st_["G"]]
+    newV = bool(d.get("vix_fires")) and ("VIX" not in st_["F"] or (today - datetime.date.fromisoformat(st_["F"]["VIX"])).days > 30)
+    if mark:
+        for r in newF: st_["F"][r["sym"]] = d["date"]
+        for w in newG: st_["G"][w["sym"] + w["date"]] = d["date"]
+        if newV: st_["F"]["VIX"] = d["date"]
+        json.dump(st_, open(SENT, "w"), indent=1)
+    return {**d, "F": newF, "watch": newG, "taken": [], "vix_fires": newV}
+
+
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
@@ -1420,7 +1441,7 @@ def left(dte, today=None):
     return f"<b>⚠ {dte}d left</b>" if dte <= 10 else f"{dte}d left"
 
 
-def summary(d, open_, closed=(), parts=False):
+def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=0):
     """BUY -> UPDATE -> CLOSED. One job per line, so the whole thing reads without
     doing any arithmetic: what it is, what to do, what it is worth."""
     cap = round(PLAN["balance"] * 0.07 / 50) * 50
@@ -1498,14 +1519,15 @@ def summary(d, open_, closed=(), parts=False):
     C = []
     # the trade log first (it knows the expiry), TAKEN only for anything the log lacks
     done = []
+    since = (datetime.date.fromisoformat(d["date"]) - datetime.timedelta(days=closed_days)).isoformat()
     for r in closed:
-        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps") or r.get("closed") != d["date"]: continue
+        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps") or not (since <= (r.get("closed") or "") <= d["date"]): continue
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
         done.append(dict(bot=r["acct"] in ("paper-auto", "bot", "bot-leaps"), sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0)))
     seen = {t["sym"] for t in done}
-    done += [t for t in d.get("taken", []) if t.get("closed") == d["date"] and t["sym"] not in seen]
+    done += [t for t in d.get("taken", []) if since <= (t.get("closed") or "") <= d["date"] and t["sym"] not in seen]
     for t in done:
         C += ["<b>✓ TRADE CLOSED</b>" + (" · 🤖 PAPER" if t.get("bot") else ""), f"{t['sym']} · {t['contract'].upper()}".replace("  ", " "),
               f"{D(t['cost'])} → <b>{D(t['cost'] + t['pl'])}</b>",
@@ -1514,7 +1536,7 @@ def summary(d, open_, closed=(), parts=False):
     if parts:   # Discord splits the report by channel: new buys, movement, finished trades
         j = lambda X: "\n".join(X).strip()
         return dict(trades=j(["<b>NEW TRADES</b>", ""] + B + W_) if B + W_ else "", updates=j(U), ledger=j(C))
-    L = ["<b>TRADE REPORT</b>", ""] + C + B + W_ + U
+    L = [f"<b>{title}</b>", ""] + C + B + W_ + U
     if not (C + B + U): L += ["NOTHING TO BUY TODAY", ""]
     while L and L[-1] == "": L.pop()
 
@@ -1568,19 +1590,28 @@ if __name__ == "__main__":
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
-    # two messages: the market, then the trades. Each sends only when it has news.
-    sunday = datetime.datetime.now(ZoneInfo("America/Chicago")).weekday() == 6
-    for label, (send, why), text in (
-            ("market", should_push(d, open_, "mkt", market_key(d)), lambda: market_report(d)),
-            ("trades", should_push(d, open_), lambda: summary(d, open_, closed))):
-        if not send: print(f"  {label}: no push — {why}"); continue
-        if sunday and label == "trades": print("  trades: Sunday -- market report only"); continue
-        if label == "market": notify(text(), "market")
+    # Weekdays: the market report, plus a trade report ONLY when something is new (a new Setup F
+    # fire, a new Setup G watch, a level break). Saturday: the weekend report with everything.
+    # Sunday evening: the futures report only.
+    dow = datetime.datetime.now(ZoneInfo("America/Chicago")).weekday()
+    from autotrade import SHARE_REAL
+    pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
+    send, why = should_push(d, open_, "mkt", market_key(d))
+    if send: notify(market_report(d), "market"); print(f"  market pushed ({why})")
+    else: print(f"  market: no push — {why}")
+    if dow == 5:      # Saturday: everything -- all F fires, every position, the week's closes
+        full = dict(title="WEEKEND REPORT · ALL TRADES", closed_days=7)
+        notify(summary(d, open_, closed, **full), discord_too=False)
+        for route, part in summary(d if SHARE_REAL else {**d, "taken": []}, pub(open_), pub(closed), parts=True, **full).items():
+            if part: discord(part, route)
+        print("  weekend trade report pushed")
+    elif dow < 5:
+        nd = fresh(d)
+        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("vix_fires"):
+            notify(summary(nd, [], [], title="NEW TRADE"), discord_too=False)
+            for route, part in summary(nd, [], [], parts=True).items():
+                if part: discord(part, route)
+            fresh(d, mark=True)
+            print(f"  new trades pushed: F {[r['sym'] for r in nd['F']]} G {[w['sym'] for w in nd['watch']]}")
         else:
-            notify(text(), discord_too=False)            # Telegram: one trade report
-            # Discord may have other members: no real-money cards there, Telegram only
-            from autotrade import SHARE_REAL
-            pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
-            for route, part in summary(d if SHARE_REAL else {**d, "taken": []}, pub(open_), pub(closed), parts=True).items():
-                if part: discord(part, route)            # Discord: one post per channel
-        print(f"  {label} pushed ({why})")
+            print("  trades: nothing new")

@@ -8,7 +8,7 @@ class _DT(datetime.datetime):
     @classmethod
     def now(cls, tz=None): return datetime.datetime(2026, 9, 24, 16, 0, tzinfo=datetime.timezone.utc).astimezone(tz) if tz else datetime.datetime(2026, 9, 24, 11, 0)
 S.datetime = type("M", (), {"datetime": _DT, "date": datetime.date, "timedelta": datetime.timedelta, "timezone": datetime.timezone})
-S.affordable = lambda sym, px, budget: FAKE[sym]
+S.affordable = lambda sym, px, budget: FAKE.get(sym)
 S.panic_day = lambda sym: ("2026-09-24", -6.2, 3.4) if sym == "DEAR" else None
 FAKE = {"CHEAP": dict(expiry="2026-11-20", strike=20, cost=240, n=2, over=False),
         "DEAR": dict(expiry="2026-11-20", strike=140, cost=1391, n=1, over=True)}
@@ -127,3 +127,14 @@ mm2 = base(bubble=dict(phase=3, changed_from=None, phases=ph, ipo={"SpaceX": "20
            market={"heads": ["Anthropic prices IPO, raising $100 billion"]})
 r = S.market_report(mm2); assert "⚠ ANOTHER MEGA-IPO (late-bubble sign)" in r and "PHASE 3 →" not in r, r[:200]
 print("mega-ipo ok")
+
+# weekdays: only fires not sent in the last 30 days go out; marking them stops the repeat
+S.SENT = os.path.join(tempfile.mkdtemp(), "sent.json")
+dd = base(F=[dict(sym="CHEAP", px=19, tgt=25, up=30), dict(sym="DEAR", px=140, tgt=195, up=39)], watch=[], levels=[])
+assert [r["sym"] for r in S.fresh(dd)["F"]] == ["CHEAP", "DEAR"]
+S.fresh(dd, mark=True)
+assert S.fresh(dd)["F"] == []
+dd2 = {**dd, "F": dd["F"] + [dict(sym="NEWB", px=50, tgt=70, up=40)]}
+assert [r["sym"] for r in S.fresh(dd2)["F"]] == ["NEWB"]
+assert "NEW TRADE" in S.summary(S.fresh(dd2), [], [], title="NEW TRADE") and "BUY NEWB" in S.summary(S.fresh(dd2), [], [], title="NEW TRADE")
+print("fresh ok")
