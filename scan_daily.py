@@ -856,6 +856,48 @@ def ihs(h, l, c, since):
     return out
 
 
+def trendlines(D, h, l, c, look=252, w=10):
+    """Trendlines like a hand-drawn chart (2026-10-03), from the last `look` sessions:
+      resistance  from the 1-year high, through the later swing high that keeps every other swing
+                  high under the line (falling)
+      support     from the 1-year low, through the later swing low that keeps every other swing
+                  low over the line (rising); shaded underneath
+      channel     a line parallel to resistance through the lowest low after the high, only when a
+                  second swing low also sits within 3% of it
+    Swing high/low = the highest high / lowest low of the w sessions on each side. A close through
+    resistance (or support) is marked as a break. Chart notes, not a tested setup."""
+    n = len(c); lo = max(w, n - look); out = []
+    ph = [k for k in range(lo, n - w) if h[k] == max(h[k - w:k + w + 1])]
+    pl = [k for k in range(lo, n - w) if l[k] == min(l[k - w:k + w + 1])]
+    def brk(a, sl, y0, up):
+        for k in range(a + 1, n):
+            line = y0 + sl * (k - a)
+            if (c[k] > line * 1.01) if up else (c[k] < line * 0.99): return k
+        return None
+    if ph:
+        A = max(ph, key=lambda k: h[k]); later = [k for k in ph if k >= A + 15]
+        if later:
+            B = max(later, key=lambda k: (h[k] - h[A]) / (k - A)); sl = (h[B] - h[A]) / (B - A)
+            k = brk(B, sl, h[B], True)
+            out.append(dict(kind="resistance line", end=D[k] if k else D[A], lines=[[D[A], h[A], D[-1], h[A] + sl * (n - 1 - A), 0]],
+                            label=dict(time=D[k], up=True, text="TRENDLINE BREAK") if k else None))
+            lows = [j for j in pl if j > A]
+            if lows:
+                L = min(lows, key=lambda j: l[j] - sl * (j - A)); off = l[L] - sl * (L - A)
+                if sum(abs(l[j] - (off + sl * (j - A))) <= 0.03 * c[j] for j in lows) >= 2:
+                    out.append(dict(kind="channel", end=D[A], label=None,
+                                    lines=[[D[A], off, D[-1], off + sl * (n - 1 - A), 1]]))
+    if pl:
+        Lo = min(pl, key=lambda k: l[k]); later = [k for k in pl if k >= Lo + 15]
+        if later:
+            B = min(later, key=lambda k: (l[k] - l[Lo]) / (k - Lo)); sl = (l[B] - l[Lo]) / (B - Lo)
+            k = brk(B, sl, l[B], False)
+            out.append(dict(kind="support line", end=D[k] if k else D[Lo], fill=True,
+                            lines=[[D[Lo], l[Lo], D[-1], l[Lo] + sl * (n - 1 - Lo), 0]],
+                            label=dict(time=D[k], up=False, text="SUPPORT BREAK") if k else None))
+    return out
+
+
 def patterns_for(b, n):
     """Every pattern the scanner knows, drawn on the site chart as notes (none is a tested edge).
     b = full daily bars; only patterns inside the last n bars. Each: kind, lines [[t0,y0,t1,y1,dashed]],
@@ -868,6 +910,7 @@ def patterns_for(b, n):
             lines=[[g(f["p0"]), c[lo + f["p0"]], g(f["p1"]), c[lo + f["p1"]], 0],
                    [g(fs), f["top"][0], g(f["f1"]), f["top"][1], 1], [g(fs), f["bot"][0], g(f["f1"]), f["bot"][1], 1]],
             label=dict(time=g(f["brk"] or f["f1"]), up=bull, text=f["kind"].upper() + ("" if f["brk"] else " · forming"))))
+    out += trendlines(D, h, l, c)
     for p in ihs(h, l, c, lo)[-1:]:
         out.append(dict(kind="inverse head & shoulders", end=D[p["b"]],
             lines=[[D[p["ls"]], p["neck"], D[p["b"]], p["neck"], 1],

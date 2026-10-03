@@ -1431,7 +1431,16 @@ function mountOneChart(item){
   // every detected pattern (flags, inverse H&S, Setup G channel breakout, logged levels), drawn as notes
   const pats=Array.isArray(s.pat)?s.pat:[], pm=[], first=dates[0];
   pats.forEach(p=>{
-    const col=p.kind==='level'?C.amber:(p.label.up?'#00e676':'#ff1744');
+    const line_=/line|channel/.test(p.kind);   // trendlines: neutral like hand-drawn lines
+    const col=p.kind==='level'?C.amber:line_?C.ink2:(p.label.up?'#00e676':'#ff1744');
+    if(p.fill&&p.lines&&p.lines[0]){   // shade under the support line, as on TradingView
+      const [t0,y0,t1,y1]=p.lines[0], i0=dates.indexOf(t0<first?first:t0), i1=dates.indexOf(t1);
+      const a0=dates.indexOf(t0)>=0?dates.indexOf(t0):-1;
+      if(i0>=0&&i1>i0&&a0>=0){const sl=(y1-y0)/(i1-a0);
+        const ar=api.addSeries(L.AreaSeries,{lineColor:'rgba(0,0,0,0)',topColor:'rgba(41,98,255,.22)',bottomColor:'rgba(41,98,255,.06)',
+          priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false,autoscaleInfoProvider:()=>null});
+        ar.setData(dates.slice(i0,i1+1).map((t,j)=>({time:t,value:y0+sl*(i0+j-a0)})));}
+    }
     (p.lines||[]).forEach(([t0,y0,t1,y1,dash])=>{
       if(t1<first||(t0<first&&y0!==y1))return; if(t0<first)t0=first; if(t0===t1)return;   // a slanted line cut at the edge would lie
       const ls=api.addSeries(L.LineSeries,{color:col,lineWidth:2,lineStyle:dash?L.LineStyle.Dashed:L.LineStyle.Solid,
@@ -1439,7 +1448,7 @@ function mountOneChart(item){
       ls.setData([{time:t0,value:Number(y0)},{time:t1,value:Number(y1)}]);
     });
     if(p.label&&p.label.time>=first&&p.kind!=='level')pm.push({time:p.label.time,position:p.label.up?'belowBar':'aboveBar',
-      shape:p.label.up?'arrowUp':'arrowDown',color:col,text:p.label.text});
+      shape:p.label.up?'arrowUp':'arrowDown',color:line_?(p.label.up?'#00e676':'#ff1744'):col,text:p.label.text});
   });
   pm.sort((a,b)=>a.time<b.time?-1:1);
   if(pm.length&&L.createSeriesMarkers)L.createSeriesMarkers(priceSeries,pm);
@@ -1553,7 +1562,7 @@ function renderCharts(d,state){
     <summary><span>Names you hold, that fired, or with a pattern. <b class="not">Not every ticker.</b></span>
       <span class="how">How this works</span></summary>
     <div class="in">
-      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Detected patterns are drawn in green (bullish) or red (bearish): flags, inverse head &amp; shoulders, the Setup G channel breakout. Amber lines are levels logged from your own charts. All are chart notes; none showed a reliable edge alone. Drag to pan, scroll or pinch to zoom, and move
+      <p>Daily candles and volume, with the 10 EMA (green) and 30 EMA (blue). A big green + = the 10 crossed over the 30; a red X = it crossed under. Grey lines are trendlines drawn the way you draw them: resistance from the 1-year high, support from the 1-year low (shaded blue underneath), and a channel line when the lows line up. Detected patterns are drawn in green (bullish) or red (bearish): flags, inverse head &amp; shoulders, the Setup G channel breakout. Amber lines are levels logged from your own charts. All are chart notes; none showed a reliable edge alone. Drag to pan, scroll or pinch to zoom, and move
       across a chart to inspect exact open, high, low, close and volume.</p>
       <p>Your entry, target or strike is drawn on the same price scale, so the gap you see is the gap that exists.</p>
       <p>There is no chart for a name you do not own and that has not fired. Fifty-one charts of nothing
