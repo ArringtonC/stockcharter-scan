@@ -9,7 +9,7 @@ class _DT(datetime.datetime):
     def now(cls, tz=None): return datetime.datetime(2026, 9, 24, 16, 0, tzinfo=datetime.timezone.utc).astimezone(tz) if tz else datetime.datetime(2026, 9, 24, 11, 0)
 S.datetime = type("M", (), {"datetime": _DT, "date": datetime.date, "timedelta": datetime.timedelta, "timezone": datetime.timezone})
 S.affordable = lambda sym, px, budget: FAKE.get(sym)
-S.chart_f = lambda *a, **k: None   # offline
+S.chart_f = S.chart_pos = lambda *a, **k: None   # offline
 S.panic_day = lambda sym: ("2026-09-24", -6.2, 3.4) if sym == "DEAR" else None
 FAKE = {"CHEAP": dict(expiry="2026-11-20", strike=20, cost=240, n=2, over=False),
         "DEAR": dict(expiry="2026-11-20", strike=140, cost=1391, n=1, over=True)}

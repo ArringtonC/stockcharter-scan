@@ -1211,8 +1211,12 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
             msg = summary(nd, ev_open, ev_closed, title=("NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
                           + (" · AFTER CLOSE · for tomorrow" if late else ""))
             send_tg(msg)
-            for route, part in summary({**nd, "F": []}, pub(ev_open), pub(ev_closed), parts=True, after_close=late).items():
+            for route, part in summary({**nd, "F": []}, [], pub(ev_closed), parts=True, after_close=late).items():
                 if part: send_dc(part, route)
+            for r in pub(ev_open):   # one message per position event: its chart, the update card under it
+                try: png = chart_pos(r)
+                except Exception as e: png = None; print(f"  chart {r['symbol']} failed: {str(e)[:40]}")
+                send_file(summary({**nd, "F": [], "watch": [], "levels": [], "vix_fires": False}, [r], parts=True)["updates"], png, "updates")
             for r in nd["F"]:   # one message per new Setup F trade: its chart, the card under it
                 card = summary({**nd, "F": [r], "watch": [], "levels": [], "vix_fires": False}, [], parts=True, after_close=late)["trades"]
                 try: png = chart_f(r["sym"], r["px"], r["tgt"], option="CALL" in card)
@@ -1266,29 +1270,46 @@ def discord(text, route=None):
         return False
 
 
-def chart_f(sym, px, tgt, option=False):
-    """PNG of a Setup F fire for Discord: ~9 months of daily candles, the 30 and 200-day EMAs,
-    entry and target lines. None if matplotlib is missing (the card still goes out as text)."""
+def _chart(sym, title, lines, start=-190, mark=None):
+    """Phone-sized PNG: daily candles, 30/200-day EMAs, labeled flat lines [(price, label, color, style)],
+    a circle at mark=(index, price). None if matplotlib is missing (the post goes out as text)."""
     try:
         import io, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
     except ImportError: return None
-    b = bars(sym); c = [x[1] for x in b]; e30, e200 = ema(c, 30), ema(c, 200); b = b[-190:]; n = len(b)
+    b = bars(sym); c = [x[1] for x in b]; e30, e200 = ema(c, 30), ema(c, 200); b = b[start:]; n = len(b)
     fig, ax = plt.subplots(figsize=(8, 5), dpi=110)
-    for i, (_, cl, hi, lo, op, _v) in enumerate(b):
+    for k, (_, cl, hi, lo, op, _v) in enumerate(b):
         col = "#2e7d32" if cl >= op else "#c62828"
-        ax.vlines(i, lo, hi, color=col, lw=0.8); ax.bar(i, abs(cl - op) or cl * 0.001, bottom=min(cl, op), color=col, width=0.7)
+        ax.vlines(k, lo, hi, color=col, lw=0.8); ax.bar(k, abs(cl - op) or cl * 0.001, bottom=min(cl, op), color=col, width=0.7)
     ax.plot(e30[-n:], color="#1565c0", lw=1.4, label="30-day EMA"); ax.plot(e200[-n:], color="#757575", lw=1.4, label="200-day EMA")
-    ax.axhline(tgt, color="#2e7d32", ls="--", lw=1.2); ax.axhline(px, color="#000", ls=":", lw=1.2)
     box = dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5)
-    ax.text(2, tgt, f"TARGET ${tgt:,.2f} (old high) · +{(tgt / px - 1) * 100:.0f}%", va="bottom", fontsize=10, color="#2e7d32", bbox=box)
-    ax.text(2, px, f"ENTRY ${px:,.2f}", va="bottom", fontsize=10, bbox=box)
-    ax.plot(n - 1, px, "o", ms=8, mfc="none", mec="#000", mew=1.5); ax.set_xlim(-2, n + 2)
-    step = max(1, n // 6); ax.set_xticks(range(0, n, step),
-        [datetime.date.fromisoformat(b[i][0]).strftime("%b") for i in range(0, n, step)], fontsize=9)
-    ax.set_title(f"{sym} · Setup F signal {b[-1][0][5:]} · daily" + (" · UNDERLYING STOCK, not the call" if option else ""), fontsize=12, loc="left")
-    ax.legend(loc="lower left", fontsize=9, frameon=False); ax.grid(alpha=0.2); fig.tight_layout()
+    for y, lbl, col, ls in lines:
+        ax.axhline(y, color=col, ls=ls, lw=1.2); ax.text(2, y, lbl, va="bottom", fontsize=10, color=col, bbox=box)
+    if mark: ax.plot(mark[0] if mark[0] >= 0 else n + mark[0], mark[1], "o", ms=8, mfc="none", mec="#000", mew=1.5)
+    ax.set_xlim(-2, n + 2); step = max(1, n // 6)
+    ax.set_xticks(range(0, n, step), [datetime.date.fromisoformat(b[k][0]).strftime("%b %-d" if n < 90 else "%b") for k in range(0, n, step)], fontsize=9)
+    ax.set_title(title, fontsize=12, loc="left"); ax.legend(loc="lower left", fontsize=9, frameon=False); ax.grid(alpha=0.2); fig.tight_layout()
     buf = io.BytesIO(); fig.savefig(buf, format="png"); plt.close(fig)
     return buf.getvalue()
+
+
+def chart_f(sym, px, tgt, option=False):
+    """New Setup F trade: ~9 months, entry and target."""
+    return _chart(sym, f"{sym} · Setup F signal {bars(sym)[-1][0][5:]} · daily" + (" · UNDERLYING STOCK, not the call" if option else ""),
+                  [(tgt, f"TARGET ${tgt:,.2f} (old high) · +{(tgt / px - 1) * 100:.0f}%", "#2e7d32", "--"),
+                   (px, f"ENTRY ${px:,.2f}", "#000", ":")], mark=(-1, px))
+
+
+def chart_pos(r):
+    """Position update: price since the trade opened (+20 sessions before), the target, and the
+    active exit level (once the target is touched, the stop sits at the target)."""
+    b = bars(r["symbol"]); k = next((i for i, x in enumerate(b) if x[0] >= r["opened"]), len(b) - 1)
+    start = max(0, k - 20) - len(b); ent = b[k][1]; tgt = float(r["target"]) if r.get("target") else None
+    lines = [(ent, f"OPENED {b[k][0][5:]} · stock ${ent:,.2f}", "#000", ":")]
+    if tgt: lines.append((tgt, (f"STOP AT TARGET ${tgt:,.2f} (target touched)" if r.get("armed") else f"TARGET ${tgt:,.2f}"),
+                          "#c62828" if r.get("armed") else "#2e7d32", "--"))
+    return _chart(r["symbol"], f"{r['symbol']} · since entry" + (" · UNDERLYING STOCK, not the call" if r.get("kind") == "call" else ""),
+                  lines, start=start, mark=(k - (len(b) + start), ent))
 
 
 def discord_file(text, png, route=None, name="chart.png"):
