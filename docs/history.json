@@ -560,5 +560,35 @@
    "NFLX",
    "SPOT"
   ]
+ },
+ {
+  "date": "2026-10-03",
+  "vix": 15.3100004196167,
+  "regime": "CALM",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW",
+   "HOOD",
+   "BE"
+  ],
+  "D": [
+   "SG",
+   "SHOP",
+   "U",
+   "TXN",
+   "INTC",
+   "MU",
+   "SNOW",
+   "MRNA",
+   "PLTR",
+   "MSFT",
+   "DOCU",
+   "META"
+  ],
+  "C": [],
+  "S": [
+   "NFLX"
+  ]
  }
 ]
