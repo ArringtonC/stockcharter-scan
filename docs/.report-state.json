@@ -811,6 +811,330 @@
      "setup": "F"
     }
    }
+  },
+  {
+   "week": "2026-W41",
+   "date": "2026-10-05",
+   "balance": 9941.87,
+   "real_pl": 13.4,
+   "paper_pl": -7.3,
+   "real_net": -159,
+   "open_n": 31,
+   "real_n": 4,
+   "fired": 1,
+   "sessions": 1,
+   "pos": {
+    "2026-09-03-NFLX-sh": {
+     "sym": "NFLX",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 67.05999755859375,
+     "pl": -18.882306086133116,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-IBM-sh": {
+     "sym": "IBM",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 222.63999938964844,
+     "pl": -5.142516556751553,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-AVGO-sh": {
+     "sym": "AVGO",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 355.1400146484375,
+     "pl": -0.5655687511374574,
+     "acct": "paper",
+     "setup": "E"
+    },
+    "2026-09-03-WDAY-sh": {
+     "sym": "WDAY",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 186.13999938964844,
+     "pl": -10.04252880840496,
+     "acct": "paper",
+     "setup": "D"
+    },
+    "2026-09-03-MSFT-sh": {
+     "sym": "MSFT",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 517.530029296875,
+     "pl": 1.4526051315131738,
+     "acct": "paper",
+     "setup": "D"
+    },
+    "2026-09-08-BE-sh": {
+     "sym": "BE",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 289.1499938964844,
+     "pl": 4.303439108464158,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-HOOD-sh": {
+     "sym": "HOOD",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 112.73999786376953,
+     "pl": -3.920233625558611,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-MU-sh": {
+     "sym": "MU",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 1074.8900146484375,
+     "pl": 7.461061588830664,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-08-SHOP-sh": {
+     "sym": "SHOP",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 151.38999938964844,
+     "pl": 12.893362706672962,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-04-DOCU-big": {
+     "sym": "DOCU",
+     "kind": "call",
+     "strike": "37.5",
+     "dte": 102,
+     "now": 32.325,
+     "pl": 23.236751810903545,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-04-DOCU-small": {
+     "sym": "DOCU",
+     "kind": "call",
+     "strike": "65",
+     "dte": 11,
+     "now": 5.045,
+     "pl": 3.381147540983598,
+     "acct": "small",
+     "setup": "E"
+    },
+    "2026-09-04-WDAY-big": {
+     "sym": "WDAY",
+     "kind": "call",
+     "strike": "170",
+     "dte": 74,
+     "now": 27.04,
+     "pl": -28.56010568031705,
+     "acct": "big",
+     "setup": "E"
+    },
+    "2026-09-11-QCOM-sh": {
+     "sym": "QCOM",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 184.8699951171875,
+     "pl": 0.7081740574099937,
+     "acct": "paper",
+     "setup": "C"
+    },
+    "2026-09-16-NOW": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 134.3800048828125,
+     "pl": -4.870448192827048,
+     "acct": "paper",
+     "setup": "F"
+    },
+    "2026-09-16-NOW-call": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "176",
+     "dte": 74,
+     "now": 2.9349999999999996,
+     "pl": -50.67226890756304,
+     "acct": "small",
+     "setup": "F"
+    },
+    "2026-09-17-NOW-170c": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "170",
+     "dte": 46,
+     "now": 2.1100000000000003,
+     "pl": -55.29661016949152,
+     "acct": "small",
+     "setup": "F"
+    },
+    "2026-09-17-QCOM-240c": {
+     "sym": "QCOM",
+     "kind": "call",
+     "strike": "240",
+     "dte": 46,
+     "now": 2.175,
+     "pl": -41.532258064516135,
+     "acct": "small",
+     "setup": "C"
+    },
+    "2026-09-23-NOW-auto": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 134.3800048828125,
+     "pl": -4.437487638449367,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-23-BE-auto": {
+     "sym": "BE",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 289.1499938964844,
+     "pl": 5.137805940107776,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-24-HOOD-auto": {
+     "sym": "HOOD",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 112.73999786376953,
+     "pl": -7.862048166255697,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-24-SHOP-auto": {
+     "sym": "SHOP",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 151.38999938964844,
+     "pl": 6.193882849080001,
+     "acct": "paper-auto",
+     "setup": "F"
+    },
+    "2026-09-24-NOW-real": {
+     "sym": "NOW",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 134.3800048828125,
+     "pl": -2.7007422468956044,
+     "acct": "real",
+     "setup": "F"
+    },
+    "2026-09-11-QCOM-175c": {
+     "sym": "QCOM",
+     "kind": "call",
+     "strike": "175",
+     "dte": 11,
+     "now": 12.469999999999999,
+     "pl": -19.961489088575103,
+     "acct": "big",
+     "setup": "C"
+    },
+    "2026-09-26-SG-real": {
+     "sym": "SG",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 9.100000381469727,
+     "pl": 31.112589422668457,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-26-SG-3c-real": {
+     "sym": "SG",
+     "kind": "call",
+     "strike": "3",
+     "dte": 473,
+     "now": 6.42,
+     "pl": 37.86883133616801,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-26-SNAP-5c-real": {
+     "sym": "SNAP",
+     "kind": "call",
+     "strike": "5",
+     "dte": 473,
+     "now": 2.05,
+     "pl": -12.639563623966598,
+     "acct": "real",
+     "setup": "none"
+    },
+    "2026-09-28-NOW-leap": {
+     "sym": "NOW",
+     "kind": "call",
+     "strike": "135",
+     "dte": 802,
+     "now": 47.585,
+     "pl": 0.7089947089947035,
+     "acct": "bot-leaps",
+     "setup": "F"
+    },
+    "2026-09-28-SHOP-leap": {
+     "sym": "SHOP",
+     "kind": "call",
+     "strike": "140",
+     "dte": 802,
+     "now": 60.650000000000006,
+     "pl": 13.364485981308416,
+     "acct": "bot-leaps",
+     "setup": "F"
+    },
+    "2026-09-28-HOOD-leap": {
+     "sym": "HOOD",
+     "kind": "call",
+     "strike": "120",
+     "dte": 802,
+     "now": 42.685,
+     "pl": -14.629999999999999,
+     "acct": "bot-leaps",
+     "setup": "F"
+    },
+    "2026-09-30-ZS-f": {
+     "sym": "ZS",
+     "kind": "shares",
+     "strike": "",
+     "dte": null,
+     "now": 196.60000610351562,
+     "pl": -2.086754268880109,
+     "acct": "bot",
+     "setup": "F"
+    },
+    "2026-10-01-ZS-leap": {
+     "sym": "ZS",
+     "kind": "call",
+     "strike": "200",
+     "dte": 620,
+     "now": 64.82,
+     "pl": -6.397111913357412,
+     "acct": "bot-leaps",
+     "setup": "F"
+    }
+   }
   }
  ]
 }
