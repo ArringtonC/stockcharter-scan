@@ -633,8 +633,8 @@
  },
  {
   "date": "2026-10-05",
-  "vix": 16.06999969482422,
-  "regime": "NORMAL",
+  "vix": 15.520000457763672,
+  "regime": "CALM",
   "vix_fires": false,
   "F": [
    "ZS",
@@ -644,19 +644,17 @@
   "D": [
    "INTC",
    "BE",
-   "U",
-   "SHOP",
    "MU",
-   "CSCO",
    "SG",
+   "CSCO",
+   "SHOP",
    "TXN",
+   "U",
    "SNOW",
    "PLTR",
-   "DOCU",
    "MRNA",
-   "META",
    "DELL",
-   "MSFT"
+   "DOCU"
   ],
   "C": [],
   "S": []
