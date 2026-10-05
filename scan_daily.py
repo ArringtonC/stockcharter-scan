@@ -352,6 +352,7 @@ def option_mark(sym, expiry, strike, spot, dte, realized):
         v = fn(sym, expiry, strike)
         if v and v > 0: return v, tag
     iv = chain_iv(sym, expiry, strike)
+    if iv and iv < 0.10: iv = None   # ponytail: a failed IV solve returns its 5% floor -> priced calls at a quarter of real; use realized vol
     return bs_call(spot, float(strike), max(0.0, dte) / 365, iv or realized), ("iv" if iv else "est")
 
 
