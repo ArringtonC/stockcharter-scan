@@ -28,5 +28,15 @@
    "price": 399.325,
    "at": "2026-10-02 11:00"
   }
+ },
+ {
+  "symbol": "QQQ",
+  "pattern": "inverse H&S into a cup & handle",
+  "tf": "15m",
+  "logged": "2026-10-06",
+  "up": 765.07,
+  "down": 747.5,
+  "target_up": 777.43,
+  "target_down": 731.63
  }
 ]
