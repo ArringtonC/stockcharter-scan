@@ -5,8 +5,10 @@ Since 2026-09-27 (Arrington: "lets do the pure setup F whatever it is"):
   buy    each F fire -> shares at market, 7% of account equity (his own position rule).
          One buy per name per 30 days.
   hold   no stop. Target = the prior high, set at entry.
-  floor  when the stock REACHES the target, do not sell: place a stop at the target and
-         let it run. Sell only if it falls back to that floor, or after 252 sessions.
+  hold   since 2026-10-06 (his pick, option 2): NO exit at the target -- every trade is held
+         252 sessions, then sold. Paper test of thesis/targets.md, where hold-252 beat the floor
+         rule in all 9 two-year windows (survivorship caveat). Real trades keep the floor rule.
+         HOLD252 = False puts the old floor back: stop at the target once touched.
 Second book, same signals (acct bot-leaps, since 2026-09-27): the at-the-money call nearest
 730 days out (thesis/leaps.md: 87% win, 9% wiped out -- the best F option structure tested),
 7% of a $100k book per trade, sold when the stock reaches the target or 30 days before expiry. The 4 share positions bought
@@ -40,10 +42,14 @@ def plan(fires, held, state, today, budget=CAP):
     return out
 
 
-def floor_action(row, highs_since, sessions, has_stop):
+HOLD252 = True
+
+
+def floor_action(row, highs_since, sessions, has_stop, hold=None):
     """What pure F wants done with an open position now. Pure, so it can be tested.
     highs_since: daily highs after the entry date."""
     if sessions >= 252: return "sell"                      # the time limit
+    if HOLD252 if hold is None else hold: return None       # the paper test: no exit at the target
     if not has_stop and max(highs_since, default=0) >= float(row["target"]): return "floor"
     return None
 
@@ -129,9 +135,9 @@ def sync():
         for r in mine:
             if r["symbol"] not in pos: continue
             sym = r["symbol"]; mine_o = [o for o in orders if o["symbol"] == sym]
-            # the old $600 bot put a take-profit limit at the target; pure F floors instead
+            # no take-profit limits; under HOLD252 no floor stops either
             for o in mine_o:
-                if o["side"] == "sell" and o["type"] == "limit":
+                if o["side"] == "sell" and (o["type"] == "limit" or (HOLD252 and o["type"] == "stop")):
                     call(f"/orders/{o['id']}", method="DELETE"); print(f"auto: {sym} take-profit removed, floor rule instead")
             has_stop = any(o["side"] == "sell" and o["type"] == "stop" for o in mine_o)
             after = [x for x in bars(sym, "2y") if x[0] > r["opened"]]
@@ -275,7 +281,7 @@ def main():
             state[t["sym"]] = str(today)
             log_buy(rs, t, fill, today, acct="bot",
                     note=f"Pure Setup F. {t['qty']} shares, 7% of equity. Target ${t['tgt']:.2f}; no stop; "
-                         f"floor at the target once reached; out at 252 sessions.")
+                         f"held 252 sessions, no exit at the target (paper test since 10-06).")
             notify(f"<b>🤖 PAPER FILL · BOUGHT {t['sym']} ${fill:,.2f}</b>\n"
                    f"{t['qty']} SHARES · ${t['qty'] * fill:,.0f} · 7% OF THE ACCOUNT\n"
                    f"TARGET ${t['tgt']:,.2f} · +{(t['tgt'] / fill - 1) * 100:.0f}% · NO STOP\n"
@@ -321,10 +327,12 @@ if __name__ == "__main__":
         assert p == [], p                                   # BE bought 18 days ago, NOW held, BIG > $7k a share
         p = plan(f, set(), {}, t, 7000); assert [(x["sym"], x["qty"]) for x in p] == [("BE", 25), ("NOW", 50)], p
         row = dict(target="351.28")
-        assert floor_action(row, [300, 340], 60, False) is None           # not there yet: hold, no stop
-        assert floor_action(row, [300, 352], 60, False) == "floor"        # touched the target: set the floor
-        assert floor_action(row, [300, 352], 61, True) is None            # floor already in place
-        assert floor_action(row, [300], 252, False) == "sell"             # the 252-session limit
+        assert floor_action(row, [300, 340], 60, False, hold=False) is None           # not there yet: hold, no stop
+        assert floor_action(row, [300, 352], 60, False, hold=False) == "floor"
+        assert floor_action(row, [300, 352], 60, False) is None                # HOLD252: target touched, keep holding
+        assert floor_action(row, [300], 252, False) == "sell"                  # HOLD252 still sells at 252        # touched the target: set the floor
+        assert floor_action(row, [300, 352], 61, True, hold=False) is None            # floor already in place
+        assert floor_action(row, [300], 252, False, hold=False) == "sell"             # the 252-session limit
         rs = []; log_buy(rs, f[0] | {"qty": 25}, 274.0, t, acct="bot")
         assert rs[0]["acct"] == "bot" and rs[0]["id"].endswith("-BE-f") and rs[0]["contracts"] == "25"
         close_filled(rs, {"BE": (351.28, "2026-12-01")}); assert rs[0]["status"] == "closed"
