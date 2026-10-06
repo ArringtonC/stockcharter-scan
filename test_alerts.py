@@ -166,3 +166,14 @@ cl = dict(id="X", symbol="DOCU", acct="real", kind="stock", contracts=1, entry="
 assert "✓ CLOSED THIS WEEK · " + datetime.date.today().strftime("%b %-d").upper() in S.summary(base(), [], [cl], closed_days=7)
 assert "✓ TRADE CLOSED" in S.summary(base(), [], [cl])
 print("channels + wording ok")
+
+# pattern #7: an inverse H&S break renders as a watchlist card, not a buy, and triggers a weekday send
+x = dict(sym="QQQ", tf="30-MIN", at="2026-10-02 09:30", entry=752.17, neck=748.35, head=731.63, stop=735.05, target=765.07, trail=3.1)
+p = S.summary(base(ihs=[x]), [], parts=True)
+assert "📐 INVERSE H&S · QQQ 30-MIN · BROKE $748.35" in p["watch"] and "TARGET $765.07" in p["watch"] and not p["trades"]
+lo = [97.0] * 60; lo[10] = 93.0; lo[16] = 90.0; lo[22] = 93.5          # left shoulder, head, right shoulder
+hi = [x + 1 for x in lo]; hi[5] = 100.0                                   # the rim = the neckline
+cl = [x + 0.5 for x in lo]; cl[28] = 100.6; hi[28] = 101.0                # first close over it
+f = S.ihs(hi, lo, cl)
+assert f and f[0]["neck"] == 100 and f[0]["b"] == 28 and f[0]["target"] == 110 and f[0]["stop"] == 93.5, f
+print("ihs ok")

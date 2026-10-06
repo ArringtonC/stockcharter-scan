@@ -837,24 +837,69 @@ def flags(h, l, c):
     return out
 
 
-def ihs(h, l, c, since):
-    """Inverse head & shoulders breakouts at index >= since. Same rule as thesis/patterns/ihs.py
-    (a 25%+ fall from a 1-year high to the head, shoulders 3%+ above it and within 12% of each other,
-    first close over the flat neckline). Target = neckline + (neckline - head); stop = right shoulder."""
+def ihs(h, l, c, since=0):
+    """Pattern #7, inverse head & shoulders neckline breakout -- the rule tested in
+    thesis/patterns/ihs_cup_test.py (beat random entries on 15m/30m/4h/daily after costs, both
+    halves). Same in bars on any timeframe: the left rim is a swing high (top of 5 bars each side)
+    and IS the flat neckline; head = lowest low 10-120 bars later, cup 3+ ATR deep and under 30%;
+    shoulders 0.5+ ATR above the head and within 1.5 ATR of each other; nothing closes over the
+    neckline before the breakout. Entry = first close over it; stop = right-shoulder low;
+    target = neckline + depth. Exit (ihs_trail_test.py): at the target do not sell, trail 2 ATR."""
+    n = len(c); tr = [h[0] - l[0]] + [max(h[k], c[k - 1]) - min(l[k], c[k - 1]) for k in range(1, n)]
+    A, a = [], tr[0]
+    for x in tr: a += (x - a) / 14; A.append(a)
     out, used = [], set()
-    for b in range(max(320, since), len(c)):
-        hd = min(range(b - 150, b - 30), key=lambda k: l[k])
-        if hd in used or min(l[hd + 1:b]) < l[hd]: continue
-        pk = max(range(max(0, hd - 252), hd), key=lambda k: h[k])
-        if l[hd] > h[pk] * 0.75: continue
-        lo_ls = max(pk, hd - 60)
-        if hd - 8 <= lo_ls or b - 2 <= hd + 8: continue
-        ls = min(range(lo_ls, hd - 8), key=lambda k: l[k]); rs = min(range(hd + 8, b - 2), key=lambda k: l[k])
-        if l[ls] < l[hd] * 1.03 or l[rs] < l[hd] * 1.03 or abs(l[ls] - l[rs]) / max(l[ls], l[rs]) > 0.12: continue
-        neck = max(h[ls:rs + 1])
-        if not (c[b] > neck and all(c[k] <= neck for k in range(rs, b))): continue
-        out.append(dict(ls=ls, hd=hd, rs=rs, b=b, neck=neck, target=neck + (neck - l[hd]))); used.add(hd)
+    for r in range(5, n - 20):
+        if h[r] != max(h[r - 5:r + 6]): continue
+        neck, end = h[r], min(n - 1, r + 121)
+        if r + 10 >= end: continue
+        hd = min(range(r + 10, end), key=lambda k: l[k])
+        if hd in used or hd - 3 <= r + 1: continue
+        depth = neck - l[hd]
+        if depth < 3 * A[hd] or depth > 0.3 * neck or max(c[r + 1:hd + 1]) > neck: continue
+        bo = next((k for k in range(hd + 4, min(n, hd + 121)) if c[k] > neck), None)
+        if bo is None or bo < since: continue
+        ls = min(range(r + 1, hd - 2), key=lambda k: l[k]); rs = min(range(hd + 3, bo), key=lambda k: l[k])
+        if l[ls] < l[hd] + 0.5 * A[hd] or l[rs] < l[hd] + 0.5 * A[hd] or abs(l[ls] - l[rs]) > 1.5 * A[hd] or l[rs] >= c[bo]: continue
+        used.add(hd)
+        out.append(dict(rim=r, ls=ls, hd=hd, rs=rs, b=bo, neck=neck, target=neck + depth, stop=l[rs], atr=A[-1]))
     return out
+
+
+IHS_STATE = os.path.join(DOCS, ".ihs-state.json"); IHS_LOG = os.path.join(DOCS, "ihs-paper.json")
+
+
+def check_ihs(syms=("QQQ", "SPY")):
+    """Live #7 alerts (2026-10-06, paper test): a NEW inverse H&S neckline break on the 30-minute
+    or 4-hour chart, in the last 2 bars, once each. Logged to docs/ihs-paper.json for the review."""
+    from zoneinfo import ZoneInfo
+    NY = ZoneInfo("America/New_York"); seen = set(json.load(open(IHS_STATE))) if os.path.exists(IHS_STATE) else set()
+    log = json.load(open(IHS_LOG)) if os.path.exists(IHS_LOG) else []; hits = []
+    for sym in syms:
+        q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=60d&interval=15m")["chart"]["result"][0]
+        o = q["indicators"]["quote"][0]; b = []
+        for i, t in enumerate(q["timestamp"]):
+            z = datetime.datetime.fromtimestamp(t, NY)
+            if o["close"][i] is None or not ((9, 30) <= (z.hour, z.minute) < (16, 0)): continue
+            b.append((z, o["high"][i], o["low"][i], o["close"][i]))
+        for tf, key in (("30-MIN", lambda z: z.replace(minute=0 if z.minute < 30 else 30)),
+                        ("4-HOUR", lambda z: z.replace(hour=9 if (z.hour, z.minute) < (13, 30) else 13, minute=30))):
+            g = {}
+            for z, hi, lo, cl in b:
+                k = key(z)
+                if k not in g: g[k] = [k, hi, lo, cl]
+                else: g[k][1] = max(g[k][1], hi); g[k][2] = min(g[k][2], lo); g[k][3] = cl
+            bb = [g[k] for k in sorted(g)]
+            # ponytail: the bar in progress counts as closed; a later bar can only confirm or drop it
+            for p in ihs([x[1] for x in bb], [x[2] for x in bb], [x[3] for x in bb], since=len(bb) - 2):
+                when = bb[p["b"]][0].strftime("%Y-%m-%d %H:%M"); k = f"{sym}|{tf}|{when}"
+                if k in seen: continue
+                seen.add(k)
+                x = dict(sym=sym, tf=tf, at=when, entry=round(bb[p["b"]][3], 2), neck=round(p["neck"], 2), head=round(bb[p["hd"]][2], 2),
+                         stop=round(p["stop"], 2), target=round(p["target"], 2), trail=round(2 * p["atr"], 2))
+                hits.append(x); log.append(x)
+    json.dump(sorted(seen), open(IHS_STATE, "w")); json.dump(log, open(IHS_LOG, "w"), indent=1)
+    return hits
 
 
 def trendlines(D, h, l, c, look=252, w=10):
@@ -914,7 +959,7 @@ def patterns_for(b, n):
     out += trendlines(D, h, l, c)
     for p in ihs(h, l, c, lo)[-1:]:
         out.append(dict(kind="inverse head & shoulders", end=D[p["b"]],
-            lines=[[D[p["ls"]], p["neck"], D[p["b"]], p["neck"], 1],
+            lines=[[D[p["rim"]], p["neck"], D[p["b"]], p["neck"], 1], [D[p["b"]], p["target"], D[-1], p["target"], 1],
                    [D[p["ls"]], l[p["ls"]], D[p["hd"]], l[p["hd"]], 0], [D[p["hd"]], l[p["hd"]], D[p["rs"]], l[p["rs"]], 0],
                    [D[p["rs"]], l[p["rs"]], D[p["b"]], c[p["b"]], 0]],
             label=dict(time=D[p["b"]], up=True, text="INVERSE H&S")))
@@ -1368,7 +1413,7 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
         ev = [e for e in position_events(open_, closed, d) if "|".join(e) not in sent_e]
         ids = {i for _, i in ev}
         ev_open = [r for r in open_ if r["id"] in ids]; ev_closed = [r for r in closed if r["id"] in ids]
-        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("vix_fires") or ev:
+        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("ihs") or nd.get("vix_fires") or ev:
             late = datetime.datetime.now(ZoneInfo("America/Chicago")).hour >= 15   # the 16:30 run: act tomorrow
             msg = summary(nd, ev_open, ev_closed, title=("NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
                           + (" · AFTER CLOSE · for tomorrow" if late else ""))
@@ -1777,6 +1822,11 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
                f"{x['tf']} CHART NOTE: {x['pattern'].upper()}",
                f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f} · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
                f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
+    for x in d.get("ihs", []):
+        W_ += [f"<b>📐 INVERSE H&S · {x['sym']} {x['tf']} · BROKE ${x['neck']:,.2f}</b>",
+               f"ENTRY ${x['entry']:,.2f} · TARGET ${x['target']:,.2f} · STOP ${x['stop']:,.2f}",
+               f"AT THE TARGET: don't sell, trail the stop ${x['trail']:,.2f} under the highest close",
+               "<i>paper test · pattern #7 beat random entries after costs (thesis/patterns/ihs-cup-test.md) · not a buy card</i>", ""]
     for w in d.get("watch", []):
         W_ += [f"<b>👀 SETUP G · WATCH {w['sym']} ${w['close']:,.2f}</b>" + (" · CORE" if w["sym"] in CORE else ""),
                f"CHANNEL BREAKOUT {w['date'][5:]} · OVER ${w['base_high']:,.2f}",
@@ -1867,6 +1917,8 @@ if __name__ == "__main__":
     d["market"] = market(d, open_)
     try: d["playbook"] = playbook()
     except Exception as e: d["errors"].append(f"playbook: {str(e)[:40]}")
+    try: d["ihs"] = check_ihs()
+    except Exception as e: d["ihs"] = []; d["errors"].append(f"ihs: {str(e)[:40]}")
     try: d["levels"] = check_levels()
     except Exception as e: d["levels"] = []; d["errors"].append(f"levels: {str(e)[:40]}")
     try: d["watch"] = watch_patterns(d)
