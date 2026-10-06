@@ -168,9 +168,13 @@ assert "✓ TRADE CLOSED" in S.summary(base(), [], [cl])
 print("channels + wording ok")
 
 # pattern #7: an inverse H&S break renders as a watchlist card, not a buy, and triggers a weekday send
-x = dict(sym="QQQ", tf="30-MIN", at="2026-10-02 09:30", entry=752.17, neck=748.35, head=731.63, stop=735.05, target=765.07, trail=3.1)
+x = dict(sym="QQQ", tf="30-MIN", at="2026-10-02 09:30", entry=752.17, neck=748.35, head=731.63, stop=735.05, target=765.07, trail=3.1,
+         qty=1, cap=850, risk=17.12, chase=756.45, asof="8:30 AM CT", valid="9:30 AM CT")
 p = S.summary(base(ihs=[x]), [], parts=True)
-assert "📐 INVERSE H&S · QQQ 30-MIN · BROKE $748.35" in p["watch"] and "TARGET $765.07" in p["watch"] and not p["trades"]
+w = p["watch"]; assert not p["trades"]
+assert "BUY 1 SHARE · LIMIT $752.17 · DON'T CHASE ABOVE $756.45" in w and "RISK $17.12/SHARE · $17 TOTAL" in w
+assert "TRAIL ACTIVATES $765.07" in w and "VALID UNTIL 9:30 AM CT" in w and "TARGET" not in w
+assert "PASS" in S.summary(base(ihs=[{**x, "qty": 0}]), [], parts=True)["watch"]
 lo = [97.0] * 60; lo[10] = 93.0; lo[16] = 90.0; lo[22] = 93.5          # left shoulder, head, right shoulder
 hi = [x + 1 for x in lo]; hi[5] = 100.0                                   # the rim = the neckline
 cl = [x + 0.5 for x in lo]; cl[28] = 100.6; hi[28] = 101.0                # first close over it

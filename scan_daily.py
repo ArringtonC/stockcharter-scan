@@ -895,8 +895,15 @@ def check_ihs(syms=("QQQ", "SPY")):
                 when = bb[p["b"]][0].strftime("%Y-%m-%d %H:%M"); k = f"{sym}|{tf}|{when}"
                 if k in seen: continue
                 seen.add(k)
-                x = dict(sym=sym, tf=tf, at=when, entry=round(bb[p["b"]][3], 2), neck=round(p["neck"], 2), head=round(bb[p["hd"]][2], 2),
-                         stop=round(p["stop"], 2), target=round(p["target"], 2), trail=round(2 * p["atr"], 2))
+                e = bb[p["b"]][3]; risk = e - p["stop"]; cap = round(PLAN["balance"] * 0.07 / 50) * 50
+                bar_end = bb[p["b"]][0] + (datetime.timedelta(minutes=60) if tf == "30-MIN" else datetime.timedelta(hours=0))
+                if tf == "4-HOUR": bar_end = bb[p["b"]][0].replace(hour=16, minute=0)   # 4-hour: good for the day
+                CT = ZoneInfo("America/Chicago")
+                x = dict(sym=sym, tf=tf, at=when, entry=round(e, 2), neck=round(p["neck"], 2), head=round(bb[p["hd"]][2], 2),
+                         stop=round(p["stop"], 2), target=round(p["target"], 2), trail=round(2 * p["atr"], 2),
+                         qty=int(cap // e), cap=cap, risk=round(risk, 2), chase=round(e + 0.25 * risk, 2),
+                         asof=bb[p["b"]][0].astimezone(CT).strftime("%-I:%M %p CT"),
+                         valid=bar_end.astimezone(CT).strftime("%-I:%M %p CT"))
                 hits.append(x); log.append(x)
     json.dump(sorted(seen), open(IHS_STATE, "w")); json.dump(log, open(IHS_LOG, "w"), indent=1)
     return hits
@@ -1822,11 +1829,17 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
                f"{x['tf']} CHART NOTE: {x['pattern'].upper()}",
                f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f} · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
                f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
-    for x in d.get("ihs", []):
-        W_ += [f"<b>📐 INVERSE H&S · {x['sym']} {x['tf']} · BROKE ${x['neck']:,.2f}</b>",
-               f"ENTRY ${x['entry']:,.2f} · TARGET ${x['target']:,.2f} · STOP ${x['stop']:,.2f}",
-               f"AT THE TARGET: don't sell, trail the stop ${x['trail']:,.2f} under the highest close",
-               "<i>paper test · pattern #7 beat random entries after costs (thesis/patterns/ihs-cup-test.md) · not a buy card</i>", ""]
+    for x in d.get("ihs", []):   # a full ticket: what, how many, what price, when too late, stop, dollars at risk
+        q = x.get("qty", 0)
+        W_ += [f"<b>📐 PATTERN #7 · PAPER TEST · {x['sym']} · SHARES · {x['tf']}</b>",
+               f"Inverse H&S broke ${x['neck']:,.2f} · price as of {x.get('asof', x['at'])}"]
+        if q < 1:
+            W_ += [f"<b>PASS</b> · 1 share ${x['entry']:,.2f} is over the ${x.get('cap', 0):,.0f} cap", ""]; continue
+        W_ += [f"ORDER · BUY {q} SHARE{'S' if q != 1 else ''} · LIMIT ${x['entry']:,.2f} · DON'T CHASE ABOVE ${x['chase']:,.2f}",
+               f"INITIAL STOP ${x['stop']:,.2f} · RISK ${x['risk']:,.2f}/SHARE · ${q * x['risk']:,.0f} TOTAL",
+               f"TRAIL ACTIVATES ${x['target']:,.2f} · then trail ${x['trail']:,.2f} under the highest {x['tf'].lower()} close",
+               f"VALID UNTIL {x.get('valid', 'the next bar')} · " + '<a href="https://arringtonc.github.io/stockcharter-scan/#charts">chart</a>',
+               "<i>paper test until the Oct 28 review scores it · not a buy card · place any order yourself</i>", ""]
     for w in d.get("watch", []):
         W_ += [f"<b>👀 SETUP G · WATCH {w['sym']} ${w['close']:,.2f}</b>" + (" · CORE" if w["sym"] in CORE else ""),
                f"CHANNEL BREAKOUT {w['date'][5:]} · OVER ${w['base_high']:,.2f}",
