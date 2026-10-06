@@ -661,7 +661,7 @@
  },
  {
   "date": "2026-10-06",
-  "vix": 15.079999923706055,
+  "vix": 15.09000015258789,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -670,15 +670,13 @@
    "HOOD"
   ],
   "D": [
-   "MU",
    "BE",
-   "U",
    "SG",
-   "SNOW",
+   "U",
    "TXN",
    "MRNA",
-   "CSCO",
    "SHOP",
+   "CSCO",
    "PLTR",
    "XOM"
   ],
