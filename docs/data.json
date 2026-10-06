@@ -1,15 +1,15 @@
 {
  "date": "2026-10-06",
- "stamp": "2026-10-06 01:48 UTC",
+ "stamp": "2026-10-06 12:00 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 15.520000457763672,
+ "vix": 15.3100004196167,
  "vix5": [
-  16.040000915527344,
   16.34000015258789,
   16.389999389648438,
   15.3100004196167,
-  15.520000457763672
+  15.520000457763672,
+  15.3100004196167
  ],
  "vix_hi10": 16.389999389648438,
  "qqq": 756.2000122070312,
@@ -240,52 +240,52 @@
     {
      "sym": "NVDA",
      "name": "NVIDIA Corp",
-     "pct": 14.36
+     "pct": 15.47
     },
     {
      "sym": "AAPL",
      "name": "Apple Inc",
-     "pct": 12.5
+     "pct": 13.6
     },
     {
      "sym": "MSFT",
      "name": "Microsoft Corp",
-     "pct": 10.12
-    },
-    {
-     "sym": "AVGO",
-     "name": "Broadcom Inc",
-     "pct": 4.71
-    },
-    {
-     "sym": "MU",
-     "name": "Micron Technology Inc",
-     "pct": 4.0
+     "pct": 10.66
     },
     {
      "sym": "AMD",
      "name": "Advanced Micro Devices Inc",
-     "pct": 3.93
+     "pct": 5.06
+    },
+    {
+     "sym": "AVGO",
+     "name": "Broadcom Inc",
+     "pct": 4.68
+    },
+    {
+     "sym": "MU",
+     "name": "Micron Technology Inc",
+     "pct": 4.47
     },
     {
      "sym": "INTC",
      "name": "Intel Corp",
-     "pct": 2.9
-    },
-    {
-     "sym": "CSCO",
-     "name": "Cisco Systems Inc",
-     "pct": 2.86
+     "pct": 3.38
     },
     {
      "sym": "PLTR",
      "name": "Palantir Technologies Inc Ordinary Shares - Class A",
-     "pct": 2.81
+     "pct": 2.44
+    },
+    {
+     "sym": "CSCO",
+     "name": "Cisco Systems Inc",
+     "pct": 2.4
     },
     {
      "sym": "LRCX",
      "name": "Lam Research Corp",
-     "pct": 2.47
+     "pct": 2.33
     }
    ],
    "ours": [
@@ -327,58 +327,57 @@
     {
      "sym": "META",
      "name": "Meta Platforms Inc Class A",
-     "pct": 16.77
+     "pct": 22.16
     },
     {
      "sym": "GOOGL",
      "name": "Alphabet Inc Class A",
-     "pct": 10.3
+     "pct": 11.63
     },
     {
      "sym": "GOOG",
      "name": "Alphabet Inc Class C",
-     "pct": 8.2
-    },
-    {
-     "sym": "T",
-     "name": "AT&T Inc",
-     "pct": 5.25
-    },
-    {
-     "sym": "VZ",
-     "name": "Verizon Communications Inc",
-     "pct": 5.02
-    },
-    {
-     "sym": "CMCSA",
-     "name": "Comcast Corp Class A",
-     "pct": 4.86
-    },
-    {
-     "sym": "NFLX",
-     "name": "Netflix Inc",
-     "pct": 4.86
-    },
-    {
-     "sym": "DIS",
-     "name": "The Walt Disney Co",
-     "pct": 4.82
+     "pct": 9.33
     },
     {
      "sym": "WBD",
      "name": "Warner Bros. Discovery Inc Ordinary Shares - Class A",
-     "pct": 4.65
+     "pct": 4.94
+    },
+    {
+     "sym": "DIS",
+     "name": "The Walt Disney Co",
+     "pct": 4.48
+    },
+    {
+     "sym": "TTWO",
+     "name": "Take-Two Interactive Software Inc",
+     "pct": 4.38
+    },
+    {
+     "sym": "T",
+     "name": "AT&T Inc",
+     "pct": 4.32
+    },
+    {
+     "sym": "APP",
+     "name": "AppLovin Corp Ordinary Shares - Class A",
+     "pct": 4.24
+    },
+    {
+     "sym": "VZ",
+     "name": "Verizon Communications Inc",
+     "pct": 4.11
     },
     {
      "sym": "TMUS",
      "name": "T-Mobile US Inc",
-     "pct": 4.59
+     "pct": 4.1
     }
    ],
    "ours": [
     "GOOGL",
     "META",
-    "NFLX",
     "WBD"
    ],
    "churn": "5 of 9"
@@ -409,52 +408,52 @@
     {
      "sym": "XOM",
      "name": "ExxonMobil Holdings Corp",
-     "pct": 19.86
+     "pct": 24.03
     },
     {
      "sym": "CVX",
      "name": "Chevron Corp",
-     "pct": 14.89
+     "pct": 18.05
     },
     {
      "sym": "COP",
      "name": "ConocoPhillips",
-     "pct": 6.23
-    },
-    {
-     "sym": "MPC",
-     "name": "Marathon Petroleum Corp",
-     "pct": 5.42
-    },
-    {
-     "sym": "PSX",
-     "name": "Phillips 66",
-     "pct": 5.33
+     "pct": 6.73
     },
     {
      "sym": "VLO",
      "name": "Valero Energy Corp",
-     "pct": 5.07
+     "pct": 4.73
     },
     {
-     "sym": "SLB",
-     "name": "SLB Ltd",
-     "pct": 4.88
+     "sym": "MPC",
+     "name": "Marathon Petroleum Corp",
+     "pct": 4.7
     },
     {
-     "sym": "EOG",
-     "name": "EOG Resources Inc",
-     "pct": 4.13
+     "sym": "PSX",
+     "name": "Phillips 66",
+     "pct": 4.64
     },
     {
      "sym": "WMB",
      "name": "Williams Companies Inc",
-     "pct": 3.78
+     "pct": 4.29
+    },
+    {
+     "sym": "SLB",
+     "name": "SLB Ltd",
+     "pct": 3.86
+    },
+    {
+     "sym": "EOG",
+     "name": "EOG Resources Inc",
+     "pct": 3.85
     },
     {
      "sym": "KMI",
      "name": "Kinder Morgan Inc Class P",
-     "pct": 3.65
+     "pct": 3.15
     }
    ],
    "ours": [
@@ -491,52 +490,52 @@
     {
      "sym": "CAT",
      "name": "Caterpillar Inc",
-     "pct": 6.67
+     "pct": 7.01
     },
     {
      "sym": "GE",
      "name": "GE Aerospace",
-     "pct": 6.36
-    },
-    {
-     "sym": "RTX",
-     "name": "RTX Corp",
-     "pct": 5.08
+     "pct": 6.09
     },
     {
      "sym": "GEV",
      "name": "GE Vernova Inc",
-     "pct": 4.39
+     "pct": 4.76
     },
     {
-     "sym": "UNP",
-     "name": "Union Pacific Corp",
-     "pct": 3.24
+     "sym": "RTX",
+     "name": "RTX Corp",
+     "pct": 4.71
     },
     {
      "sym": "DE",
      "name": "Deere & Co",
-     "pct": 2.99
-    },
-    {
-     "sym": "BA",
-     "name": "Boeing Co",
-     "pct": 2.98
+     "pct": 3.17
     },
     {
      "sym": "ETN",
      "name": "Eaton Corp PLC",
-     "pct": 2.84
+     "pct": 3.14
+    },
+    {
+     "sym": "UNP",
+     "name": "Union Pacific Corp",
+     "pct": 3.04
+    },
+    {
+     "sym": "BA",
+     "name": "Boeing Co",
+     "pct": 2.76
     },
     {
      "sym": "UBER",
      "name": "Uber Technologies Inc",
-     "pct": 2.8
+     "pct": 2.63
     },
     {
      "sym": "PH",
      "name": "Parker Hannifin Corp",
-     "pct": 2.24
+     "pct": 2.26
     }
    ],
    "ours": [],
@@ -568,52 +567,52 @@
     {
      "sym": "LLY",
      "name": "Eli Lilly and Co",
-     "pct": 14.87
+     "pct": 15.1
     },
     {
      "sym": "JNJ",
      "name": "Johnson & Johnson",
-     "pct": 10.4
+     "pct": 10.41
     },
     {
      "sym": "ABBV",
      "name": "AbbVie Inc",
-     "pct": 7.36
+     "pct": 7.54
     },
     {
      "sym": "MRK",
      "name": "Merck & Co Inc",
-     "pct": 5.93
+     "pct": 5.85
     },
     {
      "sym": "UNH",
      "name": "UnitedHealth Group Inc",
-     "pct": 5.75
-    },
-    {
-     "sym": "AMGN",
-     "name": "Amgen Inc",
-     "pct": 3.77
+     "pct": 5.38
     },
     {
      "sym": "TMO",
      "name": "Thermo Fisher Scientific Inc",
-     "pct": 3.73
+     "pct": 4.07
     },
     {
-     "sym": "ABT",
-     "name": "Abbott Laboratories",
-     "pct": 3.12
+     "sym": "AMGN",
+     "name": "Amgen Inc",
+     "pct": 3.72
     },
     {
      "sym": "GILD",
      "name": "Gilead Sciences Inc",
-     "pct": 2.95
+     "pct": 3.01
+    },
+    {
+     "sym": "ABT",
+     "name": "Abbott Laboratories",
+     "pct": 2.79
     },
     {
      "sym": "PFE",
      "name": "Pfizer Inc",
-     "pct": 2.64
+     "pct": 2.65
     }
    ],
    "ours": [
@@ -653,52 +652,52 @@
     {
      "sym": "WMT",
      "name": "Walmart Inc",
-     "pct": 9.82
+     "pct": 10.54
     },
     {
      "sym": "COST",
      "name": "Costco Wholesale Corp",
-     "pct": 8.94
-    },
-    {
-     "sym": "KO",
-     "name": "Coca-Cola Co",
-     "pct": 7.33
+     "pct": 9.19
     },
     {
      "sym": "PG",
      "name": "Procter & Gamble Co",
-     "pct": 7.22
+     "pct": 7.69
+    },
+    {
+     "sym": "KO",
+     "name": "Coca-Cola Co",
+     "pct": 7.59
     },
     {
      "sym": "PM",
      "name": "Philip Morris International Inc",
-     "pct": 6.24
+     "pct": 6.77
     },
     {
      "sym": "TGT",
      "name": "Target Corp",
-     "pct": 4.66
-    },
-    {
-     "sym": "CL",
-     "name": "Colgate-Palmolive Co",
-     "pct": 4.52
-    },
-    {
-     "sym": "PEP",
-     "name": "PepsiCo Inc",
-     "pct": 4.4
-    },
-    {
-     "sym": "MDLZ",
-     "name": "Mondelez International Inc Class A",
-     "pct": 4.38
+     "pct": 4.57
     },
     {
      "sym": "MO",
      "name": "Altria Group Inc",
-     "pct": 4.24
+     "pct": 4.56
+    },
+    {
+     "sym": "CL",
+     "name": "Colgate-Palmolive Co",
+     "pct": 4.45
+    },
+    {
+     "sym": "PEP",
+     "name": "PepsiCo Inc",
+     "pct": 4.26
+    },
+    {
+     "sym": "MDLZ",
+     "name": "Mondelez International Inc Class A",
+     "pct": 4.26
     }
    ],
    "ours": [],
@@ -730,57 +729,56 @@
     {
      "sym": "AMZN",
      "name": "Amazon.com Inc",
-     "pct": 24.37
+     "pct": 23.39
     },
     {
      "sym": "TSLA",
      "name": "Tesla Inc",
-     "pct": 17.29
+     "pct": 17.67
     },
     {
      "sym": "HD",
      "name": "The Home Depot Inc",
-     "pct": 5.45
+     "pct": 5.01
     },
     {
      "sym": "MCD",
      "name": "McDonald's Corp",
+     "pct": 4.22
+    },
+    {
+     "sym": "TJX",
+     "name": "TJX Companies Inc",
      "pct": 4.07
     },
     {
      "sym": "BKNG",
      "name": "Booking Holdings Inc",
-     "pct": 3.86
-    },
-    {
-     "sym": "TJX",
-     "name": "TJX Companies Inc",
-     "pct": 3.49
+     "pct": 3.41
     },
     {
      "sym": "SBUX",
      "name": "Starbucks Corp",
-     "pct": 3.03
+     "pct": 2.98
     },
     {
      "sym": "LOW",
      "name": "Lowe's Companies Inc",
-     "pct": 2.87
+     "pct": 2.88
     },
     {
-     "sym": "DASH",
-     "name": "DoorDash Inc Ordinary Shares - Class A",
-     "pct": 2.2
+     "sym": "MAR",
+     "name": "Marriott International Inc Class A",
+     "pct": 2.12
     },
     {
-     "sym": "GM",
-     "name": "General Motors Co",
-     "pct": 1.95
+     "sym": "ROST",
+     "name": "Ross Stores Inc",
+     "pct": 2.09
     }
    ],
    "ours": [
     "AMZN",
-    "GM",
     "TSLA"
    ],
    "churn": "5 of 9"
@@ -811,52 +809,52 @@
     {
      "sym": "LIN",
      "name": "Linde PLC",
-     "pct": 13.13
+     "pct": 12.23
     },
     {
      "sym": "NEM",
      "name": "Newmont Corp",
-     "pct": 7.81
+     "pct": 6.79
     },
     {
      "sym": "FCX",
      "name": "Freeport-McMoRan Inc",
-     "pct": 6.32
-    },
-    {
-     "sym": "CTVA",
-     "name": "Corteva Inc",
-     "pct": 4.91
-    },
-    {
-     "sym": "APD",
-     "name": "Air Products and Chemicals Inc",
-     "pct": 4.83
-    },
-    {
-     "sym": "SHW",
-     "name": "Sherwin-Williams Co",
-     "pct": 4.81
+     "pct": 5.62
     },
     {
      "sym": "ECL",
      "name": "Ecolab Inc",
-     "pct": 4.76
+     "pct": 4.75
     },
     {
-     "sym": "NUE",
-     "name": "Nucor Corp",
-     "pct": 4.3
+     "sym": "SHW",
+     "name": "Sherwin-Williams Co",
+     "pct": 4.75
     },
     {
      "sym": "VMC",
      "name": "Vulcan Materials Co",
-     "pct": 4.27
+     "pct": 4.61
+    },
+    {
+     "sym": "MLM",
+     "name": "Martin Marietta Materials Inc",
+     "pct": 4.45
+    },
+    {
+     "sym": "APD",
+     "name": "Air Products and Chemicals Inc",
+     "pct": 4.44
     },
     {
      "sym": "CRH",
      "name": "CRH PLC",
-     "pct": 4.07
+     "pct": 4.36
+    },
+    {
+     "sym": "STLD",
+     "name": "Steel Dynamics Inc",
+     "pct": 4.34
     }
    ],
    "ours": [],
@@ -888,52 +886,52 @@
     {
      "sym": "NEE",
      "name": "NextEra Energy Inc",
-     "pct": 13.05
+     "pct": 12.71
     },
     {
      "sym": "SO",
      "name": "Southern Co",
-     "pct": 7.54
+     "pct": 7.67
     },
     {
      "sym": "DUK",
      "name": "Duke Energy Corp",
-     "pct": 7.1
+     "pct": 7.15
     },
     {
      "sym": "CEG",
      "name": "Constellation Energy Corp",
-     "pct": 6.68
+     "pct": 6.74
     },
     {
      "sym": "AEP",
      "name": "American Electric Power Co Inc",
-     "pct": 5.06
+     "pct": 5.2
     },
     {
      "sym": "D",
      "name": "Dominion Energy Inc",
-     "pct": 4.41
+     "pct": 4.28
     },
     {
      "sym": "SRE",
      "name": "Sempra",
-     "pct": 4.06
+     "pct": 4.1
     },
     {
      "sym": "ETR",
      "name": "Entergy Corp",
-     "pct": 3.7
+     "pct": 3.73
     },
     {
      "sym": "XEL",
      "name": "Xcel Energy Inc",
-     "pct": 3.59
+     "pct": 3.54
     },
     {
-     "sym": "EXC",
-     "name": "Exelon Corp",
-     "pct": 3.4
+     "sym": "VST",
+     "name": "Vistra Corp",
+     "pct": 3.51
     }
    ],
    "ours": [],
@@ -963,54 +961,54 @@
    ],
    "hold": [
     {
-     "sym": "JPM",
-     "name": "JPMorgan Chase & Co",
-     "pct": 11.69
-    },
-    {
      "sym": "BRK-B",
      "name": "Berkshire Hathaway Inc Class B",
-     "pct": 11.32
+     "pct": 12.3
+    },
+    {
+     "sym": "JPM",
+     "name": "JPMorgan Chase & Co",
+     "pct": 11.66
     },
     {
      "sym": "V",
      "name": "Visa Inc Class A",
-     "pct": 7.71
+     "pct": 8.12
     },
     {
      "sym": "MA",
      "name": "Mastercard Inc Class A",
-     "pct": 5.83
+     "pct": 5.91
     },
     {
      "sym": "BAC",
      "name": "Bank of America Corp",
-     "pct": 4.96
+     "pct": 4.69
     },
     {
      "sym": "GS",
      "name": "The Goldman Sachs Group Inc",
-     "pct": 3.71
+     "pct": 3.48
     },
     {
      "sym": "WFC",
      "name": "Wells Fargo & Co",
-     "pct": 3.24
+     "pct": 3.21
     },
     {
      "sym": "MS",
      "name": "Morgan Stanley",
-     "pct": 3.13
+     "pct": 2.98
     },
     {
      "sym": "C",
      "name": "Citigroup Inc",
-     "pct": 2.75
+     "pct": 2.88
     },
     {
-     "sym": "SCHW",
-     "name": "Charles Schwab Corp",
-     "pct": 2.2
+     "sym": "AXP",
+     "name": "American Express Co",
+     "pct": 2.12
     }
    ],
    "ours": [],
@@ -1042,52 +1040,52 @@
     {
      "sym": "WELL",
      "name": "Welltower Inc",
-     "pct": 11.43
+     "pct": 11.68
     },
     {
      "sym": "PLD",
      "name": "Prologis Inc",
-     "pct": 9.09
+     "pct": 8.68
     },
     {
      "sym": "EQIX",
      "name": "Equinix Inc",
-     "pct": 7.07
+     "pct": 7.02
     },
     {
      "sym": "AMT",
      "name": "American Tower Corp",
-     "pct": 5.61
-    },
-    {
-     "sym": "VMRK",
-     "name": "Vivmark Residential",
-     "pct": 4.94
-    },
-    {
-     "sym": "DLR",
-     "name": "Digital Realty Trust Inc",
-     "pct": 4.92
+     "pct": 5.37
     },
     {
      "sym": "SPG",
      "name": "Simon Property Group Inc",
-     "pct": 4.72
-    },
-    {
-     "sym": "VTR",
-     "name": "Ventas Inc",
-     "pct": 4.58
+     "pct": 4.65
     },
     {
      "sym": "PSA",
      "name": "Public Storage",
-     "pct": 4.58
+     "pct": 4.55
     },
     {
-     "sym": "O",
-     "name": "Realty Income Corp",
-     "pct": 4.49
+     "sym": "VTR",
+     "name": "Ventas Inc",
+     "pct": 4.5
+    },
+    {
+     "sym": "VMRK",
+     "name": "Vivmark Residential",
+     "pct": 4.43
+    },
+    {
+     "sym": "DLR",
+     "name": "Digital Realty Trust Inc",
+     "pct": 4.4
+    },
+    {
+     "sym": "CBRE",
+     "name": "CBRE Group Inc Class A",
+     "pct": 4.31
     }
    ],
    "ours": [],
@@ -1371,79 +1369,79 @@
   "USO": -2.293546854855122,
   "USO_px": 143.99,
   "USO_chg": -3.3799999999999955,
-  "NQ=F": 0.10856463187809418,
-  "NQ=F_px": 31351.75,
-  "NQ=F_chg": 34.0,
-  "CL=F": 0.03354579000334201,
-  "CL=F_px": 89.46,
-  "CL=F_chg": 0.029999999999986926,
+  "NQ=F": 0.6362206735796683,
+  "NQ=F_px": 31517.0,
+  "NQ=F_chg": 199.25,
+  "CL=F": -2.303477580230351,
+  "CL=F_px": 87.37,
+  "CL=F_chg": -2.0600000000000023,
   "^TNX": 0.6443054765965517,
   "^TNX_px": 5.311,
   "^TNX_chg": 0.03399999999999981,
-  "^VIX": 1.3716525146962644,
-  "^VIX_px": 15.52,
-  "^VIX_chg": 0.20999999999999908,
+  "^VIX": -1.2886597938144284,
+  "^VIX_px": 15.32,
+  "^VIX_chg": -0.1999999999999993,
   "exp_by": "Fri",
   "QQQ_exp": 10.48,
   "SPY_exp": 7.17,
   "fut": [
    [
     "S&P",
-    7833.0,
-    0.03831417624520217,
+    7863.5,
+    0.4278416347381908,
     true
    ],
    [
     "Nasdaq",
-    31351.75,
-    0.039088051819580194,
+    31517.0,
+    0.5663778937124109,
     true
    ],
    [
     "Dow",
-    51627.0,
-    0.05620372882670921,
+    51915.0,
+    0.6143648978642613,
     true
    ],
    [
     "Russell",
-    2867.39990234375,
-    -0.038350972851664,
+    2884.60009765625,
+    0.5612723603364067,
     true
    ],
    [
     "Oil",
-    89.48999786376953,
-    0.2127601405585544,
+    87.36000061035156,
+    -2.172455067310397,
     true
    ],
    [
     "Gold",
-    4161.60009765625,
-    -0.1439677478502377,
+    4201.60009765625,
+    0.8158172378180062,
     true
    ]
   ],
   "QQQ_pre": [
    756.2,
-   756.4308
+   760.28
   ],
   "SPY_pre": [
    774.83,
-   774.94
+   778.28
   ],
   "USO_pre": [
    143.99,
-   143.7389
+   141.0892
   ],
   "^VIX_pre": [
-   15.31,
-   15.520000457763672
+   15.52,
+   15.319999694824219
   ],
   "heads": [
-   "Trump offers U.S. help to Russia after plague death; WHO assesses the situation as low risk ",
-   "AI researcher warns 'we are racing to build and grow our own adversary' in NYC hearing",
-   "SpaceX stock climbs to highest since June, returning Musk to trillionaire status"
+   "Paramount's hard-fought takeover of Warner Bros. Discovery closes Tuesday. Here's how we got here",
+   "Yemen forces reclaim key Red Sea port city from Iran-backed Houthis in major counteroffensive",
+   "Treasury yields fall as oil prices slide"
   ],
   "tnx_since": "2007",
   "movers": []
@@ -1458,7 +1456,12 @@
    "invested": true,
    "pending": 0
   },
-  "curve_err": "The read operation timed out",
+  "curve": {
+   "value": 1.09,
+   "date": "2026-10-05",
+   "inverted": false,
+   "inverted_days_1y": 1
+  },
   "household": {
    "score": 26,
    "prev": 25,
@@ -1529,7 +1532,7 @@
   "qqq": 756.2000122070312,
   "qqq_hi": 756.2000122070312,
   "qqq_off": 0.0,
-  "vix": 15.520000457763672,
+  "vix": 15.3100004196167,
   "vix_buy": false,
   "cpi_series": [
    [
@@ -3226,7 +3229,7 @@
    },
    {
     "date": "2026-10-06",
-    "vix": 15.520000457763672,
+    "vix": 15.3100004196167,
     "regime": "CALM",
     "vix_fires": false,
     "F": [
@@ -3358,20 +3361,6 @@
     "open_n": 3,
     "open_mean": 20.874498531525088
    },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -2.863717315075354
-   },
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 17,
-    "open_mean": -3.203331035928276
-   },
    "C": {
     "wins": 0,
     "losses": 0,
@@ -3385,6 +3374,20 @@
     "closed_mean": 1.3,
     "open_n": 6,
     "open_mean": -1.080225982572893
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 17,
+    "open_mean": -3.203331035928276
+   },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -2.863717315075354
    }
   },
   "produced": [
@@ -142734,7 +142737,7 @@
     4276550000,
     5783800000,
     5277430000,
-    3473000000
+    5840900000
    ],
    "e10": [
     5695.94,
