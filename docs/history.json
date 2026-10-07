@@ -686,26 +686,29 @@
  },
  {
   "date": "2026-10-07",
-  "vix": 15.010000228881836,
+  "vix": 15.119999885559082,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
    "ZS",
-   "NOW",
-   "HOOD"
+   "HOOD",
+   "NOW"
   ],
   "D": [
    "BE",
+   "TXN",
+   "MU",
    "SG",
    "U",
-   "SHOP",
-   "SNOW",
-   "TXN",
    "CSCO",
+   "AMZN",
+   "SHOP",
+   "DOCU",
+   "LLY",
+   "MRNA",
+   "META",
    "PLTR",
-   "DELL",
-   "XOM",
-   "DOCU"
+   "PANW"
   ],
   "C": [],
   "S": []
