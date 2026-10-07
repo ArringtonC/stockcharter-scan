@@ -49,3 +49,4 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-30-QQQ-746c-realb,call,real,2026-09-30,QQQ,none,3.04,,746,2026-10-02,1,closed,2026-09-30,2.99,-1.6,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
 2026-09-30-PLTR-192.5c-real,call,real,2026-09-30,PLTR,none,1.70,,192.5,2026-10-02,1,closed,2026-09-30,1.85,8.8,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
 2026-09-30-PLTR-190c-real,call,real,2026-09-30,PLTR,none,2.54,,190,2026-10-02,1,closed,2026-09-30,2.59,2.0,REAL. From Schwab order history (pasted 10-01). No setup; 2-4 days to expiry.
+2026-10-07-AMZN-260c-real,call,real,2026-10-07,AMZN,none,5.16,,260,2026-10-21,1,open,,,,"REAL. Schwab 10-07, cost basis $515.66. No setup (his call; 10% under the 1y high, 10/30 EMA cross pending). Expires before the Oct 29 earnings."
