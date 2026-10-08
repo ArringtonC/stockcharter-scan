@@ -1769,6 +1769,7 @@ def check_levels():
     L = json.load(open(LEVELS)); hits = []
     for x in L:
         if x.get("fired"): continue
+        if x.get("close") and datetime.datetime.now(ZoneInfo("America/New_York")).hour < 16: continue   # close-only: after the bell
         try:
             q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{x['symbol']}?range=1d&interval=5m")["chart"]["result"][0]["meta"]
             p = q["regularMarketPrice"]
