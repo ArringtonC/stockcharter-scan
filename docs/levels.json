@@ -59,5 +59,49 @@
   "target_up": 287.78,
   "target_down": 250.0,
   "close": true
+ },
+ {
+  "symbol": "NOW",
+  "pattern": "your NOW share: breakout over the 60-day high vs close under the 20-day low / 200-day",
+  "up": 149.6,
+  "down": 126.75,
+  "target_up": 192.97,
+  "target_down": 120.0,
+  "tf": "1d",
+  "logged": "2026-10-08",
+  "close": true
+ },
+ {
+  "symbol": "SG",
+  "pattern": "your SG shares + Jan-28 3C: new 1-year high vs close under the 30-day EMA",
+  "up": 10.63,
+  "down": 7.96,
+  "target_up": 12.34,
+  "target_down": 6.61,
+  "tf": "1d",
+  "logged": "2026-10-08",
+  "close": true
+ },
+ {
+  "symbol": "SNAP",
+  "pattern": "your Jan-28 5C x2: over the 60-day high vs close under the 20-day low",
+  "up": 6.07,
+  "down": 5.18,
+  "target_up": 9.13,
+  "target_down": 4.28,
+  "tf": "1d",
+  "logged": "2026-10-08",
+  "close": true
+ },
+ {
+  "symbol": "NFLX",
+  "pattern": "your Dec-18 69C: close back over the 30-day EMA vs close under the 20-day low",
+  "up": 72.8,
+  "down": 66.54,
+  "target_up": 81.02,
+  "target_down": 65.08,
+  "tf": "1d",
+  "logged": "2026-10-08",
+  "close": true
  }
 ]
