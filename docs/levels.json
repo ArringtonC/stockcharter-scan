@@ -37,7 +37,12 @@
   "up": 765.07,
   "down": 747.5,
   "target_up": 777.43,
-  "target_down": 731.63
+  "target_down": 731.63,
+  "fired": {
+   "way": "down",
+   "price": 745.22,
+   "at": "2026-10-08 14:01"
+  }
  },
  {
   "symbol": "AMZN",
