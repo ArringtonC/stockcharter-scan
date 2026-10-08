@@ -52,7 +52,12 @@
   "up": 265.16,
   "down": 250.0,
   "target_up": 270.0,
-  "target_down": 245.0
+  "target_down": 245.0,
+  "fired": {
+   "way": "retired",
+   "price": null,
+   "at": "2026-10-08 replaced by the 2-call plan"
+  }
  },
  {
   "symbol": "AMZN",
@@ -63,7 +68,12 @@
   "down": 240.0,
   "target_up": 287.78,
   "target_down": 250.0,
-  "close": true
+  "close": true,
+  "fired": {
+   "way": "retired",
+   "price": null,
+   "at": "2026-10-08 replaced by the 2-call plan"
+  }
  },
  {
   "symbol": "NOW",
@@ -108,5 +118,25 @@
   "tf": "1d",
   "logged": "2026-10-08",
   "close": true
+ },
+ {
+  "symbol": "AMZN",
+  "pattern": "your two AMZN calls: bounce target vs stop (today's low / daily 30 EMA)",
+  "tf": "15m",
+  "logged": "2026-10-08",
+  "up": 257.5,
+  "down": 253.5,
+  "target_up": 258.2,
+  "target_down": 250.0
+ },
+ {
+  "symbol": "AMZN",
+  "pattern": "your two AMZN calls: both-call breakeven at expiry vs the old cut line",
+  "tf": "1d",
+  "logged": "2026-10-08",
+  "up": 263.04,
+  "down": 250.0,
+  "target_up": 265.0,
+  "target_down": 245.0
  }
 ]
