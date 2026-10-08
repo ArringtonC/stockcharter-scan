@@ -712,5 +712,30 @@
   ],
   "C": [],
   "S": []
+ },
+ {
+  "date": "2026-10-08",
+  "vix": 15.079999923706055,
+  "regime": "CALM",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW",
+   "HOOD"
+  ],
+  "D": [
+   "BE",
+   "SG",
+   "U",
+   "MRNA",
+   "TXN",
+   "SHOP",
+   "CSCO",
+   "PLTR",
+   "XOM",
+   "META"
+  ],
+  "C": [],
+  "S": []
  }
 ]
