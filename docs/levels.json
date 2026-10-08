@@ -127,7 +127,12 @@
   "up": 257.5,
   "down": 253.5,
   "target_up": 258.2,
-  "target_down": 250.0
+  "target_down": 250.0,
+  "fired": {
+   "way": "retired",
+   "price": null,
+   "at": "2026-10-08 position closed"
+  }
  },
  {
   "symbol": "AMZN",
@@ -137,6 +142,11 @@
   "up": 263.04,
   "down": 250.0,
   "target_up": 265.0,
-  "target_down": 245.0
+  "target_down": 245.0,
+  "fired": {
+   "way": "retired",
+   "price": null,
+   "at": "2026-10-08 position closed"
+  }
  }
 ]
