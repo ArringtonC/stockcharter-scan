@@ -715,7 +715,7 @@
  },
  {
   "date": "2026-10-08",
-  "vix": 15.279999732971191,
+  "vix": 15.430000305175781,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -727,19 +727,18 @@
   ],
   "D": [
    "MU",
-   "GOOGL",
    "TXN",
-   "SG",
-   "U",
-   "SNOW",
    "OXY",
+   "U",
+   "SG",
+   "SNOW",
    "CSCO",
    "AMZN",
    "SHOP",
-   "DOCU",
    "META",
-   "MRNA",
+   "DOCU",
    "DVN",
+   "MRNA",
    "PANW",
    "COP"
   ],
