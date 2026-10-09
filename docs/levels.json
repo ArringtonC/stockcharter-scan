@@ -179,5 +179,28 @@
   "target_up": 287.78,
   "target_down": 245.0,
   "close": true
+ },
+ {
+  "symbol": "DASH",
+  "pattern": "breakout: daily CLOSE above the 20-day high -> Oct 30 $200 call ticket (limit ~$6.35, stop DASH close < $189, take profit ~$12, out by Oct 28)",
+  "tf": "1d",
+  "logged": "2026-10-09",
+  "up": 204.09,
+  "down": 178.0,
+  "target_up": 285.5,
+  "target_down": 170.0,
+  "close": true
+ },
+ {
+  "symbol": "DASH",
+  "pattern": "green + : 10-day EMA closed above the 30 -> Setup F fires (target $285.50); same Oct 30 $200 call ticket",
+  "tf": "1d",
+  "logged": "2026-10-09",
+  "up": 1000000000.0,
+  "down": 0,
+  "target_up": 285.5,
+  "target_down": 178.0,
+  "close": true,
+  "cross": true
  }
 ]

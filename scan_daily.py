@@ -1813,6 +1813,9 @@ def check_levels():
         except Exception:
             continue
         way = "up" if p >= x["up"] else "down" if p <= x["down"] else None
+        if x.get("cross"):   # green +: the 10-day EMA closes above the 30-day (after the bell)
+            c = [r[1] for r in bars(x["symbol"])]
+            way = "up" if ema(c, 10)[-1] > ema(c, 30)[-1] else None
         if way:
             x["fired"] = dict(way=way, price=p, at=datetime.datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d %H:%M"))
             hits.append({**x, "price": p, "way": way})
@@ -1865,7 +1868,8 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
         up = x["way"] == "up"
         W_ += [f"<b>📍 LEVEL {x['symbol']} ${x['price']:,.2f} · {'BROKE OUT' if up else 'BROKE DOWN'}</b>",
                f"{x['tf']} CHART NOTE: {x['pattern'].upper()}",
-               f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f} · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
+               ("10-DAY EMA CLOSED OVER THE 30 (green +)" if x.get("cross") else f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f}")
+               + f" · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
                f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
     for x in d.get("ihs", []):   # a full ticket: what, how many, what price, when too late, stop, dollars at risk
         q = x.get("qty", 0)
