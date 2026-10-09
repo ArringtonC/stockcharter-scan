@@ -1,5 +1,6 @@
 """Alert behaviour, no network: python3 test_alerts.py"""
 import datetime, os, tempfile, scan_daily as S
+REAL_MARKET_REPORT = S.market_report   # later tests stub it
 today = str(datetime.date.today())
 S.ALERT_STATE = os.path.join(tempfile.mkdtemp(), "state.json")
 S.PLAN = {**S.PLAN, "balance": 8355.13}   # pins the 7% cap at $600 for these checks
@@ -183,7 +184,7 @@ assert f and f[0]["neck"] == 100 and f[0]["b"] == 28 and f[0]["target"] == 110 a
 print("ihs ok")
 
 # company filings show in the market report, with plain words for the 8-K items
-r = S.market_report(base(filings=[dict(sym="AMZN", form="8-K", date="2026-10-09", what=S.ITEMS_8K["5.02"], acc="x", url="https://sec.gov/x")]))
+r = REAL_MARKET_REPORT(base(filings=[dict(sym="AMZN", form="8-K", date="2026-10-09", what=S.ITEMS_8K["5.02"], acc="x", url="https://sec.gov/x")]))
 assert "COMPANY FILINGS" in r and "AMZN</b> 8-K 10-09: executive or board change" in r
-assert "COMPANY FILINGS" not in S.market_report(base())
+assert "COMPANY FILINGS" not in REAL_MARKET_REPORT(base())
 print("filings ok")
