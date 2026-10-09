@@ -158,5 +158,15 @@
   "down": 137.5,
   "target_up": 149.6,
   "target_down": 134.15
+ },
+ {
+  "symbol": "AAPL",
+  "pattern": "your Oct 16 335C: take profit vs stop (today's low / 30-day EMA)",
+  "tf": "1h",
+  "logged": "2026-10-09",
+  "up": 340.5,
+  "down": 330.4,
+  "target_up": 345.34,
+  "target_down": 325.81
  }
 ]
