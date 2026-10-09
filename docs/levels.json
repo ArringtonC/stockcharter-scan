@@ -168,5 +168,16 @@
   "down": 330.4,
   "target_up": 345.34,
   "target_down": 325.81
+ },
+ {
+  "symbol": "AMZN",
+  "pattern": "breakout confirm: daily CLOSE above $260 (back in the rising channel)",
+  "tf": "1d",
+  "logged": "2026-10-09",
+  "up": 260.0,
+  "down": 250.0,
+  "target_up": 287.78,
+  "target_down": 245.0,
+  "close": true
  }
 ]
