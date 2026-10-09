@@ -148,5 +148,15 @@
    "price": null,
    "at": "2026-10-08 position closed"
   }
+ },
+ {
+  "symbol": "NOW",
+  "pattern": "your Oct 16 140C: take profit at the 20-day high vs stop under the 10-day EMA",
+  "tf": "1h",
+  "logged": "2026-10-09",
+  "up": 147.57,
+  "down": 137.5,
+  "target_up": 149.6,
+  "target_down": 134.15
  }
 ]
