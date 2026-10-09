@@ -157,7 +157,12 @@
   "up": 147.57,
   "down": 137.5,
   "target_up": 149.6,
-  "target_down": 134.15
+  "target_down": 134.15,
+  "fired": {
+   "way": "retired",
+   "price": null,
+   "at": "2026-10-09 position closed"
+  }
  },
  {
   "symbol": "AAPL",
@@ -167,7 +172,12 @@
   "up": 340.5,
   "down": 330.4,
   "target_up": 345.34,
-  "target_down": 325.81
+  "target_down": 325.81,
+  "fired": {
+   "way": "retired",
+   "price": null,
+   "at": "2026-10-09 position closed"
+  }
  },
  {
   "symbol": "AMZN",
