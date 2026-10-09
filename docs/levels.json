@@ -106,7 +106,12 @@
   "target_down": 4.28,
   "tf": "1d",
   "logged": "2026-10-08",
-  "close": true
+  "close": true,
+  "fired": {
+   "way": "up",
+   "price": 6.23,
+   "at": "2026-10-09 17:45"
+  }
  },
  {
   "symbol": "NFLX",
@@ -188,7 +193,12 @@
   "down": 250.0,
   "target_up": 287.78,
   "target_down": 245.0,
-  "close": true
+  "close": true,
+  "fired": {
+   "way": "up",
+   "price": 262.43,
+   "at": "2026-10-09 17:45"
+  }
  },
  {
   "symbol": "DASH",
