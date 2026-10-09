@@ -181,3 +181,9 @@ cl = [x + 0.5 for x in lo]; cl[28] = 100.6; hi[28] = 101.0                # firs
 f = S.ihs(hi, lo, cl)
 assert f and f[0]["neck"] == 100 and f[0]["b"] == 28 and f[0]["target"] == 110 and f[0]["stop"] == 93.5, f
 print("ihs ok")
+
+# company filings show in the market report, with plain words for the 8-K items
+r = S.market_report(base(filings=[dict(sym="AMZN", form="8-K", date="2026-10-09", what=S.ITEMS_8K["5.02"], acc="x", url="https://sec.gov/x")]))
+assert "COMPANY FILINGS" in r and "AMZN</b> 8-K 10-09: executive or board change" in r
+assert "COMPANY FILINGS" not in S.market_report(base())
+print("filings ok")

@@ -1448,7 +1448,7 @@ def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
     return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
                        sorted(((d.get("playbook") or {}).get("flips") or {}).items()),
-                       mega_ipo_headlines(d.get("market", {}))[:1],
+                       mega_ipo_headlines(d.get("market", {}))[:1], sorted(x["acc"] for x in d.get("filings", [])),
                        sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
 
 
@@ -1678,6 +1678,42 @@ def alerts(d, m):
 MEGA_IPOS = r"SpaceX|OpenAI|Anthropic|xAI"   # 2026-10-02: Anthropic reported to target a ~$2T listing by Nov 2026
 
 
+ITEMS_8K = {"1.01": "signed a major agreement", "1.02": "ended a major agreement", "1.05": "cybersecurity incident",
+            "2.01": "completed a purchase or sale", "2.02": "earnings results", "2.03": "took on new debt",
+            "2.05": "restructuring / layoffs", "2.06": "wrote down assets", "3.01": "listing problem (delisting notice)",
+            "3.02": "sold new shares", "4.01": "changed auditor", "4.02": "past results can't be relied on (restatement)",
+            "5.01": "change in control", "5.02": "executive or board change", "5.03": "changed bylaws or fiscal year",
+            "5.07": "shareholder vote results", "7.01": "investor presentation", "8.01": "other news"}
+
+
+def company_filings(syms, days=3):
+    """New SEC filings for the stocks you hold or Setup F fired on (2026-10-09). 8-K = official news a
+    company must file within 4 business days (earnings, CEO changes, deals, layoffs); also 10-Q/10-K
+    and S-1/424B (new shares). EDGAR is free and official. ponytail: company press-release feeds are
+    not uniform, so they are skipped -- an earnings release is filed as an 8-K item 2.02 anyway."""
+    global _cik
+    if _cik is None:
+        m = get("https://www.sec.gov/files/company_tickers.json", SEC_UA)
+        _cik = {v["ticker"]: str(v["cik_str"]).zfill(10) for v in m.values()}
+    since = (datetime.date.today() - datetime.timedelta(days=days)).isoformat(); out = []
+    for sym in sorted(set(syms)):
+        c = _cik.get(sym.replace(".", "-")) or _cik.get(sym)
+        if not c: continue
+        try: r = get(f"https://data.sec.gov/submissions/CIK{c}.json", SEC_UA)["filings"]["recent"]
+        except Exception: continue
+        for i, form in enumerate(r["form"]):
+            if r["filingDate"][i] < since: break
+            if form not in ("8-K", "10-Q", "10-K", "S-1", "424B5", "SC 13D"): continue
+            what = ", ".join(ITEMS_8K[x] for x in (r.get("items") or [""] * (i + 1))[i].split(",") if x in ITEMS_8K) if form == "8-K" else \
+                   {"10-Q": "quarterly report", "10-K": "annual report", "S-1": "registering new shares", "424B5": "selling new shares",
+                    "SC 13D": "an investor took a 5%+ stake"}[form]
+            acc = r["accessionNumber"][i]
+            out.append(dict(sym=sym, form=form, date=r["filingDate"][i], what=what or "filing", acc=acc,
+                            url=f"https://www.sec.gov/Archives/edgar/data/{int(c)}/{acc.replace('-', '')}/{r['primaryDocument'][i]}"))
+        time.sleep(0.12)   # SEC asks for under 10 requests a second
+    return out
+
+
 def mega_ipo_headlines(m):
     import re
     return [h for h in (m.get("heads") or []) if re.search(rf"\b({MEGA_IPOS})\b.*\b(IPO|prices|priced|pricing|debut|listing|goes public)\b", h, re.I)]
@@ -1693,7 +1729,8 @@ def market_report(d):
     head = (("SUNDAY FUTURES" if ny.weekday() == 6 and ny.hour >= 18 else "WEEKEND REPORT") if weekend else
             "PREMARKET REPORT" if pre else
             f"{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY" if move_bucket(m) else "MARKET REPORT")
-    M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + ["", "<i>not a signal</i>"]
+    F_ = [f"· <b>{x['sym']}</b> {x['form']} {x['date'][5:]}: {x['what']} · <a href=\"{x['url']}\">filing</a>" for x in d.get("filings", [])]
+    M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + (["", "<b>COMPANY FILINGS</b> (your stocks + Setup F, last 3 days)"] + F_ if F_ else []) + ["", "<i>not a signal</i>"]
     M = alerts(d, m) + M
     return "\n".join(M)
 
@@ -1931,6 +1968,8 @@ if __name__ == "__main__":
     d["market"] = market(d, open_)
     try: d["playbook"] = playbook()
     except Exception as e: d["errors"].append(f"playbook: {str(e)[:40]}")
+    try: d["filings"] = company_filings([r["symbol"] for r in open_ if r.get("acct") == "real"] + [r["sym"] for r in d.get("F", [])])
+    except Exception as e: d["filings"] = []; d["errors"].append(f"filings: {str(e)[:40]}")
     try: d["ihs"] = check_ihs()
     except Exception as e: d["ihs"] = []; d["errors"].append(f"ihs: {str(e)[:40]}")
     try: d["levels"] = check_levels()
