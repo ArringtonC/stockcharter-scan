@@ -18,7 +18,7 @@ FRIENDS = {"1288838148436136057": "jcbreeze"}   # 2026-10-12: sized as if it wer
 STATE = os.path.expanduser("~/.ledger-tm.json")
 H = os.path.dirname(os.path.abspath(__file__))
 YEAR = datetime.date.today().year
-HELP = ("**I'm your trade manager.** Text me:\n`check AMZN 10/23 265C` · `bought AMZN 10/23 265C 3.18` · "
+HELP = ("**I'm your trade manager.** Text me in #trade-log:\n`check BE 10/16 272.50 call` · `details …` · `bought AMZN 10/23 265C 3.18` · "
         "`sold AMZN 265C 4.90` · `trades`\nI log, watch and journal. You place every order.")
 
 
@@ -41,7 +41,7 @@ def parse(text):
     """Pure: (verb, dict) from a message, or ("help", {})."""
     t = text.strip()
     if re.match(r"^(trades|positions|how are my trades)\b", t, re.I): return "trades", {}
-    m = re.match(r"^(check|bought|bto|buy|sold|stc|sell)\s+" + CONTRACT + r"(?:\s+\$?(?P<px>\d+(?:\.\d+)?))?(?:\s+x?(?P<n>\d+))?", t, re.I)
+    m = re.match(r"^(check|details|bought|bto|buy|sold|stc|sell)\s+" + CONTRACT + r"(?:\s+\$?(?P<px>\d+(?:\.\d+)?))?(?:\s+x?(?P<n>\d+))?", t, re.I)
     if not m: return "help", {}
     v = m.group(1).lower(); v = {"bto": "bought", "buy": "bought", "stc": "sold", "sell": "sold"}.get(v, v)
     exp = None
@@ -96,7 +96,7 @@ def gate(sym, dte, cost, cap, sig, earn_before, spread):
     A level break (his own chart note) is untested: WAIT."""
     tested = [x for x in sig if x in ("Setup F", "pattern #7")]
     if cost > cap: return "PASS", f"${cost:,.0f} is over the 7% cap (${cap:,.0f})"
-    if dte > 60: return ("APPROVED", "long-dated: 2x lock + -50% stop") if tested or cost <= cap / 2 else ("WAIT", "long-dated with no signal: half size or less")
+    if dte > 60: return ("APPROVED", "long-dated") if tested or cost <= cap / 2 else ("WAIT", "long-dated with no signal: half size or less")
     if sym in ("QQQ", "SPY"): return ("APPROVED", "pattern #7 on the index") if "pattern #7" in tested else ("PASS", "QQQ/SPY without a pattern #7 alert (your record: -$463 on 11)")
     if not tested: return ("WAIT", f"only {', '.join(sig)} -- not a tested entry yet") if sig else ("PASS", "no Ledger signal (your record: -$859 on 31)")
     if earn_before: return "WAIT", "earnings land before expiry"
@@ -105,7 +105,7 @@ def gate(sym, dte, cost, cap, sig, earn_before, spread):
     return "APPROVED", f"{', '.join(tested)} · {dte} days · inside the cap"
 
 
-def check(c, who=OWNER):
+def details(c, who=OWNER):
     import scan_daily as S
     from ticket_bot import quote, next_earnings
     if not c["exp"]: return "Add the expiry: `check AMZN 10/23 265C`."
@@ -141,6 +141,63 @@ def check(c, who=OWNER):
     elif earn: L.append(f"Earnings {earn.isoformat()[5:]}, after expiry ✅")
     if who != OWNER: L.append("_Ledger's rules on a $12k account, not investment advice. You place every order._")
     return "\n".join(L)
+
+
+def ticket(c, who=OWNER):
+    """The order ticket (2026-10-12, his spec): what am I buying, what price, how much risk, where do I exit.
+    One status icon; the analysis lives behind `details`. Returns (text, chart png or None)."""
+    import scan_daily as S
+    from ticket_bot import quote, next_earnings
+    if not c["exp"]: return "Add the expiry: `check BE 10/16 272.50 call`", None
+    if c["right"] != "C": return "Puts aren't priced here yet -- `details` still works.", None
+    b, a = quote(c["sym"], c["exp"], c["k"])
+    if not a: return f"No live quote for {c['sym']} {c['exp'][5:]} ${c['k']:g} call.", None
+    bb = S.bars(c["sym"]); spot = bb[-1][1]; e30 = S.ema([x[1] for x in bb], 30)[-1]
+    inval = e30 if spot > e30 else min(x[3] for x in bb[-10:])
+    cap = round(S.PLAN["balance"] * 0.07 / 50) * 50; sig, _ = signal(c["sym"]); earn = next_earnings(c["sym"], datetime.date.today())
+    dte = (datetime.date.fromisoformat(c["exp"]) - datetime.date.today()).days; spread = (a - b) / a
+    v, why = gate(c["sym"], dte, a * 100, cap, sig, bool(earn and earn.isoformat() <= c["exp"]), spread)
+    mid = round((a + b) / 2, 2); mx = round(mid + (a - mid) / 2, 2); br = bracket(mid); n = max(1, c.get("n") or 1)
+    tested = [x for x in sig if x in ("Setup F", "pattern #7")]
+    head = {"APPROVED": f"✅ **RULES PASS · {(tested[0] if tested else 'LONG-DATED').upper()}**", "WAIT": f"🟡 **WAIT** · {why}",
+            "PASS": f"⛔ **RULES FAIL** · {why}"}[v]
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5))).strftime("%-I:%M %p CT")
+    contract = f"{c['sym']} {c['exp'][5:].replace('-', '/')} ${c['k']:.2f} CALL" if c["k"] % 1 else f"{c['sym']} {c['exp'][5:].replace('-', '/')} ${c['k']:g} CALL"
+    if v == "PASS":
+        return f"{head}\n{contract} · ${a:.2f} ask\n_Skip it. `details` for the full read._", None
+    L = [head, f"Quote {now} · valid for 2 minutes", "",
+         f"**BUY {n}× {contract}**", f"LIMIT **${mid:.2f}** · MAX ${mx:.2f}",
+         f"COST **${mid * 100 * n:,.0f}** · PLANNED RISK **${(mid - br['sl']) * 100 * n:,.0f}** · {dte} DTE", "",
+         "**OCO AFTER FILL**" if dte <= 60 else "**AFTER FILL (long-dated)**",
+         f"TAKE PROFIT ${br['tp']:.2f} (+50%)" if dte <= 60 else f"AT 2X ${br['lock']:.2f}: move the stop up to lock the gain",
+         f"STOP ${br['sl']:.2f} (−50%)", "",
+         "**THESIS FAILS**", f"{c['sym']} closes below ${inval:,.2f}", "",
+         "**WHY**" if v == "APPROVED" else "**WHY IT'S A WAIT**",
+         " · ".join(([", ".join(tested)] if tested else []) + [f"{spread * 100:.0f}% spread", "within cap" if a * 100 <= cap else "OVER CAP"])
+         + ("" if not earn else (" · earnings after expiration" if earn.isoformat() > c["exp"] else f" · ⚠ earnings {earn.isoformat()[5:]} before expiration")),
+         "", f"Reply `bought {c['sym']} {c['exp'][5:].replace('-', '/')} {c['k']:g}C {mid:.2f}` once filled · `details {c['sym']} {c['exp'][5:].replace('-', '/')} {c['k']:g}C` for more"]
+    if who != OWNER: L.append("_Ledger's rules on a $12k account, not investment advice._")
+    png = None
+    try:
+        F = next((r for r in json.load(open(os.path.join(H, "docs", "data.json"))).get("F", []) if r["sym"] == c["sym"]), None)
+        lines = [(spot, f"NOW ${spot:,.2f}", "#000", ":", True), (inval, f"THESIS FAILS < ${inval:,.2f}", "#c62828", "--")]
+        if F: lines.append((F["tgt"], f"SETUP F TARGET ${F['tgt']:,.2f}", "#2e7d32", "--"))
+        png = S._chart(c["sym"], f"{c['sym']} · daily · underlying stock, not the call", lines, start=-130)
+    except Exception as e: print("chart failed", e)
+    return "\n".join(L), png
+
+
+def post(text, png=None):
+    """A message, with the chart attached under it when there is one (multipart, bot token)."""
+    if not png: return say(text)
+    k = "ledgerTM9f3b"
+    body = (f"--{k}\r\nContent-Disposition: form-data; name=\"payload_json\"\r\nContent-Type: application/json\r\n\r\n"
+            + json.dumps({"content": text[:1990]}) + f"\r\n--{k}\r\nContent-Disposition: form-data; name=\"files[0]\"; "
+            "filename=\"chart.png\"\r\nContent-Type: image/png\r\n\r\n").encode() + png + f"\r\n--{k}--\r\n".encode()
+    rq = urllib.request.Request(f"https://discord.com/api/v10/channels/{CH}/messages", data=body, method="POST",
+                                headers={"Authorization": f"Bot {os.environ['DISCORD_LEDGER_BOT_TOKEN']}",
+                                         "Content-Type": f"multipart/form-data; boundary={k}", "User-Agent": "DiscordBot (ledger, 1)"})
+    urllib.request.urlopen(rq, timeout=30).read()
 
 
 def bought(c, rs, who=OWNER):
@@ -211,11 +268,12 @@ def main():
         if (who != OWNER and who not in FRIENDS) or m["author"].get("bot"): continue
         v, c = parse(m.get("content", "")); rs = rows(who)
         try:
-            reply = {"check": lambda: check(c, who), "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who),
+            reply = {"check": lambda: ticket(c, who), "details": lambda: details(c, who), "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who),
                      "trades": lambda: trades(rs, who)}.get(v, lambda: HELP)()
         except Exception as e:
             reply = f"Something broke on that one: {str(e)[:120]}"
-        say((f"<@{who}> " if who != OWNER else "") + reply)
+        text, png = reply if isinstance(reply, tuple) else (reply, None)
+        post((f"<@{who}> " if who != OWNER else "") + text, png)
         try: api(f"/channels/{CH}/messages/{m['id']}/reactions/%E2%9C%85/@me", method="PUT")
         except Exception: pass
     if st.get("last") is None and msgs == []: st["last"] = "0"

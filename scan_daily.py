@@ -1516,13 +1516,14 @@ def _chart(sym, title, lines, start=-190, mark=None):
         col = "#26a69a" if cl >= op else "#ef5350"   # TradingView colors
         ax.vlines(k, lo, hi, color=col, lw=0.8); ax.bar(k, abs(cl - op) or cl * 0.001, bottom=min(cl, op), color=col, width=0.7)
     ax.plot(e10, color="#43a047", lw=1.6, label="10 EMA"); ax.plot(e30, color="#1e88e5", lw=1.6, label="30 EMA")
-    for k in range(1, n):   # the EMA cross: green + when the 10 crosses over the 30, red X when it crosses under
+    for k in range(5, n):   # the EMA cross (not in the first bars, where the legend sits): green + when the 10 crosses over the 30, red X when it crosses under
         if (e10[k] > e30[k]) != (e10[k - 1] > e30[k - 1]):
             up = e10[k] > e30[k]   # big green + up, big red X down
             ax.plot(k, e30[k], "P" if up else "X", ms=18, color="#43a047" if up else "#e53935", mec="white", mew=1, zorder=5)
     box = dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5)
-    for y, lbl, col, ls in lines:
-        ax.axhline(y, color=col, ls=ls, lw=1.2); ax.text(2, y, lbl, va="bottom", fontsize=10, color=col, bbox=box)
+    for y, lbl, col, ls, *right in lines:      # a 5th item True puts the label on the right edge
+        ax.axhline(y, color=col, ls=ls, lw=1.2)
+        ax.text(n - 2 if right else 2, y, lbl, va="bottom", ha="right" if right else "left", fontsize=10, color=col, bbox=box)
     if mark: ax.plot(mark[0] if mark[0] >= 0 else n + mark[0], mark[1], "o", ms=8, mfc="none", mec="#000", mew=1.5)
     ax.set_xlim(-2, n + 2); step = max(1, n // 6)
     ax.set_xticks(range(0, n, step), [datetime.date.fromisoformat(b[k][0]).strftime("%b %-d" if n < 90 else "%b") for k in range(0, n, step)], fontsize=9)
