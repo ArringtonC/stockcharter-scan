@@ -34,7 +34,7 @@ def api(path, body=None, method=None):
 def say(text): api(f"/channels/{CH}/messages", {"content": text[:1990]})
 
 
-CONTRACT = r"(?P<sym>[A-Za-z]{1,5})\s+(?:(?P<mm>\d{1,2})/(?P<dd>\d{1,2})(?:/(?P<yy>\d{2,4}))?\s+)?\$?(?P<k>\d+(?:\.\d+)?)\s*(?P<r>[cpCP])\b"
+CONTRACT = r"(?P<sym>[A-Za-z]{1,5})\s+(?:(?P<mm>\d{1,2})/(?P<dd>\d{1,2})(?:/(?P<yy>\d{2,4}))?\s+)?\$?(?P<k>\d+(?:\.\d+)?)\s*(?P<r>calls?|puts?|c|p)\b"
 
 
 def parse(text):
@@ -48,7 +48,7 @@ def parse(text):
     if m["mm"]:
         y = int(m["yy"]) if m["yy"] else YEAR; y = y + 2000 if y < 100 else y
         exp = datetime.date(y, int(m["mm"]), int(m["dd"])).isoformat()
-    return v, dict(sym=m["sym"].upper(), exp=exp, k=float(m["k"]), right=m["r"].upper(),
+    return v, dict(sym=m["sym"].upper(), exp=exp, k=float(m["k"]), right=m["r"][0].upper(),
                    px=float(m["px"]) if m["px"] else None, n=int(m["n"]) if m["n"] else 1)
 
 
@@ -232,6 +232,8 @@ if __name__ == "__main__":
         assert parse("check dash 10/30 200c")[1]["sym"] == "DASH" and parse("check dash 10/30 200c")[0] == "check"
         assert parse("sold AMZN 265C 4.90") == ("sold", dict(sym="AMZN", exp=None, k=265.0, right="C", px=4.9, n=1))
         assert parse("bto PYPL 9/25 53C 1.66 x2")[1]["n"] == 2 and parse("how are my trades")[0] == "trades"
+        assert parse("Check be 10/16 272.50 call")[1] == dict(sym="BE", exp=f"{YEAR}-10-16", k=272.5, right="C", px=None, n=1)
+        assert parse("check AMZN 10/23 250 puts")[1]["right"] == "P"
         assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=4.77, sl=1.59, lock=6.36)
         assert gate("NFLX", 70, 622, 850, [], False, 0.05)[0] == "WAIT" and gate("SG", 400, 400, 850, [], False, 0.05)[0] == "APPROVED"
         assert gate("QQQ", 3, 300, 850, [], False, 0.02)[0] == "PASS" and gate("QQQ", 3, 300, 850, ["pattern #7"], False, 0.02)[0] == "APPROVED"
