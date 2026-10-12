@@ -70,6 +70,7 @@ def signal(sym):
     d = json.load(open(os.path.join(H, "docs", "data.json"))); out = []
     if any(r["sym"] == sym for r in d.get("F", [])): out.append("Setup F")
     if any(x["sym"] == sym for x in d.get("ihs", [])): out.append("pattern #7")
+    if any(b["sym"] == sym and b.get("forming") for b in d.get("blocked", [])): out.append("F forming")
     for x in json.load(open(os.path.join(H, "docs", "levels.json"))):
         f = x.get("fired") or {}
         if x["symbol"] == sym and f.get("way") in ("up", "down") and str(f.get("at", ""))[:10] >= (datetime.date.today() - datetime.timedelta(days=3)).isoformat():
@@ -90,7 +91,7 @@ def gate(sym, dte, cost, cap, sig, earn_before, spread):
     if cost > cap: return "PASS", f"${cost:,.0f} is over the 7% cap (${cap:,.0f})"
     if dte > 60: return ("APPROVED", "long-dated: 2x lock + -50% stop") if tested or cost <= cap / 2 else ("WAIT", "long-dated with no signal: half size or less")
     if sym in ("QQQ", "SPY"): return ("APPROVED", "pattern #7 on the index") if "pattern #7" in tested else ("PASS", "QQQ/SPY without a pattern #7 alert (your record: -$463 on 11)")
-    if not tested: return ("WAIT", "only a level break -- your chart note, untested") if sig else ("PASS", "no Ledger signal (your record: -$859 on 31)")
+    if not tested: return ("WAIT", f"only {', '.join(sig)} -- not a tested entry yet") if sig else ("PASS", "no Ledger signal (your record: -$859 on 31)")
     if earn_before: return "WAIT", "earnings land before expiry"
     if dte <= 2: return "WAIT", "Setup F with 0-2 days left -- 3 wins, all BE, not yet a rule; paper it"
     if spread > 0.15: return "WAIT", "spread over 15% -- wait for a tighter quote"

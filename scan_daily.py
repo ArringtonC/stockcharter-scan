@@ -227,7 +227,11 @@ def check(sym, F, D, C, S, blocked):
                 blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up,
                                     why=f"revenue {rg*100:+.0f}%" if rg is not None else "no SEC data"))
         else:
-            blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up, why="trend broken"))
+            # F FORMING (2026-10-12): everything F needs except the 10/30 cross, and the 10 is rising
+            # within 1.5% of the 30 -- a heads-up to get ready, never a buy
+            near = e50[i] > e200[i] and e10[i] <= e30[i] and (e30[i] - e10[i]) / e30[i] <= 0.015 and e10[i] > e10[i - 3]
+            blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up, why="trend broken", forming=near, tgt=hi252,
+                                gap=(e30[i] - e10[i]) / e30[i] * 100))
     if px < lo20 and e50[i] < e200[i]:
         S.append(dict(sym=sym, px=px, lo20=lo20, below=(px / lo20 - 1) * 100))
 
@@ -866,6 +870,22 @@ def ihs(h, l, c, since=0):
     return out
 
 
+FORMING_STATE = os.path.join(DOCS, ".forming-state.json")
+
+
+def new_forming(d):
+    """F FORMING names not announced in the last 30 days (revenue still has to pass when it fires)."""
+    st = json.load(open(FORMING_STATE)) if os.path.exists(FORMING_STATE) else {}
+    today = datetime.date.fromisoformat(d["date"]); out = []
+    for b in d.get("blocked", []):
+        if not b.get("forming"): continue
+        last = st.get(b["sym"])
+        if last and (today - datetime.date.fromisoformat(last)).days < 30: continue
+        st[b["sym"]] = d["date"]; out.append(b)
+    json.dump(st, open(FORMING_STATE, "w"))
+    return out
+
+
 IHS_STATE = os.path.join(DOCS, ".ihs-state.json"); IHS_LOG = os.path.join(DOCS, "ihs-paper.json")
 
 
@@ -1420,7 +1440,7 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
         ev = [e for e in position_events(open_, closed, d) if "|".join(e) not in sent_e]
         ids = {i for _, i in ev}
         ev_open = [r for r in open_ if r["id"] in ids]; ev_closed = [r for r in closed if r["id"] in ids]
-        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("ihs") or nd.get("vix_fires") or ev:
+        if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("ihs") or nd.get("forming") or nd.get("vix_fires") or ev:
             late = datetime.datetime.now(ZoneInfo("America/Chicago")).hour >= 15   # the 16:30 run: act tomorrow
             msg = summary(nd, ev_open, ev_closed, title=("NEW TRADE" if (nd["F"] or nd.get("vix_fires")) else "UPDATE")
                           + (" · AFTER CLOSE · for tomorrow" if late else ""))
@@ -1871,6 +1891,11 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
                ("10-DAY EMA CLOSED OVER THE 30 (green +)" if x.get("cross") else f"{'OVER' if up else 'UNDER'} ${x['up' if up else 'down']:,.2f}")
                + f" · TARGET ${x['target_up' if up else 'target_down']:,.2f}",
                f"<i>{'fails on a close back under $' + format(x['down'], ',.2f') if up else 'a chart level, not a tested setup'}</i>", ""]
+    for x in d.get("forming", []):
+        W_ += [f"<b>🟡 F FORMING · {x['sym']} ${x['px']:,.2f}</b>" + (" · CORE" if x["sym"] in CORE else ""),
+               f"{x['dd']:.0f}% UNDER ITS 1-YEAR HIGH · TARGET ${x['tgt']:,.2f} (+{x['up']:.0f}%)",
+               f"10-DAY EMA {x['gap']:.1f}% UNDER THE 30 AND RISING · the green + would make it Setup F",
+               "<i>get ready, not a buy · check it in #trade-log when it fires</i>", ""]
     for x in d.get("ihs", []):   # a full ticket: what, how many, what price, when too late, stop, dollars at risk
         q = x.get("qty", 0)
         W_ += [f"<b>📐 PATTERN #7 · PAPER TEST · {x['sym']} · SHARES · {x['tf']}</b>",
@@ -1974,6 +1999,8 @@ if __name__ == "__main__":
     except Exception as e: d["errors"].append(f"playbook: {str(e)[:40]}")
     try: d["filings"] = company_filings([r["symbol"] for r in open_ if r.get("acct") == "real"] + [r["sym"] for r in d.get("F", [])])
     except Exception as e: d["filings"] = []; d["errors"].append(f"filings: {str(e)[:40]}")
+    try: d["forming"] = new_forming(d)
+    except Exception as e: d["forming"] = []; d["errors"].append(f"forming: {str(e)[:40]}")
     try: d["ihs"] = check_ihs()
     except Exception as e: d["ihs"] = []; d["errors"].append(f"ihs: {str(e)[:40]}")
     try: d["levels"] = check_levels()

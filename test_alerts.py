@@ -188,3 +188,9 @@ r = REAL_MARKET_REPORT(base(filings=[dict(sym="AMZN", form="8-K", date="2026-10-
 assert "COMPANY FILINGS" in r and "AMZN</b> 8-K 10-09: executive or board change" in r
 assert "COMPANY FILINGS" not in REAL_MARKET_REPORT(base())
 print("filings ok")
+
+# F FORMING: a watchlist heads-up, never in #trades
+fx = dict(sym="DASH", px=195.3, dd=32, up=46, tgt=285.5, gap=0.9, forming=True)
+p = S.summary(base(forming=[fx]), [], parts=True)
+assert "🟡 F FORMING · DASH $195.30" in p["watch"] and "not a buy" in p["watch"] and not p["trades"]
+print("forming ok")
