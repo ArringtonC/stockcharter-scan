@@ -92,6 +92,14 @@ def check(c):
         br = bracket((a + b) / 2); L.append(f"Bracket to enter with it: take profit **${br['tp']}** · stop **${br['sl']}**")
     else: L.append("No live quote (puts aren't priced here yet).")
     L.append(f"Ledger signal: **{', '.join(sig) if sig else 'none ⚠️ -- a no-signal trade'}**" + (f" · chart: {', '.join(pats)}" if pats else ""))
+    # your own record (thesis/trade-manager-replay.md: 35 real trades 08-24..10-09, +50/-50 bracket)
+    dte = (datetime.date.fromisoformat(c["exp"]) - datetime.date.today()).days
+    if c["sym"] in ("QQQ", "SPY") and "pattern #7" not in sig:
+        L.append("📉 Your record: QQQ/SPY options -$467 on 11 trades (worse with a bracket). Only with a pattern #7 alert.")
+    if dte <= 2: L.append(f"📉 Your record: 0-2 day options -$35 on 17 trades (-$239 with a bracket). {dte} days left.")
+    elif dte <= 9: L.append(f"✅ Your best zone: 3-9 days to expiry (+$643 on 11 trades with a bracket). {dte} days left.")
+    else: L.append(f"⚠️ Your record at 10+ days: -$753 on 7 trades (big size, held losers). {dte} days left -- keep it small.")
+    if not sig: L.append("📉 Your record without a Ledger signal: -$868 on 31 trades. With Setup F: 4 for 4, +$635 with a bracket.")
     if earn and earn.isoformat() <= c["exp"]: L.append(f"⚠️ Earnings {earn.isoformat()[5:]} land BEFORE expiry -- option prices drop after the report")
     elif earn: L.append(f"Earnings {earn.isoformat()[5:]}, after expiry ✅")
     return "\n".join(L)
