@@ -9,14 +9,20 @@
  },
  "G": {},
  "E": [
+  "closed|2026-09-11-QCOM-175c",
+  "closed|2026-09-17-NOW-170c",
+  "closed|2026-09-17-QCOM-240c",
   "closed|2026-10-07-AMZN-260c-real",
   "closed|2026-10-08-AMZN-255c-real",
   "closed|2026-10-09-AAPL-335c-real",
   "closed|2026-10-09-BE-277.5c-real",
   "closed|2026-10-09-NOW-140c-real",
   "closed|2026-10-09-QQQ-751c-real",
+  "expiry|2026-09-04-DOCU-small",
   "expiry|2026-10-09-AAPL-335c-real",
   "expiry|2026-10-09-NOW-140c-real",
+  "near|2026-09-03-MSFT-sh",
+  "near|2026-09-08-SHOP-sh",
   "near|2026-09-24-SHOP-auto"
  ]
 }

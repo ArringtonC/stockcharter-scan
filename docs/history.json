@@ -829,7 +829,7 @@
  },
  {
   "date": "2026-10-12",
-  "vix": 15.329999923706055,
+  "vix": 15.210000038146973,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -848,8 +848,8 @@
    "SG",
    "DVN",
    "PANW",
-   "SNOW",
    "AMGN",
+   "SNOW",
    "MRNA",
    "DOCU"
   ],
