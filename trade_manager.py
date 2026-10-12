@@ -78,27 +78,56 @@ def signal(sym):
     return out, pats[-3:]
 
 
+def gate(sym, dte, cost, cap, sig, earn_before, spread):
+    """Pure: APPROVED / WAIT / PASS and why (2026-10-12, replayed on his 35 trades: PASS held 31 of them,
+    -$859; the 4 let through made +$603 with a +50/-50 bracket at strict fills). Three playbooks:
+      long-dated (60+ days)  thesis trades: allowed at half the cap without a signal, 2x-lock exits
+      QQQ/SPY                only on a pattern #7 alert
+      everything else        needs Setup F or pattern #7; 3-60 days; under the cap; no earnings inside;
+                             Setup F with 0-2 days = WAIT (3 BE trades, untested as a rule)
+    A level break (his own chart note) is untested: WAIT."""
+    tested = [x for x in sig if x in ("Setup F", "pattern #7")]
+    if cost > cap: return "PASS", f"${cost:,.0f} is over the 7% cap (${cap:,.0f})"
+    if dte > 60: return ("APPROVED", "long-dated: 2x lock + -50% stop") if tested or cost <= cap / 2 else ("WAIT", "long-dated with no signal: half size or less")
+    if sym in ("QQQ", "SPY"): return ("APPROVED", "pattern #7 on the index") if "pattern #7" in tested else ("PASS", "QQQ/SPY without a pattern #7 alert (your record: -$463 on 11)")
+    if not tested: return ("WAIT", "only a level break -- your chart note, untested") if sig else ("PASS", "no Ledger signal (your record: -$859 on 31)")
+    if earn_before: return "WAIT", "earnings land before expiry"
+    if dte <= 2: return "WAIT", "Setup F with 0-2 days left -- 3 wins, all BE, not yet a rule; paper it"
+    if spread > 0.15: return "WAIT", "spread over 15% -- wait for a tighter quote"
+    return "APPROVED", f"{', '.join(tested)} · {dte} days · inside the cap"
+
+
 def check(c):
     import scan_daily as S
     from ticket_bot import quote, next_earnings
     if not c["exp"]: return "Add the expiry: `check AMZN 10/23 265C`."
     spot = S.bars(c["sym"], "5d")[-1][1]; b, a = quote(c["sym"], c["exp"], c["k"]) if c["right"] == "C" else (0, 0)
     cap = round(S.PLAN["balance"] * 0.07 / 50) * 50; sig, pats = signal(c["sym"]); earn = next_earnings(c["sym"], datetime.date.today())
-    L = [f"**CHECK · {c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']}** · stock ${spot:,.2f}"]
+    dte = (datetime.date.fromisoformat(c["exp"]) - datetime.date.today()).days
+    v, why = gate(c["sym"], dte, (a or 0) * 100, cap, sig, bool(earn and earn.isoformat() <= c["exp"]), (a - b) / a if a else 1)
+    icon = {"APPROVED": "✅", "WAIT": "🟡", "PASS": "⛔"}[v]
+    bb = S.bars(c["sym"]); e30 = S.ema([x[1] for x in bb], 30)[-1]
+    inval, inval_why = (e30, "30-day EMA") if spot > e30 else (min(x[3] for x in bb[-10:]), "10-day low")   # already under the EMA: the recent low
+    L = [f"{icon} **{v}** -- {why}", f"**{c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']}** · stock ${spot:,.2f}"]
     if a:
         be = c["k"] + a; L += [f"Ask ${a:.2f} (bid ${b:.2f}) · **${a * 100:,.0f}** vs cap ${cap:,} → {'fits ✅' if a * 100 <= cap else 'OVER CAP ❌'}",
                                f"Breakeven at expiry ${be:,.2f} ({100 * (be / spot - 1):+.1f}%) · spread {100 * (a - b) / a:.0f}%"]
         if (a - b) / a > 0.15: L.append(f"⚠️ Wide spread right now -- buy with a limit near the middle (${(a + b) / 2:.2f}), never a market order")
-        br = bracket((a + b) / 2); L.append(f"Bracket to enter with it: take profit **${br['tp']}** · stop **${br['sl']}**")
+        mid = (a + b) / 2; br = bracket(mid)
+        L.append(f"Limit **${mid:.2f}** · don't pay above **${mid + (a - mid) / 2:.2f}**")
+        L.append(f"Exits to enter with it: take profit **${br['tp']}** (+50%) · stop **${br['sl']}** (-50%)" if dte <= 60 else
+                 f"Exits (long-dated): stop **${br['sl']}** (-50%); at 2x (${br['lock']}) move the stop up to lock the gain")
+        L.append(f"Stock invalidation: a close under ${inval:,.2f} ({inval_why})")
     else: L.append("No live quote (puts aren't priced here yet).")
     L.append(f"Ledger signal: **{', '.join(sig) if sig else 'none ⚠️ -- a no-signal trade'}**" + (f" · chart: {', '.join(pats)}" if pats else ""))
     # your own record (thesis/trade-manager-replay.md: 35 real trades 08-24..10-09, +50/-50 bracket)
-    dte = (datetime.date.fromisoformat(c["exp"]) - datetime.date.today()).days
-    if c["sym"] in ("QQQ", "SPY") and "pattern #7" not in sig:
+    if v == "PASS": pass
+    elif c["sym"] in ("QQQ", "SPY") and "pattern #7" not in sig:
         L.append("📉 Your record: QQQ/SPY options -$467 on 11 trades (worse with a bracket). Only with a pattern #7 alert.")
-    if dte <= 2: L.append(f"📉 Your record: 0-2 day options -$35 on 17 trades (-$239 with a bracket). {dte} days left.")
+    if v == "PASS": pass
+    elif dte <= 2: L.append(f"📉 Your record: 0-2 day options -$35 on 17 trades (-$239 with a bracket). {dte} days left.")
     elif dte <= 9: L.append(f"✅ Your best zone: 3-9 days to expiry (+$643 on 11 trades with a bracket). {dte} days left.")
-    else: L.append(f"⚠️ Your record at 10+ days: -$753 on 7 trades (big size, held losers). {dte} days left -- keep it small.")
+    elif dte <= 60: L.append(f"⚠️ Your record at 10+ days: -$753 on 7 trades (big size, held losers). {dte} days left -- keep it small.")
     if not sig: L.append("📉 Your record without a Ledger signal: -$868 on 31 trades. With Setup F: 4 for 4, +$635 with a bracket.")
     if earn and earn.isoformat() <= c["exp"]: L.append(f"⚠️ Earnings {earn.isoformat()[5:]} land BEFORE expiry -- option prices drop after the report")
     elif earn: L.append(f"Earnings {earn.isoformat()[5:]}, after expiry ✅")
@@ -194,6 +223,11 @@ if __name__ == "__main__":
         assert parse("sold AMZN 265C 4.90") == ("sold", dict(sym="AMZN", exp=None, k=265.0, right="C", px=4.9, n=1))
         assert parse("bto PYPL 9/25 53C 1.66 x2")[1]["n"] == 2 and parse("how are my trades")[0] == "trades"
         assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=4.77, sl=1.59, lock=6.36)
+        assert gate("NFLX", 70, 622, 850, [], False, 0.05)[0] == "WAIT" and gate("SG", 400, 400, 850, [], False, 0.05)[0] == "APPROVED"
+        assert gate("QQQ", 3, 300, 850, [], False, 0.02)[0] == "PASS" and gate("QQQ", 3, 300, 850, ["pattern #7"], False, 0.02)[0] == "APPROVED"
+        assert gate("AMZN", 11, 302, 850, ["level broke up 10-09"], False, 0.03)[0] == "WAIT" and gate("AMZN", 11, 302, 850, [], False, 0.03)[0] == "PASS"
+        assert gate("NOW", 8, 386, 850, ["Setup F"], False, 0.04)[0] == "APPROVED" and gate("BE", 0, 98, 850, ["Setup F"], False, 0.04)[0] == "WAIT"
+        assert gate("NOW", 8, 386, 850, ["Setup F"], True, 0.04)[0] == "WAIT" and gate("NOW", 8, 900, 850, ["Setup F"], False, 0.04)[0] == "PASS"
         print("tm ok")
     else:
         main()
