@@ -27,7 +27,8 @@ def call(path, body=None, method=None):
          "Content-Type": "application/json"}
     rq = urllib.request.Request(API + path, data=json.dumps(body).encode() if body else None,
                                 headers=h, method=method or ("POST" if body else "GET"))
-    return json.load(urllib.request.urlopen(rq, timeout=20))
+    b = urllib.request.urlopen(rq, timeout=20).read()
+    return json.loads(b) if b else {}   # a cancel (DELETE) answers 204 with no body
 
 
 def plan(fires, held, state, today, budget=CAP):
@@ -228,10 +229,11 @@ def recap_text(acct, positions, trades, plan=PLAN, real=True):
           + (f" · Schwab {plan['balance_as_of'][5:].replace('-', '/')}" if plan.get("balance_as_of") else "")]
     if show_real: L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
 
-    for title, accts in (("🤖 SETUP F", ("bot", "paper-auto")), ("🤖 SETUP F · LEAPS", ("bot-leaps",))):
+    for title, accts, st in (("🤖 SETUP F", ("bot", "paper-auto"), START), ("🤖 SETUP F · LEAPS", ("bot-leaps",), START),
+                             ("🤖 TICKET CALLS · $12k, one at a time", ("bot-tickets",), 12_000.0)):
         bk = [r for r in trades if r.get("acct") in accts]
         dd = [dollars(r, START * RISK) for r in bk]
-        L += [f"<b>{title}</b>", head(START, START + sum(b - a for a, b, _ in dd))]
+        L += [f"<b>{title}</b>", head(st, st + sum(b - a for a, b, _ in dd))]
         L += [row(lab, a, b) for (a, b, lab), r in zip(dd, bk) if r["status"] == "open"] or ["No open trades."]
         done = [(a, b, lab) for (a, b, lab), r in zip(dd, bk) if r["status"] == "closed"]
         if done: L.append("closed: " + " · ".join(f"{lab} {S(b - a)}" for a, b, lab in done))
