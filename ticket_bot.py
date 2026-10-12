@@ -58,8 +58,10 @@ def lock_stop(fill, peak):
     return max(1.5 * fill, 0.75 * peak) if peak >= 2.0 * fill else None
 
 
-def exit_reason(fill, bid, expiry, today, peak=0.0):
-    """Pure: why to sell now, or None. peak = the best bid seen since the buy."""
+def exit_reason(fill, bid, expiry, today, peak=0.0, tp=None):
+    """Pure: why to sell now, or None. peak = the best bid seen since the buy. tp = a take-profit
+    multiple (1.5 = the +50% bracket the ticket book uses since 2026-10-12)."""
+    if tp and bid >= tp * fill: return f"take profit (+{100 * (tp - 1):.0f}%)"
     lock = lock_stop(fill, max(peak, bid))
     if lock is not None and bid <= lock: return f"locked-gain stop (${lock:.2f})"
     if lock is None and bid <= 0.5 * fill: return "stop (-50%)"
@@ -70,7 +72,7 @@ def exit_reason(fill, bid, expiry, today, peak=0.0):
 IDEAS = ("paper", "small", "big")
 
 
-def manage(rs, state, today, quote_fn, sell_fn, label):
+def manage(rs, state, today, quote_fn, sell_fn, label, tp=None):
     """Exits for every open call in a book: track the best bid, announce 2x once, sell on a reason.
     sell_fn(r, bid) -> fill or None. Pure apart from what the callables do."""
     out = []
@@ -84,7 +86,8 @@ def manage(rs, state, today, quote_fn, sell_fn, label):
             notify(f"<b>🤖 {label} · {r['symbol']} ${float(r['strike']):g}C HIT 2X · ${b:.2f}</b>\n"
                    f"NOT SELLING · STOP NOW LOCKS ${lock_stop(fill, peak):.2f} (+{100 * (lock_stop(fill, peak) / fill - 1):.0f}%) AND RISES WITH IT\n"
                    f"<i>paper · not real money</i>", "paper")
-        why = exit_reason(fill, b, r["expiry"], today, peak)
+        long = (datetime.date.fromisoformat(r["expiry"]) - datetime.date.fromisoformat(r["opened"])).days > 60
+        why = exit_reason(fill, b, r["expiry"], today, peak, None if long else tp)
         if not why: continue
         px = sell_fn(r, b)
         if px is None: continue
@@ -129,7 +132,7 @@ def main():
         return settle(o["id"])
     q = lambda r: quote(r["symbol"], r["expiry"], float(r["strike"]))
     mine = [r for r in rs if r.get("acct") == BOOK and r["status"] == "open"]
-    manage(mine, state, today, q, sell, "PAPER TICKET")
+    manage(mine, state, today, q, sell, "PAPER TICKET", tp=1.5)   # the same +50/-50 bracket as the trade manager
     # the Ideas book: same exits, booked at the bid (ideas are a scorecard, not Alpaca orders)
     manage([r for r in rs if r.get("acct") in IDEAS and r.get("kind") == "call" and r["status"] == "open" and r.get("expiry")],
            state, today, q, lambda r, b: b, "PAPER IDEA")
@@ -146,6 +149,10 @@ def main():
         c = pick(spot, [(x["expiration_date"], float(x["strike_price"])) for x in cs],
                  lambda e, k: quote(sym, e, k), next_earnings(sym, today), today)
         if not c: print(f"tickets: {sym} -- no call fits (cap, earnings, spread)"); continue
+        import trade_manager as TM                     # the same gate he uses in #trade-log
+        sig, _ = TM.signal(sym); dte = (datetime.date.fromisoformat(c["expiry"]) - today).days
+        v, gwhy = TM.gate(sym, dte, c["ask"] * 100, CAP, sig, False, (c["ask"] - c["bid"]) / c["ask"])
+        if v != "APPROVED": print(f"tickets: {sym} -- gate says {v}: {gwhy}"); continue
         o = call("/orders", dict(symbol=occ(sym, c["expiry"], c["strike"], pad=False), qty="1", side="buy",
                                  type="limit", limit_price=f"{c['mid']:.2f}", time_in_force="day"))
         px = settle(o["id"])
@@ -153,11 +160,11 @@ def main():
         state["tk:" + sym] = str(today)
         rs.append(dict(id=f"{today}-{sym}-tk", kind="call", acct=BOOK, opened=str(today), symbol=sym, setup=why[:20],
                        entry=f"{px:.2f}", target="", strike=f"{c['strike']:g}", expiry=c["expiry"], contracts="1", status="open",
-                       note=f"Ticket book ({why}). Limit at the mid. Exits: -50% stop, 2x take profit, or 2 days to expiry."))
+                       note=f"Ticket book ({why}). Limit at the mid. Exits: +50% take profit, -50% stop, or 2 days to expiry (the trade-manager bracket)."))
         when = datetime.date.fromisoformat(c["expiry"]).strftime("%b %-d").upper()
         notify(f"<b>🤖 PAPER TICKET · BOUGHT {sym} {when} ${c['strike']:g}C · ${px:.2f}</b>\n"
                f"WHY: {why} · ${px * 100:,.0f} (cap $850)\n"
-               f"STOP ${px * 0.5:.2f} · TAKE PROFIT ${px * 2:.2f} · OUT 2 DAYS BEFORE EXPIRY\n"
+               f"STOP ${px * 0.5:.2f} · TAKE PROFIT ${px * 1.5:.2f} · OUT 2 DAYS BEFORE EXPIRY\n"
                f"<i>CONFIRMED PAPER FILL · ticket book · not real money</i>", "paper")
         print(f"tickets: bought {sym} {c['strike']:g}C {c['expiry']} at {px} ({why})")
         break
@@ -174,6 +181,7 @@ if __name__ == "__main__":
         assert pick(259.0, cs, qf, datetime.date(2026, 10, 29), t) is None     # Oct 30 is after earnings -> nothing
         assert pick(259.0, cs, lambda e, k: (1.0, 5.4) if k == 260 else qf(e, k), None, t)["strike"] == 265.0   # wide spread skipped
         assert exit_reason(5.0, 2.4, "2026-10-30", t) == "stop (-50%)"
+        assert exit_reason(5.0, 7.6, "2026-10-30", t, 7.6, tp=1.5).startswith("take profit")
         assert exit_reason(5.0, 10.1, "2026-10-30", t, 10.1) is None                  # 2x: hold, stop locks +50%
         assert lock_stop(5.0, 10.0) == 7.5 and lock_stop(5.0, 12.0) == 9.0           # 1.5x floor, then 75% of the best
         assert exit_reason(5.0, 8.9, "2026-10-30", t, 12.0).startswith("locked-gain stop")
