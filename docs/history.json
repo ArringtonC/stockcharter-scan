@@ -829,28 +829,27 @@
  },
  {
   "date": "2026-10-12",
-  "vix": 15.5,
+  "vix": 15.220000267028809,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
    "ZS",
-   "HOOD",
    "NOW",
-   "BE"
+   "BE",
+   "MU"
   ],
   "D": [
-   "TXN",
    "GOOGL",
-   "OXY",
-   "U",
-   "SG",
    "CSCO",
+   "U",
    "AMZN",
-   "META",
-   "AMD",
-   "SHOP",
-   "COP",
-   "DOCU"
+   "SG",
+   "OXY",
+   "PANW",
+   "DVN",
+   "AMGN",
+   "SNOW",
+   "MRNA"
   ],
   "C": [],
   "S": []
