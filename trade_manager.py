@@ -13,6 +13,8 @@ at -50% (stop), and one at 2x (lock the gain). Only messages from the server own
 Runs every minute (launchd com.arrington.ledger-tm). Self-test: TMTEST=1 python3 trade_manager.py"""
 import csv, datetime, json, os, re, time, urllib.request
 CH, OWNER = "1559302594189328544", "468902102995959808"
+# who may use it: the owner's trades go to trades.csv (public repo); a friend's journal stays on this Mac
+FRIENDS = {"1288838148436136057": "jcbreeze"}   # 2026-10-12: sized as if it were Arrington's account, his request
 STATE = os.path.expanduser("~/.ledger-tm.json")
 H = os.path.dirname(os.path.abspath(__file__))
 YEAR = datetime.date.today().year
@@ -55,13 +57,18 @@ def bracket(px):
     return dict(tp=round(px * 1.5, 2), sl=round(px * 0.5, 2), lock=round(px * 2, 2))
 
 
-def rows():
-    return list(csv.DictReader(open(os.path.join(H, "trades.csv"))))
+def path(who=OWNER):
+    return os.path.join(H, "trades.csv") if who == OWNER else os.path.expanduser(f"~/.ledger-friend-{FRIENDS[who]}.csv")
 
 
-def save(rs):
+def rows(who=OWNER):
+    p = path(who)
+    return list(csv.DictReader(open(p))) if os.path.exists(p) else []
+
+
+def save(rs, who=OWNER):
     cols = list(csv.DictReader(open(os.path.join(H, "trades.csv"))).fieldnames)
-    with open(os.path.join(H, "trades.csv"), "w", newline="") as f:
+    with open(path(who), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(rs)
 
 
@@ -98,7 +105,7 @@ def gate(sym, dte, cost, cap, sig, earn_before, spread):
     return "APPROVED", f"{', '.join(tested)} · {dte} days · inside the cap"
 
 
-def check(c):
+def check(c, who=OWNER):
     import scan_daily as S
     from ticket_bot import quote, next_earnings
     if not c["exp"]: return "Add the expiry: `check AMZN 10/23 265C`."
@@ -122,37 +129,38 @@ def check(c):
     else: L.append("No live quote (puts aren't priced here yet).")
     L.append(f"Ledger signal: **{', '.join(sig) if sig else 'none ⚠️ -- a no-signal trade'}**" + (f" · chart: {', '.join(pats)}" if pats else ""))
     # your own record (thesis/trade-manager-replay.md: 35 real trades 08-24..10-09, +50/-50 bracket)
-    if v == "PASS": pass
+    if v == "PASS" or who != OWNER: pass
     elif c["sym"] in ("QQQ", "SPY") and "pattern #7" not in sig:
         L.append("📉 Your record: QQQ/SPY options -$467 on 11 trades (worse with a bracket). Only with a pattern #7 alert.")
-    if v == "PASS": pass
+    if v == "PASS" or who != OWNER: pass
     elif dte <= 2: L.append(f"📉 Your record: 0-2 day options -$35 on 17 trades (-$239 with a bracket). {dte} days left.")
     elif dte <= 9: L.append(f"✅ Your best zone: 3-9 days to expiry (+$643 on 11 trades with a bracket). {dte} days left.")
     elif dte <= 60: L.append(f"⚠️ Your record at 10+ days: -$753 on 7 trades (big size, held losers). {dte} days left -- keep it small.")
-    if not sig: L.append("📉 Your record without a Ledger signal: -$868 on 31 trades. With Setup F: 4 for 4, +$635 with a bracket.")
+    if not sig and who == OWNER: L.append("📉 Your record without a Ledger signal: -$868 on 31 trades. With Setup F: 4 for 4, +$635 with a bracket.")
     if earn and earn.isoformat() <= c["exp"]: L.append(f"⚠️ Earnings {earn.isoformat()[5:]} land BEFORE expiry -- option prices drop after the report")
     elif earn: L.append(f"Earnings {earn.isoformat()[5:]}, after expiry ✅")
+    if who != OWNER: L.append("_Ledger's rules on a $12k account, not investment advice. You place every order._")
     return "\n".join(L)
 
 
-def bought(c, rs):
+def bought(c, rs, who=OWNER):
     if not (c["exp"] and c["px"]): return "Format: `bought AMZN 10/23 265C 3.18`"
     today = datetime.date.today().isoformat(); kind = "call" if c["right"] == "C" else "put"
     rid = f"{today}-{c['sym']}-{c['k']:g}{c['right'].lower()}-real"
     while any(r["id"] == rid for r in rs): rid += "b"
     br = bracket(c["px"]); sig, _ = signal(c["sym"])
-    rs.append(dict(id=rid, kind=kind, acct="real", opened=today, symbol=c["sym"], setup=", ".join(sig) or "none", entry=f"{c['px']:.2f}",
+    rs.append(dict(id=rid, kind=kind, acct="real" if who == OWNER else "friend-" + FRIENDS[who], opened=today, symbol=c["sym"], setup=", ".join(sig) or "none", entry=f"{c['px']:.2f}",
                    target="", strike=f"{c['k']:g}", expiry=c["exp"], contracts=str(c["n"]), status="open", closed="", exit="", pl_pct="",
                    note=f"REAL. Logged from Discord #trade-log. Bracket: take profit {br['tp']}, stop {br['sl']}; 2x {br['lock']} locks the gain."))
-    save(rs)
+    save(rs, who)
     return (f"✅ **LOGGED · {c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']} × {c['n']} @ ${c['px']:.2f}** (${c['px'] * 100 * c['n']:,.0f})\n"
             f"Enter now in Schwab: take-profit limit **${br['tp']}** + stop **${br['sl']}** (OCO)\n"
             f"I'll text you at +50%, at -50%, and at 2x. Signal: {', '.join(sig) if sig else 'none ⚠️'}")
 
 
-def sold(c, rs):
+def sold(c, rs, who=OWNER):
     if not c["px"]: return "Format: `sold AMZN 265C 4.90`"
-    m = [r for r in rs if r["acct"] == "real" and r["status"] == "open" and r["symbol"] == c["sym"]
+    m = [r for r in rs if r["acct"] in ("real", "friend-" + FRIENDS.get(who, "")) and r["status"] == "open" and r["symbol"] == c["sym"]
          and abs(float(r.get("strike") or 0) - c["k"]) < 1e-6 and (r["kind"] == "call") == (c["right"] == "C")]
     if not m: return f"I can't find an open {c['sym']} ${c['k']:g}{c['right']} -- `trades` lists what I have."
     r = m[0]; e = float(r["entry"]); n = int(r["contracts"] or 1); pl = (c["px"] - e) * 100 * n; br = bracket(e)
@@ -160,14 +168,14 @@ def sold(c, rs):
             else "sold between the bracket levels -- by plan, or a feeling?")
     r.update(status="closed", closed=datetime.date.today().isoformat(), exit=f"{c['px']:.2f}", pl_pct=f"{100 * (c['px'] / e - 1):.1f}",
              note=r["note"] + f" Closed from Discord at {c['px']:.2f}: {plan}")
-    save(rs)
+    save(rs, who)
     return f"📒 **CLOSED · {r['symbol']} ${c['k']:g}{c['right']}** ${e:.2f} → ${c['px']:.2f} · **{'+' if pl >= 0 else '−'}${abs(pl):,.0f}** ({100 * (c['px'] / e - 1):+.0f}%)\nPlan: {plan}"
 
 
-def trades(rs):
+def trades(rs, who=OWNER):
     from ticket_bot import quote
-    L = ["**OPEN REAL TRADES**"]
-    for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open"]:
+    L = ["**OPEN REAL TRADES**" if who == OWNER else "**YOUR OPEN TRADES**"]
+    for r in [r for r in rs if r["acct"] in ("real", "friend-" + FRIENDS.get(who, "")) and r["status"] == "open"]:
         if r["kind"] in ("call", "put") and r.get("expiry"):
             try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"])) if r["kind"] == "call" else (0, 0)
             except Exception: b = a = 0
@@ -178,10 +186,10 @@ def trades(rs):
     return "\n".join(L)
 
 
-def watch(rs, st):
+def watch(rs, st, tag=""):
     """One text per event per trade: +50%, -50%, 2x."""
     from ticket_bot import quote
-    for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open" and r["kind"] == "call" and r.get("expiry")]:
+    for r in [r for r in rs if (r["acct"] == "real" or r["acct"].startswith("friend-")) and r["status"] == "open" and r["kind"] == "call" and r.get("expiry")]:
         try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"]))
         except Exception: continue
         if not b: continue
@@ -192,27 +200,28 @@ def watch(rs, st):
                               ("2x", b >= br["lock"], f"🚀 **{r['symbol']} ${float(r['strike']):g}C at 2x** · bid ${b:.2f} -- set a stop at ${max(1.5 * e, 0.75 * b):.2f} to lock the gain")):
             k = f"{r['id']}:{key}"
             if far and key == "tp": continue
-            if hit and not st.get(k): st[k] = datetime.date.today().isoformat(); say(msg)
+            if hit and not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
 
 
 def main():
     st = json.load(open(STATE)) if os.path.exists(STATE) else {}
     msgs = api(f"/channels/{CH}/messages?limit=20" + (f"&after={st['last']}" if st.get("last") else ""))
-    rs = rows()
     for m in sorted(msgs, key=lambda x: int(x["id"])):
-        st["last"] = m["id"]
-        if m["author"]["id"] != OWNER or m["author"].get("bot"): continue
-        v, c = parse(m.get("content", ""))
+        st["last"] = m["id"]; who = m["author"]["id"]
+        if (who != OWNER and who not in FRIENDS) or m["author"].get("bot"): continue
+        v, c = parse(m.get("content", "")); rs = rows(who)
         try:
-            reply = {"check": lambda: check(c), "bought": lambda: bought(c, rs), "sold": lambda: sold(c, rs),
-                     "trades": lambda: trades(rs)}.get(v, lambda: HELP)()
+            reply = {"check": lambda: check(c, who), "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who),
+                     "trades": lambda: trades(rs, who)}.get(v, lambda: HELP)()
         except Exception as e:
             reply = f"Something broke on that one: {str(e)[:120]}"
-        say(reply)
+        say((f"<@{who}> " if who != OWNER else "") + reply)
         try: api(f"/channels/{CH}/messages/{m['id']}/reactions/%E2%9C%85/@me", method="PUT")
         except Exception: pass
     if st.get("last") is None and msgs == []: st["last"] = "0"
-    try: watch(rs, st)
+    try:
+        watch(rows(), st)
+        for fid in FRIENDS: watch(rows(fid), st, f"<@{fid}> ")
     except Exception as e: print("watch failed", e)
     json.dump(st, open(STATE, "w"))
 
