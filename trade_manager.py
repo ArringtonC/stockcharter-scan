@@ -1,0 +1,191 @@
+#!/usr/bin/env python3
+"""Trade manager (2026-10-12): Arrington texts the Ledger bot in Discord #trade-log; it checks, logs,
+watches and journals his REAL trades. It never places an order -- every order is his click.
+
+  check AMZN 10/23 265C        -> the pre-trade check: Ledger signal? cost vs the 7% cap, breakeven,
+                                  earnings before expiry, and the bracket to enter (+50% / -50%)
+  bought AMZN 10/23 265C 3.18  -> logs it in trades.csv (acct real) and starts watching it
+  sold AMZN 265C 4.90          -> closes it, journals the result and whether the plan was followed
+  trades                       -> open real positions with live prices
+  anything else                -> the help text
+Watching: every run, each open real option trade is priced; one alert at +50% (take profit) and one
+at -50% (stop), and one at 2x (lock the gain). Only messages from the server owner are acted on.
+Runs every minute (launchd com.arrington.ledger-tm). Self-test: TMTEST=1 python3 trade_manager.py"""
+import csv, datetime, json, os, re, time, urllib.request
+CH, OWNER = "1559302594189328544", "468902102995959808"
+STATE = os.path.expanduser("~/.ledger-tm.json")
+H = os.path.dirname(os.path.abspath(__file__))
+YEAR = datetime.date.today().year
+HELP = ("**I'm your trade manager.** Text me:\n`check AMZN 10/23 265C` · `bought AMZN 10/23 265C 3.18` · "
+        "`sold AMZN 265C 4.90` · `trades`\nI log, watch and journal. You place every order.")
+
+
+def api(path, body=None, method=None):
+    rq = urllib.request.Request("https://discord.com/api/v10" + path, data=json.dumps(body).encode() if body else None,
+                                method=method or ("POST" if body else "GET"),
+                                headers={"Authorization": f"Bot {os.environ['DISCORD_LEDGER_BOT_TOKEN']}",
+                                         "Content-Type": "application/json", "User-Agent": "DiscordBot (ledger, 1)"})
+    b = urllib.request.urlopen(rq, timeout=20).read()
+    return json.loads(b) if b else {}
+
+
+def say(text): api(f"/channels/{CH}/messages", {"content": text[:1990]})
+
+
+CONTRACT = r"(?P<sym>[A-Za-z]{1,5})\s+(?:(?P<mm>\d{1,2})/(?P<dd>\d{1,2})(?:/(?P<yy>\d{2,4}))?\s+)?\$?(?P<k>\d+(?:\.\d+)?)\s*(?P<r>[cpCP])\b"
+
+
+def parse(text):
+    """Pure: (verb, dict) from a message, or ("help", {})."""
+    t = text.strip()
+    if re.match(r"^(trades|positions|how are my trades)\b", t, re.I): return "trades", {}
+    m = re.match(r"^(check|bought|bto|buy|sold|stc|sell)\s+" + CONTRACT + r"(?:\s+\$?(?P<px>\d+(?:\.\d+)?))?(?:\s+x?(?P<n>\d+))?", t, re.I)
+    if not m: return "help", {}
+    v = m.group(1).lower(); v = {"bto": "bought", "buy": "bought", "stc": "sold", "sell": "sold"}.get(v, v)
+    exp = None
+    if m["mm"]:
+        y = int(m["yy"]) if m["yy"] else YEAR; y = y + 2000 if y < 100 else y
+        exp = datetime.date(y, int(m["mm"]), int(m["dd"])).isoformat()
+    return v, dict(sym=m["sym"].upper(), exp=exp, k=float(m["k"]), right=m["r"].upper(),
+                   px=float(m["px"]) if m["px"] else None, n=int(m["n"]) if m["n"] else 1)
+
+
+def bracket(px):
+    """Pure: the exits to enter with the buy (thesis/exit-gauntlet.md: +50%/-50% was the best rule)."""
+    return dict(tp=round(px * 1.5, 2), sl=round(px * 0.5, 2), lock=round(px * 2, 2))
+
+
+def rows():
+    return list(csv.DictReader(open(os.path.join(H, "trades.csv"))))
+
+
+def save(rs):
+    cols = list(csv.DictReader(open(os.path.join(H, "trades.csv"))).fieldnames)
+    with open(os.path.join(H, "trades.csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(rs)
+
+
+def signal(sym):
+    """What Ledger currently says about a symbol: Setup F, a pattern, a fired level."""
+    d = json.load(open(os.path.join(H, "docs", "data.json"))); out = []
+    if any(r["sym"] == sym for r in d.get("F", [])): out.append("Setup F")
+    if any(x["sym"] == sym for x in d.get("ihs", [])): out.append("pattern #7")
+    for x in json.load(open(os.path.join(H, "docs", "levels.json"))):
+        f = x.get("fired") or {}
+        if x["symbol"] == sym and f.get("way") in ("up", "down") and str(f.get("at", ""))[:10] >= (datetime.date.today() - datetime.timedelta(days=3)).isoformat():
+            out.append(f"level broke {f['way']} {str(f['at'])[5:10]}")
+    pats = [p["kind"] for p in d.get("charts", {}).get(sym, {}).get("pat", []) if p["kind"] != "level"]
+    return out, pats[-3:]
+
+
+def check(c):
+    import scan_daily as S
+    from ticket_bot import quote, next_earnings
+    if not c["exp"]: return "Add the expiry: `check AMZN 10/23 265C`."
+    spot = S.bars(c["sym"], "5d")[-1][1]; b, a = quote(c["sym"], c["exp"], c["k"]) if c["right"] == "C" else (0, 0)
+    cap = round(S.PLAN["balance"] * 0.07 / 50) * 50; sig, pats = signal(c["sym"]); earn = next_earnings(c["sym"], datetime.date.today())
+    L = [f"**CHECK · {c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']}** · stock ${spot:,.2f}"]
+    if a:
+        be = c["k"] + a; L += [f"Ask ${a:.2f} (bid ${b:.2f}) · **${a * 100:,.0f}** vs cap ${cap:,} → {'fits ✅' if a * 100 <= cap else 'OVER CAP ❌'}",
+                               f"Breakeven at expiry ${be:,.2f} ({100 * (be / spot - 1):+.1f}%) · spread {100 * (a - b) / a:.0f}%"]
+        if (a - b) / a > 0.15: L.append(f"⚠️ Wide spread right now -- buy with a limit near the middle (${(a + b) / 2:.2f}), never a market order")
+        br = bracket((a + b) / 2); L.append(f"Bracket to enter with it: take profit **${br['tp']}** · stop **${br['sl']}**")
+    else: L.append("No live quote (puts aren't priced here yet).")
+    L.append(f"Ledger signal: **{', '.join(sig) if sig else 'none ⚠️ -- a no-signal trade'}**" + (f" · chart: {', '.join(pats)}" if pats else ""))
+    if earn and earn.isoformat() <= c["exp"]: L.append(f"⚠️ Earnings {earn.isoformat()[5:]} land BEFORE expiry -- option prices drop after the report")
+    elif earn: L.append(f"Earnings {earn.isoformat()[5:]}, after expiry ✅")
+    return "\n".join(L)
+
+
+def bought(c, rs):
+    if not (c["exp"] and c["px"]): return "Format: `bought AMZN 10/23 265C 3.18`"
+    today = datetime.date.today().isoformat(); kind = "call" if c["right"] == "C" else "put"
+    rid = f"{today}-{c['sym']}-{c['k']:g}{c['right'].lower()}-real"
+    while any(r["id"] == rid for r in rs): rid += "b"
+    br = bracket(c["px"]); sig, _ = signal(c["sym"])
+    rs.append(dict(id=rid, kind=kind, acct="real", opened=today, symbol=c["sym"], setup=", ".join(sig) or "none", entry=f"{c['px']:.2f}",
+                   target="", strike=f"{c['k']:g}", expiry=c["exp"], contracts=str(c["n"]), status="open", closed="", exit="", pl_pct="",
+                   note=f"REAL. Logged from Discord #trade-log. Bracket: take profit {br['tp']}, stop {br['sl']}; 2x {br['lock']} locks the gain."))
+    save(rs)
+    return (f"✅ **LOGGED · {c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']} × {c['n']} @ ${c['px']:.2f}** (${c['px'] * 100 * c['n']:,.0f})\n"
+            f"Enter now in Schwab: take-profit limit **${br['tp']}** + stop **${br['sl']}** (OCO)\n"
+            f"I'll text you at +50%, at -50%, and at 2x. Signal: {', '.join(sig) if sig else 'none ⚠️'}")
+
+
+def sold(c, rs):
+    if not c["px"]: return "Format: `sold AMZN 265C 4.90`"
+    m = [r for r in rs if r["acct"] == "real" and r["status"] == "open" and r["symbol"] == c["sym"]
+         and abs(float(r.get("strike") or 0) - c["k"]) < 1e-6 and (r["kind"] == "call") == (c["right"] == "C")]
+    if not m: return f"I can't find an open {c['sym']} ${c['k']:g}{c['right']} -- `trades` lists what I have."
+    r = m[0]; e = float(r["entry"]); n = int(r["contracts"] or 1); pl = (c["px"] - e) * 100 * n; br = bracket(e)
+    plan = ("took profit at the bracket ✅" if c["px"] >= br["tp"] * 0.97 else "stopped at the bracket ✅" if c["px"] <= br["sl"] * 1.03
+            else "sold between the bracket levels -- by plan, or a feeling?")
+    r.update(status="closed", closed=datetime.date.today().isoformat(), exit=f"{c['px']:.2f}", pl_pct=f"{100 * (c['px'] / e - 1):.1f}",
+             note=r["note"] + f" Closed from Discord at {c['px']:.2f}: {plan}")
+    save(rs)
+    return f"📒 **CLOSED · {r['symbol']} ${c['k']:g}{c['right']}** ${e:.2f} → ${c['px']:.2f} · **{'+' if pl >= 0 else '−'}${abs(pl):,.0f}** ({100 * (c['px'] / e - 1):+.0f}%)\nPlan: {plan}"
+
+
+def trades(rs):
+    from ticket_bot import quote
+    L = ["**OPEN REAL TRADES**"]
+    for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open"]:
+        if r["kind"] in ("call", "put") and r.get("expiry"):
+            try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"])) if r["kind"] == "call" else (0, 0)
+            except Exception: b = a = 0
+            m = (a + b) / 2 if a else None; e = float(r["entry"]); n = int(r["contracts"] or 1)
+            L.append(f"{r['symbol']} {r['expiry'][5:]} ${float(r['strike']):g}{r['kind'][0].upper()} ×{n} · ${e:.2f} → " +
+                     (f"${m:.2f} · {'+' if m >= e else '−'}${abs(m - e) * 100 * n:,.0f} ({100 * (m / e - 1):+.0f}%)" if m else "no quote"))
+        else: L.append(f"{r['symbol']} {r.get('contracts') or 1} share(s) @ ${float(r['entry']):.2f}")
+    return "\n".join(L)
+
+
+def watch(rs, st):
+    """One text per event per trade: +50%, -50%, 2x."""
+    from ticket_bot import quote
+    for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open" and r["kind"] == "call" and r.get("expiry")]:
+        try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"]))
+        except Exception: continue
+        if not b: continue
+        e = float(r["entry"]); br = bracket(e)
+        far = (datetime.date.fromisoformat(r["expiry"]) - datetime.date.today()).days > 60   # long-dated (SG, SNAP 2028): 2x lock only
+        for key, hit, msg in (("tp", b >= br["tp"], f"🎯 **{r['symbol']} ${float(r['strike']):g}C at +50%** · bid ${b:.2f} (you paid ${e:.2f}) -- your take-profit level"),
+                              ("sl", b <= br["sl"], f"🛑 **{r['symbol']} ${float(r['strike']):g}C at -50%** · bid ${b:.2f} -- your stop level"),
+                              ("2x", b >= br["lock"], f"🚀 **{r['symbol']} ${float(r['strike']):g}C at 2x** · bid ${b:.2f} -- set a stop at ${max(1.5 * e, 0.75 * b):.2f} to lock the gain")):
+            k = f"{r['id']}:{key}"
+            if far and key == "tp": continue
+            if hit and not st.get(k): st[k] = datetime.date.today().isoformat(); say(msg)
+
+
+def main():
+    st = json.load(open(STATE)) if os.path.exists(STATE) else {}
+    msgs = api(f"/channels/{CH}/messages?limit=20" + (f"&after={st['last']}" if st.get("last") else ""))
+    rs = rows()
+    for m in sorted(msgs, key=lambda x: int(x["id"])):
+        st["last"] = m["id"]
+        if m["author"]["id"] != OWNER or m["author"].get("bot"): continue
+        v, c = parse(m.get("content", ""))
+        try:
+            reply = {"check": lambda: check(c), "bought": lambda: bought(c, rs), "sold": lambda: sold(c, rs),
+                     "trades": lambda: trades(rs)}.get(v, lambda: HELP)()
+        except Exception as e:
+            reply = f"Something broke on that one: {str(e)[:120]}"
+        say(reply)
+        try: api(f"/channels/{CH}/messages/{m['id']}/reactions/%E2%9C%85/@me", method="PUT")
+        except Exception: pass
+    if st.get("last") is None and msgs == []: st["last"] = "0"
+    try: watch(rs, st)
+    except Exception as e: print("watch failed", e)
+    json.dump(st, open(STATE, "w"))
+
+
+if __name__ == "__main__":
+    if os.environ.get("TMTEST"):
+        assert parse("bought AMZN 10/23 265C 3.18") == ("bought", dict(sym="AMZN", exp=f"{YEAR}-10-23", k=265.0, right="C", px=3.18, n=1))
+        assert parse("check dash 10/30 200c")[1]["sym"] == "DASH" and parse("check dash 10/30 200c")[0] == "check"
+        assert parse("sold AMZN 265C 4.90") == ("sold", dict(sym="AMZN", exp=None, k=265.0, right="C", px=4.9, n=1))
+        assert parse("bto PYPL 9/25 53C 1.66 x2")[1]["n"] == 2 and parse("how are my trades")[0] == "trades"
+        assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=4.77, sl=1.59, lock=6.36)
+        print("tm ok")
+    else:
+        main()
