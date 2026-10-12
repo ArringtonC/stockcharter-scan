@@ -1328,7 +1328,7 @@ def alert_key(d, open_):
                   if r.get("kind") == "call" and (r.get("dte") or 99) <= 21)
     steps = sorted(f"{r['symbol']}{int((r.get('pl_pct') or 0) // 10)}{'!' if (r.get('dte') or 99) <= 7 else ''}"
                    f"{'^' if (r.get('to_target') if r.get('to_target') is not None else 99) <= 5 else ''}"
-                   for r in open_ if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps"))
+                   for r in open_ if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps", "bot-tickets", "paper", "small", "big"))
     return json.dumps(dict(date=d["date"], fired=fired, soon=soon, steps=steps,
                            watch=sorted(w["sym"] + w["date"] for w in d.get("watch", [])),
                            levels=sorted(x["symbol"] + x["way"] for x in d.get("levels", [])),
@@ -1381,10 +1381,10 @@ def position_events(open_, closed, d):
     entering the last 5% before its target, or entering its last 7 days before expiry."""
     ev = []
     for r in closed:
-        if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps") and r.get("closed") == d["date"]:
+        if r.get("acct") in ("real", "paper-auto", "bot", "bot-leaps", "bot-tickets", "paper", "small", "big") and r.get("closed") == d["date"]:
             ev.append(("closed", r["id"]))
     for r in open_:
-        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps"): continue
+        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps", "bot-tickets", "paper", "small", "big"): continue
         if r.get("to_target") is not None and r["to_target"] <= 5: ev.append(("near", r["id"]))
         if r.get("expiry") and (datetime.date.fromisoformat(r["expiry"]) - datetime.date.fromisoformat(d["date"])).days <= 7:
             ev.append(("expiry", r["id"]))
@@ -1905,13 +1905,13 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
     # every real position, where it started and where it is
     U = []
     for r in open_:
-        if r["acct"] not in ("real", "paper-auto", "bot", "bot-leaps"): continue
+        if r["acct"] not in ("real", "paper-auto", "bot", "bot-leaps", "bot-tickets", "paper", "small", "big"): continue
         n = int(r.get("contracts") or 1)
         mult = 100 if r.get("kind") == "call" else 1
         a, b = float(r["entry"]) * mult * n, (r.get("now") or 0) * mult * n
         head = f"{r['symbol']} · {when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" \
                else f"{r['symbol']} · {n} SHARES"
-        bot = " · 🤖 PAPER" if r["acct"] in ("paper-auto", "bot", "bot-leaps") else " · 👤 ARRINGTON'S REAL ACCOUNT"
+        bot = " · 👤 ARRINGTON'S REAL ACCOUNT" if r["acct"] == "real" else " · 💡 PAPER IDEA" if r["acct"] in ("paper", "small", "big") else " · 🤖 PAPER"
         U += [f"<b>{'↑' if b >= a else '↓'} TRADE UPDATE</b>{bot}", head,
               f"{D(a)} → <b>{D(b)}</b>",
               f"{'+' if b >= a else '−'}{D(abs(b - a))} · {r['pl_pct']:+.0f}%"
@@ -1925,10 +1925,10 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
     done = []
     since = (datetime.date.fromisoformat(d["date"]) - datetime.timedelta(days=closed_days)).isoformat()
     for r in closed:
-        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps") or not (since <= (r.get("closed") or "") <= d["date"]): continue
+        if r.get("acct") not in ("real", "paper-auto", "bot", "bot-leaps", "bot-tickets", "paper", "small", "big") or not (since <= (r.get("closed") or "") <= d["date"]): continue
         n = int(r.get("contracts") or 1); mult = 100 if r.get("kind") == "call" else 1
         a = float(r["entry"]) * mult * n
-        done.append(dict(bot=r["acct"] in ("paper-auto", "bot", "bot-leaps"), sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
+        done.append(dict(bot=r["acct"] != "real", sym=r["symbol"], contract=f"{when(r['expiry'])} · ${float(r['strike']):g} CALL" if r.get("kind") == "call" else f"{n} SHARES",
                          cost=a, pl=float(r["exit"]) * mult * n - a, pct=float(r["pl_pct"] or 0), closed=r["closed"]))
     seen = {t["sym"] for t in done}
     done += [t for t in d.get("taken", []) if since <= (t.get("closed") or "") <= d["date"] and t["sym"] not in seen]
