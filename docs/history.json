@@ -829,7 +829,7 @@
  },
  {
   "date": "2026-10-12",
-  "vix": 15.220000267028809,
+  "vix": 15.1899995803833,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -843,13 +843,12 @@
    "CSCO",
    "U",
    "AMZN",
-   "SG",
    "OXY",
-   "PANW",
-   "DVN",
-   "AMGN",
+   "SG",
    "SNOW",
-   "MRNA"
+   "DVN",
+   "MRNA",
+   "DOCU"
   ],
   "C": [],
   "S": []
