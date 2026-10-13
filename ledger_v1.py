@@ -116,13 +116,16 @@ def market(now=None):
 
 
 # ---------- the chart plan (daily + 15 minute) ----------
-def make_plan(sym, daily, m15, earn):
-    """Pure. daily = scan_daily.bars rows (date, close, high, low, ...); m15 = yf rows. Trigger = the prior
-    day's high (calls) or low (puts); stop area 1 ATR(15m) back through it; targets 2 and 3 ATR on."""
+def make_plan(sym, daily, m15, earn, day=None):
+    """Pure. daily = scan_daily.bars rows (date, close, high, low, ...); m15 = yf rows. Only bars before
+    `day` (default today) count -- the plan is made before the open. Trigger = the prior day's high (calls)
+    or low (puts); stop area 1 ATR(15m) back through it; targets 2 and 3 ATR on."""
     from scan_daily import ema
+    day = day or dt.date.today().isoformat()
+    daily = [x for x in daily if x[0] < day]; m15 = [x for x in m15 if x[0].date().isoformat() < day]
     if len(daily) < 40 or len(m15) < 20: return dict(sym=sym, complete=False, missing=["bars"])
     c = [x[1] for x in daily]; e10, e30 = ema(c, 10)[-1], ema(c, 30)[-1]
-    bull = e10 > e30; prior = daily[-2] if daily[-1][0] == str(dt.date.today()) else daily[-1]
+    bull = e10 > e30; prior = daily[-1]
     a15 = atr(m15); trig = prior[2] if bull else prior[3]; sg = 1 if bull else -1
     p = dict(sym=sym, made=dt.datetime.now(CT).isoformat(timespec="minutes"), rule_version=RULE_VERSION,
              daily=dict(e10=round(e10, 2), e30=round(e30, 2), trend="UP" if bull else "DOWN",
@@ -215,6 +218,7 @@ def decide(req, mk, plan, src, opt, opt_codes, trig, equity, now, stale=False, a
     if stale: return "DATA STALE", ["DATA_STALE"], None
     want = "C" if plan["m15"]["direction"] == "CALLS" else "P"; codes = []
     if req.get("right") and req["right"] != want: codes.append("TREND_CONFLICT")     # the idea is turned to the chart's side
+    if not opt and opt_codes: return "NO TRADE", codes + [c for c in opt_codes if c.endswith("_FAIL")], None   # a hard contract rule fails
     against = (mk["state"] == "BEARISH" and want == "C") or (mk["state"] == "BULLISH" and want == "P")
     if mk["state"] == "CHOPPY" or against: return "WAIT", codes + ["MARKET_CONFLICT"], None
     if trig == "CHASE_EXCEEDED": return "MISSED", codes + ["CHASE_EXCEEDED"], None
@@ -291,6 +295,10 @@ def build_workspace(st, now=None):
             p = make_plan(s, S.bars(s), yf(s, "10d", "15m"), e.isoformat() if e else None)
         except Exception as ex: p = dict(sym=s, complete=False, missing=[f"data: {str(ex)[:60]}"])
         p["source"] = source_of(s, d, L)
+        try:
+            p["bars_d"] = [[x[0], round(x[4], 2), round(x[2], 2), round(x[3], 2), round(x[1], 2)] for x in S.bars(s)[-130:]]   # date o h l c
+            p["bars_15"] = [[int(x[0].timestamp() + x[0].utcoffset().total_seconds()), *[round(v, 2) for v in x[1:5]]] for x in yf(s, "5d", "15m")]
+        except Exception: pass
         if p.get("complete"):
             spot = S.bars(s)[-1][1]; dist[s] = abs(spot - p["m15"]["trigger"]) / (p["m15"]["atr"] or 1)
         plans[s] = p
@@ -329,6 +337,19 @@ def card(state, sym, p, mk, codes, risk=None, opt=None, label="PAPER"):
     return "\n".join(L)
 
 
+def recap(st, day):
+    """Pure. The closing recap: the market, each chart's final state, today's paper results. Plans that
+    finished or broke leave the workspace tomorrow morning; pinned charts stay."""
+    mk = (st.get("mk") or {}).get("last") or {}
+    L = [f"**CLOSING RECAP · {day}** · market {mk.get('state', '—')} · rules v{RULE_VERSION}"]
+    for s, p in st.get("plans", {}).items():
+        x = st.get("states", {}).get(s) or {}; pos = (st.get("pos") or {}).get(s)
+        L.append(f"{s}: {x.get('state', 'WAIT')}" + (f" · paper {pos['k']:g}{pos['right']} {pos['status']}"
+                 + (f" {'+' if pos.get('pl', 0) >= 0 else '−'}${abs(pos.get('pl', 0)):,.0f}" if pos.get("pl") is not None else "") if pos else "")
+                 + (" · pinned" if s in st.get("pins", []) else ""))
+    return "\n".join(L) + "\n_PAPER · tomorrow's seven charts are prepared at 7:00 CT_"
+
+
 def settled(hist, state, n=3):
     """Pure. A new market state counts only after 3 reads in a row (15 minutes)."""
     return len(hist) >= n and all(h["state"] == state for h in hist[-n:])
@@ -338,8 +359,12 @@ def tick(say, now=None):
     """One pass: market state, workspace, trigger states, paper positions. Sends only on change."""
     import scan_daily as S
     now = now or dt.datetime.now(CT)
-    if now.weekday() >= 5 or not (7, 0) <= (now.hour, now.minute) < (15, 5): return
+    if now.weekday() >= 5 or not (7, 0) <= (now.hour, now.minute) < (15, 10): return
     st = load_state(); day = now.date().isoformat()
+    if (now.hour, now.minute) >= (15, 0):
+        if st.get("recap") != day and st.get("day") == day:
+            st["recap"] = day; save_state(st); say(recap(st, day))
+        return
     if st.get("day") != day:
         build_workspace(st, now); st["sent"] = {}; st["mk"] = {}; save_state(st)
     # market: 8:15 provisional, 8:45 confirmed, then one message per change
@@ -542,6 +567,12 @@ HIST = [("BE 10/09 277.5C", 98, 0, "Setup F"), ("AAPL 10/16 335C", 401, 7, None)
         ("SPY 09/03 762P", 199, 3, None), ("SPY 09/03 763P", 205, 3, None), ("NVDA 08/28 220P", 85, 0, None),
         ("QQQ 09/09 720C", 845, 12, None), ("AAPL 08/31 315C", 247, 4, None), ("ANF 09/04 150C", 470, 8, None),
         ("AAPL 08/26 315C", 29, 0, None), ("SPY 08/26 761P", 203, 2, None)]
+# entry times (ET, the 5-minute bar the fill landed in) from the exit gauntlet, same order as HIST
+T_IN = ["10-09 09:45", "10-09 09:30", "10-08 09:45", "10-09 09:45", "10-08 13:45", "10-07 12:55", "10-06 09:30", "10-02 09:30",
+        "10-01 09:30", "09-30 09:30", "09-30 09:30", "09-30 09:30", "09-30 15:55", "09-28 10:10", "09-25 09:55", "09-25 09:30",
+        "09-23 09:35", "09-22 09:50", "09-18 09:50", "09-18 09:50", "09-14 10:50", "09-15 09:55", "09-10 11:55", "09-04 09:30",
+        "08-28 11:00", "09-02 10:05", "09-01 09:35", "08-31 10:10", "08-31 09:35", "08-28 12:05", "08-28 09:35", "08-27 11:00",
+        "08-27 09:40", "08-26 09:30", "08-24 09:30"]
 MISSING = "market score, VWAP side, prepared trigger, trigger-bar volume, chart stop, option spread"
 
 
@@ -556,13 +587,87 @@ def replay_one(contract, cost, dte, src):
     return ("PASS" if not codes else "FAIL"), codes
 
 
+def alpaca_bars(sym, tf, start, end):
+    """[(datetime CT, o, h, l, c, v)] from Alpaca's SIP history (free; no lookahead: ends where we say)."""
+    import urllib.request
+    out, tok = [], None
+    while True:
+        u = (f"https://data.alpaca.markets/v2/stocks/bars?symbols={sym}&timeframe={tf}&start={start}&end={end}"
+             f"&limit=10000&feed=sip&adjustment=split" + (f"&page_token={tok}" if tok else ""))
+        r = json.load(urllib.request.urlopen(urllib.request.Request(u, headers={"APCA-API-KEY-ID": os.environ["ALPACA_KEY"],
+                                                                                "APCA-API-SECRET-KEY": os.environ["ALPACA_SECRET"]}), timeout=30))
+        out += [(dt.datetime.fromisoformat(b["t"].replace("Z", "+00:00")).astimezone(CT), b["o"], b["h"], b["l"], b["c"], b["v"])
+                for b in r.get("bars", {}).get(sym, [])]
+        tok = r.get("next_page_token")
+        if not tok: return out
+
+
+def replay_full():
+    """Build Step 8: every one of the 35 trades rebuilt at its entry time from data that existed then.
+    Stock bars: Alpaca SIP. Futures and VIX: Yahoo 5-minute (60 days back). Option spread: no free
+    history -- labelled MISSING, never guessed. Raw bars are cached in ~/.ledger-v1/replay_cache.json."""
+    import scan_daily as S
+    from ticket_bot import next_earnings
+    cf = os.path.join(STORE, "replay_cache.json"); cache = json.load(open(cf)) if os.path.exists(cf) else {}
+    def cached(key, fn):
+        if key not in cache: cache[key] = [[b[0].isoformat(), *b[1:]] for b in fn()]
+        return [(dt.datetime.fromisoformat(b[0]), *b[1:]) for b in cache[key]]
+    fut = {k: cached(f"yf:{k}", lambda k=k: yf(k, "60d", "5m", True)) for k in ("ES=F", "NQ=F", "^VIX")}
+    rows = []
+    for i, (h, t_in) in enumerate(zip(HIST, T_IN)):
+        contract, cost, dte, src = h; sym = contract.split()[0]; right = contract.split()[2].split()[0][-1]
+        t = dt.datetime.fromisoformat(f"2026-{t_in[:5]}T{t_in[6:]}").replace(tzinfo=dt.timezone(dt.timedelta(hours=-4))).astimezone(CT)
+        day = t.date(); exp = (dt.date(2026, int(contract.split()[1][:2]), int(contract.split()[1][3:5])))
+        miss = ["option spread (no free quote history)"]
+        d5 = lambda s: cached(f"5m:{s}:{day}", lambda: alpaca_bars(s, "5Min", f"{day}T13:00:00Z", f"{day}T21:00:00Z"))
+        bs = [b for b in session(d5(sym), day) if b[0] + dt.timedelta(minutes=5) <= t + dt.timedelta(minutes=5)]
+        m15 = cached(f"15m:{sym}:{day}", lambda: alpaca_bars(sym, "15Min", f"{day - dt.timedelta(days=12)}T13:00:00Z", f"{day}T13:00:00Z"))
+        daily = [x for x in S.bars(sym) if x[0] < str(day)]
+        ek = f"earn:{sym}:{day}"
+        if ek not in cache: e = next_earnings(sym, day, (exp - day).days + 1); cache[ek] = e.isoformat() if e else None
+        m15 = [b for b in m15 if (8, 30) <= (b[0].hour, b[0].minute) < (15, 0)]          # regular session, as live
+        p = make_plan(sym, daily, m15, cache[ek], str(day)) if sym not in INDEXES else dict(complete=False)
+        # market at the entry minute
+        es, _ = futures_point([b for b in fut["ES=F"] if b[0] <= t], t); nq, _ = futures_point([b for b in fut["NQ=F"] if b[0] <= t], t)
+        conf = (t.hour, t.minute) >= (8, 45)
+        spy_b = [b for b in session(d5("SPY"), day) if b[0] < t]; qqq_b = [b for b in session(d5("QQQ"), day) if b[0] < t]
+        (spy, cs), (qqq, cq) = (index_point(spy_b), index_point(qqq_b)) if conf else ((0, 0), (0, 0))
+        rsp = [b for b in session(d5("RSP"), day) if b[0] < t]; rsp_prev = [x for x in S.bars("RSP") if x[0] < str(day)]
+        vx = [b for b in fut["^VIX"] if b[0] <= t]; vx_prev = [b for b in fut["^VIX"] if b[0].date() < day]
+        if not fut["ES=F"] or not [b for b in fut["ES=F"] if b[0].date() <= day - dt.timedelta(days=1)]: miss.append("futures")
+        br = (rsp[-1][4] - rsp_prev[-1][1]) if rsp and rsp_prev else 0
+        vr = bool(vx and vx_prev and vx[-1][4] > vx_prev[-1][4])
+        bv = 1 if br > 0 and not vr else -1 if br < 0 and vr else 0
+        mstate, score = score_state([es, nq, spy, qqq, bv], spy, qqq, (cs, cq), conf)
+        mk = dict(state=mstate, score=score)
+        trig, info = trigger_state(bs, p, t) if p.get("complete") and bs else ("TRIGGER_WAITING", {})
+        if not bs: miss.append("stock bars")
+        buy = cost / 100 / (2 if "x2" in contract else 1)
+        o = dict(exp=exp.isoformat(), k=0, right=right, bid=buy, ask=buy)      # spread unknown: not judged here
+        oc = [c for c in contract_codes(o, cache[ek], day, S.PLAN["balance"]) if c != "SPREAD_FAIL"]
+        state, codes, risk = decide(dict(sym=sym, right=right), mk, p, dict(type=src) if src else None,
+                                    None if oc else o, oc, trig, S.PLAN["balance"], t)
+        hard, _ = replay_one(*h)
+        rows.append(dict(n=i + 1, contract=contract, entry=t.strftime("%m-%d %H:%M CT"), market=f"{mstate} {score:+d}",
+                         trend=(p.get("daily") or {}).get("trend", "—"), trigger=(p.get("m15") or {}).get("trigger"),
+                         stop=(p.get("m15") or {}).get("stop"), trig=trig, state=state, codes=codes, hard=hard, missing=miss))
+    json.dump(cache, open(cf, "w"))
+    return rows
+
+
 def replay():
-    L = [f"# Version 1 replay of the 35 trades · rules v{RULE_VERSION}", "", "| # | Contract | Cost | DTE | Source | V1 | Codes |", "|---|---|---|---|---|---|---|"]
-    for i, (c, cost, dte, src) in enumerate(HIST, 1):
-        v, codes = replay_one(c, cost, dte, src)
-        L.append(f"| {i} | {c} | ${cost} | {dte} | {src or 'none'} | {v} | {', '.join(codes) or 'needs full trigger replay'} |")
-    n = sum(replay_one(*h)[0] == "PASS" for h in HIST)
-    L += ["", f"**{n} PASS, {len(HIST) - n} FAIL.** Missing for every trade (not filled with hindsight): {MISSING}."]
+    R = replay_full()
+    L = [f"# Version 1 replay of the 35 trades · rules v{RULE_VERSION}", "",
+         "Each trade rebuilt at its entry time from data that existed then (Build Step 8). Hard = the recorded-field verdict "
+         "(Part C). V1 state = what the full engine would have said at that minute.", "",
+         "| # | Contract | Entry | Market | Trend | Trigger | Stop | Hard | V1 state | Codes | Missing |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+    f = lambda x: f"${x:,.2f}" if x else "—"
+    for r in R:
+        L.append(f"| {r['n']} | {r['contract']} | {r['entry']} | {r['market']} | {r['trend']} | {f(r['trigger'])} | {f(r['stop'])} | "
+                 f"{r['hard']} | {r['state']} | {', '.join(r['codes'])} | {'; '.join(r['missing'])} |")
+    n = sum(r["hard"] == "PASS" for r in R); now_ = [r["contract"] for r in R if r["state"] == "NOW"]
+    L += ["", f"**Hard rules: {n} PASS, {len(R) - n} FAIL. Full engine at the entry minute: {len(now_)} NOW"
+          + (f" ({', '.join(now_)})" if now_ else "") + ".** The option spread has no free history and stays MISSING for every trade."]
     return "\n".join(L)
 
 
@@ -601,6 +706,7 @@ if __name__ == "__main__":
         assert decide(dict(sym="X"), mk, dict(p, complete=False), src, o, [], "TRIGGER_CONFIRMED", 12000, now)[0] == "PREP NEEDED"
         assert decide(dict(sym="X"), mk, p, src, o, [], "TRIGGER_CONFIRMED", 12000, now, stale=True)[0] == "DATA STALE"   # stale never NOW
         assert decide(dict(sym="X"), mk, p, src, None, ["COST_FAIL"], "TRIGGER_CONFIRMED", 12000, now)[:2] == ("NO TRADE", ["COST_FAIL"])
+        assert decide(dict(sym="X"), dict(state="BEARISH"), p, src, None, ["DTE_FAIL"], "TRIGGER_WAITING", 12000, now)[:2] == ("NO TRADE", ["DTE_FAIL"])
         assert decide(dict(sym="X"), dict(state="CHOPPY"), p, src, o, [], "TRIGGER_CONFIRMED", 12000, now)[1] == ["MARKET_CONFLICT"]
         assert decide(dict(sym="X"), dict(state="BEARISH"), p, src, o, [], "TRIGGER_CONFIRMED", 12000, now)[0] == "WAIT"
         assert decide(dict(sym="X"), mk, p, src, o, [], "TRIGGER_WAITING", 12000, now)[:2] == ("WAIT", ["TRIGGER_WAITING"])
@@ -638,6 +744,7 @@ if __name__ == "__main__":
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
         assert sent == [] and not stt["pos"]
         h = [dict(state="MIXED")] * 3 + [dict(state="BEARISH")] * 2
+        assert recap(dict(plans={"X": {}}, states={"X": dict(state="MISSED")}, mk={}), "2026-10-13").splitlines()[1] == "X: MISSED"
         assert not settled(h, "BEARISH") and settled(h + [dict(state="BEARISH")], "BEARISH")
         # replay: one PASS (NOW 10/16 140C), matching the locked plan's Part C
         assert [h[0] for h in HIST if replay_one(*h)[0] == "PASS"] == ["NOW 10/16 140C"]

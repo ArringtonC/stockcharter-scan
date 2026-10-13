@@ -15,8 +15,15 @@ h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
 .mk b{font:600 var(--t-h2) var(--mono)}
 .sub{color:var(--dim);font-size:var(--t-data)}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
-.card{border:1px solid var(--line);background:var(--panel);padding:14px 16px;text-decoration:none;color:var(--ink);display:block}
-.card:hover,.card:focus-visible{border-color:var(--amber);outline:none}
+.card{border:1px solid var(--line);background:var(--panel);padding:14px 16px;color:var(--ink)}
+.card[open]{grid-column:1/-1}
+.card summary{cursor:pointer;list-style:none}
+.card summary::-webkit-details-marker{display:none}
+.card summary:focus-visible{outline:1px solid var(--amber)}
+.card:hover{border-color:var(--amber)}
+.tap{color:var(--dim);font-size:var(--t-label);margin-top:6px}
+.ch{height:260px;margin-top:12px}
+.chl{font:500 var(--t-label) var(--mono);color:var(--dim);margin-top:12px;letter-spacing:var(--tr);text-transform:uppercase}
 .st{font:600 var(--t-data) var(--mono);letter-spacing:var(--tr)}
 .NOW{color:var(--up)}.OUT,.MISSED,.NO{color:var(--dn)}.WAIT,.HOLD{color:var(--amber)}
 .row{display:flex;justify-content:space-between;gap:8px;font-size:var(--t-data);border-top:1px solid var(--line);padding:5px 0}
@@ -31,8 +38,9 @@ h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
 <p class="sub" id="meta">Loading…</p>
 <div class="mk" id="mk"></div>
 <div class="grid" id="grid"></div>
-<p class="sub">Version 1 rules (locked). The market score is context; a chart still needs its own source, level and a 5-minute confirmation. Paper only. Tap a card for the full chart.</p>
+<p class="sub">Version 1 rules (locked). The market score is context; a chart still needs its own source, level and a 5-minute confirmation. Paper only. Tap a card for its daily and 15-minute charts.</p>
 </div>
+<script src="vendor/lightweight-charts.standalone.production.js"></script>
 <script>
 const $=s=>document.querySelector(s), f=x=>x==null?'—':'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 fetch('v1.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
@@ -44,7 +52,7 @@ fetch('v1.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
     const st=(s&&s.state)||'WAIT', cls=st.split(' ')[0];
     if(!p.complete) return `<div class="card"><div class="st NO">PREP NEEDED · ${p.sym}</div><p class="prep">Missing: ${(p.missing||[]).join(', ')}</p></div>`;
     const m=p.m15, up=m.direction==='CALLS';
-    return `<a class="card" href="index.html#charts"><div class="st ${cls}">${st} · ${p.sym} ${up?'BULLISH':'BEARISH'}</div>
+    return `<details class="card" data-sym="${p.sym}"><summary><div class="st ${cls}">${st} · ${p.sym} ${up?'BULLISH':'BEARISH'}</div>
       <div class="row"><span>Plan</span><span>${m.direction} ${up?'above':'below'} ${f(m.trigger)}</span></div>
       <div class="row"><span>Stop area</span><span>${up?'Lose':'Reclaim'} ${f(m.stop)}</span></div>
       <div class="row"><span>Targets</span><span>${f(m.targets[0])} then ${f(m.targets[1])}</span></div>
@@ -52,8 +60,28 @@ fetch('v1.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
       <div class="row"><span>Daily</span><span>${p.daily.thesis} · fails ${f(p.daily.failure)}</span></div>
       <div class="row"><span>Source</span><span>${(p.source||{}).type||'none'}${(d.pins||[]).includes(p.sym)?' · pinned':''}</span></div>
       ${p.daily.earnings?`<div class="row"><span>Earnings</span><span>${p.daily.earnings}</span></div>`:''}
-      <div class="row"><span>Reason</span><span>${((s&&s.codes)||[]).join(', ')||'waiting for the trigger'}</span></div></a>`;
+      <div class="row"><span>Reason</span><span>${((s&&s.codes)||[]).join(', ')||'waiting for the trigger'}</span></div>
+      <div class="tap">Tap for charts ▾</div></summary>
+      <div class="chl">Daily · 6 months</div><div class="ch" data-k="d"></div>
+      <div class="chl">15 minute · 5 days</div><div class="ch" data-k="15"></div></details>`;
   }).join('')||'<p class="sub">No charts qualify today.</p>';
+  const plans=Object.fromEntries(d.charts.map(c=>[c.plan.sym,c.plan]));
+  document.querySelectorAll('details.card').forEach(el=>el.addEventListener('toggle',()=>{
+    if(!el.open||el.dataset.done)return; el.dataset.done=1; const p=plans[el.dataset.sym], m=p.m15;
+    const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim();
+    el.querySelectorAll('.ch').forEach(box=>{
+      const LC=LightweightCharts, ch=LC.createChart(box,{autoSize:true,layout:{background:{color:'transparent'},textColor:v('--ink2')},
+        grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},timeScale:{timeVisible:box.dataset.k==='15'}});
+      const se=ch.addSeries(LC.CandlestickSeries,{upColor:v('--up'),downColor:v('--dn'),wickUpColor:v('--up'),wickDownColor:v('--dn'),borderVisible:false});
+      const rows=box.dataset.k==='d'?(p.bars_d||[]):(p.bars_15||[]);
+      se.setData(rows.map(r=>({time:r[0],open:r[1],high:r[2],low:r[3],close:r[4]})));
+      const line=(price,title,color,style)=>price&&se.createPriceLine({price,title,color,lineWidth:1,lineStyle:style,axisLabelVisible:true});
+      line(m.trigger,'TRIGGER',v('--ink'),2); line(m.stop,'STOP',v('--dn'),1);
+      line(m.targets[0],'T1',v('--up'),1); line(m.targets[1],'T2',v('--up'),2);
+      if(box.dataset.k==='d')line(p.daily.failure,'30 EMA',v('--amber'),2);
+      ch.timeScale().fitContent();
+    });
+  }));
 }).catch(()=>{$('#meta').textContent='Could not load v1.json.'});
 </script>
 </body>

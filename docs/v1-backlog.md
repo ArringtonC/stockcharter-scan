@@ -13,9 +13,11 @@ Ideas wait here until Version 1 closes after the 30-session paper test.
   A real advance/decline line needs a paid feed.
 - **Trigger level.** The prepared trigger is the prior day's high (calls) or low (puts). Stop area is
   1 ATR(15m) back through it; targets are 2 and 3 ATR on. An opening-range trigger is a 1.1 idea.
-- **Full 35-trade reconstruction.** The replay gives each trade its hard-rule verdict and labels the missing
-  fields (market score, VWAP, trigger, volume, chart stop, spread). Rebuilding those from history for the
-  one PASS (NOW 10/16 140C) is open.
+- **Option spread history.** The 35-trade replay (docs/v1-replay.md) rebuilds the market score, trend,
+  trigger, stop and trigger state at each entry minute. The option spread has no free history, so it stays
+  MISSING for every trade.
+- **MIXED market.** The plan says only "the cleanest aligned setup" may advance on a MIXED day. Version 1
+  treats MIXED as no block; trend, VWAP and volume must still line up for NOW.
 - **Ticket book.** `ticket_bot.py` (paper, 14–35 day calls) still follows the old gate. It is a separate
   paper book, not the Version 1 test.
 
