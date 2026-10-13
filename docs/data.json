@@ -1,15 +1,15 @@
 {
  "date": "2026-10-13",
- "stamp": "2026-10-13 02:38 UTC",
+ "stamp": "2026-10-13 12:05 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 15.210000038146973,
+ "vix": 15.420000076293945,
  "vix5": [
-  15.010000228881836,
   15.079999923706055,
   15.40999984741211,
   14.84000015258789,
-  15.210000038146973
+  15.210000038146973,
+  15.420000076293945
  ],
  "vix_hi10": 16.389999389648438,
  "qqq": 746.0399780273438,
@@ -1411,79 +1411,79 @@
   "USO": 1.9095816464237636,
   "USO_px": 151.03,
   "USO_chg": 2.8300000000000125,
-  "NQ=F": -0.8115346338384843,
-  "NQ=F_px": 30647.5,
-  "NQ=F_chg": -250.75,
-  "CL=F": -1.2267975250693341,
-  "CL=F_px": 92.59,
-  "CL=F_chg": -1.1499999999999915,
+  "NQ=F": -0.7492333708219667,
+  "NQ=F_px": 30666.75,
+  "NQ=F_chg": -231.5,
+  "CL=F": -1.2161297205035226,
+  "CL=F_px": 92.6,
+  "CL=F_chg": -1.1400000000000006,
   "^TNX": -0.07627765064834868,
   "^TNX_px": 5.24,
   "^TNX_chg": -0.0039999999999995595,
-  "^VIX": 2.4932614555256194,
-  "^VIX_px": 15.21,
-  "^VIX_chg": 0.370000000000001,
+  "^VIX": 3.908355795148255,
+  "^VIX_px": 15.42,
+  "^VIX_chg": 0.5800000000000001,
   "exp_by": "Fri",
   "QQQ_exp": 10.565,
   "SPY_exp": 7.15,
   "fut": [
    [
     "S&P",
-    7840.0,
-    -0.21636757031946452,
+    7850.0,
+    -0.08909252895507036,
     true
    ],
    [
     "Nasdaq",
-    30649.0,
-    -0.7400210509270533,
+    30666.5,
+    -0.6833454780989401,
     true
    ],
    [
     "Dow",
-    52180.0,
-    0.09783421895681599,
+    52454.0,
+    0.6234533560973698,
     true
    ],
    [
     "Russell",
-    2811.699951171875,
-    -0.021338322576924806,
+    2817.300048828125,
+    0.17779041756527114,
     true
    ],
    [
     "Oil",
-    92.56999969482422,
-    -0.6333232547146461,
+    92.5999984741211,
+    -0.6011219042234228,
     true
    ],
    [
     "Gold",
-    4193.2001953125,
-    -0.06434154994360286,
+    4207.7998046875,
+    0.2836078700805711,
     true
    ]
   ],
   "QQQ_pre": [
    746.04,
-   743.86
+   740.745
   ],
   "SPY_pre": [
    778.1,
-   777.31
+   777.54
   ],
   "USO_pre": [
    151.03,
-   150.8099
+   149.44
   ],
   "^VIX_pre": [
    14.84,
-   15.210000038146973
+   15.420000076293945
   ],
   "heads": [
-   "Global economy to slow less than expected in 2026 as AI boom offsets war hit: IMF ",
-   "Trump defends Russia diesel deal after bipartisan pushback: 'I made the right choice'",
-   "SK Hynix, SoftBank shares plunge as tech stocks in Asia track Wall Street chip sell-off"
+   "Iran reportedly fortifies nuclear sites as it prepares for possible U.S. strikes after midterms",
+   "Anthropic warns AI models could soon copy themselves across home devices",
+   "The stock market is at a critical juncture. Wall Street is convinced it will resolve in the bulls' favor"
   ],
   "tnx_since": "2007",
   "movers": []
@@ -1498,7 +1498,12 @@
    "invested": true,
    "pending": 0
   },
-  "curve_err": "The read operation timed out",
+  "curve": {
+   "value": 0.99,
+   "date": "2026-10-09",
+   "inverted": false,
+   "inverted_days_1y": 1
+  },
   "household": {
    "score": 26,
    "prev": 25,
@@ -1572,7 +1577,7 @@
   "qqq": 746.0399780273438,
   "qqq_hi": 759.6599731445312,
   "qqq_off": -1.8,
-  "vix": 15.210000038146973,
+  "vix": 15.420000076293945,
   "vix_buy": false,
   "cpi_series": [
    [
@@ -3442,7 +3447,7 @@
    },
    {
     "date": "2026-10-13",
-    "vix": 15.210000038146973,
+    "vix": 15.420000076293945,
     "regime": "CALM",
     "vix_fires": false,
     "F": [
@@ -3644,19 +3649,12 @@
    }
   ],
   "by_setup": {
-   "Setup F": {
+   "D": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 1,
-    "open_mean": -5.662068965517242
-   },
-   "none": {
-    "wins": 2,
-    "losses": 3,
-    "closed_mean": -12.66,
-    "open_n": 4,
-    "open_mean": 25.014587635328773
+    "open_n": 2,
+    "open_mean": -1.469961751570498
    },
    "E": {
     "wins": 0,
@@ -3665,12 +3663,12 @@
     "open_n": 6,
     "open_mean": 1.0715565875755555
    },
-   "D": {
+   "Setup F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -1.469961751570498
+    "open_n": 1,
+    "open_mean": -5.662068965517242
    },
    "C": {
     "wins": 0,
@@ -3678,6 +3676,13 @@
     "closed_mean": -82.55000000000001,
     "open_n": 1,
     "open_mean": -4.979031064018491
+   },
+   "none": {
+    "wins": 2,
+    "losses": 3,
+    "closed_mean": -12.66,
+    "open_n": 4,
+    "open_mean": 25.014587635328773
    },
    "F": {
     "wins": 1,
@@ -149881,7 +149886,7 @@
     5111150000,
     6082070000,
     4782640000,
-    2291949000
+    4148500000
    ],
    "e10": [
     5859.85,
