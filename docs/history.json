@@ -858,7 +858,7 @@
  },
  {
   "date": "2026-10-13",
-  "vix": 15.329999923706055,
+  "vix": 15.3100004196167,
   "regime": "CALM",
   "vix_fires": false,
   "F": [
@@ -873,13 +873,12 @@
    "U",
    "OXY",
    "AMZN",
-   "LLY",
+   "PANW",
    "MRNA",
    "SNOW",
    "AMGN",
-   "DVN",
-   "PANW",
-   "SG"
+   "SG",
+   "DVN"
   ],
   "C": [],
   "S": []
