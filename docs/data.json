@@ -1,19 +1,19 @@
 {
  "date": "2026-10-13",
- "stamp": "2026-10-13 15:09 UTC",
+ "stamp": "2026-10-13 16:41 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 15.3100004196167,
+ "vix": 15.4399995803833,
  "vix5": [
   15.079999923706055,
   15.40999984741211,
   14.84000015258789,
   15.210000038146973,
-  15.3100004196167
+  15.4399995803833
  ],
  "vix_hi10": 16.389999389648438,
- "qqq": 741.4099731445312,
- "qdd": -2.4023906280669305,
+ "qqq": 743.3900146484375,
+ "qdd": -2.141742236167321,
  "regime": "CALM",
  "advice": "Setup F edge is negative here. Run nothing new.",
  "peaked": false,
@@ -22,114 +22,121 @@
  "F": [
   {
    "sym": "ZS",
-   "px": 230.64999389648438,
-   "dd": 31.55583234502949,
+   "px": 231.4250030517578,
+   "dd": 31.325852470928652,
    "tgt": 336.989990234375,
-   "up": 46.104486950741475,
+   "up": 45.61520397128731,
    "rev": 33.062821386925954
   },
   {
-   "sym": "BE",
-   "px": 254.97000122070312,
-   "dd": 27.416874827280914,
-   "tgt": 351.2799987792969,
-   "up": 37.773070203355964,
-   "rev": 53.43903353378423
-  },
-  {
    "sym": "NOW",
-   "px": 142.02000427246094,
-   "dd": 26.40154133013659,
+   "px": 141.81640625,
+   "dd": 26.507051118832347,
    "tgt": 192.96600341796875,
-   "up": 35.8724106554521,
+   "up": 36.06747521002616,
    "rev": 29.36572199730094
   },
   {
+   "sym": "BE",
+   "px": 261.6600036621094,
+   "dd": 25.512410449959656,
+   "tgt": 351.2799987792969,
+   "up": 34.250551808795706,
+   "rev": 53.43903353378423
+  },
+  {
    "sym": "MU",
-   "px": 937.8599853515625,
-   "dd": 25.270120689118524,
+   "px": 943.3350219726562,
+   "dd": 24.83386279102341,
    "tgt": 1255.0,
-   "up": 33.81528368859406,
+   "up": 33.038631108554114,
    "rev": 200.23471782834986
   }
  ],
  "D": [
   {
+   "sym": "TXN",
+   "px": 286.2950134277344,
+   "dd": 14.29062824477102,
+   "rsi": 57.574026816789164,
+   "up": 16.673355494405627
+  },
+  {
    "sym": "GOOGL",
-   "px": 355.5799865722656,
-   "dd": 12.978145586351886,
-   "rsi": 59.66236273250022,
-   "up": 14.913662405608829
+   "px": 354.8800048828125,
+   "dd": 13.149453609784267,
+   "rsi": 59.09736839316002,
+   "up": 15.140323413400703
+  },
+  {
+   "sym": "CSCO",
+   "px": 114.9800033569336,
+   "dd": 11.804857203852837,
+   "rsi": 56.26731637346723,
+   "up": 13.384928953670826
   },
   {
    "sym": "CRM",
-   "px": 238.91000366210938,
-   "dd": 11.222170611766845,
-   "rsi": 56.27753373900683,
-   "up": 12.640735518201641
+   "px": 238.80499267578125,
+   "dd": 11.261192198495017,
+   "rsi": 56.200274112186285,
+   "up": 12.690267626408236
   },
   {
    "sym": "U",
-   "px": 46.66999816894531,
-   "dd": 10.508155698162724,
-   "rsi": 64.1044472440427,
-   "up": 11.742026080858171
-  },
-  {
-   "sym": "OXY",
-   "px": 61.09000015258789,
-   "dd": 9.429202495790545,
-   "rsi": 61.01825863900054,
-   "up": 10.410863938072644
+   "px": 46.779998779296875,
+   "dd": 10.297224524369808,
+   "rsi": 64.46669330529579,
+   "up": 11.479270813830379
   },
   {
    "sym": "AMZN",
-   "px": 260.3500061035156,
-   "dd": 9.348887521690108,
-   "rsi": 56.357991769511145,
-   "up": 10.313042240851722
+   "px": 260.2349853515625,
+   "dd": 9.388936528328106,
+   "rsi": 56.25008649199572,
+   "up": 10.36179928653349
   },
   {
-   "sym": "PANW",
-   "px": 400.3550109863281,
-   "dd": 7.395965253174208,
-   "rsi": 55.13746342458266,
-   "up": 7.986655520350028
-  },
-  {
-   "sym": "MRNA",
-   "px": 210.9700927734375,
-   "dd": 7.249588258903527,
-   "rsi": 64.09220084311175,
-   "up": 7.816232966318282
+   "sym": "OXY",
+   "px": 61.150001525878906,
+   "dd": 9.340245674432857,
+   "rsi": 61.31119572047005,
+   "up": 10.30252700761929
   },
   {
    "sym": "SNOW",
-   "px": 357.6499938964844,
-   "dd": 6.997608652212772,
-   "rsi": 61.06965172105437,
-   "up": 7.524116907967304
+   "px": 356.42999267578125,
+   "dd": 7.314854655033754,
+   "rsi": 60.2835093846734,
+   "up": 7.892154268959173
   },
   {
-   "sym": "AMGN",
-   "px": 416.67999267578125,
-   "dd": 6.789254901548503,
-   "rsi": 55.60710549145209,
-   "up": 7.283768512286359
+   "sym": "PANW",
+   "px": 401.6400146484375,
+   "dd": 7.0987377413151425,
+   "rsi": 55.65551376670052,
+   "up": 7.641163929020278
   },
   {
    "sym": "SG",
-   "px": 9.944999694824219,
-   "dd": 6.444030218646213,
-   "rsi": 80.9573018976652,
-   "up": 6.887887789209302
+   "px": 9.925000190734863,
+   "dd": 6.632172305890272,
+   "rsi": 80.81479429509756,
+   "up": 7.103273653981224
+  },
+  {
+   "sym": "MRNA",
+   "px": 214.30999755859375,
+   "dd": 5.781240115681285,
+   "rsi": 65.78362925095885,
+   "up": 6.135975598468346
   },
   {
    "sym": "DVN",
-   "px": 49.77000045776367,
-   "dd": 5.57768673453658,
-   "rsi": 59.77200051483749,
-   "up": 5.907170182174215
+   "px": 49.709999084472656,
+   "dd": 5.691519734599549,
+   "rsi": 59.519192128726985,
+   "up": 6.035003128650374
   }
  ],
  "C": [],
@@ -137,127 +144,137 @@
  "blocked": [
   {
    "sym": "NFLX",
-   "px": 71.33000183105469,
-   "dd": 42.87201547142949,
-   "up": 75.0455592389901,
+   "px": 70.75,
+   "dd": 43.33653719833921,
+   "up": 76.48056623371247,
    "why": "trend broken",
    "forming": false,
    "tgt": 124.86000061035156,
-   "gap": 2.8571760790560785
+   "gap": 2.9526279051997086
   },
   {
    "sym": "ADBE",
-   "px": 236.88499450683594,
-   "dd": 34.868026792368546,
-   "up": 53.534424147130075,
+   "px": 235.73500061035156,
+   "dd": 35.18421976951635,
+   "up": 54.283416236604666,
    "why": "trend broken",
    "forming": false,
    "tgt": 363.70001220703125,
-   "gap": 2.7255522766857183
+   "gap": 2.7813176648910165
   },
   {
    "sym": "F",
-   "px": 12.045000076293945,
-   "dd": 32.255345269244565,
-   "up": 47.61312224180683,
+   "px": 12.114999771118164,
+   "dd": 31.86164621344646,
+   "up": 46.76022305037557,
    "why": "trend broken",
    "forming": false,
    "tgt": 17.780000686645508,
-   "gap": 4.608213818233686
+   "gap": 4.5425383905392405
   },
   {
    "sym": "QCOM",
-   "px": 176.1750030517578,
-   "dd": 32.21953141336699,
-   "up": 47.535126394391725,
+   "px": 178.40499877929688,
+   "dd": 31.361576807205395,
+   "up": 45.690992520494866,
    "why": "trend broken",
    "forming": false,
    "tgt": 259.9200134277344,
-   "gap": 0.4068551790253479
+   "gap": 0.26115954408010156
   },
   {
    "sym": "IBM",
-   "px": 232.11000061035156,
-   "dd": 30.18408031761194,
-   "up": 43.23380749681114,
+   "px": 231.85000610351562,
+   "dd": 30.26228356417343,
+   "up": 43.39442859735896,
    "why": "trend broken",
    "forming": false,
    "tgt": 332.4599914550781,
-   "gap": 1.1812946049862016
-  },
-  {
-   "sym": "INTC",
-   "px": 100.06999969482422,
-   "dd": 29.70144334096183,
-   "up": 42.25043123576447,
-   "why": "revenue +9%"
+   "gap": 1.1946928360088003
   },
   {
    "sym": "PYPL",
-   "px": 56.005001068115234,
-   "dd": 29.300001695100043,
-   "up": 41.44271909136577,
+   "px": 56.130001068115234,
+   "dd": 29.14220329103674,
+   "up": 41.127729967012016,
    "why": "revenue +6%"
   },
   {
    "sym": "AVGO",
-   "px": 353.92999267578125,
-   "dd": 28.498991378630045,
-   "up": 39.85816693795894,
+   "px": 356.2300109863281,
+   "dd": 28.034341214883206,
+   "up": 38.95516512756636,
    "why": "trend broken",
    "forming": false,
    "tgt": 495.0,
-   "gap": 0.5968516589619853
+   "gap": 0.5219313971992569
+  },
+  {
+   "sym": "INTC",
+   "px": 102.55500030517578,
+   "dd": 27.955745761894303,
+   "up": 38.80357435514674,
+   "why": "revenue +9%"
   },
   {
    "sym": "HOOD",
-   "px": 110.44000244140625,
-   "dd": 26.60330860274437,
-   "up": 36.245923482783994,
+   "px": 111.23999786376953,
+   "dd": 26.07164420726804,
+   "up": 35.26609502903511,
    "why": "trend broken",
    "forming": false,
    "tgt": 150.47000122070312,
-   "gap": 0.3214620264738402
-  },
-  {
-   "sym": "TSLA",
-   "px": 375.6449890136719,
-   "dd": 24.694785974088173,
-   "up": 32.79292980375956,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 498.8299865722656,
-   "gap": -1.8516960042099553
+   "gap": 0.23717967045157967
   },
   {
    "sym": "HAL",
-   "px": 32.869998931884766,
-   "dd": 24.592799227294083,
-   "up": 32.6133299940708,
+   "px": 32.64500045776367,
+   "dd": 25.108969159236004,
+   "up": 33.527338156986495,
    "why": "trend broken",
    "forming": false,
    "tgt": 43.59000015258789,
-   "gap": 2.245689726203804
+   "gap": 2.325903451409455
+  },
+  {
+   "sym": "TSLA",
+   "px": 375.9599914550781,
+   "dd": 24.631637717189903,
+   "up": 32.68166770662051,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 498.8299865722656,
+   "gap": -1.8616422261048708
   },
   {
    "sym": "WDAY",
-   "px": 187.9600067138672,
-   "dd": 24.02586444989474,
-   "up": 31.62374178518896,
+   "px": 186.77000427246094,
+   "dd": 24.506867873809192,
+   "up": 32.46238059489259,
    "why": "trend broken",
    "forming": false,
    "tgt": 247.39999389648438,
-   "gap": 0.021174801289834868
+   "gap": 0.09553772510434343
   },
   {
    "sym": "SPOT",
-   "px": 534.7150268554688,
-   "dd": 23.625231305389715,
-   "up": 30.933293428169726,
+   "px": 534.9299926757812,
+   "dd": 23.59452716584054,
+   "up": 30.88067685550906,
    "why": "trend broken",
    "forming": false,
    "tgt": 700.1199951171875,
-   "gap": -0.25974783711780774
+   "gap": -0.2646430250506825
+  },
+  {
+   "sym": "SLB",
+   "px": 48.30500030517578,
+   "dd": 20.10419941011631,
+   "up": 25.163023915754934,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 60.459999084472656,
+   "gap": 3.473035885414332
   }
  ],
  "errors": [],
@@ -265,10 +282,10 @@
   {
    "sym": "XLK",
    "name": "Technology",
-   "px": 194.9499969482422,
-   "gap": 11.23629423108563,
+   "px": 196.0,
+   "gap": 11.253555175163843,
    "up": true,
-   "rel": 3.695158058044612,
+   "rel": 4.146665549125927,
    "rank": 1,
    "d_week": 0,
    "d_month": 5,
@@ -352,10 +369,10 @@
   {
    "sym": "XLE",
    "name": "Energy",
-   "px": 66.82499694824219,
-   "gap": 9.265489151106522,
+   "px": 66.76000213623047,
+   "gap": 9.26227551477703,
    "up": true,
-   "rel": 1.4615395800503084,
+   "rel": 1.2425399960393158,
    "rank": 2,
    "d_week": 1,
    "d_month": -1,
@@ -434,10 +451,10 @@
   {
    "sym": "XLV",
    "name": "Health Care",
-   "px": 170.09500122070312,
-   "gap": 5.748733697979924,
+   "px": 169.8699951171875,
+   "gap": 5.7446620966155715,
    "up": true,
-   "rel": -0.6970287158110544,
+   "rel": -0.9494397995382986,
    "rank": 3,
    "d_week": 2,
    "d_month": 0,
@@ -519,10 +536,10 @@
   {
    "sym": "XLP",
    "name": "Staples",
-   "px": 84.31500244140625,
-   "gap": 0.12390056532178839,
+   "px": 84.25499725341797,
+   "gap": 0.12179443349407126,
    "up": true,
-   "rel": -2.2193160565430525,
+   "rel": -2.4086746872884035,
    "rank": 4,
    "d_week": 3,
    "d_month": 1,
@@ -594,17 +611,94 @@
    "churn": "3 of 9"
   },
   {
-   "sym": "XLY",
-   "name": "Consumer Disc",
-   "px": 112.3949966430664,
-   "gap": -1.5864974182754676,
+   "sym": "XLU",
+   "name": "Utilities",
+   "px": 41.689998626708984,
+   "gap": -3.625383089488343,
    "up": false,
-   "rel": -2.498134708680022,
+   "rel": -2.524080889786706,
    "rank": 5,
-   "d_week": 1,
-   "d_month": 4,
+   "d_week": 3,
+   "d_month": 5,
    "track": [
     5,
+    8,
+    10,
+    8,
+    10,
+    5,
+    11,
+    11,
+    11,
+    11
+   ],
+   "hold": [
+    {
+     "sym": "NEE",
+     "name": "NextEra Energy Inc",
+     "pct": 12.71
+    },
+    {
+     "sym": "SO",
+     "name": "Southern Co",
+     "pct": 7.67
+    },
+    {
+     "sym": "DUK",
+     "name": "Duke Energy Corp",
+     "pct": 7.15
+    },
+    {
+     "sym": "CEG",
+     "name": "Constellation Energy Corp",
+     "pct": 6.74
+    },
+    {
+     "sym": "AEP",
+     "name": "American Electric Power Co Inc",
+     "pct": 5.2
+    },
+    {
+     "sym": "D",
+     "name": "Dominion Energy Inc",
+     "pct": 4.28
+    },
+    {
+     "sym": "SRE",
+     "name": "Sempra",
+     "pct": 4.1
+    },
+    {
+     "sym": "ETR",
+     "name": "Entergy Corp",
+     "pct": 3.73
+    },
+    {
+     "sym": "XEL",
+     "name": "Xcel Energy Inc",
+     "pct": 3.54
+    },
+    {
+     "sym": "VST",
+     "name": "Vistra Corp",
+     "pct": 3.51
+    }
+   ],
+   "ours": [],
+   "churn": "3 of 9"
+  },
+  {
+   "sym": "XLY",
+   "name": "Consumer Disc",
+   "px": 112.27999877929688,
+   "gap": -1.5894430713792373,
+   "up": false,
+   "rel": -2.7183172793008525,
+   "rank": 6,
+   "d_week": 0,
+   "d_month": 3,
+   "track": [
+    6,
     6,
     7,
     7,
@@ -674,89 +768,12 @@
    "churn": "3 of 9"
   },
   {
-   "sym": "XLU",
-   "name": "Utilities",
-   "px": 41.570098876953125,
-   "gap": -3.6335428236559664,
-   "up": false,
-   "rel": -2.6925059410149776,
-   "rank": 6,
-   "d_week": 2,
-   "d_month": 4,
-   "track": [
-    6,
-    8,
-    10,
-    8,
-    10,
-    5,
-    11,
-    11,
-    11,
-    11
-   ],
-   "hold": [
-    {
-     "sym": "NEE",
-     "name": "NextEra Energy Inc",
-     "pct": 12.71
-    },
-    {
-     "sym": "SO",
-     "name": "Southern Co",
-     "pct": 7.67
-    },
-    {
-     "sym": "DUK",
-     "name": "Duke Energy Corp",
-     "pct": 7.15
-    },
-    {
-     "sym": "CEG",
-     "name": "Constellation Energy Corp",
-     "pct": 6.74
-    },
-    {
-     "sym": "AEP",
-     "name": "American Electric Power Co Inc",
-     "pct": 5.2
-    },
-    {
-     "sym": "D",
-     "name": "Dominion Energy Inc",
-     "pct": 4.28
-    },
-    {
-     "sym": "SRE",
-     "name": "Sempra",
-     "pct": 4.1
-    },
-    {
-     "sym": "ETR",
-     "name": "Entergy Corp",
-     "pct": 3.73
-    },
-    {
-     "sym": "XEL",
-     "name": "Xcel Energy Inc",
-     "pct": 3.54
-    },
-    {
-     "sym": "VST",
-     "name": "Vistra Corp",
-     "pct": 3.51
-    }
-   ],
-   "ours": [],
-   "churn": "3 of 9"
-  },
-  {
    "sym": "XLI",
    "name": "Industrials",
-   "px": 167.2949981689453,
-   "gap": 1.2725758213872007,
+   "px": 167.67999267578125,
+   "gap": 1.2791434564727755,
    "up": true,
-   "rel": -3.645578337786537,
+   "rel": -3.5372969597339377,
    "rank": 7,
    "d_week": -3,
    "d_month": 4,
@@ -830,10 +847,10 @@
   {
    "sym": "XLB",
    "name": "Materials",
-   "px": 49.4900016784668,
-   "gap": 0.9856726676483074,
+   "px": 49.54560089111328,
+   "gap": 0.9889110491532405,
    "up": true,
-   "rel": -4.075533155393396,
+   "rel": -4.083693180828474,
    "rank": 8,
    "d_week": 1,
    "d_month": -1,
@@ -907,10 +924,10 @@
   {
    "sym": "XLC",
    "name": "Communications",
-   "px": 112.7761001586914,
-   "gap": -0.3098247388027109,
+   "px": 112.41000366210938,
+   "gap": -0.31939219851896405,
    "up": false,
-   "rel": -4.08842483572932,
+   "rel": -4.524855237357494,
    "rank": 9,
    "d_week": -7,
    "d_month": -7,
@@ -988,10 +1005,10 @@
   {
    "sym": "XLRE",
    "name": "Real Estate",
-   "px": 41.709999084472656,
-   "gap": -0.9376374761826289,
+   "px": 41.779998779296875,
+   "gap": -0.9328798200091248,
    "up": false,
-   "rel": -5.364887073854807,
+   "rel": -5.320829393584791,
    "rank": 10,
    "d_week": 0,
    "d_month": -2,
@@ -1065,10 +1082,10 @@
   {
    "sym": "XLF",
    "name": "Financials",
-   "px": 55.10499954223633,
-   "gap": 2.3944103264900374,
+   "px": 54.98500061035156,
+   "gap": 2.3879858018199362,
    "up": true,
-   "rel": -5.4703581872978635,
+   "rel": -5.799051168006097,
    "rank": 11,
    "d_week": 0,
    "d_month": -7,
@@ -1150,14 +1167,14 @@
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
    "days": 465,
-   "now": 9.944999694824219,
+   "now": 9.925000190734863,
    "target": 17.6,
    "cost": 459.99999999999994,
    "be": 7.6,
    "loss": -459.99999999999994,
    "profit": 1000.0000000000002,
    "ret": 217.39130434782618,
-   "move": 76.97335887460868,
+   "move": 77.3299714032234,
    "strike": 3,
    "expiry": "2028-01-21",
    "n": 1,
@@ -1172,14 +1189,14 @@
    "kills": "Nothing. No stop, by design \u2014 six tests say stops make this worse.",
    "odds": 83,
    "days": null,
-   "now": 142.02000427246094,
+   "now": 141.81640625,
    "target": 194.73,
    "cost": 557.16,
    "be": 139.29,
    "loss": null,
    "profit": 221.76,
    "ret": 39.80185225069999,
-   "move": 37.11448679188643,
+   "move": 37.311334526924654,
    "strike": null,
    "expiry": null,
    "n": 4,
@@ -1194,14 +1211,14 @@
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
    "days": 38,
-   "now": 176.1750030517578,
+   "now": 178.40499877929688,
    "target": 253.72,
    "cost": 392.0,
    "be": 243.92,
    "loss": -392.0,
    "profit": 980.0,
    "ret": 250.0,
-   "move": 44.01589079323615,
+   "move": 42.21574604749421,
    "strike": 240,
    "expiry": "2026-11-20",
    "n": 1,
@@ -1216,14 +1233,14 @@
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
    "days": 465,
-   "now": 6.724999904632568,
+   "now": 6.605000019073486,
    "target": 12.34,
    "cost": 468.0,
    "be": 7.34,
    "loss": -468.0,
    "profit": 1000.0,
    "ret": 213.67521367521368,
-   "move": 83.49442639396165,
+   "move": 86.82815994497133,
    "strike": 5,
    "expiry": "2028-01-21",
    "n": 2,
@@ -1280,9 +1297,9 @@
  "weekly": [
   {
    "sym": "SG",
-   "px": 9.944999694824219,
-   "gap": 6.481966313688886,
-   "dd": 6.444030218646213,
+   "px": 9.925000190734863,
+   "gap": 6.4713907797217844,
+   "dd": 6.632172305890272,
    "hi": 10.630000114440918,
    "up": true,
    "state": "crossed",
@@ -1290,9 +1307,9 @@
   },
   {
    "sym": "TSLA",
-   "px": 375.9685974121094,
-   "gap": -1.4880956306403503,
-   "dd": 24.629912488702654,
+   "px": 376.08990478515625,
+   "gap": -1.4838320826454554,
+   "dd": 24.605594108430363,
    "hi": 498.8299865722656,
    "up": true,
    "state": "near",
@@ -1300,9 +1317,9 @@
   },
   {
    "sym": "AVGO",
-   "px": 353.93499755859375,
-   "gap": -1.5894800368242306,
-   "dd": 28.49798029119318,
+   "px": 355.9100036621094,
+   "gap": -1.515566801668758,
+   "dd": 28.098989159169818,
    "hi": 495.0,
    "up": false,
    "state": "near",
@@ -1310,9 +1327,9 @@
   },
   {
    "sym": "COIN",
-   "px": 181.75,
-   "gap": -2.0530570916123607,
-   "dd": 51.306095110515734,
+   "px": 182.1750030517578,
+   "gap": -2.0209015901858187,
+   "dd": 51.192229590955705,
    "hi": 373.25,
    "up": false,
    "state": "near",
@@ -1320,9 +1337,9 @@
   },
   {
    "sym": "HAL",
-   "px": 32.8650016784668,
-   "gap": -2.231670888317054,
-   "dd": 24.604263447070352,
+   "px": 32.650001525878906,
+   "gap": -2.323609796923813,
+   "dd": 25.097496188146927,
    "hi": 43.59000015258789,
    "up": false,
    "state": "near",
@@ -1330,9 +1347,9 @@
   },
   {
    "sym": "ADBE",
-   "px": 236.9199981689453,
-   "gap": -3.645578939013726,
-   "dd": 34.85840246986799,
+   "px": 235.88999938964844,
+   "gap": -3.712716329389934,
+   "dd": 35.141602564651194,
    "hi": 363.70001220703125,
    "up": false,
    "state": "near",
@@ -1340,9 +1357,9 @@
   },
   {
    "sym": "F",
-   "px": 12.069899559020996,
-   "gap": -3.89592408504788,
-   "dd": 32.115303189573815,
+   "px": 12.119999885559082,
+   "gap": -3.8313305049293116,
+   "dd": 31.833524086068408,
    "hi": 17.780000686645508,
    "up": false,
    "state": "near",
@@ -1350,9 +1367,9 @@
   },
   {
    "sym": "IBM",
-   "px": 232.08999633789062,
-   "gap": -4.90355277028926,
-   "dd": 30.190097364166434,
+   "px": 231.8300018310547,
+   "gap": -4.922207326156023,
+   "dd": 30.268300610727927,
    "hi": 332.4599914550781,
    "up": false,
    "state": "near",
@@ -1368,110 +1385,110 @@
  },
  "market": {
   "events": [],
-  "QQQ": -0.6179293335478064,
-  "QQQ_px": 741.43,
-  "QQQ_chg": -4.610000000000014,
-  "SPY": -0.16964400462665674,
-  "SPY_px": 776.78,
-  "SPY_chg": -1.32000000000005,
-  "USO": 0.5032112825266388,
-  "USO_px": 151.79,
-  "USO_chg": 0.7599999999999909,
-  "NQ=F": -0.6157306643580163,
-  "NQ=F_px": 30708.0,
-  "NQ=F_chg": -190.25,
-  "CL=F": 0.20268828675060746,
-  "CL=F_px": 93.93,
-  "CL=F_chg": 0.19000000000001194,
-  "^TNX": -0.47710303522507935,
-  "^TNX_px": 5.215,
-  "^TNX_chg": -0.025000200000000028,
-  "^VIX": 3.1671159029649676,
-  "^VIX_px": 15.31,
-  "^VIX_chg": 0.47000000000000064,
+  "QQQ": -0.34448555037263073,
+  "QQQ_px": 743.47,
+  "QQQ_chg": -2.5699999999999363,
+  "SPY": -0.03469991003727246,
+  "SPY_px": 777.83,
+  "SPY_chg": -0.2699999999999818,
+  "USO": 0.9534529563662852,
+  "USO_px": 152.47,
+  "USO_chg": 1.4399999999999977,
+  "NQ=F": -0.32607024669681905,
+  "NQ=F_px": 30797.5,
+  "NQ=F_chg": -100.75,
+  "CL=F": 0.2453595050138757,
+  "CL=F_px": 93.97,
+  "CL=F_chg": 0.23000000000000398,
+  "^TNX": -0.2862633478525445,
+  "^TNX_px": 5.225,
+  "^TNX_chg": -0.015000200000000241,
+  "^VIX": 4.17789757412399,
+  "^VIX_px": 15.46,
+  "^VIX_chg": 0.620000000000001,
   "exp_by": "Fri",
-  "QQQ_exp": 10.465,
-  "SPY_exp": 6.75,
+  "QQQ_exp": 10.690000000000001,
+  "SPY_exp": 6.905,
   "fut": [
    [
     "S&P",
-    7844.5,
-    -0.15909380170548992,
+    7851.75,
+    -0.0668193967163,
     true
    ],
    [
     "Nasdaq",
-    30708.75,
-    -0.5465144522710741,
+    30798.5,
+    -0.25584972876689926,
     true
    ],
    [
     "Dow",
-    52030.0,
-    -0.1899134838573513,
+    51950.0,
+    -0.3433789253582509,
     true
    ],
    [
     "Russell",
-    2793.5,
-    -0.6684937062799823,
+    2796.0,
+    -0.5795984974973467,
     true
    ],
    [
     "Oil",
-    93.94000244140625,
-    0.8372678710124593,
+    93.95999908447266,
+    0.8587327081532203,
     true
    ],
    [
     "Gold",
-    4190.0,
-    -0.140611131844548,
+    4180.7998046875,
+    -0.3598774519815273,
     true
    ]
   ],
   "QQQ_pre": [
-   741.41,
-   741.4099731445312
+   743.37,
+   743.3701171875
   ],
   "SPY_pre": [
-   776.799,
-   776.7994995117188
+   777.76,
+   777.760009765625
   ],
   "USO_pre": [
-   151.79,
-   151.7899932861328
+   152.476,
+   152.47560119628906
   ],
   "^VIX_pre": [
    14.84,
-   15.3100004196167
+   15.460000038146973
   ],
   "heads": [
+   "Trump's diesel deal with Russia equals less than two weeks of U.S. demand",
    "Iran reportedly fortifies nuclear sites as it prepares for possible U.S. strikes after midterms",
-   "Anthropic warns AI models could soon copy themselves across home devices",
    "Paul Tudor Jones says 2027 could be a really challenging year for the stock market"
   ],
   "tnx_since": "2007",
   "movers": [
    [
     "META",
-    3.1011060280430103
+    2.1693620382140066
    ],
    [
-    "BE",
-    -2.7870968402531338
+    "BAC",
+    -1.282340705991547
    ],
    [
     "AAPL",
-    1.4312123838876367
+    1.0308778245228023
    ]
   ]
  },
  "playbook": {
   "rule_a": {
-   "spx": 7794.10009765625,
-   "sma200": 7259.42646484375,
-   "gap": 7.3652324381525025,
+   "spx": 7804.8798828125,
+   "sma200": 7259.480363769531,
+   "gap": 7.512927809061076,
    "above": true,
    "streak": 131,
    "invested": true,
@@ -1553,10 +1570,10 @@
    "OpenAI": null
   },
   "ipo_fired": "2026-06-11",
-  "qqq": 741.4099731445312,
+  "qqq": 743.3900146484375,
   "qqq_hi": 759.6599731445312,
-  "qqq_off": -2.4,
-  "vix": 15.3100004196167,
+  "qqq_off": -2.1,
+  "vix": 15.4399995803833,
   "vix_buy": false,
   "cpi_series": [
    [
@@ -1911,7 +1928,7 @@
    ],
    [
     "2026-10-13",
-    -2.0
+    -1.7
    ]
   ]
  },
@@ -2041,10 +2058,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -13.717186608135135,
+   "pl_pct": -14.418773436554977,
    "note": "paper",
-   "now": 71.33000183105469,
-   "to_target": 77.63913745595154,
+   "now": 70.75,
+   "to_target": 79.09540636042402,
    "progress": 0,
    "sessions": 27,
    "armed": false
@@ -2064,10 +2081,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -1.1077497293035865,
+   "pl_pct": -1.2185223878336648,
    "note": "paper",
-   "now": 232.11000061035156,
-   "to_target": 43.2338111782216,
+   "now": 231.85000610351562,
+   "to_target": 43.394432282897746,
    "progress": 0,
    "sessions": 27,
    "armed": false
@@ -2087,10 +2104,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -0.9043586415664606,
+   "pl_pct": -0.2603844253757148,
    "note": "paper",
-   "now": 353.92999267578125,
-   "to_target": 39.85816693795894,
+   "now": 356.2300109863281,
+   "to_target": 38.95516512756636,
    "progress": 0,
    "sessions": 27,
    "armed": false
@@ -2110,10 +2127,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -9.162958286358403,
+   "pl_pct": -9.738060954735673,
    "note": "paper",
-   "now": 187.9600067138672,
-   "to_target": 32.92721380902501,
+   "now": 186.77000427246094,
+   "to_target": 33.77415767229821,
    "progress": 0,
    "sessions": 27,
    "armed": false
@@ -2133,11 +2150,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 7.258698206120617,
+   "pl_pct": 7.127730821914446,
    "note": "paper",
-   "now": 547.1480712890625,
-   "to_target": 1.2011243492925594,
-   "progress": 0.8492676901161118,
+   "now": 546.47998046875,
+   "to_target": 1.3248462505506264,
+   "progress": 0.8339445061639903,
    "sessions": 27,
    "armed": false
   },
@@ -2156,10 +2173,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -8.026116001477856,
+   "pl_pct": -5.612869323241698,
    "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
-   "now": 254.97000122070312,
-   "to_target": 37.77307068211939,
+   "now": 261.6600036621094,
+   "to_target": 34.25055227531833,
    "progress": 0,
    "sessions": 25,
    "armed": false
@@ -2179,10 +2196,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.88034562689087,
+   "pl_pct": -5.198570083714394,
    "note": "matches the backtest profile: real pullback, +62% revenue",
-   "now": 110.44000244140625,
-   "to_target": 39.315462331350616,
+   "now": 111.23999786376953,
+   "to_target": 38.31355893086696,
    "progress": 0,
    "sessions": 25,
    "armed": false
@@ -2202,10 +2219,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -6.238379486177347,
+   "pl_pct": -5.691018138018489,
    "note": "+200% revenue. EARNINGS 2026-09-30, 22 days out",
-   "now": 937.8599853515625,
-   "to_target": 33.81528368859406,
+   "now": 943.3350219726562,
+   "to_target": 33.038631108554114,
    "progress": 0,
    "sessions": 25,
    "armed": false
@@ -2225,11 +2242,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 32.87845073930369,
+   "pl_pct": 32.65473481703835,
    "note": "+46% revenue. Option already held in both option books",
-   "now": 178.19000244140625,
-   "to_target": 2.2447934809973757,
-   "progress": 0.9168226750136463,
+   "now": 177.88999938964844,
+   "to_target": 2.4172244786694774,
+   "progress": 0.9105843083728101,
    "sessions": 25,
    "armed": false
   },
@@ -2248,11 +2265,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 31.757529546321006,
+   "pl_pct": 34.38810522302707,
    "note": "",
-   "now": 34.56,
-   "spot": 71.86000061035156,
-   "intrinsic": 34.36000061035156,
+   "now": 35.25,
+   "spot": 71.87000274658203,
+   "intrinsic": 34.37000274658203,
    "dte": 94,
    "sessions": 26,
    "mark": "alpaca"
@@ -2272,11 +2289,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 48.452868852459034,
+   "pl_pct": 42.725409836065566,
    "note": "",
-   "now": 7.2445,
-   "spot": 71.86000061035156,
-   "intrinsic": 6.8600006103515625,
+   "now": 6.965,
+   "spot": 71.87000274658203,
+   "intrinsic": 6.870002746582031,
    "dte": 3,
    "sessions": 26,
    "mark": "alpaca"
@@ -2296,11 +2313,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -30.317040951122852,
+   "pl_pct": -30.686922060766186,
    "note": "",
-   "now": 26.375,
-   "spot": 187.9600067138672,
-   "intrinsic": 17.960006713867188,
+   "now": 26.235,
+   "spot": 186.77000427246094,
+   "intrinsic": 16.770004272460938,
    "dte": 66,
    "sessions": 26,
    "mark": "alpaca"
@@ -2320,10 +2337,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.028434356508248,
+   "pl_pct": -2.813641238058029,
    "note": "Setup C fired (cross+regime+breakout). Breadth 73% fails the <65% filter. VIX 15.7 CALM. Revenue only +4%, fails F. Chart signal only.",
-   "now": 176.1750030517578,
-   "to_target": 47.535118772575856,
+   "now": 178.40499877929688,
+   "to_target": 45.69098499394884,
    "progress": 0,
    "sessions": 22,
    "armed": false
@@ -2343,11 +2360,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.5380180323240502,
+   "pl_pct": 0.3938880433243641,
    "note": "Setup F complete: 27.5% below high, revenue +29.4%, and the 50 EMA crossed the 200 TODAY (125.13 vs 124.96) after weeks in the halfway state. That cross is the 88%-win entry from halfway.md. The cross is thin \u2014 0.17 points.",
-   "now": 142.02000427246094,
-   "to_target": 37.11448679188643,
-   "progress": 0.014213657611014525,
+   "now": 141.81640625,
+   "to_target": 37.311334526924654,
+   "progress": 0.01040595193566503,
    "sessions": 19,
    "armed": false
   },
@@ -2366,10 +2383,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -38.655462184873954,
+   "pl_pct": -38.90756302521009,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
-   "now": 3.65,
-   "spot": 142.02000427246094,
+   "now": 3.635,
+   "spot": 141.81640625,
    "intrinsic": 0.0,
    "dte": 66,
    "sessions": 19,
@@ -2390,11 +2407,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.9955939926475033,
+   "pl_pct": 0.8508080287298991,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 142.02000427246094,
-   "to_target": 37.11448679188643,
-   "progress": 0.025873300174846302,
+   "now": 141.81640625,
+   "to_target": 37.311334526924654,
+   "progress": 0.02211063112178887,
    "sessions": 14,
    "armed": false
   },
@@ -2413,10 +2430,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -7.2903784376761145,
+   "pl_pct": -4.857827189982766,
    "note": "Paper bot. Setup F fired; 2 shares at market, GTC sell at the target.",
-   "now": 254.97000122070312,
-   "to_target": 37.77307068211939,
+   "now": 261.6600036621094,
+   "to_target": 34.25055227531833,
    "progress": 0,
    "sessions": 14,
    "armed": false
@@ -2436,10 +2453,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -9.741743673254122,
+   "pl_pct": -9.08793898024719,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 110.44000244140625,
-   "to_target": 39.315462331350616,
+   "now": 111.23999786376953,
+   "to_target": 38.31355893086696,
    "progress": 0,
    "sessions": 13,
    "armed": false
@@ -2459,11 +2476,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 24.99298712219855,
+   "pl_pct": 24.78254727107774,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 178.19000244140625,
-   "to_target": 2.2447934809973757,
-   "progress": 0.8990664254707609,
+   "now": 177.88999938964844,
+   "to_target": 2.4172244786694774,
+   "progress": 0.8914963257544396,
    "sessions": 13,
    "armed": false
   },
@@ -2482,11 +2499,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 2.831079771530609,
+   "pl_pct": 2.6836624791832575,
    "note": "REAL. 1 share of NOW on the Setup F fire, target the prior high $194.73, no stop. Fill $138.11 per Schwab. PLAN 10-08: stop = NOW closes under $126.75 (20-day low, at the 200-day) -> sell (-8%). Close over $149.60 = breakout; at the $192.97 target the stop moves up to it.",
-   "now": 142.02000427246094,
-   "to_target": 37.11448679188643,
-   "progress": 0.0690569458223406,
+   "now": 141.81640625,
+   "to_target": 37.311334526924654,
+   "progress": 0.06546107824090407,
    "sessions": 13,
    "armed": false
   },
@@ -2505,9 +2522,9 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 43.28731946552487,
+   "pl_pct": 42.99916708548055,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: protect the gain -- SG closes under $7.96 (30-day EMA) -> sell half (locks ~+15%); under $6.61 (20-day low) -> sell the rest. New 1-year high $10.63 -> sell a quarter (SG is ~25% of the account, over the 7% rule).",
-   "now": 9.944999694824219,
+   "now": 9.925000190734863,
    "to_target": null,
    "progress": 0,
    "sessions": 12,
@@ -2528,11 +2545,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 60.52484645449469,
+   "pl_pct": 57.410986556715194,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: same SG levels; long-dated and in the money, so hold unless SG closes under $6.61.",
-   "now": 7.475,
-   "spot": 9.944999694824219,
-   "intrinsic": 6.944999694824219,
+   "now": 7.33,
+   "spot": 9.925000190734863,
+   "intrinsic": 6.925000190734863,
    "dte": 465,
    "sessions": 12,
    "mark": "alpaca"
@@ -2552,11 +2569,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 26.139947157589695,
+   "pl_pct": 22.091536691383283,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: SNAP closes under $5.18 (20-day low) -> sell one of the two; under $4.28 (60-day low) -> sell the other. Over $6.07 = breakout, hold.",
-   "now": 2.96,
-   "spot": 6.724999904632568,
-   "intrinsic": 1.7249999046325684,
+   "now": 2.865,
+   "spot": 6.605000019073486,
+   "intrinsic": 1.6050000190734863,
    "dte": 465,
    "sessions": 12,
    "mark": "alpaca"
@@ -2576,11 +2593,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 12.084656084656075,
+   "pl_pct": 10.158730158730144,
    "note": "F LEAPS. 1x $135C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $192.97 or 30 days before expiry.",
-   "now": 52.96,
-   "spot": 142.02000427246094,
-   "intrinsic": 7.0200042724609375,
+   "now": 52.05,
+   "spot": 141.81640625,
+   "intrinsic": 6.81640625,
    "dte": 794,
    "sessions": 11,
    "mark": "alpaca"
@@ -2600,11 +2617,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 54.616822429906534,
+   "pl_pct": 51.73831775700937,
    "note": "F LEAPS. 1x $140C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $182.19 or 30 days before expiry.",
-   "now": 82.72,
-   "spot": 178.19000244140625,
-   "intrinsic": 38.19000244140625,
+   "now": 81.18,
+   "spot": 177.88999938964844,
+   "intrinsic": 37.88999938964844,
    "dte": 794,
    "sessions": 11,
    "mark": "alpaca"
@@ -2624,10 +2641,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -19.200000000000006,
+   "pl_pct": -19.129999999999992,
    "note": "F LEAPS. 1x $120C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $153.86 or 30 days before expiry.",
-   "now": 40.4,
-   "spot": 110.44000244140625,
+   "now": 40.435,
+   "spot": 111.23999786376953,
    "intrinsic": 0.0,
    "dte": 794,
    "sessions": 11,
@@ -2648,11 +2665,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 14.87125548906041,
+   "pl_pct": 15.257235445867723,
    "note": "Pure Setup F. 34 shares, 7% of equity. Target $336.99; no stop; floor at the target once reached; out at 252 sessions.",
-   "now": 230.64999389648438,
-   "to_target": 46.10449118469997,
-   "progress": 0.21923637222088385,
+   "now": 231.4250030517578,
+   "to_target": 45.615208191066884,
+   "progress": 0.22492660096738484,
    "sessions": 9,
    "armed": false
   },
@@ -2671,11 +2688,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 30.24548736462094,
+   "pl_pct": 29.51624548736462,
    "note": "F LEAPS. 1x $200C 2028-06-16 (~2 years), 7% of a $100k book. Sells when the stock reaches $336.99 or 30 days before expiry.",
-   "now": 90.195,
-   "spot": 230.64999389648438,
-   "intrinsic": 30.649993896484375,
+   "now": 89.69,
+   "spot": 231.4250030517578,
+   "intrinsic": 31.425003051757812,
    "dte": 612,
    "sessions": 8,
    "mark": "alpaca"
@@ -2695,10 +2712,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.652480421395133,
+   "pl_pct": -4.032863419631427,
    "note": "Pure Setup F. 18 shares, 7% of equity. Target $495.00; no stop; held 252 sessions, no exit at the target (paper test since 10-06).",
-   "now": 353.92999267578125,
-   "to_target": 39.85816693795894,
+   "now": 356.2300109863281,
+   "to_target": 38.95516512756636,
    "progress": 0,
    "sessions": 3,
    "armed": false
@@ -2718,11 +2735,11 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.2411575562700996,
+   "pl_pct": -4.983922829581989,
    "note": "REAL. Schwab app 10-08. Cost basis $622.66 (Schwab 10-09). No setup: NFLX 43% under its 1y high, 10<30<50<200 EMA (downtrend). Holds through the Oct 20 earnings. PLAN 10-08: NFLX closes under $66.54 (20-day low) -> cut. Close over $72.80 (30-day EMA) = trend turning. Call at ~$9.75 (+50%) -> sell half, stop the rest at $6.49. Decide before the Oct 20 earnings.",
-   "now": 6.235,
-   "spot": 71.33000183105469,
-   "intrinsic": 2.3300018310546875,
+   "now": 5.91,
+   "spot": 70.75,
+   "intrinsic": 1.75,
    "dte": 66,
    "sessions": 3,
    "mark": "alpaca"
@@ -2742,10 +2759,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.457662766979587,
+   "pl_pct": -4.905743752756431,
    "note": "Pure Setup F. 7 shares, 7% of equity. Target $1255.00; no stop; held 252 sessions, no exit at the target (paper test since 10-06).",
-   "now": 937.8599853515625,
-   "to_target": 33.81528368859406,
+   "now": 943.3350219726562,
+   "to_target": 33.038631108554114,
    "progress": 0,
    "sessions": 1,
    "armed": false
@@ -2765,10 +2782,10 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 23.58620689655173,
+   "pl_pct": 29.448275862068975,
    "note": "Ticket book (Setup F). Limit at the mid. Exits: -50% stop, 2x take profit, or 2 days to expiry. Logged by hand: the fill landed after the bot's cancel (race fixed).",
-   "now": 8.96,
-   "spot": 230.64999389648438,
+   "now": 9.385,
+   "spot": 231.4250030517578,
    "intrinsic": 0.0,
    "dte": 17,
    "sessions": 1,
@@ -3426,26 +3443,27 @@
    },
    {
     "date": "2026-10-13",
-    "vix": 15.3100004196167,
+    "vix": 15.4399995803833,
     "regime": "CALM",
     "vix_fires": false,
     "F": [
      "ZS",
-     "BE",
      "NOW",
+     "BE",
      "MU"
     ],
     "D": [
+     "TXN",
      "GOOGL",
+     "CSCO",
      "CRM",
      "U",
-     "OXY",
      "AMZN",
-     "PANW",
-     "MRNA",
+     "OXY",
      "SNOW",
-     "AMGN",
+     "PANW",
      "SG",
+     "MRNA",
      "DVN"
     ],
     "C": [],
@@ -3626,47 +3644,47 @@
    }
   ],
   "by_setup": {
-   "C": {
-    "wins": 0,
-    "losses": 2,
-    "closed_mean": -82.55000000000001,
-    "open_n": 1,
-    "open_mean": -4.028434356508248
-   },
-   "E": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 6,
-    "open_mean": 5.694010411442001
-   },
-   "F": {
-    "wins": 1,
-    "losses": 1,
-    "closed_mean": -23.3,
-    "open_n": 18,
-    "open_mean": 3.8284323570846315
-   },
    "D": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 2,
-    "open_mean": -0.952130040118893
-   },
-   "Setup F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": 23.58620689655173
+    "open_mean": -1.3051650664106131
    },
    "none": {
     "wins": 2,
     "losses": 3,
     "closed_mean": -12.66,
     "open_n": 4,
-    "open_mean": 32.54831765846984
+    "open_mean": 29.37944187599926
+   },
+   "F": {
+    "wins": 1,
+    "losses": 1,
+    "closed_mean": -23.3,
+    "open_n": 18,
+    "open_mean": 3.922876420862389
+   },
+   "Setup F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": 29.448275862068975
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 6,
+    "open_mean": 5.088152124760349
+   },
+   "C": {
+    "wins": 0,
+    "losses": 2,
+    "closed_mean": -82.55000000000001,
+    "open_n": 1,
+    "open_mean": -2.813641238058029
    }
   },
   "produced": [
@@ -3997,11 +4015,6 @@
    },
    {
     "date": "2026-10-13",
-    "sym": "AMGN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-13",
     "sym": "AMZN",
     "setup": "D"
    },
@@ -4013,6 +4026,11 @@
    {
     "date": "2026-10-13",
     "sym": "CRM",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-13",
+    "sym": "CSCO",
     "setup": "D"
    },
    {
@@ -4058,6 +4076,11 @@
    {
     "date": "2026-10-13",
     "sym": "SNOW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-13",
+    "sym": "TXN",
     "setup": "D"
    },
    {
@@ -6699,7 +6722,7 @@
     340.42,
     336.64,
     340.97,
-    345.85
+    344.48
    ],
    "v": [
     39882100,
@@ -7202,7 +7225,7 @@
     35332400,
     37881200,
     25848300,
-    15380226
+    19614119
    ],
    "e10": [
     231.3,
@@ -7705,7 +7728,7 @@
     335.27,
     335.52,
     336.51,
-    338.21
+    337.96
    ],
    "e30": [
     231.3,
@@ -8208,7 +8231,7 @@
     330.29,
     330.7,
     331.36,
-    332.3
+    332.21
    ],
    "pat": [
     {
@@ -10353,7 +10376,7 @@
     265.71,
     270.38,
     276.01,
-    277.31
+    275.4
    ],
    "c": [
     195.65,
@@ -10856,7 +10879,7 @@
     272.42,
     276.47,
     281.12,
-    277.48
+    275.91
    ],
    "v": [
     3623900,
@@ -11359,7 +11382,7 @@
     5492300,
     4297400,
     5593700,
-    1056927
+    1832826
    ],
    "e10": [
     195.65,
@@ -11862,7 +11885,7 @@
     266.56,
     268.36,
     270.68,
-    271.92
+    271.63
    ],
    "e30": [
     195.65,
@@ -12365,7 +12388,7 @@
     262.46,
     263.37,
     264.51,
-    265.35
+    265.25
    ],
    "pat": [
     {
@@ -13971,7 +13994,7 @@
     643.85,
     627.37,
     601.77,
-    593.24
+    600.16
    ],
    "l": [
     165.15,
@@ -14977,7 +15000,7 @@
     620.68,
     608.1,
     594.24,
-    586.52
+    599.36
    ],
    "v": [
     31757200,
@@ -15480,7 +15503,7 @@
     23488200,
     13733300,
     15327700,
-    6105704
+    9260199
    ],
    "e10": [
     165.27,
@@ -15983,7 +16006,7 @@
     622.31,
     619.73,
     615.09,
-    609.9
+    612.23
    ],
    "e30": [
     165.27,
@@ -16486,7 +16509,7 @@
     575.64,
     577.73,
     578.8,
-    579.3
+    580.12
    ],
    "pat": [
     {
@@ -19084,7 +19107,7 @@
     254.06,
     262.43,
     259.53,
-    260.35
+    260.23
    ],
    "v": [
     22614400,
@@ -19587,7 +19610,7 @@
     38649900,
     34770000,
     26524900,
-    8627234
+    11309314
    ],
    "e10": [
     187.54,
@@ -20090,7 +20113,7 @@
     253.12,
     254.81,
     255.67,
-    256.52
+    256.5
    ],
    "e30": [
     187.54,
@@ -20593,7 +20616,7 @@
     253.51,
     254.09,
     254.44,
-    254.82
+    254.81
    ],
    "pat": [
     {
@@ -22397,7 +22420,7 @@
     373.35,
     366.63,
     360.69,
-    356.78
+    357.28
    ],
    "l": [
     180.13,
@@ -23403,7 +23426,7 @@
     360.14,
     361.54,
     354.73,
-    353.93
+    356.23
    ],
    "v": [
     17195800,
@@ -23906,7 +23929,7 @@
     27145200,
     16843800,
     16284100,
-    5004602
+    7048196
    ],
    "e10": [
     182.31,
@@ -24409,7 +24432,7 @@
     361.26,
     361.31,
     360.11,
-    358.99
+    359.41
    ],
    "e30": [
     182.31,
@@ -24912,7 +24935,7 @@
     362.16,
     362.12,
     361.64,
-    361.15
+    361.29
    ],
    "pat": [
     {
@@ -26578,7 +26601,7 @@
     286.95,
     280.5,
     275.99,
-    260.94
+    262.42
    ],
    "l": [
     10.26,
@@ -27584,7 +27607,7 @@
     272.82,
     280.5,
     262.28,
-    254.97
+    261.66
    ],
    "v": [
     3637200,
@@ -28087,7 +28110,7 @@
     15754600,
     8473300,
     13988100,
-    4961445
+    7328203
    ],
    "e10": [
     10.46,
@@ -28590,7 +28613,7 @@
     281.8,
     281.56,
     278.06,
-    273.86
+    275.08
    ],
    "e30": [
     10.46,
@@ -29093,7 +29116,7 @@
     266.31,
     267.22,
     266.9,
-    266.13
+    266.57
    ],
    "pat": [
     {
@@ -31641,7 +31664,7 @@
     59.58,
     59.12,
     57.58,
-    56.79
+    56.5
    ],
    "v": [
     6890800,
@@ -32144,7 +32167,7 @@
     13070600,
     9252700,
     22564700,
-    3456489
+    5519518
    ],
    "e10": [
     52.67,
@@ -32647,7 +32670,7 @@
     60.77,
     60.47,
     59.94,
-    59.37
+    59.32
    ],
    "e30": [
     52.67,
@@ -33150,7 +33173,7 @@
     62.46,
     62.25,
     61.95,
-    61.62
+    61.6
    ],
    "pat": [
     {
@@ -35263,7 +35286,7 @@
     188.08,
     189.63,
     189.3,
-    192.05
+    188.49
    ],
    "c": [
     150.02,
@@ -35766,7 +35789,7 @@
     191.71,
     196.5,
     194.24,
-    192.96
+    190.95
    ],
    "v": [
     3023600,
@@ -36269,7 +36292,7 @@
     3242700,
     2332400,
     2047200,
-    410261
+    858655
    ],
    "e10": [
     150.02,
@@ -36772,7 +36795,7 @@
     190.43,
     191.53,
     192.03,
-    192.19
+    191.83
    ],
    "e30": [
     150.02,
@@ -37275,7 +37298,7 @@
     196.29,
     196.31,
     196.17,
-    195.96
+    195.83
    ],
    "pat": [
     {
@@ -40005,7 +40028,7 @@
     71.43,
     71.08,
     70.97,
-    71.86
+    71.87
    ],
    "v": [
     2695200,
@@ -40508,7 +40531,7 @@
     3159200,
     2249400,
     1523300,
-    405393
+    630756
    ],
    "e10": [
     68.86,
@@ -43088,7 +43111,7 @@
     82.48,
     82.88,
     82.96,
-    83.79
+    84.42
    ],
    "l": [
     47.63,
@@ -44094,7 +44117,7 @@
     82.25,
     82.73,
     82.37,
-    83.77
+    84.19
    ],
    "v": [
     6773900,
@@ -44597,7 +44620,7 @@
     4975800,
     6593200,
     5580400,
-    1348961
+    2702266
    ],
    "e10": [
     48.63,
@@ -45100,7 +45123,7 @@
     81.11,
     81.4,
     81.58,
-    81.98
+    82.05
    ],
    "e30": [
     48.63,
@@ -45603,7 +45626,7 @@
     82.67,
     82.68,
     82.66,
-    82.73
+    82.76
    ],
    "pat": [
     {
@@ -47762,7 +47785,7 @@
     32.15,
     32.42,
     32.46,
-    32.62
+    32.55
    ],
    "c": [
     30.58,
@@ -48265,7 +48288,7 @@
     32.57,
     32.55,
     32.6,
-    32.87
+    32.65
    ],
    "v": [
     5665100,
@@ -48768,7 +48791,7 @@
     11258500,
     5140300,
     4526700,
-    1280335
+    2152958
    ],
    "e10": [
     30.58,
@@ -49271,7 +49294,7 @@
     32.48,
     32.49,
     32.51,
-    32.58
+    32.53
    ],
    "e30": [
     30.58,
@@ -49774,7 +49797,7 @@
     33.47,
     33.41,
     33.36,
-    33.32
+    33.31
    ],
    "pat": [
     {
@@ -49829,9 +49852,9 @@
       ],
       [
        "2026-09-30",
-       31.244182135842063,
+       31.254363909634677,
        "2026-10-13",
-       32.56581733010032,
+       32.54163561734286,
        1
       ]
      ],
@@ -51398,7 +51421,7 @@
     109.38,
     109.85,
     109.98,
-    110.6
+    111.99
    ],
    "l": [
     26.16,
@@ -52404,7 +52427,7 @@
     107.01,
     109.02,
     109.22,
-    110.44
+    111.24
    ],
    "v": [
     17233000,
@@ -52907,7 +52930,7 @@
     22677600,
     13754200,
     12246200,
-    5890001
+    9449722
    ],
    "e10": [
     27.0,
@@ -53410,7 +53433,7 @@
     112.34,
     111.74,
     111.28,
-    111.13
+    111.27
    ],
    "e30": [
     27.0,
@@ -53913,7 +53936,7 @@
     111.91,
     111.72,
     111.56,
-    111.49
+    111.54
    ],
    "pat": [
     {
@@ -56493,7 +56516,7 @@
     226.61,
     227.13,
     227.02,
-    232.11
+    231.85
    ],
    "v": [
     2524400,
@@ -56996,7 +57019,7 @@
     8921900,
     3351300,
     2763600,
-    1680923
+    2275233
    ],
    "e10": [
     235.26,
@@ -57499,7 +57522,7 @@
     224.2,
     224.73,
     225.15,
-    226.42
+    226.37
    ],
    "e30": [
     235.26,
@@ -58002,7 +58025,7 @@
     229.18,
     229.05,
     228.92,
-    229.12
+    229.11
    ],
    "pat": [
     {
@@ -60599,7 +60622,7 @@
     720.89,
     718.67,
     742.96,
-    766.0
+    759.08
    ],
    "v": [
     8252000,
@@ -61102,7 +61125,7 @@
     16041100,
     12619900,
     24828300,
-    11787590
+    14719698
    ],
    "e10": [
     590.42,
@@ -61605,7 +61628,7 @@
     726.15,
     724.79,
     728.09,
-    734.98
+    733.73
    ],
    "e30": [
     590.42,
@@ -62108,7 +62131,7 @@
     688.93,
     690.85,
     694.22,
-    698.85
+    698.4
    ],
    "pat": [
     {
@@ -64720,7 +64743,7 @@
     522.61,
     535.07,
     541.15,
-    547.15
+    546.48
    ],
    "v": [
     16653100,
@@ -65223,7 +65246,7 @@
     20228700,
     18500600,
     18292000,
-    9026504
+    12019687
    ],
    "e10": [
     419.14,
@@ -65726,7 +65749,7 @@
     518.54,
     521.54,
     525.11,
-    529.12
+    528.99
    ],
    "e30": [
     419.14,
@@ -66229,7 +66252,7 @@
     504.04,
     506.04,
     508.31,
-    510.81
+    510.77
    ],
    "pat": [
     {
@@ -68934,7 +68957,7 @@
     1035.84,
     1029.0,
     989.04,
-    937.86
+    943.34
    ],
    "v": [
     15021900,
@@ -69437,7 +69460,7 @@
     29910700,
     19918900,
     23711800,
-    13040276
+    17435113
    ],
    "e10": [
     108.34,
@@ -69940,7 +69963,7 @@
     1058.68,
     1053.28,
     1041.6,
-    1022.74
+    1023.74
    ],
    "e30": [
     108.34,
@@ -70443,7 +70466,7 @@
     1022.55,
     1022.97,
     1020.78,
-    1015.43
+    1015.78
    ],
    "pat": [
     {
@@ -72552,7 +72575,7 @@
     69.72,
     70.19,
     70.56,
-    70.84
+    70.74
    ],
    "c": [
     71.3,
@@ -73055,7 +73078,7 @@
     71.57,
     70.3,
     70.61,
-    71.33
+    70.75
    ],
    "v": [
     27971000,
@@ -73558,7 +73581,7 @@
     46130300,
     29124300,
     24166800,
-    7491055
+    10452889
    ],
    "e10": [
     71.3,
@@ -74061,7 +74084,7 @@
     69.99,
     70.05,
     70.15,
-    70.37
+    70.26
    ],
    "e30": [
     71.3,
@@ -74564,7 +74587,7 @@
     72.8,
     72.64,
     72.51,
-    72.43
+    72.4
    ],
    "pat": [
     {
@@ -74619,9 +74642,9 @@
       ],
       [
        "2026-10-02",
-       66.34500122070312,
+       66.36166763305664,
        "2026-10-13",
-       71.23499870300293,
+       71.19333267211914,
        1
       ]
      ],
@@ -77197,7 +77220,7 @@
     139.75,
     140.86,
     140.32,
-    142.02
+    141.82
    ],
    "v": [
     2837000,
@@ -77700,7 +77723,7 @@
     11834400,
     6287800,
     9600500,
-    3818064
+    5264085
    ],
    "e10": [
     188.94,
@@ -78203,7 +78226,7 @@
     136.9,
     137.62,
     138.11,
-    138.82
+    138.79
    ],
    "e30": [
     188.94,
@@ -78706,7 +78729,7 @@
     134.55,
     134.95,
     135.3,
-    135.73
+    135.72
    ],
    "pat": [
     {
@@ -80430,7 +80453,7 @@
     237.07,
     233.92,
     228.86,
-    226.6
+    227.39
    ],
    "l": [
     136.3,
@@ -81436,7 +81459,7 @@
     230.48,
     229.28,
     226.32,
-    224.79
+    226.69
    ],
    "v": [
     232347700,
@@ -81939,7 +81962,7 @@
     118697400,
     84645600,
     70089000,
-    28116867
+    40334673
    ],
    "e10": [
     138.07,
@@ -82442,7 +82465,7 @@
     232.23,
     231.69,
     230.71,
-    229.64
+    229.98
    ],
    "e30": [
     138.07,
@@ -82945,7 +82968,7 @@
     225.96,
     226.18,
     226.19,
-    226.1
+    226.22
    ],
    "pat": [
     {
@@ -85589,7 +85612,7 @@
     398.5,
     418.78,
     403.83,
-    400.36
+    401.64
    ],
    "v": [
     2989800,
@@ -86092,7 +86115,7 @@
     4418600,
     3834200,
     4797500,
-    880804
+    1555362
    ],
    "e10": [
     186.96,
@@ -86595,7 +86618,7 @@
     398.42,
     402.12,
     402.43,
-    402.05
+    402.29
    ],
    "e30": [
     186.96,
@@ -87098,7 +87121,7 @@
     380.04,
     382.54,
     383.91,
-    384.97
+    385.05
    ],
    "pat": [
     {
@@ -89742,7 +89765,7 @@
     27.82,
     28.28,
     28.4,
-    28.36
+    28.26
    ],
    "v": [
     23594200,
@@ -90245,7 +90268,7 @@
     44433400,
     23204100,
     18544200,
-    6783240
+    10127815
    ],
    "e10": [
     29.08,
@@ -90748,7 +90771,7 @@
     27.94,
     28.0,
     28.07,
-    28.13
+    28.11
    ],
    "e30": [
     29.08,
@@ -91251,7 +91274,7 @@
     27.82,
     27.85,
     27.89,
-    27.92
+    27.91
    ],
    "pat": [
     {
@@ -93789,7 +93812,7 @@
     198.78,
     209.05,
     209.0,
-    207.24
+    207.07
    ],
    "v": [
     41010900,
@@ -94292,7 +94315,7 @@
     41865400,
     37622500,
     24259200,
-    7264744
+    9167565
    ],
    "e10": [
     43.4,
@@ -94795,7 +94818,7 @@
     190.88,
     194.18,
     196.88,
-    198.76
+    198.73
    ],
    "e30": [
     43.4,
@@ -95298,7 +95321,7 @@
     182.14,
     183.87,
     185.49,
-    186.9
+    186.89
    ],
    "pat": [
     {
@@ -97975,7 +97998,7 @@
     176.01,
     175.5,
     174.43,
-    176.18
+    178.4
    ],
    "v": [
     9933600,
@@ -98478,7 +98501,7 @@
     9566200,
     7575200,
     6904700,
-    2494399
+    3692490
    ],
    "e10": [
     178.04,
@@ -98981,7 +99004,7 @@
     182.08,
     180.88,
     179.71,
-    179.07
+    179.47
    ],
    "e30": [
     178.04,
@@ -99484,7 +99507,7 @@
     180.78,
     180.44,
     180.05,
-    179.8
+    179.94
    ],
    "pat": [
     {
@@ -100897,7 +100920,7 @@
     747.58,
     751.27,
     746.04,
-    741.41
+    743.39
    ],
    "v": [
     65872600,
@@ -101151,7 +101174,7 @@
     49694800,
     21162000,
     24936300,
-    10947064
+    15520691
    ],
    "e10": [
     602.01,
@@ -101405,7 +101428,7 @@
     747.44,
     748.13,
     747.75,
-    746.6
+    746.96
    ],
    "e30": [
     602.01,
@@ -101659,7 +101682,7 @@
     733.78,
     734.91,
     735.63,
-    736.0
+    736.13
    ],
    "pat": []
   },
@@ -103674,7 +103697,7 @@
     8.98,
     9.46,
     9.48,
-    9.89
+    9.87
    ],
    "c": [
     39.3,
@@ -104177,7 +104200,7 @@
     9.57,
     9.63,
     9.85,
-    9.94
+    9.93
    ],
    "v": [
     2652900,
@@ -104680,7 +104703,7 @@
     6421000,
     2970200,
     3784100,
-    818317
+    1144370
    ],
    "e10": [
     39.3,
@@ -105183,7 +105206,7 @@
     8.86,
     9.0,
     9.15,
-    9.3
+    9.29
    ],
    "e30": [
     39.3,
@@ -107403,7 +107426,7 @@
     167.94,
     171.04,
     180.88,
-    179.02
+    179.21
    ],
    "l": [
     82.66,
@@ -108409,7 +108432,7 @@
     164.56,
     170.85,
     179.22,
-    178.19
+    177.89
    ],
    "v": [
     3759800,
@@ -108912,7 +108935,7 @@
     7221000,
     6758100,
     12444400,
-    2682450
+    3677973
    ],
    "e10": [
     83.68,
@@ -109415,7 +109438,7 @@
     155.69,
     158.45,
     162.22,
-    165.13
+    165.07
    ],
    "e30": [
     83.68,
@@ -109918,7 +109941,7 @@
     146.57,
     148.14,
     150.14,
-    151.95
+    151.93
    ],
    "pat": [
     {
@@ -112102,7 +112125,7 @@
     48.1,
     48.64,
     48.55,
-    48.62
+    48.27
    ],
    "c": [
     44.7,
@@ -112605,7 +112628,7 @@
     48.98,
     48.95,
     48.77,
-    48.78
+    48.31
    ],
    "v": [
     7048100,
@@ -113108,7 +113131,7 @@
     16228600,
     7580800,
     8630300,
-    2171096
+    3683439
    ],
    "e10": [
     44.7,
@@ -113611,7 +113634,7 @@
     49.74,
     49.59,
     49.44,
-    49.32
+    49.24
    ],
    "e30": [
     44.7,
@@ -114114,7 +114137,7 @@
     51.53,
     51.36,
     51.19,
-    51.04
+    51.01
    ],
    "pat": [
     {
@@ -116762,7 +116785,7 @@
     5.86,
     6.23,
     6.53,
-    6.72
+    6.61
    ],
    "v": [
     21296700,
@@ -117265,7 +117288,7 @@
     31995600,
     49434800,
     47315700,
-    18254634
+    25908920
    ],
    "e10": [
     11.05,
@@ -117768,7 +117791,7 @@
     5.65,
     5.76,
     5.9,
-    6.05
+    6.03
    ],
    "e30": [
     11.05,
@@ -118271,7 +118294,7 @@
     5.53,
     5.57,
     5.64,
-    5.71
+    5.7
    ],
    "pat": [
     {
@@ -120352,7 +120375,7 @@
     770.44,
     775.14,
     777.05,
-    776.75
+    775.95
    ],
    "c": [
     584.32,
@@ -120855,7 +120878,7 @@
     773.93,
     778.57,
     778.1,
-    776.82
+    777.72
    ],
    "v": [
     36217200,
@@ -121358,7 +121381,7 @@
     40431100,
     22624500,
     18639800,
-    6520673
+    10165740
    ],
    "e10": [
     584.32,
@@ -121861,7 +121884,7 @@
     771.65,
     772.91,
     773.85,
-    774.39
+    774.55
    ],
    "e30": [
     584.32,
@@ -122364,7 +122387,7 @@
     767.48,
     768.19,
     768.83,
-    769.35
+    769.4
    ],
    "pat": [
     {
@@ -123938,7 +123961,7 @@
     12.35,
     12.45,
     12.33,
-    12.42
+    12.48
    ],
    "l": [
     117.1,
@@ -124944,7 +124967,7 @@
     12.34,
     12.08,
     11.94,
-    12.38
+    12.26
    ],
    "v": [
     2641200,
@@ -125447,7 +125470,7 @@
     15881700,
     10389900,
     13924500,
-    4928473
+    8427574
    ],
    "e10": [
     117.97,
@@ -125950,7 +125973,7 @@
     12.32,
     12.28,
     12.22,
-    12.24
+    12.22
    ],
    "e30": [
     117.97,
@@ -126453,7 +126476,7 @@
     13.26,
     13.18,
     13.1,
-    13.06
+    13.05
    ],
    "pat": [
     {
@@ -126469,9 +126492,9 @@
       ],
       [
        "2026-10-05",
-       12.059643064226423,
+       12.048928873879568,
        "2026-10-13",
-       12.460357121058873,
+       12.488214015960692,
        1
       ],
       [
@@ -128016,7 +128039,7 @@
     290.52,
     291.23,
     283.63,
-    282.93
+    287.41
    ],
    "l": [
     205.64,
@@ -129022,7 +129045,7 @@
     288.2,
     283.74,
     281.74,
-    280.71
+    286.3
    ],
    "v": [
     3291600,
@@ -129525,7 +129548,7 @@
     5944400,
     4037300,
     3853500,
-    703619
+    1899242
    ],
    "e10": [
     208.66,
@@ -130028,7 +130051,7 @@
     285.86,
     285.48,
     284.8,
-    284.05
+    285.07
    ],
    "e30": [
     208.66,
@@ -130531,7 +130554,7 @@
     277.1,
     277.53,
     277.8,
-    277.99
+    278.35
    ],
    "pat": [
     {
@@ -133186,7 +133209,7 @@
     45.89,
     46.88,
     46.68,
-    46.67
+    46.78
    ],
    "v": [
     7985200,
@@ -133689,7 +133712,7 @@
     15659100,
     6349200,
     6158700,
-    876750
+    2327485
    ],
    "e10": [
     21.91,
@@ -134192,7 +134215,7 @@
     44.02,
     44.54,
     44.93,
-    45.24
+    45.26
    ],
    "e30": [
     21.91,
@@ -134695,7 +134718,7 @@
     42.66,
     42.93,
     43.18,
-    43.4
+    43.41
    ],
    "pat": [
     {
@@ -137300,7 +137323,7 @@
     187.81,
     186.59,
     188.25,
-    187.96
+    186.77
    ],
    "v": [
     1155600,
@@ -137803,7 +137826,7 @@
     2343300,
     1857800,
     2102400,
-    624297
+    939782
    ],
    "e10": [
     242.47,
@@ -138306,7 +138329,7 @@
     187.84,
     187.62,
     187.73,
-    187.77
+    187.56
    ],
    "e30": [
     242.47,
@@ -138809,7 +138832,7 @@
     187.85,
     187.77,
     187.8,
-    187.81
+    187.74
    ],
    "pat": [
     {
@@ -140383,7 +140406,7 @@
     407.45,
     398.28,
     392.6,
-    377.32
+    382.77
    ],
    "l": [
     49.43,
@@ -141389,7 +141412,7 @@
     393.31,
     397.28,
     386.94,
-    374.3
+    379.68
    ],
    "v": [
     5856656,
@@ -141892,7 +141915,7 @@
     9386800,
     7046600,
     5376100,
-    5064463
+    7087685
    ],
    "e10": [
     50.51,
@@ -142395,7 +142418,7 @@
     426.24,
     420.98,
     414.79,
-    407.43
+    408.41
    ],
    "e30": [
     50.51,
@@ -142898,7 +142921,7 @@
     446.02,
     442.87,
     439.26,
-    435.07
+    435.42
    ],
    "pat": [
     {
@@ -144480,7 +144503,7 @@
     169.19,
     170.29,
     172.55,
-    174.38
+    174.89
    ],
    "l": [
     122.62,
@@ -145486,7 +145509,7 @@
     168.5,
     168.94,
     172.15,
-    174.08
+    173.93
    ],
    "v": [
     9808100,
@@ -145989,7 +146012,7 @@
     13288100,
     8083600,
     8811000,
-    2823293
+    4623339
    ],
    "e10": [
     124.08,
@@ -146492,7 +146515,7 @@
     164.27,
     165.12,
     166.39,
-    167.79
+    167.76
    ],
    "e30": [
     124.08,
@@ -146995,7 +147018,7 @@
     162.43,
     162.85,
     163.45,
-    164.13
+    164.12
    ],
    "pat": [
     {
@@ -149593,7 +149616,7 @@
     216.81,
     233.73,
     225.78,
-    230.65
+    231.43
    ],
    "v": [
     1245100,
@@ -150096,7 +150119,7 @@
     3728400,
     3797500,
     2662400,
-    1021287
+    1334177
    ],
    "e10": [
     196.74,
@@ -150599,7 +150622,7 @@
     206.1,
     211.12,
     213.79,
-    216.85
+    217.0
    ],
    "e30": [
     196.74,
@@ -151102,7 +151125,7 @@
     194.33,
     196.87,
     198.73,
-    200.79
+    200.84
    ],
    "pat": [
     {
@@ -153286,7 +153309,7 @@
     7731.26,
     7779.34,
     7796.94,
-    7793.92
+    7786.11
    ],
    "c": [
     5859.85,
@@ -153789,7 +153812,7 @@
     7765.36,
     7811.54,
     7807.24,
-    7794.26
+    7804.59
    ],
    "v": [
     3005250000,
@@ -154292,7 +154315,7 @@
     6082070000,
     4782640000,
     4148500000,
-    713281110
+    1076430000
    ],
    "e10": [
     5859.85,
@@ -154795,7 +154818,7 @@
     7743.33,
     7755.73,
     7765.09,
-    7770.4
+    7772.28
    ],
    "e30": [
     5859.85,
@@ -155298,7 +155321,7 @@
     7698.54,
     7705.83,
     7712.37,
-    7717.65
+    7718.32
    ],
    "pat": []
   }
@@ -155316,8 +155339,8 @@
    "as_of": "2026-10-08",
    "open_n": 32,
    "real_n": 5,
-   "real_pl": 26.6,
-   "paper_pl": 4.4,
+   "real_pl": 24.0,
+   "paper_pl": 4.5,
    "fired": 2,
    "sessions": 2
   },
@@ -155333,18 +155356,18 @@
    {
     "label": "Open \u00b7 real",
     "before": 18.0,
-    "after": 26.6,
+    "after": 24.0,
     "fmt": "pct",
     "sub": "5 positions",
-    "delta": 8.6
+    "delta": 6.0
    },
    {
     "label": "Open \u00b7 paper",
     "before": -4.4,
-    "after": 4.4,
+    "after": 4.5,
     "fmt": "pct",
     "sub": "27 positions",
-    "delta": 8.8
+    "delta": 8.9
    },
    {
     "label": "Closed real money",
@@ -155362,7 +155385,7 @@
     "act": "opened",
     "on": "2026-10-12",
     "pl": null,
-    "pct": -5.457662766979587
+    "pct": -4.905743752756431
    },
    {
     "sym": "ZS",
@@ -155370,7 +155393,7 @@
     "act": "opened",
     "on": "2026-10-12",
     "pl": null,
-    "pct": 23.58620689655173
+    "pct": 29.448275862068975
    }
   ],
   "positions": [
@@ -155382,9 +155405,9 @@
     "acct": "real",
     "setup": "none",
     "before": 7.07,
-    "after": 7.475,
+    "after": 7.33,
     "before_pl": 51.82751363655886,
-    "after_pl": 60.52484645449469,
+    "after_pl": 57.410986556715194,
     "isnew": false
    },
    {
@@ -155395,9 +155418,9 @@
     "acct": "real",
     "setup": "none",
     "before": 9.630000114440918,
-    "after": 9.944999694824219,
+    "after": 9.925000190734863,
     "before_pl": 38.74881299082094,
-    "after_pl": 43.28731946552487,
+    "after_pl": 42.99916708548055,
     "isnew": false
    },
    {
@@ -155408,9 +155431,9 @@
     "acct": "real",
     "setup": "none",
     "before": 2.515,
-    "after": 2.96,
+    "after": 2.865,
     "before_pl": 7.176340236938561,
-    "after_pl": 26.139947157589695,
+    "after_pl": 22.091536691383283,
     "isnew": false
    },
    {
@@ -155421,9 +155444,9 @@
     "acct": "real",
     "setup": "F",
     "before": 140.86000061035156,
-    "after": 142.02000427246094,
+    "after": 141.81640625,
     "before_pl": 1.9911669034476498,
-    "after_pl": 2.831079771530609,
+    "after_pl": 2.6836624791832575,
     "isnew": false
    },
    {
@@ -155434,9 +155457,9 @@
     "acct": "real",
     "setup": "none",
     "before": 5.61,
-    "after": 6.235,
+    "after": 5.91,
     "before_pl": -9.807073954983913,
-    "after_pl": 0.2411575562700996,
+    "after_pl": -4.983922829581989,
     "isnew": false
    },
    {
@@ -155447,9 +155470,9 @@
     "acct": "bot-leaps",
     "setup": "F",
     "before": 75.94999999999999,
-    "after": 82.72,
+    "after": 81.18,
     "before_pl": 41.96261682242988,
-    "after_pl": 54.616822429906534,
+    "after_pl": 51.73831775700937,
     "isnew": false
    },
    {
@@ -155460,22 +155483,9 @@
     "acct": "small",
     "setup": "E",
     "before": 5.995,
-    "after": 7.2445,
+    "after": 6.965,
     "before_pl": 22.84836065573772,
-    "after_pl": 48.452868852459034,
-    "isnew": false
-   },
-   {
-    "sym": "SHOP",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "F",
-    "before": 170.85000610351562,
-    "after": 178.19000244140625,
-    "before_pl": 27.40492625168951,
-    "after_pl": 32.87845073930369,
+    "after_pl": 42.725409836065566,
     "isnew": false
    },
    {
@@ -155486,9 +155496,22 @@
     "acct": "big",
     "setup": "E",
     "before": 34.355000000000004,
-    "after": 34.56,
+    "after": 35.25,
     "before_pl": 30.975981700343127,
-    "after_pl": 31.757529546321006,
+    "after_pl": 34.38810522302707,
+    "isnew": false
+   },
+   {
+    "sym": "SHOP",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "F",
+    "before": 170.85000610351562,
+    "after": 177.88999938964844,
+    "before_pl": 27.40492625168951,
+    "after_pl": 32.65473481703835,
     "isnew": false
    },
    {
@@ -155499,22 +155522,9 @@
     "acct": "bot-leaps",
     "setup": "F",
     "before": 91.91,
-    "after": 90.195,
+    "after": 89.69,
     "before_pl": 32.722021660649816,
-    "after_pl": 30.24548736462094,
-    "isnew": false
-   },
-   {
-    "sym": "SHOP",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper-auto",
-    "setup": "F",
-    "before": 170.85000610351562,
-    "after": 178.19000244140625,
-    "before_pl": 19.844280375642278,
-    "after_pl": 24.99298712219855,
+    "after_pl": 29.51624548736462,
     "isnew": false
    },
    {
@@ -155525,10 +155535,23 @@
     "acct": "bot-tickets",
     "setup": "Setup F",
     "before": null,
-    "after": 8.96,
+    "after": 9.385,
     "before_pl": null,
-    "after_pl": 23.58620689655173,
+    "after_pl": 29.448275862068975,
     "isnew": true
+   },
+   {
+    "sym": "SHOP",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": 170.85000610351562,
+    "after": 177.88999938964844,
+    "before_pl": 19.844280375642278,
+    "after_pl": 24.78254727107774,
+    "isnew": false
    },
    {
     "sym": "ZS",
@@ -155538,9 +155561,9 @@
     "acct": "bot",
     "setup": "F",
     "before": 233.72999572753906,
-    "after": 230.64999389648438,
+    "after": 231.4250030517578,
     "before_pl": 16.40519733429906,
-    "after_pl": 14.87125548906041,
+    "after_pl": 15.257235445867723,
     "isnew": false
    },
    {
@@ -155551,9 +155574,9 @@
     "acct": "bot-leaps",
     "setup": "F",
     "before": 50.635,
-    "after": 52.96,
+    "after": 52.05,
     "before_pl": 7.16402116402115,
-    "after_pl": 12.084656084656075,
+    "after_pl": 10.158730158730144,
     "isnew": false
    },
    {
@@ -155564,9 +155587,9 @@
     "acct": "paper",
     "setup": "D",
     "before": 535.0700073242188,
-    "after": 547.1480712890625,
+    "after": 546.47998046875,
     "before_pl": 4.8910074735785125,
-    "after_pl": 7.258698206120617,
+    "after_pl": 7.127730821914446,
     "isnew": false
    },
    {
@@ -155577,9 +155600,9 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 140.86000061035156,
-    "after": 142.02000427246094,
+    "after": 141.81640625,
     "before_pl": 0.17067316907377617,
-    "after_pl": 0.9955939926475033,
+    "after_pl": 0.8508080287298991,
     "isnew": false
    },
    {
@@ -155590,9 +155613,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 140.86000061035156,
-    "after": 142.02000427246094,
+    "after": 141.81640625,
     "before_pl": -0.2831653614954188,
-    "after_pl": 0.5380180323240502,
+    "after_pl": 0.3938880433243641,
     "isnew": false
    },
    {
@@ -155603,9 +155626,9 @@
     "acct": "paper",
     "setup": "E",
     "before": 361.5400085449219,
-    "after": 353.92999267578125,
+    "after": 356.2300109863281,
     "before_pl": 1.2263435280887691,
-    "after_pl": -0.9043586415664606,
+    "after_pl": -0.2603844253757148,
     "isnew": false
    },
    {
@@ -155616,9 +155639,9 @@
     "acct": "paper",
     "setup": "E",
     "before": 227.1300048828125,
-    "after": 232.11000061035156,
+    "after": 231.85000610351562,
     "before_pl": -3.2295151962794533,
-    "after_pl": -1.1077497293035865,
+    "after_pl": -1.2185223878336648,
     "isnew": false
    },
    {
@@ -155629,9 +155652,9 @@
     "acct": "paper",
     "setup": "C",
     "before": 175.5,
-    "after": 176.1750030517578,
+    "after": 178.40499877929688,
     "before_pl": -4.396143160647159,
-    "after_pl": -4.028434356508248,
+    "after_pl": -2.813641238058029,
     "isnew": false
    },
    {
@@ -155642,9 +155665,22 @@
     "acct": "bot",
     "setup": "F",
     "before": 361.5400085449219,
-    "after": 353.92999267578125,
+    "after": 356.2300109863281,
     "before_pl": -2.6023683876826853,
-    "after_pl": -4.652480421395133,
+    "after_pl": -4.032863419631427,
+    "isnew": false
+   },
+   {
+    "sym": "BE",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": 280.5,
+    "after": 261.6600036621094,
+    "before_pl": 1.9925823576467216,
+    "after_pl": -4.857827189982766,
     "isnew": false
    },
    {
@@ -155655,9 +155691,9 @@
     "acct": "bot",
     "setup": "F",
     "before": null,
-    "after": 937.8599853515625,
+    "after": 943.3350219726562,
     "before_pl": null,
-    "after_pl": -5.457662766979587,
+    "after_pl": -4.905743752756431,
     "isnew": true
    },
    {
@@ -155668,9 +155704,22 @@
     "acct": "paper",
     "setup": "F",
     "before": 109.0199966430664,
-    "after": 110.44000244140625,
+    "after": 111.23999786376953,
     "before_pl": -7.090509082097829,
-    "after_pl": -5.88034562689087,
+    "after_pl": -5.198570083714394,
+    "isnew": false
+   },
+   {
+    "sym": "BE",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "F",
+    "before": 280.5,
+    "after": 261.6600036621094,
+    "before_pl": 1.183175817040616,
+    "after_pl": -5.612869323241698,
     "isnew": false
    },
    {
@@ -155681,48 +155730,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 1029.0,
-    "after": 937.8599853515625,
+    "after": 943.3350219726562,
     "before_pl": 2.8732529542319085,
-    "after_pl": -6.238379486177347,
-    "isnew": false
-   },
-   {
-    "sym": "BE",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper-auto",
-    "setup": "F",
-    "before": 280.5,
-    "after": 254.97000122070312,
-    "before_pl": 1.9925823576467216,
-    "after_pl": -7.2903784376761145,
-    "isnew": false
-   },
-   {
-    "sym": "BE",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "F",
-    "before": 280.5,
-    "after": 254.97000122070312,
-    "before_pl": 1.183175817040616,
-    "after_pl": -8.026116001477856,
-    "isnew": false
-   },
-   {
-    "sym": "WDAY",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "D",
-    "before": 186.58999633789062,
-    "after": 187.9600067138672,
-    "before_pl": -9.825054930460741,
-    "after_pl": -9.162958286358403,
+    "after_pl": -5.691018138018489,
     "isnew": false
    },
    {
@@ -155733,9 +155743,22 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 109.0199966430664,
-    "after": 110.44000244140625,
+    "after": 111.23999786376953,
     "before_pl": -10.902258382587116,
-    "after_pl": -9.741743673254122,
+    "after_pl": -9.08793898024719,
+    "isnew": false
+   },
+   {
+    "sym": "WDAY",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "D",
+    "before": 186.58999633789062,
+    "after": 186.77000427246094,
+    "before_pl": -9.825054930460741,
+    "after_pl": -9.738060954735673,
     "isnew": false
    },
    {
@@ -155746,9 +155769,9 @@
     "acct": "paper",
     "setup": "E",
     "before": 70.30000305175781,
-    "after": 71.33000183105469,
+    "after": 70.75,
     "before_pl": -14.963102634864144,
-    "after_pl": -13.717186608135135,
+    "after_pl": -14.418773436554977,
     "isnew": false
    },
    {
@@ -155759,9 +155782,9 @@
     "acct": "bot-leaps",
     "setup": "F",
     "before": 39.705,
-    "after": 40.4,
+    "after": 40.435,
     "before_pl": -20.590000000000007,
-    "after_pl": -19.200000000000006,
+    "after_pl": -19.129999999999992,
     "isnew": false
    },
    {
@@ -155772,9 +155795,9 @@
     "acct": "big",
     "setup": "E",
     "before": 26.16,
-    "after": 26.375,
+    "after": 26.235,
     "before_pl": -30.88507265521797,
-    "after_pl": -30.317040951122852,
+    "after_pl": -30.686922060766186,
     "isnew": false
    },
    {
@@ -155785,9 +155808,9 @@
     "acct": "small",
     "setup": "F",
     "before": 3.63,
-    "after": 3.65,
+    "after": 3.635,
     "before_pl": -38.991596638655466,
-    "after_pl": -38.655462184873954,
+    "after_pl": -38.90756302521009,
     "isnew": false
    }
   ],
@@ -155809,7 +155832,7 @@
    }
   ],
   "notes": [
-   "SG is up 43.3% on a trade that broke a rule going in. A good outcome is not a good decision.",
+   "SG is up 43.0% on a trade that broke a rule going in. A good outcome is not a good decision.",
    "2 calls under 21 days: DOCU 3d, ZS 17d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
