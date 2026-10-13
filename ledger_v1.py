@@ -329,6 +329,11 @@ def card(state, sym, p, mk, codes, risk=None, opt=None, label="PAPER"):
     return "\n".join(L)
 
 
+def settled(hist, state, n=3):
+    """Pure. A new market state counts only after 3 reads in a row (15 minutes)."""
+    return len(hist) >= n and all(h["state"] == state for h in hist[-n:])
+
+
 def tick(say, now=None):
     """One pass: market state, workspace, trigger states, paper positions. Sends only on change."""
     import scan_daily as S
@@ -341,6 +346,8 @@ def tick(say, now=None):
     if (now.hour, now.minute) >= (8, 15) and (not st["mk"].get("last") or now.minute % 5 == 0):
         mk = market(now); prev = st["mk"].get("last")
         st.setdefault("mk_hist", []).append({k: mk[k] for k in ("at", "state", "score", "confirmed")}); st["mk_hist"] = st["mk_hist"][-200:]
+        if prev and prev["confirmed"] == mk["confirmed"] and not settled(st["mk_hist"], mk["state"]):
+            mk = dict(prev, data_time=mk["data_time"])      # a flicker: keep the settled state (2026-10-13: 14 flips in one day)
         if not prev or prev["state"] != mk["state"] or prev["confirmed"] != mk["confirmed"]:
             say(f"**MARKET {mk['state']}** · score {mk['score']:+d} · {'confirmed' if mk['confirmed'] else 'provisional (before 8:45)'}\n"
                 f"ES {mk['parts']['es']:+d} · NQ {mk['parts']['nq']:+d} · SPY {mk['parts']['spy']:+d} · QQQ {mk['parts']['qqq']:+d} · breadth/VIX {mk['parts']['breadth_vix']:+d}\n"
@@ -376,7 +383,7 @@ def step(sym, p, mk, st, say, now, equity, bs=None, quote_fn=None, chain=None):
         key = f"{sym}:{state}"
         if not st["sent"].get(key): st["sent"][key] = now.isoformat(timespec="minutes"); say(card(state, sym, p, mk, [code]))
         return
-    if pos: return                                   # OUT today: no re-entry without a new prepared trigger
+    if pos or (st.get("states", {}).get(sym) or {}).get("state") == "MISSED": return   # OUT or MISSED: no re-entry without a new prepared trigger
     if not p.get("complete"):
         st.setdefault("states", {})[sym] = dict(state="PREP NEEDED", codes=["PREP_MISSING"]); return
     trig, info = trigger_state(bs, p, now)
@@ -626,6 +633,12 @@ if __name__ == "__main__":
         assert len(sent) == 2 and sent[0].startswith("**NOW") and sent[1].startswith("**HOLD"), sent   # NOW, then one HOLD
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
         assert len(sent) == 2                                                                  # third pass: nothing
+        # MISSED is final for the day (2026-10-13: SG went MISSED at 8:40, then NOW at 11:01)
+        sent = []; stt = dict(sent={}, states={"X": dict(state="MISSED")}, pos={}, alert_ask={})
+        step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
+        assert sent == [] and not stt["pos"]
+        h = [dict(state="MIXED")] * 3 + [dict(state="BEARISH")] * 2
+        assert not settled(h, "BEARISH") and settled(h + [dict(state="BEARISH")], "BEARISH")
         # replay: one PASS (NOW 10/16 140C), matching the locked plan's Part C
         assert [h[0] for h in HIST if replay_one(*h)[0] == "PASS"] == ["NOW 10/16 140C"]
         # audit: a sample decision saves and reloads with every group (Part B)

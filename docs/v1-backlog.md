@@ -22,3 +22,10 @@ Ideas wait here until Version 1 closes after the 30-session paper test.
 ## New strategy ideas
 
 - 0DTE exception for Setup F (three BE wins, about +$353 with the bracket). Not added from three examples.
+
+## Software fixes during the paper test (rules unchanged)
+
+- 2026-10-13: SG went MISSED at 8:40 and NOW at 11:01. The plan forbids re-entry after MISSED. MISSED is
+  now final for the day. The SG 10/16 10C paper fill is void and not counted.
+- 2026-10-13: the market state flipped 14 times in one day. A new state now counts only after 3 reads
+  in a row (15 minutes). The score inputs are unchanged.
