@@ -18,8 +18,9 @@ FRIENDS = {"1288838148436136057": "jcbreeze"}   # 2026-10-12: sized as if it wer
 STATE = os.path.expanduser("~/.ledger-tm.json")
 H = os.path.dirname(os.path.abspath(__file__))
 YEAR = datetime.date.today().year
-HELP = ("**I'm your trade manager.** Text me in #trade-log:\n`check BE 10/16 272.50 call` · `details …` · `bought AMZN 10/23 265C 3.18` · "
-        "`sold AMZN 265C 4.90` · `trades`\nI log, watch and journal. You place every order.")
+HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #trade-log:\n`check META calls` · `check BE 10/16 272.50 call` · "
+        "`bought AMZN 10/23 265C 3.18` · `sold AMZN 265C 4.90` · `trades` · `pin META` · `unpin META` · `charts` · `report`\n"
+        "I answer WAIT, NOW, HOLD, OUT, MISSED, NO TRADE or DATA STALE. I log, watch and journal. You place every order.")
 
 
 def api(path, body=None, method=None):
@@ -41,6 +42,11 @@ def parse(text):
     """Pure: (verb, dict) from a message, or ("help", {})."""
     t = text.strip()
     if re.match(r"^(trades|positions|how are my trades)\b", t, re.I): return "trades", {}
+    m = re.match(r"^(pin|unpin)\s+([A-Za-z]{1,5})\b", t, re.I)
+    if m: return m.group(1).lower(), dict(sym=m.group(2).upper())
+    if re.match(r"^(charts|report)\b", t, re.I): return t.split()[0].lower(), {}
+    m = re.match(r"^(check|details)\s+([A-Za-z]{1,5})(?:\s+(calls?|puts?))?\s*$", t, re.I)    # a rough idea: "check META calls"
+    if m: return "check", dict(sym=m.group(2).upper(), exp=None, k=None, right=(m.group(3) or "x")[0].upper().replace("X", "") or None, px=None, n=1)
     m = re.match(r"^(check|details|bought|bto|buy|sold|stc|sell)\s+" + CONTRACT + r"(?:\s+\$?(?P<px>\d+(?:\.\d+)?))?(?:\s+x?(?P<n>\d+))?", t, re.I)
     if not m: return "help", {}
     v = m.group(1).lower(); v = {"bto": "bought", "buy": "bought", "stc": "sold", "sell": "sold"}.get(v, v)
@@ -103,88 +109,6 @@ def gate(sym, dte, cost, cap, sig, earn_before, spread):
     if dte <= 2: return "WAIT", "Setup F with 0-2 days left -- 3 wins, all BE, not yet a rule; paper it"
     if spread > 0.15: return "WAIT", "spread over 15% -- wait for a tighter quote"
     return "APPROVED", f"{', '.join(tested)} · {dte} days · inside the cap"
-
-
-def details(c, who=OWNER):
-    import scan_daily as S
-    from ticket_bot import quote, next_earnings
-    if not c["exp"]: return "Add the expiry: `check AMZN 10/23 265C`."
-    spot = S.bars(c["sym"], "5d")[-1][1]; b, a = quote(c["sym"], c["exp"], c["k"]) if c["right"] == "C" else (0, 0)
-    cap = round(S.PLAN["balance"] * 0.07 / 50) * 50; sig, pats = signal(c["sym"]); earn = next_earnings(c["sym"], datetime.date.today())
-    dte = (datetime.date.fromisoformat(c["exp"]) - datetime.date.today()).days
-    v, why = gate(c["sym"], dte, (a or 0) * 100, cap, sig, bool(earn and earn.isoformat() <= c["exp"]), (a - b) / a if a else 1)
-    icon = {"APPROVED": "✅", "WAIT": "🟡", "PASS": "⛔"}[v]
-    bb = S.bars(c["sym"]); e30 = S.ema([x[1] for x in bb], 30)[-1]
-    inval, inval_why = (e30, "30-day EMA") if spot > e30 else (min(x[3] for x in bb[-10:]), "10-day low")   # already under the EMA: the recent low
-    L = [f"{icon} **{v}** -- {why}", f"**{c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']}** · stock ${spot:,.2f}"]
-    if a:
-        be = c["k"] + a; L += [f"Ask ${a:.2f} (bid ${b:.2f}) · **${a * 100:,.0f}** vs cap ${cap:,} → {'fits ✅' if a * 100 <= cap else 'OVER CAP ❌'}",
-                               f"Breakeven at expiry ${be:,.2f} ({100 * (be / spot - 1):+.1f}%) · spread {100 * (a - b) / a:.0f}%"]
-        if (a - b) / a > 0.15: L.append(f"⚠️ Wide spread right now -- buy with a limit near the middle (${(a + b) / 2:.2f}), never a market order")
-        mid = (a + b) / 2; br = bracket(mid)
-        L.append(f"Limit **${mid:.2f}** · don't pay above **${mid + (a - mid) / 2:.2f}**")
-        L.append(f"Exits to enter with it: take profit **${br['tp']}** (+50%) · stop **${br['sl']}** (-50%)" if dte <= 60 else
-                 f"Exits (long-dated): stop **${br['sl']}** (-50%); at 2x (${br['lock']}) move the stop up to lock the gain")
-        L.append(f"Stock invalidation: a close under ${inval:,.2f} ({inval_why})")
-    else: L.append("No live quote (puts aren't priced here yet).")
-    L.append(f"Ledger signal: **{', '.join(sig) if sig else 'none ⚠️ -- a no-signal trade'}**" + (f" · chart: {', '.join(pats)}" if pats else ""))
-    # your own record (thesis/trade-manager-replay.md: 35 real trades 08-24..10-09, +50/-50 bracket)
-    if v == "PASS" or who != OWNER: pass
-    elif c["sym"] in ("QQQ", "SPY") and "pattern #7" not in sig:
-        L.append("📉 Your record: QQQ/SPY options -$467 on 11 trades (worse with a bracket). Only with a pattern #7 alert.")
-    if v == "PASS" or who != OWNER: pass
-    elif dte <= 2: L.append(f"📉 Your record: 0-2 day options -$35 on 17 trades (-$239 with a bracket). {dte} days left.")
-    elif dte <= 9: L.append(f"✅ Your best zone: 3-9 days to expiry (+$643 on 11 trades with a bracket). {dte} days left.")
-    elif dte <= 60: L.append(f"⚠️ Your record at 10+ days: -$753 on 7 trades (big size, held losers). {dte} days left -- keep it small.")
-    if not sig and who == OWNER: L.append("📉 Your record without a Ledger signal: -$868 on 31 trades. With Setup F: 4 for 4, +$635 with a bracket.")
-    if earn and earn.isoformat() <= c["exp"]: L.append(f"⚠️ Earnings {earn.isoformat()[5:]} land BEFORE expiry -- option prices drop after the report")
-    elif earn: L.append(f"Earnings {earn.isoformat()[5:]}, after expiry ✅")
-    if who != OWNER: L.append("_Ledger's rules on a $12k account, not investment advice. You place every order._")
-    return "\n".join(L)
-
-
-def ticket(c, who=OWNER):
-    """The order ticket (2026-10-12, his spec): what am I buying, what price, how much risk, where do I exit.
-    One status icon; the analysis lives behind `details`. Returns (text, chart png or None)."""
-    import scan_daily as S
-    from ticket_bot import quote, next_earnings
-    if not c["exp"]: return "Add the expiry: `check BE 10/16 272.50 call`", None
-    if c["right"] != "C": return "Puts aren't priced here yet -- `details` still works.", None
-    b, a = quote(c["sym"], c["exp"], c["k"])
-    if not a: return f"No live quote for {c['sym']} {c['exp'][5:]} ${c['k']:g} call.", None
-    bb = S.bars(c["sym"]); spot = bb[-1][1]; e30 = S.ema([x[1] for x in bb], 30)[-1]
-    inval = e30 if spot > e30 else min(x[3] for x in bb[-10:])
-    cap = round(S.PLAN["balance"] * 0.07 / 50) * 50; sig, _ = signal(c["sym"]); earn = next_earnings(c["sym"], datetime.date.today())
-    dte = (datetime.date.fromisoformat(c["exp"]) - datetime.date.today()).days; spread = (a - b) / a
-    v, why = gate(c["sym"], dte, a * 100, cap, sig, bool(earn and earn.isoformat() <= c["exp"]), spread)
-    mid = round((a + b) / 2, 2); mx = round(mid + (a - mid) / 2, 2); br = bracket(mid); n = max(1, c.get("n") or 1)
-    tested = [x for x in sig if x in ("Setup F", "pattern #7")]
-    head = {"APPROVED": f"✅ **RULES PASS · {(tested[0] if tested else 'LONG-DATED').upper()}**", "WAIT": f"🟡 **WAIT** · {why}",
-            "PASS": f"⛔ **RULES FAIL** · {why}"}[v]
-    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5))).strftime("%-I:%M %p CT")
-    contract = f"{c['sym']} {c['exp'][5:].replace('-', '/')} ${c['k']:.2f} CALL" if c["k"] % 1 else f"{c['sym']} {c['exp'][5:].replace('-', '/')} ${c['k']:g} CALL"
-    if v == "PASS":
-        return f"{head}\n{contract} · ${a:.2f} ask\n_Skip it. `details` for the full read._", None
-    L = [head, f"Quote {now} · valid for 2 minutes", "",
-         f"**BUY {n}× {contract}**", f"LIMIT **${mid:.2f}** · MAX ${mx:.2f}",
-         f"COST **${mid * 100 * n:,.0f}** · PLANNED RISK **${(mid - br['sl']) * 100 * n:,.0f}** · {dte} DTE", "",
-         "**OCO AFTER FILL**" if dte <= 60 else "**AFTER FILL (long-dated)**",
-         f"TAKE PROFIT ${br['tp']:.2f} (+50%)" if dte <= 60 else f"AT 2X ${br['lock']:.2f}: move the stop up to lock the gain",
-         f"STOP ${br['sl']:.2f} (−50%)", "",
-         "**THESIS FAILS**", f"{c['sym']} closes below ${inval:,.2f}", "",
-         "**WHY**" if v == "APPROVED" else "**WHY IT'S A WAIT**",
-         " · ".join(([", ".join(tested)] if tested else []) + [f"{spread * 100:.0f}% spread", "within cap" if a * 100 <= cap else "OVER CAP"])
-         + ("" if not earn else (" · earnings after expiration" if earn.isoformat() > c["exp"] else f" · ⚠ earnings {earn.isoformat()[5:]} before expiration")),
-         "", f"Reply `bought {c['sym']} {c['exp'][5:].replace('-', '/')} {c['k']:g}C {mid:.2f}` once filled · `details {c['sym']} {c['exp'][5:].replace('-', '/')} {c['k']:g}C` for more"]
-    if who != OWNER: L.append("_Ledger's rules on a $12k account, not investment advice._")
-    png = None
-    try:
-        F = next((r for r in json.load(open(os.path.join(H, "docs", "data.json"))).get("F", []) if r["sym"] == c["sym"]), None)
-        lines = [(spot, f"NOW ${spot:,.2f}", "#000", ":", True), (inval, f"THESIS FAILS < ${inval:,.2f}", "#c62828", "--")]
-        if F: lines.append((F["tgt"], f"SETUP F TARGET ${F['tgt']:,.2f}", "#2e7d32", "--"))
-        png = S._chart(c["sym"], f"{c['sym']} · daily · underlying stock, not the call", lines, start=-130)
-    except Exception as e: print("chart failed", e)
-    return "\n".join(L), png
 
 
 def post(text, png=None):
@@ -260,6 +184,19 @@ def watch(rs, st, tag=""):
             if hit and not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
 
 
+def pins(sym, on):
+    import ledger_v1 as V
+    s1 = V.load_state(); r = V.pin(sym, s1, on); V.save_state(s1); return r
+
+
+def charts():
+    import ledger_v1 as V
+    s1 = V.load_state()
+    return "\n".join([f"**WORKSPACE** ({len(s1.get('plans', {}))}/7 · pinned {', '.join(s1.get('pins', [])) or 'none'})"] +
+                     [f"{s}: {(s1.get('states', {}).get(s) or {}).get('state', 'WAIT' if p.get('complete') else 'PREP NEEDED')}"
+                      + (f" · {p['m15']['direction']} past ${p['m15']['trigger']:,.2f}" if p.get("complete") else "") for s, p in s1.get("plans", {}).items()])
+
+
 def main():
     st = json.load(open(STATE)) if os.path.exists(STATE) else {}
     msgs = api(f"/channels/{CH}/messages?limit=20" + (f"&after={st['last']}" if st.get("last") else ""))
@@ -268,8 +205,11 @@ def main():
         if (who != OWNER and who not in FRIENDS) or m["author"].get("bot"): continue
         v, c = parse(m.get("content", "")); rs = rows(who)
         try:
-            reply = {"check": lambda: ticket(c, who), "details": lambda: details(c, who), "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who),
-                     "trades": lambda: trades(rs, who)}.get(v, lambda: HELP)()
+            import ledger_v1 as V
+            reply = {"check": lambda: V.improve(dict(c, text=m.get("content", "")), "owner" if who == OWNER else FRIENDS[who]),
+                     "details": lambda: V.improve(dict(c, text=m.get("content", "")), "owner" if who == OWNER else FRIENDS[who]),
+                     "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who), "trades": lambda: trades(rs, who),
+                     "pin": lambda: pins(c["sym"], True), "unpin": lambda: pins(c["sym"], False), "charts": charts, "report": V.report}.get(v, lambda: HELP)()
         except Exception as e:
             reply = f"Something broke on that one: {str(e)[:120]}"
         text, png = reply if isinstance(reply, tuple) else (reply, None)
@@ -277,6 +217,9 @@ def main():
         try: api(f"/channels/{CH}/messages/{m['id']}/reactions/%E2%9C%85/@me", method="PUT")
         except Exception: pass
     if st.get("last") is None and msgs == []: st["last"] = "0"
+    try:
+        import ledger_v1 as V; V.tick(say)              # Version 1: market, seven charts, states -- sends only on change
+    except Exception as e: print("v1 tick failed", e)
     try:
         watch(rows(), st)
         for fid in FRIENDS: watch(rows(fid), st, f"<@{fid}> ")
@@ -292,6 +235,7 @@ if __name__ == "__main__":
         assert parse("bto PYPL 9/25 53C 1.66 x2")[1]["n"] == 2 and parse("how are my trades")[0] == "trades"
         assert parse("Check be 10/16 272.50 call")[1] == dict(sym="BE", exp=f"{YEAR}-10-16", k=272.5, right="C", px=None, n=1)
         assert parse("check AMZN 10/23 250 puts")[1]["right"] == "P"
+        assert parse("check META calls")[1]["right"] == "C" and parse("check META")[1]["right"] is None and parse("pin meta") == ("pin", dict(sym="META"))
         assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=4.77, sl=1.59, lock=6.36)
         assert gate("NFLX", 70, 622, 850, [], False, 0.05)[0] == "WAIT" and gate("SG", 400, 400, 850, [], False, 0.05)[0] == "APPROVED"
         assert gate("QQQ", 3, 300, 850, [], False, 0.02)[0] == "PASS" and gate("QQQ", 3, 300, 850, ["pattern #7"], False, 0.02)[0] == "APPROVED"

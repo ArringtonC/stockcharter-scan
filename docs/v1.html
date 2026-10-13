@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger Seven Charts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:820px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+.mk{border:1px solid var(--line2);background:var(--panel);padding:14px 16px;margin:0 0 var(--s4)}
+.mk b{font:600 var(--t-h2) var(--mono)}
+.sub{color:var(--dim);font-size:var(--t-data)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{border:1px solid var(--line);background:var(--panel);padding:14px 16px;text-decoration:none;color:var(--ink);display:block}
+.card:hover,.card:focus-visible{border-color:var(--amber);outline:none}
+.st{font:600 var(--t-data) var(--mono);letter-spacing:var(--tr)}
+.NOW{color:var(--up)}.OUT,.MISSED,.NO{color:var(--dn)}.WAIT,.HOLD{color:var(--amber)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:var(--t-data);border-top:1px solid var(--line);padding:5px 0}
+.row span:first-child{color:var(--dim)}
+.prep{color:var(--dn);font-size:var(--t-data)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Seven charts</h1>
+<p class="sub" id="meta">Loading…</p>
+<div class="mk" id="mk"></div>
+<div class="grid" id="grid"></div>
+<p class="sub">Version 1 rules (locked). The market score is context; a chart still needs its own source, level and a 5-minute confirmation. Paper only. Tap a card for the full chart.</p>
+</div>
+<script>
+const $=s=>document.querySelector(s), f=x=>x==null?'—':'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+fetch('v1.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  $('#meta').textContent=`Rules v${d.rule_version} · ${d.day||''} · updated ${String(d.updated||'').slice(11,16)} CT · ${d.charts.length}/7 charts`;
+  const m=d.market;
+  $('#mk').innerHTML=m?`<b>${m.state}</b> <span class="sub">score ${m.score>0?'+':''}${m.score} · ${m.confirmed?'confirmed':'provisional (before 8:45)'} · data ${String(m.data_time).slice(11,16)}</span>`
+    :'<span class="sub">No market read yet today (it starts at 8:15 CT).</span>';
+  $('#grid').innerHTML=d.charts.map(({plan:p,state:s})=>{
+    const st=(s&&s.state)||'WAIT', cls=st.split(' ')[0];
+    if(!p.complete) return `<div class="card"><div class="st NO">PREP NEEDED · ${p.sym}</div><p class="prep">Missing: ${(p.missing||[]).join(', ')}</p></div>`;
+    const m=p.m15, up=m.direction==='CALLS';
+    return `<a class="card" href="index.html#charts"><div class="st ${cls}">${st} · ${p.sym} ${up?'BULLISH':'BEARISH'}</div>
+      <div class="row"><span>Plan</span><span>${m.direction} ${up?'above':'below'} ${f(m.trigger)}</span></div>
+      <div class="row"><span>Stop area</span><span>${up?'Lose':'Reclaim'} ${f(m.stop)}</span></div>
+      <div class="row"><span>Targets</span><span>${f(m.targets[0])} then ${f(m.targets[1])}</span></div>
+      <div class="row"><span>Max chase</span><span>${f(m.chase)}</span></div>
+      <div class="row"><span>Daily</span><span>${p.daily.thesis} · fails ${f(p.daily.failure)}</span></div>
+      <div class="row"><span>Source</span><span>${(p.source||{}).type||'none'}${(d.pins||[]).includes(p.sym)?' · pinned':''}</span></div>
+      ${p.daily.earnings?`<div class="row"><span>Earnings</span><span>${p.daily.earnings}</span></div>`:''}
+      <div class="row"><span>Reason</span><span>${((s&&s.codes)||[]).join(', ')||'waiting for the trigger'}</span></div></a>`;
+  }).join('')||'<p class="sub">No charts qualify today.</p>';
+}).catch(()=>{$('#meta').textContent='Could not load v1.json.'});
+</script>
+</body>
+</html>

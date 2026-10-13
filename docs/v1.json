@@ -1,0 +1,283 @@
+{
+ "rule_version": "1.0",
+ "updated": "2026-10-12T19:30-05:00",
+ "day": "2026-10-12",
+ "market": null,
+ "market_history": [],
+ "pins": [],
+ "charts": [
+  {
+   "plan": {
+    "sym": "BE",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 281.56,
+     "e30": 267.22,
+     "trend": "UP",
+     "support": 249.05,
+     "resistance": 302.35,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 267.22,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 280.5,
+     "atr": 1.61,
+     "stop": 278.89,
+     "targets": [
+      283.72,
+      285.33
+     ],
+     "chase": 280.9
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  },
+  {
+   "plan": {
+    "sym": "ZS",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 211.12,
+     "e30": 196.87,
+     "trend": "UP",
+     "support": 170.06,
+     "resistance": 234.31,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 196.87,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 234.31,
+     "atr": 0.85,
+     "stop": 233.46,
+     "targets": [
+      236.02,
+      236.87
+     ],
+     "chase": 234.52
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  },
+  {
+   "plan": {
+    "sym": "NFLX",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 70.05,
+     "e30": 72.64,
+     "trend": "DOWN",
+     "support": 66.54,
+     "resistance": 81.02,
+     "thesis": "10 EMA below the 30 EMA",
+     "failure": 72.64,
+     "earnings": "2026-10-20"
+    },
+    "m15": {
+     "direction": "PUTS",
+     "trigger": 70.19,
+     "atr": 0.13,
+     "stop": 70.32,
+     "targets": [
+      69.93,
+      69.8
+     ],
+     "chase": 70.16
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "level",
+     "time": "2026-10-08",
+     "version": "levels.json",
+     "evidence": "your Dec-18 69C: close back over the 30-day EMA vs close under the 20-day low"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  },
+  {
+   "plan": {
+    "sym": "SG",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 9.0,
+     "e30": 8.06,
+     "trend": "UP",
+     "support": 6.61,
+     "resistance": 9.7,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 8.06,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 9.7,
+     "atr": 0.04,
+     "stop": 9.66,
+     "targets": [
+      9.79,
+      9.83
+     ],
+     "chase": 9.71
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "level",
+     "time": "2026-10-08",
+     "version": "levels.json",
+     "evidence": "your SG shares + Jan-28 3C: new 1-year high vs close under the 30-day EMA"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  },
+  {
+   "plan": {
+    "sym": "NOW",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 137.62,
+     "e30": 134.95,
+     "trend": "UP",
+     "support": 126.75,
+     "resistance": 147.57,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 134.95,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 142.47,
+     "atr": 0.37,
+     "stop": 142.1,
+     "targets": [
+      143.21,
+      143.58
+     ],
+     "chase": 142.56
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  },
+  {
+   "plan": {
+    "sym": "MU",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 1053.28,
+     "e30": 1022.97,
+     "trend": "UP",
+     "support": 902.6,
+     "resistance": 1108.72,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 1022.97,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 1054.17,
+     "atr": 3.56,
+     "stop": 1050.61,
+     "targets": [
+      1061.28,
+      1064.84
+     ],
+     "chase": 1055.06
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  },
+  {
+   "plan": {
+    "sym": "DASH",
+    "made": "2026-10-12T19:30-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 191.53,
+     "e30": 196.31,
+     "trend": "DOWN",
+     "support": 178.04,
+     "resistance": 204.09,
+     "thesis": "10 EMA below the 30 EMA",
+     "failure": 196.31,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "PUTS",
+     "trigger": 189.63,
+     "atr": 0.77,
+     "stop": 190.4,
+     "targets": [
+      188.1,
+      187.34
+     ],
+     "chase": 189.44
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "level",
+     "time": "2026-10-09",
+     "version": "levels.json",
+     "evidence": "breakout: daily CLOSE above the 20-day high -> Oct 30 $200 call ticket (limit ~$"
+    }
+   },
+   "state": {
+    "state": "WAIT"
+   }
+  }
+ ]
+}
