@@ -1,114 +1,85 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-12T19:30-05:00",
- "day": "2026-10-12",
- "market": null,
- "market_history": [],
+ "updated": "2026-10-13T08:38-05:00",
+ "day": "2026-10-13",
+ "market": {
+  "state": "MIXED",
+  "score": -2,
+  "confirmed": false,
+  "at": "2026-10-13T08:35-05:00",
+  "data_time": "2026-10-13T08:35-05:00",
+  "parts": {
+   "es": -1,
+   "es_mid": 7850.0,
+   "nq": -1,
+   "nq_mid": 30755.38,
+   "spy": 0,
+   "qqq": 0,
+   "breadth_vix": 0,
+   "spy_vwap_crosses": 0,
+   "qqq_vwap_crosses": 0,
+   "vix_rising": true
+  }
+ },
+ "market_history": [
+  {
+   "at": "2026-10-13T08:15-05:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": false
+  },
+  {
+   "at": "2026-10-13T08:20-05:00",
+   "state": "MIXED",
+   "score": -1,
+   "confirmed": false
+  },
+  {
+   "at": "2026-10-13T08:25-05:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": false
+  },
+  {
+   "at": "2026-10-13T08:30-05:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": false
+  },
+  {
+   "at": "2026-10-13T08:35-05:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": false
+  }
+ ],
  "pins": [],
  "charts": [
   {
    "plan": {
-    "sym": "BE",
-    "made": "2026-10-12T19:30-05:00",
-    "rule_version": "1.0",
-    "daily": {
-     "e10": 281.56,
-     "e30": 267.22,
-     "trend": "UP",
-     "support": 249.05,
-     "resistance": 302.35,
-     "thesis": "10 EMA above the 30 EMA",
-     "failure": 267.22,
-     "earnings": null
-    },
-    "m15": {
-     "direction": "CALLS",
-     "trigger": 280.5,
-     "atr": 1.61,
-     "stop": 278.89,
-     "targets": [
-      283.72,
-      285.33
-     ],
-     "chase": 280.9
-    },
-    "missing": [],
-    "complete": true,
-    "source": {
-     "type": "Setup F",
-     "time": "2026-10-12 21:39 UTC",
-     "version": "scan_daily",
-     "evidence": "docs/data.json F"
-    }
-   },
-   "state": {
-    "state": "WAIT"
-   }
-  },
-  {
-   "plan": {
-    "sym": "ZS",
-    "made": "2026-10-12T19:30-05:00",
-    "rule_version": "1.0",
-    "daily": {
-     "e10": 211.12,
-     "e30": 196.87,
-     "trend": "UP",
-     "support": 170.06,
-     "resistance": 234.31,
-     "thesis": "10 EMA above the 30 EMA",
-     "failure": 196.87,
-     "earnings": null
-    },
-    "m15": {
-     "direction": "CALLS",
-     "trigger": 234.31,
-     "atr": 0.85,
-     "stop": 233.46,
-     "targets": [
-      236.02,
-      236.87
-     ],
-     "chase": 234.52
-    },
-    "missing": [],
-    "complete": true,
-    "source": {
-     "type": "Setup F",
-     "time": "2026-10-12 21:39 UTC",
-     "version": "scan_daily",
-     "evidence": "docs/data.json F"
-    }
-   },
-   "state": {
-    "state": "WAIT"
-   }
-  },
-  {
-   "plan": {
     "sym": "NFLX",
-    "made": "2026-10-12T19:30-05:00",
+    "made": "2026-10-13T07:01-05:00",
     "rule_version": "1.0",
     "daily": {
-     "e10": 70.05,
-     "e30": 72.64,
+     "e10": 70.15,
+     "e30": 72.51,
      "trend": "DOWN",
      "support": 66.54,
-     "resistance": 81.02,
+     "resistance": 79.48,
      "thesis": "10 EMA below the 30 EMA",
-     "failure": 72.64,
+     "failure": 72.51,
      "earnings": "2026-10-20"
     },
     "m15": {
      "direction": "PUTS",
-     "trigger": 70.19,
+     "trigger": 70.56,
      "atr": 0.13,
-     "stop": 70.32,
+     "stop": 70.69,
      "targets": [
-      69.93,
-      69.8
+      70.3,
+      70.17
      ],
-     "chase": 70.16
+     "chase": 70.53
     },
     "missing": [],
     "complete": true,
@@ -120,34 +91,38 @@
     }
    },
    "state": {
-    "state": "WAIT"
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
    }
   },
   {
    "plan": {
     "sym": "SG",
-    "made": "2026-10-12T19:30-05:00",
+    "made": "2026-10-13T07:01-05:00",
     "rule_version": "1.0",
     "daily": {
-     "e10": 9.0,
-     "e30": 8.06,
+     "e10": 9.15,
+     "e30": 8.18,
      "trend": "UP",
      "support": 6.61,
-     "resistance": 9.7,
+     "resistance": 9.87,
      "thesis": "10 EMA above the 30 EMA",
-     "failure": 8.06,
+     "failure": 8.18,
      "earnings": null
     },
     "m15": {
      "direction": "CALLS",
-     "trigger": 9.7,
+     "trigger": 9.87,
      "atr": 0.04,
-     "stop": 9.66,
+     "stop": 9.83,
      "targets": [
-      9.79,
-      9.83
+      9.96,
+      10.0
      ],
-     "chase": 9.71
+     "chase": 9.88
     },
     "missing": [],
     "complete": true,
@@ -159,73 +134,38 @@
     }
    },
    "state": {
-    "state": "WAIT"
-   }
-  },
-  {
-   "plan": {
-    "sym": "NOW",
-    "made": "2026-10-12T19:30-05:00",
-    "rule_version": "1.0",
-    "daily": {
-     "e10": 137.62,
-     "e30": 134.95,
-     "trend": "UP",
-     "support": 126.75,
-     "resistance": 147.57,
-     "thesis": "10 EMA above the 30 EMA",
-     "failure": 134.95,
-     "earnings": null
-    },
-    "m15": {
-     "direction": "CALLS",
-     "trigger": 142.47,
-     "atr": 0.37,
-     "stop": 142.1,
-     "targets": [
-      143.21,
-      143.58
-     ],
-     "chase": 142.56
-    },
-    "missing": [],
-    "complete": true,
-    "source": {
-     "type": "Setup F",
-     "time": "2026-10-12 21:39 UTC",
-     "version": "scan_daily",
-     "evidence": "docs/data.json F"
-    }
-   },
-   "state": {
-    "state": "WAIT"
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
    }
   },
   {
    "plan": {
     "sym": "MU",
-    "made": "2026-10-12T19:30-05:00",
+    "made": "2026-10-13T07:01-05:00",
     "rule_version": "1.0",
     "daily": {
-     "e10": 1053.28,
-     "e30": 1022.97,
+     "e10": 1041.6,
+     "e30": 1020.78,
      "trend": "UP",
-     "support": 902.6,
+     "support": 917.64,
      "resistance": 1108.72,
      "thesis": "10 EMA above the 30 EMA",
-     "failure": 1022.97,
+     "failure": 1020.78,
      "earnings": null
     },
     "m15": {
      "direction": "CALLS",
-     "trigger": 1054.17,
+     "trigger": 1002.67,
      "atr": 3.56,
-     "stop": 1050.61,
+     "stop": 999.11,
      "targets": [
-      1061.28,
-      1064.84
+      1009.78,
+      1013.34
      ],
-     "chase": 1055.06
+     "chase": 1003.56
     },
     "missing": [],
     "complete": true,
@@ -237,34 +177,38 @@
     }
    },
    "state": {
-    "state": "WAIT"
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
    }
   },
   {
    "plan": {
     "sym": "DASH",
-    "made": "2026-10-12T19:30-05:00",
+    "made": "2026-10-13T07:01-05:00",
     "rule_version": "1.0",
     "daily": {
-     "e10": 191.53,
-     "e30": 196.31,
+     "e10": 192.03,
+     "e30": 196.17,
      "trend": "DOWN",
      "support": 178.04,
-     "resistance": 204.09,
+     "resistance": 203.82,
      "thesis": "10 EMA below the 30 EMA",
-     "failure": 196.31,
+     "failure": 196.17,
      "earnings": null
     },
     "m15": {
      "direction": "PUTS",
-     "trigger": 189.63,
+     "trigger": 189.3,
      "atr": 0.77,
-     "stop": 190.4,
+     "stop": 190.07,
      "targets": [
-      188.1,
-      187.34
+      187.77,
+      187.0
      ],
-     "chase": 189.44
+     "chase": 189.11
     },
     "missing": [],
     "complete": true,
@@ -276,7 +220,140 @@
     }
    },
    "state": {
-    "state": "WAIT"
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
+   }
+  },
+  {
+   "plan": {
+    "sym": "BE",
+    "made": "2026-10-13T07:01-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 278.06,
+     "e30": 266.9,
+     "trend": "UP",
+     "support": 251.3,
+     "resistance": 302.35,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 266.9,
+     "earnings": "2026-10-22"
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 275.99,
+     "atr": 1.61,
+     "stop": 274.38,
+     "targets": [
+      279.21,
+      280.82
+     ],
+     "chase": 276.39
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
+   }
+  },
+  {
+   "plan": {
+    "sym": "ZS",
+    "made": "2026-10-13T07:01-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 213.79,
+     "e30": 198.73,
+     "trend": "UP",
+     "support": 187.45,
+     "resistance": 237.22,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 198.73,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 237.22,
+     "atr": 0.85,
+     "stop": 236.37,
+     "targets": [
+      238.93,
+      239.78
+     ],
+     "chase": 237.43
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
+   }
+  },
+  {
+   "plan": {
+    "sym": "NOW",
+    "made": "2026-10-13T07:01-05:00",
+    "rule_version": "1.0",
+    "daily": {
+     "e10": 138.11,
+     "e30": 135.3,
+     "trend": "UP",
+     "support": 126.75,
+     "resistance": 148.14,
+     "thesis": "10 EMA above the 30 EMA",
+     "failure": 135.3,
+     "earnings": null
+    },
+    "m15": {
+     "direction": "CALLS",
+     "trigger": 148.14,
+     "atr": 0.37,
+     "stop": 147.77,
+     "targets": [
+      148.88,
+      149.25
+     ],
+     "chase": 148.23
+    },
+    "missing": [],
+    "complete": true,
+    "source": {
+     "type": "Setup F",
+     "time": "2026-10-12 21:39 UTC",
+     "version": "scan_daily",
+     "evidence": "docs/data.json F"
+    }
+   },
+   "state": {
+    "state": "WAIT",
+    "codes": [
+     "TRIGGER_WAITING"
+    ],
+    "at": "2026-10-13T08:38-05:00"
    }
   }
  ]
