@@ -1,19 +1,19 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-13T13:14-05:00",
+ "updated": "2026-10-13T13:20-05:00",
  "day": "2026-10-13",
  "market": {
   "state": "MIXED",
-  "score": 0,
+  "score": -1,
   "confirmed": true,
-  "at": "2026-10-13T13:10-05:00",
-  "data_time": "2026-10-13T13:10-05:00",
+  "at": "2026-10-13T13:15-05:00",
+  "data_time": "2026-10-13T13:20-05:00",
   "parts": {
    "es": -1,
    "es_mid": 7850.0,
    "nq": -1,
    "nq_mid": 30755.38,
-   "spy": 1,
+   "spy": 0,
    "qqq": 1,
    "breadth_vix": 0,
    "spy_vwap_crosses": 0,
@@ -22,18 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-13T11:35-05:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-13T11:40-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
   {
    "at": "2026-10-13T11:45-05:00",
    "state": "MIXED",
@@ -141,6 +129,18 @@
    "state": "MIXED",
    "score": 0,
    "confirmed": true
+  },
+  {
+   "at": "2026-10-13T13:15-05:00",
+   "state": "MIXED",
+   "score": -1,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-13T13:20-05:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
   }
  ],
  "pins": [],
@@ -185,7 +185,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-13T13:14-05:00"
+    "at": "2026-10-13T13:20-05:00"
    }
   },
   {
@@ -270,7 +270,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-13T13:14-05:00"
+    "at": "2026-10-13T13:20-05:00"
    }
   },
   {
@@ -313,7 +313,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-13T13:14-05:00"
+    "at": "2026-10-13T13:20-05:00"
    }
   },
   {
@@ -356,7 +356,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-13T13:14-05:00"
+    "at": "2026-10-13T13:20-05:00"
    }
   },
   {
@@ -399,7 +399,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-13T13:14-05:00"
+    "at": "2026-10-13T13:20-05:00"
    }
   },
   {
@@ -442,7 +442,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-13T13:14-05:00"
+    "at": "2026-10-13T13:20-05:00"
    }
   }
  ]
