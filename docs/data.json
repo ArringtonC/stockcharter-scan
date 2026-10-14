@@ -1,6 +1,6 @@
 {
- "date": "2026-10-13",
- "stamp": "2026-10-13 21:35 UTC",
+ "date": "2026-10-14",
+ "stamp": "2026-10-14 00:24 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 15.270000457763672,
@@ -12,8 +12,8 @@
   15.270000457763672
  ],
  "vix_hi10": 16.389999389648438,
- "qqq": 743.5700073242188,
- "qdd": -2.1180483886375945,
+ "qqq": 746.0399780273438,
+ "qdd": -1.7929067739095195,
  "regime": "CALM",
  "advice": "Setup F edge is negative here. Run nothing new.",
  "peaked": false,
@@ -22,100 +22,128 @@
  "F": [
   {
    "sym": "ZS",
-   "px": 228.66000366210938,
-   "dd": 32.14635143819038,
+   "px": 225.77999877929688,
+   "dd": 33.00097767821889,
    "tgt": 336.989990234375,
-   "up": 47.37601016238271,
+   "up": 49.25590931718777,
    "rev": 33.062821386925954
   },
   {
    "sym": "NOW",
-   "px": 138.61000061035156,
-   "dd": 28.168693886394514,
+   "px": 140.32000732421875,
+   "dd": 27.28252394786742,
    "tgt": 192.96600341796875,
-   "up": 39.215065701080306,
+   "up": 37.518524334244006,
    "rev": 29.36572199730094
   },
   {
    "sym": "BE",
-   "px": 263.45001220703125,
-   "dd": 25.00284299632092,
+   "px": 262.2799987792969,
+   "dd": 25.335914458345567,
    "tgt": 351.2799987792969,
-   "up": 33.33838774061044,
+   "up": 33.933201316998485,
    "rev": 53.43903353378423
   },
   {
    "sym": "MU",
-   "px": 953.1900024414062,
-   "dd": 24.048605383154875,
+   "px": 989.0399780273438,
+   "dd": 21.19203362331923,
    "tgt": 1255.0,
-   "up": 31.66315181501773,
+   "up": 26.89072513561259,
    "rev": 200.23471782834986
   }
  ],
  "D": [
   {
-   "sym": "TXN",
-   "px": 287.8500061035156,
-   "dd": 13.825103387283988,
-   "rsi": 58.79153410934905,
-   "up": 16.043075107378723
-  },
-  {
    "sym": "GOOGL",
-   "px": 353.7799987792969,
-   "dd": 13.418660467900867,
-   "rsi": 58.1767929458846,
-   "up": 15.498328554879937
+   "px": 352.7200012207031,
+   "dd": 13.678075948822544,
+   "rsi": 57.24962625059203,
+   "up": 15.845425248762135
   },
   {
    "sym": "CSCO",
-   "px": 115.06999969482422,
-   "dd": 11.735825723250482,
-   "rsi": 56.476303702509675,
-   "up": 13.296250510941366
-  },
-  {
-   "sym": "CRM",
-   "px": 238.00999450683594,
-   "dd": 11.55660976462759,
-   "rsi": 55.60639263214757,
-   "up": 13.066674325658756
+   "px": 115.33999633789062,
+   "dd": 11.528725429334141,
+   "rsi": 57.11270344941275,
+   "up": 13.031038023675867
   },
   {
    "sym": "U",
-   "px": 46.630001068115234,
-   "dd": 10.584851958296548,
-   "rsi": 63.88396520062381,
-   "up": 11.837873324729875
+   "px": 46.68000030517578,
+   "dd": 10.488976146987628,
+   "rsi": 64.15982160931239,
+   "up": 11.718083086851694
+  },
+  {
+   "sym": "AMZN",
+   "px": 259.5299987792969,
+   "dd": 9.634405380104283,
+   "rsi": 55.576874705461556,
+   "up": 10.661585773467696
   },
   {
    "sym": "OXY",
-   "px": 61.650001525878906,
-   "dd": 8.598955796564244,
-   "rsi": 62.994251413912664,
-   "up": 9.407940436025154
+   "px": 61.130001068115234,
+   "dd": 9.369897948218753,
+   "rsi": 61.24068171992949,
+   "up": 10.338615687385278
   },
   {
-   "sym": "AMD",
-   "px": 605.530029296875,
-   "dd": 8.04683056896197,
-   "rsi": 55.831809177688605,
-   "up": 8.751009474444317
-  },
-  {
-   "sym": "SNOW",
-   "px": 357.760009765625,
-   "dd": 6.969000406467229,
-   "rsi": 61.14155259845672,
-   "up": 7.491051839618934
+   "sym": "LLY",
+   "px": 1182.6199951171875,
+   "dd": 8.511973637005877,
+   "rsi": 55.119831540160135,
+   "up": 9.303920934126598
   },
   {
    "sym": "SG",
-   "px": 10.029999732971191,
-   "dd": 5.644406161902316,
-   "rsi": 81.54007747264797,
-   "up": 5.982057801032337
+   "px": 9.850000381469727,
+   "dd": 7.3377208332439885,
+   "rsi": 80.26083315353651,
+   "up": 7.918778708258345
+  },
+  {
+   "sym": "DVN",
+   "px": 48.959999084472656,
+   "dd": 7.114399668249427,
+   "rsi": 56.06821602027866,
+   "up": 7.6593138687155005
+  },
+  {
+   "sym": "PANW",
+   "px": 403.8299865722656,
+   "dd": 6.592186728929594,
+   "rsi": 56.561200450019726,
+   "up": 7.057425388815175
+  },
+  {
+   "sym": "AMGN",
+   "px": 417.57000732421875,
+   "dd": 6.59015984062018,
+   "rsi": 56.26652899706894,
+   "up": 7.055102363279686
+  },
+  {
+   "sym": "SNOW",
+   "px": 360.3699951171875,
+   "dd": 6.290306478827279,
+   "rsi": 62.89838768223176,
+   "up": 6.712546207832859
+  },
+  {
+   "sym": "MRNA",
+   "px": 213.74000549316406,
+   "dd": 6.031830130895132,
+   "rsi": 65.61620525336494,
+   "up": 6.419014161175318
+  },
+  {
+   "sym": "DOCU",
+   "px": 70.97000122070312,
+   "dd": 5.373331705729168,
+   "rsi": 59.967701528544495,
+   "up": 5.678453867803035
   }
  ],
  "C": [],
@@ -123,127 +151,127 @@
  "blocked": [
   {
    "sym": "NFLX",
-   "px": 70.45999908447266,
-   "dd": 43.56879806179407,
-   "up": 77.20692908420304,
+   "px": 70.61000061035156,
+   "dd": 43.44866228961269,
+   "up": 76.8304766053873,
    "why": "trend broken",
    "forming": false,
    "tgt": 124.86000061035156,
-   "gap": 3.0003908294613457
+   "gap": 3.2549452329184816
   },
   {
    "sym": "ADBE",
-   "px": 236.27999877929688,
-   "dd": 35.0343715015336,
-   "up": 53.92754955393164,
+   "px": 238.13999938964844,
+   "dd": 34.522960847719055,
+   "up": 52.72529316334613,
    "why": "trend broken",
    "forming": false,
    "tgt": 363.70001220703125,
-   "gap": 2.754885467847721
+   "gap": 2.7805578666002546
   },
   {
    "sym": "QCOM",
-   "px": 176.86000061035156,
-   "dd": 31.95598973777216,
-   "up": 46.96370718689307,
+   "px": 174.42999267578125,
+   "dd": 32.890895789262466,
+   "up": 49.011078565402585,
    "why": "trend broken",
    "forming": false,
    "tgt": 259.9200134277344,
-   "gap": 0.3620764077224354
+   "gap": 0.18813230208191062
   },
   {
    "sym": "F",
-   "px": 12.100000381469727,
-   "dd": 31.946007231833285,
-   "up": 46.94214980252638,
+   "px": 12.0,
+   "dd": 32.50843905189973,
+   "up": 48.16667238871257,
    "why": "trend broken",
    "forming": false,
    "tgt": 17.780000686645508,
-   "gap": 4.556607289552965
+   "gap": 4.692053679144721
   },
   {
    "sym": "IBM",
-   "px": 230.77999877929688,
-   "dd": 30.584129004743787,
-   "up": 44.05927429309913,
+   "px": 227.02000427246094,
+   "dd": 31.715090504916954,
+   "up": 46.44524059477686,
    "why": "trend broken",
    "forming": false,
    "tgt": 332.4599914550781,
-   "gap": 1.2498539101642399
+   "gap": 1.6451525146897856
   },
   {
    "sym": "PYPL",
-   "px": 56.16999816894531,
-   "dd": 29.09171146161157,
-   "up": 41.02723681712026,
+   "px": 56.04999923706055,
+   "dd": 29.24319658113731,
+   "up": 41.329165773678135,
    "why": "revenue +6%"
   },
   {
-   "sym": "AVGO",
-   "px": 357.30999755859375,
-   "dd": 27.816162109374996,
-   "up": 38.535166489100845,
+   "sym": "HOOD",
+   "px": 109.22000122070312,
+   "dd": 28.874705029199976,
+   "up": 40.59695645698802,
    "why": "trend broken",
    "forming": false,
-   "tgt": 495.0,
-   "gap": 0.48677339454902857
+   "tgt": 153.55999755859375,
+   "gap": 0.2488669709270261
   },
   {
    "sym": "INTC",
-   "px": 102.80999755859375,
-   "dd": 27.776611766471394,
-   "up": 38.45930306766823,
+   "px": 101.3499984741211,
+   "dd": 28.802252104983893,
+   "up": 40.45388085512754,
    "why": "revenue +9%"
   },
   {
-   "sym": "HOOD",
-   "px": 110.5199966430664,
-   "dd": 26.550145712459805,
-   "up": 36.14730889529305,
+   "sym": "AVGO",
+   "px": 354.7300109863281,
+   "dd": 28.33737151791351,
+   "up": 39.54274650279819,
    "why": "trend broken",
    "forming": false,
-   "tgt": 150.47000122070312,
-   "gap": 0.31303084223191613
-  },
-  {
-   "sym": "WDAY",
-   "px": 186.02000427246094,
-   "dd": 24.81002067029383,
-   "up": 32.99644565867281,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 247.39999389648438,
-   "gap": 0.1424362718528338
-  },
-  {
-   "sym": "TSLA",
-   "px": 375.2300109863281,
-   "dd": 24.77797624702972,
-   "up": 32.93978945368552,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 498.8299865722656,
-   "gap": -1.8385913685284263
+   "tgt": 495.0,
+   "gap": 0.42269252422160836
   },
   {
    "sym": "HAL",
-   "px": 32.790000915527344,
-   "dd": 24.776323008155266,
-   "up": 32.93686775088294,
+   "px": 32.599998474121094,
+   "dd": 25.212208396412063,
+   "up": 33.711663168300475,
    "why": "trend broken",
    "forming": false,
    "tgt": 43.59000015258789,
-   "gap": 2.274201640577911
+   "gap": 2.53356257251868
   },
   {
    "sym": "SPOT",
-   "px": 527.4500122070312,
-   "dd": 24.66291265988688,
-   "up": 32.736748301065724,
+   "px": 528.7999877929688,
+   "dd": 24.4700920583682,
+   "up": 32.39788412992408,
    "why": "trend broken",
    "forming": false,
    "tgt": 700.1199951171875,
-   "gap": -0.09415403145534958
+   "gap": 0.28959543118016196
+  },
+  {
+   "sym": "TSLA",
+   "px": 378.0299987792969,
+   "dd": 24.216665205524567,
+   "up": 31.95513270985002,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 498.8299865722656,
+   "gap": -1.9348529421570344
+  },
+  {
+   "sym": "WDAY",
+   "px": 188.25,
+   "dd": 23.908648082357498,
+   "up": 31.420979493484392,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 247.39999389648438,
+   "gap": 0.037895829888155486
   }
  ],
  "errors": [],
@@ -251,10 +279,10 @@
   {
    "sym": "XLK",
    "name": "Technology",
-   "px": 196.27999877929688,
-   "gap": 11.258157704389538,
+   "px": 196.36000061035156,
+   "gap": 11.284108111555934,
    "up": true,
-   "rel": 4.260488686987585,
+   "rel": 2.8235642332409716,
    "rank": 1,
    "d_week": 0,
    "d_month": 5,
@@ -264,11 +292,11 @@
     1,
     1,
     6,
-    4,
-    2,
+    3,
+    3,
     8,
     2,
-    8
+    9
    ],
    "hold": [
     {
@@ -333,111 +361,29 @@
     "NVDA",
     "PLTR"
    ],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLE",
-   "name": "Energy",
-   "px": 67.19999694824219,
-   "gap": 9.28402942461184,
-   "up": true,
-   "rel": 1.8862664741782442,
-   "rank": 2,
-   "d_week": 1,
-   "d_month": -1,
-   "track": [
-    2,
-    3,
-    4,
-    4,
-    1,
-    1,
-    1,
-    3,
-    1,
-    1
-   ],
-   "hold": [
-    {
-     "sym": "XOM",
-     "name": "ExxonMobil Holdings Corp",
-     "pct": 24.03
-    },
-    {
-     "sym": "CVX",
-     "name": "Chevron Corp",
-     "pct": 18.05
-    },
-    {
-     "sym": "COP",
-     "name": "ConocoPhillips",
-     "pct": 6.73
-    },
-    {
-     "sym": "VLO",
-     "name": "Valero Energy Corp",
-     "pct": 4.73
-    },
-    {
-     "sym": "MPC",
-     "name": "Marathon Petroleum Corp",
-     "pct": 4.7
-    },
-    {
-     "sym": "PSX",
-     "name": "Phillips 66",
-     "pct": 4.64
-    },
-    {
-     "sym": "WMB",
-     "name": "Williams Companies Inc",
-     "pct": 4.29
-    },
-    {
-     "sym": "SLB",
-     "name": "SLB Ltd",
-     "pct": 3.86
-    },
-    {
-     "sym": "EOG",
-     "name": "EOG Resources Inc",
-     "pct": 3.85
-    },
-    {
-     "sym": "KMI",
-     "name": "Kinder Morgan Inc Class P",
-     "pct": 3.15
-    }
-   ],
-   "ours": [
-    "COP",
-    "CVX",
-    "SLB",
-    "XOM"
-   ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLV",
    "name": "Health Care",
-   "px": 169.66000366210938,
-   "gap": 5.740862089324117,
+   "px": 171.99000549316406,
+   "gap": 5.763949948564773,
    "up": true,
-   "rel": -1.1127398914406728,
-   "rank": 3,
-   "d_week": 2,
-   "d_month": 0,
+   "rel": 2.2025314121218553,
+   "rank": 2,
+   "d_week": 3,
+   "d_month": 1,
    "track": [
-    3,
+    2,
     5,
     2,
-    3,
-    3,
-    2,
+    4,
     3,
     2,
     4,
-    2
+    2,
+    4,
+    7
    ],
    "hold": [
     {
@@ -500,106 +446,111 @@
     "MRK",
     "PFE"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
-   "sym": "XLU",
-   "name": "Utilities",
-   "px": 41.869998931884766,
-   "gap": -3.613134073368529,
-   "up": false,
-   "rel": -2.131782984667585,
-   "rank": 4,
-   "d_week": 4,
-   "d_month": 6,
+   "sym": "XLE",
+   "name": "Energy",
+   "px": 66.01000213623047,
+   "gap": 9.149019800016745,
+   "up": true,
+   "rel": -0.4713163651631991,
+   "rank": 3,
+   "d_week": 0,
+   "d_month": -2,
    "track": [
+    3,
+    3,
     4,
-    8,
-    10,
-    8,
-    10,
     5,
-    11,
-    11,
-    11,
-    11
+    1,
+    1,
+    1,
+    3,
+    1,
+    2
    ],
    "hold": [
     {
-     "sym": "NEE",
-     "name": "NextEra Energy Inc",
-     "pct": 12.71
+     "sym": "XOM",
+     "name": "ExxonMobil Holdings Corp",
+     "pct": 24.03
     },
     {
-     "sym": "SO",
-     "name": "Southern Co",
-     "pct": 7.67
+     "sym": "CVX",
+     "name": "Chevron Corp",
+     "pct": 18.05
     },
     {
-     "sym": "DUK",
-     "name": "Duke Energy Corp",
-     "pct": 7.15
+     "sym": "COP",
+     "name": "ConocoPhillips",
+     "pct": 6.73
     },
     {
-     "sym": "CEG",
-     "name": "Constellation Energy Corp",
-     "pct": 6.74
+     "sym": "VLO",
+     "name": "Valero Energy Corp",
+     "pct": 4.73
     },
     {
-     "sym": "AEP",
-     "name": "American Electric Power Co Inc",
-     "pct": 5.2
+     "sym": "MPC",
+     "name": "Marathon Petroleum Corp",
+     "pct": 4.7
     },
     {
-     "sym": "D",
-     "name": "Dominion Energy Inc",
-     "pct": 4.28
+     "sym": "PSX",
+     "name": "Phillips 66",
+     "pct": 4.64
     },
     {
-     "sym": "SRE",
-     "name": "Sempra",
-     "pct": 4.1
+     "sym": "WMB",
+     "name": "Williams Companies Inc",
+     "pct": 4.29
     },
     {
-     "sym": "ETR",
-     "name": "Entergy Corp",
-     "pct": 3.73
+     "sym": "SLB",
+     "name": "SLB Ltd",
+     "pct": 3.86
     },
     {
-     "sym": "XEL",
-     "name": "Xcel Energy Inc",
-     "pct": 3.54
+     "sym": "EOG",
+     "name": "EOG Resources Inc",
+     "pct": 3.85
     },
     {
-     "sym": "VST",
-     "name": "Vistra Corp",
-     "pct": 3.51
+     "sym": "KMI",
+     "name": "Kinder Morgan Inc Class P",
+     "pct": 3.15
     }
    ],
-   "ours": [],
-   "churn": "3 of 9"
+   "ours": [
+    "COP",
+    "CVX",
+    "SLB",
+    "XOM"
+   ],
+   "churn": "4 of 9"
   },
   {
    "sym": "XLP",
    "name": "Staples",
-   "px": 84.19000244140625,
-   "gap": 0.11951313599880553,
+   "px": 84.41000366210938,
+   "gap": 0.09315353270218374,
    "up": true,
-   "rel": -2.5237834126521808,
-   "rank": 5,
+   "rel": -0.5715895339709398,
+   "rank": 4,
    "d_week": 2,
    "d_month": 0,
    "track": [
+    4,
+    6,
     5,
     7,
-    5,
-    5,
-    5,
+    4,
     7,
     8,
     6,
-    9,
-    7
+    8,
+    5
    ],
    "hold": [
     {
@@ -654,29 +605,29 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLY",
    "name": "Consumer Disc",
-   "px": 112.36000061035156,
-   "gap": -1.5873938302141233,
+   "px": 112.2699966430664,
+   "gap": -1.5846396210673075,
    "up": false,
-   "rel": -2.685543989717043,
-   "rank": 6,
-   "d_week": 0,
-   "d_month": 3,
+   "rel": -2.417743348484358,
+   "rank": 5,
+   "d_week": 2,
+   "d_month": 4,
    "track": [
-    6,
-    6,
+    5,
     7,
     7,
+    6,
     9,
     10,
-    7,
+    5,
     1,
     7,
-    5
+    4
    ],
    "hold": [
     {
@@ -734,183 +685,29 @@
     "AMZN",
     "TSLA"
    ],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLI",
-   "name": "Industrials",
-   "px": 168.6699981689453,
-   "gap": 1.2960306429975255,
-   "up": true,
-   "rel": -2.992819766301247,
-   "rank": 7,
-   "d_week": -3,
-   "d_month": 4,
-   "track": [
-    7,
-    4,
-    6,
-    9,
-    11,
-    11,
-    10,
-    10,
-    3,
-    6
-   ],
-   "hold": [
-    {
-     "sym": "CAT",
-     "name": "Caterpillar Inc",
-     "pct": 7.01
-    },
-    {
-     "sym": "GE",
-     "name": "GE Aerospace",
-     "pct": 6.09
-    },
-    {
-     "sym": "GEV",
-     "name": "GE Vernova Inc",
-     "pct": 4.76
-    },
-    {
-     "sym": "RTX",
-     "name": "RTX Corp",
-     "pct": 4.71
-    },
-    {
-     "sym": "DE",
-     "name": "Deere & Co",
-     "pct": 3.17
-    },
-    {
-     "sym": "ETN",
-     "name": "Eaton Corp PLC",
-     "pct": 3.14
-    },
-    {
-     "sym": "UNP",
-     "name": "Union Pacific Corp",
-     "pct": 3.04
-    },
-    {
-     "sym": "BA",
-     "name": "Boeing Co",
-     "pct": 2.76
-    },
-    {
-     "sym": "UBER",
-     "name": "Uber Technologies Inc",
-     "pct": 2.63
-    },
-    {
-     "sym": "PH",
-     "name": "Parker Hannifin Corp",
-     "pct": 2.26
-    }
-   ],
-   "ours": [],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLB",
-   "name": "Materials",
-   "px": 49.720001220703125,
-   "gap": 0.9990685489664086,
-   "up": true,
-   "rel": -3.776396502503465,
-   "rank": 8,
-   "d_week": 1,
-   "d_month": -1,
-   "track": [
-    8,
-    9,
-    11,
-    10,
-    7,
-    8,
-    4,
-    5,
-    5,
-    3
-   ],
-   "hold": [
-    {
-     "sym": "LIN",
-     "name": "Linde PLC",
-     "pct": 12.23
-    },
-    {
-     "sym": "NEM",
-     "name": "Newmont Corp",
-     "pct": 6.79
-    },
-    {
-     "sym": "FCX",
-     "name": "Freeport-McMoRan Inc",
-     "pct": 5.62
-    },
-    {
-     "sym": "ECL",
-     "name": "Ecolab Inc",
-     "pct": 4.75
-    },
-    {
-     "sym": "SHW",
-     "name": "Sherwin-Williams Co",
-     "pct": 4.75
-    },
-    {
-     "sym": "VMC",
-     "name": "Vulcan Materials Co",
-     "pct": 4.61
-    },
-    {
-     "sym": "MLM",
-     "name": "Martin Marietta Materials Inc",
-     "pct": 4.45
-    },
-    {
-     "sym": "APD",
-     "name": "Air Products and Chemicals Inc",
-     "pct": 4.44
-    },
-    {
-     "sym": "CRH",
-     "name": "CRH PLC",
-     "pct": 4.36
-    },
-    {
-     "sym": "STLD",
-     "name": "Steel Dynamics Inc",
-     "pct": 4.34
-    }
-   ],
-   "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLC",
    "name": "Communications",
-   "px": 112.27999877929688,
-   "gap": -0.322789858049477,
+   "px": 111.44999694824219,
+   "gap": -0.34090647872334623,
    "up": false,
-   "rel": -4.675953088668383,
-   "rank": 9,
-   "d_week": -7,
-   "d_month": -7,
+   "rel": -2.828221244364826,
+   "rank": 6,
+   "d_week": -4,
+   "d_month": -4,
    "track": [
-    9,
+    6,
     2,
     3,
     2,
     2,
-    3,
-    5,
     4,
-    8,
-    9
+    2,
+    5,
+    9,
+    10
    ],
    "hold": [
     {
@@ -969,29 +766,260 @@
     "META",
     "WBD"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLU",
+   "name": "Utilities",
+   "px": 41.630001068115234,
+   "gap": -3.641481793672763,
+   "up": false,
+   "rel": -3.5997772326396893,
+   "rank": 7,
+   "d_week": 2,
+   "d_month": 3,
+   "track": [
+    7,
+    9,
+    11,
+    11,
+    10,
+    8,
+    11,
+    11,
+    11,
+    11
+   ],
+   "hold": [
+    {
+     "sym": "NEE",
+     "name": "NextEra Energy Inc",
+     "pct": 12.71
+    },
+    {
+     "sym": "SO",
+     "name": "Southern Co",
+     "pct": 7.67
+    },
+    {
+     "sym": "DUK",
+     "name": "Duke Energy Corp",
+     "pct": 7.15
+    },
+    {
+     "sym": "CEG",
+     "name": "Constellation Energy Corp",
+     "pct": 6.74
+    },
+    {
+     "sym": "AEP",
+     "name": "American Electric Power Co Inc",
+     "pct": 5.2
+    },
+    {
+     "sym": "D",
+     "name": "Dominion Energy Inc",
+     "pct": 4.28
+    },
+    {
+     "sym": "SRE",
+     "name": "Sempra",
+     "pct": 4.1
+    },
+    {
+     "sym": "ETR",
+     "name": "Entergy Corp",
+     "pct": 3.73
+    },
+    {
+     "sym": "XEL",
+     "name": "Xcel Energy Inc",
+     "pct": 3.54
+    },
+    {
+     "sym": "VST",
+     "name": "Vistra Corp",
+     "pct": 3.51
+    }
+   ],
+   "ours": [],
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLI",
+   "name": "Industrials",
+   "px": 169.14999389648438,
+   "gap": 1.3875034153566723,
+   "up": true,
+   "rel": -3.6749807402073342,
+   "rank": 8,
+   "d_week": -4,
+   "d_month": 3,
+   "track": [
+    8,
+    4,
+    6,
+    9,
+    11,
+    11,
+    9,
+    10,
+    3,
+    6
+   ],
+   "hold": [
+    {
+     "sym": "CAT",
+     "name": "Caterpillar Inc",
+     "pct": 7.01
+    },
+    {
+     "sym": "GE",
+     "name": "GE Aerospace",
+     "pct": 6.09
+    },
+    {
+     "sym": "GEV",
+     "name": "GE Vernova Inc",
+     "pct": 4.76
+    },
+    {
+     "sym": "RTX",
+     "name": "RTX Corp",
+     "pct": 4.71
+    },
+    {
+     "sym": "DE",
+     "name": "Deere & Co",
+     "pct": 3.17
+    },
+    {
+     "sym": "ETN",
+     "name": "Eaton Corp PLC",
+     "pct": 3.14
+    },
+    {
+     "sym": "UNP",
+     "name": "Union Pacific Corp",
+     "pct": 3.04
+    },
+    {
+     "sym": "BA",
+     "name": "Boeing Co",
+     "pct": 2.76
+    },
+    {
+     "sym": "UBER",
+     "name": "Uber Technologies Inc",
+     "pct": 2.63
+    },
+    {
+     "sym": "PH",
+     "name": "Parker Hannifin Corp",
+     "pct": 2.26
+    }
+   ],
+   "ours": [],
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLB",
+   "name": "Materials",
+   "px": 49.439998626708984,
+   "gap": 1.061805598271981,
+   "up": true,
+   "rel": -4.770599528650665,
+   "rank": 9,
+   "d_week": -1,
+   "d_month": -2,
+   "track": [
+    9,
+    8,
+    9,
+    8,
+    7,
+    5,
+    6,
+    4,
+    5,
+    1
+   ],
+   "hold": [
+    {
+     "sym": "LIN",
+     "name": "Linde PLC",
+     "pct": 12.23
+    },
+    {
+     "sym": "NEM",
+     "name": "Newmont Corp",
+     "pct": 6.79
+    },
+    {
+     "sym": "FCX",
+     "name": "Freeport-McMoRan Inc",
+     "pct": 5.62
+    },
+    {
+     "sym": "ECL",
+     "name": "Ecolab Inc",
+     "pct": 4.75
+    },
+    {
+     "sym": "SHW",
+     "name": "Sherwin-Williams Co",
+     "pct": 4.75
+    },
+    {
+     "sym": "VMC",
+     "name": "Vulcan Materials Co",
+     "pct": 4.61
+    },
+    {
+     "sym": "MLM",
+     "name": "Martin Marietta Materials Inc",
+     "pct": 4.45
+    },
+    {
+     "sym": "APD",
+     "name": "Air Products and Chemicals Inc",
+     "pct": 4.44
+    },
+    {
+     "sym": "CRH",
+     "name": "CRH PLC",
+     "pct": 4.36
+    },
+    {
+     "sym": "STLD",
+     "name": "Steel Dynamics Inc",
+     "pct": 4.34
+    }
+   ],
+   "ours": [],
+   "churn": "4 of 9"
   },
   {
    "sym": "XLRE",
    "name": "Real Estate",
-   "px": 41.83000183105469,
-   "gap": -0.9294813658819345,
+   "px": 41.91999816894531,
+   "gap": -0.869837516433869,
    "up": false,
-   "rel": -5.242985736878358,
+   "rel": -5.261534836997594,
    "rank": 10,
-   "d_week": 0,
+   "d_week": 1,
    "d_month": -2,
    "track": [
     10,
-    10,
-    9,
     11,
+    10,
+    10,
     8,
     9,
-    9,
+    10,
     9,
     10,
-    10
+    8
    ],
    "hold": [
     {
@@ -1046,29 +1074,29 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLF",
    "name": "Financials",
-   "px": 54.81999969482422,
-   "gap": 2.3791514906914557,
+   "px": 55.04999923706055,
+   "gap": 2.442262954095775,
    "up": true,
-   "rel": -6.126493085951457,
+   "rel": -5.649701580651689,
    "rank": 11,
-   "d_week": 0,
-   "d_month": -7,
+   "d_week": -1,
+   "d_month": -6,
    "track": [
     11,
-    11,
+    10,
     8,
-    6,
-    4,
-    6,
+    3,
+    5,
     6,
     7,
+    7,
     6,
-    4
+    3
    ],
    "hold": [
     {
@@ -1123,7 +1151,7 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   }
  ],
  "today": [
@@ -1135,15 +1163,15 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 465,
-   "now": 10.029999732971191,
+   "days": 464,
+   "now": 9.850000381469727,
    "target": 17.6,
    "cost": 459.99999999999994,
    "be": 7.6,
    "loss": -459.99999999999994,
    "profit": 1000.0000000000002,
    "ret": 217.39130434782618,
-   "move": 75.47358393384866,
+   "move": 78.68019612577812,
    "strike": 3,
    "expiry": "2028-01-21",
    "n": 1,
@@ -1158,14 +1186,14 @@
    "kills": "Nothing. No stop, by design \u2014 six tests say stops make this worse.",
    "odds": 83,
    "days": null,
-   "now": 138.61000061035156,
+   "now": 140.32000732421875,
    "target": 194.73,
    "cost": 557.16,
    "be": 139.29,
    "loss": null,
    "profit": 221.76,
    "ret": 39.80185225069999,
-   "move": 40.487698681575026,
+   "move": 38.77564840063279,
    "strike": null,
    "expiry": null,
    "n": 4,
@@ -1179,15 +1207,15 @@
    "exit": "Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
-   "days": 38,
-   "now": 176.86000061035156,
+   "days": 37,
+   "now": 174.42999267578125,
    "target": 253.72,
    "cost": 392.0,
    "be": 243.92,
    "loss": -392.0,
    "profit": 980.0,
    "ret": 250.0,
-   "move": 43.45810195883819,
+   "move": 45.45663627447241,
    "strike": 240,
    "expiry": "2026-11-20",
    "n": 1,
@@ -1201,15 +1229,15 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 465,
-   "now": 6.489999771118164,
+   "days": 464,
+   "now": 6.53000020980835,
    "target": 12.34,
    "cost": 468.0,
    "be": 7.34,
    "loss": -468.0,
    "profit": 1000.0,
    "ret": 213.67521367521368,
-   "move": 90.13868159002936,
+   "move": 88.9739602376241,
    "strike": 5,
    "expiry": "2028-01-21",
    "n": 2,
@@ -1353,7 +1381,10 @@
   "blocked": []
  },
  "market": {
-  "events": [],
+  "events": [
+   "CPI 7:30 CT",
+   "BAC earnings before open"
+  ],
   "QQQ": -0.33108144335423084,
   "QQQ_px": 743.57,
   "QQQ_chg": -2.4699999999999136,
@@ -1363,12 +1394,12 @@
   "USO": 1.3639674236906485,
   "USO_px": 153.09,
   "USO_chg": 2.0600000000000023,
-  "NQ=F": -0.37623490003478866,
-  "NQ=F_px": 30782.0,
-  "NQ=F_chg": -116.25,
-  "CL=F": 1.1201194794111524,
-  "CL=F_px": 94.79,
-  "CL=F_chg": 1.0500000000000114,
+  "NQ=F": 0.041407531299220146,
+  "NQ=F_px": 30804.25,
+  "NQ=F_chg": 12.75,
+  "CL=F": 0.6054811982154185,
+  "CL=F_px": 94.71,
+  "CL=F_chg": 0.5699999999999932,
   "^TNX": -0.43893509775057016,
   "^TNX_px": 5.217,
   "^TNX_chg": -0.023000200000000248,
@@ -1381,52 +1412,52 @@
   "fut": [
    [
     "S&P",
-    7855.5,
-    -0.0190912562046619,
+    7857.25,
+    0.02227738527147416,
     true
    ],
    [
     "Nasdaq",
-    30782.0,
-    -0.30928669743340853,
+    30803.75,
+    0.07065817685660836,
     true
    ],
    [
     "Dow",
-    51922.0,
-    -0.39709182988355574,
+    51897.0,
+    -0.04814914679711624,
     true
    ],
    [
     "Russell",
-    2800.89990234375,
-    -0.40536736075247326,
+    2801.0,
+    0.003573767708231479,
     true
    ],
    [
     "Oil",
-    94.79000091552734,
-    1.7496749563578273,
+    94.76000213623047,
+    -0.03164762000963384,
     true
    ],
    [
     "Gold",
-    4184.2001953125,
-    -0.27883665729763196,
+    4185.2998046875,
+    0.026280037370862708,
     true
    ]
   ],
   "QQQ_pre": [
    743.57,
-   743.75
+   742.8723
   ],
   "SPY_pre": [
    778.01,
-   778.07
+   777.5747
   ],
   "USO_pre": [
    153.09,
-   153.0871
+   153.6
   ],
   "^VIX_pre": [
    14.84,
@@ -1438,20 +1469,7 @@
    "The latest inflation data is expected to show price increases are accelerating"
   ],
   "tnx_since": "2007",
-  "movers": [
-   [
-    "META",
-    2.6300174234762386
-   ],
-   [
-    "BAC",
-    -1.1359522275231293
-   ],
-   [
-    "NVDA",
-    0.9720735582561923
-   ]
-  ]
+  "movers": []
  },
  "playbook": {
   "rule_a": {
@@ -1463,12 +1481,7 @@
    "invested": true,
    "pending": 0
   },
-  "curve": {
-   "value": 0.95,
-   "date": "2026-10-13",
-   "inverted": false,
-   "inverted_days_1y": 1
-  },
+  "curve_err": "The read operation timed out",
   "household": {
    "score": 26,
    "prev": 25,
@@ -2027,12 +2040,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -14.769566850764903,
+   "pl_pct": -14.58812070841713,
    "note": "paper",
-   "now": 70.45999908447266,
-   "to_target": 79.83253143118931,
+   "now": 70.61000061035156,
+   "to_target": 79.4505012104816,
    "progress": 0,
-   "sessions": 27,
+   "sessions": 26,
    "armed": false
   },
   {
@@ -2050,12 +2063,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -1.6744072347591232,
+   "pl_pct": -3.276381802027639,
    "note": "paper",
-   "now": 230.77999877929688,
-   "to_target": 44.05927799572584,
+   "now": 227.02000427246094,
+   "to_target": 46.44524435872792,
    "progress": 0,
-   "sessions": 27,
+   "sessions": 26,
    "armed": false
   },
   {
@@ -2073,12 +2086,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.04199730053582318,
+   "pl_pct": -0.6803642663433473,
    "note": "paper",
-   "now": 357.30999755859375,
-   "to_target": 38.535166489100845,
-   "progress": 0.0010882005121425203,
-   "sessions": 27,
+   "now": 354.7300109863281,
+   "to_target": 39.54274650279819,
+   "progress": 0,
+   "sessions": 26,
    "armed": false
   },
   {
@@ -2096,12 +2109,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -10.100519876057923,
+   "pl_pct": -9.022810748115207,
    "note": "paper",
-   "now": 186.02000427246094,
-   "to_target": 34.3135115909621,
+   "now": 188.25,
+   "to_target": 32.722443559096945,
    "progress": 0,
-   "sessions": 27,
+   "sessions": 26,
    "armed": false
   },
   {
@@ -2119,12 +2132,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 6.533759156087049,
+   "pl_pct": 6.082887244974211,
    "note": "paper",
-   "now": 543.4500122070312,
-   "to_target": 1.8897759798110592,
-   "progress": 0.7644498212621841,
-   "sessions": 27,
+   "now": 541.1500244140625,
+   "to_target": 2.3228263917289604,
+   "progress": 0.7116978076619834,
+   "sessions": 26,
    "armed": false
   },
   {
@@ -2142,12 +2155,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.9671696821905975,
+   "pl_pct": -5.389221997223559,
    "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
-   "now": 263.45001220703125,
-   "to_target": 33.33838820396329,
+   "now": 262.2799987792969,
+   "to_target": 33.93320178241832,
    "progress": 0,
-   "sessions": 25,
+   "sessions": 24,
    "armed": false
   },
   {
@@ -2165,12 +2178,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.812172623942047,
+   "pl_pct": -6.920060319837118,
    "note": "matches the backtest profile: real pullback, +62% revenue",
-   "now": 110.5199966430664,
-   "to_target": 39.214626016415636,
+   "now": 109.22000122070312,
+   "to_target": 40.87163365718327,
    "progress": 0,
-   "sessions": 25,
+   "sessions": 24,
    "armed": false
   },
   {
@@ -2188,12 +2201,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.705776254033323,
+   "pl_pct": -1.1217105525219706,
    "note": "+200% revenue. EARNINGS 2026-09-30, 22 days out",
-   "now": 953.1900024414062,
-   "to_target": 31.66315181501773,
+   "now": 989.0399780273438,
+   "to_target": 26.89072513561259,
    "progress": 0,
-   "sessions": 25,
+   "sessions": 24,
    "armed": false
   },
   {
@@ -2211,12 +2224,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 31.63311280571286,
+   "pl_pct": 33.646533348771904,
    "note": "+46% revenue. Option already held in both option books",
-   "now": 176.52000427246094,
-   "to_target": 3.2120981137001126,
-   "progress": 0.8820961587120179,
-   "sessions": 25,
+   "now": 179.22000122070312,
+   "to_target": 1.657180425771454,
+   "progress": 0.938240823886528,
+   "sessions": 24,
    "armed": false
   },
   {
@@ -2237,10 +2250,10 @@
    "pl_pct": 36.9996187571483,
    "note": "",
    "now": 35.935,
-   "spot": 72.30999755859375,
-   "intrinsic": 34.80999755859375,
-   "dte": 94,
-   "sessions": 26,
+   "spot": 70.97000122070312,
+   "intrinsic": 33.470001220703125,
+   "dte": 93,
+   "sessions": 25,
    "mark": "alpaca"
   },
   {
@@ -2261,10 +2274,10 @@
    "pl_pct": 39.4467213114754,
    "note": "",
    "now": 6.805,
-   "spot": 72.30999755859375,
-   "intrinsic": 7.30999755859375,
-   "dte": 3,
-   "sessions": 26,
+   "spot": 70.97000122070312,
+   "intrinsic": 5.970001220703125,
+   "dte": 2,
+   "sessions": 25,
    "mark": "alpaca"
   },
   {
@@ -2285,10 +2298,10 @@
    "pl_pct": -33.03830911492736,
    "note": "",
    "now": 25.345,
-   "spot": 186.02000427246094,
-   "intrinsic": 16.020004272460938,
-   "dte": 66,
-   "sessions": 26,
+   "spot": 188.25,
+   "intrinsic": 18.25,
+   "dte": 65,
+   "sessions": 25,
    "mark": "alpaca"
   },
   {
@@ -2306,12 +2319,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.655281031567481,
+   "pl_pct": -4.979031064018491,
    "note": "Setup C fired (cross+regime+breakout). Breadth 73% fails the <65% filter. VIX 15.7 CALM. Revenue only +4%, fails F. Chart signal only.",
-   "now": 176.86000061035156,
-   "to_target": 46.963699594597294,
+   "now": 174.42999267578125,
+   "to_target": 49.011070867337516,
    "progress": 0,
-   "sessions": 22,
+   "sessions": 21,
    "armed": false
   },
   {
@@ -2329,12 +2342,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -1.875972950338689,
+   "pl_pct": -0.6654344299739767,
    "note": "Setup F complete: 27.5% below high, revenue +29.4%, and the 50 EMA crossed the 200 TODAY (125.13 vs 124.96) after weeks in the halfway state. That cross is the 88%-win entry from halfway.md. The cross is thin \u2014 0.17 points.",
-   "now": 138.61000061035156,
-   "to_target": 40.487698681575026,
+   "now": 140.32000732421875,
+   "to_target": 38.77564840063279,
    "progress": 0,
-   "sessions": 19,
+   "sessions": 18,
    "armed": false
   },
   {
@@ -2355,10 +2368,10 @@
    "pl_pct": -47.56302521008403,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
    "now": 3.12,
-   "spot": 138.61000061035156,
+   "spot": 140.32000732421875,
    "intrinsic": 0.0,
-   "dte": 66,
-   "sessions": 19,
+   "dte": 65,
+   "sessions": 18,
    "mark": "alpaca"
   },
   {
@@ -2376,12 +2389,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -1.4293837218378957,
+   "pl_pct": -0.213335710269702,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 138.61000061035156,
-   "to_target": 40.487698681575026,
+   "now": 140.32000732421875,
+   "to_target": 38.77564840063279,
    "progress": 0,
-   "sessions": 14,
+   "sessions": 13,
    "armed": false
   },
   {
@@ -2399,12 +2412,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -4.206962327455721,
+   "pl_pct": -4.632390815469101,
    "note": "Paper bot. Setup F fired; 2 shares at market, GTC sell at the target.",
-   "now": 263.45001220703125,
-   "to_target": 33.33838820396329,
+   "now": 262.2799987792969,
+   "to_target": 33.93320178241832,
    "progress": 0,
-   "sessions": 14,
+   "sessions": 13,
    "armed": false
   },
   {
@@ -2422,12 +2435,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -9.676367568595612,
+   "pl_pct": -10.738802532933045,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 110.5199966430664,
-   "to_target": 39.214626016415636,
+   "now": 109.22000122070312,
+   "to_target": 40.87163365718327,
    "progress": 0,
-   "sessions": 13,
+   "sessions": 12,
    "armed": false
   },
   {
@@ -2445,12 +2458,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 23.82155181850514,
+   "pl_pct": 25.715489071761443,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 176.52000427246094,
-   "to_target": 3.2120981137001126,
-   "progress": 0.8569266785884668,
-   "sessions": 13,
+   "now": 179.22000122070312,
+   "to_target": 1.657180425771454,
+   "progress": 0.9250568059728268,
+   "sessions": 12,
    "armed": false
   },
   {
@@ -2468,12 +2481,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 0.3620307076616758,
+   "pl_pct": 1.600179077705266,
    "note": "REAL. 1 share of NOW on the Setup F fire, target the prior high $194.73, no stop. Fill $138.11 per Schwab. PLAN 10-08: stop = NOW closes under $126.75 (20-day low, at the 200-day) -> sell (-8%). Close over $149.60 = breakout; at the $192.97 target the stop moves up to it.",
-   "now": 138.61000061035156,
-   "to_target": 40.487698681575026,
-   "progress": 0.008830812616593943,
-   "sessions": 13,
+   "now": 140.32000732421875,
+   "to_target": 38.77564840063279,
+   "progress": 0.039032273476134534,
+   "sessions": 12,
    "armed": false
   },
   {
@@ -2491,12 +2504,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 44.51199799687624,
+   "pl_pct": 41.91857161440979,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: protect the gain -- SG closes under $7.96 (30-day EMA) -> sell half (locks ~+15%); under $6.61 (20-day low) -> sell the rest. New 1-year high $10.63 -> sell a quarter (SG is ~25% of the account, over the 7% rule).",
-   "now": 10.029999732971191,
+   "now": 9.850000381469727,
    "to_target": null,
    "progress": 0,
-   "sessions": 12,
+   "sessions": 11,
    "armed": false
   },
   {
@@ -2517,10 +2530,10 @@
    "pl_pct": 60.52484645449469,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: same SG levels; long-dated and in the money, so hold unless SG closes under $6.61.",
    "now": 7.475,
-   "spot": 10.029999732971191,
-   "intrinsic": 7.029999732971191,
-   "dte": 465,
-   "sessions": 12,
+   "spot": 9.850000381469727,
+   "intrinsic": 6.850000381469727,
+   "dte": 464,
+   "sessions": 11,
    "mark": "alpaca"
   },
   {
@@ -2541,10 +2554,10 @@
    "pl_pct": 14.207789994033915,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: SNAP closes under $5.18 (20-day low) -> sell one of the two; under $4.28 (60-day low) -> sell the other. Over $6.07 = breakout, hold.",
    "now": 2.6799999999999997,
-   "spot": 6.489999771118164,
-   "intrinsic": 1.489999771118164,
-   "dte": 465,
-   "sessions": 12,
+   "spot": 6.53000020980835,
+   "intrinsic": 1.5300002098083496,
+   "dte": 464,
+   "sessions": 11,
    "mark": "alpaca"
   },
   {
@@ -2565,10 +2578,10 @@
    "pl_pct": 7.735449735449729,
    "note": "F LEAPS. 1x $135C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $192.97 or 30 days before expiry.",
    "now": 50.905,
-   "spot": 138.61000061035156,
-   "intrinsic": 3.6100006103515625,
-   "dte": 794,
-   "sessions": 11,
+   "spot": 140.32000732421875,
+   "intrinsic": 5.32000732421875,
+   "dte": 793,
+   "sessions": 10,
    "mark": "alpaca"
   },
   {
@@ -2589,10 +2602,10 @@
    "pl_pct": 50.96261682242991,
    "note": "F LEAPS. 1x $140C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $182.19 or 30 days before expiry.",
    "now": 80.765,
-   "spot": 176.52000427246094,
-   "intrinsic": 36.52000427246094,
-   "dte": 794,
-   "sessions": 11,
+   "spot": 179.22000122070312,
+   "intrinsic": 39.220001220703125,
+   "dte": 793,
+   "sessions": 10,
    "mark": "alpaca"
   },
   {
@@ -2613,10 +2626,10 @@
    "pl_pct": -19.609999999999992,
    "note": "F LEAPS. 1x $120C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $153.86 or 30 days before expiry.",
    "now": 40.195,
-   "spot": 110.5199966430664,
+   "spot": 109.22000122070312,
    "intrinsic": 0.0,
-   "dte": 794,
-   "sessions": 11,
+   "dte": 793,
+   "sessions": 10,
    "mark": "alpaca"
   },
   {
@@ -2634,12 +2647,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 13.880175139254636,
+   "pl_pct": 12.445838328251856,
    "note": "Pure Setup F. 34 shares, 7% of equity. Target $336.99; no stop; floor at the target once reached; out at 252 sessions.",
-   "now": 228.66000366210938,
-   "to_target": 47.376014433188644,
-   "progress": 0.204625577548527,
-   "sessions": 9,
+   "now": 225.77999877929688,
+   "to_target": 49.25591364247126,
+   "progress": 0.18348016724887578,
+   "sessions": 8,
    "armed": false
   },
   {
@@ -2660,10 +2673,10 @@
    "pl_pct": 26.736462093862823,
    "note": "F LEAPS. 1x $200C 2028-06-16 (~2 years), 7% of a $100k book. Sells when the stock reaches $336.99 or 30 days before expiry.",
    "now": 87.765,
-   "spot": 228.66000366210938,
-   "intrinsic": 28.660003662109375,
-   "dte": 612,
-   "sessions": 8,
+   "spot": 225.77999877929688,
+   "intrinsic": 25.779998779296875,
+   "dte": 611,
+   "sessions": 7,
    "mark": "alpaca"
   },
   {
@@ -2681,12 +2694,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.7419187611546945,
+   "pl_pct": -4.436958247217637,
    "note": "Pure Setup F. 18 shares, 7% of equity. Target $495.00; no stop; held 252 sessions, no exit at the target (paper test since 10-06).",
-   "now": 357.30999755859375,
-   "to_target": 38.535166489100845,
+   "now": 354.7300109863281,
+   "to_target": 39.54274650279819,
    "progress": 0,
-   "sessions": 3,
+   "sessions": 2,
    "armed": false
   },
   {
@@ -2707,10 +2720,10 @@
    "pl_pct": -11.2540192926045,
    "note": "REAL. Schwab app 10-08. Cost basis $622.66 (Schwab 10-09). No setup: NFLX 43% under its 1y high, 10<30<50<200 EMA (downtrend). Holds through the Oct 20 earnings. PLAN 10-08: NFLX closes under $66.54 (20-day low) -> cut. Close over $72.80 (30-day EMA) = trend turning. Call at ~$9.75 (+50%) -> sell half, stop the rest at $6.49. Decide before the Oct 20 earnings.",
    "now": 5.52,
-   "spot": 70.45999908447266,
-   "intrinsic": 1.4599990844726562,
-   "dte": 66,
-   "sessions": 3,
+   "spot": 70.61000061035156,
+   "intrinsic": 1.6100006103515625,
+   "dte": 65,
+   "sessions": 2,
    "mark": "alpaca"
   },
   {
@@ -2728,12 +2741,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -3.9122981409872692,
+   "pl_pct": -0.29838931175970584,
    "note": "Pure Setup F. 7 shares, 7% of equity. Target $1255.00; no stop; held 252 sessions, no exit at the target (paper test since 10-06).",
-   "now": 953.1900024414062,
-   "to_target": 31.66315181501773,
+   "now": 989.0399780273438,
+   "to_target": 26.89072513561259,
    "progress": 0,
-   "sessions": 1,
+   "sessions": 0,
    "armed": false
   },
   {
@@ -2754,10 +2767,10 @@
    "pl_pct": 10.620689655172399,
    "note": "Ticket book (Setup F). Limit at the mid. Exits: -50% stop, 2x take profit, or 2 days to expiry. Logged by hand: the fill landed after the bot's cancel (race fixed).",
    "now": 8.02,
-   "spot": 228.66000366210938,
+   "spot": 225.77999877929688,
    "intrinsic": 0.0,
-   "dte": 17,
-   "sessions": 1,
+   "dte": 16,
+   "sessions": 0,
    "mark": "alpaca"
   }
  ],
@@ -3298,34 +3311,6 @@
  "week": {
   "days": [
    {
-    "date": "2026-10-09",
-    "vix": 14.84000015258789,
-    "regime": "CALM",
-    "vix_fires": false,
-    "F": [
-     "ZS",
-     "HOOD",
-     "NOW",
-     "BE"
-    ],
-    "D": [
-     "TXN",
-     "GOOGL",
-     "OXY",
-     "U",
-     "SG",
-     "CSCO",
-     "AMZN",
-     "META",
-     "AMD",
-     "SHOP",
-     "COP",
-     "DOCU"
-    ],
-    "C": [],
-    "S": []
-   },
-   {
     "date": "2026-10-10",
     "vix": 14.84000015258789,
     "regime": "CALM",
@@ -3431,6 +3416,35 @@
      "AMD",
      "SNOW",
      "SG"
+    ],
+    "C": [],
+    "S": []
+   },
+   {
+    "date": "2026-10-14",
+    "vix": 15.270000457763672,
+    "regime": "CALM",
+    "vix_fires": false,
+    "F": [
+     "ZS",
+     "NOW",
+     "BE",
+     "MU"
+    ],
+    "D": [
+     "GOOGL",
+     "CSCO",
+     "U",
+     "AMZN",
+     "OXY",
+     "LLY",
+     "SG",
+     "DVN",
+     "PANW",
+     "AMGN",
+     "SNOW",
+     "MRNA",
+     "DOCU"
     ],
     "C": [],
     "S": []
@@ -3610,6 +3624,13 @@
    }
   ],
   "by_setup": {
+   "C": {
+    "wins": 0,
+    "losses": 2,
+    "closed_mean": -82.55000000000001,
+    "open_n": 1,
+    "open_mean": -4.979031064018491
+   },
    "Setup F": {
     "wins": 0,
     "losses": 0,
@@ -3617,123 +3638,36 @@
     "open_n": 1,
     "open_mean": 10.620689655172399
    },
-   "E": {
+   "D": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 6,
-    "open_mean": 4.501009028118022
+    "open_n": 2,
+    "open_mean": -1.469961751570498
    },
    "none": {
     "wins": 2,
     "losses": 3,
     "closed_mean": -12.66,
     "open_n": 4,
-    "open_mean": 26.997653788200086
+    "open_mean": 26.349297192583474
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 6,
+    "open_mean": 4.14386069615137
    },
    "F": {
     "wins": 1,
     "losses": 1,
     "closed_mean": -23.3,
     "open_n": 18,
-    "open_mean": 2.646130660125383
-   },
-   "C": {
-    "wins": 0,
-    "losses": 2,
-    "closed_mean": -82.55000000000001,
-    "open_n": 1,
-    "open_mean": -3.655281031567481
-   },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -1.7833803599854372
+    "open_mean": 3.1807355194968383
    }
   },
   "produced": [
-   {
-    "date": "2026-10-09",
-    "sym": "AMD",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "AMZN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "BE",
-    "setup": "F"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "COP",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "CSCO",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "DOCU",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "GOOGL",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "HOOD",
-    "setup": "F"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "META",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "NOW",
-    "setup": "F"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "OXY",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "SG",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "SHOP",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "TXN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "U",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-09",
-    "sym": "ZS",
-    "setup": "F"
-   },
    {
     "date": "2026-10-10",
     "sym": "AMD",
@@ -4041,6 +3975,91 @@
    },
    {
     "date": "2026-10-13",
+    "sym": "ZS",
+    "setup": "F"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "AMGN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "AMZN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "BE",
+    "setup": "F"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "CSCO",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "DOCU",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "DVN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "GOOGL",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "LLY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "MRNA",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "MU",
+    "setup": "F"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "NOW",
+    "setup": "F"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "OXY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "PANW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "SG",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "SNOW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
+    "sym": "U",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-14",
     "sym": "ZS",
     "setup": "F"
    }
@@ -4660,8 +4679,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     228.7,
@@ -5163,8 +5181,7 @@
     336.96,
     336.82,
     331.7,
-    338.22,
-    344.67
+    338.22
    ],
    "h": [
     231.73,
@@ -5666,8 +5683,7 @@
     338.67,
     341.57,
     338.61,
-    342.63,
-    348.15
+    342.63
    ],
    "l": [
     228.6,
@@ -6169,8 +6185,7 @@
     332.78,
     335.9,
     330.7,
-    337.6,
-    340.74
+    337.6
    ],
    "c": [
     231.3,
@@ -6672,8 +6687,7 @@
     336.67,
     340.42,
     336.64,
-    340.97,
-    341.27
+    340.97
    ],
    "v": [
     39882100,
@@ -7175,8 +7189,7 @@
     34147900,
     35332400,
     37881200,
-    25900600,
-    38897865
+    25900600
    ],
    "e10": [
     231.3,
@@ -7678,8 +7691,7 @@
     334.13,
     335.27,
     335.52,
-    336.51,
-    337.38
+    336.51
    ],
    "e30": [
     231.3,
@@ -8181,8 +8193,7 @@
     329.59,
     330.29,
     330.7,
-    331.36,
-    332.0
+    331.36
    ],
    "pat": [
     {
@@ -8225,8 +8236,8 @@
       [
        "2026-01-20",
        243.4199981689453,
-       "2026-10-13",
-       251.43165079752603,
+       "2026-10-12",
+       251.38810920715332,
        0
       ]
      ],
@@ -8246,7 +8257,7 @@
       [
        "2026-07-15",
        361.04998779296875,
-       "2026-10-13",
+       "2026-10-12",
        361.04998779296875,
        1
       ],
@@ -8285,13 +8296,13 @@
       [
        "2026-10-09",
        340.5,
-       "2026-10-13",
+       "2026-10-12",
        340.5,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $340.50 \u00b7 your Oct 16 335C: take profit vs stop (today's low / 30-day EMA)"
      }
@@ -8303,13 +8314,13 @@
       [
        "2026-10-09",
        330.4,
-       "2026-10-13",
+       "2026-10-12",
        330.4,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $330.40 \u00b7 your Oct 16 335C: take profit vs stop (today's low / 30-day EMA)"
      }
@@ -8817,8 +8828,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     194.24,
@@ -9320,8 +9330,7 @@
     268.4,
     270.98,
     271.53,
-    277.65,
-    283.29
+    277.65
    ],
    "h": [
     196.34,
@@ -9823,8 +9832,7 @@
     274.94,
     272.52,
     277.6,
-    281.3,
-    283.32
+    281.3
    ],
    "l": [
     193.66,
@@ -10326,8 +10334,7 @@
     266.89,
     265.71,
     270.38,
-    276.01,
-    273.7
+    276.01
    ],
    "c": [
     195.65,
@@ -10829,8 +10836,7 @@
     271.36,
     272.42,
     276.47,
-    281.12,
-    274.36
+    281.12
    ],
    "v": [
     3623900,
@@ -11332,8 +11338,7 @@
     6077000,
     5492300,
     4297400,
-    5593700,
-    6395347
+    5593700
    ],
    "e10": [
     195.65,
@@ -11835,8 +11840,7 @@
     265.26,
     266.56,
     268.36,
-    270.68,
-    271.35
+    270.68
    ],
    "e30": [
     195.65,
@@ -12338,8 +12342,7 @@
     261.78,
     262.46,
     263.37,
-    264.51,
-    265.15
+    264.51
    ],
    "pat": [
     {
@@ -12349,8 +12352,8 @@
       [
        "2026-07-29",
        267.4700012207031,
-       "2026-10-13",
-       265.7033345540365,
+       "2026-10-12",
+       265.7366678873698,
        0
       ]
      ],
@@ -12368,8 +12371,8 @@
       [
        "2026-07-29",
        241.39999694824218,
-       "2026-10-13",
-       239.6333302815755,
+       "2026-10-12",
+       239.66666361490886,
        1
       ]
      ]
@@ -12382,8 +12385,8 @@
       [
        "2026-04-29",
        190.75,
-       "2026-10-13",
-       261.5445108937693,
+       "2026-10-12",
+       260.9289064512148,
        0
       ]
      ],
@@ -12403,7 +12406,7 @@
       [
        "2026-10-07",
        287.1699981689453,
-       "2026-10-13",
+       "2026-10-12",
        287.1699981689453,
        1
       ],
@@ -12938,8 +12941,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     167.77,
@@ -13441,8 +13443,7 @@
     634.77,
     639.36,
     626.89,
-    599.93,
-    577.5
+    599.93
    ],
    "h": [
     168.9,
@@ -13944,8 +13945,7 @@
     648.48,
     643.85,
     627.37,
-    601.77,
-    606.2
+    601.77
    ],
    "l": [
     165.15,
@@ -14447,8 +14447,7 @@
     633.16,
     613.34,
     606.0,
-    586.54,
-    570.6
+    586.54
    ],
    "c": [
     165.27,
@@ -14950,8 +14949,7 @@
     645.86,
     620.68,
     608.1,
-    594.24,
-    605.53
+    594.24
    ],
    "v": [
     31757200,
@@ -15453,8 +15451,7 @@
     18561100,
     23488200,
     13733300,
-    15379900,
-    17775022
+    15379900
    ],
    "e10": [
     165.27,
@@ -15956,8 +15953,7 @@
     622.68,
     622.31,
     619.73,
-    615.09,
-    613.36
+    615.09
    ],
    "e30": [
     165.27,
@@ -16459,8 +16455,7 @@
     572.53,
     575.64,
     577.73,
-    578.8,
-    580.52
+    578.8
    ],
    "pat": [
     {
@@ -16535,8 +16530,8 @@
       [
        "2026-03-03",
        188.22000122070312,
-       "2026-10-13",
-       493.71531224250793,
+       "2026-10-12",
+       491.7443747520447,
        0
       ]
      ],
@@ -17045,8 +17040,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     189.78,
@@ -17548,8 +17542,7 @@
     254.23,
     259.74,
     256.5,
-    262.5,
-    259.55
+    262.5
    ],
    "h": [
     189.83,
@@ -18051,8 +18044,7 @@
     260.14,
     259.86,
     262.8,
-    263.7,
-    262.83
+    263.7
    ],
    "l": [
     187.36,
@@ -18554,8 +18546,7 @@
     253.17,
     253.78,
     256.0,
-    259.27,
-    258.42
+    259.27
    ],
    "c": [
     187.54,
@@ -19057,8 +19048,7 @@
     259.92,
     254.06,
     262.43,
-    259.53,
-    258.58
+    259.53
    ],
    "v": [
     22614400,
@@ -19560,8 +19550,7 @@
     36225800,
     38649900,
     34770000,
-    26577900,
-    25175766
+    26577900
    ],
    "e10": [
     187.54,
@@ -20063,8 +20052,7 @@
     252.91,
     253.12,
     254.81,
-    255.67,
-    256.2
+    255.67
    ],
    "e30": [
     187.54,
@@ -20566,8 +20554,7 @@
     253.48,
     253.51,
     254.09,
-    254.44,
-    254.71
+    254.44
    ],
    "pat": [
     {
@@ -20609,8 +20596,8 @@
       [
        "2026-08-03",
        287.20001220703125,
-       "2026-10-13",
-       235.51576313219573,
+       "2026-10-12",
+       236.54944811369242,
        0
       ]
      ],
@@ -20628,8 +20615,8 @@
       [
        "2026-02-17",
        196.0,
-       "2026-10-13",
-       214.50356783185686,
+       "2026-10-12",
+       214.39142499651228,
        0
       ]
      ],
@@ -20649,7 +20636,7 @@
       [
        "2026-04-08",
        241.8000030517578,
-       "2026-10-13",
+       "2026-10-12",
        241.8000030517578,
        1
       ],
@@ -20688,13 +20675,13 @@
       [
        "2026-10-07",
        265.16,
-       "2026-10-13",
+       "2026-10-12",
        265.16,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $265.16 \u00b7 your Oct 21 $260 call: breakeven vs thesis broken"
      }
@@ -20706,13 +20693,13 @@
       [
        "2026-10-07",
        250.0,
-       "2026-10-13",
+       "2026-10-12",
        250.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $250.00 \u00b7 your Oct 21 $260 call: breakeven vs thesis broken"
      }
@@ -20724,13 +20711,13 @@
       [
        "2026-10-07",
        260.0,
-       "2026-10-13",
+       "2026-10-12",
        260.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $260.00 \u00b7 daily CLOSE back above the rising channel's lower line"
      }
@@ -20742,13 +20729,13 @@
       [
        "2026-10-07",
        240.0,
-       "2026-10-13",
+       "2026-10-12",
        240.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $240.00 \u00b7 daily CLOSE back above the rising channel's lower line"
      }
@@ -20760,13 +20747,13 @@
       [
        "2026-10-08",
        257.5,
-       "2026-10-13",
+       "2026-10-12",
        257.5,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $257.50 \u00b7 your two AMZN calls: bounce target vs stop (today's low / daily 30 EMA)"
      }
@@ -20778,13 +20765,13 @@
       [
        "2026-10-08",
        253.5,
-       "2026-10-13",
+       "2026-10-12",
        253.5,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $253.50 \u00b7 your two AMZN calls: bounce target vs stop (today's low / daily 30 EMA)"
      }
@@ -20796,13 +20783,13 @@
       [
        "2026-10-08",
        263.04,
-       "2026-10-13",
+       "2026-10-12",
        263.04,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $263.04 \u00b7 your two AMZN calls: both-call breakeven at expiry vs the old cut line"
      }
@@ -20814,13 +20801,13 @@
       [
        "2026-10-08",
        250.0,
-       "2026-10-13",
+       "2026-10-12",
        250.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $250.00 \u00b7 your two AMZN calls: both-call breakeven at expiry vs the old cut line"
      }
@@ -20832,13 +20819,13 @@
       [
        "2026-10-09",
        260.0,
-       "2026-10-13",
+       "2026-10-12",
        260.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $260.00 \u00b7 breakout confirm: daily CLOSE above $260 (back in the rising channel)"
      }
@@ -20850,13 +20837,13 @@
       [
        "2026-10-09",
        250.0,
-       "2026-10-13",
+       "2026-10-12",
        250.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $250.00 \u00b7 breakout confirm: daily CLOSE above $260 (back in the rising channel)"
      }
@@ -21364,8 +21351,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     183.3,
@@ -21867,8 +21853,7 @@
     372.6,
     370.62,
     365.59,
-    359.43,
-    349.2
+    359.43
    ],
    "h": [
     184.95,
@@ -22370,8 +22355,7 @@
     376.97,
     373.35,
     366.63,
-    360.69,
-    359.24
+    360.69
    ],
    "l": [
     180.13,
@@ -22873,8 +22857,7 @@
     369.12,
     357.41,
     361.1,
-    354.22,
-    348.11
+    354.22
    ],
    "c": [
     182.31,
@@ -23376,8 +23359,7 @@
     376.51,
     360.14,
     361.54,
-    354.73,
-    357.31
+    354.73
    ],
    "v": [
     17195800,
@@ -23879,8 +23861,7 @@
     18046100,
     27145200,
     16843800,
-    16336800,
-    17181591
+    16336800
    ],
    "e10": [
     182.31,
@@ -24382,8 +24363,7 @@
     361.51,
     361.26,
     361.31,
-    360.11,
-    359.6
+    360.11
    ],
    "e30": [
     182.31,
@@ -24885,8 +24865,7 @@
     362.3,
     362.16,
     362.12,
-    361.64,
-    361.36
+    361.64
    ],
    "pat": [
     {
@@ -24960,8 +24939,8 @@
       [
        "2026-06-03",
        495.0,
-       "2026-10-13",
-       371.81371738599694,
+       "2026-10-12",
+       373.1674127993376,
        0
       ]
      ],
@@ -24975,8 +24954,8 @@
       [
        "2026-06-03",
        375.7447682256284,
-       "2026-10-13",
-       252.55848561162531,
+       "2026-10-12",
+       253.912181024966,
        1
       ]
      ]
@@ -24989,8 +24968,8 @@
       [
        "2026-03-30",
        289.9599914550781,
-       "2026-10-13",
-       343.25572504548944,
+       "2026-10-12",
+       342.8638446514423,
        0
       ]
      ],
@@ -25010,7 +24989,7 @@
       [
        "2026-04-09",
        414.7200012207031,
-       "2026-10-13",
+       "2026-10-12",
        414.7200012207031,
        1
       ],
@@ -25545,8 +25524,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     10.62,
@@ -26048,8 +26026,7 @@
     286.0,
     283.83,
     275.85,
-    275.33,
-    251.55
+    275.33
    ],
    "h": [
     10.76,
@@ -26551,8 +26528,7 @@
     296.83,
     286.95,
     280.5,
-    275.99,
-    264.09
+    275.99
    ],
    "l": [
     10.26,
@@ -27054,8 +27030,7 @@
     284.54,
     264.5,
     271.0,
-    257.76,
-    248.35
+    257.76
    ],
    "c": [
     10.46,
@@ -27557,8 +27532,7 @@
     291.29,
     272.82,
     280.5,
-    262.28,
-    263.45
+    262.28
    ],
    "v": [
     3637200,
@@ -28060,8 +28034,7 @@
     10946100,
     15754600,
     8473300,
-    14031900,
-    12591684
+    14031900
    ],
    "e10": [
     10.46,
@@ -28563,8 +28536,7 @@
     283.8,
     281.8,
     281.56,
-    278.06,
-    275.4
+    278.06
    ],
    "e30": [
     10.46,
@@ -29066,23 +29038,26 @@
     265.86,
     266.31,
     267.22,
-    266.9,
-    266.68
+    266.9
    ],
    "pat": [
     {
      "kind": "resistance line",
-     "end": "2026-06-25",
+     "end": "2026-09-02",
      "lines": [
       [
        "2026-06-25",
        351.2799987792969,
-       "2026-10-13",
-       294.94097438003075,
+       "2026-10-12",
+       135.16970196892234,
        0
       ]
      ],
-     "label": null
+     "label": {
+      "time": "2026-09-02",
+      "up": true,
+      "text": "TRENDLINE BREAK"
+     }
     },
     {
      "kind": "support line",
@@ -29092,8 +29067,8 @@
       [
        "2025-12-17",
        75.69999694824219,
-       "2026-10-13",
-       185.7984874123021,
+       "2026-10-12",
+       185.26142160516036,
        0
       ]
      ],
@@ -29602,8 +29577,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     52.14,
@@ -30105,8 +30079,7 @@
     59.45,
     59.1,
     58.88,
-    60.11,
-    57.78
+    60.11
    ],
    "h": [
     52.71,
@@ -30608,8 +30581,7 @@
     60.1,
     59.94,
     59.79,
-    60.68,
-    58.02
+    60.68
    ],
    "l": [
     51.94,
@@ -31111,8 +31083,7 @@
     59.01,
     58.73,
     58.74,
-    56.72,
-    56.15
+    56.72
    ],
    "c": [
     52.67,
@@ -31614,8 +31585,7 @@
     59.7,
     59.58,
     59.12,
-    57.58,
-    56.67
+    57.58
    ],
    "v": [
     6890800,
@@ -32117,8 +32087,7 @@
     11091200,
     13070600,
     9252700,
-    22564700,
-    16621143
+    22564700
    ],
    "e10": [
     52.67,
@@ -32620,8 +32589,7 @@
     61.03,
     60.77,
     60.47,
-    59.94,
-    59.35
+    59.94
    ],
    "e30": [
     52.67,
@@ -33123,8 +33091,7 @@
     62.66,
     62.46,
     62.25,
-    61.95,
-    61.61
+    61.95
    ],
    "pat": [
     {
@@ -33167,8 +33134,8 @@
       [
        "2025-10-29",
        42.52000045776367,
-       "2026-10-13",
-       58.93433732806511,
+       "2026-10-12",
+       58.86565809429817,
        0
       ]
      ],
@@ -33192,7 +33159,7 @@
       [
        "2026-07-28",
        72.34000015258789,
-       "2026-10-13",
+       "2026-10-12",
        72.34000015258789,
        1
       ],
@@ -33727,8 +33694,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     149.79,
@@ -34230,8 +34196,7 @@
     191.71,
     190.49,
     190.75,
-    195.0,
-    193.92
+    195.0
    ],
    "h": [
     150.29,
@@ -34733,8 +34698,7 @@
     193.1,
     192.11,
     197.91,
-    195.78,
-    196.58
+    195.78
    ],
    "l": [
     148.1,
@@ -35236,8 +35200,7 @@
     189.08,
     188.08,
     189.63,
-    189.3,
-    188.49
+    189.3
    ],
    "c": [
     150.02,
@@ -35739,8 +35702,7 @@
     191.24,
     191.71,
     196.5,
-    194.24,
-    193.09
+    194.24
    ],
    "v": [
     3023600,
@@ -36242,8 +36204,7 @@
     2007400,
     3242700,
     2332400,
-    2047200,
-    2172525
+    2047200
    ],
    "e10": [
     150.02,
@@ -36745,8 +36706,7 @@
     190.15,
     190.43,
     191.53,
-    192.03,
-    192.22
+    192.03
    ],
    "e30": [
     150.02,
@@ -37248,8 +37208,7 @@
     196.61,
     196.29,
     196.31,
-    196.17,
-    195.97
+    196.17
    ],
    "pat": [
     {
@@ -37323,8 +37282,8 @@
       [
        "2025-10-16",
        285.5,
-       "2026-10-13",
-       232.16057477678572,
+       "2026-10-12",
+       232.3756531042987,
        0
       ]
      ],
@@ -37338,8 +37297,8 @@
       [
        "2026-03-27",
        143.3000030517578,
-       "2026-10-13",
-       150.70326585036057,
+       "2026-10-12",
+       150.64922743577225,
        0
       ]
      ],
@@ -37359,7 +37318,7 @@
       [
        "2026-08-03",
        231.52000427246094,
-       "2026-10-13",
+       "2026-10-12",
        231.52000427246094,
        1
       ],
@@ -37398,13 +37357,13 @@
       [
        "2026-10-09",
        204.09,
-       "2026-10-13",
+       "2026-10-12",
        204.09,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $204.09 \u00b7 breakout: daily CLOSE above the 20-day high -> Oct 30 $200 call ticket (limit ~$6.35, stop DASH close < $189, take profit ~$12, out by Oct 28)"
      }
@@ -37416,13 +37375,13 @@
       [
        "2026-10-09",
        178.0,
-       "2026-10-13",
+       "2026-10-12",
        178.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $178.00 \u00b7 breakout: daily CLOSE above the 20-day high -> Oct 30 $200 call ticket (limit ~$6.35, stop DASH close < $189, take profit ~$12, out by Oct 28)"
      }
@@ -37434,13 +37393,13 @@
       [
        "2026-10-09",
        1000000000.0,
-       "2026-10-13",
+       "2026-10-12",
        1000000000.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $1,000,000,000.00 \u00b7 green + : 10-day EMA closed above the 30 -> Setup F fires (target $285.50); same Oct 30 $200 call ticket"
      }
@@ -37452,13 +37411,13 @@
       [
        "2026-10-09",
        178.0,
-       "2026-10-13",
+       "2026-10-12",
        178.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $178.00 \u00b7 green + : 10-day EMA closed above the 30 -> Setup F fires (target $285.50); same Oct 30 $200 call ticket"
      }
@@ -37966,8 +37925,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     69.11,
@@ -38469,8 +38427,7 @@
     68.0,
     69.24,
     72.07,
-    71.48,
-    71.22
+    71.48
    ],
    "h": [
     70.19,
@@ -38972,8 +38929,7 @@
     69.26,
     71.51,
     72.25,
-    72.76,
-    73.04
+    72.76
    ],
    "l": [
     68.22,
@@ -39475,8 +39431,7 @@
     67.96,
     68.75,
     69.99,
-    70.6,
-    70.89
+    70.6
    ],
    "c": [
     68.86,
@@ -39978,8 +39933,7 @@
     68.9,
     71.43,
     71.08,
-    70.97,
-    72.31
+    70.97
    ],
    "v": [
     2695200,
@@ -40481,8 +40435,7 @@
     2602200,
     3159200,
     2249400,
-    1523300,
-    2025310
+    1523300
    ],
    "e10": [
     68.86,
@@ -40984,8 +40937,7 @@
     68.58,
     69.1,
     69.46,
-    69.74,
-    70.2
+    69.74
    ],
    "e30": [
     68.86,
@@ -41487,8 +41439,7 @@
     66.59,
     66.9,
     67.17,
-    67.42,
-    67.73
+    67.42
    ],
    "pat": [
     {
@@ -41530,8 +41481,8 @@
       [
        "2025-10-21",
        75.0,
-       "2026-10-13",
-       73.98189154730903,
+       "2026-10-12",
+       73.98604709201389,
        0
       ]
      ],
@@ -41545,8 +41496,8 @@
       [
        "2026-02-25",
        40.15999984741211,
-       "2026-10-13",
-       42.59129135518134,
+       "2026-10-12",
+       42.57600021362305,
        0
       ]
      ],
@@ -42055,8 +42006,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     47.75,
@@ -42558,8 +42508,7 @@
     81.46,
     80.3,
     82.41,
-    82.65,
-    82.88
+    82.65
    ],
    "h": [
     48.77,
@@ -43061,8 +43010,7 @@
     81.72,
     82.48,
     82.88,
-    82.96,
-    84.59
+    82.96
    ],
    "l": [
     47.63,
@@ -43564,8 +43512,7 @@
     80.63,
     80.11,
     81.71,
-    82.21,
-    82.49
+    82.21
    ],
    "c": [
     48.63,
@@ -44067,8 +44014,7 @@
     80.99,
     82.25,
     82.73,
-    82.37,
-    84.0
+    82.37
    ],
    "v": [
     6773900,
@@ -44570,8 +44516,7 @@
     6269500,
     4975800,
     6593200,
-    5580400,
-    6223529
+    5580400
    ],
    "e10": [
     48.63,
@@ -45073,8 +45018,7 @@
     80.85,
     81.11,
     81.4,
-    81.58,
-    82.02
+    81.58
    ],
    "e30": [
     48.63,
@@ -45576,8 +45520,7 @@
     82.7,
     82.67,
     82.68,
-    82.66,
-    82.74
+    82.66
    ],
    "pat": [
     {
@@ -45651,8 +45594,8 @@
       [
        "2026-07-29",
        91.8499984741211,
-       "2026-10-13",
-       85.80800170898438,
+       "2026-10-12",
+       85.92200164794922,
        0
       ]
      ],
@@ -45666,8 +45609,8 @@
       [
        "2025-10-14",
        54.33000183105469,
-       "2026-10-13",
-       81.34342208964713,
+       "2026-10-12",
+       81.23536840861276,
        0
       ]
      ],
@@ -45691,7 +45634,7 @@
       [
        "2026-05-27",
        94.90999603271484,
-       "2026-10-13",
+       "2026-10-12",
        94.90999603271484,
        1
       ],
@@ -46226,8 +46169,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     30.47,
@@ -46729,8 +46671,7 @@
     32.74,
     32.23,
     32.66,
-    32.92,
-    32.8
+    32.92
    ],
    "h": [
     30.77,
@@ -47232,8 +47173,7 @@
     32.9,
     32.69,
     32.79,
-    33.17,
-    33.07
+    33.17
    ],
    "l": [
     30.33,
@@ -47735,8 +47675,7 @@
     31.42,
     32.15,
     32.42,
-    32.46,
-    32.55
+    32.46
    ],
    "c": [
     30.58,
@@ -48238,8 +48177,7 @@
     31.75,
     32.57,
     32.55,
-    32.6,
-    32.79
+    32.6
    ],
    "v": [
     5665100,
@@ -48741,8 +48679,7 @@
     11229700,
     11258500,
     5140300,
-    4526700,
-    5346995
+    4526700
    ],
    "e10": [
     30.58,
@@ -49244,8 +49181,7 @@
     32.46,
     32.48,
     32.49,
-    32.51,
-    32.56
+    32.51
    ],
    "e30": [
     30.58,
@@ -49747,8 +49683,7 @@
     33.53,
     33.47,
     33.41,
-    33.36,
-    33.32
+    33.36
    ],
    "pat": [
     {
@@ -49785,7 +49720,7 @@
     },
     {
      "kind": "bear flag",
-     "end": "2026-10-13",
+     "end": "2026-10-12",
      "lines": [
       [
        "2026-09-09",
@@ -49796,21 +49731,21 @@
       ],
       [
        "2026-09-30",
-       32.16366618763316,
-       "2026-10-13",
-       33.19979397166858,
+       32.13422283596463,
+       "2026-10-12",
+       33.143555365668405,
        1
       ],
       [
        "2026-09-30",
-       31.254363909634677,
-       "2026-10-13",
-       32.54163561734286,
+       31.256222491794162,
+       "2026-10-12",
+       32.39488826327854,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BEAR FLAG \u00b7 forming"
      }
@@ -49822,8 +49757,8 @@
       [
        "2026-05-20",
        43.59000015258789,
-       "2026-10-13",
-       36.01465935903053,
+       "2026-10-12",
+       36.090412766966104,
        0
       ]
      ],
@@ -49837,8 +49772,8 @@
       [
        "2026-05-20",
        34.61616312314386,
-       "2026-10-13",
-       27.0408223295865,
+       "2026-10-12",
+       27.116575737522076,
        1
       ]
      ]
@@ -49851,8 +49786,8 @@
       [
        "2025-10-16",
        21.459999084472656,
-       "2026-10-13",
-       33.505713949398114,
+       "2026-10-12",
+       33.45714251849116,
        0
       ]
      ],
@@ -50365,8 +50300,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     26.9,
@@ -50868,8 +50802,7 @@
     108.44,
     107.38,
     108.84,
-    108.7,
-    108.79
+    108.7
    ],
    "h": [
     27.14,
@@ -51371,8 +51304,7 @@
     110.18,
     109.38,
     109.85,
-    109.98,
-    111.99
+    109.98
    ],
    "l": [
     26.16,
@@ -51874,8 +51806,7 @@
     107.51,
     105.11,
     106.7,
-    107.8,
-    108.5
+    107.8
    ],
    "c": [
     27.0,
@@ -52377,8 +52308,7 @@
     109.51,
     107.01,
     109.02,
-    109.22,
-    110.52
+    109.22
    ],
    "v": [
     17233000,
@@ -52880,8 +52810,7 @@
     18867500,
     22677600,
     13754200,
-    12386400,
-    14977713
+    12386400
    ],
    "e10": [
     27.0,
@@ -53383,8 +53312,7 @@
     113.53,
     112.34,
     111.74,
-    111.28,
-    111.14
+    111.28
    ],
    "e30": [
     27.0,
@@ -53886,8 +53814,7 @@
     112.24,
     111.91,
     111.72,
-    111.56,
-    111.49
+    111.56
    ],
    "pat": [
     {
@@ -53929,8 +53856,8 @@
       [
        "2025-10-31",
        150.47000122070312,
-       "2026-10-13",
-       125.25022186826698,
+       "2026-10-12",
+       125.3566344393743,
        0
       ]
      ],
@@ -53944,8 +53871,8 @@
       [
        "2026-03-30",
        63.51499938964844,
-       "2026-10-13",
-       95.77900085449218,
+       "2026-10-12",
+       95.54176554960364,
        0
       ]
      ],
@@ -54454,8 +54381,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     233.57,
@@ -54957,8 +54883,7 @@
     221.9,
     220.15,
     225.87,
-    228.31,
-    228.21
+    228.31
    ],
    "h": [
     236.12,
@@ -55460,8 +55385,7 @@
     222.41,
     227.31,
     228.76,
-    229.29,
-    233.5
+    229.29
    ],
    "l": [
     233.17,
@@ -55963,8 +55887,7 @@
     218.79,
     217.8,
     224.05,
-    224.77,
-    227.28
+    224.77
    ],
    "c": [
     235.26,
@@ -56466,8 +56389,7 @@
     220.51,
     226.61,
     227.13,
-    227.02,
-    230.78
+    227.02
    ],
    "v": [
     2524400,
@@ -56969,8 +56891,7 @@
     3891400,
     8921900,
     3351300,
-    2763600,
-    5096372
+    2763600
    ],
    "e10": [
     235.26,
@@ -57472,8 +57393,7 @@
     223.67,
     224.2,
     224.73,
-    225.15,
-    226.17
+    225.15
    ],
    "e30": [
     235.26,
@@ -57975,8 +57895,7 @@
     229.36,
     229.18,
     229.05,
-    228.92,
-    229.04
+    228.92
    ],
    "pat": [
     {
@@ -58050,8 +57969,8 @@
       [
        "2026-06-02",
        332.4599914550781,
-       "2026-10-13",
-       249.81997680664062,
+       "2026-10-12",
+       250.718237835428,
        0
       ]
      ],
@@ -58560,8 +58479,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     594.22,
@@ -59063,8 +58981,7 @@
     738.29,
     724.54,
     726.51,
-    728.5,
-    736.09
+    728.5
    ],
    "h": [
     600.1,
@@ -59566,8 +59483,7 @@
     738.29,
     724.95,
     728.07,
-    752.24,
-    771.27
+    752.24
    ],
    "l": [
     589.96,
@@ -60069,8 +59985,7 @@
     720.15,
     711.68,
     716.2,
-    727.64,
-    734.84
+    727.64
    ],
    "c": [
     590.42,
@@ -60572,8 +60487,7 @@
     721.31,
     720.89,
     718.67,
-    742.96,
-    762.5
+    742.96
    ],
    "v": [
     8252000,
@@ -61075,8 +60989,7 @@
     13231600,
     16041100,
     12619900,
-    24882400,
-    22627792
+    24882400
    ],
    "e10": [
     590.42,
@@ -61578,8 +61491,7 @@
     727.32,
     726.15,
     724.79,
-    728.09,
-    734.35
+    728.09
    ],
    "e30": [
     590.42,
@@ -62081,8 +61993,7 @@
     686.73,
     688.93,
     690.85,
-    694.22,
-    698.62
+    694.22
    ],
    "pat": [
     {
@@ -62125,8 +62036,8 @@
       [
        "2026-03-27",
        520.260009765625,
-       "2026-10-13",
-       527.077742991728,
+       "2026-10-12",
+       527.027978515625,
        0
       ]
      ],
@@ -62146,7 +62057,7 @@
       [
        "2026-04-16",
        825.280029296875,
-       "2026-10-13",
+       "2026-10-12",
        825.280029296875,
        1
       ],
@@ -62681,8 +62592,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     417.77,
@@ -63184,8 +63094,7 @@
     530.73,
     529.81,
     528.24,
-    537.53,
-    544.62
+    537.53
    ],
    "h": [
     424.04,
@@ -63687,8 +63596,7 @@
     531.73,
     533.51,
     537.22,
-    542.74,
-    551.15
+    542.74
    ],
    "l": [
     417.52,
@@ -64190,8 +64098,7 @@
     524.69,
     518.79,
     526.24,
-    535.7,
-    543.06
+    535.7
    ],
    "c": [
     419.14,
@@ -64693,8 +64600,7 @@
     529.76,
     522.61,
     535.07,
-    541.15,
-    543.45
+    541.15
    ],
    "v": [
     16653100,
@@ -65196,8 +65102,7 @@
     16790200,
     20228700,
     18500600,
-    18314900,
-    23799223
+    18314900
    ],
    "e10": [
     419.14,
@@ -65699,8 +65604,7 @@
     517.63,
     518.54,
     521.54,
-    525.11,
-    528.44
+    525.11
    ],
    "e30": [
     419.14,
@@ -66202,8 +66106,7 @@
     502.76,
     504.04,
     506.04,
-    508.31,
-    510.57
+    508.31
    ],
    "pat": [
     {
@@ -66277,8 +66180,8 @@
       [
        "2025-10-28",
        553.719970703125,
-       "2026-10-13",
-       512.4492245906848,
+       "2026-10-12",
+       512.62118603282,
        0
       ]
      ],
@@ -66296,8 +66199,8 @@
       [
        "2025-10-28",
        374.1639887613543,
-       "2026-10-13",
-       332.8932426489141,
+       "2026-10-12",
+       333.0652040910493,
        1
       ]
      ]
@@ -66310,8 +66213,8 @@
       [
        "2026-06-25",
        349.20001220703125,
-       "2026-10-13",
-       545.3660324384582,
+       "2026-10-12",
+       542.7849005933078,
        0
       ]
      ],
@@ -66335,7 +66238,7 @@
       [
        "2026-08-04",
        630.2000122070312,
-       "2026-10-13",
+       "2026-10-12",
        630.2000122070312,
        1
       ],
@@ -66374,7 +66277,7 @@
       [
        "2025-10-28",
        553.719970703125,
-       "2026-10-13",
+       "2026-10-12",
        553.719970703125,
        1
       ],
@@ -66895,8 +66798,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     107.81,
@@ -67398,8 +67300,7 @@
     1017.37,
     1077.5,
     1054.17,
-    1002.45,
-    934.07
+    1002.45
    ],
    "h": [
     108.71,
@@ -67901,8 +67802,7 @@
     1089.22,
     1088.5,
     1054.17,
-    1002.67,
-    953.6
+    1002.67
    ],
    "l": [
     106.8,
@@ -68404,8 +68304,7 @@
     1011.42,
     1032.1,
     1017.0,
-    978.5,
-    929.03
+    978.5
    ],
    "c": [
     108.34,
@@ -68907,8 +68806,7 @@
     1088.0,
     1035.84,
     1029.0,
-    989.04,
-    953.19
+    989.04
    ],
    "v": [
     15021900,
@@ -69410,8 +69308,7 @@
     30859500,
     29910700,
     19918900,
-    23983800,
-    28906235
+    23983800
    ],
    "e10": [
     108.34,
@@ -69913,8 +69810,7 @@
     1063.75,
     1058.68,
     1053.28,
-    1041.6,
-    1025.53
+    1041.6
    ],
    "e30": [
     108.34,
@@ -70416,8 +70312,7 @@
     1021.64,
     1022.55,
     1022.97,
-    1020.78,
-    1016.42
+    1020.78
    ],
    "pat": [
     {
@@ -70491,8 +70386,8 @@
       [
        "2026-06-25",
        1255.0,
-       "2026-10-13",
-       1081.292465209961,
+       "2026-10-12",
+       1083.5780906677246,
        0
       ]
      ],
@@ -70506,8 +70401,8 @@
       [
        "2025-11-21",
        192.58999633789062,
-       "2026-10-13",
-       495.9899807634025,
+       "2026-10-12",
+       494.6233141668912,
        0
       ]
      ],
@@ -71016,8 +70911,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     72.5,
@@ -71519,8 +71413,7 @@
     68.8,
     70.09,
     70.51,
-    71.33,
-    71.1
+    71.33
    ],
    "h": [
     72.66,
@@ -72022,8 +71915,7 @@
     69.8,
     71.62,
     72.1,
-    71.55,
-    71.51
+    71.55
    ],
    "l": [
     71.13,
@@ -72525,8 +72417,7 @@
     68.41,
     69.72,
     70.19,
-    70.56,
-    70.42
+    70.56
    ],
    "c": [
     71.3,
@@ -73028,8 +72919,7 @@
     69.7,
     71.57,
     70.3,
-    70.61,
-    70.46
+    70.61
    ],
    "v": [
     27971000,
@@ -73531,8 +73421,7 @@
     30206200,
     46130300,
     29124300,
-    24200200,
-    27708338
+    24200200
    ],
    "e10": [
     71.3,
@@ -74034,8 +73923,7 @@
     69.64,
     69.99,
     70.05,
-    70.15,
-    70.21
+    70.15
    ],
    "e30": [
     71.3,
@@ -74537,8 +74425,7 @@
     72.89,
     72.8,
     72.64,
-    72.51,
-    72.38
+    72.51
    ],
    "pat": [
     {
@@ -74575,7 +74462,7 @@
     },
     {
      "kind": "bear flag",
-     "end": "2026-10-13",
+     "end": "2026-10-12",
      "lines": [
       [
        "2026-09-14",
@@ -74586,21 +74473,21 @@
       ],
       [
        "2026-10-02",
-       67.69500096638997,
-       "2026-10-13",
-       72.48750178019205,
+       67.41571535382953,
+       "2026-10-12",
+       72.36143003191268,
        1
       ],
       [
        "2026-10-02",
-       66.415833791097,
-       "2026-10-13",
-       71.05791727701822,
+       66.23214340209961,
+       "2026-10-12",
+       70.76214327131,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BEAR FLAG \u00b7 forming"
      }
@@ -74612,8 +74499,8 @@
       [
        "2025-10-21",
        124.86000061035156,
-       "2026-10-13",
-       92.64553038541936,
+       "2026-10-12",
+       92.7770180189905,
        0
       ]
      ],
@@ -74626,13 +74513,13 @@
       [
        "2026-10-08",
        72.8,
-       "2026-10-13",
+       "2026-10-12",
        72.8,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $72.80 \u00b7 your Dec-18 69C: close back over the 30-day EMA vs close under the 20-day low"
      }
@@ -74644,13 +74531,13 @@
       [
        "2026-10-08",
        66.54,
-       "2026-10-13",
+       "2026-10-12",
        66.54,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $66.54 \u00b7 your Dec-18 69C: close back over the 30-day EMA vs close under the 20-day low"
      }
@@ -75158,8 +75045,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     189.48,
@@ -75661,8 +75547,7 @@
     139.5,
     139.25,
     141.26,
-    145.54,
-    140.19
+    145.54
    ],
    "h": [
     189.92,
@@ -76164,8 +76049,7 @@
     140.8,
     142.51,
     142.47,
-    148.14,
-    145.17
+    148.14
    ],
    "l": [
     187.18,
@@ -76667,8 +76551,7 @@
     137.49,
     135.58,
     139.43,
-    139.76,
-    138.17
+    139.76
    ],
    "c": [
     188.94,
@@ -77170,8 +77053,7 @@
     137.87,
     139.75,
     140.86,
-    140.32,
-    138.61
+    140.32
    ],
    "v": [
     2837000,
@@ -77673,8 +77555,7 @@
     8030800,
     11834400,
     6287800,
-    9632900,
-    13184187
+    9632900
    ],
    "e10": [
     188.94,
@@ -78176,8 +78057,7 @@
     136.27,
     136.9,
     137.62,
-    138.11,
-    138.2
+    138.11
    ],
    "e30": [
     188.94,
@@ -78679,8 +78559,7 @@
     134.19,
     134.55,
     134.95,
-    135.3,
-    135.51
+    135.3
    ],
    "pat": [
     {
@@ -78754,8 +78633,8 @@
       [
        "2025-10-30",
        192.96600341796875,
-       "2026-10-13",
-       143.34529495239258,
+       "2026-10-12",
+       143.55378532409668,
        0
       ]
      ],
@@ -78769,8 +78648,8 @@
       [
        "2026-04-10",
        81.23999786376953,
-       "2026-10-13",
-       99.79098542979065,
+       "2026-10-12",
+       99.64605583943111,
        0
       ]
      ],
@@ -78790,7 +78669,7 @@
       [
        "2026-07-29",
        136.0500030517578,
-       "2026-10-13",
+       "2026-10-12",
        136.0500030517578,
        1
       ],
@@ -78829,13 +78708,13 @@
       [
        "2026-10-08",
        149.6,
-       "2026-10-13",
+       "2026-10-12",
        149.6,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $149.60 \u00b7 your NOW share: breakout over the 60-day high vs close under the 20-day low / 200-day"
      }
@@ -78847,13 +78726,13 @@
       [
        "2026-10-08",
        126.75,
-       "2026-10-13",
+       "2026-10-12",
        126.75,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $126.75 \u00b7 your NOW share: breakout over the 60-day high vs close under the 20-day low / 200-day"
      }
@@ -78865,13 +78744,13 @@
       [
        "2026-10-09",
        147.57,
-       "2026-10-13",
+       "2026-10-12",
        147.57,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $147.57 \u00b7 your Oct 16 140C: take profit at the 20-day high vs stop under the 10-day EMA"
      }
@@ -78883,13 +78762,13 @@
       [
        "2026-10-09",
        137.5,
-       "2026-10-13",
+       "2026-10-12",
        137.5,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $137.50 \u00b7 your Oct 16 140C: take profit at the 20-day high vs stop under the 10-day EMA"
      }
@@ -79397,8 +79276,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     136.47,
@@ -79900,8 +79778,7 @@
     237.69,
     234.92,
     233.84,
-    228.73,
-    224.27
+    228.73
    ],
    "h": [
     139.6,
@@ -80403,8 +80280,7 @@
     239.08,
     237.07,
     233.92,
-    228.86,
-    228.64
+    228.86
    ],
    "l": [
     136.3,
@@ -80906,8 +80782,7 @@
     236.38,
     229.85,
     229.11,
-    224.9,
-    223.06
+    224.9
    ],
    "c": [
     138.07,
@@ -81409,8 +81284,7 @@
     237.47,
     230.48,
     229.28,
-    226.32,
-    228.52
+    226.32
    ],
    "v": [
     232347700,
@@ -81912,8 +81786,7 @@
     81772400,
     118697400,
     84645600,
-    70690300,
-    83671511
+    70690300
    ],
    "e10": [
     138.07,
@@ -82415,8 +82288,7 @@
     232.61,
     232.23,
     231.69,
-    230.71,
-    230.31
+    230.71
    ],
    "e30": [
     138.07,
@@ -82918,8 +82790,7 @@
     225.65,
     225.96,
     226.18,
-    226.19,
-    226.34
+    226.19
    ],
    "pat": [
     {
@@ -82961,8 +82832,8 @@
       [
        "2026-05-14",
        236.5399932861328,
-       "2026-10-13",
-       234.16666158040366,
+       "2026-10-12",
+       234.18948207757413,
        0
       ]
      ],
@@ -82980,8 +82851,8 @@
       [
        "2026-05-14",
        190.484617966872,
-       "2026-10-13",
-       188.11128626114285,
+       "2026-10-12",
+       188.13410675831332,
        1
       ]
      ]
@@ -82994,8 +82865,8 @@
       [
        "2026-03-30",
        164.27000427246094,
-       "2026-10-13",
-       206.44637381312359,
+       "2026-10-12",
+       206.136253448854,
        0
       ]
      ],
@@ -83015,7 +82886,7 @@
       [
        "2026-10-01",
        252.010009765625,
-       "2026-10-13",
+       "2026-10-12",
        252.010009765625,
        1
       ],
@@ -83043,4159 +82914,6 @@
      ],
      "label": {
       "time": "2026-10-01",
-      "up": true,
-      "text": "INVERSE H&S"
-     }
-    }
-   ]
-  },
-  "PANW": {
-   "d": [
-    "2024-10-14",
-    "2024-10-15",
-    "2024-10-16",
-    "2024-10-17",
-    "2024-10-18",
-    "2024-10-21",
-    "2024-10-22",
-    "2024-10-23",
-    "2024-10-24",
-    "2024-10-25",
-    "2024-10-28",
-    "2024-10-29",
-    "2024-10-30",
-    "2024-10-31",
-    "2024-11-01",
-    "2024-11-04",
-    "2024-11-05",
-    "2024-11-06",
-    "2024-11-07",
-    "2024-11-08",
-    "2024-11-11",
-    "2024-11-12",
-    "2024-11-13",
-    "2024-11-14",
-    "2024-11-15",
-    "2024-11-18",
-    "2024-11-19",
-    "2024-11-20",
-    "2024-11-21",
-    "2024-11-22",
-    "2024-11-25",
-    "2024-11-26",
-    "2024-11-27",
-    "2024-11-29",
-    "2024-12-02",
-    "2024-12-03",
-    "2024-12-04",
-    "2024-12-05",
-    "2024-12-06",
-    "2024-12-09",
-    "2024-12-10",
-    "2024-12-11",
-    "2024-12-12",
-    "2024-12-13",
-    "2024-12-16",
-    "2024-12-17",
-    "2024-12-18",
-    "2024-12-19",
-    "2024-12-20",
-    "2024-12-23",
-    "2024-12-24",
-    "2024-12-26",
-    "2024-12-27",
-    "2024-12-30",
-    "2024-12-31",
-    "2025-01-02",
-    "2025-01-03",
-    "2025-01-06",
-    "2025-01-07",
-    "2025-01-08",
-    "2025-01-10",
-    "2025-01-13",
-    "2025-01-14",
-    "2025-01-15",
-    "2025-01-16",
-    "2025-01-17",
-    "2025-01-21",
-    "2025-01-22",
-    "2025-01-23",
-    "2025-01-24",
-    "2025-01-27",
-    "2025-01-28",
-    "2025-01-29",
-    "2025-01-30",
-    "2025-01-31",
-    "2025-02-03",
-    "2025-02-04",
-    "2025-02-05",
-    "2025-02-06",
-    "2025-02-07",
-    "2025-02-10",
-    "2025-02-11",
-    "2025-02-12",
-    "2025-02-13",
-    "2025-02-14",
-    "2025-02-18",
-    "2025-02-19",
-    "2025-02-20",
-    "2025-02-21",
-    "2025-02-24",
-    "2025-02-25",
-    "2025-02-26",
-    "2025-02-27",
-    "2025-02-28",
-    "2025-03-03",
-    "2025-03-04",
-    "2025-03-05",
-    "2025-03-06",
-    "2025-03-07",
-    "2025-03-10",
-    "2025-03-11",
-    "2025-03-12",
-    "2025-03-13",
-    "2025-03-14",
-    "2025-03-17",
-    "2025-03-18",
-    "2025-03-19",
-    "2025-03-20",
-    "2025-03-21",
-    "2025-03-24",
-    "2025-03-25",
-    "2025-03-26",
-    "2025-03-27",
-    "2025-03-28",
-    "2025-03-31",
-    "2025-04-01",
-    "2025-04-02",
-    "2025-04-03",
-    "2025-04-04",
-    "2025-04-07",
-    "2025-04-08",
-    "2025-04-09",
-    "2025-04-10",
-    "2025-04-11",
-    "2025-04-14",
-    "2025-04-15",
-    "2025-04-16",
-    "2025-04-17",
-    "2025-04-21",
-    "2025-04-22",
-    "2025-04-23",
-    "2025-04-24",
-    "2025-04-25",
-    "2025-04-28",
-    "2025-04-29",
-    "2025-04-30",
-    "2025-05-01",
-    "2025-05-02",
-    "2025-05-05",
-    "2025-05-06",
-    "2025-05-07",
-    "2025-05-08",
-    "2025-05-09",
-    "2025-05-12",
-    "2025-05-13",
-    "2025-05-14",
-    "2025-05-15",
-    "2025-05-16",
-    "2025-05-19",
-    "2025-05-20",
-    "2025-05-21",
-    "2025-05-22",
-    "2025-05-23",
-    "2025-05-27",
-    "2025-05-28",
-    "2025-05-29",
-    "2025-05-30",
-    "2025-06-02",
-    "2025-06-03",
-    "2025-06-04",
-    "2025-06-05",
-    "2025-06-06",
-    "2025-06-09",
-    "2025-06-10",
-    "2025-06-11",
-    "2025-06-12",
-    "2025-06-13",
-    "2025-06-16",
-    "2025-06-17",
-    "2025-06-18",
-    "2025-06-20",
-    "2025-06-23",
-    "2025-06-24",
-    "2025-06-25",
-    "2025-06-26",
-    "2025-06-27",
-    "2025-06-30",
-    "2025-07-01",
-    "2025-07-02",
-    "2025-07-03",
-    "2025-07-07",
-    "2025-07-08",
-    "2025-07-09",
-    "2025-07-10",
-    "2025-07-11",
-    "2025-07-14",
-    "2025-07-15",
-    "2025-07-16",
-    "2025-07-17",
-    "2025-07-18",
-    "2025-07-21",
-    "2025-07-22",
-    "2025-07-23",
-    "2025-07-24",
-    "2025-07-25",
-    "2025-07-28",
-    "2025-07-29",
-    "2025-07-30",
-    "2025-07-31",
-    "2025-08-01",
-    "2025-08-04",
-    "2025-08-05",
-    "2025-08-06",
-    "2025-08-07",
-    "2025-08-08",
-    "2025-08-11",
-    "2025-08-12",
-    "2025-08-13",
-    "2025-08-14",
-    "2025-08-15",
-    "2025-08-18",
-    "2025-08-19",
-    "2025-08-20",
-    "2025-08-21",
-    "2025-08-22",
-    "2025-08-25",
-    "2025-08-26",
-    "2025-08-27",
-    "2025-08-28",
-    "2025-08-29",
-    "2025-09-02",
-    "2025-09-03",
-    "2025-09-04",
-    "2025-09-05",
-    "2025-09-08",
-    "2025-09-09",
-    "2025-09-10",
-    "2025-09-11",
-    "2025-09-12",
-    "2025-09-15",
-    "2025-09-16",
-    "2025-09-17",
-    "2025-09-18",
-    "2025-09-19",
-    "2025-09-22",
-    "2025-09-23",
-    "2025-09-24",
-    "2025-09-25",
-    "2025-09-26",
-    "2025-09-29",
-    "2025-09-30",
-    "2025-10-01",
-    "2025-10-02",
-    "2025-10-03",
-    "2025-10-06",
-    "2025-10-07",
-    "2025-10-08",
-    "2025-10-09",
-    "2025-10-10",
-    "2025-10-13",
-    "2025-10-14",
-    "2025-10-15",
-    "2025-10-16",
-    "2025-10-17",
-    "2025-10-20",
-    "2025-10-21",
-    "2025-10-22",
-    "2025-10-23",
-    "2025-10-24",
-    "2025-10-27",
-    "2025-10-28",
-    "2025-10-29",
-    "2025-10-30",
-    "2025-10-31",
-    "2025-11-03",
-    "2025-11-04",
-    "2025-11-05",
-    "2025-11-06",
-    "2025-11-07",
-    "2025-11-10",
-    "2025-11-11",
-    "2025-11-12",
-    "2025-11-13",
-    "2025-11-14",
-    "2025-11-17",
-    "2025-11-18",
-    "2025-11-19",
-    "2025-11-20",
-    "2025-11-21",
-    "2025-11-24",
-    "2025-11-25",
-    "2025-11-26",
-    "2025-11-28",
-    "2025-12-01",
-    "2025-12-02",
-    "2025-12-03",
-    "2025-12-04",
-    "2025-12-05",
-    "2025-12-08",
-    "2025-12-09",
-    "2025-12-10",
-    "2025-12-11",
-    "2025-12-12",
-    "2025-12-15",
-    "2025-12-16",
-    "2025-12-17",
-    "2025-12-18",
-    "2025-12-19",
-    "2025-12-22",
-    "2025-12-23",
-    "2025-12-24",
-    "2025-12-26",
-    "2025-12-29",
-    "2025-12-30",
-    "2025-12-31",
-    "2026-01-02",
-    "2026-01-05",
-    "2026-01-06",
-    "2026-01-07",
-    "2026-01-08",
-    "2026-01-09",
-    "2026-01-12",
-    "2026-01-13",
-    "2026-01-14",
-    "2026-01-15",
-    "2026-01-16",
-    "2026-01-20",
-    "2026-01-21",
-    "2026-01-22",
-    "2026-01-23",
-    "2026-01-26",
-    "2026-01-27",
-    "2026-01-28",
-    "2026-01-29",
-    "2026-01-30",
-    "2026-02-02",
-    "2026-02-03",
-    "2026-02-04",
-    "2026-02-05",
-    "2026-02-06",
-    "2026-02-09",
-    "2026-02-10",
-    "2026-02-11",
-    "2026-02-12",
-    "2026-02-13",
-    "2026-02-17",
-    "2026-02-18",
-    "2026-02-19",
-    "2026-02-20",
-    "2026-02-23",
-    "2026-02-24",
-    "2026-02-25",
-    "2026-02-26",
-    "2026-02-27",
-    "2026-03-02",
-    "2026-03-03",
-    "2026-03-04",
-    "2026-03-05",
-    "2026-03-06",
-    "2026-03-09",
-    "2026-03-10",
-    "2026-03-11",
-    "2026-03-12",
-    "2026-03-13",
-    "2026-03-16",
-    "2026-03-17",
-    "2026-03-18",
-    "2026-03-19",
-    "2026-03-20",
-    "2026-03-23",
-    "2026-03-24",
-    "2026-03-25",
-    "2026-03-26",
-    "2026-03-27",
-    "2026-03-30",
-    "2026-03-31",
-    "2026-04-01",
-    "2026-04-02",
-    "2026-04-06",
-    "2026-04-07",
-    "2026-04-08",
-    "2026-04-09",
-    "2026-04-10",
-    "2026-04-13",
-    "2026-04-14",
-    "2026-04-15",
-    "2026-04-16",
-    "2026-04-17",
-    "2026-04-20",
-    "2026-04-21",
-    "2026-04-22",
-    "2026-04-23",
-    "2026-04-24",
-    "2026-04-27",
-    "2026-04-28",
-    "2026-04-29",
-    "2026-04-30",
-    "2026-05-01",
-    "2026-05-04",
-    "2026-05-05",
-    "2026-05-06",
-    "2026-05-07",
-    "2026-05-08",
-    "2026-05-11",
-    "2026-05-12",
-    "2026-05-13",
-    "2026-05-14",
-    "2026-05-15",
-    "2026-05-18",
-    "2026-05-19",
-    "2026-05-20",
-    "2026-05-21",
-    "2026-05-22",
-    "2026-05-26",
-    "2026-05-27",
-    "2026-05-28",
-    "2026-05-29",
-    "2026-06-01",
-    "2026-06-02",
-    "2026-06-03",
-    "2026-06-04",
-    "2026-06-05",
-    "2026-06-08",
-    "2026-06-09",
-    "2026-06-10",
-    "2026-06-11",
-    "2026-06-12",
-    "2026-06-15",
-    "2026-06-16",
-    "2026-06-17",
-    "2026-06-18",
-    "2026-06-22",
-    "2026-06-23",
-    "2026-06-24",
-    "2026-06-25",
-    "2026-06-26",
-    "2026-06-29",
-    "2026-06-30",
-    "2026-07-01",
-    "2026-07-02",
-    "2026-07-06",
-    "2026-07-07",
-    "2026-07-08",
-    "2026-07-09",
-    "2026-07-10",
-    "2026-07-13",
-    "2026-07-14",
-    "2026-07-15",
-    "2026-07-16",
-    "2026-07-17",
-    "2026-07-20",
-    "2026-07-21",
-    "2026-07-22",
-    "2026-07-23",
-    "2026-07-24",
-    "2026-07-27",
-    "2026-07-28",
-    "2026-07-29",
-    "2026-07-30",
-    "2026-07-31",
-    "2026-08-03",
-    "2026-08-04",
-    "2026-08-05",
-    "2026-08-06",
-    "2026-08-07",
-    "2026-08-10",
-    "2026-08-11",
-    "2026-08-12",
-    "2026-08-13",
-    "2026-08-14",
-    "2026-08-17",
-    "2026-08-18",
-    "2026-08-19",
-    "2026-08-20",
-    "2026-08-21",
-    "2026-08-24",
-    "2026-08-25",
-    "2026-08-26",
-    "2026-08-27",
-    "2026-08-28",
-    "2026-08-31",
-    "2026-09-01",
-    "2026-09-02",
-    "2026-09-03",
-    "2026-09-04",
-    "2026-09-08",
-    "2026-09-09",
-    "2026-09-10",
-    "2026-09-11",
-    "2026-09-14",
-    "2026-09-15",
-    "2026-09-16",
-    "2026-09-17",
-    "2026-09-18",
-    "2026-09-21",
-    "2026-09-22",
-    "2026-09-23",
-    "2026-09-24",
-    "2026-09-25",
-    "2026-09-28",
-    "2026-09-29",
-    "2026-09-30",
-    "2026-10-01",
-    "2026-10-02",
-    "2026-10-05",
-    "2026-10-06",
-    "2026-10-07",
-    "2026-10-08",
-    "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
-   ],
-   "o": [
-    188.49,
-    186.52,
-    187.22,
-    186.0,
-    186.6,
-    187.49,
-    187.36,
-    186.78,
-    180.35,
-    183.87,
-    184.0,
-    180.88,
-    182.17,
-    182.34,
-    179.51,
-    180.32,
-    182.24,
-    189.0,
-    189.29,
-    194.5,
-    197.83,
-    197.88,
-    199.64,
-    201.05,
-    194.72,
-    196.5,
-    192.6,
-    194.78,
-    193.1,
-    196.32,
-    193.98,
-    194.72,
-    196.85,
-    193.12,
-    195.12,
-    194.04,
-    198.23,
-    202.0,
-    202.57,
-    203.5,
-    195.76,
-    195.32,
-    198.55,
-    200.25,
-    198.15,
-    202.33,
-    201.0,
-    194.44,
-    186.58,
-    187.3,
-    187.94,
-    188.51,
-    186.37,
-    183.81,
-    185.38,
-    184.5,
-    181.26,
-    182.35,
-    177.52,
-    169.38,
-    171.8,
-    169.77,
-    168.3,
-    173.33,
-    176.0,
-    181.12,
-    181.09,
-    185.28,
-    187.02,
-    187.83,
-    185.09,
-    188.66,
-    192.94,
-    186.04,
-    188.83,
-    181.56,
-    181.31,
-    183.94,
-    187.71,
-    191.23,
-    196.5,
-    198.15,
-    194.0,
-    199.16,
-    192.0,
-    197.7,
-    208.19,
-    203.83,
-    199.12,
-    191.65,
-    189.29,
-    189.37,
-    191.38,
-    187.89,
-    191.5,
-    182.29,
-    182.45,
-    180.3,
-    177.92,
-    177.6,
-    173.79,
-    183.64,
-    178.38,
-    178.87,
-    183.5,
-    182.95,
-    183.1,
-    185.59,
-    181.72,
-    186.0,
-    184.79,
-    189.67,
-    182.7,
-    173.91,
-    169.57,
-    168.52,
-    168.27,
-    165.43,
-    158.96,
-    147.57,
-    157.72,
-    151.63,
-    168.93,
-    164.74,
-    171.66,
-    170.5,
-    171.54,
-    171.14,
-    165.09,
-    162.46,
-    168.74,
-    169.35,
-    176.49,
-    178.62,
-    182.96,
-    184.98,
-    188.64,
-    190.0,
-    186.0,
-    186.8,
-    188.8,
-    187.69,
-    188.76,
-    191.62,
-    192.73,
-    191.83,
-    189.79,
-    191.05,
-    190.49,
-    194.64,
-    184.76,
-    183.01,
-    183.61,
-    188.67,
-    187.76,
-    189.0,
-    187.02,
-    192.14,
-    195.0,
-    195.22,
-    194.11,
-    199.0,
-    199.04,
-    195.65,
-    195.71,
-    194.57,
-    196.37,
-    196.85,
-    197.99,
-    202.29,
-    201.05,
-    199.56,
-    204.0,
-    202.8,
-    204.59,
-    202.34,
-    201.24,
-    203.97,
-    196.44,
-    197.86,
-    200.89,
-    202.0,
-    204.8,
-    204.03,
-    192.91,
-    186.88,
-    190.71,
-    192.95,
-    193.19,
-    197.12,
-    195.94,
-    199.89,
-    197.83,
-    199.0,
-    201.33,
-    203.77,
-    206.0,
-    180.27,
-    183.91,
-    173.13,
-    174.48,
-    171.5,
-    169.25,
-    173.5,
-    168.89,
-    167.2,
-    171.22,
-    180.15,
-    177.0,
-    174.36,
-    178.06,
-    187.81,
-    181.93,
-    184.12,
-    183.65,
-    185.18,
-    184.22,
-    185.0,
-    187.44,
-    191.37,
-    187.26,
-    188.95,
-    191.53,
-    193.6,
-    195.19,
-    197.69,
-    197.84,
-    198.0,
-    197.18,
-    198.05,
-    201.5,
-    203.0,
-    204.6,
-    206.41,
-    206.89,
-    207.16,
-    202.67,
-    200.0,
-    201.48,
-    203.0,
-    203.62,
-    202.16,
-    208.49,
-    210.1,
-    209.37,
-    213.23,
-    212.6,
-    217.0,
-    216.0,
-    213.42,
-    209.77,
-    208.08,
-    208.0,
-    204.09,
-    209.56,
-    212.04,
-    214.0,
-    212.05,
-    217.0,
-    219.79,
-    221.18,
-    219.31,
-    217.54,
-    219.94,
-    219.97,
-    215.72,
-    215.2,
-    209.87,
-    208.23,
-    214.22,
-    216.94,
-    218.14,
-    209.8,
-    201.99,
-    205.0,
-    202.5,
-    199.36,
-    198.13,
-    185.01,
-    185.42,
-    183.53,
-    187.15,
-    187.23,
-    189.54,
-    189.49,
-    190.08,
-    194.06,
-    195.64,
-    199.37,
-    195.02,
-    194.46,
-    191.38,
-    191.06,
-    191.34,
-    185.1,
-    187.53,
-    185.71,
-    187.85,
-    188.49,
-    189.07,
-    187.43,
-    187.34,
-    188.13,
-    186.25,
-    186.7,
-    184.81,
-    183.0,
-    181.73,
-    188.09,
-    193.69,
-    191.93,
-    188.34,
-    188.0,
-    190.71,
-    190.66,
-    187.63,
-    184.24,
-    184.46,
-    182.48,
-    183.06,
-    181.37,
-    187.38,
-    184.53,
-    181.08,
-    174.72,
-    177.45,
-    174.12,
-    164.87,
-    163.68,
-    157.61,
-    159.8,
-    166.39,
-    167.2,
-    166.29,
-    165.03,
-    165.68,
-    149.55,
-    152.48,
-    150.36,
-    147.72,
-    142.93,
-    142.73,
-    146.91,
-    147.17,
-    147.9,
-    149.07,
-    156.06,
-    159.13,
-    162.32,
-    164.08,
-    165.5,
-    166.65,
-    166.28,
-    168.9,
-    167.74,
-    167.9,
-    168.05,
-    168.86,
-    169.19,
-    164.43,
-    162.09,
-    159.7,
-    152.24,
-    147.55,
-    151.95,
-    155.03,
-    161.45,
-    159.9,
-    163.37,
-    161.58,
-    173.9,
-    174.14,
-    167.6,
-    155.58,
-    163.37,
-    164.49,
-    168.6,
-    170.48,
-    167.01,
-    170.4,
-    175.5,
-    173.37,
-    174.0,
-    176.86,
-    184.11,
-    179.6,
-    180.85,
-    182.0,
-    181.64,
-    186.0,
-    180.44,
-    190.77,
-    194.85,
-    207.79,
-    213.64,
-    213.04,
-    227.55,
-    237.83,
-    238.91,
-    246.96,
-    236.21,
-    241.34,
-    251.12,
-    258.17,
-    245.62,
-    249.23,
-    256.32,
-    285.43,
-    287.46,
-    285.0,
-    269.86,
-    278.99,
-    269.63,
-    265.3,
-    258.81,
-    261.0,
-    276.94,
-    280.55,
-    283.2,
-    279.46,
-    285.6,
-    287.99,
-    285.72,
-    289.62,
-    289.01,
-    295.15,
-    309.83,
-    327.55,
-    345.55,
-    351.49,
-    338.96,
-    359.87,
-    336.8,
-    318.34,
-    338.48,
-    325.11,
-    330.8,
-    356.81,
-    357.06,
-    347.0,
-    354.72,
-    349.44,
-    342.98,
-    335.58,
-    328.09,
-    331.51,
-    317.51,
-    319.38,
-    316.03,
-    332.34,
-    336.49,
-    351.6,
-    373.87,
-    350.13,
-    365.5,
-    365.38,
-    384.2,
-    380.9,
-    394.12,
-    396.76,
-    383.25,
-    370.34,
-    375.26,
-    354.12,
-    352.4,
-    356.06,
-    353.77,
-    330.46,
-    358.56,
-    377.26,
-    370.0,
-    374.62,
-    346.0,
-    333.31,
-    329.66,
-    327.57,
-    337.91,
-    331.15,
-    338.49,
-    346.49,
-    368.43,
-    367.51,
-    365.47,
-    375.08,
-    364.09,
-    374.8,
-    379.8,
-    392.44,
-    387.94,
-    370.61,
-    390.1,
-    391.36,
-    396.01,
-    403.44,
-    404.42,
-    412.8,
-    413.41,
-    402.98,
-    404.39,
-    421.41,
-    399.0
-   ],
-   "h": [
-    188.57,
-    188.16,
-    187.27,
-    189.87,
-    188.0,
-    192.0,
-    189.63,
-    187.07,
-    183.26,
-    186.2,
-    184.46,
-    183.74,
-    183.94,
-    184.69,
-    182.88,
-    181.94,
-    184.24,
-    193.1,
-    193.6,
-    196.6,
-    200.35,
-    199.65,
-    204.26,
-    201.58,
-    196.25,
-    196.69,
-    194.51,
-    197.46,
-    202.0,
-    197.01,
-    198.08,
-    198.61,
-    196.96,
-    194.61,
-    196.15,
-    197.88,
-    203.39,
-    203.75,
-    204.58,
-    205.12,
-    198.22,
-    199.43,
-    201.7,
-    201.25,
-    203.0,
-    207.24,
-    202.0,
-    195.3,
-    192.86,
-    189.52,
-    189.51,
-    189.48,
-    187.01,
-    185.61,
-    185.81,
-    184.63,
-    184.8,
-    182.79,
-    178.17,
-    173.11,
-    175.24,
-    170.53,
-    170.66,
-    175.95,
-    178.95,
-    181.35,
-    186.15,
-    188.97,
-    187.75,
-    190.93,
-    192.43,
-    197.74,
-    193.01,
-    189.14,
-    189.16,
-    184.24,
-    184.9,
-    187.11,
-    188.97,
-    197.66,
-    198.74,
-    199.18,
-    197.33,
-    202.41,
-    201.33,
-    208.35,
-    208.39,
-    203.97,
-    199.26,
-    193.0,
-    189.74,
-    192.31,
-    193.4,
-    191.01,
-    193.66,
-    186.59,
-    185.27,
-    184.13,
-    182.0,
-    177.74,
-    182.39,
-    184.16,
-    178.77,
-    183.05,
-    186.16,
-    184.35,
-    189.67,
-    188.85,
-    183.6,
-    186.49,
-    190.1,
-    191.0,
-    183.09,
-    174.89,
-    171.02,
-    171.89,
-    174.74,
-    168.69,
-    160.84,
-    159.59,
-    161.5,
-    174.11,
-    170.66,
-    168.84,
-    173.53,
-    174.94,
-    173.85,
-    171.37,
-    165.95,
-    165.36,
-    172.52,
-    176.45,
-    179.5,
-    182.2,
-    187.31,
-    187.63,
-    189.16,
-    191.7,
-    190.98,
-    190.27,
-    189.31,
-    188.98,
-    189.79,
-    193.67,
-    195.42,
-    192.2,
-    194.19,
-    193.79,
-    194.4,
-    194.93,
-    185.3,
-    187.65,
-    187.65,
-    189.1,
-    189.84,
-    189.15,
-    192.73,
-    195.29,
-    198.45,
-    197.25,
-    199.5,
-    200.88,
-    199.2,
-    197.04,
-    197.44,
-    199.4,
-    199.95,
-    199.74,
-    202.75,
-    202.89,
-    201.05,
-    203.87,
-    204.8,
-    204.81,
-    206.74,
-    203.26,
-    204.91,
-    204.35,
-    197.92,
-    202.98,
-    202.19,
-    204.51,
-    206.18,
-    205.0,
-    193.0,
-    191.44,
-    193.52,
-    193.88,
-    197.6,
-    197.44,
-    203.2,
-    201.43,
-    199.9,
-    201.45,
-    205.27,
-    204.95,
-    210.39,
-    186.12,
-    183.94,
-    176.03,
-    174.48,
-    171.68,
-    173.63,
-    173.5,
-    170.46,
-    170.9,
-    175.58,
-    180.39,
-    177.85,
-    177.36,
-    178.19,
-    189.0,
-    187.65,
-    184.35,
-    187.11,
-    186.07,
-    186.66,
-    188.21,
-    191.57,
-    192.79,
-    191.59,
-    192.35,
-    194.48,
-    196.34,
-    197.9,
-    198.13,
-    202.72,
-    200.8,
-    199.95,
-    202.11,
-    202.12,
-    204.51,
-    207.03,
-    209.02,
-    209.51,
-    208.49,
-    205.0,
-    203.84,
-    203.55,
-    204.74,
-    206.07,
-    207.19,
-    209.9,
-    212.1,
-    213.85,
-    214.02,
-    217.94,
-    217.75,
-    217.29,
-    214.72,
-    210.8,
-    210.6,
-    210.44,
-    208.98,
-    212.61,
-    215.09,
-    215.17,
-    216.51,
-    218.23,
-    221.09,
-    223.61,
-    219.81,
-    221.27,
-    221.17,
-    220.47,
-    218.0,
-    215.6,
-    213.41,
-    212.64,
-    216.82,
-    218.75,
-    220.03,
-    211.99,
-    206.93,
-    207.19,
-    203.99,
-    202.6,
-    199.69,
-    186.75,
-    186.58,
-    186.69,
-    187.15,
-    190.92,
-    189.87,
-    192.08,
-    194.0,
-    196.0,
-    199.74,
-    199.9,
-    196.66,
-    195.0,
-    192.84,
-    193.66,
-    191.34,
-    188.33,
-    188.33,
-    186.92,
-    188.27,
-    190.52,
-    189.72,
-    187.84,
-    188.58,
-    189.03,
-    187.75,
-    186.86,
-    184.81,
-    185.84,
-    186.05,
-    196.19,
-    193.89,
-    192.42,
-    189.75,
-    193.2,
-    192.59,
-    194.07,
-    189.5,
-    188.52,
-    185.08,
-    183.1,
-    184.72,
-    185.62,
-    189.39,
-    186.68,
-    182.21,
-    178.1,
-    177.73,
-    174.55,
-    167.56,
-    166.19,
-    159.55,
-    166.75,
-    168.28,
-    168.28,
-    167.95,
-    170.49,
-    166.01,
-    155.28,
-    152.68,
-    158.17,
-    148.63,
-    147.52,
-    145.36,
-    151.29,
-    148.99,
-    151.86,
-    156.83,
-    160.3,
-    164.7,
-    165.36,
-    167.76,
-    167.0,
-    169.08,
-    168.74,
-    171.17,
-    168.28,
-    172.03,
-    171.81,
-    171.7,
-    169.19,
-    166.35,
-    162.8,
-    160.31,
-    159.39,
-    149.37,
-    159.16,
-    161.12,
-    161.8,
-    163.31,
-    164.08,
-    170.98,
-    179.27,
-    174.98,
-    167.6,
-    162.8,
-    165.64,
-    165.23,
-    170.25,
-    170.62,
-    170.54,
-    177.63,
-    181.52,
-    175.49,
-    179.1,
-    184.02,
-    186.0,
-    182.25,
-    180.85,
-    183.04,
-    187.27,
-    186.24,
-    184.98,
-    199.09,
-    208.09,
-    214.3,
-    216.16,
-    228.85,
-    239.15,
-    245.8,
-    248.85,
-    248.6,
-    250.0,
-    253.1,
-    261.41,
-    259.84,
-    251.64,
-    259.0,
-    283.71,
-    302.95,
-    299.33,
-    288.0,
-    280.72,
-    280.64,
-    273.05,
-    266.44,
-    266.72,
-    279.95,
-    281.98,
-    285.12,
-    283.64,
-    284.32,
-    288.88,
-    295.75,
-    292.14,
-    291.0,
-    295.54,
-    306.24,
-    332.88,
-    342.48,
-    358.1,
-    357.38,
-    368.17,
-    363.01,
-    336.8,
-    338.37,
-    340.13,
-    331.08,
-    353.68,
-    362.71,
-    360.44,
-    368.8,
-    366.31,
-    352.0,
-    344.19,
-    336.57,
-    330.0,
-    331.81,
-    323.4,
-    322.11,
-    326.3,
-    333.98,
-    347.7,
-    367.5,
-    376.98,
-    361.47,
-    370.5,
-    385.17,
-    387.2,
-    389.25,
-    398.88,
-    397.31,
-    386.0,
-    378.04,
-    376.43,
-    360.7,
-    360.49,
-    357.87,
-    353.77,
-    342.25,
-    387.33,
-    378.52,
-    383.73,
-    375.92,
-    350.67,
-    333.31,
-    339.1,
-    339.4,
-    339.83,
-    344.79,
-    341.14,
-    378.6,
-    380.44,
-    381.96,
-    383.12,
-    376.01,
-    374.56,
-    377.91,
-    393.52,
-    396.3,
-    388.25,
-    394.5,
-    391.75,
-    404.69,
-    398.58,
-    409.5,
-    407.92,
-    432.33,
-    416.6,
-    411.89,
-    419.5,
-    421.48,
-    407.8
-   ],
-   "l": [
-    184.9,
-    185.01,
-    183.71,
-    185.16,
-    186.32,
-    186.51,
-    185.65,
-    178.79,
-    180.07,
-    182.87,
-    180.71,
-    178.9,
-    179.35,
-    179.1,
-    178.55,
-    178.0,
-    181.1,
-    188.0,
-    188.11,
-    192.13,
-    196.85,
-    196.99,
-    198.65,
-    197.01,
-    192.79,
-    192.87,
-    191.51,
-    191.96,
-    190.27,
-    187.6,
-    191.59,
-    194.32,
-    191.38,
-    191.73,
-    193.26,
-    193.43,
-    196.3,
-    200.79,
-    201.31,
-    194.07,
-    193.87,
-    195.32,
-    197.76,
-    196.18,
-    195.5,
-    199.0,
-    186.54,
-    188.5,
-    185.01,
-    186.5,
-    186.65,
-    187.63,
-    183.2,
-    181.9,
-    181.26,
-    178.82,
-    180.41,
-    176.65,
-    173.18,
-    167.26,
-    171.19,
-    166.21,
-    166.4,
-    172.79,
-    173.58,
-    177.0,
-    180.53,
-    182.57,
-    185.04,
-    186.87,
-    183.56,
-    186.57,
-    185.06,
-    185.65,
-    184.37,
-    180.12,
-    180.93,
-    183.05,
-    186.38,
-    191.0,
-    195.5,
-    194.4,
-    191.82,
-    195.35,
-    188.75,
-    197.7,
-    202.77,
-    194.83,
-    190.26,
-    188.0,
-    184.65,
-    188.45,
-    186.7,
-    187.39,
-    182.26,
-    178.9,
-    180.12,
-    178.54,
-    173.89,
-    172.62,
-    172.75,
-    178.0,
-    174.31,
-    178.49,
-    182.01,
-    180.94,
-    182.6,
-    183.83,
-    179.72,
-    183.86,
-    184.51,
-    184.73,
-    173.56,
-    170.77,
-    165.88,
-    166.83,
-    168.27,
-    163.19,
-    153.39,
-    144.15,
-    150.12,
-    151.63,
-    162.24,
-    161.45,
-    168.68,
-    169.98,
-    167.92,
-    167.13,
-    157.6,
-    160.27,
-    167.33,
-    169.07,
-    175.33,
-    178.09,
-    182.1,
-    182.37,
-    186.03,
-    187.27,
-    185.47,
-    186.02,
-    186.35,
-    184.35,
-    184.64,
-    189.52,
-    191.88,
-    189.43,
-    189.59,
-    190.91,
-    190.17,
-    192.66,
-    178.64,
-    182.46,
-    183.22,
-    186.53,
-    187.47,
-    182.89,
-    186.73,
-    191.48,
-    194.88,
-    193.47,
-    194.11,
-    198.2,
-    196.19,
-    193.6,
-    194.06,
-    194.31,
-    195.07,
-    196.85,
-    197.5,
-    198.88,
-    197.71,
-    196.0,
-    201.42,
-    202.48,
-    201.54,
-    198.75,
-    201.02,
-    195.08,
-    194.91,
-    197.86,
-    199.67,
-    200.69,
-    202.43,
-    191.17,
-    186.7,
-    186.0,
-    190.2,
-    190.7,
-    193.08,
-    194.78,
-    194.6,
-    196.31,
-    194.77,
-    198.43,
-    200.65,
-    202.51,
-    193.1,
-    176.56,
-    172.93,
-    168.36,
-    170.05,
-    168.18,
-    168.4,
-    165.21,
-    166.56,
-    166.21,
-    170.25,
-    175.78,
-    173.46,
-    173.5,
-    174.69,
-    180.71,
-    181.47,
-    180.02,
-    182.94,
-    181.91,
-    183.99,
-    184.69,
-    187.2,
-    190.03,
-    186.35,
-    188.05,
-    188.75,
-    191.85,
-    194.79,
-    195.77,
-    195.7,
-    197.72,
-    196.16,
-    197.37,
-    198.76,
-    200.33,
-    204.27,
-    205.52,
-    205.67,
-    202.25,
-    200.22,
-    197.69,
-    200.62,
-    202.6,
-    201.92,
-    200.88,
-    205.44,
-    206.9,
-    209.13,
-    208.32,
-    212.26,
-    214.19,
-    208.31,
-    211.69,
-    206.7,
-    203.38,
-    204.63,
-    203.62,
-    209.53,
-    211.19,
-    210.99,
-    211.62,
-    215.87,
-    218.0,
-    219.68,
-    216.0,
-    216.61,
-    217.75,
-    215.33,
-    212.35,
-    212.42,
-    207.35,
-    207.83,
-    212.72,
-    215.79,
-    209.72,
-    203.18,
-    198.4,
-    202.16,
-    199.81,
-    199.24,
-    183.2,
-    180.05,
-    181.92,
-    181.16,
-    183.83,
-    186.95,
-    185.62,
-    188.15,
-    186.77,
-    192.43,
-    195.0,
-    193.69,
-    194.2,
-    192.11,
-    188.5,
-    188.55,
-    185.71,
-    184.64,
-    183.28,
-    183.19,
-    186.14,
-    186.65,
-    187.29,
-    184.79,
-    186.51,
-    186.21,
-    185.9,
-    184.1,
-    177.23,
-    181.01,
-    181.45,
-    187.77,
-    189.05,
-    187.32,
-    187.29,
-    187.99,
-    187.95,
-    186.55,
-    184.68,
-    182.27,
-    178.78,
-    180.78,
-    179.7,
-    180.69,
-    182.53,
-    183.35,
-    171.25,
-    172.99,
-    173.8,
-    163.33,
-    159.44,
-    154.05,
-    151.71,
-    156.37,
-    164.3,
-    163.49,
-    157.81,
-    163.1,
-    160.08,
-    147.15,
-    148.15,
-    148.4,
-    143.3,
-    139.57,
-    140.3,
-    144.81,
-    143.67,
-    146.01,
-    147.86,
-    154.75,
-    158.48,
-    161.31,
-    163.49,
-    160.83,
-    163.38,
-    165.43,
-    165.8,
-    166.15,
-    167.55,
-    167.5,
-    168.0,
-    161.89,
-    162.46,
-    156.14,
-    152.79,
-    152.2,
-    143.5,
-    151.47,
-    155.03,
-    157.3,
-    157.51,
-    159.67,
-    160.25,
-    171.63,
-    164.3,
-    151.28,
-    154.84,
-    158.83,
-    161.69,
-    165.0,
-    166.7,
-    165.2,
-    169.59,
-    175.15,
-    169.6,
-    173.22,
-    176.5,
-    180.74,
-    177.8,
-    173.11,
-    177.41,
-    180.95,
-    180.52,
-    179.19,
-    190.77,
-    193.43,
-    205.65,
-    210.77,
-    210.77,
-    225.38,
-    230.26,
-    235.81,
-    239.69,
-    235.26,
-    241.0,
-    249.5,
-    250.77,
-    243.04,
-    248.41,
-    256.01,
-    283.8,
-    287.27,
-    275.85,
-    269.0,
-    269.4,
-    264.42,
-    251.15,
-    254.43,
-    258.1,
-    271.49,
-    274.33,
-    275.06,
-    276.71,
-    276.46,
-    284.26,
-    282.52,
-    284.28,
-    285.27,
-    290.0,
-    305.33,
-    327.35,
-    341.0,
-    346.9,
-    337.69,
-    336.0,
-    314.95,
-    318.34,
-    323.85,
-    316.25,
-    330.29,
-    353.11,
-    347.04,
-    345.04,
-    348.36,
-    334.03,
-    328.64,
-    321.87,
-    321.69,
-    316.7,
-    308.54,
-    310.46,
-    313.05,
-    319.48,
-    330.0,
-    349.07,
-    362.22,
-    349.0,
-    359.15,
-    362.95,
-    375.93,
-    376.22,
-    387.35,
-    380.85,
-    372.3,
-    368.0,
-    351.46,
-    347.68,
-    343.01,
-    347.05,
-    335.51,
-    328.0,
-    356.66,
-    355.5,
-    370.0,
-    357.26,
-    321.39,
-    321.42,
-    328.0,
-    325.32,
-    332.53,
-    330.3,
-    327.05,
-    340.25,
-    366.8,
-    367.3,
-    360.66,
-    356.0,
-    357.59,
-    363.58,
-    374.2,
-    387.79,
-    373.78,
-    367.27,
-    377.8,
-    388.89,
-    387.02,
-    399.95,
-    399.17,
-    412.0,
-    404.63,
-    395.8,
-    401.89,
-    397.71,
-    396.04
-   ],
-   "c": [
-    186.96,
-    187.22,
-    186.62,
-    188.07,
-    187.41,
-    189.21,
-    188.05,
-    179.1,
-    182.29,
-    183.22,
-    181.18,
-    182.7,
-    179.76,
-    180.16,
-    181.32,
-    180.56,
-    183.15,
-    192.59,
-    193.5,
-    195.7,
-    199.05,
-    199.01,
-    201.18,
-    197.2,
-    193.5,
-    193.41,
-    194.03,
-    196.45,
-    198.85,
-    191.68,
-    193.19,
-    198.2,
-    192.18,
-    193.91,
-    195.09,
-    196.29,
-    202.29,
-    201.51,
-    202.95,
-    194.47,
-    194.88,
-    199.21,
-    200.1,
-    196.56,
-    202.5,
-    201.24,
-    188.76,
-    189.36,
-    186.78,
-    188.22,
-    189.51,
-    188.5,
-    186.18,
-    184.2,
-    181.96,
-    180.74,
-    183.25,
-    179.5,
-    175.51,
-    172.83,
-    173.42,
-    167.82,
-    170.58,
-    174.19,
-    177.17,
-    177.11,
-    183.51,
-    187.7,
-    187.32,
-    187.7,
-    189.3,
-    192.94,
-    185.42,
-    187.42,
-    184.42,
-    182.79,
-    183.4,
-    186.85,
-    187.37,
-    193.94,
-    196.4,
-    195.49,
-    196.73,
-    201.88,
-    200.03,
-    208.28,
-    205.19,
-    198.81,
-    191.03,
-    190.39,
-    188.01,
-    189.55,
-    187.5,
-    190.43,
-    183.68,
-    184.38,
-    184.28,
-    179.33,
-    180.93,
-    173.83,
-    178.93,
-    179.48,
-    176.32,
-    182.34,
-    185.0,
-    183.1,
-    187.54,
-    184.01,
-    182.32,
-    184.79,
-    189.95,
-    184.96,
-    174.44,
-    172.76,
-    170.64,
-    171.31,
-    173.18,
-    165.17,
-    153.57,
-    152.44,
-    152.53,
-    173.02,
-    168.27,
-    168.34,
-    169.98,
-    173.55,
-    169.76,
-    167.69,
-    160.05,
-    163.63,
-    168.32,
-    176.04,
-    178.98,
-    181.54,
-    186.65,
-    186.93,
-    186.27,
-    187.7,
-    188.13,
-    188.69,
-    188.14,
-    188.53,
-    186.93,
-    193.5,
-    192.0,
-    190.9,
-    192.9,
-    192.98,
-    194.3,
-    194.48,
-    181.26,
-    186.14,
-    186.75,
-    187.46,
-    187.8,
-    185.82,
-    192.42,
-    194.86,
-    197.12,
-    194.07,
-    197.11,
-    199.6,
-    196.33,
-    195.95,
-    194.39,
-    197.67,
-    196.27,
-    198.11,
-    202.05,
-    199.78,
-    199.24,
-    203.32,
-    201.69,
-    204.3,
-    202.34,
-    200.57,
-    204.64,
-    197.58,
-    196.97,
-    201.82,
-    201.42,
-    203.99,
-    206.06,
-    192.07,
-    187.39,
-    190.72,
-    192.25,
-    192.59,
-    196.28,
-    195.78,
-    199.88,
-    196.73,
-    199.22,
-    201.16,
-    203.27,
-    204.5,
-    193.84,
-    183.03,
-    173.6,
-    172.88,
-    171.0,
-    169.09,
-    172.89,
-    168.1,
-    167.06,
-    168.17,
-    175.4,
-    176.86,
-    173.55,
-    177.09,
-    176.17,
-    181.56,
-    184.43,
-    183.32,
-    185.88,
-    184.55,
-    184.23,
-    187.61,
-    191.02,
-    190.52,
-    190.52,
-    191.53,
-    192.35,
-    194.46,
-    197.38,
-    197.55,
-    197.33,
-    198.33,
-    196.29,
-    201.28,
-    201.34,
-    203.12,
-    205.68,
-    208.19,
-    208.18,
-    203.25,
-    200.7,
-    202.21,
-    202.37,
-    203.96,
-    203.62,
-    206.8,
-    209.3,
-    207.19,
-    212.58,
-    211.04,
-    217.79,
-    215.17,
-    208.55,
-    213.28,
-    207.56,
-    206.7,
-    205.51,
-    207.89,
-    211.82,
-    214.4,
-    212.42,
-    215.02,
-    217.11,
-    220.29,
-    221.38,
-    217.16,
-    218.27,
-    220.24,
-    219.23,
-    214.52,
-    213.18,
-    211.37,
-    212.29,
-    216.54,
-    218.27,
-    210.04,
-    204.77,
-    205.25,
-    202.9,
-    201.0,
-    199.9,
-    185.07,
-    182.9,
-    183.89,
-    186.27,
-    185.35,
-    190.13,
-    187.73,
-    189.88,
-    193.63,
-    195.68,
-    198.84,
-    195.35,
-    195.0,
-    192.96,
-    190.36,
-    191.69,
-    185.88,
-    187.09,
-    183.44,
-    185.88,
-    186.88,
-    189.49,
-    188.12,
-    187.22,
-    188.45,
-    186.85,
-    186.85,
-    184.2,
-    179.37,
-    182.12,
-    185.86,
-    193.9,
-    190.8,
-    189.02,
-    188.88,
-    190.85,
-    190.93,
-    187.73,
-    187.66,
-    184.06,
-    181.47,
-    182.27,
-    180.18,
-    184.22,
-    183.5,
-    183.74,
-    176.2,
-    176.97,
-    175.42,
-    166.24,
-    166.72,
-    154.77,
-    159.32,
-    166.0,
-    165.51,
-    165.3,
-    162.81,
-    166.95,
-    163.5,
-    152.35,
-    150.99,
-    148.7,
-    144.14,
-    141.67,
-    144.84,
-    149.4,
-    148.92,
-    150.15,
-    156.09,
-    158.56,
-    163.16,
-    165.05,
-    165.1,
-    165.58,
-    164.93,
-    168.12,
-    167.02,
-    167.45,
-    169.19,
-    168.91,
-    169.74,
-    162.95,
-    164.05,
-    157.21,
-    153.22,
-    156.36,
-    147.02,
-    154.35,
-    160.32,
-    160.67,
-    163.21,
-    161.95,
-    169.87,
-    173.78,
-    166.99,
-    155.73,
-    162.51,
-    161.59,
-    164.11,
-    166.97,
-    167.85,
-    169.56,
-    174.96,
-    181.2,
-    173.21,
-    178.54,
-    182.9,
-    180.99,
-    181.54,
-    179.32,
-    181.08,
-    184.56,
-    183.98,
-    183.68,
-    196.53,
-    207.88,
-    213.66,
-    215.6,
-    227.79,
-    238.21,
-    242.83,
-    247.55,
-    240.13,
-    246.66,
-    252.92,
-    260.58,
-    256.75,
-    248.47,
-    257.77,
-    281.69,
-    300.48,
-    297.18,
-    280.43,
-    279.25,
-    272.05,
-    266.33,
-    260.52,
-    263.22,
-    279.53,
-    279.62,
-    284.54,
-    279.9,
-    282.13,
-    287.78,
-    286.4,
-    290.92,
-    285.26,
-    293.09,
-    304.2,
-    332.0,
-    341.02,
-    352.04,
-    348.06,
-    357.53,
-    337.04,
-    320.59,
-    338.31,
-    325.91,
-    330.3,
-    352.89,
-    354.02,
-    353.99,
-    358.68,
-    348.66,
-    342.15,
-    335.28,
-    325.63,
-    323.79,
-    317.32,
-    319.0,
-    314.15,
-    325.68,
-    331.83,
-    347.13,
-    366.34,
-    362.66,
-    359.49,
-    363.86,
-    385.04,
-    383.8,
-    387.01,
-    396.0,
-    384.27,
-    375.76,
-    374.14,
-    359.76,
-    349.56,
-    357.87,
-    350.9,
-    339.9,
-    339.31,
-    382.85,
-    371.59,
-    382.13,
-    362.09,
-    328.48,
-    331.94,
-    333.26,
-    336.98,
-    335.1,
-    338.49,
-    330.65,
-    373.94,
-    375.09,
-    375.65,
-    375.06,
-    363.58,
-    371.76,
-    374.57,
-    393.3,
-    389.92,
-    374.74,
-    392.09,
-    388.41,
-    397.31,
-    396.25,
-    403.24,
-    406.76,
-    419.91,
-    405.57,
-    398.5,
-    418.78,
-    403.83,
-    397.03
-   ],
-   "v": [
-    2989800,
-    7458000,
-    6166800,
-    3095200,
-    2900000,
-    4362600,
-    3167400,
-    5402200,
-    2969800,
-    2694400,
-    3126600,
-    4410200,
-    2940400,
-    4064000,
-    5851800,
-    3064800,
-    2707400,
-    5031400,
-    4210600,
-    4116600,
-    3761000,
-    3702800,
-    3929400,
-    4857800,
-    4408200,
-    4464600,
-    4756400,
-    11057200,
-    14867600,
-    12644800,
-    8691800,
-    5721200,
-    9251800,
-    2086600,
-    4649200,
-    5162400,
-    5430600,
-    3390000,
-    3959200,
-    5073400,
-    3492200,
-    3376400,
-    3286000,
-    3848800,
-    6087000,
-    5429900,
-    6397500,
-    5486000,
-    13346400,
-    3897500,
-    1471000,
-    2113200,
-    2911300,
-    2737900,
-    3270100,
-    4537600,
-    4274500,
-    7109500,
-    6492400,
-    11015200,
-    5727200,
-    7402300,
-    4914900,
-    7705800,
-    6635600,
-    5500400,
-    6421700,
-    5517900,
-    5490900,
-    3093900,
-    6113100,
-    8753500,
-    6847800,
-    4451200,
-    4824300,
-    6448300,
-    5554000,
-    3821200,
-    3634100,
-    6345800,
-    5113200,
-    5664800,
-    4172500,
-    13223000,
-    13989000,
-    9069300,
-    5626800,
-    5878700,
-    5457100,
-    4142300,
-    5474800,
-    2646000,
-    4714100,
-    5190500,
-    5120800,
-    5197400,
-    4539200,
-    4292600,
-    4808100,
-    6307400,
-    5523700,
-    4472800,
-    3823700,
-    3563600,
-    3231100,
-    2790600,
-    3476800,
-    4395000,
-    8565900,
-    3758100,
-    5343400,
-    3409900,
-    7156300,
-    6249900,
-    5888600,
-    4037300,
-    3371800,
-    7365400,
-    9000500,
-    9837900,
-    13716500,
-    10513500,
-    6465600,
-    6302300,
-    5103300,
-    4147500,
-    5405200,
-    4784600,
-    4555100,
-    4005300,
-    4924400,
-    4023400,
-    3536800,
-    3551900,
-    5112300,
-    6163200,
-    4627100,
-    3842200,
-    3804300,
-    3031900,
-    3712900,
-    3677200,
-    3211000,
-    4580800,
-    5556500,
-    5445800,
-    5460100,
-    4210900,
-    4419500,
-    9533400,
-    19049700,
-    7613400,
-    4902900,
-    5331700,
-    3869000,
-    4498200,
-    11419700,
-    4411500,
-    4820900,
-    3360600,
-    3544900,
-    3306200,
-    2566500,
-    2971900,
-    3463000,
-    4159500,
-    3818500,
-    4138000,
-    4132900,
-    3324500,
-    8289200,
-    4478800,
-    4951800,
-    3242300,
-    5264900,
-    5346400,
-    4350800,
-    6840600,
-    3367200,
-    2561700,
-    3483100,
-    3411400,
-    3090000,
-    9249000,
-    7412300,
-    5050200,
-    3963200,
-    3119600,
-    4300400,
-    2978900,
-    7642500,
-    3658300,
-    3050500,
-    2887800,
-    3459200,
-    2134700,
-    13615200,
-    42277200,
-    29824700,
-    16242900,
-    11191600,
-    8645700,
-    9890900,
-    14553500,
-    9842200,
-    10219700,
-    11514300,
-    11947500,
-    8784600,
-    9548600,
-    17895500,
-    27834500,
-    13637500,
-    8181300,
-    6861700,
-    5801200,
-    8319100,
-    5990600,
-    6031800,
-    5195200,
-    7066900,
-    5482600,
-    5996100,
-    5670400,
-    5503800,
-    4074000,
-    6342400,
-    4327500,
-    4431600,
-    6076900,
-    5365500,
-    4916100,
-    5446400,
-    8925300,
-    5468100,
-    7125700,
-    5160000,
-    7326400,
-    5244300,
-    5333700,
-    4396100,
-    5623800,
-    4951600,
-    4963000,
-    7286900,
-    4982800,
-    5122900,
-    4548800,
-    5425000,
-    4449200,
-    4381700,
-    4992300,
-    3675600,
-    4626800,
-    4086400,
-    3835800,
-    4591500,
-    4001700,
-    3437200,
-    5439600,
-    4608900,
-    4607700,
-    3759900,
-    3958700,
-    5011600,
-    6361800,
-    4309300,
-    5444800,
-    5046400,
-    4917100,
-    3581100,
-    4535100,
-    5361200,
-    5371700,
-    4860700,
-    5373200,
-    7529100,
-    16079000,
-    8201400,
-    16207000,
-    6035600,
-    5915200,
-    4808300,
-    6692000,
-    5874300,
-    5489800,
-    4164800,
-    4611800,
-    4425300,
-    3193500,
-    4715800,
-    5776100,
-    5352700,
-    6660300,
-    5757200,
-    5758300,
-    7224300,
-    19050300,
-    4982500,
-    3371300,
-    1829300,
-    2527600,
-    2660000,
-    2847600,
-    3253100,
-    6909600,
-    6582900,
-    5959300,
-    7613600,
-    6451300,
-    5306500,
-    4281400,
-    5419600,
-    5658100,
-    6530300,
-    7053100,
-    7287900,
-    6301000,
-    7018000,
-    5791000,
-    5356700,
-    5540000,
-    4159800,
-    12925300,
-    7628100,
-    4978100,
-    9945900,
-    10470800,
-    12780500,
-    9902500,
-    20917700,
-    30141600,
-    43667300,
-    19646500,
-    12577000,
-    16586500,
-    26756800,
-    13545800,
-    25857800,
-    20861500,
-    23692200,
-    11157900,
-    12124900,
-    9430600,
-    8281300,
-    10319500,
-    9541900,
-    9220500,
-    7202500,
-    9194300,
-    6847000,
-    5480900,
-    7961500,
-    6258600,
-    5985100,
-    5520400,
-    5789600,
-    6558200,
-    16455400,
-    7218800,
-    7143100,
-    6350000,
-    6082000,
-    11431400,
-    12198800,
-    7751600,
-    7643200,
-    4354300,
-    4814800,
-    8671300,
-    12257400,
-    10583700,
-    15592700,
-    8545600,
-    7415600,
-    7416200,
-    7222400,
-    7037300,
-    4859700,
-    5856300,
-    5903200,
-    6965200,
-    5887600,
-    7893800,
-    6451900,
-    4157400,
-    5771500,
-    4972100,
-    4891100,
-    5150700,
-    5595600,
-    10556600,
-    11641800,
-    9404300,
-    8295200,
-    9337700,
-    10346700,
-    11551000,
-    8734900,
-    11030200,
-    8698900,
-    6323600,
-    6626100,
-    7164000,
-    8318000,
-    5663300,
-    14998900,
-    13714500,
-    20783700,
-    14716900,
-    9832300,
-    7795500,
-    7009800,
-    7662900,
-    6495500,
-    9672400,
-    6773000,
-    7394100,
-    5017100,
-    5713800,
-    12194700,
-    5855400,
-    5430500,
-    4895700,
-    8961300,
-    8269800,
-    10334700,
-    9634200,
-    7265500,
-    7697700,
-    8752700,
-    8775700,
-    9443700,
-    8537400,
-    4679200,
-    5374800,
-    6013200,
-    6703800,
-    5884000,
-    7802700,
-    5567200,
-    6738100,
-    6338100,
-    5938200,
-    5134300,
-    5223400,
-    6507500,
-    6336700,
-    6859300,
-    5027700,
-    7306700,
-    8186900,
-    5607500,
-    5684200,
-    4811300,
-    5828000,
-    6039700,
-    5492100,
-    4593400,
-    4353500,
-    5088800,
-    4946000,
-    5286100,
-    4736200,
-    5136100,
-    5463900,
-    4727900,
-    4588300,
-    7308800,
-    5840700,
-    8797000,
-    9282700,
-    13214800,
-    6903200,
-    5636200,
-    6124100,
-    4409600,
-    4669200,
-    4679100,
-    12027300,
-    6476400,
-    5242700,
-    6290400,
-    13800800,
-    5382300,
-    8105300,
-    6272700,
-    3967700,
-    4879100,
-    6028100,
-    5101600,
-    6084900,
-    5309000,
-    4904700,
-    4449300,
-    5440700,
-    3889400,
-    4418600,
-    3834200,
-    4797500,
-    3473783
-   ],
-   "e10": [
-    186.96,
-    187.0,
-    186.93,
-    187.14,
-    187.19,
-    187.56,
-    187.65,
-    186.09,
-    185.4,
-    185.0,
-    184.31,
-    184.01,
-    183.24,
-    182.68,
-    182.43,
-    182.09,
-    182.28,
-    184.16,
-    185.86,
-    187.65,
-    189.72,
-    191.41,
-    193.19,
-    193.91,
-    193.84,
-    193.76,
-    193.81,
-    194.29,
-    195.12,
-    194.49,
-    194.26,
-    194.97,
-    194.47,
-    194.37,
-    194.5,
-    194.82,
-    196.18,
-    197.15,
-    198.21,
-    197.53,
-    197.04,
-    197.44,
-    197.92,
-    197.68,
-    198.55,
-    199.04,
-    197.17,
-    195.75,
-    194.12,
-    193.05,
-    192.4,
-    191.69,
-    190.69,
-    189.51,
-    188.14,
-    186.79,
-    186.15,
-    184.94,
-    183.23,
-    181.34,
-    179.9,
-    177.7,
-    176.41,
-    176.0,
-    176.22,
-    176.38,
-    177.67,
-    179.5,
-    180.92,
-    182.15,
-    183.45,
-    185.18,
-    185.22,
-    185.62,
-    185.4,
-    184.93,
-    184.65,
-    185.05,
-    185.47,
-    187.01,
-    188.72,
-    189.95,
-    191.18,
-    193.13,
-    194.38,
-    196.91,
-    198.41,
-    198.49,
-    197.13,
-    195.91,
-    194.47,
-    193.58,
-    192.47,
-    192.1,
-    190.57,
-    189.44,
-    188.5,
-    186.84,
-    185.76,
-    183.59,
-    182.75,
-    182.15,
-    181.09,
-    181.32,
-    181.99,
-    182.19,
-    183.16,
-    183.32,
-    183.14,
-    183.44,
-    184.62,
-    184.68,
-    182.82,
-    180.99,
-    179.11,
-    177.69,
-    176.87,
-    174.74,
-    170.89,
-    167.54,
-    164.81,
-    166.3,
-    166.66,
-    166.97,
-    167.51,
-    168.61,
-    168.82,
-    168.61,
-    167.06,
-    166.43,
-    166.78,
-    168.46,
-    170.37,
-    172.4,
-    174.99,
-    177.16,
-    178.82,
-    180.43,
-    181.83,
-    183.08,
-    184.0,
-    184.82,
-    185.21,
-    186.71,
-    187.68,
-    188.26,
-    189.11,
-    189.81,
-    190.63,
-    191.33,
-    189.5,
-    188.89,
-    188.5,
-    188.31,
-    188.22,
-    187.78,
-    188.62,
-    189.76,
-    191.1,
-    191.64,
-    192.63,
-    193.9,
-    194.34,
-    194.63,
-    194.59,
-    195.15,
-    195.35,
-    195.85,
-    196.98,
-    197.49,
-    197.81,
-    198.81,
-    199.33,
-    200.24,
-    200.62,
-    200.61,
-    201.34,
-    200.66,
-    199.99,
-    200.32,
-    200.52,
-    201.15,
-    202.04,
-    200.23,
-    197.9,
-    196.59,
-    195.8,
-    195.22,
-    195.41,
-    195.48,
-    196.28,
-    196.36,
-    196.88,
-    197.66,
-    198.68,
-    199.74,
-    198.66,
-    195.82,
-    191.78,
-    188.35,
-    185.19,
-    182.26,
-    180.56,
-    178.29,
-    176.25,
-    174.78,
-    174.89,
-    175.25,
-    174.94,
-    175.33,
-    175.49,
-    176.59,
-    178.02,
-    178.98,
-    180.23,
-    181.02,
-    181.6,
-    182.7,
-    184.21,
-    185.36,
-    186.3,
-    187.25,
-    188.17,
-    189.32,
-    190.78,
-    192.01,
-    192.98,
-    193.95,
-    194.38,
-    195.63,
-    196.67,
-    197.84,
-    199.27,
-    200.89,
-    202.22,
-    202.4,
-    202.09,
-    202.12,
-    202.16,
-    202.49,
-    202.69,
-    203.44,
-    204.51,
-    204.99,
-    206.37,
-    207.22,
-    209.14,
-    210.24,
-    209.93,
-    210.54,
-    210.0,
-    209.4,
-    208.69,
-    208.55,
-    209.14,
-    210.1,
-    210.52,
-    211.34,
-    212.39,
-    213.82,
-    215.2,
-    215.55,
-    216.05,
-    216.81,
-    217.25,
-    216.75,
-    216.1,
-    215.24,
-    214.71,
-    215.04,
-    215.63,
-    214.61,
-    212.82,
-    211.45,
-    209.89,
-    208.27,
-    206.75,
-    202.81,
-    199.19,
-    196.41,
-    194.56,
-    192.89,
-    192.39,
-    191.54,
-    191.24,
-    191.67,
-    192.4,
-    193.57,
-    193.9,
-    194.1,
-    193.89,
-    193.25,
-    192.96,
-    191.68,
-    190.84,
-    189.5,
-    188.84,
-    188.48,
-    188.67,
-    188.57,
-    188.32,
-    188.35,
-    188.07,
-    187.85,
-    187.19,
-    185.77,
-    185.1,
-    185.24,
-    186.82,
-    187.54,
-    187.81,
-    188.0,
-    188.52,
-    188.96,
-    188.74,
-    188.54,
-    187.73,
-    186.59,
-    185.8,
-    184.78,
-    184.68,
-    184.46,
-    184.33,
-    182.85,
-    181.78,
-    180.63,
-    178.01,
-    175.96,
-    172.11,
-    169.78,
-    169.09,
-    168.44,
-    167.87,
-    166.95,
-    166.95,
-    166.32,
-    163.78,
-    161.46,
-    159.14,
-    156.41,
-    153.73,
-    152.11,
-    151.62,
-    151.13,
-    150.95,
-    151.89,
-    153.1,
-    154.93,
-    156.77,
-    158.28,
-    159.61,
-    160.58,
-    161.95,
-    162.87,
-    163.7,
-    164.7,
-    165.47,
-    166.24,
-    165.64,
-    165.35,
-    163.87,
-    161.94,
-    160.92,
-    158.39,
-    157.66,
-    158.14,
-    158.6,
-    159.44,
-    159.9,
-    161.71,
-    163.9,
-    164.47,
-    162.88,
-    162.81,
-    162.59,
-    162.87,
-    163.61,
-    164.38,
-    165.32,
-    167.08,
-    169.64,
-    170.29,
-    171.79,
-    173.81,
-    175.12,
-    176.28,
-    176.84,
-    177.61,
-    178.87,
-    179.8,
-    180.51,
-    183.42,
-    187.87,
-    192.56,
-    196.75,
-    202.39,
-    208.9,
-    215.07,
-    220.98,
-    224.46,
-    228.5,
-    232.94,
-    237.96,
-    241.38,
-    242.67,
-    245.41,
-    252.01,
-    260.82,
-    267.43,
-    269.8,
-    271.51,
-    271.61,
-    270.65,
-    268.81,
-    267.79,
-    269.93,
-    271.69,
-    274.03,
-    275.09,
-    276.37,
-    278.45,
-    279.89,
-    281.9,
-    282.51,
-    284.43,
-    288.03,
-    296.02,
-    304.2,
-    312.9,
-    319.29,
-    326.25,
-    328.21,
-    326.82,
-    328.91,
-    328.37,
-    328.72,
-    333.11,
-    336.91,
-    340.02,
-    343.41,
-    344.37,
-    343.96,
-    342.38,
-    339.34,
-    336.51,
-    333.02,
-    330.47,
-    327.5,
-    327.17,
-    328.02,
-    331.49,
-    337.83,
-    342.34,
-    345.46,
-    348.81,
-    355.39,
-    360.56,
-    365.37,
-    370.94,
-    373.36,
-    373.8,
-    373.86,
-    371.3,
-    367.34,
-    365.62,
-    362.95,
-    358.76,
-    355.22,
-    360.24,
-    362.31,
-    365.91,
-    365.22,
-    358.54,
-    353.7,
-    349.98,
-    347.62,
-    345.34,
-    344.1,
-    341.65,
-    347.52,
-    352.54,
-    356.74,
-    360.07,
-    360.71,
-    362.72,
-    364.87,
-    370.04,
-    373.66,
-    373.85,
-    377.17,
-    379.21,
-    382.5,
-    385.0,
-    388.32,
-    391.67,
-    396.81,
-    398.4,
-    398.42,
-    402.12,
-    402.43,
-    401.45
-   ],
-   "e30": [
-    186.96,
-    186.97,
-    186.95,
-    187.02,
-    187.05,
-    187.19,
-    187.24,
-    186.72,
-    186.43,
-    186.22,
-    185.9,
-    185.69,
-    185.31,
-    184.98,
-    184.74,
-    184.47,
-    184.39,
-    184.91,
-    185.47,
-    186.13,
-    186.96,
-    187.74,
-    188.61,
-    189.16,
-    189.44,
-    189.7,
-    189.98,
-    190.39,
-    190.94,
-    190.99,
-    191.13,
-    191.59,
-    191.62,
-    191.77,
-    191.99,
-    192.26,
-    192.91,
-    193.47,
-    194.08,
-    194.1,
-    194.15,
-    194.48,
-    194.84,
-    194.95,
-    195.44,
-    195.81,
-    195.36,
-    194.97,
-    194.44,
-    194.04,
-    193.75,
-    193.41,
-    192.94,
-    192.38,
-    191.71,
-    191.0,
-    190.5,
-    189.79,
-    188.87,
-    187.83,
-    186.9,
-    185.67,
-    184.7,
-    184.02,
-    183.58,
-    183.16,
-    183.18,
-    183.48,
-    183.72,
-    183.98,
-    184.32,
-    184.88,
-    184.91,
-    185.08,
-    185.03,
-    184.89,
-    184.79,
-    184.93,
-    185.08,
-    185.65,
-    186.35,
-    186.94,
-    187.57,
-    188.49,
-    189.24,
-    190.47,
-    191.42,
-    191.89,
-    191.84,
-    191.74,
-    191.5,
-    191.38,
-    191.13,
-    191.08,
-    190.6,
-    190.2,
-    189.82,
-    189.14,
-    188.61,
-    187.66,
-    187.1,
-    186.61,
-    185.94,
-    185.71,
-    185.66,
-    185.5,
-    185.63,
-    185.53,
-    185.32,
-    185.28,
-    185.59,
-    185.55,
-    184.83,
-    184.05,
-    183.18,
-    182.42,
-    181.82,
-    180.75,
-    178.99,
-    177.28,
-    175.68,
-    175.51,
-    175.05,
-    174.61,
-    174.31,
-    174.26,
-    173.97,
-    173.57,
-    172.7,
-    172.11,
-    171.87,
-    172.14,
-    172.58,
-    173.16,
-    174.03,
-    174.86,
-    175.6,
-    176.38,
-    177.13,
-    177.88,
-    178.54,
-    179.19,
-    179.69,
-    180.58,
-    181.31,
-    181.93,
-    182.64,
-    183.31,
-    184.02,
-    184.69,
-    184.47,
-    184.58,
-    184.72,
-    184.89,
-    185.08,
-    185.13,
-    185.6,
-    186.2,
-    186.9,
-    187.36,
-    187.99,
-    188.74,
-    189.23,
-    189.67,
-    189.97,
-    190.47,
-    190.84,
-    191.31,
-    192.0,
-    192.5,
-    192.94,
-    193.61,
-    194.13,
-    194.79,
-    195.27,
-    195.62,
-    196.2,
-    196.29,
-    196.33,
-    196.69,
-    196.99,
-    197.44,
-    198.0,
-    197.62,
-    196.96,
-    196.55,
-    196.28,
-    196.04,
-    196.05,
-    196.04,
-    196.28,
-    196.31,
-    196.5,
-    196.8,
-    197.22,
-    197.69,
-    197.44,
-    196.51,
-    195.03,
-    193.6,
-    192.14,
-    190.66,
-    189.51,
-    188.13,
-    186.77,
-    185.57,
-    184.91,
-    184.39,
-    183.69,
-    183.27,
-    182.81,
-    182.73,
-    182.84,
-    182.87,
-    183.06,
-    183.16,
-    183.23,
-    183.51,
-    184.0,
-    184.42,
-    184.81,
-    185.24,
-    185.7,
-    186.27,
-    186.98,
-    187.67,
-    188.29,
-    188.94,
-    189.41,
-    190.18,
-    190.9,
-    191.69,
-    192.59,
-    193.6,
-    194.54,
-    195.1,
-    195.46,
-    195.9,
-    196.31,
-    196.81,
-    197.25,
-    197.86,
-    198.6,
-    199.15,
-    200.02,
-    200.73,
-    201.83,
-    202.69,
-    203.07,
-    203.73,
-    203.98,
-    204.15,
-    204.24,
-    204.48,
-    204.95,
-    205.56,
-    206.0,
-    206.58,
-    207.26,
-    208.1,
-    208.96,
-    209.49,
-    210.06,
-    210.71,
-    211.26,
-    211.47,
-    211.58,
-    211.57,
-    211.62,
-    211.93,
-    212.34,
-    212.19,
-    211.71,
-    211.3,
-    210.76,
-    210.13,
-    209.47,
-    207.89,
-    206.28,
-    204.84,
-    203.64,
-    202.46,
-    201.66,
-    200.76,
-    200.06,
-    199.65,
-    199.39,
-    199.36,
-    199.1,
-    198.83,
-    198.45,
-    197.93,
-    197.53,
-    196.78,
-    196.15,
-    195.33,
-    194.72,
-    194.22,
-    193.91,
-    193.54,
-    193.13,
-    192.83,
-    192.44,
-    192.08,
-    191.57,
-    190.79,
-    190.23,
-    189.95,
-    190.2,
-    190.24,
-    190.16,
-    190.08,
-    190.13,
-    190.18,
-    190.02,
-    189.87,
-    189.49,
-    188.98,
-    188.54,
-    188.0,
-    187.76,
-    187.49,
-    187.24,
-    186.53,
-    185.91,
-    185.24,
-    184.01,
-    182.9,
-    181.08,
-    179.68,
-    178.8,
-    177.94,
-    177.12,
-    176.2,
-    175.6,
-    174.82,
-    173.37,
-    171.93,
-    170.43,
-    168.73,
-    166.99,
-    165.56,
-    164.52,
-    163.51,
-    162.65,
-    162.22,
-    161.99,
-    162.06,
-    162.26,
-    162.44,
-    162.64,
-    162.79,
-    163.13,
-    163.38,
-    163.65,
-    164.0,
-    164.32,
-    164.67,
-    164.56,
-    164.53,
-    164.05,
-    163.36,
-    162.9,
-    161.88,
-    161.39,
-    161.32,
-    161.28,
-    161.41,
-    161.44,
-    161.99,
-    162.75,
-    163.02,
-    162.55,
-    162.55,
-    162.49,
-    162.59,
-    162.87,
-    163.19,
-    163.6,
-    164.34,
-    165.43,
-    165.93,
-    166.74,
-    167.78,
-    168.64,
-    169.47,
-    170.1,
-    170.81,
-    171.7,
-    172.49,
-    173.21,
-    174.72,
-    176.86,
-    179.23,
-    181.58,
-    184.56,
-    188.02,
-    191.56,
-    195.17,
-    198.07,
-    201.2,
-    204.54,
-    208.16,
-    211.29,
-    213.69,
-    216.53,
-    220.74,
-    225.88,
-    230.48,
-    233.7,
-    236.64,
-    238.93,
-    240.7,
-    241.97,
-    243.34,
-    245.68,
-    247.87,
-    250.24,
-    252.15,
-    254.08,
-    256.26,
-    258.2,
-    260.31,
-    261.92,
-    263.93,
-    266.53,
-    270.75,
-    275.29,
-    280.24,
-    284.62,
-    289.32,
-    292.4,
-    294.22,
-    297.06,
-    298.92,
-    300.95,
-    304.3,
-    307.51,
-    310.51,
-    313.61,
-    315.87,
-    317.57,
-    318.71,
-    319.16,
-    319.46,
-    319.32,
-    319.3,
-    318.97,
-    319.4,
-    320.2,
-    321.94,
-    324.8,
-    327.25,
-    329.33,
-    331.55,
-    335.0,
-    338.15,
-    341.3,
-    344.83,
-    347.38,
-    349.21,
-    350.82,
-    351.39,
-    351.28,
-    351.7,
-    351.65,
-    350.89,
-    350.14,
-    352.25,
-    353.5,
-    355.35,
-    355.78,
-    354.02,
-    352.6,
-    351.35,
-    350.42,
-    349.43,
-    348.73,
-    347.56,
-    349.26,
-    350.93,
-    352.52,
-    353.98,
-    354.6,
-    355.71,
-    356.92,
-    359.27,
-    361.25,
-    362.12,
-    364.05,
-    365.62,
-    367.67,
-    369.51,
-    371.69,
-    373.95,
-    376.92,
-    378.76,
-    380.04,
-    382.54,
-    383.91,
-    384.76
-   ],
-   "pat": [
-    {
-     "kind": "bull flag",
-     "end": "2026-06-10",
-     "lines": [
-      [
-       "2026-05-07",
-       196.52999877929688,
-       "2026-05-29",
-       281.69000244140625,
-       0
-      ],
-      [
-       "2026-06-01",
-       302.60250200544084,
-       "2026-06-09",
-       266.29178510393416,
-       1
-      ],
-      [
-       "2026-06-01",
-       287.6378489903041,
-       "2026-06-09",
-       255.47357504708424,
-       1
-      ]
-     ],
-     "label": {
-      "time": "2026-06-10",
-      "up": true,
-      "text": "BULL FLAG"
-     }
-    },
-    {
-     "kind": "bull flag",
-     "end": "2026-10-13",
-     "lines": [
-      [
-       "2026-09-18",
-       363.5799865722656,
-       "2026-10-06",
-       419.9100036621094,
-       0
-      ],
-      [
-       "2026-10-07",
-       417.055126953125,
-       "2026-10-13",
-       413.8546508789063,
-       1
-      ],
-      [
-       "2026-10-07",
-       402.26799926757815,
-       "2026-10-13",
-       396.1600036621094,
-       1
-      ]
-     ],
-     "label": {
-      "time": "2026-10-13",
-      "up": true,
-      "text": "BULL FLAG \u00b7 forming"
-     }
-    },
-    {
-     "kind": "support line",
-     "end": "2026-02-24",
-     "fill": true,
-     "lines": [
-      [
-       "2026-02-24",
-       139.57000732421875,
-       "2026-10-13",
-       166.9090868079144,
-       0
-      ]
-     ],
-     "label": null
-    },
-    {
-     "kind": "inverse head & shoulders",
-     "end": "2026-05-07",
-     "lines": [
-      [
-       "2026-01-07",
-       196.19000244140625,
-       "2026-05-07",
-       196.19000244140625,
-       1
-      ],
-      [
-       "2026-05-07",
-       252.80999755859375,
-       "2026-10-13",
-       252.80999755859375,
-       1
-      ],
-      [
-       "2026-02-18",
-       147.14999389648438,
-       "2026-02-24",
-       139.57000732421875,
-       0
-      ],
-      [
-       "2026-02-24",
-       139.57000732421875,
-       "2026-03-27",
-       143.5,
-       0
-      ],
-      [
-       "2026-03-27",
-       143.5,
-       "2026-05-07",
-       196.52999877929688,
-       0
-      ]
-     ],
-     "label": {
-      "time": "2026-05-07",
       "up": true,
       "text": "INVERSE H&S"
      }
@@ -87703,8 +83421,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     29.16,
@@ -88206,8 +83923,7 @@
     27.62,
     27.9,
     27.61,
-    28.42,
-    28.61
+    28.42
    ],
    "h": [
     29.17,
@@ -88709,8 +84425,7 @@
     28.17,
     28.0,
     28.29,
-    28.5,
-    28.61
+    28.5
    ],
    "l": [
     28.85,
@@ -89212,8 +84927,7 @@
     27.55,
     27.48,
     27.59,
-    28.28,
-    28.13
+    28.28
    ],
    "c": [
     29.08,
@@ -89715,8 +85429,7 @@
     28.0,
     27.82,
     28.28,
-    28.4,
-    28.37
+    28.4
    ],
    "v": [
     23594200,
@@ -90218,8 +85931,7 @@
     31230400,
     44433400,
     23204100,
-    18555600,
-    26816196
+    18555600
    ],
    "e10": [
     29.08,
@@ -90721,8 +86433,7 @@
     27.97,
     27.94,
     28.0,
-    28.07,
-    28.13
+    28.07
    ],
    "e30": [
     29.08,
@@ -91224,8 +86935,7 @@
     27.82,
     27.82,
     27.85,
-    27.89,
-    27.92
+    27.89
    ],
    "pat": [
     {
@@ -91236,8 +86946,8 @@
       [
        "2026-06-25",
        23.6200008392334,
-       "2026-10-13",
-       28.546428271702357,
+       "2026-10-12",
+       28.48160685811724,
        0
       ]
      ],
@@ -91750,8 +87460,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     43.72,
@@ -92253,8 +87962,7 @@
     192.71,
     199.0,
     201.48,
-    208.9,
-    207.9
+    208.9
    ],
    "h": [
     44.39,
@@ -92756,8 +88464,7 @@
     194.7,
     204.44,
     209.58,
-    212.94,
-    210.88
+    212.94
    ],
    "l": [
     43.28,
@@ -93259,8 +88966,7 @@
     190.11,
     195.65,
     198.3,
-    206.05,
-    205.97
+    206.05
    ],
    "c": [
     43.4,
@@ -93762,8 +89468,7 @@
     194.12,
     198.78,
     209.05,
-    209.0,
-    208.67
+    209.0
    ],
    "v": [
     41010900,
@@ -94265,8 +89970,7 @@
     15729200,
     41865400,
     37622500,
-    24308800,
-    18438992
+    24308800
    ],
    "e10": [
     43.4,
@@ -94768,8 +90472,7 @@
     189.12,
     190.88,
     194.18,
-    196.88,
-    199.02
+    196.88
    ],
    "e30": [
     43.4,
@@ -95271,8 +90974,7 @@
     180.99,
     182.14,
     183.87,
-    185.49,
-    186.99
+    185.49
    ],
    "pat": [
     {
@@ -95346,8 +91048,8 @@
       [
        "2025-11-03",
        207.52000427246094,
-       "2026-10-13",
-       185.47414007419493,
+       "2026-10-12",
+       185.56755475300113,
        0
       ]
      ],
@@ -95365,8 +91067,8 @@
       [
        "2026-06-25",
        106.37000274658203,
-       "2026-10-13",
-       146.16635478626597,
+       "2026-10-12",
+       145.64271857521751,
        0
       ]
      ],
@@ -95379,7 +91081,7 @@
       [
        "2025-11-03",
        207.52000427246094,
-       "2026-10-13",
+       "2026-10-12",
        207.52000427246094,
        1
       ],
@@ -95404,13 +91106,13 @@
       [
        "2026-10-01",
        192.0,
-       "2026-10-13",
+       "2026-10-12",
        192.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $192.00 \u00b7 ascending triangle after a trendline break"
      }
@@ -95422,13 +91124,13 @@
       [
        "2026-10-01",
        188.7,
-       "2026-10-13",
+       "2026-10-12",
        188.7,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $188.70 \u00b7 ascending triangle after a trendline break"
      }
@@ -95936,8 +91638,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     171.34,
@@ -96439,8 +92140,7 @@
     178.92,
     174.48,
     176.4,
-    175.19,
-    172.54
+    175.19
    ],
    "h": [
     178.87,
@@ -96942,8 +92642,7 @@
     179.82,
     176.28,
     176.4,
-    175.23,
-    180.78
+    175.23
    ],
    "l": [
     170.9,
@@ -97445,8 +93144,7 @@
     175.35,
     171.02,
     171.79,
-    172.16,
-    172.29
+    172.16
    ],
    "c": [
     178.04,
@@ -97948,8 +93646,7 @@
     177.12,
     176.01,
     175.5,
-    174.43,
-    176.86
+    174.43
    ],
    "v": [
     9933600,
@@ -98451,8 +94148,7 @@
     7910700,
     9566200,
     7575200,
-    6904700,
-    12280716
+    6904700
    ],
    "e10": [
     178.04,
@@ -98954,8 +94650,7 @@
     183.43,
     182.08,
     180.88,
-    179.71,
-    179.19
+    179.71
    ],
    "e30": [
     178.04,
@@ -99457,8 +95152,7 @@
     181.11,
     180.78,
     180.44,
-    180.05,
-    179.84
+    180.05
    ],
    "pat": [
     {
@@ -99532,8 +95226,8 @@
       [
        "2026-05-29",
        259.9200134277344,
-       "2026-10-13",
-       197.93732210484947,
+       "2026-10-12",
+       198.59671243807165,
        0
       ]
      ],
@@ -99547,8 +95241,8 @@
       [
        "2026-04-07",
        121.98999786376953,
-       "2026-10-13",
-       155.79123489945022,
+       "2026-10-12",
+       155.5332101892542,
        0
       ]
      ],
@@ -99568,7 +95262,7 @@
       [
        "2026-09-22",
        249.2899932861328,
-       "2026-10-13",
+       "2026-10-12",
        249.2899932861328,
        1
       ],
@@ -99853,8 +95547,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     595.31,
@@ -100106,8 +95799,7 @@
     753.79,
     753.97,
     752.55,
-    749.69,
-    739.53
+    749.69
    ],
    "h": [
     602.69,
@@ -100359,8 +96051,7 @@
     758.3,
     757.18,
     752.87,
-    749.79,
-    744.2
+    749.79
    ],
    "l": [
     590.13,
@@ -100612,8 +96303,7 @@
     751.75,
     743.23,
     748.37,
-    744.85,
-    738.84
+    744.85
    ],
    "c": [
     598.0,
@@ -100865,8 +96555,7 @@
     757.73,
     747.58,
     751.27,
-    746.04,
-    743.57
+    746.04
    ],
    "v": [
     69203200,
@@ -101118,8 +96807,7 @@
     25467900,
     49694800,
     21162000,
-    25147700,
-    28524918
+    25147700
    ],
    "e10": [
     598.0,
@@ -101371,8 +97059,7 @@
     747.41,
     747.44,
     748.13,
-    747.75,
-    746.99
+    747.75
    ],
    "e30": [
     598.0,
@@ -101624,8 +97311,7 @@
     732.83,
     733.78,
     734.91,
-    735.63,
-    736.14
+    735.63
    ],
    "pat": []
   },
@@ -102130,8 +97816,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     38.09,
@@ -102633,8 +98318,7 @@
     9.01,
     9.07,
     9.6,
-    9.58,
-    9.85
+    9.58
    ],
    "h": [
     39.45,
@@ -103136,8 +98820,7 @@
     9.29,
     9.65,
     9.7,
-    9.87,
-    10.1
+    9.87
    ],
    "l": [
     37.42,
@@ -103639,8 +99322,7 @@
     8.97,
     8.98,
     9.46,
-    9.48,
-    9.87
+    9.48
    ],
    "c": [
     39.3,
@@ -104142,8 +99824,7 @@
     9.16,
     9.57,
     9.63,
-    9.85,
-    10.03
+    9.85
    ],
    "v": [
     2652900,
@@ -104645,8 +100326,7 @@
     3617700,
     6421000,
     2970200,
-    3784100,
-    3386596
+    3784100
    ],
    "e10": [
     39.3,
@@ -105148,8 +100828,7 @@
     8.7,
     8.86,
     9.0,
-    9.15,
-    9.31
+    9.15
    ],
    "e30": [
     39.3,
@@ -105651,8 +101330,7 @@
     7.85,
     7.96,
     8.06,
-    8.18,
-    8.3
+    8.18
    ],
    "pat": [
     {
@@ -105726,8 +101404,8 @@
       [
        "2026-05-22",
        10.630000114440918,
-       "2026-10-13",
-       6.3330757434551535,
+       "2026-10-12",
+       6.376921910506028,
        0
       ]
      ],
@@ -105745,8 +101423,8 @@
       [
        "2026-03-30",
        4.489999771118164,
-       "2026-10-13",
-       5.260666783650716,
+       "2026-10-12",
+       5.255000114440918,
        0
       ]
      ],
@@ -105766,7 +101444,7 @@
       [
        "2026-04-15",
        8.110000610351562,
-       "2026-10-13",
+       "2026-10-12",
        8.110000610351562,
        1
       ],
@@ -105805,7 +101483,7 @@
       [
        "2026-05-22",
        10.630000114440918,
-       "2026-10-13",
+       "2026-10-12",
        10.630000114440918,
        1
       ],
@@ -105830,13 +101508,13 @@
       [
        "2026-10-08",
        10.63,
-       "2026-10-13",
+       "2026-10-12",
        10.63,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $10.63 \u00b7 your SG shares + Jan-28 3C: new 1-year high vs close under the 30-day EMA"
      }
@@ -105848,13 +101526,13 @@
       [
        "2026-10-08",
        7.96,
-       "2026-10-13",
+       "2026-10-12",
        7.96,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $7.96 \u00b7 your SG shares + Jan-28 3C: new 1-year high vs close under the 30-day EMA"
      }
@@ -106362,8 +102040,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     83.84,
@@ -106865,8 +102542,7 @@
     162.57,
     165.28,
     166.04,
-    173.9,
-    175.8
+    173.9
    ],
    "h": [
     84.37,
@@ -107368,8 +103044,7 @@
     166.96,
     167.94,
     171.04,
-    180.88,
-    179.21
+    180.88
    ],
    "l": [
     82.66,
@@ -107871,8 +103546,7 @@
     161.37,
     164.02,
     165.76,
-    172.94,
-    173.81
+    172.94
    ],
    "c": [
     83.68,
@@ -108374,8 +104048,7 @@
     166.03,
     164.56,
     170.85,
-    179.22,
-    176.52
+    179.22
    ],
    "v": [
     3759800,
@@ -108877,8 +104550,7 @@
     6475200,
     7221000,
     6758100,
-    12444400,
-    6965160
+    12444400
    ],
    "e10": [
     83.68,
@@ -109380,8 +105052,7 @@
     153.72,
     155.69,
     158.45,
-    162.22,
-    164.82
+    162.22
    ],
    "e30": [
     83.68,
@@ -109883,8 +105554,7 @@
     145.33,
     146.57,
     148.14,
-    150.14,
-    151.84
+    150.14
    ],
    "pat": [
     {
@@ -109958,8 +105628,8 @@
       [
        "2025-10-29",
        182.19000244140625,
-       "2026-10-13",
-       154.04110471166746,
+       "2026-10-12",
+       154.15888252643623,
        0
       ]
      ],
@@ -109977,8 +105647,8 @@
       [
        "2026-05-14",
        94.0,
-       "2026-10-13",
-       131.7387240795379,
+       "2026-10-12",
+       131.37585173261925,
        0
       ]
      ],
@@ -109998,7 +105668,7 @@
       [
        "2026-08-05",
        150.23999786376953,
-       "2026-10-13",
+       "2026-10-12",
        150.23999786376953,
        1
       ],
@@ -110037,7 +105707,7 @@
       [
        "2025-10-29",
        182.19000244140625,
-       "2026-10-13",
+       "2026-10-12",
        182.19000244140625,
        1
       ],
@@ -110558,8 +106228,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     44.39,
@@ -111061,8 +106730,7 @@
     49.91,
     48.41,
     49.08,
-    49.24,
-    49.29
+    49.24
    ],
    "h": [
     44.72,
@@ -111564,8 +107232,7 @@
     49.91,
     49.04,
     49.45,
-    49.76,
-    49.42
+    49.76
    ],
    "l": [
     44.22,
@@ -112067,8 +107734,7 @@
     47.65,
     48.1,
     48.64,
-    48.55,
-    48.15
+    48.55
    ],
    "c": [
     44.7,
@@ -112570,7 +108236,6 @@
     47.96,
     48.98,
     48.95,
-    48.77,
     48.77
    ],
    "v": [
@@ -113073,8 +108738,7 @@
     15095400,
     16228600,
     7580800,
-    8630300,
-    10230947
+    8630300
    ],
    "e10": [
     44.7,
@@ -113576,8 +109240,7 @@
     49.9,
     49.74,
     49.59,
-    49.44,
-    49.32
+    49.44
    ],
    "e30": [
     44.7,
@@ -114079,8 +109742,7 @@
     51.7,
     51.53,
     51.36,
-    51.19,
-    51.04
+    51.19
    ],
    "pat": [
     {
@@ -114155,8 +109817,8 @@
       [
        "2025-10-13",
        31.639999389648438,
-       "2026-10-13",
-       49.34072975317637,
+       "2026-10-12",
+       49.27020891507466,
        0
       ]
      ],
@@ -114180,7 +109842,7 @@
       [
        "2026-03-27",
        61.250003814697266,
-       "2026-10-13",
+       "2026-10-12",
        61.250003814697266,
        1
       ],
@@ -114715,8 +110377,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     11.02,
@@ -115218,8 +110879,7 @@
     5.7,
     5.75,
     5.99,
-    6.38,
-    6.48
+    6.38
    ],
    "h": [
     11.2,
@@ -115721,8 +111381,7 @@
     5.9,
     5.88,
     6.35,
-    6.64,
-    6.85
+    6.64
    ],
    "l": [
     10.86,
@@ -116224,8 +111883,7 @@
     5.64,
     5.73,
     5.95,
-    6.27,
-    6.46
+    6.27
    ],
    "c": [
     11.05,
@@ -116727,8 +112385,7 @@
     5.81,
     5.86,
     6.23,
-    6.53,
-    6.49
+    6.53
    ],
    "v": [
     21296700,
@@ -117230,8 +112887,7 @@
     29503000,
     31995600,
     49434800,
-    47560200,
-    52426152
+    47560200
    ],
    "e10": [
     11.05,
@@ -117733,8 +113389,7 @@
     5.61,
     5.65,
     5.76,
-    5.9,
-    6.01
+    5.9
    ],
    "e30": [
     11.05,
@@ -118236,8 +113891,7 @@
     5.51,
     5.53,
     5.57,
-    5.64,
-    5.69
+    5.64
    ],
    "pat": [
     {
@@ -118247,8 +113901,8 @@
       [
        "2025-11-12",
        9.130000114440918,
-       "2026-10-13",
-       8.758646166002428,
+       "2026-10-12",
+       8.760267798965042,
        0
       ]
      ],
@@ -118262,8 +113916,8 @@
       [
        "2026-03-27",
        3.809999942779541,
-       "2026-10-13",
-       4.614875400066376,
+       "2026-10-12",
+       4.609000396728516,
        0
       ]
      ],
@@ -118276,13 +113930,13 @@
       [
        "2026-10-08",
        6.07,
-       "2026-10-13",
+       "2026-10-12",
        6.07,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $6.07 \u00b7 your Jan-28 5C x2: over the 60-day high vs close under the 20-day low"
      }
@@ -118294,13 +113948,13 @@
       [
        "2026-10-08",
        5.18,
-       "2026-10-13",
+       "2026-10-12",
        5.18,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $5.18 \u00b7 your Jan-28 5C x2: over the 60-day high vs close under the 20-day low"
      }
@@ -118808,8 +114462,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     581.22,
@@ -119311,8 +114964,7 @@
     775.77,
     774.86,
     776.24,
-    778.78,
-    777.34
+    778.78
    ],
    "h": [
     585.27,
@@ -119814,8 +115466,7 @@
     779.1,
     777.09,
     779.42,
-    779.4,
-    778.75
+    779.4
    ],
    "l": [
     580.73,
@@ -120317,8 +115968,7 @@
     773.61,
     770.44,
     775.14,
-    777.05,
-    775.95
+    777.05
    ],
    "c": [
     584.32,
@@ -120820,8 +116470,7 @@
     777.22,
     773.93,
     778.57,
-    778.1,
-    778.01
+    778.1
    ],
    "v": [
     36217200,
@@ -121323,8 +116972,7 @@
     30989200,
     40431100,
     22624500,
-    18685000,
-    25344746
+    18685000
    ],
    "e10": [
     584.32,
@@ -121826,8 +117474,7 @@
     771.14,
     771.65,
     772.91,
-    773.85,
-    774.61
+    773.85
    ],
    "e30": [
     584.32,
@@ -122329,8 +117976,7 @@
     767.03,
     767.48,
     768.19,
-    768.83,
-    769.42
+    768.83
    ],
    "pat": [
     {
@@ -122341,8 +117987,8 @@
       [
        "2026-03-30",
        629.280029296875,
-       "2026-10-13",
-       769.1391121627938,
+       "2026-10-12",
+       768.1107365534856,
        0
       ]
      ],
@@ -122362,7 +118008,7 @@
       [
        "2026-10-06",
        801.0,
-       "2026-10-13",
+       "2026-10-12",
        801.0,
        1
       ],
@@ -122897,8 +118543,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     118.82,
@@ -123400,8 +119045,7 @@
     11.89,
     12.14,
     12.42,
-    12.24,
-    11.97
+    12.24
    ],
    "h": [
     118.82,
@@ -123903,8 +119547,7 @@
     12.1,
     12.35,
     12.45,
-    12.33,
-    12.48
+    12.33
    ],
    "l": [
     117.1,
@@ -124406,8 +120049,7 @@
     11.62,
     12.07,
     11.97,
-    11.89,
-    11.96
+    11.89
    ],
    "c": [
     117.97,
@@ -124909,8 +120551,7 @@
     12.09,
     12.34,
     12.08,
-    11.94,
-    12.17
+    11.94
    ],
    "v": [
     2641200,
@@ -125412,8 +121053,7 @@
     14439100,
     15881700,
     10389900,
-    14020600,
-    15249283
+    14020600
    ],
    "e10": [
     117.97,
@@ -125915,8 +121555,7 @@
     12.32,
     12.32,
     12.28,
-    12.22,
-    12.21
+    12.22
    ],
    "e30": [
     117.97,
@@ -126418,13 +122057,12 @@
     13.32,
     13.26,
     13.18,
-    13.1,
-    13.04
+    13.1
    ],
    "pat": [
     {
      "kind": "bear flag",
-     "end": "2026-10-13",
+     "end": "2026-10-12",
      "lines": [
       [
        "2026-09-15",
@@ -126435,42 +122073,38 @@
       ],
       [
        "2026-10-05",
-       12.048928873879568,
-       "2026-10-13",
-       12.488214015960692,
+       12.046190715971449,
+       "2026-10-12",
+       12.420476141430084,
        1
       ],
       [
        "2026-10-05",
-       11.762321199689593,
-       "2026-10-13",
-       11.98625019618443,
+       11.75357114701044,
+       "2026-10-12",
+       11.96642880212693,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BEAR FLAG \u00b7 forming"
      }
     },
     {
      "kind": "resistance line",
-     "end": "2026-10-13",
+     "end": "2025-10-24",
      "lines": [
       [
        "2025-10-24",
        55.11000061035156,
-       "2026-10-13",
-       11.718964241646432,
+       "2026-10-12",
+       11.898266044822897,
        0
       ]
      ],
-     "label": {
-      "time": "2026-10-13",
-      "up": true,
-      "text": "TRENDLINE BREAK"
-     }
+     "label": null
     }
    ]
   },
@@ -126975,8 +122609,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     206.14,
@@ -127478,8 +123111,7 @@
     290.5,
     285.46,
     290.59,
-    280.76,
-    279.0
+    280.76
    ],
    "h": [
     208.96,
@@ -127981,8 +123613,7 @@
     291.64,
     290.52,
     291.23,
-    283.63,
-    288.9
+    283.63
    ],
    "l": [
     205.64,
@@ -128484,8 +124115,7 @@
     284.81,
     283.27,
     281.66,
-    277.06,
-    277.38
+    277.06
    ],
    "c": [
     208.66,
@@ -128987,8 +124617,7 @@
     288.98,
     288.2,
     283.74,
-    281.74,
-    287.85
+    281.74
    ],
    "v": [
     3291600,
@@ -129490,8 +125119,7 @@
     4566900,
     5944400,
     4037300,
-    3853500,
-    5600379
+    3853500
    ],
    "e10": [
     208.66,
@@ -129993,8 +125621,7 @@
     285.34,
     285.86,
     285.48,
-    284.8,
-    285.35
+    284.8
    ],
    "e30": [
     208.66,
@@ -130496,8 +126123,7 @@
     276.34,
     277.1,
     277.53,
-    277.8,
-    278.45
+    277.8
    ],
    "pat": [
     {
@@ -130539,8 +126165,8 @@
       [
        "2026-06-22",
        334.0299987792969,
-       "2026-10-13",
-       236.5747129652235,
+       "2026-10-12",
+       237.8083241780599,
        0
       ]
      ],
@@ -130558,8 +126184,8 @@
       [
        "2025-11-20",
        152.72999572753906,
-       "2026-10-13",
-       242.40386562347413,
+       "2026-10-12",
+       242.0017406463623,
        0
       ]
      ],
@@ -130579,7 +126205,7 @@
       [
        "2026-10-02",
        331.1099853515625,
-       "2026-10-13",
+       "2026-10-12",
        331.1099853515625,
        1
       ],
@@ -130618,7 +126244,7 @@
       [
        "2026-06-22",
        334.0299987792969,
-       "2026-10-13",
+       "2026-10-12",
        334.0299987792969,
        1
       ],
@@ -131139,8 +126765,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     21.45,
@@ -131642,8 +127267,7 @@
     45.99,
     46.24,
     46.16,
-    47.08,
-    46.15
+    47.08
    ],
    "h": [
     21.94,
@@ -132145,8 +127769,7 @@
     46.25,
     47.35,
     47.04,
-    47.77,
-    47.2
+    47.77
    ],
    "l": [
     21.23,
@@ -132648,8 +128271,7 @@
     44.24,
     45.43,
     46.16,
-    46.35,
-    46.13
+    46.35
    ],
    "c": [
     21.91,
@@ -133151,8 +128773,7 @@
     45.44,
     45.89,
     46.88,
-    46.68,
-    46.63
+    46.68
    ],
    "v": [
     7985200,
@@ -133654,8 +129275,7 @@
     12800500,
     15659100,
     6349200,
-    6158700,
-    4654554
+    6158700
    ],
    "e10": [
     21.91,
@@ -134157,8 +129777,7 @@
     43.6,
     44.02,
     44.54,
-    44.93,
-    45.24
+    44.93
    ],
    "e30": [
     21.91,
@@ -134660,8 +130279,7 @@
     42.44,
     42.66,
     42.93,
-    43.18,
-    43.4
+    43.18
    ],
    "pat": [
     {
@@ -134703,8 +130321,8 @@
       [
        "2025-12-11",
        52.150001525878906,
-       "2026-10-13",
-       47.66621948951899,
+       "2026-10-12",
+       47.687672992085304,
        0
       ]
      ],
@@ -134718,8 +130336,8 @@
       [
        "2026-02-23",
        16.780000686645508,
-       "2026-10-13",
-       18.459999084472656,
+       "2026-10-12",
+       18.449564311815344,
        0
       ]
      ],
@@ -134732,7 +130350,7 @@
       [
        "2025-12-11",
        52.150001525878906,
-       "2026-10-13",
+       "2026-10-12",
        52.150001525878906,
        1
       ],
@@ -135253,8 +130871,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     242.37,
@@ -135756,8 +131373,7 @@
     186.83,
     184.08,
     190.0,
-    189.45,
-    188.98
+    189.45
    ],
    "h": [
     242.97,
@@ -136259,8 +131875,7 @@
     189.86,
     188.27,
     191.38,
-    193.6,
-    189.97
+    193.6
    ],
    "l": [
     240.12,
@@ -136762,8 +132377,7 @@
     183.76,
     183.67,
     185.64,
-    187.86,
-    185.15
+    187.86
    ],
    "c": [
     242.47,
@@ -137265,8 +132879,7 @@
     184.26,
     187.81,
     186.59,
-    188.25,
-    186.02
+    188.25
    ],
    "v": [
     1155600,
@@ -137768,8 +133381,7 @@
     1519200,
     2343300,
     1857800,
-    2102400,
-    2168736
+    2102400
    ],
    "e10": [
     242.47,
@@ -138271,8 +133883,7 @@
     187.85,
     187.84,
     187.62,
-    187.73,
-    187.42
+    187.73
    ],
    "e30": [
     242.47,
@@ -138774,8 +134385,7 @@
     187.86,
     187.85,
     187.77,
-    187.8,
-    187.69
+    187.8
    ],
    "pat": [
     {
@@ -138817,8 +134427,8 @@
       [
        "2025-10-22",
        247.39999389648438,
-       "2026-10-13",
-       223.35030493405787,
+       "2026-10-12",
+       223.4488692330842,
        0
       ]
      ],
@@ -138832,8 +134442,8 @@
       [
        "2026-04-09",
        110.36000061035156,
-       "2026-10-13",
-       113.30119903564453,
+       "2026-10-12",
+       113.27839904785156,
        0
       ]
      ],
@@ -139342,8 +134952,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     49.46,
@@ -139845,8 +135454,7 @@
     401.08,
     399.31,
     397.35,
-    391.76,
-    359.01
+    391.76
    ],
    "h": [
     50.56,
@@ -140348,8 +135956,7 @@
     409.39,
     407.45,
     398.28,
-    392.6,
-    382.77
+    392.6
    ],
    "l": [
     49.43,
@@ -140851,8 +136458,7 @@
     397.02,
     390.6,
     386.01,
-    385.89,
-    358.27
+    385.89
    ],
    "c": [
     50.51,
@@ -141354,8 +136960,7 @@
     405.42,
     393.31,
     397.28,
-    386.94,
-    380.71
+    386.94
    ],
    "v": [
     5856656,
@@ -141857,8 +137462,7 @@
     7258500,
     9386800,
     7046600,
-    5410800,
-    12354354
+    5410800
    ],
    "e10": [
     50.51,
@@ -142360,8 +137964,7 @@
     433.56,
     426.24,
     420.98,
-    414.79,
-    408.59
+    414.79
    ],
    "e30": [
     50.51,
@@ -142863,8 +138466,7 @@
     449.65,
     446.02,
     442.87,
-    439.26,
-    435.49
+    439.26
    ],
    "pat": [
     {
@@ -142874,8 +138476,8 @@
       [
        "2026-06-18",
        799.8699951171875,
-       "2026-10-13",
-       365.04141671316967,
+       "2026-10-12",
+       370.4767739432199,
        0
       ]
      ],
@@ -142893,8 +138495,8 @@
       [
        "2025-10-14",
        112.5199966430664,
-       "2026-10-13",
-       290.2878183637347,
+       "2026-10-12",
+       289.576747076852,
        0
       ]
      ],
@@ -142907,13 +138509,13 @@
       [
        "2026-10-02",
        462.56,
-       "2026-10-13",
+       "2026-10-12",
        462.56,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": true,
       "text": "BREAKOUT $462.56 \u00b7 Toshiba gap-down: gap fill vs breakdown"
      }
@@ -142925,13 +138527,13 @@
       [
        "2026-10-02",
        415.0,
-       "2026-10-13",
+       "2026-10-12",
        415.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-10-13",
+      "time": "2026-10-12",
       "up": false,
       "text": "BREAKDOWN $415.00 \u00b7 Toshiba gap-down: gap fill vs breakdown"
      }
@@ -143439,8 +139041,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     123.24,
@@ -143942,8 +139543,7 @@
     165.6,
     167.11,
     167.87,
-    171.01,
-    173.45
+    171.01
    ],
    "h": [
     124.26,
@@ -144445,8 +140045,7 @@
     166.86,
     169.19,
     170.29,
-    172.55,
-    174.89
+    172.55
    ],
    "l": [
     122.62,
@@ -144948,8 +140547,7 @@
     163.46,
     166.71,
     167.82,
-    171.01,
-    172.65
+    171.01
    ],
    "c": [
     124.08,
@@ -145451,8 +141049,7 @@
     164.05,
     168.5,
     168.94,
-    172.15,
-    174.08
+    172.15
    ],
    "v": [
     9808100,
@@ -145954,8 +141551,7 @@
     9516200,
     13288100,
     8083600,
-    8811000,
-    11441801
+    8811000
    ],
    "e10": [
     124.08,
@@ -146457,8 +142053,7 @@
     163.32,
     164.27,
     165.12,
-    166.39,
-    167.79
+    166.39
    ],
    "e30": [
     124.08,
@@ -146960,8 +142555,7 @@
     162.01,
     162.43,
     162.85,
-    163.45,
-    164.13
+    163.45
    ],
    "pat": [
     {
@@ -147003,8 +142597,8 @@
       [
        "2026-03-30",
        176.41000366210938,
-       "2026-10-13",
-       168.4727572737069,
+       "2026-10-12",
+       168.53111937950396,
        0
       ]
      ],
@@ -147022,8 +142616,8 @@
       [
        "2026-03-30",
        138.4517232960668,
-       "2026-10-13",
-       130.51447690766432,
+       "2026-10-12",
+       130.5728390134614,
        1
       ]
      ]
@@ -147036,8 +142630,8 @@
       [
        "2025-10-16",
        110.38999938964844,
-       "2026-10-13",
-       135.30810183570497,
+       "2026-10-12",
+       135.20762561616442,
        0
       ]
      ],
@@ -147546,8 +143140,7 @@
     "2026-10-07",
     "2026-10-08",
     "2026-10-09",
-    "2026-10-12",
-    "2026-10-13"
+    "2026-10-12"
    ],
    "o": [
     199.29,
@@ -148049,8 +143642,7 @@
     216.46,
     214.38,
     221.48,
-    236.11,
-    224.61
+    236.11
    ],
    "h": [
     199.41,
@@ -148552,8 +144144,7 @@
     216.5,
     218.82,
     234.31,
-    237.22,
-    235.36
+    237.22
    ],
    "l": [
     195.09,
@@ -149055,8 +144646,7 @@
     209.7,
     212.37,
     219.79,
-    224.6,
-    223.75
+    224.6
    ],
    "c": [
     196.74,
@@ -149558,8 +145148,7 @@
     213.55,
     216.81,
     233.73,
-    225.78,
-    228.66
+    225.78
    ],
    "v": [
     1245100,
@@ -150061,8 +145650,7 @@
     2685500,
     3728400,
     3797500,
-    2662400,
-    3026067
+    2662400
    ],
    "e10": [
     196.74,
@@ -150564,8 +146152,7 @@
     203.72,
     206.1,
     211.12,
-    213.79,
-    216.49
+    213.79
    ],
    "e30": [
     196.74,
@@ -151067,8 +146654,7 @@
     192.78,
     194.33,
     196.87,
-    198.73,
-    200.66
+    198.73
    ],
    "pat": [
     {
@@ -151142,8 +146728,8 @@
       [
        "2025-11-03",
        336.989990234375,
-       "2026-10-13",
-       162.06249070530615,
+       "2026-10-12",
+       162.80370892364965,
        0
       ]
      ],
@@ -151161,8 +146747,8 @@
       [
        "2026-04-10",
        114.625,
-       "2026-10-13",
-       128.8068181818182,
+       "2026-10-12",
+       128.69602272727272,
        0
       ]
      ],
@@ -151182,7 +146768,7 @@
       [
        "2026-05-18",
        209.17498779296875,
-       "2026-10-13",
+       "2026-10-12",
        209.17498779296875,
        1
       ],
@@ -151221,7 +146807,7 @@
       [
        "2025-11-03",
        336.989990234375,
-       "2026-10-13",
+       "2026-10-12",
        336.989990234375,
        1
       ],
@@ -155282,10 +150868,10 @@
    "as_of": "2026-10-13",
    "open_n": 32,
    "real_n": 5,
-   "real_pl": 21.7,
-   "paper_pl": 2.9,
-   "fired": 2,
-   "sessions": 2
+   "real_pl": 21.4,
+   "paper_pl": 3.1,
+   "fired": 3,
+   "sessions": 3
   },
   "changed": [
    {
@@ -155299,18 +150885,18 @@
    {
     "label": "Open \u00b7 real",
     "before": 18.0,
-    "after": 21.7,
+    "after": 21.4,
     "fmt": "pct",
     "sub": "5 positions",
-    "delta": 3.7
+    "delta": 3.4
    },
    {
     "label": "Open \u00b7 paper",
     "before": -4.4,
-    "after": 2.9,
+    "after": 3.1,
     "fmt": "pct",
     "sub": "27 positions",
-    "delta": 7.3
+    "delta": 7.5
    },
    {
     "label": "Closed real money",
@@ -155328,7 +150914,7 @@
     "act": "opened",
     "on": "2026-10-12",
     "pl": null,
-    "pct": -3.9122981409872692
+    "pct": -0.29838931175970584
    },
    {
     "sym": "ZS",
@@ -155344,7 +150930,7 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 465,
+    "dte": 464,
     "acct": "real",
     "setup": "none",
     "before": 7.07,
@@ -155361,16 +150947,16 @@
     "acct": "real",
     "setup": "none",
     "before": 9.630000114440918,
-    "after": 10.029999732971191,
+    "after": 9.850000381469727,
     "before_pl": 38.74881299082094,
-    "after_pl": 44.51199799687624,
+    "after_pl": 41.91857161440979,
     "isnew": false
    },
    {
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 465,
+    "dte": 464,
     "acct": "real",
     "setup": "none",
     "before": 2.515,
@@ -155387,16 +150973,16 @@
     "acct": "real",
     "setup": "F",
     "before": 140.86000061035156,
-    "after": 138.61000061035156,
+    "after": 140.32000732421875,
     "before_pl": 1.9911669034476498,
-    "after_pl": 0.3620307076616758,
+    "after_pl": 1.600179077705266,
     "isnew": false
    },
    {
     "sym": "NFLX",
     "kind": "call",
     "strike": "69",
-    "dte": 66,
+    "dte": 65,
     "acct": "real",
     "setup": "none",
     "before": 5.61,
@@ -155409,7 +150995,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 794,
+    "dte": 793,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 75.94999999999999,
@@ -155422,7 +151008,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "65",
-    "dte": 3,
+    "dte": 2,
     "acct": "small",
     "setup": "E",
     "before": 5.995,
@@ -155435,7 +151021,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 94,
+    "dte": 93,
     "acct": "big",
     "setup": "E",
     "before": 34.355000000000004,
@@ -155452,16 +151038,16 @@
     "acct": "paper",
     "setup": "F",
     "before": 170.85000610351562,
-    "after": 176.52000427246094,
+    "after": 179.22000122070312,
     "before_pl": 27.40492625168951,
-    "after_pl": 31.63311280571286,
+    "after_pl": 33.646533348771904,
     "isnew": false
    },
    {
     "sym": "ZS",
     "kind": "call",
     "strike": "200",
-    "dte": 612,
+    "dte": 611,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 91.91,
@@ -155478,9 +151064,9 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 170.85000610351562,
-    "after": 176.52000427246094,
+    "after": 179.22000122070312,
     "before_pl": 19.844280375642278,
-    "after_pl": 23.82155181850514,
+    "after_pl": 25.715489071761443,
     "isnew": false
    },
    {
@@ -155491,16 +151077,16 @@
     "acct": "bot",
     "setup": "F",
     "before": 233.72999572753906,
-    "after": 228.66000366210938,
+    "after": 225.77999877929688,
     "before_pl": 16.40519733429906,
-    "after_pl": 13.880175139254636,
+    "after_pl": 12.445838328251856,
     "isnew": false
    },
    {
     "sym": "ZS",
     "kind": "call",
     "strike": "235",
-    "dte": 17,
+    "dte": 16,
     "acct": "bot-tickets",
     "setup": "Setup F",
     "before": null,
@@ -155513,7 +151099,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 794,
+    "dte": 793,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 50.635,
@@ -155530,22 +151116,9 @@
     "acct": "paper",
     "setup": "D",
     "before": 535.0700073242188,
-    "after": 543.4500122070312,
+    "after": 541.1500244140625,
     "before_pl": 4.8910074735785125,
-    "after_pl": 6.533759156087049,
-    "isnew": false
-   },
-   {
-    "sym": "AVGO",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "E",
-    "before": 361.5400085449219,
-    "after": 357.30999755859375,
-    "before_pl": 1.2263435280887691,
-    "after_pl": 0.04199730053582318,
+    "after_pl": 6.082887244974211,
     "isnew": false
    },
    {
@@ -155556,61 +151129,9 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 140.86000061035156,
-    "after": 138.61000061035156,
+    "after": 140.32000732421875,
     "before_pl": 0.17067316907377617,
-    "after_pl": -1.4293837218378957,
-    "isnew": false
-   },
-   {
-    "sym": "IBM",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "E",
-    "before": 227.1300048828125,
-    "after": 230.77999877929688,
-    "before_pl": -3.2295151962794533,
-    "after_pl": -1.6744072347591232,
-    "isnew": false
-   },
-   {
-    "sym": "NOW",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "F",
-    "before": 140.86000061035156,
-    "after": 138.61000061035156,
-    "before_pl": -0.2831653614954188,
-    "after_pl": -1.875972950338689,
-    "isnew": false
-   },
-   {
-    "sym": "QCOM",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "C",
-    "before": 175.5,
-    "after": 176.86000061035156,
-    "before_pl": -4.396143160647159,
-    "after_pl": -3.655281031567481,
-    "isnew": false
-   },
-   {
-    "sym": "AVGO",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "bot",
-    "setup": "F",
-    "before": 361.5400085449219,
-    "after": 357.30999755859375,
-    "before_pl": -2.6023683876826853,
-    "after_pl": -3.7419187611546945,
+    "after_pl": -0.213335710269702,
     "isnew": false
    },
    {
@@ -155621,22 +151142,35 @@
     "acct": "bot",
     "setup": "F",
     "before": null,
-    "after": 953.1900024414062,
+    "after": 989.0399780273438,
     "before_pl": null,
-    "after_pl": -3.9122981409872692,
+    "after_pl": -0.29838931175970584,
     "isnew": true
    },
    {
-    "sym": "BE",
+    "sym": "NOW",
     "kind": "shares",
     "strike": "",
     "dte": null,
-    "acct": "paper-auto",
+    "acct": "paper",
     "setup": "F",
-    "before": 280.5,
-    "after": 263.45001220703125,
-    "before_pl": 1.9925823576467216,
-    "after_pl": -4.206962327455721,
+    "before": 140.86000061035156,
+    "after": 140.32000732421875,
+    "before_pl": -0.2831653614954188,
+    "after_pl": -0.6654344299739767,
+    "isnew": false
+   },
+   {
+    "sym": "AVGO",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "E",
+    "before": 361.5400085449219,
+    "after": 354.7300109863281,
+    "before_pl": 1.2263435280887691,
+    "after_pl": -0.6803642663433473,
     "isnew": false
    },
    {
@@ -155647,9 +151181,61 @@
     "acct": "paper",
     "setup": "F",
     "before": 1029.0,
-    "after": 953.1900024414062,
+    "after": 989.0399780273438,
     "before_pl": 2.8732529542319085,
-    "after_pl": -4.705776254033323,
+    "after_pl": -1.1217105525219706,
+    "isnew": false
+   },
+   {
+    "sym": "IBM",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "E",
+    "before": 227.1300048828125,
+    "after": 227.02000427246094,
+    "before_pl": -3.2295151962794533,
+    "after_pl": -3.276381802027639,
+    "isnew": false
+   },
+   {
+    "sym": "AVGO",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "bot",
+    "setup": "F",
+    "before": 361.5400085449219,
+    "after": 354.7300109863281,
+    "before_pl": -2.6023683876826853,
+    "after_pl": -4.436958247217637,
+    "isnew": false
+   },
+   {
+    "sym": "BE",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": 280.5,
+    "after": 262.2799987792969,
+    "before_pl": 1.9925823576467216,
+    "after_pl": -4.632390815469101,
+    "isnew": false
+   },
+   {
+    "sym": "QCOM",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "C",
+    "before": 175.5,
+    "after": 174.42999267578125,
+    "before_pl": -4.396143160647159,
+    "after_pl": -4.979031064018491,
     "isnew": false
    },
    {
@@ -155660,9 +151246,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 280.5,
-    "after": 263.45001220703125,
+    "after": 262.2799987792969,
     "before_pl": 1.183175817040616,
-    "after_pl": -4.9671696821905975,
+    "after_pl": -5.389221997223559,
     "isnew": false
    },
    {
@@ -155673,22 +151259,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 109.0199966430664,
-    "after": 110.5199966430664,
+    "after": 109.22000122070312,
     "before_pl": -7.090509082097829,
-    "after_pl": -5.812172623942047,
-    "isnew": false
-   },
-   {
-    "sym": "HOOD",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper-auto",
-    "setup": "F",
-    "before": 109.0199966430664,
-    "after": 110.5199966430664,
-    "before_pl": -10.902258382587116,
-    "after_pl": -9.676367568595612,
+    "after_pl": -6.920060319837118,
     "isnew": false
    },
    {
@@ -155699,9 +151272,22 @@
     "acct": "paper",
     "setup": "D",
     "before": 186.58999633789062,
-    "after": 186.02000427246094,
+    "after": 188.25,
     "before_pl": -9.825054930460741,
-    "after_pl": -10.100519876057923,
+    "after_pl": -9.022810748115207,
+    "isnew": false
+   },
+   {
+    "sym": "HOOD",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": 109.0199966430664,
+    "after": 109.22000122070312,
+    "before_pl": -10.902258382587116,
+    "after_pl": -10.738802532933045,
     "isnew": false
    },
    {
@@ -155712,16 +151298,16 @@
     "acct": "paper",
     "setup": "E",
     "before": 70.30000305175781,
-    "after": 70.45999908447266,
+    "after": 70.61000061035156,
     "before_pl": -14.963102634864144,
-    "after_pl": -14.769566850764903,
+    "after_pl": -14.58812070841713,
     "isnew": false
    },
    {
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 794,
+    "dte": 793,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 39.705,
@@ -155734,7 +151320,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 66,
+    "dte": 65,
     "acct": "big",
     "setup": "E",
     "before": 26.16,
@@ -155747,7 +151333,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 66,
+    "dte": 65,
     "acct": "small",
     "setup": "F",
     "before": 3.63,
@@ -155775,8 +151361,8 @@
    }
   ],
   "notes": [
-   "SG is up 44.5% on a trade that broke a rule going in. A good outcome is not a good decision.",
-   "2 calls under 21 days: DOCU 3d, ZS 17d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
+   "SG is up 41.9% on a trade that broke a rule going in. A good outcome is not a good decision.",
+   "2 calls under 21 days: DOCU 2d, ZS 16d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
   "goal": {
