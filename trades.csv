@@ -9,7 +9,7 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-09-08-MU-sh,shares,paper,2026-09-08,MU,F,1000.26,1255.00,,,,open,,,,"+200% revenue. EARNINGS 2026-09-30, 22 days out"
 2026-09-08-SHOP-sh,shares,paper,2026-09-08,SHOP,F,134.10,182.19,,,,open,,,,+46% revenue. Option already held in both option books
 2026-09-04-DOCU-big,call,big,2026-09-04,DOCU,E,26.23,86.65,37.5,2027-01-15,1,open,,,,
-2026-09-04-DOCU-small,call,small,2026-09-04,DOCU,E,4.88,86.65,65,2026-10-16,1,open,,,,
+2026-09-04-DOCU-small,call,small,2026-09-04,DOCU,E,4.88,86.65,65,2026-10-16,1,closed,2026-10-14,8.33,70.7, Sold: 2 days to expiry.
 2026-09-04-WDAY-big,call,big,2026-09-04,WDAY,E,37.85,249.85,170,2026-12-18,1,open,,,,
 2026-09-04-SHOP-big,call,big,2026-09-04,SHOP,E,27.93,182.19,120,2026-10-02,1,closed,2026-10-02,28.30,1.3,expired at intrinsic
 2026-09-10-PYPL-real,call,real,2026-09-10,PYPL,none,1.66,56.00,53,2026-09-25,2,closed,2026-09-11,1.91,15.1,"REAL. Bought $1.66, sold $1.91 Friday 09-11: under the 10 EMA, weekend theta, never passed a setup. +$50."
