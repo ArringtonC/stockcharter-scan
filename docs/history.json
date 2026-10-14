@@ -883,7 +883,7 @@
  },
  {
   "date": "2026-10-14",
-  "vix": 16.200000762939453,
+  "vix": 16.549999237060547,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -892,14 +892,13 @@
    "NOW"
   ],
   "D": [
-   "GOOGL",
-   "CSCO",
-   "OXY",
    "OKTA",
+   "OXY",
    "SG",
    "LLY",
+   "SHOP",
    "META",
-   "SHOP"
+   "PLTR"
   ],
   "C": [
    "COP"
