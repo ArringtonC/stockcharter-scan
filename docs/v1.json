@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-14T12:06-05:00",
+ "updated": "2026-10-14T12:36-05:00",
  "day": "2026-10-14",
  "market": {
   "state": "BEARISH",
   "score": -5,
   "confirmed": true,
-  "at": "2026-10-14T10:50-05:00",
-  "data_time": "2026-10-14T10:50-05:00",
+  "at": "2026-10-14T12:35-05:00",
+  "data_time": "2026-10-14T12:35-05:00",
   "parts": {
    "es": -1,
    "es_mid": 7850.5,
@@ -22,24 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-13T13:30-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-13T13:35-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-13T13:40-05:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
   {
    "at": "2026-10-13T13:45-05:00",
    "state": "MIXED",
@@ -138,6 +120,24 @@
   },
   {
    "at": "2026-10-14T10:50-05:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-14T12:10-05:00",
+   "state": "BEARISH",
+   "score": -3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-14T12:30-05:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-14T12:35-05:00",
    "state": "BEARISH",
    "score": -5,
    "confirmed": true
@@ -2016,7 +2016,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-10-14T12:06-05:00"
+    "at": "2026-10-14T12:36-05:00"
    }
   },
   {
@@ -5764,7 +5764,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-10-14T12:06-05:00"
+    "at": "2026-10-14T12:36-05:00"
    }
   },
   {
@@ -9511,7 +9511,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-10-14T12:06-05:00"
+    "at": "2026-10-14T12:36-05:00"
    }
   },
   {
@@ -13259,7 +13259,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-10-14T12:06-05:00"
+    "at": "2026-10-14T12:36-05:00"
    }
   }
  ]

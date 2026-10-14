@@ -883,7 +883,7 @@
  },
  {
   "date": "2026-10-14",
-  "vix": 16.549999237060547,
+  "vix": 16.6200008392334,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -892,17 +892,21 @@
    "NOW"
   ],
   "D": [
+   "REGN",
    "OKTA",
    "OXY",
    "SG",
    "LLY",
    "SHOP",
+   "MRK",
    "META",
    "PLTR"
   ],
   "C": [
    "COP"
   ],
-  "S": []
+  "S": [
+   "ORCL"
+  ]
  }
 ]
