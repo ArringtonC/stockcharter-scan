@@ -908,7 +908,7 @@
  },
  {
   "date": "2026-10-15",
-  "vix": 16.969999313354492,
+  "vix": 16.8799991607666,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -917,12 +917,13 @@
    "DELL"
   ],
   "D": [
+   "OKTA",
    "OXY",
    "XYZ",
    "CRM",
    "PLTR",
-   "DVN",
    "REGN",
+   "DVN",
    "META",
    "SHOP"
   ],
