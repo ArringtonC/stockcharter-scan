@@ -31,8 +31,8 @@ Ideas wait here until Version 1 closes after the 30-session paper test.
   now final for the day. The SG 10/16 10C paper fill is void and not counted.
 - 2026-10-13: the market state flipped 14 times in one day. A new state now counts only after 3 reads
   in a row (15 minutes). The score inputs are unchanged.
-- **Range fade on CHOPPY days ("ping pong", YouTube, logged 2026-10-14).** When SPY and QQQ both chop,
-  buy puts when price touches a known ceiling (daily 20 SMA, opening-range high, 2-minute 200 SMA) and
-  calls at the floor; stop just past the level; target the other side of the range. Evidence: one live
-  trade, no statistics. Conflicts with Version 1 three ways: index options, 0–2 DTE, and CHOPPY = stand
-  aside. Test first on 5-minute history (Alpaca) before any rule change.
+- **Range fade on CHOPPY days ("ping pong", YouTube, logged 2026-10-14). TESTED, FAILED.** Sell the
+  opening-range high and buy its low on choppy days, tight stop, target the other side. SPY and QQQ 5-minute
+  bars 2016–2026, 2,711 sessions: the fade equals a random entry with the same stop and target, about zero
+  before costs and negative after (SPY choppy days −0.036% a trade, QQQ −0.037%). Both stop widths, both
+  sides, every era. Not added. (thesis/range-fade.md)
