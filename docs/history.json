@@ -908,7 +908,7 @@
  },
  {
   "date": "2026-10-15",
-  "vix": 17.09000015258789,
+  "vix": 16.969999313354492,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -917,18 +917,18 @@
    "DELL"
   ],
   "D": [
-   "WDAY",
    "OXY",
    "XYZ",
    "CRM",
    "PLTR",
+   "DVN",
    "REGN",
    "META",
    "SHOP"
   ],
   "C": [
-   "AMGN",
-   "LLY"
+   "LLY",
+   "AMGN"
   ],
   "S": []
  }

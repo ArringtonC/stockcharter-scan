@@ -1,17 +1,17 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-15T10:10-05:00",
+ "updated": "2026-10-15T11:41-05:00",
  "day": "2026-10-15",
  "market": {
-  "state": "BULLISH",
-  "score": 4,
+  "state": "MIXED",
+  "score": 1,
   "confirmed": true,
-  "at": "2026-10-15T10:10-05:00",
-  "data_time": "2026-10-15T10:10-05:00",
+  "at": "2026-10-15T11:40-05:00",
+  "data_time": "2026-10-15T11:40-05:00",
   "parts": {
-   "es": 1,
+   "es": 0,
    "es_mid": 7749.12,
-   "nq": 1,
+   "nq": -1,
    "nq_mid": 29934.75,
    "spy": 1,
    "qqq": 1,
@@ -22,108 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-15T08:25-05:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-15T08:30-05:00",
-   "state": "MIXED",
-   "score": -1,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-15T08:35-05:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-15T08:40-05:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-15T08:45-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T08:50-05:00",
-   "state": "CHOPPY",
-   "score": -1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T08:55-05:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:05-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:10-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:15-05:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:20-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:25-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:30-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:35-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:40-05:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:45-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T09:50-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
   {
    "at": "2026-10-15T10:00-05:00",
    "state": "BULLISH",
@@ -140,6 +38,108 @@
    "at": "2026-10-15T10:10-05:00",
    "state": "BULLISH",
    "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:15-05:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:20-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:25-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:30-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:35-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:40-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:45-05:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T10:55-05:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:00-05:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:05-05:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:10-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:15-05:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:20-05:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:25-05:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:30-05:00",
+   "state": "MIXED",
+   "score": 1,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:35-05:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T11:40-05:00",
+   "state": "MIXED",
+   "score": 1,
    "confirmed": true
   }
  ],
@@ -11385,7 +11385,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-15T10:10-05:00"
+    "at": "2026-10-15T11:41-05:00"
    }
   },
   {
@@ -13259,7 +13259,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-15T10:10-05:00"
+    "at": "2026-10-15T11:41-05:00"
    }
   }
  ]
