@@ -908,28 +908,27 @@
  },
  {
   "date": "2026-10-15",
-  "vix": 17.350000381469727,
+  "vix": 17.489999771118164,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS",
-   "BE",
-   "NOW"
+   "NOW",
+   "DELL"
   ],
   "D": [
    "OKTA",
+   "CRM",
    "OXY",
-   "LLY",
-   "PLTR",
-   "META",
    "SHOP",
+   "PLTR",
+   "REGN",
    "DVN"
   ],
   "C": [
-   "COP"
+   "LLY",
+   "AMGN"
   ],
-  "S": [
-   "ORCL"
-  ]
+  "S": []
  }
 ]
