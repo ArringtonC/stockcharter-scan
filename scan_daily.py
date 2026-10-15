@@ -1056,6 +1056,7 @@ def hourly(sym):
     q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=60d&interval=1h")["chart"]["result"][0]
     v = q["indicators"]["quote"][0]; b = [(t, v["open"][i], v["high"][i], v["low"][i], v["close"][i], v["volume"][i] or 0)
                                           for i, t in enumerate(q["timestamp"]) if None not in (v["open"][i], v["high"][i], v["low"][i], v["close"][i])]
+    while b and b[-1][5] == 0 and b[-1][1] == b[-1][4] == b[-1][2]: b.pop()   # Yahoo's closing print is not a bar
     c = [x[4] for x in b]
     return dict(d=[x[0] for x in b], o=[round(x[1], 2) for x in b], h=[round(x[2], 2) for x in b], l=[round(x[3], 2) for x in b],
                 c=[round(x, 2) for x in c], v=[int(x[5]) for x in b], e10=[round(x, 2) for x in ema(c, 10)], e30=[round(x, 2) for x in ema(c, 30)], pat=[])
