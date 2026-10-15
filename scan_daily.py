@@ -273,6 +273,17 @@ def bs_call(s, k, t, sig, r=0.04):
     return s * _ncdf(d1) - k * math.exp(-r * t) * _ncdf(d2)
 
 
+def implied_vol(price, s, k, t):
+    """The vol that makes bs_call equal `price` (bisection); None if no vol fits (price under intrinsic)."""
+    if t <= 0 or price <= max(0.0, s - k * math.exp(-0.04 * t)): return None
+    lo, hi = 0.01, 5.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if bs_call(s, k, t, mid) < price: lo = mid
+        else: hi = mid
+    return round((lo + hi) / 2, 4)
+
+
 _CHAIN = {}
 def chain_iv(sym, expiry, strike):
     """Implied vol of one call from the live Yahoo chain. None if unavailable. Cached per (sym, expiry)."""
@@ -579,7 +590,7 @@ def mark_trades():
                     dte = (exp - today).days
                     est, src = option_mark(r["symbol"], r["expiry"], K, spot, dte, sig)
                     extra = dict(now=est, pl_pct=(est / entry - 1) * 100, spot=spot, intrinsic=max(0.0, spot - K),
-                                 dte=dte, sessions=sessions, mark=src)
+                                 dte=dte, sessions=sessions, mark=src, iv=implied_vol(est, spot, K, dte / 365) or sig)   # iv: for docs/calc.html
                 open_.append({**r, **extra})
             else:
                 closed.append({**r, "result": "win" if float(r["pl_pct"] or 0) > 0 else "loss"})

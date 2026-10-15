@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Call Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:1100px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+.sub{color:var(--dim);font-size:var(--t-data)}
+.card{border:1px solid var(--line);background:var(--panel);padding:14px 16px;margin:0 0 var(--s4)}
+.hd{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;margin-bottom:8px}
+.hd b{font:600 var(--t-h2) var(--mono)}
+.hd span{font-size:var(--t-data);color:var(--ink2)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:var(--t-data);color:var(--dim);margin:6px 0 10px}
+.ctl label{display:flex;gap:8px;align-items:center}
+.ctl input[type=range]{width:120px;accent-color:var(--amber)}
+.ctl output{color:var(--ink);min-width:48px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums;min-width:100%}
+th,td{padding:4px 7px;text-align:right;border:1px solid var(--line);white-space:nowrap}
+th{color:var(--dim);font-weight:500;position:sticky;top:0;background:var(--panel)}
+th:first-child,td:first-child{position:sticky;left:0;background:var(--panel);color:var(--ink);z-index:1}
+td.now{outline:2px solid var(--amber);outline-offset:-2px}
+tr.spot td:first-child{color:var(--amber)}
+.key{font-size:var(--t-label);color:var(--dim);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Call calculator</h1>
+<p class="sub" id="meta">Loading…</p>
+<div id="cards"></div>
+<p class="sub">Profit or loss on each open call by stock price (rows) and date (columns), from Black-Scholes at the implied volatility solved from the last mark. Move the IV slider to see what a volatility drop (after earnings) does. Estimates only; a real quote has a spread.</p>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const ncdf=x=>{const t=1/(1+.2316419*Math.abs(x)),d=.3989423*Math.exp(-x*x/2);
+  let p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return x>0?1-p:p;};
+const bs=(s,k,t,v,r=.04)=>{if(t<=0||v<=0)return Math.max(0,s-k);const d1=(Math.log(s/k)+(r+v*v/2)*t)/(v*Math.sqrt(t)),d2=d1-v*Math.sqrt(t);
+  return s*ncdf(d1)-k*Math.exp(-r*t)*ncdf(d2);};
+const money=x=>(x<0?'−':'+')+'$'+Math.abs(x).toLocaleString(undefined,{maximumFractionDigits:0});
+const fp=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const shade=(pl,max)=>{const a=Math.min(1,Math.abs(pl)/max)*.55;return pl>=0?`rgba(95,191,132,${a})`:`rgba(224,107,90,${a})`;};
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  const calls=(d.open||[]).filter(r=>r.acct==='real'&&r.kind==='call'&&r.expiry&&r.spot);
+  $('#meta').textContent=`${calls.length} open calls · marks from the ${d.date} scan`;
+  const today=new Date(d.date+'T00:00:00');
+  $('#cards').innerHTML=calls.map((r,i)=>`<div class="card" id="c${i}"></div>`).join('')||'<p class="sub">No open calls.</p>';
+  calls.forEach((r,i)=>{
+    const K=+r.strike,n=+r.contracts||1,entry=+r.entry,spot=+r.spot,exp=new Date(r.expiry+'T00:00:00'),dte=Math.max(0,Math.round((exp-today)/864e5));
+    let iv=+r.iv||.5,range=.25;
+    const box=$('#c'+i);
+    const draw=()=>{
+      const cols=[...new Set([0,...Array.from({length:7},(_,j)=>Math.round(dte*(j+1)/8)),dte])].filter(x=>x<=dte);
+      const step=spot*range/7, rows=Array.from({length:15},(_,j)=>spot*(1+range)-j*step);
+      const pl=(S,days)=>(bs(S,K,Math.max(0,dte-days)/365,iv)-entry)*100*n;
+      const max=Math.max(1,...rows.map(S=>Math.abs(pl(S,dte))));
+      const be=K+entry, cur=(+r.now-entry)*100*n;
+      const nowRow=rows.reduce((a,b)=>Math.abs(b-spot)<Math.abs(a-spot)?b:a);
+      box.innerHTML=`<div class="hd"><b>${r.symbol} ${r.expiry.slice(5).replace('-','/')} $${K}C × ${n}</b>
+        <span>paid ${fp(entry)} · mark ${fp(r.now)} · <b class="${cur>=0?'up':'dn'}">${money(cur)}</b> (${(+r.pl_pct).toFixed(0)}%)</span>
+        <span>stock ${fp(spot)} · ${dte} days · breakeven at expiry ${fp(be)} (${((be/spot-1)*100).toFixed(1)}%) · max loss −$${(entry*100*n).toFixed(0)}</span></div>
+        <div class="ctl"><label>IV <input type="range" min="10" max="150" value="${Math.round(iv*100)}" data-k="iv"><output>${Math.round(iv*100)}%</output></label>
+        <label>Price range ± <input type="range" min="5" max="60" value="${Math.round(range*100)}" data-k="range"><output>${Math.round(range*100)}%</output></label></div>
+        <div class="scroll"><table><thead><tr><th>${r.symbol}</th>${cols.map(c=>{const dt=new Date(today);dt.setDate(dt.getDate()+c);
+          return `<th>${c===dte?'EXPIRY ':''}${dt.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</th>`;}).join('')}</tr></thead>
+        <tbody>${rows.map(S=>`<tr class="${S===nowRow?'spot':''}"><td>${fp(S)} <small>${((S/spot-1)*100).toFixed(0)}%</small></td>${cols.map((c,j)=>{const v=pl(S,c);
+          return `<td class="${S===nowRow&&j===0?'now':''}" style="background:${shade(v,max)}">${money(v)}<br><small>${(v/(entry*100*n)*100).toFixed(0)}%</small></td>`;}).join('')}</tr>`).join('')}</tbody></table></div>
+        <div class="key">Amber row = today's price. Each cell: dollars, then % of what you paid. Green is profit, red is loss.</div>`;
+      box.querySelectorAll('input[type=range]').forEach(inp=>inp.addEventListener('input',e=>{
+        if(e.target.dataset.k==='iv')iv=e.target.value/100;else range=e.target.value/100; draw();
+        box.querySelector(`input[data-k=${e.target.dataset.k}]`).focus();}));
+    };
+    draw();
+  });
+}).catch(()=>{$('#meta').textContent='Could not load data.json.'});
+</script>
+</body>
+</html>
