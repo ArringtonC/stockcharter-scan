@@ -1478,7 +1478,7 @@ function mountOneChart(item){
   });
   // Price lines alone do not expand the library's autoscale range.
   // Include held-position levels so a distant target or strike stays visible.
-  if(levels.length)priceSeries.applyOptions({autoscaleInfoProvider:base=>{
+  if(levels.length&&!hourly)priceSeries.applyOptions({autoscaleInfoProvider:base=>{   // hourly: the candles set the scale, not a far target
     const info=base();if(!info)return info;
     return {...info,priceRange:{minValue:Math.min(info.priceRange.minValue,...levels),
       maxValue:Math.max(info.priceRange.maxValue,...levels)}};
@@ -1515,7 +1515,7 @@ function mountOneChart(item){
     tf.onclick=()=>{const i=CHART_INSTANCES.findIndex(x=>x.host===host);   // redraw this one chart on the other timeframe
       if(i>=0){try{CHART_INSTANCES[i].ro.disconnect();CHART_INSTANCES[i].api.remove()}catch(e){} CHART_INSTANCES.splice(i,1);}
       mountOneChart({...item,tf:hourly?null:'h1'});};}
-  const defaultRange=host.clientWidth<520?66:126;
+  const defaultRange=hourly?22:host.clientWidth<520?66:126;
   setRange(n>defaultRange?defaultRange:0);
 
   const resize=()=>{if(host.clientWidth>0)api.applyOptions({width:host.clientWidth,height:host.clientHeight||360})};
