@@ -1,15 +1,15 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-15T13:14-05:00",
+ "updated": "2026-10-15T14:56-05:00",
  "day": "2026-10-15",
  "market": {
   "state": "BULLISH",
-  "score": 4,
+  "score": 3,
   "confirmed": true,
-  "at": "2026-10-15T13:10-05:00",
-  "data_time": "2026-10-15T13:10-05:00",
+  "at": "2026-10-15T13:15-05:00",
+  "data_time": "2026-10-15T14:55-05:00",
   "parts": {
-   "es": 1,
+   "es": 0,
    "es_mid": 7749.12,
    "nq": 0,
    "nq_mid": 29934.75,
@@ -22,36 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-15T11:30-05:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T11:35-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T11:40-05:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T11:50-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T11:55-05:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
   {
    "at": "2026-10-15T12:00-05:00",
    "state": "BULLISH",
@@ -138,6 +108,36 @@
   },
   {
    "at": "2026-10-15T13:10-05:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T13:15-05:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T13:25-05:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T13:30-05:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T13:40-05:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-15T14:55-05:00",
    "state": "BULLISH",
    "score": 4,
    "confirmed": true
@@ -11385,7 +11385,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-15T13:14-05:00"
+    "at": "2026-10-15T14:56-05:00"
    }
   },
   {
@@ -13259,7 +13259,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-15T13:14-05:00"
+    "at": "2026-10-15T14:56-05:00"
    }
   }
  ]

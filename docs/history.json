@@ -908,7 +908,7 @@
  },
  {
   "date": "2026-10-15",
-  "vix": 16.670000076293945,
+  "vix": 16.440000534057617,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -921,9 +921,8 @@
    "CRM",
    "XYZ",
    "REGN",
-   "PLTR",
    "DVN",
-   "MRK",
+   "PLTR",
    "META"
   ],
   "C": [
