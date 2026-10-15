@@ -994,7 +994,7 @@ def patterns_for(b, n):
 
 
 def chart_data(d, open_, n=504):
-    want = {r["symbol"] for r in open_}
+    want = {r["symbol"] for r in open_}; real = {r["symbol"] for r in open_ if r.get("acct") == "real"}
     want |= {x["sym"] for k in ("F", "C", "S", "watch") for x in d.get(k, [])}
     lv = {}
     try:
@@ -1045,7 +1045,20 @@ def chart_data(d, open_, n=504):
             e30=[round(x, 2) for x in e30],
             pat=PAT.get(sym, []),   # chart notes, not tested setups: drawn so the eye can check them
         )
+        if sym in real:                                  # names he really holds also get an hourly chart (60 days)
+            try: out[sym]["h1"] = hourly(sym)
+            except Exception: pass
     return out
+
+
+def hourly(sym):
+    """Hourly bars, 60 days, same keys as the daily chart; d = unix seconds (the page shows the clock)."""
+    q = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=60d&interval=1h")["chart"]["result"][0]
+    v = q["indicators"]["quote"][0]; b = [(t, v["open"][i], v["high"][i], v["low"][i], v["close"][i], v["volume"][i] or 0)
+                                          for i, t in enumerate(q["timestamp"]) if None not in (v["open"][i], v["high"][i], v["low"][i], v["close"][i])]
+    c = [x[4] for x in b]
+    return dict(d=[x[0] for x in b], o=[round(x[1], 2) for x in b], h=[round(x[2], 2) for x in b], l=[round(x[3], 2) for x in b],
+                c=[round(x, 2) for x in c], v=[int(x[5]) for x in b], e10=[round(x, 2) for x in ema(c, 10)], e30=[round(x, 2) for x in ema(c, 30)], pat=[])
 
 
 def third_friday(d):

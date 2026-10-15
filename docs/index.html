@@ -1316,6 +1316,7 @@ let CHART_INSTANCES=[];
 const chartKey=s=>'chart-'+String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const volLabel=x=>x>=1e9?(x/1e9).toFixed(1)+'B':x>=1e6?(x/1e6).toFixed(1)+'M':x>=1e3?(x/1e3).toFixed(0)+'K':String(Math.round(x||0));
 const timeLabel=t=>{
+  if(typeof t==='number')return new Date(t*1000).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' CT';
   const s=typeof t==='string'?t:(t&&t.year?`${t.year}-${String(t.month).padStart(2,'0')}-${String(t.day).padStart(2,'0')}`:'');
   const p=s.split('-'); return p.length===3?`${p[1]}/${p[2]}`:s;
 };
@@ -1342,6 +1343,7 @@ function chart(sym,s,pos){
         <button type="button" data-range="126" class="on">6m</button>
         <button type="button" data-range="252">1y</button>
         <button type="button" data-range="0">2y</button>
+        ${s.h1?'<button type="button" class="tf" data-tf="h1" aria-pressed="false">1h</button>':''}
       </div>
       <div class="chread" id="${id}-read" aria-live="polite"></div>
     </div>
@@ -1362,7 +1364,7 @@ function destroyCharts(){
 function mountOneChart(item){
   const L=window.LightweightCharts, host=document.getElementById(chartKey(item.sym));
   if(!host||!L)return;
-  const s=item.s, dates=s.d||[], closes=s.c||[], n=closes.length;
+  const hourly=item.tf==='h1'&&item.s.h1, s=hourly?item.s.h1:item.s, dates=s.d||[], closes=s.c||[], n=closes.length;
   if(!n)return;
   const root=getComputedStyle(document.documentElement), css=k=>root.getPropertyValue(k).trim();
   const C={bg:css('--bg'),panel:css('--panel'),line:css('--line'),line2:css('--line2'),
@@ -1378,7 +1380,7 @@ function mountOneChart(item){
       vertLine:{color:C.line2,labelBackgroundColor:C.panel},
       horzLine:{color:C.line2,labelBackgroundColor:C.panel}},
     rightPriceScale:{borderColor:C.line2,scaleMargins:{top:.08,bottom:.26}},
-    timeScale:{borderColor:C.line2,timeVisible:false,rightOffset:3,barSpacing:7,minBarSpacing:2},
+    timeScale:{borderColor:C.line2,timeVisible:!!hourly,rightOffset:3,barSpacing:7,minBarSpacing:2},
     handleScroll:{mouseWheel:true,pressedMouseMove:true,horzTouchDrag:true,vertTouchDrag:false},
     handleScale:{axisPressedMouseMove:true,mouseWheel:true,pinch:true}
   });
@@ -1500,20 +1502,25 @@ function mountOneChart(item){
     setRead(p.seriesData.get(priceSeries),volumeSeries?p.seriesData.get(volumeSeries):null,p.time);
   });
 
-  const card=host.closest('.ch'), buttons=[...card.querySelectorAll('.chrange button')];
+  const card=host.closest('.ch'), buttons=[...card.querySelectorAll('.chrange button[data-range]')], tf=card.querySelector('.chrange .tf');
   const setRange=count=>{
     buttons.forEach(b=>{const active=Number(b.dataset.range)===count;
       b.classList.toggle('on',active);b.setAttribute('aria-pressed',String(active));});
-    if(!count||count>=n)api.timeScale().fitContent();
-    else api.timeScale().setVisibleLogicalRange({from:Math.max(0,n-count)-.5,to:n-.3});
+    const bars=hourly?count*7:count;   // about 7 hourly bars a session
+    if(!count||bars>=n)api.timeScale().fitContent();
+    else api.timeScale().setVisibleLogicalRange({from:Math.max(0,n-bars)-.5,to:n-.3});
   };
   buttons.forEach(b=>b.addEventListener('click',()=>setRange(Number(b.dataset.range))));
+  if(tf){tf.classList.toggle('on',!!hourly);tf.setAttribute('aria-pressed',String(!!hourly));
+    tf.onclick=()=>{const i=CHART_INSTANCES.findIndex(x=>x.host===host);   // redraw this one chart on the other timeframe
+      if(i>=0){try{CHART_INSTANCES[i].ro.disconnect();CHART_INSTANCES[i].api.remove()}catch(e){} CHART_INSTANCES.splice(i,1);}
+      mountOneChart({...item,tf:hourly?null:'h1'});};}
   const defaultRange=host.clientWidth<520?66:126;
   setRange(n>defaultRange?defaultRange:0);
 
   const resize=()=>{if(host.clientWidth>0)api.applyOptions({width:host.clientWidth,height:host.clientHeight||360})};
   const ro=new ResizeObserver(resize);ro.observe(host);resize();
-  CHART_INSTANCES.push({api,ro});
+  CHART_INSTANCES.push({api,ro,host});
 }
 
 function mountCharts(){
