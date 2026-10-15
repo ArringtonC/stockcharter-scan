@@ -888,6 +888,31 @@
   "vix_fires": false,
   "F": [
    "ZS",
+   "NOW",
+   "BE",
+   "MU"
+  ],
+  "D": [
+   "TXN",
+   "GOOGL",
+   "CSCO",
+   "CRM",
+   "U",
+   "OXY",
+   "AMD",
+   "SNOW",
+   "SG"
+  ],
+  "C": [],
+  "S": []
+ },
+ {
+  "date": "2026-10-15",
+  "vix": 17.350000381469727,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
    "BE",
    "NOW"
   ],
