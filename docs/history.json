@@ -933,21 +933,26 @@
  },
  {
   "date": "2026-10-16",
-  "vix": 17.34000015258789,
+  "vix": 19.989999771118164,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS",
-   "NOW"
+   "NOW",
+   "SNOW"
   ],
   "D": [
-   "MRNA",
    "CRM",
-   "OXY",
+   "MRNA",
    "REGN",
+   "OXY",
+   "SHOP",
+   "SG",
    "DOCU"
   ],
-  "C": [],
+  "C": [
+   "OXY"
+  ],
   "S": []
  }
 ]
