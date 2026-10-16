@@ -933,8 +933,8 @@
  },
  {
   "date": "2026-10-16",
-  "vix": 16.1299991607666,
-  "regime": "NORMAL",
+  "vix": 15.899999618530273,
+  "regime": "CALM",
   "vix_fires": false,
   "F": [
    "ZS",
@@ -943,11 +943,10 @@
   "D": [
    "MRNA",
    "OXY",
-   "CRM",
-   "REGN",
    "XYZ",
+   "REGN",
    "GM",
-   "META",
+   "DOCU",
    "DVN"
   ],
   "C": [],

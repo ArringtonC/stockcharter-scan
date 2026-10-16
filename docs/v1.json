@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-16T09:00-05:00",
+ "updated": "2026-10-16T10:11-05:00",
  "day": "2026-10-16",
  "market": {
   "state": "BEARISH",
   "score": -3,
   "confirmed": true,
   "at": "2026-10-16T09:00-05:00",
-  "data_time": "2026-10-16T09:00-05:00",
+  "data_time": "2026-10-16T10:05-05:00",
   "parts": {
    "es": -1,
    "es_mid": 7792.12,
@@ -22,18 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-15T12:35-05:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-15T12:40-05:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
   {
    "at": "2026-10-15T12:45-05:00",
    "state": "BULLISH",
@@ -140,6 +128,18 @@
    "at": "2026-10-16T09:00-05:00",
    "state": "BEARISH",
    "score": -3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-16T10:00-05:00",
+   "state": "MIXED",
+   "score": 0,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-16T10:05-05:00",
+   "state": "MIXED",
+   "score": -2,
    "confirmed": true
   }
  ],
@@ -5763,7 +5763,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-10-16T09:00-05:00"
+    "at": "2026-10-16T10:11-05:00"
    }
   },
   {
@@ -7637,7 +7637,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-10-16T09:00-05:00"
+    "at": "2026-10-16T10:11-05:00"
    }
   },
   {
@@ -9507,11 +9507,11 @@
     ]
    },
    "state": {
-    "state": "WAIT",
+    "state": "MISSED",
     "codes": [
-     "TRIGGER_WAITING"
+     "CHASE_EXCEEDED"
     ],
-    "at": "2026-10-16T09:00-05:00"
+    "at": "2026-10-16T10:11-05:00"
    }
   },
   {
