@@ -930,5 +930,30 @@
    "AMGN"
   ],
   "S": []
+ },
+ {
+  "date": "2026-10-16",
+  "vix": 16.030000686645508,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW",
+   "DELL"
+  ],
+  "D": [
+   "OXY",
+   "CRM",
+   "XYZ",
+   "REGN",
+   "DVN",
+   "PLTR",
+   "META"
+  ],
+  "C": [
+   "LLY",
+   "AMGN"
+  ],
+  "S": []
  }
 ]
