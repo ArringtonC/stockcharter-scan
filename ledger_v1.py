@@ -461,7 +461,9 @@ def improve(c, who="owner", now=None):
         if sym in INDEXES: p = dict(sym=sym, complete=False, missing=[])
         else:
             e = next_earnings(sym, now.date(), 12)
-            p = make_plan(sym, S.bars(sym), yf(sym, "10d", "15m"), e.isoformat() if e else None)
+            done = now.weekday() >= 5 or (now.hour, now.minute) >= (15, 0)      # after the close: today's bar counts (it is tomorrow's prep)
+            p = make_plan(sym, S.bars(sym), yf(sym, "10d", "15m"), e.isoformat() if e else None,
+                          (now.date() + dt.timedelta(days=1)).isoformat() if done else None)
         p["source"] = source_of(sym, d, L)
     mk = (st.get("mk") or {}).get("last") if st.get("day") == now.date().isoformat() else None
     mk = mk or market(now)
