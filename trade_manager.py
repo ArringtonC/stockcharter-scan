@@ -197,6 +197,37 @@ def charts():
                       + (f" · {p['m15']['direction']} past ${p['m15']['trigger']:,.2f}" if p.get("complete") else "") for s, p in s1.get("plans", {}).items()])
 
 
+def chart_events(r, b):
+    """Pure. The chart-side exits for one open trade from daily bars (date, close, high, low, ...):
+    target touched (the stop now sits at the target), floor hit (fell back to it), and a close under
+    the 30-day EMA (the thesis line Version 1 uses). Returns [(key, message)]."""
+    import scan_daily as S
+    after = [x for x in b if x[0] > r["opened"]]; out = []
+    tgt = float(r["target"] or 0); name = f"{r['symbol']} " + (f"${float(r['strike']):g}{r['kind'][0].upper()}" if r["kind"] != "shares" else "shares")
+    if tgt and after:
+        i = next((n for n, x in enumerate(after) if x[2] >= tgt), None)
+        if i is not None:
+            out.append(("tgt", f"🎯 **{name} touched the target ${tgt:,.2f}** ({after[i][0][5:]}) -- the stop now sits at the target"))
+            if any(x[3] <= tgt for x in after[i + 1:]): out.append(("floor", f"🛑 **{name} fell back to the target floor ${tgt:,.2f}** -- the rule says sell"))
+    c = [x[1] for x in b]
+    if len(c) > 31:
+        e = S.ema(c, 30)
+        if c[-1] < e[-1] and c[-2] >= e[-2] * (1 - 1e-9):      # the cross day only (tolerance: float EMA)
+            out.append((f"e30:{b[-1][0]}", f"📉 **{name}: {r['symbol']} closed under the 30-day EMA** ${e[-1]:,.2f} (close ${c[-1]:,.2f}) -- the thesis line; decide, don't drift"))
+    return out
+
+
+def watch_charts(rs, st, tag=""):
+    """Once a day after the close: the chart exits for every open real trade, shares and options."""
+    import scan_daily as S
+    for r in [r for r in rs if (r["acct"] == "real" or r["acct"].startswith("friend-")) and r["status"] == "open"]:
+        try: b = S.bars(r["symbol"])
+        except Exception: continue
+        for key, msg in chart_events(r, b):
+            k = f"{r['id']}:{key}"
+            if not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
+
+
 def main():
     st = json.load(open(STATE)) if os.path.exists(STATE) else {}
     msgs = api(f"/channels/{CH}/messages?limit=20" + (f"&after={st['last']}" if st.get("last") else ""))
@@ -223,6 +254,10 @@ def main():
     try:
         watch(rows(), st)
         for fid in FRIENDS: watch(rows(fid), st, f"<@{fid}> ")
+        now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5))); day = now.date().isoformat()
+        if now.weekday() < 5 and (now.hour, now.minute) >= (15, 10) and st.get("charts_day") != day:   # once, after the close
+            st["charts_day"] = day; watch_charts(rows(), st)
+            for fid in FRIENDS: watch_charts(rows(fid), st, f"<@{fid}> ")
     except Exception as e: print("watch failed", e)
     json.dump(st, open(STATE, "w"))
 
@@ -242,6 +277,16 @@ if __name__ == "__main__":
         assert gate("AMZN", 11, 302, 850, ["level broke up 10-09"], False, 0.03)[0] == "WAIT" and gate("AMZN", 11, 302, 850, [], False, 0.03)[0] == "PASS"
         assert gate("NOW", 8, 386, 850, ["Setup F"], False, 0.04)[0] == "APPROVED" and gate("BE", 0, 98, 850, ["Setup F"], False, 0.04)[0] == "WAIT"
         assert gate("NOW", 8, 386, 850, ["Setup F"], True, 0.04)[0] == "WAIT" and gate("NOW", 8, 900, 850, ["Setup F"], False, 0.04)[0] == "PASS"
+        # chart exits: target touched, floor hit, close under the 30 EMA (once, on the cross day)
+        mk = lambda i, c, h, l: (f"2026-09-{i:02d}", c, h, l, c, 0)
+        B = [mk(i, 100 + i * 0.1, 100.3 + i * 0.1, 99.8 + i * 0.1) for i in range(1, 29)]
+        row = dict(id="t", symbol="X", kind="shares", opened="2026-09-10", target="110", strike="")
+        assert chart_events(row, B) == []
+        assert [k for k, _ in chart_events(row, B + [mk(29, 109, 110.5, 108)])] == ["tgt"]
+        assert [k for k, _ in chart_events(row, B + [mk(29, 109, 110.5, 108), mk(30, 109.5, 111, 109.9)])] == ["tgt", "floor"]
+        D = [mk(i, 100, 101, 99) for i in range(1, 32)] + [mk(32, 90, 91, 89)]      # 32 bars: the cross day is the last
+        ev = chart_events(dict(row, target=""), D); assert len(ev) == 1 and ev[0][0].startswith("e30:"), ev
+        assert chart_events(dict(row, target=""), D + [mk(33, 90, 91, 89)]) == []           # still under: no repeat
         print("tm ok")
     else:
         main()
