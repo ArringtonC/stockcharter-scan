@@ -222,5 +222,16 @@
   "target_down": 178.0,
   "close": true,
   "cross": true
+ },
+ {
+  "symbol": "AMAT",
+  "pattern": "weekly breakdown: lower high at 547 after the 740 top, lost the weekly 30 EMA (480), 5 red days to the week's low",
+  "tf": "1W",
+  "logged": "2026-10-15",
+  "up": 447.0,
+  "down": 418.24,
+  "target_up": 480.0,
+  "target_down": 400.0,
+  "note": "Arrington 2026-10-15: 'AMAT is a good short'. Down = this week's low; up = the 10-14 close (reclaim = thesis fails)."
  }
 ]
