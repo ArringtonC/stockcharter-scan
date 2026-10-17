@@ -1,0 +1,7 @@
+[Unit]
+Description=Ledger scan on the Central-time slots
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /root/run-scan.sh
+StandardOutput=append:/root/ledger-scan.log
+StandardError=append:/root/ledger-scan.log
