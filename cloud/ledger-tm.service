@@ -3,5 +3,5 @@ Description=Ledger trade manager (Discord) + Version 1 tick
 [Service]
 Type=oneshot
 WorkingDirectory=/root/ledger
-EnvironmentFile=/root/.stockcharter.env
-ExecStart=/usr/bin/python3 /root/ledger/trade_manager.py
+# the env file uses "export X=..." lines, so a shell sources it (EnvironmentFile= cannot)
+ExecStart=/bin/bash -c 'set -a; . /root/.stockcharter.env; set +a; exec /usr/bin/python3 /root/ledger/trade_manager.py'
