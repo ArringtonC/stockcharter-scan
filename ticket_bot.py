@@ -149,7 +149,7 @@ def main():
         c = pick(spot, [(x["expiration_date"], float(x["strike_price"])) for x in cs],
                  lambda e, k: quote(sym, e, k), next_earnings(sym, today), today)
         if not c: print(f"tickets: {sym} -- no call fits (cap, earnings, spread)"); continue
-        import trade_manager as TM                     # the same gate he uses in #trade-log
+        import trade_manager as TM                     # the same gate he uses in #ask-ledger
         sig, _ = TM.signal(sym); dte = (datetime.date.fromisoformat(c["expiry"]) - today).days
         v, gwhy = TM.gate(sym, dte, c["ask"] * 100, CAP, sig, False, (c["ask"] - c["bid"]) / c["ask"])
         if v != "APPROVED": print(f"tickets: {sym} -- gate says {v}: {gwhy}"); continue

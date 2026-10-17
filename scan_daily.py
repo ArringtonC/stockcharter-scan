@@ -1921,7 +1921,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
         W_ += [f"<b>🟡 F FORMING · {x['sym']} ${x['px']:,.2f}</b>" + (" · CORE" if x["sym"] in CORE else ""),
                f"{x['dd']:.0f}% UNDER ITS 1-YEAR HIGH · TARGET ${x['tgt']:,.2f} (+{x['up']:.0f}%)",
                f"10-DAY EMA {x['gap']:.1f}% UNDER THE 30 AND RISING · the green + would make it Setup F",
-               "<i>get ready, not a buy · check it in #trade-log when it fires</i>", ""]
+               "<i>get ready, not a buy · check it in #ask-ledger when it fires</i>", ""]
     for x in d.get("ihs", []):   # a full ticket: what, how many, what price, when too late, stop, dollars at risk
         q = x.get("qty", 0)
         W_ += [f"<b>📐 PATTERN #7 · PAPER TEST · {x['sym']} · SHARES · {x['tf']}</b>",

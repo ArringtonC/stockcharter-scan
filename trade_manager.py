@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Trade manager (2026-10-12): Arrington texts the Ledger bot in Discord #trade-log; it checks, logs,
+"""Trade manager (2026-10-12): Arrington texts the Ledger bot in Discord #ask-ledger; it checks, logs,
 watches and journals his REAL trades. It never places an order -- every order is his click.
 
   check AMZN 10/23 265C        -> the pre-trade check: Ledger signal? cost vs the 7% cap, breakeven,
@@ -18,7 +18,7 @@ FRIENDS = {"1288838148436136057": "jcbreeze"}   # 2026-10-12: sized as if it wer
 STATE = os.path.expanduser("~/.ledger-tm.json")
 H = os.path.dirname(os.path.abspath(__file__))
 YEAR = datetime.date.today().year
-HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #trade-log:\n`check META calls` · `check BE 10/16 272.50 call` · "
+HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #ask-ledger:\n`check META calls` · `check BE 10/16 272.50 call` · "
         "`bought AMZN 10/23 265C 3.18` · `sold AMZN 265C 4.90` · `trades` · `pin META` · `unpin META` · `charts` · `report`\n"
         "I answer WAIT, NOW, HOLD, OUT, MISSED, NO TRADE or DATA STALE. I log, watch and journal. You place every order.")
 
@@ -132,7 +132,7 @@ def bought(c, rs, who=OWNER):
     br = bracket(c["px"]); sig, _ = signal(c["sym"])
     rs.append(dict(id=rid, kind=kind, acct="real" if who == OWNER else "friend-" + FRIENDS[who], opened=today, symbol=c["sym"], setup=", ".join(sig) or "none", entry=f"{c['px']:.2f}",
                    target="", strike=f"{c['k']:g}", expiry=c["exp"], contracts=str(c["n"]), status="open", closed="", exit="", pl_pct="",
-                   note=f"REAL. Logged from Discord #trade-log. Bracket: take profit {br['tp']}, stop {br['sl']}; 2x {br['lock']} locks the gain."))
+                   note=f"REAL. Logged from Discord #ask-ledger. Bracket: take profit {br['tp']}, stop {br['sl']}; 2x {br['lock']} locks the gain."))
     save(rs, who)
     return (f"✅ **LOGGED · {c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']} × {c['n']} @ ${c['px']:.2f}** (${c['px'] * 100 * c['n']:,.0f})\n"
             f"Enter now in Schwab: take-profit limit **${br['tp']}** + stop **${br['sl']}** (OCO)\n"

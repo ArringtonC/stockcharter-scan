@@ -374,9 +374,10 @@ def tick(say, now=None):
         if prev and prev["confirmed"] == mk["confirmed"] and not settled(st["mk_hist"], mk["state"]):
             mk = dict(prev, data_time=mk["data_time"])      # a flicker: keep the settled state (2026-10-13: 14 flips in one day)
         if not prev or prev["state"] != mk["state"] or prev["confirmed"] != mk["confirmed"]:
-            say(f"**MARKET {mk['state']}** · score {mk['score']:+d} · {'confirmed' if mk['confirmed'] else 'provisional (before 8:45)'}\n"
+            from scan_daily import discord            # the market read lives in #market-report, not the bot channel (2026-10-16)
+            discord(f"**MARKET {mk['state']}** · score {mk['score']:+d} · {'confirmed' if mk['confirmed'] else 'provisional (before 8:45)'}\n"
                 f"ES {mk['parts']['es']:+d} · NQ {mk['parts']['nq']:+d} · SPY {mk['parts']['spy']:+d} · QQQ {mk['parts']['qqq']:+d} · breadth/VIX {mk['parts']['breadth_vix']:+d}\n"
-                f"_{now.strftime('%-I:%M %p CT')} · context only, not a trade · rules v{RULE_VERSION}_")
+                f"_{now.strftime('%-I:%M %p CT')} · context only, not a trade · rules v{RULE_VERSION}_", "market")
             record(dict(kind="market", day=day, market=mk))
         st["mk"]["last"] = mk
     mk = st["mk"].get("last")
