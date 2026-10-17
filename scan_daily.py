@@ -13,7 +13,7 @@ trades.csv is the paper book. This script marks it to market and auto-closes:
           falls back to that floor, or at 252 sessions. (Tested: +6pp over closing at target.)
   calls   mark with a real quote (Schwab, then Alpaca), falling back to Black-Scholes; close at expiry at intrinsic
 """
-import urllib.request, urllib.parse, json, datetime, time, os, gzip, csv, math
+import urllib.request, urllib.parse, json, datetime, time, os, gzip, csv, math, html
 from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -1004,8 +1004,8 @@ def patterns_for(b, n):
     return out
 
 
-def chart_data(d, open_, n=504):
-    want = {r["symbol"] for r in open_}; real = {r["symbol"] for r in open_ if r.get("acct") == "real"}
+def chart_data(d, open_, n=504, hourly_for=()):
+    want = {r["symbol"] for r in open_}; real = {r["symbol"] for r in open_ if r.get("acct") == "real"} | set(hourly_for)
     want |= {x["sym"] for k in ("F", "C", "S", "watch") for x in d.get(k, [])}
     lv = {}
     try:
@@ -1071,6 +1071,68 @@ def hourly(sym):
     c = [x[4] for x in b]
     return dict(d=[x[0] for x in b], o=[round(x[1], 2) for x in b], h=[round(x[2], 2) for x in b], l=[round(x[3], 2) for x in b],
                 c=[round(x, 2) for x in c], v=[int(x[5]) for x in b], e10=[round(x, 2) for x in ema(c, 10)], e30=[round(x, 2) for x in ema(c, 30)], pat=[])
+
+
+def focus_syms(d, open_):
+    """The names the Focus page shows: real holds, today's Setup F, the Version 1 workspace, unfired levels."""
+    out = [r["symbol"] for r in open_ if r.get("acct") == "real"] + [r["sym"] for r in d.get("F", [])]
+    try: out += list(json.load(open(os.path.expanduser("~/.ledger-v1/state.json"))).get("plans", {}))
+    except Exception: pass
+    try: out += [x["symbol"] for x in json.load(open(LEVELS)) if not x.get("fired")]
+    except Exception: pass
+    return [x for x in dict.fromkeys(out) if not x.startswith("^")][:14]
+
+
+def news_feed(sym, n=20):
+    """Dated headlines for one stock from Yahoo's RSS (free). [] on failure."""
+    import re, email.utils
+    try:
+        x = urllib.request.urlopen(urllib.request.Request(
+            f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={sym}&region=US&lang=en-US", headers=YF), timeout=20).read().decode("utf-8", "ignore")
+    except Exception: return []
+    out = []
+    for it in re.findall(r"<item>(.*?)</item>", x, re.S)[:n]:
+        t = re.search(r"<title>(.*?)</title>", it, re.S); p = re.search(r"<pubDate>(.*?)</pubDate>", it); l = re.search(r"<link>(.*?)</link>", it)
+        if not (t and p): continue
+        try: when = email.utils.parsedate_to_datetime(p.group(1)).astimezone(ZoneInfo("America/Chicago"))
+        except Exception: continue
+        out.append(dict(date=when.strftime("%Y-%m-%d"), kind="news", text=html.unescape(t.group(1)).replace("<![CDATA[", "").replace("]]>", "").strip()[:140],
+                        url=(l.group(1).strip() if l else None)))
+    return out
+
+
+def focus_data(d, open_, hist, rows):
+    """docs/focus.json: for each focus name, every dated event the chart can mark -- your trades, Setup F
+    fires, level alerts, SEC filings (180 days), news. The page draws one chart at a time (2026-10-17)."""
+    syms = focus_syms(d, open_); ev = {s: [] for s in syms}
+    for r in rows:
+        if r["symbol"] not in ev or r.get("acct") not in ("real", "paper", "small", "big"): continue
+        what = f"{r['contracts']} share(s)" if r["kind"] == "shares" else f"{r['expiry'][5:]} ${float(r['strike']):g}{r['kind'][0].upper()} ×{r['contracts']}"
+        tag = "REAL" if r["acct"] == "real" else "paper idea"
+        ev[r["symbol"]].append(dict(date=r["opened"], kind="buy", text=f"{tag}: bought {what} @ ${float(r['entry']):.2f}", up=True))
+        if r["status"] == "closed" and r.get("closed"):
+            pl = float(r["pl_pct"] or 0)
+            ev[r["symbol"]].append(dict(date=r["closed"], kind="sell", text=f"{tag}: sold {what} @ ${float(r['exit'] or 0):.2f} ({pl:+.0f}%)", up=pl >= 0))
+    prev = set()
+    for h in hist:                                     # the first day of each Setup F run
+        now_ = set(h.get("F", []))
+        for s in now_ - prev:
+            if s in ev: ev[s].append(dict(date=h["date"], kind="setup", text="Setup F fired", up=True))
+        prev = now_
+    try:
+        for x in json.load(open(LEVELS)):
+            f = x.get("fired") or {}
+            if x["symbol"] in ev and f.get("at"):
+                ev[x["symbol"]].append(dict(date=str(f["at"])[:10], kind="level", text=f"level broke {f['way']} at ${f['price']:,.2f} · {x['pattern'][:60]}", up=f["way"] == "up"))
+    except Exception: pass
+    try:
+        for f in company_filings(syms, days=180):
+            ev[f["sym"]].append(dict(date=f["date"], kind="filing", text=f"SEC {f['form']}: {f['what']}", url=f["url"]))
+    except Exception as e: print("focus filings failed", str(e)[:60])
+    for s in syms:
+        ev[s] += news_feed(s)
+        ev[s].sort(key=lambda e: e["date"], reverse=True)
+    return dict(generated=d["date"], syms=syms, events=ev)
 
 
 def third_friday(d):
@@ -2047,9 +2109,12 @@ if __name__ == "__main__":
                  C=[x["sym"] for x in d["C"]], S=[x["sym"] for x in d["S"]])
     hist = [h for h in hist if h["date"] != d["date"]] + [entry]
     json.dump(hist, open(HIST, "w"), indent=1)
+    fs = focus_syms(d, open_)
     d.update(open=open_, closed=closed, week=week(d, hist, closed, open_), setups=SETUPS,
-             charts=chart_data(d, open_), report=report(d, hist, open_, closed))
+             charts=chart_data(d, open_, hourly_for=fs), report=report(d, hist, open_, closed))
     json.dump(d, open(os.path.join(DOCS, "data.json"), "w"), indent=1, default=str)
+    try: json.dump(focus_data(d, open_, hist, open_ + closed), open(os.path.join(DOCS, "focus.json"), "w"), separators=(",", ":"))
+    except Exception as e: print("focus failed", str(e)[:80])
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")

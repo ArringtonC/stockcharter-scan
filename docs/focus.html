@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger Focus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:1100px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+.sub{color:var(--dim);font-size:var(--t-data)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 16px}
+.chips button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:6px 12px;font:600 var(--t-data) var(--mono);cursor:pointer}
+.chips button.on{color:var(--amber);border-color:var(--amber)}
+.hd{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;margin:0 0 6px}
+.hd b{font:600 var(--t-h2) var(--mono)}.hd span{font-size:var(--t-data);color:var(--ink2)}
+.bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px;align-items:center}
+.bar button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:4px 10px;font:500 var(--t-label) var(--mono);cursor:pointer;letter-spacing:var(--tr)}
+.bar button.on{color:var(--amber);border-color:var(--amber)}
+.bar .sp{flex:1}
+.filters label{font-size:var(--t-label);color:var(--dim);margin-left:10px;cursor:pointer}
+.chart{height:460px;border:1px solid var(--line);background:var(--bg)}
+@media(max-width:600px){.chart{height:360px}}
+.ev{margin-top:16px;display:grid;gap:6px}
+.e{display:grid;grid-template-columns:84px 92px 1fr;gap:10px;padding:8px 10px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:var(--t-data);align-items:baseline}
+.e:hover,.e.on{border-color:var(--amber)}
+.e .d{color:var(--dim);font-variant-numeric:tabular-nums}
+.e .k{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.k.buy{color:var(--up)}.k.sell{color:var(--amber)}.k.setup{color:var(--up)}.k.level{color:var(--amber)}.k.filing{color:#1e88e5}.k.news{color:var(--dim)}
+.e a{color:var(--ink);text-decoration:none}.e a:hover{text-decoration:underline}
+@media(max-width:600px){.e{grid-template-columns:70px 1fr}.e .k{grid-column:2}.e .t{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Focus</h1>
+<p class="sub" id="meta">Loading…</p>
+<div class="chips" id="chips"></div>
+<div class="hd" id="hd"></div>
+<div class="bar" id="bar"></div>
+<div class="chart" id="chart"></div>
+<div class="filters" id="filters"></div>
+<div class="ev" id="ev"></div>
+<p class="sub" style="margin-top:16px">One chart, one name. Marks: ▲ your buys, ▼ your sells, ✚ Setup F fire, ◆ level alert, ■ SEC filing, ● news. Tap an event to jump the chart to that day. Big green + / red X = the 10 EMA crossing the 30.</p>
+</div>
+<script src="vendor/lightweight-charts.standalone.production.js"></script>
+<script>
+const $=s=>document.querySelector(s), fp=x=>Number(x)>=1000?Number(x).toFixed(0):Number(x).toFixed(2);
+const KINDS={buy:['arrowUp','belowBar','▲'],sell:['arrowDown','aboveBar','▼'],setup:['circle','belowBar','✚'],level:['square','aboveBar','◆'],filing:['square','aboveBar','■'],news:['circle','aboveBar','●']};
+let api=null, series=null, cur=null, tf='d', show={buy:1,sell:1,setup:1,level:1,filing:1,news:0};
+Promise.all([fetch('data.json',{cache:'no-store'}).then(r=>r.json()),fetch('focus.json',{cache:'no-store'}).then(r=>r.json()).catch(()=>({syms:[],events:{}}))]).then(([d,f])=>{
+  const syms=(f.syms||[]).filter(s=>d.charts&&d.charts[s]); const held={}; (d.open||[]).forEach(r=>{(held[r.symbol]=held[r.symbol]||[]).push(r);});
+  $('#meta').textContent=`${syms.length} names · ${d.date} scan`;
+  const want=new URLSearchParams(location.search).get('s'); cur=syms.includes(want)?want:syms[0];
+  $('#chips').innerHTML=syms.map(s=>`<button data-s="${s}" class="${s===cur?'on':''}">${s}</button>`).join('');
+  $('#chips').onclick=e=>{const b=e.target.closest('button'); if(!b)return; cur=b.dataset.s; history.replaceState(null,'','?s='+cur); draw(d,f,held);};
+  draw(d,f,held);
+});
+function draw(d,f,held){
+  document.querySelectorAll('#chips button').forEach(b=>b.classList.toggle('on',b.dataset.s===cur));
+  const s0=d.charts[cur], s=tf==='h1'&&s0.h1?s0.h1:s0, ev=(f.events||{})[cur]||[], pos=held[cur]||[];
+  const n=s.c.length, last=s.c[n-1], prev=s.c[n-2]||last;
+  $('#hd').innerHTML=`<b>${cur}</b> <span>${fp(last)} · <span style="color:${last>=prev?'var(--up)':'var(--dn)'}">${((last/prev-1)*100).toFixed(1)}% last bar</span></span>`+
+    pos.map(p=>`<span>${p.kind==='shares'?`${p.contracts} sh @ ${fp(p.entry)}`:`${p.expiry.slice(5)} $${p.strike}${p.kind[0].toUpperCase()} @ ${fp(p.entry)}`} · ${p.acct}</span>`).join('');
+  $('#bar').innerHTML=`<button data-r="22">1m</button><button data-r="66" class="${tf==='d'?'on':''}">3m</button><button data-r="126">6m</button><button data-r="252">1y</button><button data-r="0">2y</button>`+
+    (s0.h1?`<span class="sp"></span><button data-tf="h1" class="${tf==='h1'?'on':''}">1h</button><button data-tf="d" class="${tf==='d'?'on':''}">D</button>`:'');
+  if(api){api.remove();api=null;}
+  const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts, host=$('#chart');
+  api=L.createChart(host,{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},
+    localization:{priceFormatter:fp},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},
+    rightPriceScale:{borderColor:v('--line2'),scaleMargins:{top:.1,bottom:.25}},timeScale:{borderColor:v('--line2'),timeVisible:tf==='h1',rightOffset:4}});
+  series=api.addSeries(L.CandlestickSeries,{upColor:v('--up'),downColor:v('--dn'),borderVisible:false,wickUpColor:v('--up'),wickDownColor:v('--dn'),priceLineColor:v('--amber')});
+  const T=s.d; series.setData(T.map((t,i)=>({time:t,open:s.o[i],high:s.h[i],low:s.l[i],close:s.c[i]})));
+  const line=(vals,color)=>{const ls=api.addSeries(L.LineSeries,{color,lineWidth:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});ls.setData(T.map((t,i)=>({time:t,value:vals[i]})));return ls;};
+  const s10=line(s.e10,'#43a047'); line(s.e30,'#1e88e5');
+  const X=[]; for(let i=1;i<n;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1]))X.push({time:T[i],price:s.e30[i],up:a});}
+  s10.attachPrimitive({paneViews:()=>[{renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:c})=>{X.forEach(m=>{const x=api.timeScale().timeToCoordinate(m.time),y=s10.priceToCoordinate(m.price);if(x==null||y==null)return;
+    const r=m.up?13:10;c.lineCap='round';const pen=(w,col)=>{c.lineWidth=w;c.strokeStyle=col;c.beginPath();if(m.up){c.moveTo(x-r,y);c.lineTo(x+r,y);c.moveTo(x,y-r);c.lineTo(x,y+r);}else{const q=r*.75;c.moveTo(x-q,y-q);c.lineTo(x+q,y+q);c.moveTo(x+q,y-q);c.lineTo(x-q,y+q);}c.stroke();};pen(9,v('--bg'));pen(5,m.up?'#00e676':'#ff1744');});})})}]});
+  const vol=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceScaleId:'volume',lastValueVisible:false,priceLineVisible:false});
+  vol.setData(T.map((t,i)=>({time:t,value:s.v[i]||0,color:(s.c[i]>=s.o[i]?v('--up'):v('--dn'))+'70'}))); api.priceScale('volume').applyOptions({visible:false,scaleMargins:{top:.8,bottom:0}});
+  pos.forEach(p=>{const mark=(price,title,color)=>price&&series.createPriceLine({price:+price,title,color,lineWidth:1,lineStyle:L.LineStyle.Dashed,axisLabelVisible:true});
+    if(p.kind==='shares')mark(p.entry,'ENTRY',v('--amber')); else mark(p.strike,`${p.strike}C`,v('--amber')); if(p.target)mark(p.target,p.armed?'STOP AT TARGET':'TARGET',p.armed?v('--dn'):v('--up'));});
+  // event marks: daily dates; on the hourly view they land on the first bar of that day
+  const dayOf=t=>typeof t==='number'?new Date(t*1000).toLocaleDateString('en-CA',{timeZone:'America/Chicago'}):t;
+  const firstBar={}; T.forEach(t=>{const k=dayOf(t); if(!(k in firstBar))firstBar[k]=t;});
+  const setMarks=(hi)=>{const m=ev.filter(e=>show[e.kind]&&firstBar[e.date]).map(e=>({time:firstBar[e.date],position:KINDS[e.kind][1],shape:KINDS[e.kind][0],
+      color:e===hi?v('--amber'):e.kind==='buy'||e.kind==='setup'?'#00e676':e.kind==='sell'?v('--amber'):e.kind==='level'?v('--amber'):e.kind==='filing'?'#1e88e5':v('--dim'),
+      text:e===hi?e.text.slice(0,40):(e.kind==='news'?'':KINDS[e.kind][2]),size:e===hi?2:1}));
+    m.sort((a,b)=>a.time<b.time?-1:a.time>b.time?1:0); L.createSeriesMarkers(series,m);};
+  setMarks(null);
+  const setRange=count=>{document.querySelectorAll('#bar button[data-r]').forEach(b=>b.classList.toggle('on',+b.dataset.r===count));const bars=tf==='h1'?count*7:count;
+    if(!count||bars>=n)api.timeScale().fitContent(); else api.timeScale().setVisibleLogicalRange({from:Math.max(0,n-bars)-.5,to:n+3});};
+  setRange(tf==='h1'?22:66);
+  $('#bar').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.tf){tf=b.dataset.tf;draw(d,f,held);}else setRange(+b.dataset.r);};
+  $('#filters').innerHTML=Object.keys(KINDS).map(k=>`<label><input type="checkbox" data-k="${k}" ${show[k]?'checked':''}> ${KINDS[k][2]} ${k}</label>`).join('');
+  $('#filters').onchange=e=>{show[e.target.dataset.k]=e.target.checked?1:0;renderList();setMarks(null);};
+  const renderList=()=>{const rows=ev.filter(e=>show[e.kind]);
+    $('#ev').innerHTML=rows.map((e,i)=>`<div class="e" data-i="${ev.indexOf(e)}"><span class="d">${e.date}</span><span class="k ${e.kind}">${KINDS[e.kind][2]} ${e.kind}</span><span class="t">${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.text}</a>`:e.text}</span></div>`).join('')||'<p class="sub">No events yet for this name.</p>';};
+  renderList();
+  $('#ev').onclick=e=>{const row=e.target.closest('.e'); if(!row||e.target.tagName==='A')return; const x=ev[+row.dataset.i]; document.querySelectorAll('.e').forEach(r=>r.classList.toggle('on',r===row));
+    const t=firstBar[x.date]; if(!t)return; const i=T.indexOf(t); api.timeScale().setVisibleLogicalRange({from:i-(tf==='h1'?60:30),to:i+(tf==='h1'?25:12)}); setMarks(x); window.scrollTo({top:$('#chart').offsetTop-20,behavior:'smooth'});};
+}
+</script>
+</body>
+</html>
