@@ -1138,24 +1138,26 @@ def focus_data(d, open_, hist, rows):
 
 
 def spy_event(d):
-    """docs/spy-events.json: one market event a day for the Focus page (the S&P chart, built like the
-    news-chart app): the top headline, the day's SPY move as the impact, scheduled events, VIX."""
+    """docs/spy-events.json: the S&P Focus chart's events. One record per headline and per scheduled
+    item (never bundled); sentiment "not rated"; no claimed impact. The page measures the reaction
+    (day, +1, +3, +5 sessions) from the bars itself (2026-10-17, after the dashboard critique)."""
     import re
     m = d.get("market") or {}
     if not m.get("heads"): return
     p = os.path.join(DOCS, "spy-events.json"); j = json.load(open(p)) if os.path.exists(p) else dict(events=[])
-    ev = [e for e in j["events"] if e["date"] != d["date"]]
-    chg = m.get("SPY") or 0.0; heads = m["heads"][:3]; sched = m.get("events") or []
+    ev = [e for e in j["events"] if e["date"] != d["date"] or e.get("kind") == "curated"]
     cats = [("Federal Reserve", r"\bfed\b|fomc|rate (cut|hike|signal)|powell|warsh"), ("Economic Data", r"\bcpi\b|jobs report|payroll|inflation|gdp|pce|unemployment|retail sales"),
             ("Trade Policy", r"tariff|trade (deal|war|talks)|sanction"), ("Geopolitics", r"iran|russia|ukraine|china|war\b|hormuz|troops|putin"),
             ("Corporate Earnings", r"earnings|quarter|results"), ("Market Volatility", r"vix|sell-?off|plunge|tumble|crash|rout"), ("AI / Tech", r"\bai\b|data center|nvidia|chip|openai")]
-    text = " ".join(heads + sched); c = next((c for c, rx in cats if re.search(rx, text, re.I)), "Market Sentiment")
-    ev.append(dict(id=int(d["date"].replace("-", "")), date=d["date"], title=heads[0], category=c,
-                   impact="positive" if chg > 0.5 else "negative" if chg < -0.5 else "neutral",
-                   description=" · ".join(heads[1:]) + (f" · Scheduled: {', '.join(sched)}" if sched else ""),
-                   priceImpact=f"{chg:+.1f}%", relevanceScore=min(10, 5 + int(abs(chg) * 2) + (1 if sched else 0)),
-                   source="Ledger market report", correlation=f"VIX {m['^VIX_px']:.1f} · {d.get('regime', '')}" if m.get("^VIX_px") else d.get("regime", "")))
-    json.dump(dict(generated=d["date"], events=sorted(ev, key=lambda e: e["date"])), open(p, "w"), separators=(",", ":"))
+    cat = lambda t: next((c for c, rx in cats if re.search(rx, t, re.I)), "Market Sentiment")
+    ctx = f"VIX {m['^VIX_px']:.1f} · {d.get('regime', '')}" if m.get("^VIX_px") else d.get("regime", "")
+    k = d["date"].replace("-", "")
+    for i, t in enumerate(m.get("events") or []):
+        ev.append(dict(id=f"s{k}{i}", date=d["date"], title=f"Scheduled: {t}", category="Scheduled Event", sentiment="not rated", source="Ledger market report", kind="scheduled"))
+    for i, h in enumerate(m["heads"][:3]):
+        ev.append(dict(id=f"h{k}{i}", date=d["date"], title=h, category=cat(h), sentiment="not rated", source="Ledger market report (Yahoo headline)", kind="headline", context=ctx))
+    j["events"] = sorted(ev, key=lambda e: e["date"]); j["generated"] = d["date"]
+    json.dump(j, open(p, "w"), separators=(",", ":"))
 
 
 def third_friday(d):
