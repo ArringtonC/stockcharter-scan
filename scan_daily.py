@@ -1085,13 +1085,15 @@ def focus_syms(d, open_):
     return [x for x in dict.fromkeys(out) if not x.startswith("^")][:22]
 
 
-def news_feed(sym, n=20):
-    """Dated headlines for one stock from Yahoo's RSS (free). [] on failure."""
+# the company name for the news search (Yahoo's ticker feed is thin: it missed Meta's Muse launch, 2026-10-17)
+COMPANY = {"META": "Meta Platforms", "NFLX": "Netflix", "NOW": "ServiceNow", "SG": "Sweetgreen", "SNAP": "Snap Inc", "AAPL": "Apple",
+           "AMZN": "Amazon", "BE": "Bloom Energy", "NVDA": "Nvidia", "PLTR": "Palantir", "GOOG": "Google", "SPCX": "SpaceX",
+           "DASH": "DoorDash", "QCOM": "Qualcomm", "ZS": "Zscaler", "SNOW": "Snowflake", "DELL": "Dell Technologies", "AMAT": "Applied Materials"}
+
+
+def _rss(url, n):
     import re, email.utils
-    try:
-        x = urllib.request.urlopen(urllib.request.Request(
-            f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={sym}&region=US&lang=en-US", headers=YF), timeout=20).read().decode("utf-8", "ignore")
-    except Exception: return []
+    x = urllib.request.urlopen(urllib.request.Request(url, headers=YF), timeout=20).read().decode("utf-8", "ignore")
     out = []
     for it in re.findall(r"<item>(.*?)</item>", x, re.S)[:n]:
         t = re.search(r"<title>(.*?)</title>", it, re.S); p = re.search(r"<pubDate>(.*?)</pubDate>", it); l = re.search(r"<link>(.*?)</link>", it)
@@ -1101,6 +1103,27 @@ def news_feed(sym, n=20):
         out.append(dict(date=when.strftime("%Y-%m-%d"), kind="news", text=html.unescape(t.group(1)).replace("<![CDATA[", "").replace("]]>", "").strip()[:140],
                         url=(l.group(1).strip() if l else None)))
     return out
+
+
+def news_feed(sym, n=20):
+    """Dated headlines for one stock: Yahoo's ticker feed plus a Google News search on the company name
+    (product launches, deals, executive news that the ticker feed misses). De-duplicated by title."""
+    import urllib.parse
+    out = []
+    try: out += _rss(f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={sym}&region=US&lang=en-US", n)
+    except Exception: pass
+    try:
+        q = urllib.parse.quote(COMPANY.get(sym, sym))
+        for e in _rss(f"https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en", 40):
+            e["text"] = e["text"].rsplit(" - ", 1)[0] if " - " in e["text"] else e["text"]; e["src"] = "Google News"
+            out.append(e)
+    except Exception: pass
+    seen = set(); uniq = []
+    for e in out:
+        k = e["text"].lower()[:60]
+        if k in seen: continue
+        seen.add(k); uniq.append(e)
+    return uniq
 
 
 def focus_data(d, open_, hist, rows):

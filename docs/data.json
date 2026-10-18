@@ -1,6 +1,6 @@
 {
  "date": "2026-10-17",
- "stamp": "2026-10-18 02:24 UTC",
+ "stamp": "2026-10-18 02:54 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 19.989999771118164,
@@ -3700,6 +3700,13 @@
    }
   ],
   "by_setup": {
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": -2.0373648239627338
+   },
    "F": {
     "wins": 0,
     "losses": 1,
@@ -3714,6 +3721,13 @@
     "open_n": 5,
     "open_mean": -0.6547342142268003
    },
+   "Setup F": {
+    "wins": 1,
+    "losses": 1,
+    "closed_mean": 7.199999999999999,
+    "open_n": 0,
+    "open_mean": null
+   },
    "C": {
     "wins": 0,
     "losses": 2,
@@ -3727,20 +3741,6 @@
     "closed_mean": -38.75,
     "open_n": 4,
     "open_mean": 27.446698585037876
-   },
-   "Setup F": {
-    "wins": 1,
-    "losses": 1,
-    "closed_mean": 7.199999999999999,
-    "open_n": 0,
-    "open_mean": null
-   },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": -2.0373648239627338
    }
   },
   "produced": [
