@@ -383,6 +383,10 @@ def tick(say, now=None):
     mk = st["mk"].get("last")
     if not mk or (now.hour, now.minute) < (8, 35): return save_state(st)
     equity = S.PLAN["balance"]
+    if mk.get("confirmed") and st.get("play_day") != now.date().isoformat() and (now.hour, now.minute) >= (8, 45):
+        st["play_day"] = now.date().isoformat()
+        try: play_of_day(st, mk, now, equity)
+        except Exception as ex: print("play failed", ex)
     for sym, p in st.get("plans", {}).items():
         try: step(sym, p, mk, st, say, now, equity)
         except Exception as ex: print("v1", sym, ex)
@@ -514,6 +518,57 @@ def improve(c, who="owner", now=None):
                 (m["targets"][0], f"TARGET 1 ${m['targets'][0]:,.2f}", "#2e7d32", "--"), (m["targets"][1], f"TARGET 2 ${m['targets'][1]:,.2f}", "#2e7d32", ":")], start=-130)
         except Exception as ex: print("chart failed", ex)
     return text, png
+
+
+def rank_play(plans, mk, spots):
+    """Pure. The one chart to prepare for today, by the rules: a tested source first (Setup F, Pattern 7),
+    the plan's side must agree with the market read, closest to its trigger wins. None on a CHOPPY read
+    or when nothing lines up -- "no play" is a real answer."""
+    if mk.get("state") == "CHOPPY": return None, "CHOPPY market: Version 1 stands aside"
+    best = None
+    for sym, p in plans.items():
+        if not p.get("complete") or not p.get("source"): continue
+        side = p["m15"]["direction"]
+        if (mk.get("state") == "BEARISH" and side == "CALLS") or (mk.get("state") == "BULLISH" and side == "PUTS"): continue
+        src = p["source"]["type"]; rank = 3 if src in ("Setup F", "Pattern 7") else 1
+        spot = spots.get(sym)
+        if spot is None: continue
+        dist = abs(spot - p["m15"]["trigger"]) / (p["m15"]["atr"] or 1)
+        if dist > 3: continue                                     # too far from the trigger to be today's play
+        key = (rank, -dist)
+        if best is None or key > best[0]: best = (key, sym, dist)
+    if not best: return None, f"{mk.get('state')} market: no prepared chart agrees with it and sits near its trigger"
+    return best[1], f"{plans[best[1]]['source']['type']} · {best[2]:.1f} ATR from the trigger · agrees with a {mk.get('state')} read"
+
+
+def play_of_day(st, mk, now, equity):
+    """8:45 CT, once: the one chart to watch today, with the plan and the contract that fits the rules.
+    It is a WAIT card -- the trigger still has to confirm; the NOW card follows on its own."""
+    import scan_daily as S
+    from scan_daily import discord
+    spots = {}
+    for sym in st.get("plans", {}):
+        try: spots[sym] = S.bars(sym, "5d")[-1][1]
+        except Exception: pass
+    sym, why = rank_play(st.get("plans", {}), mk, spots)
+    day = now.date().isoformat()
+    if not sym:
+        discord(f"**🎯 PLAY OF THE DAY · none**\n{why}.\n_{now.strftime('%-I:%M %p CT')} · rules v{RULE_VERSION} · Version 1 paper_", "trades")
+        record(dict(kind="play", day=day, sym=None, why=why, market=mk)); return
+    p = st["plans"][sym]; m = p["m15"]; right = "C" if m["direction"] == "CALLS" else "P"
+    try: opt, codes = choose(sym, right, spots[sym], now.date(), p["daily"]["earnings"], equity)
+    except Exception: opt, codes = None, ["quote failed"]
+    con = (f"{opt['exp'][5:].replace('-', '/')} ${opt['k']:g}{right} · ask ${opt['ask']:.2f} (${opt['ask'] * 100:,.0f}, fits the $400 cap)" if opt
+           else f"no contract fits the rules yet ({', '.join(codes) or 'nothing 3-9 days out'}) -- a stock position at 7% is the fallback")
+    text = (f"**🎯 PLAY OF THE DAY · {sym} {m['direction']}**\n{why}\n"
+            f"TRIGGER a 5-minute close {'above' if right == 'C' else 'below'} **${m['trigger']:,.2f}** on volume · MAX CHASE ${m['chase']:,.2f}\n"
+            f"STOP AREA ${m['stop']:,.2f} · TARGETS ${m['targets'][0]:,.2f} then ${m['targets'][1]:,.2f} · thesis fails past ${p['daily']['failure']:,.2f}\n"
+            f"CONTRACT {con}\n"
+            f"Now ${spots[sym]:,.2f} · market {mk['state']} ({mk['score']:+d}) · earnings {p['daily'].get('earnings') or 'none inside 12 days'}\n"
+            f"**WAIT.** The NOW card posts in #ask-ledger when the trigger confirms. Type `check {sym} {m['direction'].lower()}` for the live state.\n"
+            f"_{now.strftime('%-I:%M %p CT')} · rules v{RULE_VERSION} · Version 1 paper · not advice_")
+    discord(text, "trades")
+    record(dict(kind="play", day=day, sym=sym, why=why, plan=m, option=opt, market=mk))
 
 
 def write_site(st):
@@ -748,6 +803,13 @@ if __name__ == "__main__":
         assert sent == [] and not stt["pos"]
         h = [dict(state="MIXED")] * 3 + [dict(state="BEARISH")] * 2
         assert recap(dict(plans={"X": {}}, states={"X": dict(state="MISSED")}, mk={}), "2026-10-13").splitlines()[1] == "X: MISSED"
+        P = {"A": dict(complete=True, source=dict(type="Setup F"), m15=dict(direction="CALLS", trigger=100, atr=1)),
+             "B": dict(complete=True, source=dict(type="level"), m15=dict(direction="CALLS", trigger=100, atr=1)),
+             "C": dict(complete=True, source=dict(type="Setup F"), m15=dict(direction="PUTS", trigger=100, atr=1))}
+        assert rank_play(P, dict(state="BULLISH"), {"A": 99.5, "B": 99.9, "C": 100.2})[0] == "A"      # tested source beats a closer level
+        assert rank_play(P, dict(state="BEARISH"), {"A": 99.5, "B": 99.9, "C": 100.2})[0] == "C"      # only the puts plan agrees
+        assert rank_play(P, dict(state="CHOPPY"), {"A": 99.5})[0] is None
+        assert rank_play(P, dict(state="BULLISH"), {"A": 90, "B": 90, "C": 100})[0] is None            # 10 ATR away: no play
         assert not settled(h, "BEARISH") and settled(h + [dict(state="BEARISH")], "BEARISH")
         # replay: one PASS (NOW 10/16 140C), matching the locked plan's Part C
         assert [h[0] for h in HIST if replay_one(*h)[0] == "PASS"] == ["NOW 10/16 140C"]
