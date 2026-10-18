@@ -1154,8 +1154,21 @@ def focus_data(d, open_, hist, rows):
         for f in company_filings(syms, days=760):     # two years, the chart's span
             ev[f["sym"]].append(dict(date=f["date"], kind="filing", text=f"SEC {f['form']}: {f['what']}", url=f["url"]))
     except Exception as e: print("focus filings failed", str(e)[:60])
+    # the news history (docs/focus-history.json): refreshed once a day for the current and previous month
+    try:
+        import news_history as NH
+        hist_news = NH.load(); today = str(datetime.date.today())
+        stale = [s for s in syms if hist_news.get(s, {}).get("refreshed") != today and os.environ.get("LEDGER_NEWS_REFRESH", "1") == "1"]
+        if stale and datetime.datetime.now(ZoneInfo("America/Chicago")).hour < 9:     # the first run of the day only
+            NH.save(NH.refresh(hist_news, stale, NH.month_windows(2)))
+    except Exception as e: hist_news = {}; print("news history failed", str(e)[:60])
     for s in syms:
-        ev[s] += news_feed(s)
+        rows = news_feed(s) + hist_news.get(s, {}).get("events", [])
+        seen = set()
+        for e in rows:
+            k = e["text"].lower()[:60]
+            if k in seen: continue
+            seen.add(k); ev[s].append(e)
         ev[s].sort(key=lambda e: e["date"], reverse=True)
     return dict(generated=d["date"], syms=syms, events=ev)
 

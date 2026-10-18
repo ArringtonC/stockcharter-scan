@@ -1,6 +1,6 @@
 {
  "date": "2026-10-17",
- "stamp": "2026-10-18 02:54 UTC",
+ "stamp": "2026-10-18 03:14 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 19.989999771118164,
@@ -3707,19 +3707,12 @@
     "open_n": 2,
     "open_mean": -2.0373648239627338
    },
-   "F": {
+   "none": {
     "wins": 0,
-    "losses": 1,
-    "closed_mean": -51.5,
-    "open_n": 19,
-    "open_mean": -4.03049792193532
-   },
-   "E": {
-    "wins": 1,
-    "losses": 0,
-    "closed_mean": 70.7,
-    "open_n": 5,
-    "open_mean": -0.6547342142268003
+    "losses": 2,
+    "closed_mean": -38.75,
+    "open_n": 4,
+    "open_mean": 27.446698585037876
    },
    "Setup F": {
     "wins": 1,
@@ -3728,6 +3721,13 @@
     "open_n": 0,
     "open_mean": null
    },
+   "E": {
+    "wins": 1,
+    "losses": 0,
+    "closed_mean": 70.7,
+    "open_n": 5,
+    "open_mean": -0.6547342142268003
+   },
    "C": {
     "wins": 0,
     "losses": 2,
@@ -3735,12 +3735,12 @@
     "open_n": 1,
     "open_mean": -6.242849806421768
    },
-   "none": {
+   "F": {
     "wins": 0,
-    "losses": 2,
-    "closed_mean": -38.75,
-    "open_n": 4,
-    "open_mean": 27.446698585037876
+    "losses": 1,
+    "closed_mean": -51.5,
+    "open_n": 19,
+    "open_mean": -4.03049792193532
    }
   },
   "produced": [
