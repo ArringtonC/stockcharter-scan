@@ -69,6 +69,7 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <div class="panel ctl">
   <div class="row"><span class="lbl">Timeline</span><span class="modes" id="ranges"></span><span class="sub" id="span"></span></div>
   <div class="row"><span class="lbl">Position</span><input type="range" class="scrub" id="scrub" min="0" max="100" value="100" style="flex:1"></div>
+  <div class="row"><span class="lbl">Score</span><span class="modes" id="scores"><button data-s="8" class="on">8–10 only</button><button data-s="0">All</button></span><span class="sub">10 = ✓ (green up, red down)</span></div>
   <div class="row"><span class="lbl">Events</span><span class="pills" id="pills"></span></div>
   <div class="row"><span class="lbl">Chart view</span><span class="modes" id="modes"><button data-m="price" class="on">Price</button><button data-m="volatility">Volatility</button><button data-m="volume">Volume</button></span></div>
   <div class="tiles" id="tiles"></div>
@@ -86,7 +87,7 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <script>
 const $=s=>document.querySelector(s), fp=x=>Number(x)>=1000?Number(x).toFixed(0):Number(x).toFixed(2);
 const RANGES=[['1m',22],['3m',66],['6m',126],['1y',252],['2y',0]];
-let d,f,spy,hist,v1,cur='S&P 500',mode='price',range=126,endAt=null,cats=new Set(['all']),sel=null,api=null,series=null;
+let d,f,spy,hist,v1,cur='S&P 500',mode='price',range=126,endAt=null,cats=new Set(['all']),sel=null,api=null,series=null,minScore=8;
 Promise.all(['data.json','focus.json','spy-events.json','history.json','v1.json'].map(u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null))).then(([a,b,c,h,w])=>{
   d=a; f=b||{syms:[],events:{}}; spy=c||{events:[]}; hist=h||[]; v1=w||{};
   const syms=['S&P 500',...(f.syms||[]).filter(s=>d.charts&&d.charts[s])];
@@ -99,6 +100,7 @@ Promise.all(['data.json','focus.json','spy-events.json','history.json','v1.json'
   $('#scrub').oninput=e=>{endAt=+e.target.value;draw();};
   strip();
   $('#modes').onclick=e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;draw();};
+  $('#scores').onclick=e=>{const b=e.target.closest('button');if(!b)return;minScore=+b.dataset.s;document.querySelectorAll('#scores button').forEach(x=>x.classList.toggle('on',x===b));draw();};
   draw();
 });
 function strip(){
@@ -126,7 +128,7 @@ function draw(){
   document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
   const s=d.charts[cur==='S&P 500'?'^GSPC':cur]; if(!s){$('#chart').innerHTML='<p class="sub">No bars for this name.</p>';return;}
   const n=s.d.length, win=range&&range<n?range:n, end=endAt==null?n:Math.max(win,Math.round(win+(n-win)*endAt/100)), from=end-win, T=s.d.slice(from,end);
-  const ev=events(); const all=ev.filter(e=>e.date>=T[0]&&e.date<=T[T.length-1]);
+  const ev=events(); const all=ev.filter(e=>e.date>=T[0]&&e.date<=T[T.length-1]&&(e.relevanceScore||0)>=minScore);
   const catList=[...new Set(all.map(e=>e.category))];
   $('#pills').innerHTML=[`<button data-c="all" class="${cats.has('all')?'on':''}">All events (${all.length})</button>`,...catList.map(c=>`<button data-c="${c}" class="${cats.has(c)?'on':''}">${c} (${all.filter(e=>e.category===c).length})</button>`)].join('');
   $('#pills').onclick=e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.c;if(c==='all')cats=new Set(['all']);else{cats.delete('all');cats.has(c)?cats.delete(c):cats.add(c);if(!cats.size)cats=new Set(['all']);}draw();};
@@ -165,7 +167,8 @@ function draw(){
   }
   const col=e=>e.impact==='positive'?v('--up'):e.impact==='negative'?v('--dn'):v('--dim');
   const days=new Set(T);
-  const setMarks=()=>{const m=shown.filter(e=>days.has(e.date)).map(e=>({time:e.date,position:'aboveBar',shape:'circle',color:e.id===sel?'#FFD700':col(e),size:e.id===sel?2:1,text:e.id===sel?e.title.slice(0,36):''}));
+  const top=e=>(e.relevanceScore||0)>=10;
+  const setMarks=()=>{const m=shown.filter(e=>days.has(e.date)).map(e=>({time:e.date,position:'aboveBar',shape:top(e)?'square':'circle',color:e.id===sel?'#FFD700':col(e),size:e.id===sel?2:top(e)?1.6:1,text:e.id===sel?e.title.slice(0,36):top(e)?'✓':''}));
     m.sort((a,b)=>a.time<b.time?-1:a.time>b.time?1:0); L.createSeriesMarkers(series,m);};
   setMarks(); api.timeScale().fitContent();
   api.subscribeClick(p=>{if(!p.time)return;const e=shown.find(x=>x.date===p.time);if(e){focus(e,true);}});
@@ -180,8 +183,8 @@ function draw(){
     tip.style.display='block'; const W=wrap.clientWidth, tw=tip.offsetWidth; tip.style.left=Math.min(Math.max(8,p.point.x+16),W-tw-8)+'px'; tip.style.top=Math.max(8,p.point.y-20)+'px';});
   // feed
   $('#feed').innerHTML=shown.slice().reverse().map(e=>{const h=hiMap[e.date],px=s.c[s.d.indexOf(e.date)],fromHi=h&&px?((px/h-1)*100):null;
-    return `<div class="card ${e.id===sel?'on':''}" data-id="${e.id}"><span class="badge">${e.category}</span><h3>${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.title}</a>`:e.title}</h3>${e.description?`<p>${e.description}</p>`:''}
-      <div class="m"><span><i style="background:${col(e)}"></i>${e.impact} impact</span><span>Relevance ${e.relevanceScore}/10</span>${e.priceImpact?`<span class="${e.priceImpact.startsWith('-')?'dn':'up'}">${e.priceImpact} day</span>`:''}${fromHi!=null?`<span class="${fromHi>=-5?'up':fromHi>=-15?'nt':'dn'}">${fromHi>=0?'+':''}${fromHi.toFixed(1)}% from highs</span>`:''}<span>${e.source||''}</span><span>${e.date}</span>${e.correlation?`<span>${e.correlation}</span>`:''}</div></div>`;}).join('')||'<p class="sub">No events in this range.</p>';
+    return `<div class="card ${e.id===sel?'on':''}" data-id="${e.id}"><span class="badge">${e.category}</span>${top(e)?`<span class="badge" style="border-color:${col(e)};color:${col(e)}">✓ 10</span>`:''}<h3>${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.title}</a>`:e.title}</h3>${e.description?`<p>${e.description}</p>`:''}
+      <div class="m"><span><i style="background:${col(e)}"></i>${e.impact} impact</span><span>${top(e)?'✓ ':''}Relevance ${e.relevanceScore}/10</span>${e.priceImpact?`<span class="${e.priceImpact.startsWith('-')?'dn':'up'}">${e.priceImpact} day</span>`:''}${fromHi!=null?`<span class="${fromHi>=-5?'up':fromHi>=-15?'nt':'dn'}">${fromHi>=0?'+':''}${fromHi.toFixed(1)}% from highs</span>`:''}<span>${e.source||''}</span><span>${e.date}</span>${e.correlation?`<span>${e.correlation}</span>`:''}</div></div>`;}).join('')||'<p class="sub">No events in this range.</p>';
   $('#feed').onclick=ev2=>{const c2=ev2.target.closest('.card');if(!c2||ev2.target.tagName==='A')return;const e=shown.find(x=>String(x.id)===c2.dataset.id);if(e)focus(e,false);};
   function focus(e,fromChart){sel=e.id===sel?null:e.id;setMarks();document.querySelectorAll('.card').forEach(c2=>c2.classList.toggle('on',c2.dataset.id===String(sel)));
     if(sel!==null){const i=T.indexOf(e.date);if(i>=0)api.timeScale().setVisibleLogicalRange({from:Math.max(0,i-25),to:Math.min(T.length+3,i+15)});
