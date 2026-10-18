@@ -133,9 +133,7 @@ def main():
     q = lambda r: quote(r["symbol"], r["expiry"], float(r["strike"]))
     mine = [r for r in rs if r.get("acct") == BOOK and r["status"] == "open"]
     manage(mine, state, today, q, sell, "PAPER TICKET", tp=1.5)   # the same +50/-50 bracket as the trade manager
-    # the Ideas book: same exits, booked at the bid (ideas are a scorecard, not Alpaca orders)
-    manage([r for r in rs if r.get("acct") in IDEAS and r.get("kind") == "call" and r["status"] == "open" and r.get("expiry")],
-           state, today, q, lambda r, b: b, "PAPER IDEA")
+    # the Ideas book was retired 2026-10-17 (Version 1 records the original idea instead)
     mine = [r for r in mine if r["status"] == "open"]
     if mine: json.dump(state, open(STATE, "w")); save(rs); return print("tickets: one open already")
     d = json.load(open(os.path.join(DOCS, "data.json")))

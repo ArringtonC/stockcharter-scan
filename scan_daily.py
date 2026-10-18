@@ -1572,6 +1572,10 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
     from autotrade import SHARE_REAL
     pub = lambda R: [r for r in R if SHARE_REAL or r.get("acct") != "real"]
     out = []
+    # THE CUT (Arrington 2026-10-17): no Setup G watch, F FORMING, level or VIX cards, no shorts list -- untested
+    # or failed in the gauntlets. The data stays in data.json for the site, the bot and Version 1; only the
+    # Discord/Telegram message goes. Pattern #7 (ihs) still rides in the "watch" part, so that part goes to #trades.
+    d = {**d, "watch": [], "forming": [], "levels": [], "vix_fires": False, "S": []}
     send, why = should_push(d, open_, "mkt", market_key(d))
     if send:
         t = market_report(d); send_tg(t); send_dc(t, "market"); out.append(("market", why))
@@ -1579,13 +1583,13 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
         full = dict(title="WEEKEND REPORT · ALL TRADES", closed_days=7)
         send_tg(summary(d, open_, closed, **full))
         for route, part in summary(d if SHARE_REAL else {**d, "taken": []}, pub(open_), pub(closed), parts=True, **full).items():
-            if part: send_dc(part, route)
+            if part: send_dc(part, "trades" if route == "watch" else route)
         out.append(("weekend", "all positions"))
     elif dow < 5:
         nd = fresh(d)
         st_ = json.load(open(SENT)) if os.path.exists(SENT) else {"F": {}, "G": {}}
         sent_e = set(st_.get("E", []))
-        ev = [e for e in position_events(open_, closed, d) if "|".join(e) not in sent_e]
+        ev = []   # position cards are weekly (Saturday) since 2026-10-17; the bot's live board and exit texts cover the week
         ids = {i for _, i in ev}
         ev_open = [r for r in open_ if r["id"] in ids]; ev_closed = [r for r in closed if r["id"] in ids]
         if nd["F"] or nd["watch"] or nd.get("levels") or nd.get("ihs") or nd.get("forming") or nd.get("vix_fires") or ev:
@@ -1594,7 +1598,7 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
                           + (" · AFTER CLOSE · for tomorrow" if late else ""))
             send_tg(msg)
             for route, part in summary({**nd, "F": []}, [], pub(ev_closed), parts=True, after_close=late).items():
-                if part: send_dc(part, route)
+                if part: send_dc(part, "trades" if route == "watch" else route)
             for r in pub(ev_open):   # one message per position event: its chart, the update card under it
                 try: png = chart_pos(r)
                 except Exception as e: png = None; print(f"  chart {r['symbol']} failed: {str(e)[:40]}")

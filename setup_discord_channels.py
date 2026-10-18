@@ -12,7 +12,7 @@ import getpass, json, os, re, subprocess, urllib.request, urllib.error
 
 GUILD = "1533631423498424490"          # OOZEMeter server (oozemeter/research/WEEKLY-CHANNELS.md)
 LAYOUT = {"COMMUNITY": ["start-here", "general", "oozebot"],
-          "STOCKBOT": ["ask-ledger", "market-report", "trades", "trade-updates", "ledger", "paper-portfolio", "watchlist"]}
+          "STOCKBOT": ["ask-ledger", "market-report", "trades", "trade-updates", "ledger", "paper-portfolio"]}
 ROUTE = {"market-report": "DISCORD_WEBHOOK_MARKET", "trades": "DISCORD_WEBHOOK_TRADES",
          "trade-updates": "DISCORD_WEBHOOK_UPDATES", "ledger": "DISCORD_WEBHOOK_LEDGER",
          "paper-portfolio": "DISCORD_WEBHOOK_PAPER", "watchlist": "DISCORD_WEBHOOK_WATCH"}

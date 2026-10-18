@@ -228,6 +228,48 @@ def watch_charts(rs, st, tag=""):
             if not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
 
 
+def board_text(rs):
+    """The live board: every open real position with its live price and P&L, one message, edited in place."""
+    import scan_daily as S
+    from ticket_bot import quote
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5)))
+    L = [f"**📊 LIVE BOARD** · {now.strftime('%a %-I:%M %p')} CT · account ${S.PLAN['balance']:,.0f} (Schwab {S.PLAN.get('balance_as_of', '')[5:]})"]
+    tot = 0.0
+    for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open"]:
+        e = float(r["entry"]); n = int(r["contracts"] or 1)
+        try:
+            if r["kind"] == "call" and r.get("expiry"):
+                b, a = quote(r["symbol"], r["expiry"], float(r["strike"])); m = (a + b) / 2 if a else None
+                name = f"{r['symbol']} {r['expiry'][5:]} ${float(r['strike']):g}C ×{n}"; pl = (m - e) * 100 * n if m else None
+            else:
+                m = S.bars(r["symbol"], "5d")[-1][1]; name = f"{r['symbol']} {n} sh"; pl = (m - e) * n
+        except Exception: m = pl = None; name = r["symbol"]
+        if pl is not None: tot += pl
+        L.append(f"{name} · ${e:.2f} → {'$%.2f' % m if m else '—'} · {('+' if pl >= 0 else '−') + '$%s' % f'{abs(pl):,.0f}' if pl is not None else 'no quote'}"
+                 + (f" ({100 * (m / e - 1):+.0f}%)" if m else ""))
+    L.append(f"**Open P&L {'+' if tot >= 0 else '−'}${abs(tot):,.0f}** · edited every minute in market hours · not advice")
+    return "\n".join(L)[:1990]
+
+
+def board(rs, st):
+    """Post the board once, then edit the same message every minute (no new messages, no pings)."""
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5))); day = now.date().isoformat()
+    live = now.weekday() < 5 and (8, 25) <= (now.hour, now.minute) <= (15, 5)
+    if not live and st.get("board_day") == day: return
+    if not st.get("board_ch"):
+        chans = api(f"/guilds/1533631423498424490/channels")
+        c = next((c for c in chans if c.get("name") == "trade-updates"), None)
+        if not c: return
+        st["board_ch"] = c["id"]
+    text = board_text(rs)
+    try:
+        if st.get("board_id"): api(f"/channels/{st['board_ch']}/messages/{st['board_id']}", {"content": text}, method="PATCH")
+        else: raise KeyError("no board yet")
+    except Exception:
+        m = api(f"/channels/{st['board_ch']}/messages", {"content": text}); st["board_id"] = m.get("id")
+    st["board_day"] = day
+
+
 def main():
     st = json.load(open(STATE)) if os.path.exists(STATE) else {}
     msgs = api(f"/channels/{CH}/messages?limit=20" + (f"&after={st['last']}" if st.get("last") else ""))
@@ -251,6 +293,8 @@ def main():
     try:
         import ledger_v1 as V; V.tick(say)              # Version 1: market, seven charts, states -- sends only on change
     except Exception as e: print("v1 tick failed", e)
+    try: board(rows(), st)
+    except Exception as e: print("board failed", e)
     try:
         watch(rows(), st)
         for fid in FRIENDS: watch(rows(fid), st, f"<@{fid}> ")
@@ -287,6 +331,8 @@ if __name__ == "__main__":
         D = [mk(i, 100, 101, 99) for i in range(1, 32)] + [mk(32, 90, 91, 89)]      # 32 bars: the cross day is the last
         ev = chart_events(dict(row, target=""), D); assert len(ev) == 1 and ev[0][0].startswith("e30:"), ev
         assert chart_events(dict(row, target=""), D + [mk(33, 90, 91, 89)]) == []           # still under: no repeat
+        bt = board_text([dict(acct="real", status="open", kind="shares", symbol="NOW", entry="138.11", contracts="1", expiry="", strike="")])
+        assert bt.startswith("**📊 LIVE BOARD**") and "NOW 1 sh" in bt and "Open P&L" in bt, bt
         print("tm ok")
     else:
         main()

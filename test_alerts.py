@@ -152,7 +152,7 @@ for _ in (1, 2):
     runs.append(got)
 print("  run 1 sent:", [(w, t.splitlines()[0][:50]) for w, t in runs[0]])
 print("  run 2 sent:", runs[1])
-assert any("BUY NEWB" in t for _, t in runs[0]) and any("ZS" in t for _, t in runs[0]) and runs[1] == []
+assert any("BUY NEWB" in t for _, t in runs[0]) and not any("ZS" in t for _, t in runs[0]) and runs[1] == []   # position cards are weekly now
 # Saturday: every open position is in the weekend report, even ones already sent
 got = []; S.dispatch(dd2, [held], [], 5, send_tg=got.append, send_dc=lambda t, r: None)
 assert "WEEKEND REPORT" in got[-1] and "ZS" in got[-1]

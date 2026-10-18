@@ -229,8 +229,8 @@ def recap_text(acct, positions, trades, plan=PLAN, real=True):
           + (f" · Schwab {plan['balance_as_of'][5:].replace('-', '/')}" if plan.get("balance_as_of") else "")]
     if show_real: L += [row(lab, a, b) for (a, b, lab), r in zip(rd, real) if r["status"] == "open"] + [""]
 
-    for title, accts, st in (("🤖 SETUP F", ("bot", "paper-auto"), START), ("🤖 SETUP F · LEAPS", ("bot-leaps",), START),
-                             ("🤖 TICKET CALLS · $12k, one at a time", ("bot-tickets",), 12_000.0)):
+    for title, accts, st in (("🤖 SETUP F", ("bot", "paper-auto"), START),
+                             ("🤖 TICKET CALLS · $12k, one at a time", ("bot-tickets",), 12_000.0)):   # LEAPS and IDEAS books retired 2026-10-17
         bk = [r for r in trades if r.get("acct") in accts]
         dd = [dollars(r, START * RISK) for r in bk]
         L += [f"<b>{title}</b>", head(st, st + sum(b - a for a, b, _ in dd))]
@@ -239,14 +239,7 @@ def recap_text(acct, positions, trades, plan=PLAN, real=True):
         if done: L.append("closed: " + " · ".join(f"{lab} {S(b - a)}" for a, b, lab in done))
         L.append("")
 
-    ideas = [r for r in trades if r.get("acct") in IDEAS]
-    idd = [dollars(r, START * RISK) for r in ideas]
-    done = [(a, b, lab) for (a, b, lab), r in zip(idd, ideas) if r["status"] == "closed"]
-    L += ["<b>💡 IDEAS</b>", head(START, START + sum(b - a for a, b, _ in idd))]
-    L += [row(lab, a, b) for (a, b, lab), r in sorted(zip(idd, ideas), key=lambda x: x[0][0] - x[0][1])
-          if r["status"] == "open"]
-    if done: L.append(f"closed: " + " · ".join(f"{lab} {S(b - a)}" for a, b, lab in done))
-    L += ["", "<i>SETUP F and IDEAS are paper · not real money</i>"]
+    L += ["", "<i>SETUP F and TICKET CALLS are paper · not real money</i>"]
     return "\n".join(L)
 
 
@@ -256,7 +249,7 @@ def recap(force=False):
     today = str(datetime.date.today())
     after_close = datetime.datetime.now(datetime.timezone.utc).hour >= 20
     dow = datetime.date.today().weekday()      # weekdays after the close, and in the Saturday weekend report
-    due = (dow < 5 and after_close) or dow == 5
+    due = dow == 5                           # weekly, in the Saturday report (2026-10-17); the bot's live board covers the week
     if not force and (not due or state.get("_recap") == today): return
     d = json.load(open(os.path.join(DOCS, "data.json")))
     acct, pos, tr = call("/account"), call("/positions"), d.get("open", []) + d.get("closed", [])
@@ -291,6 +284,7 @@ def main():
             print(f"auto: bought {t['qty']} {t['sym']} at {fill}, target {t['tgt']}")
         except Exception as e:
             print(f"auto: {t['sym']} failed: {str(e)[:80]}")
+    json.dump(state, open(STATE, "w")); save(rs); return      # the LEAPS book is retired (2026-10-17: shares beat LEAPS in thesis/f-smart.md); open rows still exit in sync()
     # second book: the same fires as 2-year calls, 7% of its own $100k
     lheld = {r["symbol"] for r in rs if r.get("acct") == "bot-leaps" and r["status"] == "open"}
     for f in d["F"]:
@@ -355,9 +349,7 @@ if __name__ == "__main__":
         r = recap_text({"equity": "100500"}, [],
                        tr + tr0, dict(start=8355.13, started="2026-09-20", deposits=[], balance=8355.13, balance_as_of="2026-09-20"))
         assert "START $8,355.13 → NOW <b>$8,357.13</b> · +$2.00 · +0.02% · Schwab 09/20" in r, r
-        assert "SETUP F · LEAPS</b>\nSTART $100,000.00 → NOW <b>$100,500.00</b>" in r and "BE 270C 01/21 · $4,000.00 → <b>$4,500.00</b>" in r, r
-        assert "💡 IDEAS</b>\nSTART $100,000.00 → NOW <b>$100,673.00</b> · +$673.00" in r, r
-        assert "closed: BABA 109C 10/02 +$410.00" in r
+        assert "LEAPS" not in r and "IDEAS" not in r and "TICKET CALLS" in r, r      # retired books stay out of the recap
         pub = recap_text({"equity": "100500"}, [], tr, dict(start=8355.13, started="2026-09-20", deposits=[]), real=False)
         assert "REAL" not in pub and "8,355" not in pub and "NOW 1 SH" not in pub, pub
         print("autotrade ok")
