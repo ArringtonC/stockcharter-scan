@@ -69,7 +69,7 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <div class="panel ctl">
   <div class="row"><span class="lbl">Timeline</span><span class="modes" id="ranges"></span><span class="sub" id="span"></span></div>
   <div class="row"><span class="lbl">Position</span><input type="range" class="scrub" id="scrub" min="0" max="100" value="100" style="flex:1"></div>
-  <div class="row"><span class="lbl">Score</span><span class="modes" id="scores"><button data-s="8" class="on">8–10 only</button><button data-s="0">All</button></span><span class="sub">10 = ✓ (green up, red down)</span></div>
+  <div class="row"><span class="lbl">Score</span><span class="modes" id="scores"><button data-s="7" class="on">7–10 only</button><button data-s="0">All</button></span><span class="sub">10 = ✓ (green up, red down)</span></div>
   <div class="row"><span class="lbl">Events</span><span class="pills" id="pills"></span></div>
   <div class="row"><span class="lbl">Chart view</span><span class="modes" id="modes"><button data-m="price" class="on">Price</button><button data-m="volatility">Volatility</button><button data-m="volume">Volume</button></span></div>
   <div class="tiles" id="tiles"></div>
@@ -87,7 +87,7 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <script>
 const $=s=>document.querySelector(s), fp=x=>Number(x)>=1000?Number(x).toFixed(0):Number(x).toFixed(2);
 const RANGES=[['1m',22],['3m',66],['6m',126],['1y',252],['2y',0]];
-let d,f,spy,hist,v1,cur='S&P 500',mode='price',range=126,endAt=null,cats=new Set(['all']),sel=null,api=null,series=null,minScore=8;
+let d,f,spy,hist,v1,cur='S&P 500',mode='price',range=126,endAt=null,cats=new Set(['all']),sel=null,api=null,series=null,minScore=7;
 Promise.all(['data.json','focus.json','spy-events.json','history.json','v1.json'].map(u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null))).then(([a,b,c,h,w])=>{
   d=a; f=b||{syms:[],events:{}}; spy=c||{events:[]}; hist=h||[]; v1=w||{};
   const syms=['S&P 500',...(f.syms||[]).filter(s=>d.charts&&d.charts[s])];
