@@ -1135,6 +1135,27 @@ def focus_data(d, open_, hist, rows):
     return dict(generated=d["date"], syms=syms, events=ev)
 
 
+def spy_event(d):
+    """docs/spy-events.json: one market event a day for the Focus page (the S&P chart, built like the
+    news-chart app): the top headline, the day's SPY move as the impact, scheduled events, VIX."""
+    import re
+    m = d.get("market") or {}
+    if not m.get("heads"): return
+    p = os.path.join(DOCS, "spy-events.json"); j = json.load(open(p)) if os.path.exists(p) else dict(events=[])
+    ev = [e for e in j["events"] if e["date"] != d["date"]]
+    chg = m.get("SPY") or 0.0; heads = m["heads"][:3]; sched = m.get("events") or []
+    cats = [("Federal Reserve", r"\bfed\b|fomc|rate (cut|hike|signal)|powell|warsh"), ("Economic Data", r"\bcpi\b|jobs report|payroll|inflation|gdp|pce|unemployment|retail sales"),
+            ("Trade Policy", r"tariff|trade (deal|war|talks)|sanction"), ("Geopolitics", r"iran|russia|ukraine|china|war\b|hormuz|troops|putin"),
+            ("Corporate Earnings", r"earnings|quarter|results"), ("Market Volatility", r"vix|sell-?off|plunge|tumble|crash|rout"), ("AI / Tech", r"\bai\b|data center|nvidia|chip|openai")]
+    text = " ".join(heads + sched); c = next((c for c, rx in cats if re.search(rx, text, re.I)), "Market Sentiment")
+    ev.append(dict(id=int(d["date"].replace("-", "")), date=d["date"], title=heads[0], category=c,
+                   impact="positive" if chg > 0.5 else "negative" if chg < -0.5 else "neutral",
+                   description=" · ".join(heads[1:]) + (f" · Scheduled: {', '.join(sched)}" if sched else ""),
+                   priceImpact=f"{chg:+.1f}%", relevanceScore=min(10, 5 + int(abs(chg) * 2) + (1 if sched else 0)),
+                   source="Ledger market report", correlation=f"VIX {m['^VIX_px']:.1f} · {d.get('regime', '')}" if m.get("^VIX_px") else d.get("regime", "")))
+    json.dump(dict(generated=d["date"], events=sorted(ev, key=lambda e: e["date"])), open(p, "w"), separators=(",", ":"))
+
+
 def third_friday(d):
     """The monthly expiry for d's month. Standard chains are deepest here."""
     f = datetime.date(d.year, d.month, 1)
@@ -2115,6 +2136,8 @@ if __name__ == "__main__":
     json.dump(d, open(os.path.join(DOCS, "data.json"), "w"), indent=1, default=str)
     try: json.dump(focus_data(d, open_, hist, open_ + closed), open(os.path.join(DOCS, "focus.json"), "w"), separators=(",", ":"))
     except Exception as e: print("focus failed", str(e)[:80])
+    try: spy_event(d)
+    except Exception as e: print("spy event failed", str(e)[:80])
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")

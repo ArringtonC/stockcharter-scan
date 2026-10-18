@@ -8,30 +8,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="ledger.css">
 <style>
-.wrap{max-width:1100px;margin:0 auto;padding:var(--s4) 16px 96px}
+.wrap{max-width:1280px;margin:0 auto;padding:var(--s4) 16px 96px}
 .back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
 h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+h2{font:600 var(--t-h2) var(--mono);margin:0}
 .sub{color:var(--dim);font-size:var(--t-data)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 16px}
-.chips button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:6px 12px;font:600 var(--t-data) var(--mono);cursor:pointer}
-.chips button.on{color:var(--amber);border-color:var(--amber)}
-.hd{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;margin:0 0 6px}
-.hd b{font:600 var(--t-h2) var(--mono)}.hd span{font-size:var(--t-data);color:var(--ink2)}
-.bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px;align-items:center}
-.bar button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:4px 10px;font:500 var(--t-label) var(--mono);cursor:pointer;letter-spacing:var(--tr)}
-.bar button.on{color:var(--amber);border-color:var(--amber)}
-.bar .sp{flex:1}
-.filters label{font-size:var(--t-label);color:var(--dim);margin-left:10px;cursor:pointer}
-.chart{height:460px;border:1px solid var(--line);background:var(--bg)}
-@media(max-width:600px){.chart{height:360px}}
-.ev{margin-top:16px;display:grid;gap:6px}
-.e{display:grid;grid-template-columns:84px 92px 1fr;gap:10px;padding:8px 10px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:var(--t-data);align-items:baseline}
-.e:hover,.e.on{border-color:var(--amber)}
-.e .d{color:var(--dim);font-variant-numeric:tabular-nums}
-.e .k{font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
-.k.buy{color:var(--up)}.k.sell{color:var(--amber)}.k.setup{color:var(--up)}.k.level{color:var(--amber)}.k.filing{color:#1e88e5}.k.news{color:var(--dim)}
-.e a{color:var(--ink);text-decoration:none}.e a:hover{text-decoration:underline}
-@media(max-width:600px){.e{grid-template-columns:70px 1fr}.e .k{grid-column:2}.e .t{grid-column:1/-1}}
+.chips button,.pills button,.modes button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:6px 12px;font:600 var(--t-data) var(--mono);cursor:pointer}
+.chips button.on,.pills button.on,.modes button.on{color:var(--amber);border-color:var(--amber)}
+.pills button,.modes button{font-weight:500;font-size:var(--t-label);letter-spacing:var(--tr);padding:4px 10px}
+.panel{border:1px solid var(--line);background:var(--panel);padding:14px 16px}
+.ctl{display:grid;gap:12px;margin-bottom:16px}
+.row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.row .lbl{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);min-width:110px}
+.tiles{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.tile{border:1px solid var(--line);padding:8px 10px}
+.tile .k{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tile .v{font:600 var(--t-h2) var(--mono);margin-top:2px}
+.up{color:var(--up)}.dn{color:var(--dn)}.nt{color:var(--dim)}
+.main{display:grid;gap:16px;grid-template-columns:7fr 3fr}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+.chhd{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.legend{display:flex;gap:12px;font-size:var(--t-label);color:var(--dim);align-items:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.chart{height:560px;background:var(--bg)}
+@media(max-width:600px){.chart{height:380px}}
+.feed{max-height:640px;overflow:auto;display:grid;gap:8px;align-content:start}
+.card{border:1px solid var(--line);padding:10px 12px;cursor:pointer;background:var(--bg2)}
+.card:hover{border-color:var(--line2)}.card.on{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber) inset}
+.card h3{font:600 var(--t-body) var(--mono);margin:0 0 4px}
+.card p{margin:0 0 6px;color:var(--ink2);font-size:var(--t-data);line-height:1.45}
+.card .m{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:var(--t-label);color:var(--dim);align-items:center}
+.card .m i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.badge{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;border:1px solid var(--line2);padding:1px 6px;color:var(--ink2);float:right;margin-left:8px}
+.card a{color:var(--ink);text-decoration:none}.card a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -40,69 +50,100 @@ h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
 <h1>Focus</h1>
 <p class="sub" id="meta">Loading…</p>
 <div class="chips" id="chips"></div>
-<div class="hd" id="hd"></div>
-<div class="bar" id="bar"></div>
-<div class="chart" id="chart"></div>
-<div class="filters" id="filters"></div>
-<div class="ev" id="ev"></div>
-<p class="sub" style="margin-top:16px">One chart, one name. Marks: ▲ your buys, ▼ your sells, ✚ Setup F fire, ◆ level alert, ■ SEC filing, ● news. Tap an event to jump the chart to that day. Big green + / red X = the 10 EMA crossing the 30.</p>
+<div class="panel ctl">
+  <div class="row"><span class="lbl">Timeline</span><span class="modes" id="ranges"></span><span class="sub" id="span"></span></div>
+  <div class="row"><span class="lbl">Events</span><span class="pills" id="pills"></span></div>
+  <div class="row"><span class="lbl">Chart view</span><span class="modes" id="modes"><button data-m="price" class="on">Price</button><button data-m="volatility">Volatility</button><button data-m="volume">Volume</button></span></div>
+  <div class="tiles" id="tiles"></div>
+</div>
+<div class="main">
+  <div class="panel">
+    <div class="chhd"><h2 id="title">📈 S&amp;P 500</h2><div class="legend"><span><i style="background:var(--up)"></i>Positive</span><span><i style="background:var(--dn)"></i>Negative</span><span><i style="background:var(--dim)"></i>Neutral</span><span id="count"></span></div></div>
+    <div class="chart" id="chart"></div>
+  </div>
+  <div class="panel"><div class="chhd"><h2>📰 Market News</h2><span class="sub" id="ncount"></span></div><div class="feed" id="feed"></div></div>
+</div>
+<p class="sub" style="margin-top:16px">Built like the S&amp;P news chart: a dot on the chart for each event, colored by the day's impact; tap a dot or a card to focus it. Price view carries the 10 and 30 EMA and the big + / X crosses. Volatility view is the VIX. "From highs" is the distance from the 1-year high on that day.</p>
 </div>
 <script src="vendor/lightweight-charts.standalone.production.js"></script>
 <script>
 const $=s=>document.querySelector(s), fp=x=>Number(x)>=1000?Number(x).toFixed(0):Number(x).toFixed(2);
-const KINDS={buy:['arrowUp','belowBar','▲'],sell:['arrowDown','aboveBar','▼'],setup:['circle','belowBar','✚'],level:['square','aboveBar','◆'],filing:['square','aboveBar','■'],news:['circle','aboveBar','●']};
-let api=null, series=null, cur=null, tf='d', show={buy:1,sell:1,setup:1,level:1,filing:1,news:0};
-Promise.all([fetch('data.json',{cache:'no-store'}).then(r=>r.json()),fetch('focus.json',{cache:'no-store'}).then(r=>r.json()).catch(()=>({syms:[],events:{}}))]).then(([d,f])=>{
-  const syms=(f.syms||[]).filter(s=>d.charts&&d.charts[s]); const held={}; (d.open||[]).forEach(r=>{(held[r.symbol]=held[r.symbol]||[]).push(r);});
+const RANGES=[['1m',22],['3m',66],['6m',126],['1y',252],['2y',0]];
+let d,f,spy,hist,cur='S&P 500',mode='price',range=126,cats=new Set(['all']),sel=null,api=null,series=null;
+Promise.all(['data.json','focus.json','spy-events.json','history.json'].map(u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null))).then(([a,b,c,h])=>{
+  d=a; f=b||{syms:[],events:{}}; spy=c||{events:[]}; hist=h||[];
+  const syms=['S&P 500',...(f.syms||[]).filter(s=>d.charts&&d.charts[s])];
+  const want=new URLSearchParams(location.search).get('s'); if(syms.includes(want))cur=want;
   $('#meta').textContent=`${syms.length} names · ${d.date} scan`;
-  const want=new URLSearchParams(location.search).get('s'); cur=syms.includes(want)?want:syms[0];
   $('#chips').innerHTML=syms.map(s=>`<button data-s="${s}" class="${s===cur?'on':''}">${s}</button>`).join('');
-  $('#chips').onclick=e=>{const b=e.target.closest('button'); if(!b)return; cur=b.dataset.s; history.replaceState(null,'','?s='+cur); draw(d,f,held);};
-  draw(d,f,held);
+  $('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.s;sel=null;cats=new Set(['all']);history.replaceState(null,'','?s='+encodeURIComponent(cur));draw();};
+  $('#ranges').innerHTML=RANGES.map(([l,n])=>`<button data-r="${n}" class="${n===range?'on':''}">${l}</button>`).join('');
+  $('#ranges').onclick=e=>{const b=e.target.closest('button');if(!b)return;range=+b.dataset.r;draw();};
+  $('#modes').onclick=e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;draw();};
+  draw();
 });
-function draw(d,f,held){
+function events(){
+  if(cur==='S&P 500')return spy.events.map(e=>({...e,impact:e.impact||'neutral'}));
+  return ((f.events||{})[cur]||[]).map((e,i)=>({id:i+1,date:e.date,title:e.text,category:{buy:'Your Trade',sell:'Your Trade',setup:'Setup F',level:'Level Alert',filing:'SEC Filing',news:'News'}[e.kind],
+    impact:e.kind==='news'||e.kind==='filing'?'neutral':(e.up?'positive':'negative'),description:'',priceImpact:'',relevanceScore:e.kind==='buy'||e.kind==='sell'?9:e.kind==='setup'?8:e.kind==='level'?7:e.kind==='filing'?6:4,source:e.kind==='news'?'Yahoo':e.kind==='filing'?'SEC EDGAR':'Ledger',url:e.url}));
+}
+function draw(){
   document.querySelectorAll('#chips button').forEach(b=>b.classList.toggle('on',b.dataset.s===cur));
-  const s0=d.charts[cur], s=tf==='h1'&&s0.h1?s0.h1:s0, ev=(f.events||{})[cur]||[], pos=held[cur]||[];
-  const n=s.c.length, last=s.c[n-1], prev=s.c[n-2]||last;
-  $('#hd').innerHTML=`<b>${cur}</b> <span>${fp(last)} · <span style="color:${last>=prev?'var(--up)':'var(--dn)'}">${((last/prev-1)*100).toFixed(1)}% last bar</span></span>`+
-    pos.map(p=>`<span>${p.kind==='shares'?`${p.contracts} sh @ ${fp(p.entry)}`:`${p.expiry.slice(5)} $${p.strike}${p.kind[0].toUpperCase()} @ ${fp(p.entry)}`} · ${p.acct}</span>`).join('');
-  $('#bar').innerHTML=`<button data-r="22">1m</button><button data-r="66" class="${tf==='d'?'on':''}">3m</button><button data-r="126">6m</button><button data-r="252">1y</button><button data-r="0">2y</button>`+
-    (s0.h1?`<span class="sp"></span><button data-tf="h1" class="${tf==='h1'?'on':''}">1h</button><button data-tf="d" class="${tf==='d'?'on':''}">D</button>`:'');
+  document.querySelectorAll('#ranges button').forEach(b=>b.classList.toggle('on',+b.dataset.r===range));
+  document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
+  const s=d.charts[cur==='S&P 500'?'^GSPC':cur]; if(!s){$('#chart').innerHTML='<p class="sub">No bars for this name.</p>';return;}
+  const n=s.d.length, from=range&&range<n?n-range:0, T=s.d.slice(from);
+  const ev=events(); const all=ev.filter(e=>e.date>=T[0]&&e.date<=T[T.length-1]);
+  const catList=[...new Set(all.map(e=>e.category))];
+  $('#pills').innerHTML=[`<button data-c="all" class="${cats.has('all')?'on':''}">All events (${all.length})</button>`,...catList.map(c=>`<button data-c="${c}" class="${cats.has(c)?'on':''}">${c} (${all.filter(e=>e.category===c).length})</button>`)].join('');
+  $('#pills').onclick=e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.c;if(c==='all')cats=new Set(['all']);else{cats.delete('all');cats.has(c)?cats.delete(c):cats.add(c);if(!cats.size)cats=new Set(['all']);}draw();};
+  const shown=all.filter(e=>cats.has('all')||cats.has(e.category));
+  $('#title').innerHTML=`📈 ${cur==='S&P 500'?'S&amp;P 500':cur} ${mode==='price'?'Price':mode==='volatility'?'Volatility':'Volume'} Chart`;
+  $('#count').textContent=`${T.length} days · ${shown.length} events`; $('#ncount').textContent=`${shown.length}/${all.length}`;
+  // tiles
+  const c=s.c.slice(from), hi=Math.max(...s.h.slice(from)), lo=Math.min(...s.l.slice(from)); let pk=c[0],dd=0; c.forEach(x=>{pk=Math.max(pk,x);dd=Math.min(dd,x/pk-1);});
+  const ret=(c[c.length-1]/c[0]-1)*100;
+  $('#span').textContent=`${T[0]} – ${T[T.length-1]}`;
+  $('#tiles').innerHTML=[['Period return',(ret>=0?'+':'')+ret.toFixed(1)+'%',ret>=0?'up':'dn'],['Period high',fp(hi),''],['Period low',fp(lo),''],['Max drawdown',(dd*100).toFixed(1)+'%','dn'],['Last',fp(c[c.length-1]),''],['Events',shown.length,'']]
+    .map(([k,v,cl])=>`<div class="tile"><div class="k">${k}</div><div class="v ${cl}">${v}</div></div>`).join('');
+  // chart
   if(api){api.remove();api=null;}
-  const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts, host=$('#chart');
-  api=L.createChart(host,{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},
-    localization:{priceFormatter:fp},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},
-    rightPriceScale:{borderColor:v('--line2'),scaleMargins:{top:.1,bottom:.25}},timeScale:{borderColor:v('--line2'),timeVisible:tf==='h1',rightOffset:4}});
-  series=api.addSeries(L.CandlestickSeries,{upColor:v('--up'),downColor:v('--dn'),borderVisible:false,wickUpColor:v('--up'),wickDownColor:v('--dn'),priceLineColor:v('--amber')});
-  const T=s.d; series.setData(T.map((t,i)=>({time:t,open:s.o[i],high:s.h[i],low:s.l[i],close:s.c[i]})));
-  const line=(vals,color)=>{const ls=api.addSeries(L.LineSeries,{color,lineWidth:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});ls.setData(T.map((t,i)=>({time:t,value:vals[i]})));return ls;};
-  const s10=line(s.e10,'#43a047'); line(s.e30,'#1e88e5');
-  const X=[]; for(let i=1;i<n;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1]))X.push({time:T[i],price:s.e30[i],up:a});}
-  s10.attachPrimitive({paneViews:()=>[{renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:c})=>{X.forEach(m=>{const x=api.timeScale().timeToCoordinate(m.time),y=s10.priceToCoordinate(m.price);if(x==null||y==null)return;
-    const r=m.up?13:10;c.lineCap='round';const pen=(w,col)=>{c.lineWidth=w;c.strokeStyle=col;c.beginPath();if(m.up){c.moveTo(x-r,y);c.lineTo(x+r,y);c.moveTo(x,y-r);c.lineTo(x,y+r);}else{const q=r*.75;c.moveTo(x-q,y-q);c.lineTo(x+q,y+q);c.moveTo(x+q,y-q);c.lineTo(x-q,y+q);}c.stroke();};pen(9,v('--bg'));pen(5,m.up?'#00e676':'#ff1744');});})})}]});
-  const vol=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceScaleId:'volume',lastValueVisible:false,priceLineVisible:false});
-  vol.setData(T.map((t,i)=>({time:t,value:s.v[i]||0,color:(s.c[i]>=s.o[i]?v('--up'):v('--dn'))+'70'}))); api.priceScale('volume').applyOptions({visible:false,scaleMargins:{top:.8,bottom:0}});
-  pos.forEach(p=>{const mark=(price,title,color)=>price&&series.createPriceLine({price:+price,title,color,lineWidth:1,lineStyle:L.LineStyle.Dashed,axisLabelVisible:true});
-    if(p.kind==='shares')mark(p.entry,'ENTRY',v('--amber')); else mark(p.strike,`${p.strike}C`,v('--amber')); if(p.target)mark(p.target,p.armed?'STOP AT TARGET':'TARGET',p.armed?v('--dn'):v('--up'));});
-  // event marks: daily dates; on the hourly view they land on the first bar of that day
-  const dayOf=t=>typeof t==='number'?new Date(t*1000).toLocaleDateString('en-CA',{timeZone:'America/Chicago'}):t;
-  const firstBar={}; T.forEach(t=>{const k=dayOf(t); if(!(k in firstBar))firstBar[k]=t;});
-  const setMarks=(hi)=>{const m=ev.filter(e=>show[e.kind]&&firstBar[e.date]).map(e=>({time:firstBar[e.date],position:KINDS[e.kind][1],shape:KINDS[e.kind][0],
-      color:e===hi?v('--amber'):e.kind==='buy'||e.kind==='setup'?'#00e676':e.kind==='sell'?v('--amber'):e.kind==='level'?v('--amber'):e.kind==='filing'?'#1e88e5':v('--dim'),
-      text:e===hi?e.text.slice(0,40):(e.kind==='news'?'':KINDS[e.kind][2]),size:e===hi?2:1}));
+  const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts;
+  api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},
+    localization:{priceFormatter:fp},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2'),scaleMargins:{top:.1,bottom:mode==='price'?.22:.08}},timeScale:{borderColor:v('--line2'),rightOffset:4}});
+  const hiMap={}; { let m=-Infinity; const H=s.h; for(let i=0;i<n;i++){ const w=H.slice(Math.max(0,i-252),i+1); m=Math.max(...w); hiMap[s.d[i]]=m; } }
+  if(mode==='volatility'){
+    const vx=hist.filter(h=>h.date>=T[0]&&h.date<=T[T.length-1]).map(h=>({time:h.date,value:h.vix}));
+    series=api.addSeries(L.LineSeries,{color:v('--dn'),lineWidth:2,priceLineVisible:false}); series.setData(vx);
+    $('#count').textContent=`VIX, ${vx.length} scan days · ${shown.length} events`;
+  }else if(mode==='volume'){
+    series=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceLineVisible:false});
+    series.setData(T.map((t,i)=>({time:t,value:s.v[from+i]||0,color:(s.c[from+i]>=s.o[from+i]?v('--up'):v('--dn'))+'90'})));
+  }else{
+    series=api.addSeries(L.CandlestickSeries,{upColor:v('--up'),downColor:v('--dn'),borderVisible:false,wickUpColor:v('--up'),wickDownColor:v('--dn'),priceLineColor:v('--amber')});
+    series.setData(T.map((t,i)=>({time:t,open:s.o[from+i],high:s.h[from+i],low:s.l[from+i],close:s.c[from+i]})));
+    const line=(vals,color)=>{const ls=api.addSeries(L.LineSeries,{color,lineWidth:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});ls.setData(T.map((t,i)=>({time:t,value:vals[from+i]})));return ls;};
+    const s10=line(s.e10,'#43a047'); line(s.e30,'#1e88e5');
+    const X=[]; for(let i=Math.max(1,from);i<n;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1]))X.push({time:s.d[i],price:s.e30[i],up:a});}
+    s10.attachPrimitive({paneViews:()=>[{renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:cx})=>{X.forEach(m=>{const x=api.timeScale().timeToCoordinate(m.time),y=s10.priceToCoordinate(m.price);if(x==null||y==null)return;
+      const r=m.up?13:10;cx.lineCap='round';const pen=(w,col)=>{cx.lineWidth=w;cx.strokeStyle=col;cx.beginPath();if(m.up){cx.moveTo(x-r,y);cx.lineTo(x+r,y);cx.moveTo(x,y-r);cx.lineTo(x,y+r);}else{const q=r*.75;cx.moveTo(x-q,y-q);cx.lineTo(x+q,y+q);cx.moveTo(x+q,y-q);cx.lineTo(x-q,y+q);}cx.stroke();};pen(9,v('--bg'));pen(5,m.up?'#00e676':'#ff1744');});})})}]});
+    const vol=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceScaleId:'volume',lastValueVisible:false,priceLineVisible:false});
+    vol.setData(T.map((t,i)=>({time:t,value:s.v[from+i]||0,color:(s.c[from+i]>=s.o[from+i]?v('--up'):v('--dn'))+'60'}))); api.priceScale('volume').applyOptions({visible:false,scaleMargins:{top:.82,bottom:0}});
+  }
+  const col=e=>e.impact==='positive'?v('--up'):e.impact==='negative'?v('--dn'):v('--dim');
+  const days=new Set(T);
+  const setMarks=()=>{const m=shown.filter(e=>days.has(e.date)).map(e=>({time:e.date,position:'aboveBar',shape:'circle',color:e.id===sel?'#FFD700':col(e),size:e.id===sel?2:1,text:e.id===sel?e.title.slice(0,36):''}));
     m.sort((a,b)=>a.time<b.time?-1:a.time>b.time?1:0); L.createSeriesMarkers(series,m);};
-  setMarks(null);
-  const setRange=count=>{document.querySelectorAll('#bar button[data-r]').forEach(b=>b.classList.toggle('on',+b.dataset.r===count));const bars=tf==='h1'?count*7:count;
-    if(!count||bars>=n)api.timeScale().fitContent(); else api.timeScale().setVisibleLogicalRange({from:Math.max(0,n-bars)-.5,to:n+3});};
-  setRange(tf==='h1'?22:66);
-  $('#bar').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.tf){tf=b.dataset.tf;draw(d,f,held);}else setRange(+b.dataset.r);};
-  $('#filters').innerHTML=Object.keys(KINDS).map(k=>`<label><input type="checkbox" data-k="${k}" ${show[k]?'checked':''}> ${KINDS[k][2]} ${k}</label>`).join('');
-  $('#filters').onchange=e=>{show[e.target.dataset.k]=e.target.checked?1:0;renderList();setMarks(null);};
-  const renderList=()=>{const rows=ev.filter(e=>show[e.kind]);
-    $('#ev').innerHTML=rows.map((e,i)=>`<div class="e" data-i="${ev.indexOf(e)}"><span class="d">${e.date}</span><span class="k ${e.kind}">${KINDS[e.kind][2]} ${e.kind}</span><span class="t">${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.text}</a>`:e.text}</span></div>`).join('')||'<p class="sub">No events yet for this name.</p>';};
-  renderList();
-  $('#ev').onclick=e=>{const row=e.target.closest('.e'); if(!row||e.target.tagName==='A')return; const x=ev[+row.dataset.i]; document.querySelectorAll('.e').forEach(r=>r.classList.toggle('on',r===row));
-    const t=firstBar[x.date]; if(!t)return; const i=T.indexOf(t); api.timeScale().setVisibleLogicalRange({from:i-(tf==='h1'?60:30),to:i+(tf==='h1'?25:12)}); setMarks(x); window.scrollTo({top:$('#chart').offsetTop-20,behavior:'smooth'});};
+  setMarks(); api.timeScale().fitContent();
+  api.subscribeClick(p=>{if(!p.time)return;const e=shown.find(x=>x.date===p.time);if(e){focus(e,true);}});
+  // feed
+  $('#feed').innerHTML=shown.slice().reverse().map(e=>{const h=hiMap[e.date],px=s.c[s.d.indexOf(e.date)],fromHi=h&&px?((px/h-1)*100):null;
+    return `<div class="card ${e.id===sel?'on':''}" data-id="${e.id}"><span class="badge">${e.category}</span><h3>${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.title}</a>`:e.title}</h3>${e.description?`<p>${e.description}</p>`:''}
+      <div class="m"><span><i style="background:${col(e)}"></i>${e.impact} impact</span><span>Relevance ${e.relevanceScore}/10</span>${e.priceImpact?`<span class="${e.priceImpact.startsWith('-')?'dn':'up'}">${e.priceImpact} day</span>`:''}${fromHi!=null?`<span class="${fromHi>=-5?'up':fromHi>=-15?'nt':'dn'}">${fromHi>=0?'+':''}${fromHi.toFixed(1)}% from highs</span>`:''}<span>${e.source||''}</span><span>${e.date}</span>${e.correlation?`<span>${e.correlation}</span>`:''}</div></div>`;}).join('')||'<p class="sub">No events in this range.</p>';
+  $('#feed').onclick=ev2=>{const c2=ev2.target.closest('.card');if(!c2||ev2.target.tagName==='A')return;const e=shown.find(x=>String(x.id)===c2.dataset.id);if(e)focus(e,false);};
+  function focus(e,fromChart){sel=e.id===sel?null:e.id;setMarks();document.querySelectorAll('.card').forEach(c2=>c2.classList.toggle('on',c2.dataset.id===String(sel)));
+    if(sel!==null){const i=T.indexOf(e.date);if(i>=0)api.timeScale().setVisibleLogicalRange({from:Math.max(0,i-25),to:Math.min(T.length+3,i+15)});
+      if(fromChart){const c2=document.querySelector(`.card[data-id="${sel}"]`);if(c2)c2.scrollIntoView({block:'nearest',behavior:'smooth'});}}}
 }
 </script>
 </body>
