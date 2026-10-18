@@ -138,11 +138,18 @@ function measure(ev,s){
     const C=s.c, r=k=>i+k<C.length?(C[i+k]/C[i]-1)*100:null, day=(C[i]/C[i-1]-1)*100;
     return {...e,session:s.d[i],shifted,day,d1:r(1),d3:r(3),d5:r(5),score:Math.min(10,Math.round(5+2*Math.abs(day))),reaction:day>0.5?'positive':day<-0.5?'negative':'flat'};});
 }
+function bigDays(list,s){
+  // every 2.5%+ session gets an entry even with no headline on file, so a big move is never blank
+  const have=new Set(list.map(e=>e.session)); const out=[];
+  for(let i=1;i<s.c.length;i++){const day=(s.c[i]/s.c[i-1]-1)*100; if(Math.abs(day)>=2.5&&!have.has(s.d[i]))
+    out.push({id:'b'+s.d[i],date:s.d[i],title:`Big move, no headline on file: ${cur==='S&P 500'?'S&P 500':cur} ${pc(day)}`,category:'Big Move',sentiment:'not rated',source:'measured from the bars',kind:'bigday'});}
+  return list.concat(measure(out,s));
+}
 function events(s){
-  if(cur==='S&P 500')return measure(spy.events,s);
+  if(cur==='S&P 500')return bigDays(measure(spy.events,s),s);
   const raw=((f.events||{})[cur]||[]).map((e,i)=>({id:'e'+i,date:e.date,title:e.text,category:{buy:'Your Trade',sell:'Your Trade',setup:'Setup F',level:'Level Alert',filing:'SEC Filing',news:'News'}[e.kind],
     sentiment:e.kind==='news'||e.kind==='filing'?'not rated':(e.up?'positive':'negative'),source:e.kind==='news'?'Yahoo':e.kind==='filing'?'SEC EDGAR':'Ledger',url:e.url,kind:e.kind}));
-  return measure(raw,s);
+  return bigDays(measure(raw,s),s);
 }
 function draw(){
   document.querySelectorAll('#chips button').forEach(b=>b.classList.toggle('on',b.dataset.s===cur));
@@ -201,7 +208,7 @@ function draw(){
   const tens=shown.filter(top);
   series.attachPrimitive({paneViews:()=>[{zOrder:()=>'bottom',renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:cx,mediaSize})=>{tens.forEach(e=>{const x=api.timeScale().timeToCoordinate(e.session);if(x==null)return;
     cx.save();cx.strokeStyle=col(e);cx.globalAlpha=e.id===sel?.9:.45;cx.lineWidth=e.id===sel?3:2;cx.setLineDash(e.id===sel?[]:[6,4]);cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,mediaSize.height);cx.stroke();
-    cx.setLineDash([]);cx.globalAlpha=.9;cx.font='bold 12px IBM Plex Mono, monospace';cx.fillStyle=col(e);cx.textAlign='center';cx.fillText('✓ '+pc(e.day),x,12);cx.restore();});})})}]});
+    cx.setLineDash([]);cx.globalAlpha=.9;cx.font='bold 11px IBM Plex Mono, monospace';cx.fillStyle=col(e);cx.textAlign='center';cx.fillText(pc(e.day),x,12+14*(tens.indexOf(e)%3));cx.restore();});})})}]});
   setMarks(); api.timeScale().fitContent();
   api.subscribeClick(p=>{if(!p.time)return;const e=shown.find(x=>x.session===p.time);if(e)focus(e,true);});
   const tip=$('#tip'), wrap=$('.chartwrap');
