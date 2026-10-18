@@ -160,7 +160,7 @@ function draw(){
   $('#title').innerHTML=`📈 ${cur==='S&P 500'?'S&amp;P 500':cur} ${mode==='price'?'Price':mode==='volatility'?'Volatility (VIX)':'Volume'}`;
   $('#ncount').textContent=`${shown.length} shown · ${inRange.length} in range · ${ev.length} loaded`;
   $('#legend').innerHTML=`<span><i style="background:var(--up)"></i>market up that day</span><span><i style="background:var(--dn)"></i>down</span><span><i style="background:var(--dim)"></i>flat (±0.5%)</span>`+
-    (show.ema&&mode==='price'?`<span><b style="color:#00e676">+</b> / <b style="color:#ff1744">X</b> = 10 EMA crossing the 30, a chart note, not a signal</span>`:'')+`<span>${T.length} sessions</span>`;
+    `<span>| line = a 10, a 2.5%+ day</span>`+(show.ema&&mode==='price'?`<span><b style="color:#00e676">+</b> / <b style="color:#ff1744">X</b> = 10 EMA crossing the 30, a chart note, not a signal</span>`:'')+`<span>${T.length} sessions</span>`;
   const c=s.c.slice(from,end), hi=Math.max(...s.h.slice(from,end)), lo=Math.min(...s.l.slice(from,end)); let pk=c[0],dd=0; c.forEach(x=>{pk=Math.max(pk,x);dd=Math.min(dd,x/pk-1);});
   const ret=(c[c.length-1]/c[0]-1)*100;
   $('#span').textContent=`${T[0]} – ${T[T.length-1]}`;
@@ -197,6 +197,11 @@ function draw(){
   const setMarks=()=>{const m=shown.map(e=>({time:e.session,position:isTrade(e)&&e.kind!=='sell'?'belowBar':'aboveBar',shape:isTrade(e)?(e.kind==='sell'?'arrowDown':'arrowUp'):top(e)?'square':'circle',
       color:e.id===sel?'#FFD700':col(e),size:e.id===sel?2:top(e)?1.6:1,text:e.id===sel?e.title.slice(0,36):top(e)?'✓':''}));
     m.sort((a,b)=>a.time<b.time?-1:a.time>b.time?1:0); L.createSeriesMarkers(series,m);};
+  // a 10 (a 2.5%+ day) gets a full-height line through the chart, colored by the day's direction
+  const tens=shown.filter(top);
+  series.attachPrimitive({paneViews:()=>[{zOrder:()=>'bottom',renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:cx,mediaSize})=>{tens.forEach(e=>{const x=api.timeScale().timeToCoordinate(e.session);if(x==null)return;
+    cx.save();cx.strokeStyle=col(e);cx.globalAlpha=e.id===sel?.9:.45;cx.lineWidth=e.id===sel?3:2;cx.setLineDash(e.id===sel?[]:[6,4]);cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,mediaSize.height);cx.stroke();
+    cx.setLineDash([]);cx.globalAlpha=.9;cx.font='bold 12px IBM Plex Mono, monospace';cx.fillStyle=col(e);cx.textAlign='center';cx.fillText('✓ '+pc(e.day),x,12);cx.restore();});})})}]});
   setMarks(); api.timeScale().fitContent();
   api.subscribeClick(p=>{if(!p.time)return;const e=shown.find(x=>x.session===p.time);if(e)focus(e,true);});
   const tip=$('#tip'), wrap=$('.chartwrap');
