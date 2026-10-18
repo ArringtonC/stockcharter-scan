@@ -83,13 +83,14 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
     <label><input type="checkbox" data-k="ema" checked> Moving averages + crosses</label>
     <label><input type="checkbox" data-k="trades" checked> Your trades &amp; setups</label>
     <label><input type="checkbox" data-k="vol" checked> Volume</label></span></div>
-  <div class="row"><span class="lbl">Chart view</span><span class="modes" id="modes"><button data-m="price" class="on">Price</button><button data-m="volatility">Volatility</button><button data-m="volume">Volume</button></span></div>
+  <div class="row"><span class="lbl">Chart view</span><span class="modes" id="modes"><button data-m="price" class="on">Price</button><button data-m="volatility">Volatility</button><button data-m="volume">Volume</button><button data-m="setupf">Setup F</button></span></div>
   <div class="tiles" id="tiles"></div>
 </div>
 <div class="main">
   <div class="panel">
     <div class="chhd"><h2 id="title">📈 S&amp;P 500</h2><div class="legend" id="legend"></div></div>
     <div class="chartwrap"><div class="chart" id="chart"></div><div class="tip" id="tip"></div></div>
+    <div class="react" id="fbox"></div>
     <div class="react" id="react"></div>
   </div>
   <div class="panel"><div class="chhd"><h2>📰 Events</h2><span class="sub" id="ncount"></span></div><div class="feed" id="feed"></div>
@@ -188,7 +189,7 @@ function draw(){
   $('#pills').innerHTML=[`<button data-c="all" class="${cats.has('all')?'on':''}">All (${all.length})</button>`,...catList.map(c=>`<button data-c="${c}" class="${cats.has(c)?'on':''}">${c} (${all.filter(e=>e.category===c).length})</button>`)].join('');
   $('#pills').onclick=e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.c;if(c==='all')cats=new Set(['all']);else{cats.delete('all');cats.has(c)?cats.delete(c):cats.add(c);if(!cats.size)cats=new Set(['all']);}draw();};
   const shown=all.filter(e=>cats.has('all')||cats.has(e.category));
-  $('#title').innerHTML=`📈 ${cur==='S&P 500'?'S&amp;P 500':cur} ${mode==='price'?'Price':mode==='volatility'?'Volatility (VIX)':'Volume'}`;
+  $('#title').innerHTML=`📈 ${cur==='S&P 500'?'S&amp;P 500':cur} ${mode==='price'?'Price':mode==='volatility'?'Volatility (VIX)':mode==='volume'?'Volume':'Setup F view'}`;
   $('#ncount').textContent=`${shown.length} shown · ${inRange.length} in range · ${ev.length} loaded`;
   const sg=sigma(s), nm=cur==='S&P 500'?'S&P 500':cur;
   $('#scoredef').textContent=`two scores, shown if either is 8+. News score = what kind of news (launch, earnings, deal, leadership = 8–9; street ratings 6; opinion 3), by keyword, amber ★ on the chart. Move score = how unusual the move was for ${nm}: 5 + 2 × (|move| ÷ σ), floored, capped at 10. σ = ${nm}'s typical daily move, ${sg.toFixed(2)}% (1-year std dev). A 10 is 2.5σ or more: ${(2.5*sg).toFixed(1)}%+ for ${nm}. The move is the event's session or the next one, whichever is bigger.`;
@@ -204,13 +205,38 @@ function draw(){
   api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},
     localization:{priceFormatter:fp},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2'),scaleMargins:{top:.1,bottom:mode==='price'&&show.vol?.22:.08}},timeScale:{borderColor:v('--line2'),rightOffset:4}});
   const hiMap={}; { const H=s.h; for(let i=0;i<n;i++){ hiMap[s.d[i]]=Math.max(...H.slice(Math.max(0,i-252),Math.max(1,i))); } }
+  if(mode!=='setupf')$('#fbox').classList.remove('on');
   if(mode==='volatility'){
     const vx=hist.filter(h=>h.date>=T[0]&&h.date<=T[T.length-1]).map(h=>({time:h.date,value:h.vix}));
     series=api.addSeries(L.LineSeries,{color:v('--dn'),lineWidth:2,priceLineVisible:false}); series.setData(vx);
   }else if(mode==='volume'){
     series=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceLineVisible:false});
     series.setData(T.map((t,i)=>({time:t,value:s.v[from+i]||0,color:(s.c[from+i]>=s.o[from+i]?v('--up'):v('--dn'))+'90'})));
+  }else if(mode==='setupf'){
+    series=api.addSeries(L.CandlestickSeries,{upColor:v('--up'),downColor:v('--dn'),borderVisible:false,wickUpColor:v('--up'),wickDownColor:v('--dn'),priceLineColor:v('--amber')});
+    series.setData(T.map((t,i)=>({time:t,open:s.o[from+i],high:s.h[from+i],low:s.l[from+i],close:s.c[from+i]})));
+    const ema=(vals,k)=>{const a=2/(k+1);let e=vals[0];return vals.map(x=>e=x*a+e*(1-a));};
+    const e50=ema(s.c,50), e200=ema(s.c,200);
+    const line=(vals,color,w)=>{const ls=api.addSeries(L.LineSeries,{color,lineWidth:w,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});ls.setData(T.map((t,i)=>({time:t,value:vals[from+i]})));return ls;};
+    line(s.e10,'#43a047',2); line(s.e30,'#1e88e5',2); line(e50,'#fb8c00',1); line(e200,'#9e9e9e',1);
+    // the rolling 252-session high = Setup F's target, and the 20%-45% zone under it where F may fire
+    const hi=[],z20=[],z45=[]; for(let i=0;i<n;i++){const m=Math.max(...s.h.slice(Math.max(0,i-252),i+1));hi.push(m);z20.push(m*.8);z45.push(m*.55);}
+    line(hi,v('--up'),1); line(z20,v('--amber'),1); line(z45,v('--amber'),1);
+    // bands where the price rules hold: 10 over 30, 50 over 200, 20-45% under the high
+    const ok=s.d.map((t,i)=>s.e10[i]>s.e30[i]&&e50[i]>e200[i]&&s.c[i]<=z20[i]&&s.c[i]>z45[i]);
+    const bands=[]; for(let i=from;i<end;i++){if(ok[i]){if(bands.length&&bands[bands.length-1][1]===i-1)bands[bands.length-1][1]=i;else bands.push([i,i]);}}
+    series.attachPrimitive({paneViews:()=>[{zOrder:()=>'bottom',renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:cx,mediaSize})=>{bands.forEach(([a,b])=>{const x0=api.timeScale().timeToCoordinate(s.d[a]),x1=api.timeScale().timeToCoordinate(s.d[b]);if(x0==null||x1==null)return;cx.fillStyle='rgba(95,191,132,.14)';cx.fillRect(x0-3,0,Math.max(6,x1-x0+6),mediaSize.height);});})})}]});
+    const row=(d.F||[]).find(x=>x.sym===cur), blk=(d.blocked||[]).find(x=>x.sym===cur), last=n-1, ddNow=(1-s.c[last]/hi[last])*100;
+    const yes=x=>x?'<span class="up">yes</span>':'<span class="dn">no</span>';
+    $('#fbox').classList.add('on'); $('#fbox').innerHTML=`<h4>Setup F on ${nm} today</h4><div class="g">
+      <div><div class="k">10 over 30 EMA</div><div class="v">${yes(s.e10[last]>s.e30[last])}</div></div><div><div class="k">50 over 200 EMA</div><div class="v">${yes(e50[last]>e200[last])}</div></div>
+      <div><div class="k">Under the 1y high</div><div class="v ${ddNow>=20&&ddNow<45?'up':'dn'}">${ddNow.toFixed(1)}% <small>(needs 20–45%)</small></div></div>
+      <div><div class="k">Revenue growth</div><div class="v">${row?`<span class="up">+${row.rev.toFixed(0)}%</span>`:blk&&/revenue/.test(blk.why||'')?`<span class="dn">${blk.why}</span>`:'<span class="nt">not checked today</span>'}</div></div>
+      <div><div class="k">Target (1y high)</div><div class="v">${fp(hi[last])} <small>${pc((hi[last]/s.c[last]-1)*100)}</small></div></div>
+      <div><div class="k">Status</div><div class="v">${row?'<span class="up">FIRING</span>':blk&&blk.forming?'<span class="nt">FORMING</span>':ok[last]?'<span class="nt">price rules hold</span>':'<span class="dn">not set up</span>'}</div></div></div>
+      <div class="sub">Green bands = sessions where the three price rules held (the revenue rule is checked by the scan, not here). Lines: green 10 EMA, blue 30, orange 50, grey 200, the 1y high (green) and the 20% / 45% lines under it (amber). ✚ = a Setup F fire on the scan record.</div>`;
   }else{
+    $('#fbox').classList.remove('on');
     series=api.addSeries(L.CandlestickSeries,{upColor:v('--up'),downColor:v('--dn'),borderVisible:false,wickUpColor:v('--up'),wickDownColor:v('--dn'),priceLineColor:v('--amber')});
     series.setData(T.map((t,i)=>({time:t,open:s.o[from+i],high:s.h[from+i],low:s.l[from+i],close:s.c[from+i]})));
     if(show.ema){
@@ -227,8 +253,8 @@ function draw(){
   }
   const col=e=>isTrade(e)?(e.kind==='sell'?v('--amber'):'#00e676'):e.reaction==='positive'?v('--up'):e.reaction==='negative'?v('--dn'):v('--dim');
   const top=e=>!isTrade(e)&&((e.score||0)>=10||(e.nscore||0)>=9);
-  const setMarks=()=>{const m=shown.map(e=>({time:e.session,position:isTrade(e)&&e.kind!=='sell'?'belowBar':'aboveBar',shape:isTrade(e)?(e.kind==='sell'?'arrowDown':'arrowUp'):top(e)?'square':'circle',
-      color:e.id===sel?'#FFD700':((e.score||0)<10&&(e.nscore||0)>=9)?v('--amber'):col(e),size:e.id===sel?2:top(e)?1.6:1,text:e.id===sel?e.title.slice(0,36):(e.score||0)>=10?'✓':(e.nscore||0)>=9?'★':''}));
+  const setMarks=()=>{const m=shown.filter(e=>mode!=='setupf'||isTrade(e)).map(e=>({time:e.session,position:isTrade(e)&&e.kind!=='sell'?'belowBar':'aboveBar',shape:isTrade(e)?(e.kind==='sell'?'arrowDown':e.kind==='setup'?'circle':'arrowUp'):top(e)?'square':'circle',
+      color:e.id===sel?'#FFD700':((e.score||0)<10&&(e.nscore||0)>=9)?v('--amber'):col(e),size:e.id===sel?2:top(e)?1.6:1,text:e.id===sel?e.title.slice(0,36):e.kind==='setup'?'F':(e.score||0)>=10?'✓':(e.nscore||0)>=9?'★':''}));
     m.sort((a,b)=>a.time<b.time?-1:a.time>b.time?1:0); L.createSeriesMarkers(series,m);};
   setMarks(); api.timeScale().fitContent();
   api.subscribeClick(p=>{if(!p.time)return;const e=shown.find(x=>x.session===p.time);if(e)focus(e,true);});
