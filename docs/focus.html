@@ -249,7 +249,11 @@ function draw(){
   function focus(e,fromChart){sel=e.id===sel?null:e.id;setMarks();document.querySelectorAll('.card').forEach(c2=>c2.classList.toggle('on',c2.dataset.id===String(sel)));
     const R=$('#react');
     if(sel===null){R.classList.remove('on');return;}
-    const i=T.indexOf(e.session);if(i>=0)api.timeScale().setVisibleLogicalRange({from:Math.max(0,i-25),to:Math.min(T.length+3,i+15)});
+    // zoom out to about three months around the event, so the move sits in context; if the event is outside
+    // the current window, open the full history first
+    const i=T.indexOf(e.session);
+    if(i<0){range=0;endAt=null;$('#scrub').value=100;draw();const j=s.d.indexOf(e.session);if(j>=0)api.timeScale().setVisibleLogicalRange({from:Math.max(0,j-45),to:Math.min(s.d.length+3,j+20)});return;}
+    api.timeScale().setVisibleLogicalRange({from:Math.max(0,i-45),to:Math.min(T.length+3,i+20)});
     const hday=hist.find(x=>x.date===e.session);
     const tone=e.sentiment&&e.sentiment!=='not rated'?((e.sentiment==='positive'&&e.day<-0.5)||(e.sentiment==='negative'&&e.day>0.5)?"The market moved against the headline's tone.":"The market moved with the headline's tone."):'The tone was not rated; only the move is measured.';
     R.classList.add('on'); R.innerHTML=`<h4>${e.title}</h4><div class="sub">${e.date}${e.shifted?' · not a session, measured on '+e.session:''} · ${e.category} · sentiment ${e.sentiment||'—'}${e.analyst?' · analyst relevance '+e.analyst+'/10':''}</div>
