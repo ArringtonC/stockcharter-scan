@@ -1005,7 +1005,7 @@ def patterns_for(b, n):
 
 
 def chart_data(d, open_, n=504, hourly_for=()):
-    want = {r["symbol"] for r in open_}; real = {r["symbol"] for r in open_ if r.get("acct") == "real"} | set(hourly_for)
+    want = {r["symbol"] for r in open_} | set(hourly_for); real = {r["symbol"] for r in open_ if r.get("acct") == "real"} | set(hourly_for)
     want |= {x["sym"] for k in ("F", "C", "S", "watch") for x in d.get(k, [])}
     lv = {}
     try:
@@ -1075,12 +1075,14 @@ def hourly(sym):
 
 def focus_syms(d, open_):
     """The names the Focus page shows: real holds, today's Setup F, the Version 1 workspace, unfired levels."""
-    out = [r["symbol"] for r in open_ if r.get("acct") == "real"] + [r["sym"] for r in d.get("F", [])]
+    try: out = list(json.load(open(os.path.join(DOCS, "focus-list.json"))))     # Arrington's own list first (2026-10-17)
+    except Exception: out = []
+    out += [r["symbol"] for r in open_ if r.get("acct") == "real"] + [r["sym"] for r in d.get("F", [])]
     try: out += list(json.load(open(os.path.expanduser("~/.ledger-v1/state.json"))).get("plans", {}))
     except Exception: pass
     try: out += [x["symbol"] for x in json.load(open(LEVELS)) if not x.get("fired")]
     except Exception: pass
-    return [x for x in dict.fromkeys(out) if not x.startswith("^")][:14]
+    return [x for x in dict.fromkeys(out) if not x.startswith("^")][:22]
 
 
 def news_feed(sym, n=20):
