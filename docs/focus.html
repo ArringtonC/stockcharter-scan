@@ -42,6 +42,17 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 .card .m i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
 .badge{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;border:1px solid var(--line2);padding:1px 6px;color:var(--ink2);float:right;margin-left:8px}
 .card a{color:var(--ink);text-decoration:none}.card a:hover{text-decoration:underline}
+.strip{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-bottom:16px}
+.strip h3{font:600 var(--t-data) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;margin:0 0 8px}
+.strip .big{font:600 clamp(20px,3vw,26px)/1 var(--mono);margin:2px 0 6px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:var(--t-data)}
+.kv span:nth-child(odd){color:var(--dim)}
+.scrub{width:100%;accent-color:var(--amber);margin:4px 0 0}
+.tip{position:absolute;z-index:5;pointer-events:none;max-width:280px;background:var(--panel);border:1px solid var(--line2);padding:8px 10px;font-size:var(--t-data);box-shadow:0 6px 24px rgba(0,0,0,.35);display:none}
+.tip b{font-weight:600}.tip .n{margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+.tip .n i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.tip small{color:var(--dim)}
+.chartwrap{position:relative}
 </style>
 </head>
 <body>
@@ -50,8 +61,14 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <h1>Focus</h1>
 <p class="sub" id="meta">Loading…</p>
 <div class="chips" id="chips"></div>
+<div class="strip">
+  <div class="panel" id="read"></div>
+  <div class="panel" id="risk"></div>
+  <div class="panel" id="cond"></div>
+</div>
 <div class="panel ctl">
   <div class="row"><span class="lbl">Timeline</span><span class="modes" id="ranges"></span><span class="sub" id="span"></span></div>
+  <div class="row"><span class="lbl">Position</span><input type="range" class="scrub" id="scrub" min="0" max="100" value="100" style="flex:1"></div>
   <div class="row"><span class="lbl">Events</span><span class="pills" id="pills"></span></div>
   <div class="row"><span class="lbl">Chart view</span><span class="modes" id="modes"><button data-m="price" class="on">Price</button><button data-m="volatility">Volatility</button><button data-m="volume">Volume</button></span></div>
   <div class="tiles" id="tiles"></div>
@@ -59,7 +76,7 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <div class="main">
   <div class="panel">
     <div class="chhd"><h2 id="title">📈 S&amp;P 500</h2><div class="legend"><span><i style="background:var(--up)"></i>Positive</span><span><i style="background:var(--dn)"></i>Negative</span><span><i style="background:var(--dim)"></i>Neutral</span><span id="count"></span></div></div>
-    <div class="chart" id="chart"></div>
+    <div class="chartwrap"><div class="chart" id="chart"></div><div class="tip" id="tip"></div></div>
   </div>
   <div class="panel"><div class="chhd"><h2>📰 Market News</h2><span class="sub" id="ncount"></span></div><div class="feed" id="feed"></div></div>
 </div>
@@ -69,19 +86,35 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <script>
 const $=s=>document.querySelector(s), fp=x=>Number(x)>=1000?Number(x).toFixed(0):Number(x).toFixed(2);
 const RANGES=[['1m',22],['3m',66],['6m',126],['1y',252],['2y',0]];
-let d,f,spy,hist,cur='S&P 500',mode='price',range=126,cats=new Set(['all']),sel=null,api=null,series=null;
-Promise.all(['data.json','focus.json','spy-events.json','history.json'].map(u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null))).then(([a,b,c,h])=>{
-  d=a; f=b||{syms:[],events:{}}; spy=c||{events:[]}; hist=h||[];
+let d,f,spy,hist,v1,cur='S&P 500',mode='price',range=126,endAt=null,cats=new Set(['all']),sel=null,api=null,series=null;
+Promise.all(['data.json','focus.json','spy-events.json','history.json','v1.json'].map(u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null))).then(([a,b,c,h,w])=>{
+  d=a; f=b||{syms:[],events:{}}; spy=c||{events:[]}; hist=h||[]; v1=w||{};
   const syms=['S&P 500',...(f.syms||[]).filter(s=>d.charts&&d.charts[s])];
   const want=new URLSearchParams(location.search).get('s'); if(syms.includes(want))cur=want;
   $('#meta').textContent=`${syms.length} names · ${d.date} scan`;
   $('#chips').innerHTML=syms.map(s=>`<button data-s="${s}" class="${s===cur?'on':''}">${s}</button>`).join('');
   $('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.s;sel=null;cats=new Set(['all']);history.replaceState(null,'','?s='+encodeURIComponent(cur));draw();};
   $('#ranges').innerHTML=RANGES.map(([l,n])=>`<button data-r="${n}" class="${n===range?'on':''}">${l}</button>`).join('');
-  $('#ranges').onclick=e=>{const b=e.target.closest('button');if(!b)return;range=+b.dataset.r;draw();};
+  $('#ranges').onclick=e=>{const b=e.target.closest('button');if(!b)return;range=+b.dataset.r;endAt=null;$('#scrub').value=100;draw();};
+  $('#scrub').oninput=e=>{endAt=+e.target.value;draw();};
+  strip();
   $('#modes').onclick=e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;draw();};
   draw();
 });
+function strip(){
+  const m=(v1&&v1.market)||{}, bal=(d.plan&&d.plan.balance)||12674.74, g=d.charts['^GSPC'], n=g?g.c.length:0;
+  const e10=g?g.e10[n-1]:0,e30=g?g.e30[n-1]:0, hi=g?Math.max(...g.h.slice(-252)):0, fromHi=g?(g.c[n-1]/hi-1)*100:0;
+  const corr=fromHi>-5?'None (within 5% of the high)':fromHi>-10?'Pullback (5–10%)':fromHi>-20?'Correction (10–20%)':'Bear market (20%+)';
+  const vix=d.vix||0, vlvl=vix<15?'LOW':vix<20?'NORMAL':vix<30?'ELEVATED':'HIGH';
+  $('#read').innerHTML=`<h3>📊 Ledger read</h3><div class="big ${m.state==='BULLISH'?'up':m.state==='BEARISH'?'dn':'nt'}">${m.state||'—'}</div>
+    <div class="kv"><span>Score</span><span>${m.score!=null?(m.score>0?'+':'')+m.score+' of ±5':'—'}</span><span>As of</span><span>${m.at?m.at.slice(0,16).replace('T',' ')+' CT':'—'}</span>
+    <span>Parts</span><span>${m.parts?`ES ${m.parts.es>0?'+':''}${m.parts.es} · NQ ${m.parts.nq>0?'+':''}${m.parts.nq} · SPY ${m.parts.spy>0?'+':''}${m.parts.spy} · QQQ ${m.parts.qqq>0?'+':''}${m.parts.qqq} · breadth/VIX ${m.parts.breadth_vix>0?'+':''}${m.parts.breadth_vix}`:'—'}</span>
+    <span>Setup F today</span><span>${(d.F||[]).map(x=>x.sym).join(', ')||'none'}</span></div><p class="sub" style="margin:8px 0 0">Context only, not a trade. A stock still needs its own source, level and trigger.</p>`;
+  $('#risk').innerHTML=`<h3>⚠️ Risk rules</h3><div class="big">$${Math.round(bal*0.07).toLocaleString()}</div>
+    <div class="kv"><span>Position size</span><span>7% of $${Math.round(bal).toLocaleString()} (shares)</span><span>One contract</span><span>$400 max · 3–9 days</span><span>Planned loss</span><span>$200 max · −50% stop</span><span>Take profit</span><span>+50% · chart stop first</span><span>No trade</span><span>index options · 0–2 DTE · earnings inside · spread over 10%</span></div>`;
+  $('#cond').innerHTML=`<h3>🌊 Market conditions</h3><div class="big ${vix<20?'up':vix<30?'nt':'dn'}">VIX ${vix.toFixed(1)} · ${vlvl}</div>
+    <div class="kv"><span>Regime</span><span>${d.regime||'—'}</span><span>S&P trend</span><span>${e10>e30?'UP (10 EMA over 30)':'DOWN (10 EMA under 30)'}</span><span>From 1y high</span><span class="${fromHi>-5?'up':fromHi>-15?'nt':'dn'}">${fromHi.toFixed(1)}%</span><span>Correction</span><span>${corr}</span><span>QQQ drawdown</span><span>${d.qdd!=null?d.qdd.toFixed(1)+'%':'—'}</span><span>Bubble plan</span><span>phase ${(d.bubble||{}).phase||'—'}</span></div>`;
+}
 function events(){
   if(cur==='S&P 500')return spy.events.map(e=>({...e,impact:e.impact||'neutral'}));
   return ((f.events||{})[cur]||[]).map((e,i)=>({id:i+1,date:e.date,title:e.text,category:{buy:'Your Trade',sell:'Your Trade',setup:'Setup F',level:'Level Alert',filing:'SEC Filing',news:'News'}[e.kind],
@@ -92,7 +125,7 @@ function draw(){
   document.querySelectorAll('#ranges button').forEach(b=>b.classList.toggle('on',+b.dataset.r===range));
   document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
   const s=d.charts[cur==='S&P 500'?'^GSPC':cur]; if(!s){$('#chart').innerHTML='<p class="sub">No bars for this name.</p>';return;}
-  const n=s.d.length, from=range&&range<n?n-range:0, T=s.d.slice(from);
+  const n=s.d.length, win=range&&range<n?range:n, end=endAt==null?n:Math.max(win,Math.round(win+(n-win)*endAt/100)), from=end-win, T=s.d.slice(from,end);
   const ev=events(); const all=ev.filter(e=>e.date>=T[0]&&e.date<=T[T.length-1]);
   const catList=[...new Set(all.map(e=>e.category))];
   $('#pills').innerHTML=[`<button data-c="all" class="${cats.has('all')?'on':''}">All events (${all.length})</button>`,...catList.map(c=>`<button data-c="${c}" class="${cats.has(c)?'on':''}">${c} (${all.filter(e=>e.category===c).length})</button>`)].join('');
@@ -101,10 +134,10 @@ function draw(){
   $('#title').innerHTML=`📈 ${cur==='S&P 500'?'S&amp;P 500':cur} ${mode==='price'?'Price':mode==='volatility'?'Volatility':'Volume'} Chart`;
   $('#count').textContent=`${T.length} days · ${shown.length} events`; $('#ncount').textContent=`${shown.length}/${all.length}`;
   // tiles
-  const c=s.c.slice(from), hi=Math.max(...s.h.slice(from)), lo=Math.min(...s.l.slice(from)); let pk=c[0],dd=0; c.forEach(x=>{pk=Math.max(pk,x);dd=Math.min(dd,x/pk-1);});
+  const c=s.c.slice(from,end), hi=Math.max(...s.h.slice(from,end)), lo=Math.min(...s.l.slice(from,end)); let pk=c[0],dd=0; c.forEach(x=>{pk=Math.max(pk,x);dd=Math.min(dd,x/pk-1);});
   const ret=(c[c.length-1]/c[0]-1)*100;
   $('#span').textContent=`${T[0]} – ${T[T.length-1]}`;
-  $('#tiles').innerHTML=[['Period return',(ret>=0?'+':'')+ret.toFixed(1)+'%',ret>=0?'up':'dn'],['Period high',fp(hi),''],['Period low',fp(lo),''],['Max drawdown',(dd*100).toFixed(1)+'%','dn'],['Last',fp(c[c.length-1]),''],['Events',shown.length,'']]
+  $('#tiles').innerHTML=[['Period return',(ret>=0?'+':'')+ret.toFixed(1)+'%',ret>=0?'up':'dn'],['Period high',fp(hi),''],['Period low',fp(lo),''],['Max drawdown',(dd*100).toFixed(1)+'%','dn'],['Last',fp(c[c.length-1]),''],['Data points',T.length,''],['Events',shown.length,'']]
     .map(([k,v,cl])=>`<div class="tile"><div class="k">${k}</div><div class="v ${cl}">${v}</div></div>`).join('');
   // chart
   if(api){api.remove();api=null;}
@@ -124,7 +157,7 @@ function draw(){
     series.setData(T.map((t,i)=>({time:t,open:s.o[from+i],high:s.h[from+i],low:s.l[from+i],close:s.c[from+i]})));
     const line=(vals,color)=>{const ls=api.addSeries(L.LineSeries,{color,lineWidth:2,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});ls.setData(T.map((t,i)=>({time:t,value:vals[from+i]})));return ls;};
     const s10=line(s.e10,'#43a047'); line(s.e30,'#1e88e5');
-    const X=[]; for(let i=Math.max(1,from);i<n;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1]))X.push({time:s.d[i],price:s.e30[i],up:a});}
+    const X=[]; for(let i=Math.max(1,from);i<end;i++){const a=s.e10[i]>s.e30[i]; if(a!==(s.e10[i-1]>s.e30[i-1]))X.push({time:s.d[i],price:s.e30[i],up:a});}
     s10.attachPrimitive({paneViews:()=>[{renderer:()=>({draw:t=>t.useMediaCoordinateSpace(({context:cx})=>{X.forEach(m=>{const x=api.timeScale().timeToCoordinate(m.time),y=s10.priceToCoordinate(m.price);if(x==null||y==null)return;
       const r=m.up?13:10;cx.lineCap='round';const pen=(w,col)=>{cx.lineWidth=w;cx.strokeStyle=col;cx.beginPath();if(m.up){cx.moveTo(x-r,y);cx.lineTo(x+r,y);cx.moveTo(x,y-r);cx.lineTo(x,y+r);}else{const q=r*.75;cx.moveTo(x-q,y-q);cx.lineTo(x+q,y+q);cx.moveTo(x+q,y-q);cx.lineTo(x-q,y+q);}cx.stroke();};pen(9,v('--bg'));pen(5,m.up?'#00e676':'#ff1744');});})})}]});
     const vol=api.addSeries(L.HistogramSeries,{priceFormat:{type:'volume'},priceScaleId:'volume',lastValueVisible:false,priceLineVisible:false});
@@ -136,6 +169,15 @@ function draw(){
     m.sort((a,b)=>a.time<b.time?-1:a.time>b.time?1:0); L.createSeriesMarkers(series,m);};
   setMarks(); api.timeScale().fitContent();
   api.subscribeClick(p=>{if(!p.time)return;const e=shown.find(x=>x.date===p.time);if(e){focus(e,true);}});
+  const tip=$('#tip'), wrap=$('.chartwrap');
+  api.subscribeCrosshairMove(p=>{
+    if(!p.time||!p.point||p.point.x<0||p.point.y<0){tip.style.display='none';return;}
+    const i=s.d.indexOf(p.time); if(i<0){tip.style.display='none';return;}
+    const here=all.filter(e=>e.date===p.time), h=hiMap[p.time], fromHi=h?((s.c[i]/h-1)*100):null;
+    const px=mode==='volatility'?`VIX <b>${(hist.find(x=>x.date===p.time)||{}).vix?.toFixed(2)??'—'}</b>`:mode==='volume'?`Vol <b>${(s.v[i]/1e6).toFixed(1)}M</b>`:`O ${fp(s.o[i])} H ${fp(s.h[i])} L ${fp(s.l[i])} C <b>${fp(s.c[i])}</b>`;
+    tip.innerHTML=`<b>${p.time}</b> <small>${fromHi!=null?(fromHi>=0?'+':'')+fromHi.toFixed(1)+'% from highs':''}</small><div>${px}</div>`+
+      (here.length?`<div class="n"><small>📰 ${cur==='S&P 500'?'Market news':'Events'}</small>${here.map(e=>`<div><i style="background:${col(e)}"></i>${e.title}<br><small>${e.impact} impact · score ${e.relevanceScore}/10${e.priceImpact?' · '+e.priceImpact:''}</small></div>`).join('')}</div>`:'');
+    tip.style.display='block'; const W=wrap.clientWidth, tw=tip.offsetWidth; tip.style.left=Math.min(Math.max(8,p.point.x+16),W-tw-8)+'px'; tip.style.top=Math.max(8,p.point.y-20)+'px';});
   // feed
   $('#feed').innerHTML=shown.slice().reverse().map(e=>{const h=hiMap[e.date],px=s.c[s.d.indexOf(e.date)],fromHi=h&&px?((px/h-1)*100):null;
     return `<div class="card ${e.id===sel?'on':''}" data-id="${e.id}"><span class="badge">${e.category}</span><h3>${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.title}</a>`:e.title}</h3>${e.description?`<p>${e.description}</p>`:''}
