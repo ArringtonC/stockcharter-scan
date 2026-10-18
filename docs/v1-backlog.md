@@ -36,3 +36,8 @@ Ideas wait here until Version 1 closes after the 30-session paper test.
   bars 2016–2026, 2,711 sessions: the fade equals a random entry with the same stop and target, about zero
   before costs and negative after (SPY choppy days −0.036% a trade, QQQ −0.037%). Both stop widths, both
   sides, every era. Not added. (thesis/range-fade.md)
+- **Chase line (2026-10-18, from the play-of-the-day replay).** 0.25 × ATR(15m) past the trigger blocks
+  every entry: 0 NOW in 199 sessions; 19 of 48 triggers MISSED. Live, Oct 13–17: five MISSED, no NOW.
+  Candidates for 1.1: 1.0 × ATR (1 trade, +$587) or no chase line with the limit price as the cap
+  (6 trades, 3 wins, +$704). Also binding: the 3% proximity line, the $400 cap on $200+ stocks.
+  Full result: thesis/play-of-day-test.md (private).
