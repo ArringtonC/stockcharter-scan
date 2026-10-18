@@ -1109,7 +1109,7 @@ def focus_data(d, open_, hist, rows):
     syms = focus_syms(d, open_); ev = {s: [] for s in syms}
     for r in rows:
         if r["symbol"] not in ev or r.get("acct") not in ("real", "paper", "small", "big"): continue
-        what = f"{r['contracts']} share(s)" if r["kind"] == "shares" else f"{r['expiry'][5:]} ${float(r['strike']):g}{r['kind'][0].upper()} ×{r['contracts']}"
+        what = (f"{r['contracts']} share(s)" if r.get("contracts") else "shares") if r["kind"] == "shares" else f"{r['expiry'][5:]} ${float(r['strike']):g}{r['kind'][0].upper()} ×{r['contracts']}"
         tag = "REAL" if r["acct"] == "real" else "paper idea"
         ev[r["symbol"]].append(dict(date=r["opened"], kind="buy", text=f"{tag}: bought {what} @ ${float(r['entry']):.2f}", up=True))
         if r["status"] == "closed" and r.get("closed"):

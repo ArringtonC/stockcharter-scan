@@ -76,7 +76,7 @@ h2{font:600 var(--t-h2) var(--mono);margin:0}
 <div class="panel ctl">
   <div class="row"><span class="lbl">Timeline</span><span class="modes" id="ranges"></span><span class="sub" id="span"></span></div>
   <div class="row"><span class="lbl">Position</span><input type="range" class="scrub" id="scrub" min="0" max="100" value="100" style="flex:1"></div>
-  <div class="row"><span class="lbl">Move score</span><span class="modes" id="scores"><button data-s="8" class="on">8–10 only</button><button data-s="0">All</button></span><span class="sub">score = size of the market's move that day: 5 + 2 × |day %|, capped at 10. A 10 is a 2.5% day or bigger.</span></div>
+  <div class="row"><span class="lbl">Move score</span><span class="modes" id="scores"><button data-s="8" class="on">8–10 only</button><button data-s="0">All</button></span><span class="sub" id="scoredef"></span></div>
   <div class="row"><span class="lbl">Events</span><span class="pills" id="pills"></span></div>
   <div class="row"><span class="lbl">Show</span><span class="row" id="show">
     <label><input type="checkbox" data-k="news" checked> Events</label>
@@ -132,22 +132,28 @@ function strip(){
 }
 // every event gets a measured reaction from the bars: day = close vs prior close on the event's session
 // (a non-session date maps to the next session and says so); then +1, +3, +5 sessions from that close.
+// sigma = this name's typical daily move: the standard deviation of the last 252 close-to-close returns
+function sigma(s){const r=[];for(let i=Math.max(1,s.c.length-252);i<s.c.length;i++)r.push((s.c[i]/s.c[i-1]-1)*100);
+  const m=r.reduce((a,b)=>a+b,0)/r.length;return Math.sqrt(r.reduce((a,b)=>a+(b-m)**2,0)/r.length)||1;}
 function measure(ev,s){
-  const idx={}; s.d.forEach((t,i)=>idx[t]=i);
-  return ev.map(e=>{let i=idx[e.date], shifted=false; if(i==null){i=s.d.findIndex(t=>t>e.date); shifted=i>=0;} if(i==null||i<1)return {...e,session:null};
-    const C=s.c, r=k=>i+k<C.length?(C[i+k]/C[i]-1)*100:null, day=(C[i]/C[i-1]-1)*100;
-    return {...e,session:s.d[i],shifted,day,d1:r(1),d3:r(3),d5:r(5),score:Math.min(10,Math.round(5+2*Math.abs(day))),reaction:day>0.5?'positive':day<-0.5?'negative':'flat'};});
+  const idx={}; s.d.forEach((t,i)=>idx[t]=i); const sg=sigma(s), last=s.d[s.d.length-1];
+  return ev.map(e=>{let i=idx[e.date], shifted=false; if(i==null){i=s.d.findIndex(t=>t>e.date); shifted=i>=0;}
+    if(i==null||i<0)return {...e,session:null,pending:e.date>last,sg};
+    if(i<1)return {...e,session:null,sg};
+    const C=s.c, r=k=>i+k<C.length?(C[i+k]/C[i]-1)*100:null, day=(C[i]/C[i-1]-1)*100, d1=r(1);
+    const big=d1!=null&&Math.abs(d1)>Math.abs(day)?d1:day, z=Math.abs(big)/sg;     // the larger of that day and the next session (after-close news)
+    return {...e,session:s.d[i],shifted,day,d1,d3:r(3),d5:r(5),sg,z,nextDay:big!==day,score:Math.min(10,5+Math.floor(2*z)),reaction:day>0.25*sg?'positive':day<-0.25*sg?'negative':'flat'};});
 }
 function bigDays(list,s){
-  // every 2.5%+ session gets an entry even with no headline on file, so a big move is never blank
-  const have=new Set(list.map(e=>e.session)); const out=[];
-  for(let i=1;i<s.c.length;i++){const day=(s.c[i]/s.c[i-1]-1)*100; if(Math.abs(day)>=2.5&&!have.has(s.d[i]))
+  // every session of 2.5 sigma or more gets an entry even with no headline on file, so a big move is never blank
+  const have=new Set(list.filter(e=>!['buy','sell','setup','level'].includes(e.kind)).map(e=>e.session)); const out=[], sg=sigma(s);
+  for(let i=1;i<s.c.length;i++){const day=(s.c[i]/s.c[i-1]-1)*100; if(Math.abs(day)>=2.5*sg&&!have.has(s.d[i]))
     out.push({id:'b'+s.d[i],date:s.d[i],title:`Big move, no headline on file: ${cur==='S&P 500'?'S&P 500':cur} ${pc(day)}`,category:'Big Move',sentiment:'not rated',source:'measured from the bars',kind:'bigday'});}
   return list.concat(measure(out,s));
 }
 function events(s){
   if(cur==='S&P 500')return bigDays(measure(spy.events,s),s);
-  const raw=((f.events||{})[cur]||[]).map((e,i)=>({id:'e'+i,date:e.date,title:e.text,category:{buy:'Your Trade',sell:'Your Trade',setup:'Setup F',level:'Level Alert',filing:'SEC Filing',news:'News'}[e.kind],
+  const raw=((f.events||{})[cur]||[]).map((e,i)=>({id:'e'+i,date:e.date,title:e.text,category:/^paper idea/.test(e.text)?'Paper Idea':{buy:'Your Trade',sell:'Your Trade',setup:'Setup F',level:'Level Alert',filing:'SEC Filing',news:'News'}[e.kind],
     sentiment:e.kind==='news'||e.kind==='filing'?'not rated':(e.up?'positive':'negative'),source:e.kind==='news'?'Yahoo':e.kind==='filing'?'SEC EDGAR':'Ledger',url:e.url,kind:e.kind}));
   return bigDays(measure(raw,s),s);
 }
@@ -158,15 +164,17 @@ function draw(){
   const s=d.charts[cur==='S&P 500'?'^GSPC':cur]; if(!s){$('#chart').innerHTML='<p class="sub">No bars for this name.</p>';return;}
   const n=s.d.length, win=range&&range<n?range:n, end=endAt==null?n:Math.max(win,Math.round(win+(n-win)*endAt/100)), from=end-win, T=s.d.slice(from,end);
   const ev=events(s), isTrade=e=>['buy','sell','setup','level'].includes(e.kind);
-  const inRange=ev.filter(e=>e.session&&e.session>=T[0]&&e.session<=T[T.length-1]);
-  const all=inRange.filter(e=>isTrade(e)?show.trades:(show.news&&(e.score||0)>=minScore));
+  const inRange=ev.filter(e=>e.session&&e.session>=T[0]&&e.session<=T[T.length-1]), pending=ev.filter(e=>e.pending);
+  const all=inRange.filter(e=>isTrade(e)?show.trades:(show.news&&Math.max(e.score||0,e.analyst||0)>=minScore));
   const catList=[...new Set(all.map(e=>e.category))];
   $('#pills').innerHTML=[`<button data-c="all" class="${cats.has('all')?'on':''}">All (${all.length})</button>`,...catList.map(c=>`<button data-c="${c}" class="${cats.has(c)?'on':''}">${c} (${all.filter(e=>e.category===c).length})</button>`)].join('');
   $('#pills').onclick=e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.c;if(c==='all')cats=new Set(['all']);else{cats.delete('all');cats.has(c)?cats.delete(c):cats.add(c);if(!cats.size)cats=new Set(['all']);}draw();};
   const shown=all.filter(e=>cats.has('all')||cats.has(e.category));
   $('#title').innerHTML=`📈 ${cur==='S&P 500'?'S&amp;P 500':cur} ${mode==='price'?'Price':mode==='volatility'?'Volatility (VIX)':'Volume'}`;
   $('#ncount').textContent=`${shown.length} shown · ${inRange.length} in range · ${ev.length} loaded`;
-  $('#legend').innerHTML=`<span><i style="background:var(--up)"></i>market up that day</span><span><i style="background:var(--dn)"></i>down</span><span><i style="background:var(--dim)"></i>flat (±0.5%)</span>`+
+  const sg=sigma(s), nm=cur==='S&P 500'?'S&P 500':cur;
+  $('#scoredef').textContent=`score = how unusual the move was for ${nm}: 5 + 2 × (|move| ÷ σ), floored, capped at 10. σ = ${nm}'s typical daily move, ${sg.toFixed(2)}% (1-year std dev). A 10 is 2.5σ or more: ${(2.5*sg).toFixed(1)}%+ for ${nm}. The move is the event's session or the next one, whichever is bigger.`;
+  $('#legend').innerHTML=`<span><i style="background:var(--up)"></i>${nm} up that day</span><span><i style="background:var(--dn)"></i>down</span><span><i style="background:var(--dim)"></i>flat (within ±${(0.25*sg).toFixed(1)}%)</span>`+
     (show.ema&&mode==='price'?`<span><b style="color:#00e676">+</b> / <b style="color:#ff1744">X</b> = 10 EMA crossing the 30, a chart note, not a signal</span>`:'')+`<span>${T.length} sessions</span>`;
   const c=s.c.slice(from,end), hi=Math.max(...s.h.slice(from,end)), lo=Math.min(...s.l.slice(from,end)); let pk=c[0],dd=0; c.forEach(x=>{pk=Math.max(pk,x);dd=Math.min(dd,x/pk-1);});
   const ret=(c[c.length-1]/c[0]-1)*100;
@@ -177,7 +185,7 @@ function draw(){
   const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts;
   api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},
     localization:{priceFormatter:fp},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2'),scaleMargins:{top:.1,bottom:mode==='price'&&show.vol?.22:.08}},timeScale:{borderColor:v('--line2'),rightOffset:4}});
-  const hiMap={}; { const H=s.h; for(let i=0;i<n;i++){ hiMap[s.d[i]]=Math.max(...H.slice(Math.max(0,i-252),i+1)); } }
+  const hiMap={}; { const H=s.h; for(let i=0;i<n;i++){ hiMap[s.d[i]]=Math.max(...H.slice(Math.max(0,i-252),Math.max(1,i))); } }
   if(mode==='volatility'){
     const vx=hist.filter(h=>h.date>=T[0]&&h.date<=T[T.length-1]).map(h=>({time:h.date,value:h.vix}));
     series=api.addSeries(L.LineSeries,{color:v('--dn'),lineWidth:2,priceLineVisible:false}); series.setData(vx);
@@ -215,10 +223,10 @@ function draw(){
     tip.innerHTML=`<b>${p.time}</b> <small>${fromHi!=null?pc(fromHi)+' from 1y high':''}</small><div>${px}</div>`+
       (here.length?`<div class="n"><small>${here.length} event${here.length>1?'s':''} this session</small>${here.slice(0,4).map(e=>`<div><i style="background:${col(e)}"></i>${e.title}<br><small>${isTrade(e)?e.category:'sentiment '+e.sentiment+' · move score '+e.score}</small></div>`).join('')}${here.length>4?`<small>+${here.length-4} more</small>`:''}</div>`:'');
     tip.style.display='block'; const W=wrap.clientWidth, tw=tip.offsetWidth; tip.style.left=Math.min(Math.max(8,p.point.x+16),W-tw-8)+'px'; tip.style.top=Math.max(8,p.point.y-20)+'px';});
-  $('#feed').innerHTML=shown.slice().reverse().map(e=>{const h=hiMap[e.session],px=s.c[s.d.indexOf(e.session)],fromHi=h&&px?((px/h-1)*100):null;
+  $('#feed').innerHTML=(pending.length?`<div class="card" style="cursor:default;border-style:dashed"><span class="badge">pending</span><h3>${pending.length} event${pending.length>1?'s':''} dated after the last bar</h3><p>${pending.slice(0,4).map(e=>e.date+' · '+e.title).join('<br>')}${pending.length>4?'<br>…':''}</p><div class="m"><span>measured after the next session's close</span></div></div>`:'')+shown.slice().reverse().map(e=>{const h=hiMap[e.session],px=s.c[s.d.indexOf(e.session)],fromHi=h&&px?((px/h-1)*100):null;
     return `<div class="card ${e.id===sel?'on':''}" data-id="${e.id}"><span class="badge">${e.category}</span>${top(e)?`<span class="badge" style="border-color:${col(e)};color:${col(e)}">✓ 10</span>`:''}<h3>${e.url?`<a href="${e.url}" target="_blank" rel="noopener">${e.title}</a>`:e.title}</h3>${e.description?`<p>${e.description}</p>`:''}
-      <div class="m"><span><i style="background:${col(e)}"></i>market ${isTrade(e)?pc(e.day)+' that day':e.reaction+' that day ('+pc(e.day)+')'}</span>${!isTrade(e)?`<span>sentiment: ${e.sentiment}</span><span>move score ${e.score}/10</span>${e.analyst?`<span>analyst relevance ${e.analyst}/10</span>`:''}`:''}${fromHi!=null?`<span>${pc(fromHi)} from 1y high</span>`:''}<span>${e.date}${e.shifted?' (non-session, shown on '+e.session+')':''}</span><span>${e.source||''}</span>${e.context?`<span>${e.context}</span>`:''}</div></div>`;}).join('')||'<p class="sub">No events in this range at this score. Try "All".</p>';
-  $('#defs').innerHTML=`<b>Definitions.</b> <i>Market that day</i> = ${cur==='S&P 500'?'S&P 500':cur} close vs the prior close on the event's session. <i>Sentiment</i> = the headline's tone: hand-rated for the 2025 set, "not rated" for the scan headlines. <i>Move score</i> = 5 + 2 × |day move|, capped at 10. <i>Analyst relevance</i> = the 2025 set's hand score, kept separate. <i>From 1y high</i> = close vs the highest high of the prior 252 sessions. A headline is listed under the day the report carried it, not the minute it was published.`;
+      <div class="m"><span><i style="background:${col(e)}"></i>${nm} ${pc(e.day)} that day${e.nextDay?' · '+pc(e.d1)+' next session':''}</span>${!isTrade(e)?`<span>sentiment: ${e.sentiment}</span><span>move score ${e.score}/10 (${e.z.toFixed(1)}σ${e.nextDay?', next session':''})</span>${e.analyst?`<span>analyst relevance ${e.analyst}/10</span>`:''}`:''}${fromHi!=null?`<span>${pc(fromHi)} from 1y high</span>`:''}<span>${e.date}${e.shifted?' (non-session, shown on '+e.session+')':''}</span><span>${e.source||''}</span>${e.context?`<span>${e.context}</span>`:''}</div></div>`;}).join('')||'<p class="sub">No events in this range at this score. Try "All".</p>';
+  $('#defs').innerHTML=`<b>Definitions.</b> <i>That day</i> = ${nm} close vs the prior close on the event's session. <i>Next session</i> is shown when it moved more than the day itself (news after the close). <i>Sentiment</i> = the headline's tone: hand-rated for the 2025 set, "not rated" for the scan headlines. <i>Move score</i> = 5 + 2 × (|move| ÷ σ), floored, capped at 10; σ = ${sg.toFixed(2)}%, ${nm}'s 1-year daily standard deviation. 10 = 2.5σ+, 9 = 2σ+, 8 = 1.5σ+. <i>Analyst relevance</i> = the 2025 set's hand score; the 8–10 filter accepts either score. <i>From 1y high</i> = close vs the highest high of the prior 252 sessions. A headline is listed under the day the report carried it, not the minute it was published.`;
   $('#feed').onclick=ev2=>{const c2=ev2.target.closest('.card');if(!c2||ev2.target.tagName==='A')return;const e=shown.find(x=>String(x.id)===c2.dataset.id);if(e)focus(e,false);};
   function focus(e,fromChart){sel=e.id===sel?null:e.id;setMarks();document.querySelectorAll('.card').forEach(c2=>c2.classList.toggle('on',c2.dataset.id===String(sel)));
     const R=$('#react');
