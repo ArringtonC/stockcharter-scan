@@ -1128,7 +1128,7 @@ def focus_data(d, open_, hist, rows):
                 ev[x["symbol"]].append(dict(date=str(f["at"])[:10], kind="level", text=f"level broke {f['way']} at ${f['price']:,.2f} · {x['pattern'][:60]}", up=f["way"] == "up"))
     except Exception: pass
     try:
-        for f in company_filings(syms, days=180):
+        for f in company_filings(syms, days=760):     # two years, the chart's span
             ev[f["sym"]].append(dict(date=f["date"], kind="filing", text=f"SEC {f['form']}: {f['what']}", url=f["url"]))
     except Exception as e: print("focus filings failed", str(e)[:60])
     for s in syms:
