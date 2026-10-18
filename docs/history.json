@@ -978,5 +978,29 @@
    "OXY"
   ],
   "S": []
+ },
+ {
+  "date": "2026-10-18",
+  "vix": 19.989999771118164,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW",
+   "SNOW"
+  ],
+  "D": [
+   "CRM",
+   "MRNA",
+   "REGN",
+   "OXY",
+   "SHOP",
+   "SG",
+   "DOCU"
+  ],
+  "C": [
+   "OXY"
+  ],
+  "S": []
  }
 ]
