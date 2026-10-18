@@ -533,12 +533,12 @@ def rank_play(plans, mk, spots):
         src = p["source"]["type"]; rank = 3 if src in ("Setup F", "Pattern 7") else 1
         spot = spots.get(sym)
         if spot is None: continue
-        dist = abs(spot - p["m15"]["trigger"]) / (p["m15"]["atr"] or 1)
-        if dist > 3: continue                                     # too far from the trigger to be today's play
+        dist = 100 * abs(spot - p["m15"]["trigger"]) / spot
+        if dist > 3: continue                                     # more than 3% from the trigger: not today's play (no chasing)
         key = (rank, -dist)
         if best is None or key > best[0]: best = (key, sym, dist)
     if not best: return None, f"{mk.get('state')} market: no prepared chart agrees with it and sits near its trigger"
-    return best[1], f"{plans[best[1]]['source']['type']} · {best[2]:.1f} ATR from the trigger · agrees with a {mk.get('state')} read"
+    return best[1], f"{plans[best[1]]['source']['type']} · {best[2]:.1f}% from the trigger · agrees with a {mk.get('state')} read"
 
 
 def play_of_day(st, mk, now, equity):
@@ -809,7 +809,7 @@ if __name__ == "__main__":
         assert rank_play(P, dict(state="BULLISH"), {"A": 99.5, "B": 99.9, "C": 100.2})[0] == "A"      # tested source beats a closer level
         assert rank_play(P, dict(state="BEARISH"), {"A": 99.5, "B": 99.9, "C": 100.2})[0] == "C"      # only the puts plan agrees
         assert rank_play(P, dict(state="CHOPPY"), {"A": 99.5})[0] is None
-        assert rank_play(P, dict(state="BULLISH"), {"A": 90, "B": 90, "C": 100})[0] is None            # 10 ATR away: no play
+        assert rank_play(P, dict(state="BULLISH"), {"A": 90, "B": 90, "C": 100})[0] is None            # 10% away: no play
         assert not settled(h, "BEARISH") and settled(h + [dict(state="BEARISH")], "BEARISH")
         # replay: one PASS (NOW 10/16 140C), matching the locked plan's Part C
         assert [h[0] for h in HIST if replay_one(*h)[0] == "PASS"] == ["NOW 10/16 140C"]
