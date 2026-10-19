@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Road to $100K</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:1000px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+h2{font:600 var(--t-h2) var(--mono);margin:var(--s4) 0 10px}
+.sub{color:var(--dim);font-size:var(--t-data);line-height:1.5}
+.hero{font:300 clamp(40px,9vw,72px)/1 var(--serif);margin:10px 0 4px}.hero small{font-size:.45em;color:var(--dim)}
+.bar{height:10px;background:var(--bg2);border:1px solid var(--line2);margin:10px 0}.bar i{display:block;height:100%;background:var(--amber)}
+.miles{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:12px 0}
+.tile{border:1px solid var(--line);background:var(--panel);padding:10px 12px}
+.tile .k{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tile .v{font:600 var(--t-h2) var(--mono);margin-top:2px}.tile .s{font-size:var(--t-label);color:var(--dim)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+table{border-collapse:collapse;width:100%;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums}
+th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--dim);font-weight:500}th:first-child,td:first-child{text-align:left}
+.form{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:12px 0}
+label{display:block;font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+input[type=number]{width:100%;background:var(--bg2);color:var(--ink);border:1px solid var(--line2);padding:8px 10px;font:600 var(--t-body) var(--mono)}
+input[type=range]{width:100%}
+.answer{font:300 clamp(28px,6vw,44px)/1.1 var(--serif);margin:8px 0}
+.chart{height:320px;border:1px solid var(--line);background:var(--bg)}
+button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:6px 12px;font:600 var(--t-data) var(--mono);cursor:pointer}
+.warn{border:1px solid var(--amber);padding:10px 12px;font-size:var(--t-data);margin:12px 0;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Road to $100K</h1>
+<p class="sub" id="meta">Loading…</p>
+<div class="hero" id="hero"></div>
+<div class="bar"><i id="fill" style="width:0"></i></div>
+<div class="miles" id="miles"></div>
+<h2>Is the account growing, or are you adding money?</h2>
+<div class="miles" id="growth"></div>
+<p class="sub" id="growthnote"></p>
+<h2>Time to $100,000 from today's balance, no more deposits</h2>
+<div class="scroll"><table id="fixed"></table></div>
+<p class="sub">Constant-return cases for planning, not predictions. The 22% row is not a validated return. The Ledger's own tested range: SPY with dividends 15–17% a year 2016–26; the SPY + Setup F paper portfolio 20–25% a year on the same data, with drops 4–14 points deeper (portfolio.html).</p>
+<h2>Your own scenario</h2>
+<div class="form">
+<div><label>Starting balance ($)</label><input type="number" id="start" step="100"></div>
+<div><label>Monthly contribution ($)</label><input type="number" id="dep" step="50" value="1000"></div>
+<div><label>Assumed annual return <span id="rv">12%</span></label><input type="range" id="ret" min="0" max="30" step="1" value="12"></div>
+</div>
+<div class="answer" id="answer"></div>
+<p class="sub">Constant growth every month, contributions at month-end, no withdrawals or taxes. Illustration only.</p>
+<div class="chart" id="chart"></div>
+<p class="sub" style="margin-top:8px"><button id="copy">Copy scenario</button> <span id="copied"></span></p>
+<h2>What the paper books are doing</h2>
+<div class="miles" id="books"></div>
+<p class="sub">The two $100,000 paper books (manager.html) are the live test of the rules. Their return to date is what the rules actually produced since they started, nothing else on this page is a measurement.</p>
+<div class="warn"><b>Not advice.</b> The balance is typed in by hand from Schwab and dated. Nothing here reads a broker. The Ledger is a set of rules under test, not a licensed advisor.</div>
+</div>
+<script src="vendor/lightweight-charts.standalone.production.js"></script>
+<script>
+const $=s=>document.querySelector(s), money=x=>(x<0?'−':'')+'$'+Math.abs(Math.round(x)).toLocaleString(), pc=x=>(x>=0?'+':'')+(100*x).toFixed(1)+'%';
+const GOAL=100000, MILES=[[14000,'Dec 31, 2026'],[20000,''],[30000,'target 2027-12'],[50000,''],[100000,'the goal']];
+function months(b,m,r){const g=Math.pow(1+r,1/12);if(b>=GOAL)return 0;let n=0;while(b<GOAL&&n<1200){b=b*g+m;n++;}return n;}
+const say=n=>n>=1200?'never at this rate':n===0?'already there':`${Math.floor(n/12)} years, ${n%12} months`;
+let g, api, series;
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  g=(d.report&&d.report.goal)||{balance:0,deposits:[]}; const b=g.balance, dep=(g.deposits||[]).reduce((s,x)=>s+x.amt,0), start=g.floor-dep;
+  $('#meta').textContent=`Schwab balance ${money(b)} as of ${g.as_of}, typed in by hand. Goal $100,000.`;
+  $('#hero').innerHTML=`${money(b)} <small>/ $100,000 · ${(100*b/GOAL).toFixed(0)}%</small>`; $('#fill').style.width=Math.min(100,100*b/GOAL)+'%';
+  const next=MILES.find(([m])=>m>b)||MILES[MILES.length-1];
+  $('#miles').innerHTML=[['next milestone',money(next[0]),next[1]],['remaining to it',money(next[0]-b),''],['remaining to the goal',money(GOAL-b),''],['milestones',MILES.map(([m])=>money(m)).join(' · '),'']].map(([k,v,s])=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
+  const grow=b-start-dep;
+  $('#growth').innerHTML=[['started with',money(start),'plan day one'],['deposits since',money(dep),`${(g.deposits||[]).length} recorded`],['trading result',money(grow),'balance − start − deposits',grow>=0?'up':'dn'],['share of the rise',dep+grow>0?(100*grow/(dep+grow)).toFixed(0)+'%':'—','from trading, the rest is deposits']].map(([k,v,s,c])=>`<div class="tile"><div class="k">${k}</div><div class="v ${c||''}">${v}</div><div class="s">${s}</div></div>`).join('');
+  $('#growthnote').textContent=grow>=0?'The account is up on trading since the plan began. Deposits still did most of the lifting.':'The account is down on trading since the plan began; the rise is deposits.';
+  $('#fixed').innerHTML=`<tr><th>annual growth</th><th>time to $100,000</th><th>balance in 5 years</th><th>in 10 years</th></tr>`+[.08,.12,.17,.22].map(r=>`<tr><td>${(100*r).toFixed(0)}%</td><td>${say(months(b,0,r))}</td><td>${money(b*Math.pow(1+r,5))}</td><td>${money(b*Math.pow(1+r,10))}</td></tr>`).join('');
+  $('#start').value=Math.round(b); draw();
+  fetch('pm.json',{cache:'no-store'}).then(r=>r.json()).then(p=>{$('#books').innerHTML=Object.values(p.books).map(x=>`<div class="tile"><div class="k">${x.name} · since ${x.since||'—'}</div><div class="v ${x.ret>=0?'up':'dn'}">${pc(x.ret)}</div><div class="s">${money(x.equity)} · drawdown ${pc(x.dd)}</div></div>`).join('');}).catch(()=>{$('#books').innerHTML='<div class="tile"><div class="k">paper books</div><div class="v">not started</div></div>';});
+});
+function draw(){
+  const b=+$('#start').value||0, m=+$('#dep').value||0, r=(+$('#ret').value)/100; $('#rv').textContent=(100*r).toFixed(0)+'%';
+  const n=months(b,m,r); $('#answer').textContent=`Time to $100,000: ${say(n)}`;
+  const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts;
+  if(!api){api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2')},timeScale:{borderColor:v('--line2')},localization:{priceFormatter:x=>'$'+Math.round(x).toLocaleString()}});
+    series=api.addSeries(L.LineSeries,{color:v('--amber'),lineWidth:2,priceLineVisible:false});
+    series.createPriceLine({price:GOAL,color:v('--up'),lineStyle:2,title:'$100K'});}
+  const g=Math.pow(1+r,1/12), t0=new Date(); let x=b, pts=[];
+  for(let i=0;i<=360;i++){const d=new Date(t0.getFullYear(),t0.getMonth()+i,1); pts.push({time:d.toISOString().slice(0,10),value:Math.round(x)}); x=x*g+m;}
+  series.setData(pts); api.timeScale().fitContent();
+}
+['start','dep','ret'].forEach(id=>$('#'+id).addEventListener('input',draw));
+$('#copy').onclick=()=>{const t=`Road to $100K · start ${money(+$('#start').value)} · ${money(+$('#dep').value)}/month · ${$('#ret').value}% a year → ${say(months(+$('#start').value,+$('#dep').value,(+$('#ret').value)/100))}. Constant-return illustration, not a prediction.`;navigator.clipboard&&navigator.clipboard.writeText(t);$('#copied').textContent='copied';};
+</script>
+</body>
+</html>

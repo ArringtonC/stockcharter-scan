@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paper manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:1180px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+h2{font:600 var(--t-h2) var(--mono);margin:var(--s4) 0 10px}
+.sub{color:var(--dim);font-size:var(--t-data);line-height:1.5}
+.status{display:inline-block;padding:2px 8px;border:1px solid var(--line2);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.status.ok{color:var(--up);border-color:var(--up)}.status.warn{color:var(--amber);border-color:var(--amber)}.status.bad{color:var(--dn);border-color:var(--dn)}
+.books{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));margin:14px 0}
+.book{border:1px solid var(--line);background:var(--panel);padding:12px 14px}
+.book h3{font:600 var(--t-h2) var(--mono);margin:0 0 2px}.book .rule{color:var(--dim);font-size:var(--t-label);margin-bottom:8px}
+.tiles{display:grid;gap:6px;grid-template-columns:repeat(3,1fr);margin:8px 0}
+.tile{border:1px solid var(--line);padding:6px 8px}.tile .k{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}.tile .v{font:600 var(--t-body) var(--mono)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.chart{height:300px;border:1px solid var(--line);background:var(--bg)}
+.legend{display:flex;gap:14px;font-size:var(--t-label);color:var(--dim);margin:6px 0}.legend i{display:inline-block;width:14px;height:3px;margin-right:5px;vertical-align:middle}
+table{border-collapse:collapse;width:100%;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums}
+th,td{padding:4px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--dim);font-weight:500}th:first-child,td:first-child{text-align:left}
+.scroll{overflow-x:auto}
+.feed{font:500 var(--t-data) var(--mono);line-height:1.6}.feed div{border-bottom:1px solid var(--line);padding:3px 0}.feed .t{color:var(--dim);margin-right:8px}
+.warn{border:1px solid var(--amber);padding:10px 12px;font-size:var(--t-data);margin:12px 0;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Paper manager</h1>
+<p class="sub" id="meta">Loading…</p>
+<div class="books" id="books"></div>
+<div class="legend"><span><i style="background:var(--amber)"></i>F V1 (hold 252)</span><span><i style="background:var(--up)"></i>Shadow C (target touch, 30 EMA exit)</span></div>
+<div class="chart" id="chart"></div>
+<h2>Decisions and fills</h2>
+<div class="feed" id="feed"></div>
+<h2>Closed positions</h2>
+<div class="scroll"><table id="trades"></table></div>
+<div class="warn"><b>What this is.</b> Two simulated $100,000 accounts run by rules, every trading day, with no hands on them. Every idle dollar sits in SPY. A Setup F fire at the close becomes an order; the order fills at the first run of the next session at the live price, paid for by selling SPY; 0.10% each way. F V1 sells after 252 sessions. Shadow C sells at the next open after the stock has touched its target and then closed under its 30-day EMA. Dividends are reinvested, splits adjust the holding. If the book cannot pay for a fire, the opportunity is written down as unfunded and nothing is sold to make room. Every run replays the order ledger from $100,000 and must land on the book's state. <b>Paper only: no broker, no real money, no order ever leaves this page.</b> Shadow C is a test of an exit rule, not a signal.</div>
+<p class="sub">Still by hand: the Schwab account itself, deposits, and any real order. Pause or stop the manager from the box with <code>portfolio_manager.py pause | resume | kill</code>.</p>
+</div>
+<script src="vendor/lightweight-charts.standalone.production.js"></script>
+<script>
+const $=s=>document.querySelector(s), pc=x=>(x>=0?'+':'')+(100*x).toFixed(1)+'%', money=x=>(x<0?'−':'')+'$'+Math.abs(Math.round(x)).toLocaleString();
+fetch('pm.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  const st=d.reconcile_failed.length?['bad','reconcile failed: '+d.reconcile_failed.join(', ')]:d.paused?['warn','paused']:['ok','running'];
+  $('#meta').innerHTML=`Updated ${d.generated} · market ${d.market_open?'open':'closed'} · <span class="status ${st[0]}">${st[1]}</span> · paper only`;
+  const B=d.books;
+  $('#books').innerHTML=Object.entries(B).map(([k,b])=>`<div class="book"><h3>${b.name}</h3><div class="rule">${k==='f'?'Setup F entries · out after 252 sessions':'Setup F entries · target touch, then out under the 30 EMA · paper only, not a signal'} · since ${b.since||'—'} · last decision ${b.last_decision||'—'}</div>
+    <div class="tiles"><div class="tile"><div class="k">equity</div><div class="v ${b.ret>=0?'up':'dn'}">${money(b.equity)}</div></div><div class="tile"><div class="k">return</div><div class="v ${b.ret>=0?'up':'dn'}">${pc(b.ret)}</div></div><div class="tile"><div class="k">drawdown</div><div class="v">${pc(b.dd)}</div></div>
+    <div class="tile"><div class="k">in stocks</div><div class="v">${pc(b.exposure)}</div></div><div class="tile"><div class="k">SPY core</div><div class="v">${money(b.spy_value)}</div></div><div class="tile"><div class="k">realized / open</div><div class="v">${money(b.realized)} / ${money(b.unrealized)}</div></div></div>
+    <div class="scroll"><table><tr><th>held</th><th>shares</th><th>entry</th><th>now</th><th>return</th><th>P&amp;L</th><th>sessions</th><th>target</th></tr>${b.positions.map(p=>`<tr><td>${p.sym}</td><td>${p.q}</td><td>$${p.entry}</td><td>$${p.now}</td><td class="${p.ret>=0?'up':'dn'}">${pc(p.ret)}</td><td class="${p.pl>=0?'up':'dn'}">${money(p.pl)}</td><td>${p.sessions}</td><td>$${p.tgt}${p.armed?' ✓':''}</td></tr>`).join('')||'<tr><td colspan="8">nothing held</td></tr>'}</table></div>
+    <p class="sub">Pending for the next open: ${b.pending.map(o=>`${o.side.toUpperCase()} ${o.sym}`).join(', ')||'none'}</p></div>`).join('');
+  const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts;
+  const api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2')},timeScale:{borderColor:v('--line2')},localization:{priceFormatter:x=>'$'+Math.round(x).toLocaleString()}});
+  [['f','--amber'],['c','--up']].forEach(([k,c])=>{if(!B[k])return;const s=api.addSeries(L.LineSeries,{color:v(c),lineWidth:2,priceLineVisible:false});s.setData(B[k].curve.map(([t,val])=>({time:t,value:val})));});
+  api.timeScale().fitContent();
+  const ev=Object.entries(B).flatMap(([k,b])=>b.events.map(e=>({...e,book:b.name}))).filter(e=>['order','fill','rejected','risk','split','skipped','paused','dividend'].includes(e.kind)).sort((a,b)=>(b.date+b.at)<(a.date+a.at)?-1:1).slice(0,60);
+  const say=e=>e.kind==='order'?`ORDER ${e.side.toUpperCase()} ${e.sym} at the next open · ${e.why}`:e.kind==='fill'?`${e.side==='buy'?'BOUGHT':'SOLD'} ${e.q} ${e.sym} @ $${e.px.toFixed(2)} = ${money(e.usd)}${e.side==='sell'?` · P&L ${money(e.pl)} · ${e.why}`:''}`:e.kind==='rejected'?`REJECTED ${e.sym}: ${e.what}`:e.kind==='skipped'?`UNFUNDED ${e.sym}: ${e.what}`:e.kind==='split'?`SPLIT ${e.sym} ${e.ratio}:1 → ${e.q} shares`:e.kind==='dividend'?`DIVIDEND ${e.sym} ${money(e.amt)} reinvested`:`⚠ ${e.what}`;
+  $('#feed').innerHTML=ev.map(e=>`<div><span class="t">${e.date} ${e.at||''} · ${e.book}</span>${say(e)}</div>`).join('')||'<div>nothing yet</div>';
+  const tr=Object.entries(B).flatMap(([k,b])=>b.trades.map(t=>({...t,book:b.name}))).sort((a,b)=>b.closed<a.closed?-1:1);
+  $('#trades').innerHTML=`<tr><th>book</th><th>name</th><th>opened</th><th>closed</th><th>shares</th><th>entry</th><th>exit</th><th>P&amp;L</th><th>why</th></tr>`+(tr.map(t=>`<tr><td>${t.book}</td><td>${t.sym}</td><td>${t.opened}</td><td>${t.closed}</td><td>${t.q}</td><td>$${t.entry.toFixed(2)}</td><td>$${t.exit.toFixed(2)}</td><td class="${t.pl>=0?'up':'dn'}">${money(t.pl)}</td><td>${t.why}</td></tr>`).join('')||'<tr><td colspan="9">none yet</td></tr>');
+}).catch(e=>{$('#meta').textContent='No pm.json yet: the manager has not run.';});
+</script>
+</body>
+</html>
