@@ -7,10 +7,10 @@
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 99900.0,
+   "equity": 99898.7,
    "ret": -0.001,
    "dd": -0.001,
-   "spy_value": 99900.0,
+   "spy_value": 99898.7,
    "spy_units": 130.1442,
    "cash": 0.0,
    "exposure": 0.0,
@@ -32,7 +32,7 @@
    "curve": [
     [
      "2026-10-19",
-     99900.0
+     99898.7
     ]
    ],
    "last_decision": null,
@@ -41,10 +41,10 @@
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 99900.0,
+   "equity": 99898.7,
    "ret": -0.001,
    "dd": -0.001,
-   "spy_value": 99900.0,
+   "spy_value": 99898.7,
    "spy_units": 130.1442,
    "cash": 0.0,
    "exposure": 0.0,
@@ -66,11 +66,18 @@
    "curve": [
     [
      "2026-10-19",
-     99900.0
+     99898.7
     ]
    ],
    "last_decision": null,
    "since": "2026-10-19"
   }
+ },
+ "my": {
+  "equity": 12674.74,
+  "cash": 8142.35,
+  "as_of": "2026-10-15",
+  "holdings": {},
+  "actions": []
  }
 }
