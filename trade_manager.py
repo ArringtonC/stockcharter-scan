@@ -18,7 +18,7 @@ FRIENDS = {"1288838148436136057": "jcbreeze"}   # 2026-10-12: sized as if it wer
 STATE = os.path.expanduser("~/.ledger-tm.json")
 H = os.path.dirname(os.path.abspath(__file__))
 YEAR = datetime.date.today().year
-HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #ask-ledger:\n`check META calls` · `check BE 10/16 272.50 call` · "
+HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #ask-ledger:\n`check META calls` · `check BE 10/16 272.50 call` · `done ZS 214.10 2` / `skip ZS` / `my balance 12674 cash 8142` (My Actions) · "
         "`bought AMZN 10/23 265C 3.18` · `sold AMZN 265C 4.90` · `trades` · `pin META` · `unpin META` · `charts` · `report`\n"
         "I answer WAIT, NOW, HOLD, OUT, MISSED, NO TRADE or DATA STALE. I log, watch and journal. You place every order.")
 
@@ -42,6 +42,10 @@ def parse(text):
     """Pure: (verb, dict) from a message, or ("help", {})."""
     t = text.strip()
     if re.match(r"^(trades|positions|how are my trades)\b", t, re.I): return "trades", {}
+    m = re.match(r"^(done|skip)\s+([A-Za-z]{1,5})(?:\s+\$?(\d+(?:\.\d+)?))?(?:\s+x?(\d+))?\s*$", t, re.I)       # my actions: "done ZS 214.10 2"
+    if m: return m.group(1).lower(), dict(sym=m.group(2).upper(), px=float(m.group(3)) if m.group(3) else None, n=int(m.group(4)) if m.group(4) else None)
+    m = re.match(r"^my\s+balance\s+\$?(\d[\d,]*(?:\.\d+)?)(?:\s+cash\s+\$?(\d[\d,]*(?:\.\d+)?))?", t, re.I)
+    if m: return "mybal", dict(bal=float(m.group(1).replace(",", "")), cash=float(m.group(2).replace(",", "")) if m.group(2) else None)
     m = re.match(r"^(pin|unpin)\s+([A-Za-z]{1,5})\b", t, re.I)
     if m: return m.group(1).lower(), dict(sym=m.group(2).upper())
     if re.match(r"^(charts|report)\b", t, re.I): return t.split()[0].lower(), {}
@@ -270,6 +274,15 @@ def board(rs, st):
     st["board_day"] = day
 
 
+def myact(v, c):
+    """My Actions (portfolio_manager): confirm, skip, or update the real balance. Owner only."""
+    import portfolio_manager as PM; m = PM.my_load(); today = datetime.date.today().isoformat()
+    if v == "mybal":
+        m["equity"] = c["bal"]; m["cash"] = c["cash"] if c["cash"] is not None else m["cash"]; m["as_of"] = today; r = f"balance ${m['equity']:,.2f}, cash ${m['cash']:,.2f} recorded"
+    else: r = PM.my_cmd(m, v, c["sym"], c["px"], c["n"], today)
+    PM.my_save(m); return r
+
+
 def main():
     st = json.load(open(STATE)) if os.path.exists(STATE) else {}
     msgs = api(f"/channels/{CH}/messages?limit=20" + (f"&after={st['last']}" if st.get("last") else ""))
@@ -277,12 +290,14 @@ def main():
         st["last"] = m["id"]; who = m["author"]["id"]
         if (who != OWNER and who not in FRIENDS) or m["author"].get("bot"): continue
         v, c = parse(m.get("content", "")); rs = rows(who)
+        if v in ("done", "skip", "mybal") and who != OWNER: v = "help"
         try:
             import ledger_v1 as V
             reply = {"check": lambda: V.improve(dict(c, text=m.get("content", "")), "owner" if who == OWNER else FRIENDS[who]),
                      "details": lambda: V.improve(dict(c, text=m.get("content", "")), "owner" if who == OWNER else FRIENDS[who]),
                      "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who), "trades": lambda: trades(rs, who),
-                     "pin": lambda: pins(c["sym"], True), "unpin": lambda: pins(c["sym"], False), "charts": charts, "report": V.report}.get(v, lambda: HELP)()
+                     "pin": lambda: pins(c["sym"], True), "unpin": lambda: pins(c["sym"], False), "charts": charts, "report": V.report,
+                     "done": lambda: myact("done", c), "skip": lambda: myact("skip", c), "mybal": lambda: myact("mybal", c)}.get(v, lambda: HELP)()
         except Exception as e:
             reply = f"Something broke on that one: {str(e)[:120]}"
         text, png = reply if isinstance(reply, tuple) else (reply, None)

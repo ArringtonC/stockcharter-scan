@@ -43,7 +43,19 @@ def equity(st, px):
     return st["cash"] + st["spy"] * spx + sum(p["q"] * (px(s) or p["entry"]) for s, p in st["pos"].items())
 
 
-def step(st, book, today, fires, px, bars_fn, market_open, actions=lambda s: {}):
+STALE_S = 900     # a quote older than 15 minutes does not fill an order
+
+
+def quote(sym):
+    """Live price WITH its timestamp (Yahoo's regular-market quote). None when missing."""
+    try:
+        m = S.get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=1d&interval=1m")["chart"]["result"][0]["meta"]
+        t = datetime.datetime.fromtimestamp(m["regularMarketTime"], datetime.timezone.utc)
+        return dict(px=float(m["regularMarketPrice"]), time=t.isoformat(timespec="seconds"), age=(datetime.datetime.now(datetime.timezone.utc) - t).total_seconds(), source="yahoo")
+    except Exception: return None
+
+
+def step(st, book, today, fires, px, bars_fn, market_open, actions=lambda s: {}, quote=None):
     """One run. px(sym) -> live price or None. bars_fn(sym) -> COMPLETED sessions only, (date, close, high, low,
     open, volume). fires -> today's Setup F list (sym, px, tgt), used only after today's close. Returns the events."""
     ev = []
@@ -71,8 +83,10 @@ def step(st, book, today, fires, px, bars_fn, market_open, actions=lambda s: {})
     if market_open and spx:
         for o in list(st["pending"]):
             if o["made"] >= today: continue
-            p = px(o["sym"])
-            if not p or p <= 0: L("hold", sym=o["sym"], what="no live price; order kept"); continue
+            qv = quote(o["sym"]) if quote else dict(px=px(o["sym"]), time=None, age=0, source="bars")
+            if not qv or not qv["px"] or qv["px"] <= 0: L("hold", sym=o["sym"], what="no live price; order kept"); continue
+            if qv["age"] > STALE_S: L("hold", sym=o["sym"], what=f"quote is {qv['age'] / 60:.0f} min old ({qv['time']}); order kept"); continue
+            p = qv["px"]; q_at = dict(quote_time=qv["time"], age_s=round(qv["age"]), source=qv["source"])
             if o["side"] == "buy":
                 eq = equity(st, px); avail = st["cash"] + st["spy"] * spx * (1 - COST)
                 q = int(min(SIZE * eq, avail) // (p * (1 + COST)))
@@ -80,13 +94,13 @@ def step(st, book, today, fires, px, bars_fn, market_open, actions=lambda s: {})
                 cost = q * p * (1 + COST); from_cash = min(st["cash"], cost); st["cash"] -= from_cash; need = cost - from_cash
                 if need > 0: u = need / (spx * (1 - COST)); st["spy"] -= u; L("spy_sell", units=u, px=spx, usd=need, why=f"funds {o['sym']}")
                 st["pos"][o["sym"]] = dict(q=q, entry=p * (1 + COST), opened=today, tgt=o["tgt"], armed=False)
-                L("fill", id=o["id"], side="buy", sym=o["sym"], q=q, px=p, usd=cost)
+                L("fill", id=o["id"], side="buy", sym=o["sym"], q=q, px=p, usd=cost, **q_at)
             else:
                 pp = st["pos"].pop(o["sym"], None)
                 if pp:
                     got = pp["q"] * p * (1 - COST); st["cash"] += got; pl = pp["q"] * (p * (1 - COST) - pp["entry"])
                     st["trades"].append(dict(id=o["id"], sym=o["sym"], opened=pp["opened"], closed=today, q=pp["q"], entry=round(pp["entry"], 4), exit=round(p * (1 - COST), 4), pl=round(pl, 2), why=o["why"]))
-                    L("fill", id=o["id"], side="sell", sym=o["sym"], q=pp["q"], px=p, usd=got, pl=pl, why=o["why"])
+                    L("fill", id=o["id"], side="sell", sym=o["sym"], q=pp["q"], px=p, usd=got, pl=pl, why=o["why"], **q_at)
             st["pending"].remove(o)
     # 3 idle cash sweeps into SPY
     if st["cash"] > 0 and spx:
@@ -107,7 +121,7 @@ def step(st, book, today, fires, px, bars_fn, market_open, actions=lambda s: {})
             elif BOOKS[book]["exit"] == "C" and p["armed"]:
                 e30 = S.ema([x[1] for x in b], 30)[-1]
                 if b[-1][1] < e30: why = f"C exit: touched ${p['tgt']:,.2f}, closed ${b[-1][1]:,.2f} under the 30 EMA ${e30:,.2f}"
-            if why: st["pending"].append(dict(id=f"{today}-{sym}-sell", side="sell", sym=sym, why=why, made=today)); L("order", id=f"{today}-{sym}-sell", side="sell", sym=sym, why=why)
+            if why: st["pending"].append(dict(id=f"{today}-{sym}-sell", side="sell", sym=sym, why=why, made=today)); L("order", id=f"{today}-{sym}-sell", side="sell", sym=sym, px=b[-1][1], why=why)
         seen = set(); avail = st["cash"] + st["spy"] * spx * (1 - COST)
         for r in fires:
             sym = r["sym"]
@@ -182,6 +196,56 @@ def snapshot(book, st, px, bars_fn):
                 positions=pos, pending=st["pending"], trades=st["trades"][-60:], events=st["events"][-40:], curve=st["curve"], last_decision=(st["decided"] or [None])[-1], since=st.get("since"))
 
 
+MY = lambda: os.path.join(DIR, "my.json")
+def my_load():
+    return json.load(open(MY())) if os.path.exists(MY()) else dict(equity=S.PLAN["balance"], cash=8142.35, as_of=S.PLAN["balance_as_of"], holdings={}, actions=[])
+
+
+def my_save(m): os.makedirs(DIR, exist_ok=True); json.dump(m, open(MY(), "w"), indent=1)
+
+
+def my_actions(m, ev, today):
+    """The F V1 book's orders, sized for the REAL account off its own equity and cash. Nothing is assumed done;
+    the real holdings change only when Arrington says `done`. A model sell of something never bought is no action."""
+    out = []
+    for e in ev:
+        if e["kind"] != "order" or any(a["id"] == e["id"] for a in m["actions"]): continue
+        if e["side"] == "buy":
+            q = int(min(SIZE * m["equity"], m["cash"]) // e["px"])
+            a = dict(id=e["id"], date=today, side="buy", sym=e["sym"], q=q, px=round(e["px"], 2), usd=round(q * e["px"], 2), why=e["why"], status="proposed" if q else "unfunded")
+        else:
+            h = m["holdings"].get(e["sym"])
+            if not h: continue
+            a = dict(id=e["id"], date=today, side="sell", sym=e["sym"], q=h["q"], px=round(e["px"], 2), usd=round(h["q"] * e["px"], 2), why=e["why"], status="proposed")
+        m["actions"].append(a)
+        if a["status"] == "proposed": out.append(a)
+    return out
+
+
+def my_cmd(m, verb, sym, px=None, q=None, today=None):
+    a = next((a for a in reversed(m["actions"]) if a["sym"] == sym and a["status"] == "proposed"), None)
+    if not a: return f"no open action for {sym}"
+    if verb == "skip": a["status"] = "skipped"; return f"{sym}: skipped, your holdings unchanged"
+    q = q or a["q"]; px = px or a["px"]; a.update(status="done", done_px=px, done_q=q, done_at=today)
+    if a["side"] == "buy":
+        m["cash"] -= q * px; h = m["holdings"].get(sym, dict(q=0, px=0.0))
+        m["holdings"][sym] = dict(q=h["q"] + q, px=round((h["q"] * h["px"] + q * px) / (h["q"] + q), 4), since=today)
+    else: m["cash"] += q * px; m["holdings"].pop(sym, None)
+    return f"{sym}: {a['side']} {q} @ ${px:,.2f} recorded · cash ${m['cash']:,.0f} · you hold {', '.join(f'{s} {h['q']}' for s, h in m['holdings'].items()) or 'nothing'}"
+
+
+def my_text(acts, m):
+    return ("<b>📋 MY ACTIONS · the model's orders, sized for the real account</b>\n" + "\n".join(f"{a['side'].upper()} {a['q']} {a['sym']} ≈ ${a['usd']:,.0f} · {a['why']}" for a in acts)
+            + f"\n<i>your equity ${m['equity']:,.0f}, cash ${m['cash']:,.0f} (as of {m['as_of']}) · reply `done SYM [price] [shares]` or `skip SYM` in #ask-ledger · nothing is assumed done · the Ledger's rules, not advice</i>")
+
+
+def my_snapshot(m, book="f"):
+    status = {}
+    for e in lines(book):
+        if e["kind"] in ("fill", "rejected") and e.get("id"): status[e["id"]] = f"filled {e['q']} @ ${e['px']:,.2f} {e.get('quote_time', '')[-14:-6]}" if e["kind"] == "fill" else "rejected: " + e["what"]
+    return dict(equity=m["equity"], cash=m["cash"], as_of=m["as_of"], holdings=m["holdings"], actions=[dict(a, model=status.get(a["id"], "pending")) for a in m["actions"][-40:]])
+
+
 def main():
     os.makedirs(DIR, exist_ok=True)
     if os.path.exists(os.path.join(DIR, "KILL")): print("pm: KILL present, nothing done"); return
@@ -199,7 +263,10 @@ def main():
         if paused:
             if not any(e.get("kind") == "paused" and e["date"] == today for e in st["events"]): st["events"].append(ledger(book, dict(date=today, kind="paused", what="PAUSE file present: no orders, no fills")))
             ev = []
-        else: ev = step(st, book, today, fires, px, bars_fn, market_open, actions)
+        else: ev = step(st, book, today, fires, px, bars_fn, market_open, actions, quote if market_open else None)
+        if book == "f":
+            m = my_load(); acts = my_actions(m, ev, today); my_save(m)
+            if acts: S.notify(my_text(acts, m), "trades")
         ok, got, have = reconcile(st, book)
         if not ok: ev.append(ledger(book, dict(date=today, kind="risk", what=f"RECONCILE FAILED: ledger {json.dumps(got)} vs state {json.dumps(have)}"))); st["events"] = (st["events"] + [ev[-1]])[-60:]; bad.append(book)
         save(book, st); books[book] = st
@@ -209,7 +276,7 @@ def main():
     wk = datetime.date.today().isocalendar()[1]; mark = os.path.join(DIR, "weekly")
     if datetime.date.today().weekday() == 5 and (not os.path.exists(mark) or open(mark).read() != str(wk)):
         S.notify(compare_text(books, px), "paper"); open(mark, "w").write(str(wk))
-    json.dump(dict(generated=today, market_open=market_open, paused=paused, reconcile_failed=bad, books={b: snapshot(b, st, px, bars_fn) for b, st in books.items()}), open(os.path.join(S.DOCS, "pm.json"), "w"), indent=1)
+    json.dump(dict(generated=today, market_open=market_open, paused=paused, reconcile_failed=bad, books={b: snapshot(b, st, px, bars_fn) for b, st in books.items()}, my=my_snapshot(my_load())), open(os.path.join(S.DOCS, "pm.json"), "w"), indent=1)
 
 
 def selftest():
@@ -268,6 +335,24 @@ def selftest():
     day(st, "f", "2026-11-02", [fire]); [day(st, "f", d) for d in ("2026-11-03", "2026-11-04", "2026-11-06", "2026-11-09")]
     assert st["pending"] and st["pending"][0]["why"] == "3 sessions", st["pending"]
     day(st, "f", "2026-11-10"); assert not st["pos"] and st["trades"][0]["why"] == "3 sessions"
+    # quotes with a timestamp: a stale one holds the order, a fresh one fills and is recorded
+    st = dict(cash=START, spy=0.0, pos={}, pending=[], trades=[], curve=[], decided=[], acted=[], events=[])
+    day(st, "f", "2026-11-02", [fire]); px2 = lambda s: B[s]["2026-11-03"][3]
+    now = datetime.datetime.now(datetime.timezone.utc)
+    ev = step(st, "f", "2026-11-03", [], px2, bars_to("2026-11-03", False), True, quote=lambda s: dict(px=px2(s), time="old", age=3600, source="test"))
+    assert ev[-1]["kind"] == "hold" and "min old" in ev[-1]["what"] and st["pending"], "stale quote: order kept"
+    ev = step(st, "f", "2026-11-03", [], px2, bars_to("2026-11-03", False), True, quote=lambda s: dict(px=px2(s), time=now.isoformat(), age=20, source="test"))
+    f = [e for e in ev if e["kind"] == "fill"][0]; assert f["quote_time"] == now.isoformat() and f["age_s"] == 20 and f["source"] == "test", "the fill records its quote and time"
+    # my actions: sized off the real account, nothing assumed done, sells only what I hold
+    m = dict(equity=12_674.74, cash=8_142.35, as_of="t", holdings={}, actions=[])
+    acts = my_actions(m, [dict(kind="order", id="o1", side="buy", sym="X", px=100.0, why="fire")], "2026-11-02")
+    assert acts[0]["q"] == int(0.07 * 12_674.74 // 100) == 8 and acts[0]["usd"] == 800 and m["holdings"] == {}, acts
+    assert my_actions(m, [dict(kind="order", id="o1", side="buy", sym="X", px=100.0, why="fire")], "2026-11-02") == [], "the same order twice: one action"
+    assert my_actions(m, [dict(kind="order", id="o2", side="sell", sym="Q", px=5.0, why="252")], "2026-11-03") == [], "a model sell of something I never bought: no action"
+    my_cmd(m, "done", "X", 101.0, None, "2026-11-03"); assert m["holdings"]["X"]["q"] == 8 and abs(m["cash"] - (8_142.35 - 808)) < 0.01, m
+    acts = my_actions(m, [dict(kind="order", id="o3", side="sell", sym="X", px=120.0, why="252 sessions")], "2026-11-04"); assert acts[0]["q"] == 8 and acts[0]["usd"] == 960
+    assert "skipped" in my_cmd(m, "skip", "X", today="2026-11-05") and m["holdings"]["X"]["q"] == 8, "skip leaves the holdings alone"
+    assert my_actions(m, [dict(kind="order", id="o4", side="buy", sym="Z", px=9_000.0, why="fire")], "2026-11-05") == [] and m["actions"][-1]["status"] == "unfunded"
     print("pm ok")
 
 
@@ -276,6 +361,12 @@ if __name__ == "__main__":
     if os.environ.get("PMTEST"): selftest()
     elif a in ("pause", "kill"): os.makedirs(DIR, exist_ok=True); open(os.path.join(DIR, a.upper()), "w").write(datetime.datetime.now().isoformat()); print(a, "set")
     elif a == "resume": [os.remove(os.path.join(DIR, f)) for f in ("PAUSE", "KILL") if os.path.exists(os.path.join(DIR, f))]; print("resumed")
+    elif a == "my":
+        m = my_load(); v = sys.argv[2] if len(sys.argv) > 2 else "show"; today = datetime.date.today().isoformat()
+        if v == "balance": m["equity"] = float(sys.argv[3]); m["cash"] = float(sys.argv[4]) if len(sys.argv) > 4 else m["cash"]; m["as_of"] = today; print("recorded")
+        elif v in ("done", "skip"): print(my_cmd(m, v, sys.argv[3].upper(), float(sys.argv[4]) if len(sys.argv) > 4 else None, int(sys.argv[5]) if len(sys.argv) > 5 else None, today))
+        else: print(json.dumps(my_snapshot(m), indent=1))
+        my_save(m)
     elif a == "status":
         for b in BOOKS: st = load(b); print(BOOKS[b]["name"], json.dumps(dict(cash=round(st["cash"], 2), spy_units=round(st["spy"], 4), held=list(st["pos"]), pending=[o["id"] for o in st["pending"]], closed=len(st["trades"]), last_decision=(st["decided"] or [None])[-1])))
         print("paused" if os.path.exists(os.path.join(DIR, "PAUSE")) else "killed" if os.path.exists(os.path.join(DIR, "KILL")) else "running")

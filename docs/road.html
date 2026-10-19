@@ -44,6 +44,7 @@ button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);pad
 <h2>Is the account growing, or are you adding money?</h2>
 <div class="miles" id="growth"></div>
 <p class="sub" id="growthnote"></p>
+<div class="scroll"><table id="deps"></table></div>
 <h2>Time to $100,000 from today's balance, no more deposits</h2>
 <div class="scroll"><table id="fixed"></table></div>
 <p class="sub">Constant-return cases for planning, not predictions. The 22% row is not a validated return. The Ledger's own tested range: SPY with dividends 15–17% a year 2016–26; the SPY + Setup F paper portfolio 20–25% a year on the same data, with drops 4–14 points deeper (portfolio.html).</p>
@@ -55,6 +56,8 @@ button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);pad
 </div>
 <div class="answer" id="answer"></div>
 <p class="sub">Constant growth every month, contributions at month-end, no withdrawals or taxes. Illustration only.</p>
+<div class="scroll"><table id="dates"></table></div>
+<p class="sub">Milestone dates are scenarios at the contribution above, not forecasts. Each row assumes that return every single year.</p>
 <div class="chart" id="chart"></div>
 <p class="sub" style="margin-top:8px"><button id="copy">Copy scenario</button> <span id="copied"></span></p>
 <h2>What the paper books are doing</h2>
@@ -79,12 +82,16 @@ fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   $('#growth').innerHTML=[['started with',money(start),'plan day one'],['deposits since',money(dep),`${(g.deposits||[]).length} recorded`],['trading result',money(grow),'balance − start − deposits',grow>=0?'up':'dn'],['share of the rise',dep+grow>0?(100*grow/(dep+grow)).toFixed(0)+'%':'—','from trading, the rest is deposits']].map(([k,v,s,c])=>`<div class="tile"><div class="k">${k}</div><div class="v ${c||''}">${v}</div><div class="s">${s}</div></div>`).join('');
   $('#growthnote').textContent=grow>=0?'The account is up on trading since the plan began. Deposits still did most of the lifting.':'The account is down on trading since the plan began; the rise is deposits.';
   $('#fixed').innerHTML=`<tr><th>annual growth</th><th>time to $100,000</th><th>balance in 5 years</th><th>in 10 years</th></tr>`+[.08,.12,.17,.22].map(r=>`<tr><td>${(100*r).toFixed(0)}%</td><td>${say(months(b,0,r))}</td><td>${money(b*Math.pow(1+r,5))}</td><td>${money(b*Math.pow(1+r,10))}</td></tr>`).join('');
+  $('#deps').innerHTML=`<tr><th>deposit</th><th>amount</th><th>running total</th></tr>`+(()=>{let t=0;return (g.deposits||[]).map(x=>{t+=x.amt;return `<tr><td>${x.date}</td><td>${money(x.amt)}</td><td>${money(t)}</td></tr>`}).join('')})()+`<tr><td>plan start ${d.report&&d.report.goal?'':''}</td><td>${money(start)}</td><td></td></tr>`;
   $('#start').value=Math.round(b); draw();
   fetch('pm.json',{cache:'no-store'}).then(r=>r.json()).then(p=>{$('#books').innerHTML=Object.values(p.books).map(x=>`<div class="tile"><div class="k">${x.name} · since ${x.since||'—'}</div><div class="v ${x.ret>=0?'up':'dn'}">${pc(x.ret)}</div><div class="s">${money(x.equity)} · drawdown ${pc(x.dd)}</div></div>`).join('');}).catch(()=>{$('#books').innerHTML='<div class="tile"><div class="k">paper books</div><div class="v">not started</div></div>';});
 });
 function draw(){
   const b=+$('#start').value||0, m=+$('#dep').value||0, r=(+$('#ret').value)/100; $('#rv').textContent=(100*r).toFixed(0)+'%';
   const n=months(b,m,r); $('#answer').textContent=`Time to $100,000: ${say(n)}`;
+  const when=k=>{const t=new Date();t.setMonth(t.getMonth()+k);return k>=1200?'never':k===0?'now':t.toLocaleDateString('en-US',{month:'short',year:'numeric'});};
+  const reach=(b0,mm,rr,goal)=>{const gg=Math.pow(1+rr,1/12);let x=b0,k=0;while(x<goal&&k<1200){x=x*gg+mm;k++;}return k;};
+  $('#dates').innerHTML=`<tr><th>scenario · ${money(m)}/month</th>${MILES.map(([x])=>`<th>${money(x)}</th>`).join('')}</tr>`+[.08,.12,.17,.22,r].filter((x,i,a)=>a.indexOf(x)===i).sort().map(rr=>`<tr><td>${(100*rr).toFixed(0)}% a year${rr===r?' (yours)':''}</td>${MILES.map(([x])=>`<td>${when(reach(b,m,rr,x))}</td>`).join('')}</tr>`).join('');
   const css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts;
   if(!api){api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2')},timeScale:{borderColor:v('--line2')},localization:{priceFormatter:x=>'$'+Math.round(x).toLocaleString()}});
     series=api.addSeries(L.LineSeries,{color:v('--amber'),lineWidth:2,priceLineVisible:false});
