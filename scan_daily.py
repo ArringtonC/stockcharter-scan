@@ -224,7 +224,7 @@ def check(sym, F, D, C, S, blocked):
             if rg is not None and rg > 0.25:
                 F.append(dict(sym=sym, px=px, dd=dd * 100, tgt=hi252, up=up, rev=rg * 100))
             else:
-                blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up,
+                blocked.append(dict(sym=sym, px=px, dd=dd * 100, up=up, rev=None if rg is None else rg * 100,
                                     why=f"revenue {rg*100:+.0f}%" if rg is not None else "no SEC data"))
         else:
             # F FORMING (2026-10-12): everything F needs except the 10/30 cross, and the 10 is rising
@@ -247,6 +247,7 @@ def scan():
     else: regime, advice = "HIGH", "Everything live. Size up longs. Setup S works here."
     peaked = max(vc[-11:]) >= 25; falling = vc[-1] < vc[-2] < vc[-3]
     F, D, C, S, blocked = [], [], [], [], []
+    global _LEDGER; _LEDGER = []
     for sym in UNIVERSE:
         try:
             check(sym, F, D, C, S, blocked)
@@ -263,6 +264,27 @@ def scan():
                 qdd=(qc[-1] / max(qc[-126:]) - 1) * 100, regime=regime, advice=advice,
                 peaked=peaked, falling=falling, vix_fires=peaked and falling,
                 F=F, D=D, C=C, S=S, blocked=blocked, errors=err, sectors=sectors(), today=today_trades(), taken=TAKEN, weekly=weekly_cross())
+
+
+def signal_ledger(d, open_):
+    """The decision ledger, prospective (2026-10-19): every price-rule candidate the scan saw today, with
+    the rule inputs, the revenue value and its verdict (pass / fail / unknown), and whether the paper
+    bot had cash for it. One line per candidate per day, appended, never rewritten. Public data only."""
+    p = os.path.join(DOCS, "signal-ledger.jsonl"); today = d["date"]
+    if os.path.exists(p) and any(json.loads(l).get("date") == today for l in open(p) if l.strip()): return 0
+    held = {r["symbol"] for r in open_ if r.get("acct") == "bot" and r["status"] == "open"}
+    lines = []
+    for r in d.get("F", []):
+        lines.append(dict(date=today, sym=r["sym"], px=round(r["px"], 2), dd=round(r["dd"], 1), trend=True, rev=round(r["rev"], 1), verdict="pass",
+                          target=round(r["tgt"], 2), held=r["sym"] in held, rule="setup-f v1"))
+    for r in d.get("blocked", []):
+        why = r.get("why", "")
+        verdict = "trend-fail" if why == "trend broken" else "unknown" if why == "no SEC data" else "fail"
+        lines.append(dict(date=today, sym=r["sym"], px=round(r["px"], 2), dd=round(r["dd"], 1), trend=why != "trend broken", rev=(None if r.get("rev") is None else round(r["rev"], 1)),
+                          verdict=verdict, forming=bool(r.get("forming")), held=r["sym"] in held, rule="setup-f v1"))
+    with open(p, "a") as f:
+        for x in lines: f.write(json.dumps(x) + "\n")
+    return len(lines)
 
 
 def _ncdf(x): return 0.5 * (1 + math.erf(x / math.sqrt(2)))
@@ -2182,6 +2204,8 @@ if __name__ == "__main__":
     except Exception as e: print("focus failed", str(e)[:80])
     try: spy_event(d)
     except Exception as e: print("spy event failed", str(e)[:80])
+    try: n = signal_ledger(d, open_); print(f"  signal ledger: {n} candidates logged" if n else "  signal ledger: already logged today")
+    except Exception as e: print("signal ledger failed", str(e)[:80])
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
