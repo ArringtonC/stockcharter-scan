@@ -1,20 +1,20 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-19T14:32-05:00",
+ "updated": "2026-10-19T14:59-05:00",
  "day": "2026-10-19",
  "market": {
-  "state": "MIXED",
-  "score": 1,
+  "state": "BULLISH",
+  "score": 3,
   "confirmed": true,
-  "at": "2026-10-19T14:20-05:00",
-  "data_time": "2026-10-19T14:29-05:00",
+  "at": "2026-10-19T14:45-05:00",
+  "data_time": "2026-10-19T14:55-05:00",
   "parts": {
-   "es": 0,
+   "es": 1,
    "es_mid": 7743.5,
-   "nq": 0,
+   "nq": 1,
    "nq_mid": 29657.38,
-   "spy": 1,
-   "qqq": 0,
+   "spy": 0,
+   "qqq": 1,
    "breadth_vix": 0,
    "spy_vwap_crosses": 0,
    "qqq_vwap_crosses": 1,
@@ -22,36 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-19T12:55-05:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-19T13:00-05:00",
-   "state": "MIXED",
-   "score": -1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-19T13:05-05:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-19T13:10-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-19T13:15-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
   {
    "at": "2026-10-19T13:20-05:00",
    "state": "MIXED",
@@ -140,6 +110,36 @@
    "at": "2026-10-19T14:30-05:00",
    "state": "BULLISH",
    "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-19T14:35-05:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-19T14:40-05:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-19T14:45-05:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-19T14:50-05:00",
+   "state": "MIXED",
+   "score": 1,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-19T14:55-05:00",
+   "state": "MIXED",
+   "score": -2,
    "confirmed": true
   }
  ],
@@ -7637,7 +7637,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-19T14:32-05:00"
+    "at": "2026-10-19T14:59-05:00"
    }
   },
   {
@@ -9511,7 +9511,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-10-19T14:32-05:00"
+    "at": "2026-10-19T14:59-05:00"
    }
   },
   {

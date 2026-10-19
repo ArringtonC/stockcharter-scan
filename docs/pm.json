@@ -1,23 +1,38 @@
 {
  "generated": "2026-10-19",
- "market_open": true,
+ "market_open": false,
  "paused": false,
  "reconcile_failed": [],
  "books": {
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 99966.37,
-   "ret": -0.0003,
-   "dd": -0.0003,
-   "spy_value": 99966.37,
+   "equity": 99752.94,
+   "ret": -0.0025,
+   "dd": -0.0025,
+   "spy_value": 99752.94,
    "spy_units": 130.1442,
    "cash": 0.0,
    "exposure": 0.0,
    "realized": 0,
    "unrealized": 0,
    "positions": [],
-   "pending": [],
+   "pending": [
+    {
+     "id": "2026-10-19-ZS-buy",
+     "side": "buy",
+     "sym": "ZS",
+     "tgt": 336.989990234375,
+     "made": "2026-10-19"
+    },
+    {
+     "id": "2026-10-19-NOW-buy",
+     "side": "buy",
+     "sym": "NOW",
+     "tgt": 192.96600341796875,
+     "made": "2026-10-19"
+    }
+   ],
    "trades": [],
    "events": [
     {
@@ -27,31 +42,68 @@
      "units": 130.14421634216518,
      "px": 767.6099853515625,
      "usd": 100000.0
+    },
+    {
+     "date": "2026-10-19",
+     "at": "16:32",
+     "kind": "order",
+     "id": "2026-10-19-ZS-buy",
+     "side": "buy",
+     "sym": "ZS",
+     "px": 212.52999877929688,
+     "tgt": 336.989990234375,
+     "why": "Setup F fire; 7% of equity at the next open"
+    },
+    {
+     "date": "2026-10-19",
+     "at": "16:32",
+     "kind": "order",
+     "id": "2026-10-19-NOW-buy",
+     "side": "buy",
+     "sym": "NOW",
+     "px": 145.36000061035156,
+     "tgt": 192.96600341796875,
+     "why": "Setup F fire; 7% of equity at the next open"
     }
    ],
    "curve": [
     [
      "2026-10-19",
-     99966.37
+     99752.94
     ]
    ],
-   "last_decision": null,
+   "last_decision": "2026-10-19",
    "since": "2026-10-19"
   },
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 99966.37,
-   "ret": -0.0003,
-   "dd": -0.0003,
-   "spy_value": 99966.37,
+   "equity": 99752.94,
+   "ret": -0.0025,
+   "dd": -0.0025,
+   "spy_value": 99752.94,
    "spy_units": 130.1442,
    "cash": 0.0,
    "exposure": 0.0,
    "realized": 0,
    "unrealized": 0,
    "positions": [],
-   "pending": [],
+   "pending": [
+    {
+     "id": "2026-10-19-ZS-buy",
+     "side": "buy",
+     "sym": "ZS",
+     "tgt": 336.989990234375,
+     "made": "2026-10-19"
+    },
+    {
+     "id": "2026-10-19-NOW-buy",
+     "side": "buy",
+     "sym": "NOW",
+     "tgt": 192.96600341796875,
+     "made": "2026-10-19"
+    }
+   ],
    "trades": [],
    "events": [
     {
@@ -61,15 +113,37 @@
      "units": 130.14421634216518,
      "px": 767.6099853515625,
      "usd": 100000.0
+    },
+    {
+     "date": "2026-10-19",
+     "at": "16:32",
+     "kind": "order",
+     "id": "2026-10-19-ZS-buy",
+     "side": "buy",
+     "sym": "ZS",
+     "px": 212.52999877929688,
+     "tgt": 336.989990234375,
+     "why": "Setup F fire; 7% of equity at the next open"
+    },
+    {
+     "date": "2026-10-19",
+     "at": "16:32",
+     "kind": "order",
+     "id": "2026-10-19-NOW-buy",
+     "side": "buy",
+     "sym": "NOW",
+     "px": 145.36000061035156,
+     "tgt": 192.96600341796875,
+     "why": "Setup F fire; 7% of equity at the next open"
     }
    ],
    "curve": [
     [
      "2026-10-19",
-     99966.37
+     99752.94
     ]
    ],
-   "last_decision": null,
+   "last_decision": "2026-10-19",
    "since": "2026-10-19"
   }
  },
@@ -78,6 +152,31 @@
   "cash": 8142.35,
   "as_of": "2026-10-15",
   "holdings": {},
-  "actions": []
+  "actions": [
+   {
+    "id": "2026-10-19-ZS-buy",
+    "date": "2026-10-19",
+    "side": "buy",
+    "sym": "ZS",
+    "q": 4,
+    "px": 212.53,
+    "usd": 850.12,
+    "why": "Setup F fire; 7% of equity at the next open",
+    "status": "proposed",
+    "model": "pending"
+   },
+   {
+    "id": "2026-10-19-NOW-buy",
+    "date": "2026-10-19",
+    "side": "buy",
+    "sym": "NOW",
+    "q": 6,
+    "px": 145.36,
+    "usd": 872.16,
+    "why": "Setup F fire; 7% of equity at the next open",
+    "status": "proposed",
+    "model": "pending"
+   }
+  ]
  }
 }
