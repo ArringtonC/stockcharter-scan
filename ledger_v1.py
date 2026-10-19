@@ -153,11 +153,12 @@ def source_of(sym, d, levels):
 
 
 # ---------- trigger (Part A) ----------
-def trigger_state(bs, plan, now):
+def trigger_state(bs, plan, now, chase=None):
     """Pure. bs = today's closed 5-minute bars. Returns (code, info): TRIGGER_WAITING, TRIGGER_CONFIRMED or
     CHASE_EXCEEDED. Confirmed = a 5m close beyond the level, on the right side of VWAP, volume >= 1.2x the
     prior 20 bars (ponytail: the break-retest-hold alternative is not coded; backlog)."""
     m = plan["m15"]; sg = 1 if m["direction"] == "CALLS" else -1; vw = vwap_series(bs)
+    chase_px = m["chase"] if chase is None else m["trigger"] + sg * chase * (m["atr"] or 0)     # chase: a shadow-track line in ATRs
     closed = [i for i, b in enumerate(bs) if b[0] + dt.timedelta(minutes=5) <= now]
     hit = None
     for i in closed:
@@ -167,7 +168,7 @@ def trigger_state(bs, plan, now):
             hit = i; break
     if hit is None: return "TRIGGER_WAITING", {}
     last = bs[closed[-1]][4] if closed else bs[-1][4]
-    if sg * (last - m["chase"]) > 0: return "CHASE_EXCEEDED", dict(at=bs[hit][0].isoformat(timespec="minutes"), last=last)
+    if sg * (last - chase_px) > 0: return "CHASE_EXCEEDED", dict(at=bs[hit][0].isoformat(timespec="minutes"), last=last)
     if sg * (last - m["trigger"]) <= 0: return "TRIGGER_WAITING", dict(note="broke, then fell back through the level")
     return "TRIGGER_CONFIRMED", dict(at=bs[hit][0].isoformat(timespec="minutes"), vwap=round(vw[closed[-1]], 2), last=last)
 
@@ -413,6 +414,7 @@ def step(sym, p, mk, st, say, now, equity, bs=None, quote_fn=None, chain=None):
         key = f"{sym}:{state}"
         if not st["sent"].get(key): st["sent"][key] = now.isoformat(timespec="minutes"); say(card(state, sym, p, mk, [code]))
         return
+    shadow(sym, p, mk, st, now, equity, bs, quote_fn, chain)
     if pos or (st.get("states", {}).get(sym) or {}).get("state") == "MISSED": return   # OUT or MISSED: no re-entry without a new prepared trigger
     if not p.get("complete"):
         st.setdefault("states", {})[sym] = dict(state="PREP NEEDED", codes=["PREP_MISSING"]); return
@@ -438,6 +440,40 @@ def step(sym, p, mk, st, say, now, equity, bs=None, quote_fn=None, chain=None):
                               chart_stop=p["m15"]["stop"], take_profit=round(opt["ask"] * 1.5, 2), premium_stop=round(opt["ask"] * 0.5, 2),
                               opened=now.isoformat(timespec="minutes"), source=(p.get("source") or {}).get("type"), market=mk["state"])
     say(card(state, sym, p, mk, codes, risk, opt))
+
+
+SHADOW_CHASE = 1.0      # the Version 1.1 candidate (2026-10-18): 1.0 x ATR past the trigger instead of 0.25; recorded, never messaged
+
+
+def shadow(sym, p, mk, st, now, equity, bs, quote_fn=None, chain=None):
+    """The shadow track: the same rules with the chase line at SHADOW_CHASE ATRs. Follows its own paper
+    positions and records them under rule version 1.1-chase; Discord never hears about it."""
+    sp = st.setdefault("shadow", {}); pos = sp.get(sym); spot = bs[-1][4]
+    if pos and pos["status"] == "open":
+        q = (quote_fn or (lambda e, k: option_quote(sym, e, k, pos["right"])))(pos["exp"], pos["k"])
+        state, code = hold_or_out(pos, spot, q[0], now)
+        if state == "OUT":
+            px = q[0] or 0.0; pl = round((px - pos["fill"]) * 100 - 2 * FEE, 2)
+            pos.update(status="closed", exit=px, exit_code=code, pl=pl, closed=now.isoformat(timespec="minutes"))
+            record(dict(kind="result", id=pos["id"], sym=sym, track="shadow-chase", rule_version="1.1-chase",
+                        result=dict(fill=pos["fill"], exit=px, net=pl, reason=code, best=pos.get("best"), worst=pos.get("worst"))))
+        else: pos["best"] = max(pos.get("best") or 0, q[0] or 0); pos["worst"] = min(pos.get("worst") or 9e9, q[0] or 9e9)
+        return
+    if pos or not p.get("complete") or not p.get("source"): return
+    day = now.date().isoformat()
+    if st.setdefault("shadow_done", {}).get(f"{day}:{sym}"): return
+    locked, _ = trigger_state(bs, p, now); loose, info = trigger_state(bs, p, now, chase=SHADOW_CHASE)
+    if not (locked == "CHASE_EXCEEDED" and loose == "TRIGGER_CONFIRMED"): return     # only the cases the locked line blocked
+    want = "C" if p["m15"]["direction"] == "CALLS" else "P"
+    opt, oc = choose(sym, want, spot, now.date(), p["daily"]["earnings"], equity, quote_fn, chain)
+    state, codes, risk = decide(dict(sym=sym, right=None), mk, p, p.get("source"), opt, oc, loose, equity, now)
+    st["shadow_done"][f"{day}:{sym}"] = state
+    rid = "s" + str(uuid.uuid4())[:7]
+    record(dict(kind="decision", id=rid, sym=sym, env="PAPER", track="shadow-chase", rule_version="1.1-chase", request="shadow",
+                market=mk, m15=p["m15"], source=p.get("source"), trigger=dict(code=loose, **info), option=opt, risk=risk, state=state, codes=codes))
+    if state == "NOW":
+        sp[sym] = dict(id=rid, status="open", right=want, exp=opt["exp"], k=opt["k"], fill=opt["ask"], chart_stop=p["m15"]["stop"],
+                       take_profit=round(opt["ask"] * 1.5, 2), premium_stop=round(opt["ask"] * 0.5, 2), opened=now.isoformat(timespec="minutes"))
 
 
 def follow_originals(st, now, quote_fn=None):
@@ -582,7 +618,7 @@ def write_site(st):
 # ---------- the 30-session report ----------
 def report():
     R = records(); res = {r["id"]: r for r in R if r["kind"] == "result"}
-    dec = [r for r in R if r["kind"] == "decision"]
+    dec = [r for r in R if r["kind"] == "decision" and r.get("track") != "shadow-chase"]
     sessions = sorted({r["logged"][:10] for r in R if r["kind"] == "market"})
     L = [f"# Version 1 paper test · {len(sessions)} of 30 sessions · rules v{RULE_VERSION}", ""]
     tracks = {"improved plan": [], "original idea": [], "no trade": []}
@@ -604,6 +640,10 @@ def report():
         if d["state"] == "NOW" and d["id"] in res:
             k = f"{(d.get('source') or {}).get('type')} / {d['market']['state']}"; by.setdefault(k, []).append(res[d["id"]]["result"]["net"])
     L += ["", "By source / market: " + (" · ".join(f"{k}: {len(v)} ${sum(v):+,.0f}" for k, v in by.items()) or "none yet")]
+    sh = [r["result"]["net"] for r in R if r["kind"] == "result" and r.get("track") == "shadow-chase"]
+    sdec = [r for r in R if r["kind"] == "decision" and r.get("track") == "shadow-chase"]
+    L += ["", f"Shadow track (chase line {SHADOW_CHASE} ATR, rules v1.1-chase, recorded only): {len(sdec)} decisions, "
+          f"{sum(1 for r in sdec if r['state'] == 'NOW')} entries, {len(sh)} closed, net ${sum(sh):+,.0f}"]
     n = len(tracks["improved plan"]); net = sum(tracks["improved plan"])
     verdict = ("Insufficient evidence -- keep the rules, keep watching" if n < 10 else
                "Promising evidence -- consider a separately approved small live pilot" if net > 0 else "Failed evidence -- do not go live")
@@ -757,6 +797,13 @@ if __name__ == "__main__":
         assert trigger_state(bs2, p, now)[0] == "TRIGGER_CONFIRMED"
         assert trigger_state(bs + [(base + dt.timedelta(minutes=100), 99.5, 100.3, 99.4, 100.2, 1100)], p, now)[0] == "TRIGGER_WAITING"   # thin volume
         assert trigger_state(bs + [(base + dt.timedelta(minutes=100), 99.5, 100.9, 99.4, 100.8, 2000)], p, now)[0] == "CHASE_EXCEEDED"
+        assert trigger_state(bs + [(base + dt.timedelta(minutes=100), 99.5, 100.9, 99.4, 100.8, 2000)], p, now, chase=1.0)[0] == "TRIGGER_CONFIRMED"   # the shadow line lets it in
+        sst = dict(sent={}, states={}, pos={}, alert_ask={}, shadow={}, shadow_done={})
+        bs3 = bs + [(base + dt.timedelta(minutes=100), 99.5, 100.9, 99.4, 100.8, 2000)]
+        shadow("X", dict(p, source=dict(type="Setup F"), daily=dict(earnings=None)), dict(state="BULLISH"), sst, now, 12000, bs3,
+               lambda e, k: ({("2026-10-16", 100.0): (1.0, 1.4), ("2026-10-16", 99.0): (1.9, 2.0)}.get((e, k), (0, 0))) + (None,),
+               [("2026-10-16", 99.0), ("2026-10-16", 100.0)])          # ATM 100 has a wide spread; one strike in the money (99) fits
+        assert sst["shadow"].get("X", {}).get("status") == "open", sst
         # decide: every failure returns its reason
         mk = dict(state="BULLISH"); src = dict(type="Setup F")
         assert decide(dict(sym="QQQ"), mk, p, src, o, [], "TRIGGER_CONFIRMED", 12000, now)[:2] == ("NO TRADE", ["INDEX_OPTION"])
