@@ -22,6 +22,7 @@ python3 autotrade.py sync || echo "autotrade sync failed"
 python3 scan_daily.py || { echo "scan failed -- will retry in 15 min"; rm -f ~/.ledger-last-slot; exit 1; }
 python3 autotrade.py || echo "autotrade failed"
 python3 ticket_bot.py || echo "ticket bot failed"
+python3 shadow_c.py || echo "shadow c failed"   # paper only: the Test C exit beside the bot book
 git add docs/ trades.csv
 git diff --cached --quiet && { echo "no change"; exit 0; }
 git commit -q -m "scan $(date -u '+%F %H:%M')"

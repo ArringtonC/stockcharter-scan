@@ -91,12 +91,13 @@ def main():
 if __name__ == "__main__":
     if os.environ.get("SHADOWTEST"):
         import tempfile; STATE = os.path.join(tempfile.mkdtemp(), "s.json")
-        B = {"X": [(f"2026-09-{i:02d}", 100 + i, 101 + i, 99 + i) for i in range(1, 30)] + [("2026-10-01", 130, 131, 129), ("2026-10-02", 118, 119, 117)]}
-        bf = lambda s: B[s]; st = load(); d = dict(F=[dict(sym="X", px=129, tgt=131)])
+        B = {"X": [(f"2026-09-{i:02d}", 100 + i, 101 + i, 99 + i) for i in range(1, 30)] + [("2026-10-01", 130, 131, 129), ("2026-10-02", 105, 106, 104)]}
+        asof = {"d": "2026-09-29"}; bf = lambda s: [b for b in B[s] if b[0] <= asof["d"]]      # the bars as they stood on each test day
+        st = load(); d = dict(F=[dict(sym="X", px=129, tgt=131)])
         decide(st, d, bf, "2026-09-29", False); assert st["pending"][0]["side"] == "buy"                  # decision logged before the fill
-        decide(st, d, bf, "2026-09-30", True); assert "X" in st["pos"] and st["pos"]["X"]["q"] == int(7000 // (129 * 1.001))   # 7% at the live price
+        asof["d"] = "2026-10-01"; decide(st, d, bf, "2026-09-30", True); assert "X" in st["pos"] and st["pos"]["X"]["q"] == int(7000 // (130 * 1.001))   # 7% at the live price
         decide(st, d, bf, "2026-10-01", True); assert st["pos"]["X"]["armed"] and not st["pending"]       # touched the target, still above the EMA
-        decide(st, d, bf, "2026-10-02", True); assert st["pending"] and st["pending"][0]["why"].startswith("C exit")   # closed under the 30 EMA -> sell next session
+        asof["d"] = "2026-10-02"; decide(st, d, bf, "2026-10-02", True); assert st["pending"] and st["pending"][0]["why"].startswith("C exit")   # closed under the 30 EMA -> sell next session
         decide(st, d, bf, "2026-10-03", True); assert not st["pos"] and st["trades"][0]["why"].startswith("C exit") and st["trades"][0]["pl"] < 0
         print("shadow ok")
     else: main()
