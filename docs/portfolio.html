@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio vs SPY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:1100px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+h2{font:600 var(--t-h2) var(--mono);margin:var(--s4) 0 10px}
+.sub{color:var(--dim);font-size:var(--t-data);line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chips button{background:var(--bg2);color:var(--ink2);border:1px solid var(--line2);padding:6px 12px;font:600 var(--t-data) var(--mono);cursor:pointer}
+.chips button.on{color:var(--amber);border-color:var(--amber)}
+.tiles{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:12px 0}
+.tile{border:1px solid var(--line);background:var(--panel);padding:10px 12px}
+.tile .k{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tile .v{font:600 var(--t-h2) var(--mono);margin-top:2px}.tile .s{font-size:var(--t-label);color:var(--dim)}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.chart{height:380px;border:1px solid var(--line);background:var(--bg)}
+.legend{display:flex;gap:14px;font-size:var(--t-label);color:var(--dim);margin:6px 0}
+.legend i{display:inline-block;width:14px;height:3px;margin-right:5px;vertical-align:middle}
+table{border-collapse:collapse;width:100%;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums}
+th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--dim);font-weight:500}th:first-child,td:first-child{text-align:left}
+.scroll{overflow-x:auto}
+.warn{border:1px solid var(--amber);padding:10px 12px;font-size:var(--t-data);margin:12px 0;line-height:1.5}
+details summary{cursor:pointer;color:var(--ink2);font-size:var(--t-data);margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Portfolio vs SPY</h1>
+<p class="sub" id="meta">Loading…</p>
+<div class="chips" id="chips"></div>
+<div class="tiles" id="tiles"></div>
+<div class="legend"><span><i style="background:var(--amber)"></i>SPY + Setup F</span><span><i style="background:var(--dim)"></i>SPY only</span></div>
+<div class="chart" id="chart"></div>
+<div class="warn" id="warn"></div>
+<h2>Year by year</h2>
+<div class="scroll"><table id="annual"></table></div>
+<h2>Where the extra return came from</h2>
+<div class="scroll"><table id="attr"></table></div>
+<h2>Exposure to Setup F names</h2>
+<div class="scroll"><table id="expo"></table></div>
+<h2>Every position</h2>
+<details><summary>Show the trade list (entry → exit, return, SPY over the same window)</summary><div class="scroll"><table id="trades"></table></div></details>
+<p class="sub" style="margin-top:16px">Rules: every dollar in SPY; a Setup F fire (10 over 30 EMA, 50 over 200, 20–45% under the 1-year high, revenue growth over 25% on the filings available that day) moves 7% of the account into that stock for 252 sessions, then back to SPY. 0.10% paid each way. Prices are split-adjusted closes without dividends, so SPY is understated by about 1.5 points a year. The S&P 500 as it was on each date, delisted names included; 122 names with no revenue history were never eligible. Historical simulation, not a forecast. Full notes: thesis/portfolio-attrib.md.</p>
+</div>
+<script src="vendor/lightweight-charts.standalone.production.js"></script>
+<script>
+const $=s=>document.querySelector(s), pc=x=>(x>=0?'+':'')+(100*x).toFixed(1)+'%', money=x=>(x<0?'−':'')+'$'+Math.abs(Math.round(x)).toLocaleString();
+let d, cur='14000_2016', api=null;
+fetch('portfolio-test.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{d=j;
+  $('#meta').textContent=`Simulated to ${d.generated}. Pick an account and a start date.`;
+  const keys=Object.keys(d.runs);
+  $('#chips').innerHTML=keys.map(k=>{const r=d.runs[k];return `<button data-k="${k}" class="${k===cur?'on':''}">$${r.first.toLocaleString()} from ${r.start.slice(0,4)}</button>`;}).join('');
+  $('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.k;draw();};
+  draw();
+});
+function draw(){
+  document.querySelectorAll('#chips button').forEach(b=>b.classList.toggle('on',b.dataset.k===cur));
+  const r=d.runs[cur], css=getComputedStyle(document.documentElement), v=k=>css.getPropertyValue(k).trim(), L=LightweightCharts;
+  $('#tiles').innerHTML=[['SPY + Setup F',money(r.end),`${pc(r.cagr)} a year · worst drop ${pc(r.dd)} · Sharpe ${r.sharpe.toFixed(2)}`,r.end>=r.spy_end?'up':'dn'],
+    ['SPY only',money(r.spy_end),`${pc(r.spy_cagr)} a year · worst drop ${pc(r.spy_dd)} · Sharpe ${r.spy_sharpe.toFixed(2)}`,''],
+    ['Profit, portfolio',money(r.end-r.first),'all positions marked at the last close',r.end-r.first>=0?'up':'dn'],['Profit, SPY',money(r.spy_end-r.first),'buy and hold','']]
+    .map(([k,val,s,cl])=>`<div class="tile"><div class="k">${k}</div><div class="v ${cl}">${val}</div><div class="s">${s}</div></div>`).join('');
+  if(api){api.remove();api=null;}
+  api=L.createChart($('#chart'),{autoSize:true,layout:{background:{type:L.ColorType.Solid,color:v('--bg')},textColor:v('--dim'),fontFamily:"'IBM Plex Mono', monospace",fontSize:11},
+    grid:{vertLines:{color:v('--line')},horzLines:{color:v('--line')}},rightPriceScale:{borderColor:v('--line2'),mode:L.PriceScaleMode.Logarithmic},timeScale:{borderColor:v('--line2')},
+    localization:{priceFormatter:x=>'$'+Math.round(x).toLocaleString()}});
+  const a=api.addSeries(L.LineSeries,{color:v('--amber'),lineWidth:2,priceLineVisible:false}); a.setData(r.curve.map(([t,val])=>({time:t,value:val})));
+  const b=api.addSeries(L.LineSeries,{color:v('--dim'),lineWidth:2,priceLineVisible:false}); b.setData(r.spy_curve.map(([t,val])=>({time:t,value:val})));
+  api.timeScale().fitContent();
+  const top5=r.top.map(([s,x])=>`${s} ${money(x)}`).join(' · ');
+  $('#warn').innerHTML=`<b>Read this before the numbers.</b> The extra return over SPY, ${money(r.excess_total)}, comes from a handful of names: ${top5}. Without the top five the sleeve's result against SPY is <b>${money(r.ex_top5)}</b>. ${r.names_add} names added, ${r.names_cost} cost money. The account averaged <b>${pc(r.expo.avg)}</b> in Setup F names, not 7%. The worst drop was ${pc(r.dd)} against SPY's ${pc(r.spy_dd)}.`;
+  $('#annual').innerHTML=`<tr><th>year</th><th>SPY + Setup F</th><th>SPY</th><th>difference</th></tr>`+r.annual.map(x=>`<tr><td>${x.year}${x.year===d.generated.slice(0,4)?' (to date, open positions)':''}</td><td class="${x.port>=0?'up':'dn'}">${pc(x.port)}</td><td class="${x.spy>=0?'up':'dn'}">${pc(x.spy)}</td><td class="${x.port>=x.spy?'up':'dn'}">${pc(x.port-x.spy)}</td></tr>`).join('');
+  $('#attr').innerHTML=`<tr><th>top names, extra over SPY</th>${r.top.map(([s])=>`<th>${s}</th>`).join('')}<th>without the top 5</th><th>bottom</th></tr><tr><td>sleeve excess ${money(r.excess_total)}</td>${r.top.map(([,x])=>`<td class="up">${money(x)}</td>`).join('')}<td class="${r.ex_top5>=0?'up':'dn'}">${money(r.ex_top5)}</td><td class="dn">${r.bottom.map(([s,x])=>`${s} ${money(x)}`).join('<br>')}</td></tr>`;
+  const e=r.expo; $('#expo').innerHTML=`<tr><th>average</th><th>median</th><th>maximum</th><th>days above 25%</th><th>above 50%</th><th>above 75%</th></tr><tr><td>${pc(e.avg)}</td><td>${pc(e.med)}</td><td>${pc(e.mx)}</td><td>${pc(e.gt25)}</td><td>${pc(e.gt50)}</td><td>${pc(e.gt75)}</td></tr>`;
+  $('#trades').innerHTML=`<tr><th>name</th><th>entry</th><th>exit</th><th>price</th><th>→</th><th>return</th><th>SPY same window</th><th>P&amp;L</th><th>exit</th></tr>`+r.trades.map(t=>`<tr><td>${t.s}</td><td>${t.d0}</td><td>${t.d1}</td><td>$${t.entry}</td><td>$${t.exit}</td><td class="${t.ret>=0?'up':'dn'}">${pc(t.ret)}</td><td>${pc(t.spy)}</td><td class="${t.pl>=0?'up':'dn'}">${money(t.pl)}</td><td>${t.why==='252'?'1 year':t.why}</td></tr>`).join('');
+}
+</script>
+</body>
+</html>
