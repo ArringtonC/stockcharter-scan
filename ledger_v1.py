@@ -312,28 +312,42 @@ def build_workspace(st, now=None):
 
 
 # ---------- the live loop (called every minute by trade_manager) ----------
+PLAIN = {"NO_SOURCE": "no Ledger signal on this name", "PREP_MISSING": "the chart plan is not complete", "DATA_STALE": "quotes are not current",
+         "MARKET_CONFLICT": "the market read is against this side", "TREND_CONFLICT": "the chart favors the other side", "TRIGGER_WAITING": "the trigger has not confirmed",
+         "TRIGGER_CONFIRMED": "trigger confirmed", "CHASE_EXCEEDED": "moved past the chase line", "DTE_FAIL": "no 3-9 day expiry", "EARNINGS_FAIL": "earnings land before expiry",
+         "INDEX_OPTION": "index options are out", "SPREAD_FAIL": "the spread is over 10%", "COST_FAIL": "one contract costs over $400", "RISK_FAIL": "planned loss over $200",
+         "THESIS_INVALID": "the stock crossed the trade stop", "TARGET_HIT": "take-profit reached", "STOP_HIT": "the -50% stop hit", "EXPIRY_CLOSE": "expiry day close", "THESIS_VALID": "the chart still holds"}
+plain = lambda codes: ", ".join(PLAIN.get(c, c.lower().replace("_", " ")) for c in codes)
+
+
+def ticket(sym, p, opt, risk, label="PAPER"):
+    """The NOW card is an order ticket, nothing else (Arrington 2026-10-19): buy, limit, cut, cash out."""
+    m = p["m15"]; side = "CALL" if opt["right"] == "C" else "PUT"; t = dt.datetime.now(CT).strftime("%-I:%M %p CT")
+    lose = round((risk["limit"] - risk["premium_stop"]) * 100); make = round((risk["take_profit"] - risk["limit"]) * 100)
+    return "\n".join([f"🎯 **{sym} {side}**", f"**BUY:** 1× {sym} {opt['exp'][5:].replace('-', '/')} ${opt['k']:g} {side.title()}",
+                      f"**LIMIT:** ${risk['limit']:.2f} · Cost ${risk['cost']:,}", f"**CUT:** ${risk['premium_stop']:.2f} · Lose ${lose:,}",
+                      f"**CASH OUT:** ${risk['take_profit']:.2f} · Make ${make:,}",
+                      f"Trade stop: {sym} {'below' if opt['right'] == 'C' else 'above'} ${m['stop']:,.2f} · thesis fails ${(p.get('daily') or {}).get('failure', m['stop']):,.2f}",
+                      f"_{t} · {label} · {(p.get('source') or {}).get('type', '')} · quote valid 2 minutes · limit order only_"])
+
+
 def card(state, sym, p, mk, codes, risk=None, opt=None, label="PAPER"):
-    """The Discord card: the rule result first, then the market time, data age, PAPER/LIVE and source."""
+    """The Discord card: the decision first, one plain reason, then the time, market, PAPER/LIVE and source."""
     m = p["m15"]; side = m["direction"]; t = dt.datetime.now(CT).strftime("%-I:%M %p CT")
     src = (p.get("source") or {}).get("type", "none")
+    if state == "NOW" and opt: return ticket(sym, p, opt, risk, label)
     head = f"**{state}  {sym} {side}**"
     L = [head]
-    if state == "NOW" and opt:
-        L += [f"{'Break above' if side == 'CALLS' else 'Break below'} ${m['trigger']:,.2f} confirmed · market {mk['state']}",
-              f"**BUY 1 × {opt['exp'][5:].replace('-', '/')} ${opt['k']:g}{opt['right']}  LIMIT ${risk['limit']:.2f}  MAX ${risk['max']:.2f}**",
-              f"COST ${risk['cost']:,}  PLANNED LOSS ${risk['planned_loss']:,}",
-              f"OUT if {sym} {'falls to' if side == 'CALLS' else 'reclaims'} ${m['stop']:,.2f} · OCO +50% ${risk['take_profit']:.2f} / −50% ${risk['premium_stop']:.2f}",
-              "Quote valid 2 minutes. Limit order only."]
-    elif state == "HOLD":
+    if state == "HOLD":
         L += [f"Still {'above' if side == 'CALLS' else 'below'} ${m['trigger']:,.2f}", f"Target ${m['targets'][0]:,.2f} then ${m['targets'][1]:,.2f} · thesis fails at ${m['stop']:,.2f}",
               "Do not add · do not move the stop"]
     elif state == "OUT":
-        L += [f"{', '.join(codes)} -- exit or confirm the fill", "Cancel the rest of the bracket after the fill. No re-entry without a new trigger."]
+        L += [f"{plain(codes).capitalize()} -- exit or confirm the fill", "Cancel the rest of the bracket after the fill. No re-entry without a new trigger."]
     elif state == "MISSED":
-        L += ["Moved past the chase limit. Do not enter. No cheaper, farther strike."]
+        L += ["Moved past the chase line. Do not enter. No cheaper, farther strike."]
     else:
-        L += [f"Plan {side} {'above' if side == 'CALLS' else 'below'} ${m['trigger']:,.2f} · stop area ${m['stop']:,.2f}",
-              f"Targets ${m['targets'][0]:,.2f} then ${m['targets'][1]:,.2f} · {', '.join(codes)}"]
+        L += [f"Plan {side} {'above' if side == 'CALLS' else 'below'} ${m['trigger']:,.2f} · trade stop ${m['stop']:,.2f} · thesis fails ${(p.get('daily') or {}).get('failure', m['stop']):,.2f}",
+              f"Targets ${m['targets'][0]:,.2f} then ${m['targets'][1]:,.2f} · {plain(codes)}"]
     L.append(f"_{t} · market {mk['state']} (data {mk['data_time'][11:16]}) · {label} · source {src} · rules v{RULE_VERSION}_")
     return "\n".join(L)
 
@@ -439,7 +453,10 @@ def step(sym, p, mk, st, say, now, equity, bs=None, quote_fn=None, chain=None):
         st["pos"][sym] = dict(id=rid, status="open", right=want, exp=opt["exp"], k=opt["k"], fill=opt["ask"],      # paper fill at the ask (conservative)
                               chart_stop=p["m15"]["stop"], take_profit=round(opt["ask"] * 1.5, 2), premium_stop=round(opt["ask"] * 0.5, 2),
                               opened=now.isoformat(timespec="minutes"), source=(p.get("source") or {}).get("type"), market=mk["state"])
-    say(card(state, sym, p, mk, codes, risk, opt))
+    if state == "NOW":
+        from scan_daily import discord
+        discord(card(state, sym, p, mk, codes, risk, opt), "trades")          # the order ticket, in #trades
+    else: say(card(state, sym, p, mk, codes, risk, opt))
 
 
 SHADOW_CHASE = 1.0      # the Version 1.1 candidate (2026-10-18): 1.0 x ATR past the trigger instead of 0.25; recorded, never messaged
@@ -578,33 +595,35 @@ def rank_play(plans, mk, spots):
 
 
 def play_of_day(st, mk, now, equity):
-    """8:45 CT, once: the one chart to watch today, with the plan and the contract that fits the rules.
-    It is a WAIT card -- the trigger still has to confirm; the NOW card follows on its own."""
+    """8:45 CT, once. WATCHING = the one chart that passes every hard rule right now (source, market side,
+    earnings, a contract under $400 with a sane spread) and only waits for its trigger. If no chart passes,
+    nothing posts: a card in #trades must never advertise a trade the rules reject (2026-10-19)."""
     import scan_daily as S
     from scan_daily import discord
     spots = {}
     for sym in st.get("plans", {}):
         try: spots[sym] = S.bars(sym, "5d")[-1][1]
         except Exception: pass
-    sym, why = rank_play(st.get("plans", {}), mk, spots)
-    day = now.date().isoformat()
-    if not sym:
-        discord(f"**🎯 PLAY OF THE DAY · none**\n{why}.\n_{now.strftime('%-I:%M %p CT')} · rules v{RULE_VERSION} · Version 1 paper_", "trades")
-        record(dict(kind="play", day=day, sym=None, why=why, market=mk)); return
-    p = st["plans"][sym]; m = p["m15"]; right = "C" if m["direction"] == "CALLS" else "P"
-    try: opt, codes = choose(sym, right, spots[sym], now.date(), p["daily"]["earnings"], equity)
-    except Exception: opt, codes = None, ["quote failed"]
-    con = (f"{opt['exp'][5:].replace('-', '/')} ${opt['k']:g}{right} · ask ${opt['ask']:.2f} (${opt['ask'] * 100:,.0f}, fits the $400 cap)" if opt
-           else f"no contract fits the rules yet ({', '.join(codes) or 'nothing 3-9 days out'}) -- a stock position at 7% is the fallback")
-    text = (f"**🎯 PLAY OF THE DAY · {sym} {m['direction']}**\n{why}\n"
-            f"TRIGGER a 5-minute close {'above' if right == 'C' else 'below'} **${m['trigger']:,.2f}** on volume · MAX CHASE ${m['chase']:,.2f}\n"
-            f"STOP AREA ${m['stop']:,.2f} · TARGETS ${m['targets'][0]:,.2f} then ${m['targets'][1]:,.2f} · thesis fails past ${p['daily']['failure']:,.2f}\n"
-            f"CONTRACT {con}\n"
-            f"Now ${spots[sym]:,.2f} · market {mk['state']} ({mk['score']:+d}) · earnings {p['daily'].get('earnings') or 'none inside 12 days'}\n"
-            f"**WAIT.** The NOW card posts in #ask-ledger when the trigger confirms. Type `check {sym} {m['direction'].lower()}` for the live state.\n"
-            f"_{now.strftime('%-I:%M %p CT')} · rules v{RULE_VERSION} · Version 1 paper · not advice_")
-    discord(text, "trades")
-    record(dict(kind="play", day=day, sym=sym, why=why, plan=m, option=opt, market=mk))
+    day = now.date().isoformat(); tried = []; why = "no prepared chart agrees with the market read"
+    plans = dict(st.get("plans", {}))
+    while plans:
+        sym, why = rank_play(plans, mk, spots)
+        if not sym: break
+        p = plans.pop(sym); m = p["m15"]; right = "C" if m["direction"] == "CALLS" else "P"
+        try: opt, codes = choose(sym, right, spots[sym], now.date(), p["daily"]["earnings"], equity)
+        except Exception: opt, codes = None, ["quote failed"]
+        if not opt: tried.append(f"{sym}: {plain(codes) or 'no contract'}"); continue
+        lim = round((opt["bid"] + opt["ask"]) / 2, 2)
+        text = (f"👀 **WATCHING · {sym} {m['direction']}**\n{why}\n"
+                f"**TRIGGER:** a 5-minute close {'above' if right == 'C' else 'below'} **${m['trigger']:,.2f}** on volume · "
+                f"entry window ${min(m['trigger'], m['chase']):,.2f}–${max(m['trigger'], m['chase']):,.2f} · past ${m['chase']:,.2f} = MISSED, do not chase\n"
+                f"**PLAN:** trade stop ${m['stop']:,.2f} · targets ${m['targets'][0]:,.2f} then ${m['targets'][1]:,.2f} · thesis fails ${p['daily']['failure']:,.2f}\n"
+                f"**CONTRACT:** {sym} {opt['exp'][5:].replace('-', '/')} ${opt['k']:g} {'Call' if right == 'C' else 'Put'} · about ${lim:.2f} (${lim * 100:,.0f}) · passes every hard rule now\n"
+                f"**ACTION: WAIT.** The order ticket posts here on its own when the trigger confirms.\n"
+                f"_{now.strftime('%-I:%M %p CT')} · {sym} ${spots[sym]:,.2f} · market {mk['state']} ({mk['score']:+d}) · Version 1 paper · not advice_")
+        discord(text, "trades")
+        record(dict(kind="play", day=day, sym=sym, why=why, plan=m, option=opt, market=mk, passed_over=tried)); return
+    record(dict(kind="play", day=day, sym=None, why=why if not tried else "no chart passes every hard rule", passed_over=tried, market=mk))   # silent in Discord
 
 
 def write_site(st):
@@ -841,9 +860,9 @@ if __name__ == "__main__":
         p2 = dict(p, source=src, daily=dict(earnings=None))
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
-        assert len(sent) == 2 and sent[0].startswith("**NOW") and sent[1].startswith("**HOLD"), sent   # NOW, then one HOLD
+        assert len(sent) == 1 and sent[0].startswith("**HOLD"), sent   # the NOW ticket goes to #trades (webhook, unset in tests); then one HOLD
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
-        assert len(sent) == 2                                                                  # third pass: nothing
+        assert len(sent) == 1                                                                  # third pass: nothing
         # MISSED is final for the day (2026-10-13: SG went MISSED at 8:40, then NOW at 11:01)
         sent = []; stt = dict(sent={}, states={"X": dict(state="MISSED")}, pos={}, alert_ask={})
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
