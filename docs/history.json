@@ -1005,7 +1005,7 @@
  },
  {
   "date": "2026-10-19",
-  "vix": 18.399999618530273,
+  "vix": 18.209999084472656,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1014,12 +1014,12 @@
   ],
   "D": [
    "CRM",
-   "AMZN",
    "REGN",
+   "AMZN",
    "OXY",
-   "MRNA",
    "SG",
-   "SHOP"
+   "SHOP",
+   "MRNA"
   ],
   "C": [],
   "S": []
