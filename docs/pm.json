@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-19",
+ "generated": "2026-10-20",
  "market_open": false,
  "paused": false,
  "reconcile_failed": [],
@@ -69,6 +69,10 @@
    "curve": [
     [
      "2026-10-19",
+     99752.94
+    ],
+    [
+     "2026-10-20",
      99752.94
     ]
    ],
@@ -141,6 +145,10 @@
     [
      "2026-10-19",
      99752.94
+    ],
+    [
+     "2026-10-20",
+     99752.94
     ]
    ],
    "last_decision": "2026-10-19",
@@ -148,9 +156,9 @@
   }
  },
  "my": {
-  "equity": 12674.74,
-  "cash": 8142.35,
-  "as_of": "2026-10-15",
+  "equity": 14389.31,
+  "cash": 9684.05,
+  "as_of": "2026-10-19",
   "holdings": {},
   "actions": [
    {
@@ -162,7 +170,7 @@
     "px": 212.53,
     "usd": 850.12,
     "why": "Setup F fire; 7% of equity at the next open",
-    "status": "proposed",
+    "status": "skipped",
     "model": "pending"
    },
    {
