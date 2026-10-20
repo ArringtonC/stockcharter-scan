@@ -63,3 +63,4 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-10-15-DELL-f,shares,bot,2026-10-15,DELL,F,463.85,595.51,,,14,open,,,,"Pure Setup F. 14 shares, 7% of equity. Target $595.51; no stop; held 252 sessions, no exit at the target (paper test since 10-06)."
 2026-10-16-AAPL-347.5c-real,call,real,2026-10-16,AAPL,none,1.57,,347.5,2026-10-16,1,closed,2026-10-16,0.52,-66.9,"REAL. 0DTE, market order at the open, no Ledger source. Logged from the Schwab order list."
 2026-10-16-NVDA-215p-real,put,real,2026-10-16,NVDA,none,0.94,,215,2026-10-16,1,closed,2026-10-16,0.84,-10.6,"REAL. 0DTE, market order at the open, no Ledger source. Logged from the Schwab order list."
+2026-10-19-NOW-144c-real,call,real,2026-10-19,NOW,Setup F,3.41,,144,2026-10-23,1,open,,,,"REAL. From the Schwab screenshot 10-19: 1 contract, cost $340.66, marked $4.225."
