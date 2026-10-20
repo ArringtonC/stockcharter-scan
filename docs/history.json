@@ -1025,7 +1025,7 @@
  },
  {
   "date": "2026-10-20",
-  "vix": 17.479999542236328,
+  "vix": 17.309999465942383,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1036,8 +1036,9 @@
    "WDAY",
    "CRM",
    "AMZN",
+   "OXY",
    "REGN",
-   "OXY"
+   "MRK"
   ],
   "C": [
    "WDAY",

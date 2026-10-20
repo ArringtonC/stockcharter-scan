@@ -95,7 +95,12 @@
   "target_down": 6.61,
   "tf": "1d",
   "logged": "2026-10-08",
-  "close": true
+  "close": true,
+  "fired": {
+   "way": "up",
+   "price": 10.67,
+   "at": "2026-10-20 17:31"
+  }
  },
  {
   "symbol": "SNAP",
