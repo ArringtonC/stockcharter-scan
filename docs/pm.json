@@ -7,41 +7,41 @@
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 99597.46,
-   "ret": -0.004,
-   "dd": -0.004,
-   "spy_value": 85965.56,
+   "equity": 100241.21,
+   "ret": 0.0024,
+   "dd": 0.0,
+   "spy_value": 86591.63,
    "spy_units": 112.3006,
    "cash": 0.0,
-   "exposure": 0.1369,
+   "exposure": 0.1362,
    "realized": 0,
-   "unrealized": -13.64,
+   "unrealized": 4.04,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 211.45,
+     "now": 213.21,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -6.77,
-     "ret": -0.001,
+     "pl": 49.55,
+     "ret": 0.0073,
      "sessions": 0,
-     "value": 6766.4
+     "value": 6822.72
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 149.25,
+     "now": 148.41,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -6.87,
-     "ret": -0.001,
+     "pl": -45.51,
+     "ret": -0.0066,
      "sessions": 0,
-     "value": 6865.5
+     "value": 6826.86
     }
    ],
    "pending": [],
@@ -131,7 +131,7 @@
     ],
     [
      "2026-10-20",
-     99597.46
+     100241.21
     ]
    ],
    "last_decision": "2026-10-19",
@@ -140,41 +140,41 @@
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 99608.06,
-   "ret": -0.0039,
-   "dd": -0.0039,
-   "spy_value": 85976.16,
+   "equity": 100251.89,
+   "ret": 0.0025,
+   "dd": 0.0,
+   "spy_value": 86602.31,
    "spy_units": 112.3145,
    "cash": 0.0,
-   "exposure": 0.1369,
+   "exposure": 0.1362,
    "realized": 0,
-   "unrealized": -3.04,
+   "unrealized": 14.64,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 211.45,
+     "now": 213.21,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -6.77,
-     "ret": -0.001,
+     "pl": 49.55,
+     "ret": 0.0073,
      "sessions": 0,
-     "value": 6766.4
+     "value": 6822.72
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.17,
-     "now": 149.25,
+     "now": 148.41,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": 3.73,
-     "ret": 0.0005,
+     "pl": -34.91,
+     "ret": -0.0051,
      "sessions": 0,
-     "value": 6865.5
+     "value": 6826.86
     }
    ],
    "pending": [],
@@ -264,7 +264,7 @@
     ],
     [
      "2026-10-20",
-     99608.06
+     100251.89
     ]
    ],
    "last_decision": "2026-10-19",
