@@ -1,34 +1,34 @@
 {
  "generated": "2026-10-21",
- "market_open": false,
+ "market_open": true,
  "paused": false,
  "reconcile_failed": [],
  "books": {
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 100107.94,
-   "ret": 0.0011,
+   "equity": 100297.03,
+   "ret": 0.003,
    "dd": 0.0,
-   "spy_value": 86364.78,
+   "spy_value": 86472.59,
    "spy_units": 112.3006,
    "cash": 0.0,
-   "exposure": 0.1373,
+   "exposure": 0.1378,
    "realized": 0,
-   "unrealized": 97.62,
+   "unrealized": 178.9,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 214.51,
+     "now": 217.05,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 91.15,
-     "ret": 0.0135,
+     "pl": 172.43,
+     "ret": 0.0255,
      "sessions": 0,
-     "value": 6864.32
+     "value": 6945.6
     },
     {
      "sym": "NOW",
@@ -135,7 +135,7 @@
     ],
     [
      "2026-10-21",
-     100107.94
+     100297.03
     ]
    ],
    "last_decision": "2026-10-20",
@@ -144,28 +144,28 @@
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 100118.59,
-   "ret": 0.0012,
-   "dd": 0.0,
-   "spy_value": 86375.43,
+   "equity": 100307.7,
+   "ret": 0.0031,
+   "dd": -0.0,
+   "spy_value": 86483.26,
    "spy_units": 112.3145,
    "cash": 0.0,
-   "exposure": 0.1373,
+   "exposure": 0.1378,
    "realized": 0,
-   "unrealized": 108.21,
+   "unrealized": 189.49,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 214.51,
+     "now": 217.05,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 91.15,
-     "ret": 0.0135,
+     "pl": 172.43,
+     "ret": 0.0255,
      "sessions": 0,
-     "value": 6864.32
+     "value": 6945.6
     },
     {
      "sym": "NOW",
@@ -272,7 +272,7 @@
     ],
     [
      "2026-10-21",
-     100118.59
+     100307.7
     ]
    ],
    "last_decision": "2026-10-20",
