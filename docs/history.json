@@ -1048,7 +1048,7 @@
  },
  {
   "date": "2026-10-21",
-  "vix": 17.1200008392334,
+  "vix": 16.68000030517578,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1061,10 +1061,11 @@
    "CRM",
    "AMZN",
    "OXY",
-   "REGN",
    "VRTX",
-   "PLTR",
-   "DVN"
+   "REGN",
+   "SG",
+   "DVN",
+   "PLTR"
   ],
   "C": [
    "ROKU"

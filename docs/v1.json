@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-21T14:32-05:00",
+ "updated": "2026-10-21T14:59-05:00",
  "day": "2026-10-21",
  "market": {
   "state": "CHOPPY",
   "score": 5,
   "confirmed": true,
-  "at": "2026-10-21T14:30-05:00",
-  "data_time": "2026-10-21T14:30-05:00",
+  "at": "2026-10-21T14:55-05:00",
+  "data_time": "2026-10-21T14:55-05:00",
   "parts": {
    "es": 1,
    "es_mid": 7775.0,
@@ -22,36 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-10-21T12:55-05:00",
-   "state": "CHOPPY",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-21T13:00-05:00",
-   "state": "CHOPPY",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-21T13:05-05:00",
-   "state": "CHOPPY",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-21T13:10-05:00",
-   "state": "CHOPPY",
-   "score": 4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-21T13:15-05:00",
-   "state": "CHOPPY",
-   "score": 4,
-   "confirmed": true
-  },
   {
    "at": "2026-10-21T13:20-05:00",
    "state": "CHOPPY",
@@ -138,6 +108,36 @@
   },
   {
    "at": "2026-10-21T14:30-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-21T14:35-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-21T14:40-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-21T14:45-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-21T14:50-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-21T14:55-05:00",
    "state": "CHOPPY",
    "score": 5,
    "confirmed": true
