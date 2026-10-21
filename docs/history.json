@@ -1048,7 +1048,7 @@
  },
  {
   "date": "2026-10-21",
-  "vix": 16.610000610351562,
+  "vix": 16.709999084472656,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1058,15 +1058,20 @@
   "D": [
    "WDAY",
    "TXN",
+   "OKTA",
    "CRM",
    "XYZ",
    "AMZN",
    "OXY",
    "REGN",
    "PLTR",
-   "MRK"
+   "SG",
+   "MRK",
+   "DVN"
   ],
-  "C": [],
+  "C": [
+   "PYPL"
+  ],
   "S": [
    "NFLX"
   ]
