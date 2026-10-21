@@ -1045,5 +1045,28 @@
    "LLY"
   ],
   "S": []
+ },
+ {
+  "date": "2026-10-21",
+  "vix": 17.329999923706055,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW"
+  ],
+  "D": [
+   "WDAY",
+   "CRM",
+   "AMZN",
+   "OXY",
+   "REGN",
+   "MRK"
+  ],
+  "C": [
+   "WDAY",
+   "LLY"
+  ],
+  "S": []
  }
 ]
