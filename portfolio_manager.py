@@ -15,7 +15,8 @@ Version 1 or #trades. Self-test: PMTEST=1 python3 portfolio_manager.py"""
 import datetime, json, os, sys
 import scan_daily as S
 DIR = os.path.expanduser("~/.ledger-pm"); START = 100_000.0; COST = 0.001; HOLD = 252; SIZE = 0.07
-BOOKS = {"f": dict(name="F V1", exit="252"), "c": dict(name="SHADOW C", exit="C")}
+BOOKS = {"f": dict(name="F V1", exit="252"), "c": dict(name="SHADOW C", exit="C"),
+         "x": dict(name="F CAP 70", exit="252", cap=0.70)}   # 2026-10-22: entry cap, paper only (thesis/allocation-audit.md); cloned from F V1 at start
 NOTIFY = ("order", "fill", "rejected", "risk", "split")
 
 
@@ -88,8 +89,12 @@ def step(st, book, today, fires, px, bars_fn, market_open, actions=lambda s: {},
             if qv["age"] > STALE_S: L("hold", sym=o["sym"], what=f"quote is {qv['age'] / 60:.0f} min old ({qv['time']}); order kept"); continue
             p = qv["px"]; q_at = dict(quote_time=qv["time"], age_s=round(qv["age"]), source=qv["source"])
             if o["side"] == "buy":
-                eq = equity(st, px); avail = st["cash"] + st["spy"] * spx * (1 - COST)
-                q = int(min(SIZE * eq, avail) // (p * (1 + COST)))
+                eq = equity(st, px); avail = st["cash"] + st["spy"] * spx * (1 - COST); want = min(SIZE * eq, avail)
+                cap = BOOKS[book].get("cap")
+                if cap:                                     # entry cap: no new F money above cap x equity; never sells early
+                    fval = sum(pp["q"] * (px(s) or pp["entry"]) for s, pp in st["pos"].items()); want = min(want, cap * eq - fval)
+                    if want < 0.005 * eq: st["pending"].remove(o); L("rejected", id=o["id"], sym=o["sym"], what=f"cap: F positions are {100 * fval / eq:.0f}% of equity (cap {100 * cap:.0f}%)"); continue
+                q = int(want // (p * (1 + COST)))
                 if q < 1: st["pending"].remove(o); L("rejected", id=o["id"], sym=o["sym"], what=f"unfunded: ${avail:,.0f} available, 7% of equity is ${SIZE * eq:,.0f}, price ${p:,.2f}"); continue
                 cost = q * p * (1 + COST); from_cash = min(st["cash"], cost); st["cash"] -= from_cash; need = cost - from_cash
                 if need > 0: u = need / (spx * (1 - COST)); st["spy"] -= u; L("spy_sell", units=u, px=spx, usd=need, why=f"funds {o['sym']}")
@@ -353,6 +358,17 @@ def selftest():
     acts = my_actions(m, [dict(kind="order", id="o3", side="sell", sym="X", px=120.0, why="252 sessions")], "2026-11-04"); assert acts[0]["q"] == 8 and acts[0]["usd"] == 960
     assert "skipped" in my_cmd(m, "skip", "X", today="2026-11-05") and m["holdings"]["X"]["q"] == 8, "skip leaves the holdings alone"
     assert my_actions(m, [dict(kind="order", id="o4", side="buy", sym="Z", px=9_000.0, why="fire")], "2026-11-05") == [] and m["actions"][-1]["status"] == "unfunded"
+    # entry cap: a book at its 70% ceiling records the fire instead of buying, and buys only the room left
+    BOOKS["t"] = dict(name="T", exit="252", cap=0.70)
+    st = dict(cash=0.0, spy=100.0, pos={"A": dict(q=100, entry=65.0, opened="2026-11-01", tgt=99, armed=False)}, pending=[], trades=[], curve=[], decided=[], acted=[], events=[])
+    pxs = {"SPY": 300.0, "A": 650.0, "B": 10.0}                   # A = 65,000 of 95,000 equity = 68%
+    st["pending"].append(dict(id="o-B", side="buy", sym="B", tgt=20, made="2026-11-02"))
+    step(st, "t", "2026-11-03", [], lambda s: pxs.get(s), lambda s: [("2026-11-02", 1, 1, 1, 1, 0)], True)
+    assert "B" in st["pos"] and st["pos"]["B"]["q"] * 10 <= 0.70 * 95_000 - 65_000 + 10, st["pos"]          # only the room left
+    st["pending"].append(dict(id="o-C", side="buy", sym="C", tgt=20, made="2026-11-02")); pxs["C"] = 5.0
+    ev = step(st, "t", "2026-11-03", [], lambda s: pxs.get(s), lambda s: [("2026-11-02", 1, 1, 1, 1, 0)], True)
+    assert "C" not in st["pos"] and any(e["kind"] == "rejected" and "cap" in e["what"] for e in ev), ev
+    del BOOKS["t"]
     print("pm ok")
 
 
