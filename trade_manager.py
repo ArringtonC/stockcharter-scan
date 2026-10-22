@@ -12,13 +12,14 @@ Watching: every run, each open real option trade is priced; one alert at +50% (t
 at -50% (stop), and one at 2x (lock the gain). Only messages from the server owner are acted on.
 Runs every minute (launchd com.arrington.ledger-tm). Self-test: TMTEST=1 python3 trade_manager.py"""
 import csv, datetime, json, os, re, time, urllib.request
+import journal as J
 CH, OWNER = "1559302594189328544", "468902102995959808"
 # who may use it: the owner's trades go to trades.csv (public repo); a friend's journal stays on this Mac
 FRIENDS = {"1288838148436136057": "jcbreeze"}   # 2026-10-12: sized as if it were Arrington's account, his request
 STATE = os.path.expanduser("~/.ledger-tm.json")
 H = os.path.dirname(os.path.abspath(__file__))
 YEAR = datetime.date.today().year
-HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #ask-ledger:\n`check META calls` · `check BE 10/16 272.50 call` · `done ZS 214.10 2` / `skip ZS` / `my balance 12674 cash 8142` (My Actions) · "
+HELP = ("**I'm your trade manager (Ledger rules v1.0).** Text me in #ask-ledger:\n`check META calls` · `check BE 10/16 272.50 call` · `done ZS 214.10 2` / `skip ZS` / `my balance 12674 cash 8142` (My Actions) · `take: …` / `pass: …` / `wait: …` (journal) · "
         "`bought AMZN 10/23 265C 3.18` · `sold AMZN 265C 4.90` · `trades` · `pin META` · `unpin META` · `charts` · `report`\n"
         "I answer WAIT, NOW, HOLD, OUT, MISSED, NO TRADE or DATA STALE. I log, watch and journal. You place every order.")
 
@@ -32,7 +33,7 @@ def api(path, body=None, method=None):
     return json.loads(b) if b else {}
 
 
-def say(text): api(f"/channels/{CH}/messages", {"content": text[:1990]})
+def say(text): return api(f"/channels/{CH}/messages", {"content": text[:1990]})
 
 
 CONTRACT = r"(?P<sym>[A-Za-z]{1,5})\s+(?:(?P<mm>\d{1,2})/(?P<dd>\d{1,2})(?:/(?P<yy>\d{2,4}))?\s+)?\$?(?P<k>\d+(?:\.\d+)?)\s*(?P<r>calls?|puts?|c|p)\b"
@@ -42,6 +43,8 @@ def parse(text):
     """Pure: (verb, dict) from a message, or ("help", {})."""
     t = text.strip()
     if re.match(r"^(trades|positions|how are my trades)\b", t, re.I): return "trades", {}
+    m = re.match(r"^(take|pass|wait|reason)\s*:\s*(.+)$", t, re.I | re.S)                     # decision journal
+    if m: return "journal", dict(word=m.group(1).lower(), text=m.group(2).strip())
     m = re.match(r"^(done|skip)\s+([A-Za-z]{1,5})(?:\s+\$?(\d+(?:\.\d+)?))?(?:\s+x?(\d+))?\s*$", t, re.I)       # my actions: "done ZS 214.10 2"
     if m: return m.group(1).lower(), dict(sym=m.group(2).upper(), px=float(m.group(3)) if m.group(3) else None, n=int(m.group(4)) if m.group(4) else None)
     m = re.match(r"^my\s+balance\s+\$?(\d[\d,]*(?:\.\d+)?)(?:\s+cash\s+\$?(\d[\d,]*(?:\.\d+)?))?", t, re.I)
@@ -125,7 +128,7 @@ def post(text, png=None):
     rq = urllib.request.Request(f"https://discord.com/api/v10/channels/{CH}/messages", data=body, method="POST",
                                 headers={"Authorization": f"Bot {os.environ['DISCORD_LEDGER_BOT_TOKEN']}",
                                          "Content-Type": f"multipart/form-data; boundary={k}", "User-Agent": "DiscordBot (ledger, 1)"})
-    urllib.request.urlopen(rq, timeout=30).read()
+    return json.loads(urllib.request.urlopen(rq, timeout=30).read() or b"{}")
 
 
 def bought(c, rs, who=OWNER):
@@ -289,7 +292,7 @@ def main():
     for m in sorted(msgs, key=lambda x: int(x["id"])):
         st["last"] = m["id"]; who = m["author"]["id"]
         if (who != OWNER and who not in FRIENDS) or m["author"].get("bot"): continue
-        v, c = parse(m.get("content", "")); rs = rows(who)
+        v, c = parse(m.get("content", "")); rs = rows(who); label = "owner" if who == OWNER else FRIENDS[who]
         if v in ("done", "skip", "mybal") and who != OWNER: v = "help"
         try:
             import ledger_v1 as V
@@ -297,17 +300,28 @@ def main():
                      "details": lambda: V.improve(dict(c, text=m.get("content", "")), "owner" if who == OWNER else FRIENDS[who]),
                      "bought": lambda: bought(c, rs, who), "sold": lambda: sold(c, rs, who), "trades": lambda: trades(rs, who),
                      "pin": lambda: pins(c["sym"], True), "unpin": lambda: pins(c["sym"], False), "charts": charts, "report": V.report,
-                     "done": lambda: myact("done", c), "skip": lambda: myact("skip", c), "mybal": lambda: myact("mybal", c)}.get(v, lambda: HELP)()
+                     "done": lambda: myact("done", c), "skip": lambda: myact("skip", c), "mybal": lambda: myact("mybal", c),
+                     "journal": lambda: J.on_reason(c["word"], c["text"], label)}.get(v, lambda: HELP)()
         except Exception as e:
             reply = f"Something broke on that one: {str(e)[:120]}"
         text, png = reply if isinstance(reply, tuple) else (reply, None)
         post((f"<@{who}> " if who != OWNER else "") + text, png)
+        try:                                            # decision journal (records only; never a signal)
+            if v in ("check", "details") and c.get("sym"):
+                snap, cardtext = J.on_check(c, label); msg = say(cardtext)
+                for emo in ("%E2%9C%85", "%E2%9D%8C", "%E2%8F%B3"): api(f"/channels/{CH}/messages/{msg['id']}/reactions/{emo}/@me", method="PUT")
+                J.remember_message(snap["id"], msg["id"])
+            elif v == "bought" and isinstance(text, str) and text.startswith("✅"): J.on_fill("buy", c, c["px"], label)
+            elif v == "sold" and isinstance(text, str) and text.startswith("📒"): J.on_fill("sell", c, c["px"], label)
+        except Exception as e: print("journal failed", e)
         try: api(f"/channels/{CH}/messages/{m['id']}/reactions/%E2%9C%85/@me", method="PUT")
         except Exception: pass
     if st.get("last") is None and msgs == []: st["last"] = "0"
     try:
         import ledger_v1 as V; V.tick(say)              # Version 1: market, seven charts, states -- sends only on change
     except Exception as e: print("v1 tick failed", e)
+    try: J.poll_reactions(api, CH, OWNER); J.weekly(say)  # journal: ✅ ❌ ⏳ choices, Saturday review
+    except Exception as e: print("journal tick failed", e)
     try:                                                # MNQ paper bot: Frank's ICT model, tested at break-even, on by Arrington's choice 2026-10-21
         import mes_paper, scan_daily as S; mes_paper.tick(lambda t: S.discord(t, "paper"))
     except Exception as e: print("mnq tick failed", e)
