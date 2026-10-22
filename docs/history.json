@@ -1073,5 +1073,28 @@
   "S": [
    "NFLX"
   ]
+ },
+ {
+  "date": "2026-10-22",
+  "vix": 16.68000030517578,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW"
+  ],
+  "D": [
+   "WDAY",
+   "CRM",
+   "AMZN",
+   "OXY",
+   "REGN",
+   "MRK"
+  ],
+  "C": [
+   "WDAY",
+   "LLY"
+  ],
+  "S": []
  }
 ]
