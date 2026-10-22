@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head><body>
+<p style="max-width:1080px;margin:0 auto;padding:12px 16px 0;font:14px system-ui"><a href="index.html">← The Ledger</a></p>
+<title>Ledger Report Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F6F2; --surface:#FFFFFF; --sunk:#E9EDE7; --ink:#1B2420; --muted:#5B6862; --line:#D5DCD5;
+  --accent:#1F5C4A; --accent-soft:#DCEBE4;
+  --gA:#2E7D4F; --gB:#5E8A2E; --gC:#A9790F; --gD:#BF5B22; --gF:#B03636; --gN:#7D8781;
+  --gA-bg:#E1F0E6; --gB-bg:#E9F0DC; --gC-bg:#F6EDD4; --gD-bg:#F7E3D6; --gF-bg:#F6DEDE; --gN-bg:#E8ECE9;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif; --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --ground:#111614; --surface:#18201C; --sunk:#202A25; --ink:#E4EBE7; --muted:#9AA8A1; --line:#2E3A34;
+  --accent:#6CC3A3; --accent-soft:#1F3A30;
+  --gA:#6BC48D; --gB:#A3C86A; --gC:#E2B44A; --gD:#EE8C55; --gF:#EE7A7A; --gN:#9AA59F;
+  --gA-bg:#1C3326; --gB-bg:#283219; --gC-bg:#3A3015; --gD-bg:#3D2618; --gF-bg:#3D1F1F; --gN-bg:#252D29;}}
+:root[data-theme="dark"]{
+  color-scheme:dark; --ground:#111614; --surface:#18201C; --sunk:#202A25; --ink:#E4EBE7; --muted:#9AA8A1; --line:#2E3A34;
+  --accent:#6CC3A3; --accent-soft:#1F3A30;
+  --gA:#6BC48D; --gB:#A3C86A; --gC:#E2B44A; --gD:#EE8C55; --gF:#EE7A7A; --gN:#9AA59F;
+  --gA-bg:#1C3326; --gB-bg:#283219; --gC-bg:#3A3015; --gD-bg:#3D2618; --gF-bg:#3D1F1F; --gN-bg:#252D29;}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(26px,4vw,34px);font-weight:800}
+h2{font-size:22px;font-weight:700}
+h3{font-size:17px;font-weight:700}
+p{margin:0;max-width:66ch}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.draft{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;background:var(--gC-bg);color:var(--gC);padding:3px 8px;border-radius:4px}
+header{display:flex;flex-direction:column;gap:10px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.glance div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.glance b{font-family:var(--display);font-size:17px}
+.glance span{color:var(--muted);font-size:14px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{font:inherit;font-family:var(--display);font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--ground)}
+button:focus-visible,summary:focus-visible,.tile:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.card-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center;min-height:86px}
+.tile[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.letter{grid-row:span 2;font-family:var(--display);font-weight:800;font-size:40px;line-height:1;width:52px;height:52px;border-radius:8px;display:grid;place-items:center}
+.tile .nm{font-weight:700;font-size:15px;line-height:1.25}
+.tile .sc{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.gA{color:var(--gA);background:var(--gA-bg)}.gB{color:var(--gB);background:var(--gB-bg)}.gC{color:var(--gC);background:var(--gC-bg)}
+.gD{color:var(--gD);background:var(--gD-bg)}.gF{color:var(--gF);background:var(--gF-bg)}.gN{color:var(--gN);background:var(--gN-bg);font-size:22px}.gX{color:var(--gN);background:transparent;border:1px dashed var(--line);font-size:22px}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:760px){.three{grid-template-columns:1fr}}
+.three div{display:flex;flex-direction:column;gap:4px}
+.three h4{margin:0;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-family:var(--mono)}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--accent)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+td.r{font-family:var(--mono);white-space:nowrap}
+.y{color:var(--gA);font-weight:700}.n{color:var(--gF);font-weight:700}.u{color:var(--gN)}
+.queue{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media (max-width:760px){.queue{grid-template-columns:1fr}}
+.main-task{background:var(--surface);border:2px solid var(--accent);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.qa{display:grid;grid-template-columns:140px 1fr;gap:6px 14px;font-size:15px}
+@media (max-width:480px){.qa{grid-template-columns:1fr}}
+.qa dt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.qa dd{margin:0}
+.upcoming{display:flex;flex-direction:column;gap:10px}
+.up{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.pill{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.p-fix{background:var(--gF-bg);color:var(--gF)}.p-inv{background:var(--gD-bg);color:var(--gD)}.p-mon{background:var(--gC-bg);color:var(--gC)}.p-pro{background:var(--gA-bg);color:var(--gA)}.p-mea{background:var(--gN-bg);color:var(--gN)}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:860px){.four{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.four{grid-template-columns:1fr}}
+.four div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.big{font-family:var(--display);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums}
+.small{font-size:14px;color:var(--muted)}
+.finding{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.finding p.plain{font-size:16px}
+.mono{font-family:var(--mono);font-size:13px}
+pre{background:var(--sunk);border-radius:6px;padding:12px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5;margin:0}
+section{display:flex;flex-direction:column;gap:14px}
+.scale{display:flex;gap:8px;flex-wrap:wrap}
+.scale span{font-family:var(--mono);font-size:13px;padding:4px 10px;border-radius:4px}
+.note{font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.detail{animation:in .18s ease-out}@keyframes in{from{transform:translateY(4px)}to{transform:none}}}
+.sheet td.st{font-family:var(--mono);font-size:12px;white-space:nowrap}
+.st-ready{color:var(--gA)}.st-wait{color:var(--gC)}.st-block{color:var(--gF)}.st-done{color:var(--muted)}
+.check{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.checks{grid-template-columns:1fr}}
+.verdict{font-family:var(--display);font-weight:800;font-size:18px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="draft">Stage 1 · read-only · grades from rubric v0 · updated 2026-10-22</span>
+  <h1>The Ledger · Report Card</h1>
+  <p>Each strategy gets its own grade in eight areas. An A means leave it alone. A C, D or F means look there next. N/A means we have not measured it yet.</p>
+  <div class="glance" aria-label="Fifteen-second summary">
+    <div><b>Setup F: four C, one F, three N/A</b><span>It beats SPY on return, but with deeper drops. The F is Setup quality: a few names carry it. No grade can pass C until untouched or live data confirms it.</span></div>
+    <div><b>Version 1: F at setup, entry and exit</b><span>Test 1 finished: its picks are no better than random stocks chosen at the same minute.</span></div>
+    <div><b>Your discipline: N/A</b><span>The decision journal started 10-21 and holds 0 decisions. It needs 20.</span></div>
+    <div><b>Next: close the real-account risk gaps</b><span>Puts are not watched, and nothing caps total open option risk.</span></div>
+  </div>
+</header>
+
+<section aria-labelledby="rc">
+  <div class="card-head">
+    <h2 id="rc">Report card</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-F" aria-selected="true" data-s="F">Setup F</button>
+      <button role="tab" id="tab-V" aria-selected="false" data-s="V">Version 1</button>
+    </div>
+  </div>
+  <div class="grid" id="tiles" role="group" aria-label="Eight areas"></div>
+  <div class="detail" id="detail" aria-live="polite"></div>
+  <div class="scale" aria-label="Grade scale">
+    <span class="gA">A 90–100 protect</span><span class="gB">B 80–89 lower priority</span><span class="gC">C 70–79 investigate</span><span class="gD">D 60–69 weakness</span><span class="gF">F &lt;60 serious</span><span class="gN">N/A not measured</span>
+  </div>
+  <p class="note">The score is a rubric score: the share of evidence checks the area passes. It is not a win rate. 71% does not mean 71% of trades win.</p>
+</section>
+
+<section aria-labelledby="q">
+  <h2 id="q">What we work on</h2>
+  <div class="queue">
+    <div class="main-task">
+      <span class="pill p-inv">Investigate · next</span>
+      <h3>Are we protected when a trade goes wrong?</h3>
+      <dl class="qa">
+        <dt>The problem</dt><dd>Real-account puts are not watched. Nothing caps total open option risk. 4 of 32 real option trades ended past −50%, and the unwatched QCOM paper call ran to −80%.</dd>
+        <dt>Why it matters</dt><dd>These overruns cost about $620 in real and paper trades. A loss limit only works if something watches it.</dd>
+        <dt>What Claude does</dt><dd>Proposes three changes for your approval: watch puts, set a cap on total open option risk, and retire or watch the hand-logged paper books.</dd>
+        <dt>Done when</dt><dd>You approve or reject each one. Nothing changes without your yes.</dd>
+        <dt>Affects</dt><dd>Real account · Position sizing</dd>
+      </dl>
+    </div>
+    <div class="upcoming">
+      <div class="up"><span class="pill p-fix">Done · FAIL</span><b>Does V1 pick better trades than chance?</b><span class="small">No. On untouched data its stocks did no better than random stocks picked at the same minute. Next step: research stock selection, not exits. Affects: V1 Setup quality.</span></div>
+      <div class="up"><span class="pill p-mon">Monitor</span><b>Is Setup F too concentrated?</b><span class="small">The cap tests lowered drawdowns but returns were noisy. The F CAP 70 paper book is collecting evidence. Affects: Portfolio allocation.</span></div>
+      <div class="up"><span class="pill p-mea">Measure</span><b>Do we pay too much getting into F trades?</b><span class="small">Buying at the next open costs 4–5 points a year against the close. A limit at the close has not been tested. Affects: Entry timing (now N/A).</span></div>
+    </div>
+  </div>
+  <p class="note">The queue ranks by how serious, how many dollars, and how strong the evidence is. The grade alone does not set the order. One main task at a time; at most three waiting.</p>
+</section>
+
+<section aria-labelledby="pp">
+  <h2 id="pp">Progress is not performance</h2>
+  <p class="note">These four boxes never feed each other. Finishing a task does not raise a grade.</p>
+  <div class="four">
+    <div><span class="eyebrow">Work done</span><span class="big">3</span><span class="small">tasks closed this week: options audit, position-risk audit, Test 1 (entry gate). Counted from the task log once it exists.</span></div>
+    <div><span class="eyebrow">Questions answered</span><span class="big">3</span><span class="small">Where did option money go? (entries). Are fixed exits better? (no, 5 of 5 worse). Does V1 beat chance? (no).</span></div>
+    <div><span class="eyebrow">Decisions improved</span><span class="big">N/A</span><span class="small">The journal holds 0 decisions. It needs 20 before it can say anything.</span></div>
+    <div><span class="eyebrow">Money</span><span class="big">$14,530</span><span class="small">real account on 10-21. Real options since 08-27: −$519 on 32 trades. Paper F V1: +1.3% in 3 sessions.</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="fd">
+  <h2 id="fd">Findings in plain words</h2>
+  <div class="finding">
+    <p class="plain">V1's entry method lost about <b>5 cents for every dollar it risked</b> in a 10-year stock test, after costs.</p>
+    <details><summary>Show the statistics</summary><p class="mono">Expectancy −0.049946 R after costs; gross +0.042003 R, costs 0.092 R. 109,486 trades, S&amp;P members as of each day, 2017–2026. Source: thesis/v1_diagnostic.py, decision-audit-framework.md Part D.</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">V1's stock picks did <b>no better than random stocks</b> picked at the same minute, on 2,879 trades nobody had looked at.</p>
+    <details><summary>Show the statistics</summary><p class="mono">Validation Jul 2025 – Sep 2026, 120 sessions. Stock gross −0.014 R vs C1 −0.002 R; V1 beats 20% of 20 seeds (net: 50%). Option level −$6.0 vs C1 −$10.9 (t +2.03) but coverage 34% &lt; 70% → INCONCLUSIVE; development showed no option edge. Source: thesis/options/entry-gate-results.md.</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">Your own exits <b>beat every simple exit rule</b> we tried on the same 32 option trades. The money was lost at entry.</p>
+    <details><summary>Show the statistics</summary><p class="mono">Actual −$519 (PF 0.66). TP50/SL50 −$1,396; TP100/SL50 −$1,207; half+trail −$1,795; day-2 close −$1,650; hold to expiry −$1,418. Daily option prints, 3% haircut, no bid/ask history. Source: thesis/options/exit_rules.py, options-audit.md §3.</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">Setup F with a SPY core made <b>more money than SPY</b>, but its worst drops were <b>4–14 points deeper</b>, and its risk-adjusted return was the same.</p>
+    <details><summary>Show the statistics</summary><p class="mono">CAGR 21.8% vs 15.2% (2016–26, point-in-time, dividends once). Sharpe equal. 2022 drawdown −38% vs SPY −21%. IT = 87% of P&amp;L; top 3 names carry the result. Source: f-audit.md, portfolio-pit memory.</p></details>
+  </div>
+</section>
+
+<section aria-labelledby="tc">
+  <h2 id="tc">Trade checks · 2026-10-22</h2>
+  <p class="note">Each check runs the Ledger's own rules on one idea. It is a record of what the rules say, not advice.</p>
+  <div class="checks">
+    <div class="check">
+      <span class="eyebrow">AMAT · your short idea, logged 10-15</span>
+      <span class="verdict">Your thesis was right. V1's rules would have lost.</span>
+      <p><b>What you did:</b> you asked for AMAT puts at 11:39 PM on 10-15. The quotes were stale, so V1 said DATA STALE. You did not trade it.</p>
+      <p><b>What fired:</b> your level fired on 10-16 at 11:10 AM ET at $416.76. The post went to #trades. V1 saw the trigger break at 10:05 CT but price was past its chase line, so it said MISSED.</p>
+      <p><b>The put V1 would have picked</b> (Oct 23 $415P, about $10.71) cost $1,071, over V1's $400 cap. Even unblocked, V1's 1-ATR stop at $420.88 was hit when AMAT opened at $425.60 on 10-19. That exit is about <b>−$355</b>.</p>
+      <p><b>Your own plan</b> said the idea fails only on a close back above $447. It never did. The $400 target printed on 10-20, and the stock is $382.88 today.</p>
+      <details><summary>Show the prices</summary><p class="mono">AMAT closes: 10-15 $430.09 · 10-16 $409.25 · 10-19 open $425.60, close $412.95 · 10-20 low $399.27 · 10-22 $380.69. Oct 23 $415P (Alpaca trade prints, hourly): 10-16 10:00 CT $10.71 · 10-19 open $7.18 · 10-20 high $19.40 · 10-22 $32.95. One case, in hindsight. It fits Test 1: V1's stop sits inside normal daily moves.</p></details>
+    </div>
+    <div class="check">
+      <span class="eyebrow">ULTA · $622.44 today</span>
+      <span class="verdict">No trade under the Ledger's rules.</span>
+      <p><b>Setup F: no.</b> ULTA is 12.9% under its 1-year high, and F needs 20–45%. Revenue grew 11%, and F needs over 25%.</p>
+      <p><b>Version 1: no.</b> The trend is up (10 EMA $594 over 30 EMA $569), so V1 would plan calls. The Oct 30 $620 call asks $14.92, which is $1,492 and over the $400 cap. Its spread is 32% of mid, over the 10% cap.</p>
+      <p><b>What is true:</b> it is in a strong uptrend, up 13% in 20 sessions and above every average. Earnings are about early December, outside a 3–9 day window. A chart-only entry like this tested no better than chance in Test 1.</p>
+      <details><summary>Show the numbers</summary><p class="mono">1-year high $714.97, low $443.60. EMA 50 $555.11, EMA 200 $535.55. Daily ATR $15.00 (2.4%). Quotes: indicative feed, 10-22 09:56 CT. Past earnings dates (8-K): 12-04, 03-12, 06-02, 08-27.</p></details>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="ts">
+  <h2 id="ts">Task sheet: what moves each grade</h2>
+  <p class="note">One row per area. A grade changes only when the check in the "Changes" column gets a new answer. Ordered by what can start now.</p>
+  <div class="tbl"><table class="sheet">
+    <thead><tr><th>Strategy · area</th><th>Grade</th><th>Task (plain question)</th><th>What Claude does</th><th>Done when</th><th>Changes</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>V1 · Market environment</td><td class="r">N/A</td><td>Does V1's market read pick better days?</td><td>Splits Test 1's trades by market state, against random picks</td><td>Each state with 30+ trades scored</td><td class="r">C1</td><td class="st st-ready">Ready: data exists</td></tr>
+      <tr><td>V1 · Entry timing</td><td class="r">F</td><td>Would the wider 1.0 ATR chase line help?</td><td>Reruns Test 1 with the shadow line on the cached data</td><td>Validation scored once</td><td class="r">C1, C2</td><td class="st st-ready">Ready</td></tr>
+      <tr><td>F · Entry timing</td><td class="r">N/A</td><td>Would a limit order at the close save the 4–5 points?</td><td>Replays fills: buy if the next day trades at or below the signal close</td><td>Fill rate and return on 2016–26</td><td class="r">C1, C3</td><td class="st st-ready">Ready</td></tr>
+      <tr><td>F · Position sizing</td><td class="r">N/A</td><td>Do single positions lose more than planned?</td><td>Measures each position's worst loss against 7% of equity in the replay</td><td>Distribution reported</td><td class="r">C3, C4</td><td class="st st-ready">Ready</td></tr>
+      <tr><td>F · Instrument choice</td><td class="r">C</td><td>Do option versions of F drop deeper than shares?</td><td>Adds drawdown to the F Smart and ticket results</td><td>Drawdown compared</td><td class="r">C4</td><td class="st st-ready">Ready</td></tr>
+      <tr><td>V1 · Setup quality</td><td class="r">F</td><td>What makes a candidate better than a random one?</td><td>Starts stock-selection research from ideas with prior evidence (the revenue filter)</td><td>One hypothesis locked and tested</td><td class="r">C1</td><td class="st st-ready">Ready, after you approve</td></tr>
+      <tr><td>Your discipline</td><td class="r">N/A</td><td>Are we following our own plan?</td><td>Counts journal decisions and reasons each Saturday</td><td>20 decisions logged</td><td class="r">score</td><td class="st st-wait">Waiting: needs your ✅❌⏳</td></tr>
+      <tr><td>F · Setup quality</td><td class="r">F</td><td>Does F hold up on data nobody has seen?</td><td>Scores the paper books from 10-19 on as the untouched period</td><td>12 months, or 50 fires</td><td class="r">C2, C5</td><td class="st st-wait">Waiting: time</td></tr>
+      <tr><td>F · Market environment</td><td class="r">C</td><td>Would a market dial shrink F's worst drops live?</td><td>Tracks paper drawdown by market state</td><td>One drop of 10%+ observed</td><td class="r">C4, C5</td><td class="st st-wait">Waiting: market</td></tr>
+      <tr><td>F · Finding opportunities</td><td class="r">C</td><td>Are live fires better than random growers?</td><td>Compares live fires with random S&amp;P revenue growers on the same days</td><td>50 live fires</td><td class="r">C5</td><td class="st st-wait">Waiting: fires</td></tr>
+      <tr><td>F · Exit management</td><td class="r">N/A</td><td>Does the Shadow C exit beat holding a year?</td><td>Compares Shadow C with F V1 every Saturday</td><td>20 closed exits</td><td class="r">C1, C5</td><td class="st st-wait">Waiting: exits</td></tr>
+      <tr><td>F · Portfolio allocation</td><td class="r">C</td><td>Does the 70% cap keep money safer live?</td><td>Compares F CAP 70 with F V1 every Saturday</td><td>6 months of paper data</td><td class="r">C4, C5</td><td class="st st-wait">Waiting: time</td></tr>
+      <tr><td>V1 · Finding opportunities</td><td class="r">N/A</td><td>Are the seven hand-picked charts better than others?</td><td>Compares workspace names with random members on the same days</td><td>30 logged sessions (Nov 23)</td><td class="r">C1</td><td class="st st-wait">Waiting: Nov 23</td></tr>
+      <tr><td>V1 · Instrument choice</td><td class="r">N/A</td><td>Do 3–9 day options beat shares on V1's signals?</td><td>Uses the live paper quotes the bot logs</td><td>20 paper option trades</td><td class="r">C1</td><td class="st st-wait">Waiting: paper trades</td></tr>
+      <tr><td>V1 · Position sizing</td><td class="r">N/A</td><td>Do V1 losses stay inside $200?</td><td>Checks each paper exit against its planned loss</td><td>20 paper exits</td><td class="r">C1, C4</td><td class="st st-wait">Waiting: paper trades</td></tr>
+      <tr><td>V1 · Exit management</td><td class="r">F</td><td>Would a wider stop keep the winners?</td><td>Nothing yet: exits are not tuned until entries show an edge</td><td>V1 setup quality passes</td><td class="r">C1</td><td class="st st-block">Blocked by setup quality</td></tr>
+      <tr><td>V1 · Portfolio allocation</td><td class="r">—</td><td colspan="4">Not used: one contract at a time.</td><td class="st st-done">—</td></tr>
+    </tbody></table></div>
+</section>
+
+<section aria-labelledby="rub">
+  <h2 id="rub">How a grade is made (rubric v0, for your approval)</h2>
+  <p>Every area of every strategy is checked against the same five questions. Each answer is <b class="y">yes</b>, <b class="n">no</b> or <b class="u">no evidence</b>. Each answer must point to a test file or a record.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Check</th><th>Question</th><th>Weight</th></tr></thead>
+    <tbody>
+      <tr><td class="r">C1</td><td><b>Advantage.</b> Did the current rule beat a real, tradable alternative in a point-in-time test?</td><td class="r">30</td></tr>
+      <tr><td class="r">C2</td><td><b>Untouched data.</b> Did it hold on a period nobody looked at while designing it?</td><td class="r">20</td></tr>
+      <tr><td class="r">C3</td><td><b>Robust.</b> Does it hold across years, nearby settings, and without its 3 best names?</td><td class="r">20</td></tr>
+      <tr><td class="r">C4</td><td><b>Risk.</b> Are the drops and losses no worse than the alternative's (within 2 points)?</td><td class="r">20</td></tr>
+      <tr><td class="r">C5</td><td><b>Live.</b> Do at least 20 live or paper records agree?</td><td class="r">10</td></tr>
+    </tbody></table></div>
+  <ul>
+    <li><b>Score</b> = weight of <i>yes</i> answers ÷ weight of answered checks. "No evidence" is left out, so missing work does not count as failure.</li>
+    <li><b>N/A</b> if C1 has no evidence, or if the answered checks carry less than half the weight. N/A areas get a measuring task, not a low grade.</li>
+    <li><b>Caps.</b> Without a <i>yes</i> on C2, the best grade is C. Without a <i>yes</i> on C5, the best grade is B. An in-sample result can never earn an A.</li>
+    <li><b>History.</b> A grade changes only when a check's answer changes. Every change is stored with its reason and source.</li>
+    <li><b>Review.</b> An A area is left alone unless a new risk appears. Then it is reviewed like any other.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="spec">
+  <h2 id="spec">Area specification</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Area</th><th>Exact inputs</th><th>Alternative it must beat</th><th>High score means</th><th>Can mislead when</th><th>Today</th></tr></thead>
+    <tbody>
+      <tr><td><b>1 Market environment</b></td><td>SPY/QQQ, VIX, breadth, the strategy's trades by regime</td><td>the same trades with a market gate</td><td>the gate (or no gate) is right</td><td>a regime that helps drawdown is graded as hurting return</td><td>F yes · V1 no</td></tr>
+      <tr><td><b>2 Finding opportunities</b></td><td>the candidate pool, revenue data, membership as of each day</td><td>random names from the same pool</td><td>the pool holds the winners</td><td>survivorship (dead names missing)</td><td>F yes · V1 no</td></tr>
+      <tr><td><b>3 Setup quality</b></td><td>signal days and outcomes, PIT bars</td><td>random entries in the same names and dates</td><td>the signal itself adds return</td><td>a few big winners carry it</td><td>both yes</td></tr>
+      <tr><td><b>4 Entry timing</b></td><td>signal time, fill time and price, quote age</td><td>a tradable different entry (limit at close, later bar)</td><td>fills are close to the signal price</td><td>the "better" entry cannot be traded</td><td>F no · V1 yes</td></tr>
+      <tr><td><b>5 Instrument choice</b></td><td>contract, DTE, premium, spread, earnings date</td><td>shares, or another DTE, on the same signals</td><td>the vehicle adds return per dollar risked</td><td>no historical bid/ask (fills are modeled)</td><td>F yes · V1 partly</td></tr>
+      <tr><td><b>6 Position sizing</b></td><td>size rule, equity, per-trade loss, open risk</td><td>a different sizing rule</td><td>losses stay inside plan</td><td>a lucky period with no big loss</td><td>F partly · V1 no</td></tr>
+      <tr><td><b>7 Exit management</b></td><td>exit rule, best and worst move during the hold</td><td>other exits on the same entries</td><td>exits keep gains without cutting winners</td><td>hindsight "best price" comparisons</td><td>F no · V1 yes</td></tr>
+      <tr><td><b>8 Portfolio allocation</b></td><td>cash, open positions, unfunded signals, sector mix</td><td>caps, swaps, a different idle asset</td><td>money goes to the better trades</td><td>a cap that cuts risk is graded on return alone</td><td>F yes · V1 not used</td></tr>
+    </tbody></table></div>
+  <p class="note">"Decision discipline" sits outside the eight areas because it grades you, not a strategy. Input: the decision journal. Score: share of fills with a recorded decision and reason, and share of decisions that followed the rule. Needs 20 decisions. Today: N/A.</p>
+</section>
+
+<section aria-labelledby="arch">
+  <h2 id="arch">Where it lives</h2>
+  <p><b>Now (stage 1).</b> This page is on the Ledger website at <span class="mono">improvement.html</span>, linked from the home page. The site is public on GitHub Pages, like the Timeline and Road pages, which already show the account balance. Anyone with the link can read it. It is read-only: grades and tasks change when Claude republishes it.</p>
+  <p><b>Later (stages 2 and 3).</b> Editable tasks need a database and a login. Those cannot live on GitHub Pages. They go on the box: one SQLite file and a small private server, reached through an SSH tunnel or Tailscale (a private network app). Tailscale needs your approval.</p>
+  <ol>
+    <li><b>Stage 1, read-only (live now).</b> A static page on the Ledger site. Later the box rebuilds it from the rubric and the check rows every Saturday after the journal review.</li>
+    <li><b>Stage 2, editable.</b> Claude can only propose tasks and findings. You approve, reorder and close them on the page. Writes happen on the server, with a login.</li>
+    <li><b>Stage 3, automatic.</b> Test scripts and the journal write check rows. A grade recomputes when a check changes, with the reason logged.</li>
+  </ol>
+  <details open><summary>Database design</summary>
+<pre>-- /root/.ledger-ic/ic.db  (WAL mode; nightly .backup copied off the box; JSON export on demand)
+strategies (id TEXT PRIMARY KEY, name TEXT, frozen INTEGER, note TEXT);           -- 'F', 'V1'
+areas      (id INTEGER PRIMARY KEY, name TEXT, question TEXT);                       -- 1..8
+checks     (id INTEGER PRIMARY KEY, strategy TEXT, area INTEGER, code TEXT,          -- C1..C5
+            answer TEXT CHECK (answer IN ('yes','no','none')),
+            evidence TEXT, source TEXT, measured_on TEXT, recorded_at TEXT,
+            superseded_by INTEGER);                                                  -- append-only
+grades     (id INTEGER PRIMARY KEY, strategy TEXT, area INTEGER, score REAL,         -- history; never updated
+            grade TEXT, coverage REAL, cap TEXT, rubric TEXT, reason TEXT, computed_at TEXT);
+findings   (id INTEGER PRIMARY KEY, plain TEXT, technical TEXT, verdict TEXT,
+            source TEXT, proposed_by TEXT, accepted INTEGER, accepted_at TEXT);
+tasks      (id INTEGER PRIMARY KEY, title TEXT, problem TEXT, why TEXT, claude_does TEXT,
+            done_when TEXT, strategy TEXT, area INTEGER,
+            bucket TEXT CHECK (bucket IN ('protect','monitor','investigate','fix','measure')),
+            status TEXT CHECK (status IN ('proposed','approved','active','done','dropped')),
+            priority INTEGER, depends_on INTEGER, created_at TEXT, closed_at TEXT, closed_by TEXT);
+links      (task INTEGER, finding INTEGER, check_id INTEGER, journal_id TEXT);      -- points, never copies
+events     (id INTEGER PRIMARY KEY, at TEXT, who TEXT, kind TEXT, ref TEXT, note TEXT);  -- audit trail</pre>
+  </details>
+  <p class="note">Research files, the paper-book ledgers and the journal snapshots stay where they are. The database stores only links to them.</p>
+</section>
+
+</div>
+
+<script>
+const AREAS=["Market environment","Finding opportunities","Setup quality","Entry timing","Instrument choice","Position sizing","Exit management","Portfolio allocation"];
+const W={C1:30,C2:20,C3:20,C4:20,C5:10};
+const Q={C1:"Advantage over a tradable alternative",C2:"Held on untouched data",C3:"Robust across years, settings, top names",C4:"Risk no worse than the alternative",C5:"20+ live or paper records agree"};
+// y = yes, n = no, u = no evidence. Every answer cites its source.
+const DATA={
+F:{name:"Setup F",reviewed:"2026-10-22",areas:[
+ {c:{C1:["y","Four market gates (A1, A2, D, E) all failed to help; A1 cost 4.8 CAGR points"],C2:["u","No untouched period: the 2022–26 window was seen in design"],C3:["y","Four different gates, same answer"],C4:["n","A2 tech-led gate cut the 2022–26 drawdown from −35% to −24%"],C5:["u","Paper books since 10-19: too few records"]},
+  work:"Taking every fire, in any market, kept more return than any gate we tested.",hurt:"A market dial (A2) would have made the 2022 drop much smaller.",next:"Keep the rule. Track drawdown by market state on the paper books.",src:"decision_engine_test.py · f-audit.md"},
+ {c:{C1:["y","Revenue growers chosen at random on fire days made 12%/yr vs F's 22%"],C2:["u","No untouched period"],C3:["y","The 25% revenue line beats 10%; the 20–45% drop band is flat"],C4:["n","Strategy drawdowns 4–14 points deeper than SPY"],C5:["u","Too few live fires"]},
+  work:"The S&P pool plus the revenue test finds better names than chance.",hurt:"The names it finds fall harder than the market in bad years.",next:"No change. Re-check after 50 live fires.",src:"revenue_test.py · checks5"},
+ {c:{C1:["y","SPY + F 21.8%/yr vs SPY 15.2% (2016–26, point-in-time)"],C2:["u","2022–26 window seen in design (contaminated)"],C3:["n","The top 3 names carry the result; 2022–24 trailed SPY"],C4:["n","2022 drop −38% vs SPY −21%; risk-adjusted return equal"],C5:["u","3 sessions of paper data"]},
+  work:"Over ten years the setup made clearly more money than SPY.",hurt:"A few big tech winners carry it, and its drops are deeper. Per unit of risk it equals SPY.",next:"Frozen as the benchmark. The paper books decide; no rule change.",src:"f-audit.md · portfolio-pit"},
+ {c:{C1:["u","A limit at the prior close was never tested"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u","Live fills quoted ~2 s old since 10-20"]},
+  work:"Paper fills use quotes only seconds old.",hurt:"Buying at the next open costs 4–5 points a year against the signal close.",next:"Measure: replay a limit order at the close with point-in-time bars.",src:"decision-audit-framework.md §4"},
+ {c:{C1:["y","Shares beat the 3–9 DTE ticket, the 90–120 day card, and the F Smart chooser"],C2:["u","No untouched period"],C3:["y","Three different option versions all lost to shares"],C4:["u","Drawdown of the option versions not measured"],C5:["u","Too few live fires"]},
+  work:"Plain shares beat every option version of Setup F we tried.",hurt:"Nothing measured. The grade is capped until untouched or live data agrees.",next:"Protect. No new option variants for F.",src:"f_smart · f_ticket_test"},
+ {c:{C1:["y","Volatility sizing (Test B) failed against 7%"],C2:["u",""],C3:["u","Only one alternative tested"],C4:["u","Per-trade loss vs plan not measured"],C5:["u",""]},
+  work:"7% per position beat volatility-based sizing.",hurt:"Only one alternative was tested, so there is not enough evidence to grade.",next:"Measure: per-position loss against plan across the replay.",src:"test_b"},
+ {c:{C1:["u","Test C exit: INCONCLUSIVE"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u","Shadow C paper book running since 10-19"]},
+  work:"Holding 252 sessions is simple and frozen.",hurt:"The median trade gives back 18–23 points from its peak.",next:"Monitor: Shadow C vs F V1 on paper, Saturdays.",src:"f-audit.md Test C"},
+ {c:{C1:["y","Unfunded fires did worse than the held positions; the sector cap failed (−5 points)"],C2:["u","No untouched period"],C3:["y","A true $14k simulation: no cap $114,790 beat the entry cap $107,329 and trimming $96,003"],C4:["n","No exposure ceiling; 97% of the 2022 drop came from F names"],C5:["u","F CAP 70 paper book since 10-21"]},
+  work:"Funding order and the SPY core both hold up. Unfunded fires were not better trades.",hurt:"With no ceiling, F names can drive almost the whole drop in a bad year.",next:"Monitor the F CAP 70 paper book. Do not add new cap variants.",src:"allocation-audit.md · cap_robustness.py"}
+]},
+V:{name:"Version 1",reviewed:"2026-10-22",areas:[
+ {c:{C1:["u","No eligible V1 trades to judge the market score by"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"The market read runs every morning and is logged.",hurt:"Nothing has tested whether the read relates to the day's result.",next:"Measure: market state vs outcome in the entry-gate replay.",src:"decision-audit-framework.md §1"},
+ {c:{C1:["u","The seven hand-picked charts were never compared with alternatives"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"The watchlist is small and focused.",hurt:"Nobody knows if the seven are better than other names.",next:"Measure after the entry test.",src:"decision-audit-framework.md §2"},
+ {c:{C1:["n","−0.05 R per trade after costs on 109,486 stock trades; development replay no better than random names (t −0.7)"],C2:["n","Test 1 validation (Jul 2025 – Sep 2026): V1 equals the median random stock at the same minute; FAIL"],C3:["u",""],C4:["u",""],C5:["u","0 paper trades so far"]},
+  work:"The trigger is fully written down and testable.",hurt:"On stocks it lost money after costs, and early replays show it picks no better than random names.",next:"Finish Test 1. If it fails, rebuild selection; do not tune exits.",src:"v1_diagnostic.py · options/eg_test.py"},
+ {c:{C1:["n","The chase line blocked every entry in 199 replayed sessions"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u","Shadow 1.0 ATR line logged since 10-18"]},
+  work:"The chase line stops panic buying.",hurt:"It also stops almost every trade: 0 of 199 sessions produced an entry.",next:"The Nov 23 verdict compares it with the 1.0 ATR shadow line.",src:"play_of_day_test.py"},
+ {c:{C1:["u","Option fills found for only 35% of V1 signals in the replay"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"Contract rules ($400, 3–9 DTE, earnings after expiry) are enforced.",hurt:"Too few historical option prints to judge.",next:"Measure: the live paper test collects real quotes.",src:"options/eg_test.py"},
+ {c:{C1:["u","The $400 / $200 caps exist but were not compared with alternatives"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"V1 is the only book with a hard per-trade loss cap.",hurt:"No portfolio cap on total open risk.",next:"Investigate with the position-risk audit.",src:"position-risk-audit.md"},
+ {c:{C1:["n","The 1-ATR stop sits inside daily noise; 16% of stopped trades were first up 1 ATR"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"Exits are automatic and logged.",hurt:"The stop is so tight that costs and noise take most trades out.",next:"Wait for Test 1. Exits are not the first fix.",src:"decision-audit-framework.md Part D"},
+ {na:"Not used: V1 trades one contract at a time, so there is no allocation decision to grade."}
+]}};
+
+function grade(a){
+  if(a.na) return {g:"—",cls:"gX",score:null,why:a.na};
+  let earned=0,answered=0;
+  for(const k in W){const v=a.c[k][0]; if(v!=="u"){answered+=W[k]; if(v==="y") earned+=W[k];}}
+  if(a.c.C1[0]==="u") return {g:"N/A",cls:"gN",score:null,why:"No evidence on the main check (C1)."};
+  if(a.c.C1[0]==="y" && answered<50) return {g:"N/A",cls:"gN",score:null,why:`Answered checks carry ${answered} of 100 weight; at least 50 needed.`};
+  const s=Math.round(100*earned/answered);
+  let g=s>=90?"A":s>=80?"B":s>=70?"C":s>=60?"D":"F"; let cap="";
+  const order="ABCDF";
+  if(a.c.C2[0]!=="y" && order.indexOf(g)<2){g="C";cap="capped at C: no untouched-data check";}
+  else if(a.c.C5[0]!=="y" && order.indexOf(g)<1){g="B";cap="capped at B: no live check";}
+  return {g,cls:"g"+g,score:s,cap,answered};
+}
+let cur="F",sel=0;
+const tiles=document.getElementById("tiles"),det=document.getElementById("detail");
+function render(){
+  const S=DATA[cur]; tiles.innerHTML="";
+  S.areas.forEach((a,i)=>{const r=grade(a);
+    const b=document.createElement("button"); b.className="tile"; b.setAttribute("aria-pressed",i===sel);
+    b.innerHTML=`<span class="letter ${r.cls}">${r.g}</span><span class="nm">${AREAS[i]}</span><span class="sc">${r.score===null?(r.g==="—"?"not used":"not measured"):r.score+"%"+(r.cap?" · capped":"")}</span>`;
+    b.onclick=()=>{sel=i;render();}; tiles.appendChild(b);});
+  const a=S.areas[sel],r=grade(a);
+  if(a.na){det.innerHTML=`<div class="card-head"><h3>${S.name} · ${AREAS[sel]}</h3><span class="letter gX" style="width:auto;padding:0 10px;height:40px">—</span></div><p>${a.na}</p>`;return;}
+  const rows=Object.keys(W).map(k=>{const [v,t]=a.c[k];return `<tr><td class="r">${k}</td><td>${Q[k]}</td><td class="${v}">${v==="y"?"yes":v==="n"?"no":"no evidence"}</td><td class="r">${W[k]}</td><td>${t||"—"}</td></tr>`}).join("");
+  det.innerHTML=`<div class="card-head"><h3>${S.name} · ${AREAS[sel]}</h3><span class="letter ${r.cls}" style="width:auto;padding:0 12px;height:44px;font-size:28px">${r.g}${r.score!==null?` <span style="font-size:15px;margin-left:8px">${r.score}%</span>`:""}</span></div>
+   <div class="three"><div><h4>What's working</h4><p>${a.work}</p></div><div><h4>What's hurting</h4><p>${a.hurt}</p></div><div><h4>Next</h4><p>${a.next}</p></div></div>
+   <div class="meta"><span>Evidence: ${r.score===null?"not enough":r.answered>=70?"fair ("+r.answered+" of 100 weight answered)":"thin ("+r.answered+" of 100 weight answered)"}</span><span>Trend: first grade, no history yet</span><span>Reviewed ${S.reviewed}</span>${r.cap?`<span>${r.cap}</span>`:""}${r.why?`<span>${r.why}</span>`:""}</div>
+   <details><summary>How this grade was calculated</summary><div class="tbl"><table><thead><tr><th>Check</th><th>Question</th><th>Answer</th><th>Weight</th><th>Evidence</th></tr></thead><tbody>${rows}</tbody></table></div><p class="mono" style="margin-top:8px">Source: ${a.src}</p></details>`;
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{cur=b.dataset.s;sel=cur==="F"?2:2;document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));render();});
+sel=2; render();
+</script>
+
+</body></html>
