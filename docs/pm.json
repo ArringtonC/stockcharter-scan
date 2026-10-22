@@ -1,47 +1,47 @@
 {
  "generated": "2026-10-22",
- "market_open": true,
+ "market_open": false,
  "paused": false,
  "reconcile_failed": [],
  "books": {
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 100509.99,
-   "ret": 0.0051,
-   "dd": -0.0075,
-   "spy_value": 85658.41,
+   "equity": 100623.5,
+   "ret": 0.0062,
+   "dd": -0.0063,
+   "spy_value": 85793.18,
    "spy_units": 112.3006,
    "cash": 0.0,
-   "exposure": 0.1478,
+   "exposure": 0.1474,
    "realized": 0,
-   "unrealized": 1206.04,
+   "unrealized": 1184.78,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 238.64,
+     "now": 237.76,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 863.31,
-     "ret": 0.1275,
-     "sessions": 1,
-     "value": 7636.48
+     "pl": 835.15,
+     "ret": 0.1233,
+     "sessions": 2,
+     "value": 7608.32
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 156.85,
+     "now": 157.0,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": 342.73,
-     "ret": 0.0499,
-     "sessions": 1,
-     "value": 7215.1
+     "pl": 349.63,
+     "ret": 0.0509,
+     "sessions": 2,
+     "value": 7222.0
     }
    ],
    "pending": [],
@@ -139,50 +139,50 @@
     ],
     [
      "2026-10-22",
-     100509.99
+     100623.5
     ]
    ],
-   "last_decision": "2026-10-21",
+   "last_decision": "2026-10-22",
    "since": "2026-10-19"
   },
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 100520.56,
-   "ret": 0.0052,
-   "dd": -0.0075,
-   "spy_value": 85668.98,
+   "equity": 100634.08,
+   "ret": 0.0063,
+   "dd": -0.0063,
+   "spy_value": 85803.76,
    "spy_units": 112.3145,
    "cash": 0.0,
-   "exposure": 0.1477,
+   "exposure": 0.1474,
    "realized": 0,
-   "unrealized": 1216.64,
+   "unrealized": 1195.38,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 238.64,
+     "now": 237.76,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 863.31,
-     "ret": 0.1275,
-     "sessions": 1,
-     "value": 7636.48
+     "pl": 835.15,
+     "ret": 0.1233,
+     "sessions": 2,
+     "value": 7608.32
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.17,
-     "now": 156.85,
+     "now": 157.0,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": 353.33,
-     "ret": 0.0515,
-     "sessions": 1,
-     "value": 7215.1
+     "pl": 360.23,
+     "ret": 0.0525,
+     "sessions": 2,
+     "value": 7222.0
     }
    ],
    "pending": [],
@@ -280,50 +280,50 @@
     ],
     [
      "2026-10-22",
-     100520.56
+     100634.08
     ]
    ],
-   "last_decision": "2026-10-21",
+   "last_decision": "2026-10-22",
    "since": "2026-10-19"
   },
   "x": {
    "name": "F CAP 70",
    "exit": "252",
-   "equity": 100509.99,
-   "ret": 0.0051,
-   "dd": -0.0075,
-   "spy_value": 85658.41,
+   "equity": 100623.5,
+   "ret": 0.0062,
+   "dd": -0.0063,
+   "spy_value": 85793.18,
    "spy_units": 112.3006,
    "cash": 0.0,
-   "exposure": 0.1478,
+   "exposure": 0.1474,
    "realized": 0,
-   "unrealized": 1206.04,
+   "unrealized": 1184.78,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 238.64,
+     "now": 237.76,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 863.31,
-     "ret": 0.1275,
-     "sessions": 1,
-     "value": 7636.48
+     "pl": 835.15,
+     "ret": 0.1233,
+     "sessions": 2,
+     "value": 7608.32
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 156.85,
+     "now": 157.0,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": 342.73,
-     "ret": 0.0499,
-     "sessions": 1,
-     "value": 7215.1
+     "pl": 349.63,
+     "ret": 0.0509,
+     "sessions": 2,
+     "value": 7222.0
     }
    ],
    "pending": [],
@@ -421,10 +421,10 @@
     ],
     [
      "2026-10-22",
-     100509.99
+     100623.5
     ]
    ],
-   "last_decision": "2026-10-21",
+   "last_decision": "2026-10-22",
    "since": "2026-10-19"
   }
  },
