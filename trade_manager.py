@@ -308,6 +308,9 @@ def main():
     try:
         import ledger_v1 as V; V.tick(say)              # Version 1: market, seven charts, states -- sends only on change
     except Exception as e: print("v1 tick failed", e)
+    try:                                                # MNQ paper bot: Frank's ICT model, tested at break-even, on by Arrington's choice 2026-10-21
+        import mes_paper, scan_daily as S; mes_paper.tick(lambda t: S.discord(t, "paper"))
+    except Exception as e: print("mnq tick failed", e)
     try: board(rows(), st)
     except Exception as e: print("board failed", e)
     try:
