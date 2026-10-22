@@ -1076,7 +1076,7 @@
  },
  {
   "date": "2026-10-22",
-  "vix": 19.110000610351562,
+  "vix": 18.899999618530273,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1088,12 +1088,10 @@
    "WDAY",
    "HPQ",
    "BMY",
-   "OXY",
    "SHOP",
    "CRM",
-   "PLTR",
-   "SG",
-   "JNJ"
+   "OXY",
+   "SG"
   ],
   "C": [
    "WDAY",
