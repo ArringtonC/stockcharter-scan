@@ -1047,7 +1047,7 @@
   "S": []
  },
  {
-  "date": "2026-10-22",
+  "date": "2026-10-21",
   "vix": 16.68000030517578,
   "regime": "NORMAL",
   "vix_fires": false,
@@ -1057,21 +1057,26 @@
   ],
   "D": [
    "WDAY",
+   "TXN",
    "CRM",
    "AMZN",
    "OXY",
+   "VRTX",
    "REGN",
-   "MRK"
+   "SG",
+   "DVN",
+   "PLTR"
   ],
   "C": [
-   "WDAY",
-   "LLY"
+   "ROKU"
   ],
-  "S": []
+  "S": [
+   "NFLX"
+  ]
  },
  {
-  "date": "2026-10-21",
-  "vix": 16.68000030517578,
+  "date": "2026-10-22",
+  "vix": 18.139999389648438,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
