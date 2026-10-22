@@ -1076,7 +1076,7 @@
  },
  {
   "date": "2026-10-22",
-  "vix": 18.139999389648438,
+  "vix": 18.09000015258789,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1085,21 +1085,24 @@
   ],
   "D": [
    "WDAY",
+   "SPOT",
    "TXN",
    "CRM",
    "AMZN",
-   "OXY",
-   "VRTX",
-   "REGN",
    "SG",
-   "DVN",
+   "VRTX",
+   "OXY",
+   "MRNA",
+   "REGN",
    "PLTR"
   ],
   "C": [
    "ROKU"
   ],
   "S": [
-   "NFLX"
+   "NFLX",
+   "ORCL",
+   "F"
   ]
  }
 ]
