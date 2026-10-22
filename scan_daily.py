@@ -1582,6 +1582,30 @@ def position_events(open_, closed, d):
     return ev
 
 
+def dip_zone(closes):
+    """QQQ dip-buy zone (Arrington's friend's 200-day idea, quick test 2026-10-21): 5%+ under the 20-day high
+    while above a RISING 200-day average. 1999-2026: 68 times, +1.6% avg over 21 days vs +0.9% any day, up 68%;
+    the same dip below the 200-day had no edge. A heads-up, not a trade. Returns (in_zone, % off high, % over 200d)."""
+    if len(closes) < 221: return False, 0.0, 0.0
+    sma = lambda k: sum(closes[len(closes) - 200 - k:len(closes) - k]) / 200
+    s0, s20 = sma(0), sma(20); c = closes[-1]; off = c / max(closes[-21:]) - 1
+    return (off <= -0.05 and c > s0 and s0 > s20), off, c / s0 - 1
+
+
+def dip_card(today, state_file=os.path.expanduser("~/.ledger-dip.json")):
+    """One market card when QQQ ENTERS the zone (not every run); resets when it leaves."""
+    try: c = [b[1] for b in bars("QQQ", "2y")]
+    except Exception: return None
+    on, off, over = dip_zone(c)
+    was = json.load(open(state_file)).get("on") if os.path.exists(state_file) else False
+    json.dump(dict(on=on, date=today), open(state_file, "w"))
+    if on and not was:
+        return (f"<b>📉 QQQ DIP-BUY ZONE</b>\nQQQ ${c[-1]:,.2f} is {100 * -off:.1f}% under its 20-day high and {100 * over:+.1f}% over a rising 200-day average.\n"
+                f"Since 1999 this spot averaged +1.6% over the next month (any day: +0.9%), up 2 times in 3. Below the 200-day the same dip had no edge.\n"
+                f"<i>A heads-up, not a trade ticket · the full test is pending · not advice</i>")
+    return None
+
+
 def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
     """Who gets what, when (Arrington 2026-10-03):
       every run   market report when it has news (first run of the day = the premarket briefing)
@@ -1602,6 +1626,8 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
     send, why = should_push(d, open_, "mkt", market_key(d))
     if send:
         t = market_report(d); send_tg(t); send_dc(t, "market"); out.append(("market", why))
+    dc = dip_card(d.get("date", ""))
+    if dc: send_tg(dc); send_dc(dc, "market"); out.append(("market", "qqq dip zone"))
     if dow == 5:
         full = dict(title="WEEKEND REPORT · ALL TRADES", closed_days=7)
         send_tg(summary(d, open_, closed, **full))
