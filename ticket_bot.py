@@ -17,8 +17,8 @@ from autotrade import call, fill_price, rows, save, STATE
 BOOK, CAP, START = "bot-tickets", 850.0, 12_000.0
 
 
-def quote(sym, exp, k):
-    o = occ(sym, exp, k, pad=False)
+def quote(sym, exp, k, right="C"):
+    o = occ(sym, exp, k, pad=False, right=right)
     rq = urllib.request.Request(f"https://data.alpaca.markets/v1beta1/options/quotes/latest?symbols={o}",
                                 headers={"APCA-API-KEY-ID": os.environ["ALPACA_KEY"], "APCA-API-SECRET-KEY": os.environ["ALPACA_SECRET"]})
     q = json.load(urllib.request.urlopen(rq, timeout=20)).get("quotes", {}).get(o, {})

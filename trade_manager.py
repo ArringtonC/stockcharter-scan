@@ -165,7 +165,7 @@ def trades(rs, who=OWNER):
     L = ["**OPEN REAL TRADES**" if who == OWNER else "**YOUR OPEN TRADES**"]
     for r in [r for r in rs if r["acct"] in ("real", "friend-" + FRIENDS.get(who, "")) and r["status"] == "open"]:
         if r["kind"] in ("call", "put") and r.get("expiry"):
-            try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"])) if r["kind"] == "call" else (0, 0)
+            try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"]), "P" if r["kind"] == "put" else "C")
             except Exception: b = a = 0
             m = (a + b) / 2 if a else None; e = float(r["entry"]); n = int(r["contracts"] or 1)
             L.append(f"{r['symbol']} {r['expiry'][5:]} ${float(r['strike']):g}{r['kind'][0].upper()} ×{n} · ${e:.2f} → " +
@@ -174,21 +174,41 @@ def trades(rs, who=OWNER):
     return "\n".join(L)
 
 
+OPEN_RISK_PCT = 0.05     # alert when the planned loss (half the premium) on open real options passes 5% of the account
+
+
+def open_risk(rs, balance):
+    """Pure. Planned loss on open real options (the -50% stop on each), and its share of the account."""
+    pl = sum(0.5 * float(r["entry"]) * 100 * int(float(r["contracts"] or 1)) for r in rs
+             if r["acct"] == "real" and r["status"] == "open" and r["kind"] in ("call", "put"))
+    return pl, (pl / balance if balance else 0.0)
+
+
 def watch(rs, st, tag=""):
-    """One text per event per trade: +50%, -50%, 2x."""
+    """One text per event per trade: +50%, -50%, 2x. Calls and puts (puts were unwatched until 2026-10-22), and the
+    hand-logged paper books (small, big), labelled PAPER. For the owner, one text a day when open option risk passes the cap."""
     from ticket_bot import quote
-    for r in [r for r in rs if (r["acct"] == "real" or r["acct"].startswith("friend-")) and r["status"] == "open" and r["kind"] == "call" and r.get("expiry")]:
-        try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"]))
+    for r in [r for r in rs if (r["acct"] in ("real", "small", "big") or r["acct"].startswith("friend-")) and r["status"] == "open"
+              and r["kind"] in ("call", "put") and r.get("expiry")]:
+        rt = "P" if r["kind"] == "put" else "C"
+        try: b, a = quote(r["symbol"], r["expiry"], float(r["strike"]), rt)
         except Exception: continue
         if not b: continue
-        e = float(r["entry"]); br = bracket(e)
+        e = float(r["entry"]); br = bracket(e); nm = f"{r['symbol']} ${float(r['strike']):g}{rt}" + (" · PAPER" if r["acct"] in ("small", "big") else "")
         far = (datetime.date.fromisoformat(r["expiry"]) - datetime.date.today()).days > 60   # long-dated (SG, SNAP 2028): 2x lock only
-        for key, hit, msg in (("tp", b >= br["tp"], f"🎯 **{r['symbol']} ${float(r['strike']):g}C at +50%** · bid ${b:.2f} (you paid ${e:.2f}) -- your take-profit level"),
-                              ("sl", b <= br["sl"], f"🛑 **{r['symbol']} ${float(r['strike']):g}C at -50%** · bid ${b:.2f} -- your stop level"),
-                              ("2x", b >= br["lock"], f"🚀 **{r['symbol']} ${float(r['strike']):g}C at 2x** · bid ${b:.2f} -- set a stop at ${max(1.5 * e, 0.75 * b):.2f} to lock the gain")):
+        for key, hit, msg in (("tp", b >= br["tp"], f"🎯 **{nm} at +50%** · bid ${b:.2f} (you paid ${e:.2f}) -- your take-profit level"),
+                              ("sl", b <= br["sl"], f"🛑 **{nm} at -50%** · bid ${b:.2f} -- your stop level"),
+                              ("2x", b >= br["lock"], f"🚀 **{nm} at 2x** · bid ${b:.2f} -- set a stop at ${max(1.5 * e, 0.75 * b):.2f} to lock the gain")):
             k = f"{r['id']}:{key}"
             if far and key == "tp": continue
             if hit and not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
+    if not tag:
+        import scan_daily as S
+        pl, pct = open_risk(rs, S.PLAN.get("balance") or 0)
+        k = f"openrisk:{datetime.date.today().isoformat()}"
+        if pct > OPEN_RISK_PCT and not st.get(k):
+            st[k] = 1; say(f"⚠️ **Open option risk ${pl:,.0f}** = {100 * pct:.1f}% of the account (cap {100 * OPEN_RISK_PCT:.0f}%) "
+                           f"if every option hits its -50% stop. Not advice: the Ledger's risk line.")
 
 
 def pins(sym, on):
@@ -245,9 +265,10 @@ def board_text(rs):
     for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open"]:
         e = float(r["entry"]); n = int(r["contracts"] or 1)
         try:
-            if r["kind"] == "call" and r.get("expiry"):
-                b, a = quote(r["symbol"], r["expiry"], float(r["strike"])); m = (a + b) / 2 if a else None
-                name = f"{r['symbol']} {r['expiry'][5:]} ${float(r['strike']):g}C ×{n}"; pl = (m - e) * 100 * n if m else None
+            if r["kind"] in ("call", "put") and r.get("expiry"):     # puts were priced as shares before 2026-10-22
+                rt = "P" if r["kind"] == "put" else "C"
+                b, a = quote(r["symbol"], r["expiry"], float(r["strike"]), rt); m = (a + b) / 2 if a else None
+                name = f"{r['symbol']} {r['expiry'][5:]} ${float(r['strike']):g}{rt} ×{n}"; pl = (m - e) * 100 * n if m else None
             else:
                 m = S.bars(r["symbol"], "5d")[-1][1]; name = f"{r['symbol']} {n} sh"; pl = (m - e) * n
         except Exception: m = pl = None; name = r["symbol"]
