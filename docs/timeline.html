@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ledger Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+<style>
+.wrap{max-width:1000px;margin:0 auto;padding:var(--s4) 16px 96px}
+.back{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);text-decoration:none}
+h1{font:300 clamp(32px,7vw,48px)/1.05 var(--serif);margin:var(--s3) 0 var(--s2)}
+h2{font:600 var(--t-h2) var(--mono);margin:var(--s5) 0 var(--s2)}
+.sub{color:var(--dim);font-size:var(--t-data);line-height:1.55}
+.up{color:var(--up)}.dn{color:var(--dn)}.amber{color:var(--amber)}
+.tiles{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:12px 0}
+.tile{border:1px solid var(--line);background:var(--panel);padding:10px 12px}
+.tile .k{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim)}
+.tile .v{font:600 var(--t-h2) var(--mono);margin-top:2px}.tile .s{font-size:var(--t-label);color:var(--dim);line-height:1.4}
+/* the timeline */
+.tl{position:relative;margin:var(--s3) 0 0;padding-left:26px}
+.tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line2)}
+.mo{position:relative;margin:0 0 var(--s4)}
+.mo:before{content:"";position:absolute;left:-26px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--amber)}
+.mo.future:before{border-style:dashed;border-color:var(--dim)}
+.mo.now:before{background:var(--amber)}
+.mo h3{font:600 var(--t-body) var(--mono);margin:0;letter-spacing:.02em}
+.mo .tag{font:500 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase;color:var(--dim);margin:2px 0 8px}
+.mo ul{margin:0;padding-left:18px;font-size:var(--t-data);line-height:1.6;color:var(--ink2)}
+.mo li b{color:var(--ink)}
+.ev{border-left:2px solid var(--line2);padding:2px 0 2px 10px;margin:6px 0;font-size:var(--t-data);line-height:1.55;color:var(--ink2)}
+.ev .d{font:600 var(--t-label) var(--mono);color:var(--amber);letter-spacing:.06em;margin-right:6px}
+table{border-collapse:collapse;width:100%;font:500 var(--t-data) var(--mono);font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--dim);font-weight:500}th:first-child,td:first-child{text-align:left;white-space:normal}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;padding:1px 7px;border:1px solid var(--line2);font:600 var(--t-label) var(--mono);letter-spacing:var(--tr);text-transform:uppercase}
+.pill.ok{color:var(--up);border-color:var(--up)}.pill.no{color:var(--dn);border-color:var(--dn)}.pill.mid{color:var(--amber);border-color:var(--amber)}
+.warn{border:1px solid var(--amber);padding:10px 12px;font-size:var(--t-data);margin:12px 0;line-height:1.55}
+.bar{height:10px;background:var(--bg2);border:1px solid var(--line2);margin:6px 0 2px;position:relative}.bar i{display:block;height:100%;background:var(--amber)}
+.bar b{position:absolute;top:-4px;width:2px;height:16px;background:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Ledger</a>
+<h1>Timeline</h1>
+<p class="sub">What we built and learned, month by month, and when the next goals land at the pace we are moving. The balance and deposits come from the site's data and are typed in by hand from Schwab.</p>
+
+<div class="tiles" id="tiles"></div>
+<div id="bars"></div>
+
+<h2>Where it lands</h2>
+<p class="sub">Three speeds, each from today's balance. <b>Our pace</b> is what the account actually did since the plan started: deposits plus trading, per month. It covers only a few weeks, so treat it as the fast case, not a forecast.</p>
+<div class="scroll"><table id="eta"></table></div>
+<p class="sub" id="pace"></p>
+
+<h2>The road so far</h2>
+<div class="tl">
+
+<div class="mo">
+<h3>August 2026</h3>
+<div class="tag">"Analyze this trading video"</div>
+<ul>
+<li>It started as one question: is a trader's video strategy real? It became a research project.</li>
+<li><b>Malik's strategy: dead, twice.</b> His claimed years beat a perfect-foresight ceiling, which is impossible.</li>
+<li><b>Creamer's contest win: verified</b>, but it was one small month. Not proof of an edge.</li>
+<li>Setups A through D, machine learning, futures trend-following. Most failed. Setup C survived on tech only.</li>
+<li><b>Biggest finding:</b> the stock list itself was the edge, not the signals.</li>
+<li>Aug 16: the project was saved for the first time.</li>
+</ul>
+</div>
+
+<div class="mo">
+<h3>September 2026</h3>
+<div class="tag">Building the Ledger</div>
+<div class="ev"><span class="d">SEP 4</span>You caught PYPL on the chart. The trend filter it led to (10 over 30, 50 over 200) added about 14 points a year and turned Setup E into <b>Setup F</b>.</div>
+<div class="ev"><span class="d">SEP 10</span>The Ledger went live: site, daily scan, paper book. First real trade: PYPL 53C, <span class="up">+15%</span>.</div>
+<div class="ev"><span class="d">SEP 18</span>Full 8-page redesign. The plan: <b>$8,355 to $30,000</b>.</div>
+<div class="ev"><span class="d">SEP 20–24</span>Phone alerts, weekly Report, premarket brief, the Alpaca paper auto-trader. Real NOW share bought.</div>
+<div class="ev"><span class="d">SEP 22</span>$1,200 deposit.</div>
+<div class="ev"><span class="d">SEP 25–27</span>Discord channels. SG shares, SG and SNAP 2028 calls. Balance $9,675.</div>
+<div class="ev"><span class="d">SEP 28–29</span>The AI bubble plan and the pattern library.</div>
+</div>
+
+<div class="mo now">
+<h3>October 2026</h3>
+<div class="tag">Test everything, run 24/7</div>
+<div class="ev"><span class="d">OCT 1–3</span>Playbook, chart alerts, TradingView-style charts, Setup G named.</div>
+<div class="ev"><span class="d">OCT 5</span>$1,840 deposit. Balance $12,049.</div>
+<div class="ev"><span class="d">OCT 6</span>The fair-stock-list test: with failed companies included, the plan is about equal to SPY. The inverse H&amp;S neckline shows the first pattern edge.</div>
+<div class="ev"><span class="d">MID-OCT</span>Version 1 "Trade Improver", the Focus page, the call calculator. NOW 140C <span class="up">+$361</span>.</div>
+<div class="ev"><span class="d">OCT 14–18</span>Moved to the $8/month cloud server, so the bot runs 24/7. Discord cut to what was tested. LIVE BOARD.</div>
+<div class="ev"><span class="d">OCT 19</span>The Setup F audit and 8 other ideas tested and rejected. Paper portfolio manager, My Actions, Road to $100K. <b class="up">Passed $14,000, two months early.</b></div>
+<div class="ev"><span class="d">OCT 20</span>Better SEC data, and the result held. Harmonics: no edge. NFLX earnings model. You <b>cut the NFLX call</b> before the report and avoided about $270.</div>
+<div class="ev"><span class="d">OCT 21</span>Fixed a dividend double-count. Buffett-quality test: close, not passed. QQQ dip rule: failed. NOW 144C <span class="up">+$340</span>, GOOG put <span class="up">+$110</span>.</div>
+</div>
+
+<div class="mo future">
+<h3>Next</h3>
+<div class="tag">Dates already set</div>
+<div class="ev"><span class="d">ONGOING</span>Score your trading person's calls in #ask-ledger as they come.</div>
+<div class="ev"><span class="d">NOW</span>MES practice in thinkorswim paperMoney.</div>
+<div class="ev"><span class="d">NOV 23</span>Version 1 paper test ends: keep, change, or drop the Trade Improver.</div>
+<div class="ev"><span class="d">NOV–JAN</span>The paper books run live. Do F V1 and Shadow C behave like the backtest?</div>
+<div class="ev"><span class="d" id="d20">—</span><b>$20,000</b>: futures, MES first.</div>
+<div class="ev"><span class="d" id="d30">—</span><b>$30,000</b>: the plan's target, set for Dec 2027.</div>
+<div class="ev"><span class="d" id="d100">—</span><b>$100,000.</b></div>
+</div>
+
+</div>
+
+<h2>What the research found</h2>
+<div class="scroll"><table>
+<tr><th>idea</th><th>verdict</th></tr>
+<tr><td>Setup F (sales growth over 25%, 20–45% off the high, trends up), with SPY as the base</td><td><span class="pill ok">holds</span> ~22%/yr vs SPY 15%, deeper drops, tech-driven</td></tr>
+<tr><td>Buffett-style quality (Test Q)</td><td><span class="pill mid">close</span> beats SPY, fails without its top 3</td></tr>
+<tr><td>Earlier exit after the target (Test C, Shadow C paper book)</td><td><span class="pill mid">inconclusive</span></td></tr>
+<tr><td>Market filter, volatility sizing, sector caps (A, B, D)</td><td><span class="pill no">fail</span></td></tr>
+<tr><td>Setup G breakout, divergence, 12 book patterns, candles, harmonics</td><td><span class="pill no">no edge</span></td></tr>
+<tr><td>Range trading, opening-range fade, QQQ dip rule, play of the day</td><td><span class="pill no">no edge</span></td></tr>
+<tr><td>Malik, Kay Kim, CallMeShylo, StratGen</td><td><span class="pill no">nothing testable or no edge</span></td></tr>
+</table></div>
+
+<div class="warn"><b>How to read the dates.</b> "Our pace" is the account's real growth per month since Sep 20, deposits included. Most of it is deposits, and a few weeks of trading is not a track record. The steady speeds assume $1,000 a month in deposits and a constant yearly return. They are plans, not predictions, and not advice.</div>
+</div>
+<script>
+const $=s=>document.querySelector(s), M=x=>'$'+Math.round(x).toLocaleString(), pc=x=>(100*x).toFixed(0)+'%';
+const GOALS=[[20000,'futures, MES first','d20'],[30000,'plan target (Dec 2027)','d30'],[100000,'the big goal','d100']];
+function months(b,dep,r,goal){const g=Math.pow(1+r,1/12);let x=b,n=0;while(x<goal&&n<600){x=x*g+dep;n++;}return n;}
+function when(n){if(n>=600)return 'not at this speed';const t=new Date();t.setMonth(t.getMonth()+n);return t.toLocaleDateString('en-US',{month:'short',year:'numeric'});}
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  const g=(d.report&&d.report.goal)||{}, bal=g.balance||14389.31, asof=g.as_of||'', deps=g.deposits||[], depsum=deps.reduce((s,x)=>s+x.amt,0);
+  const start=8355.13, startDate=new Date('2026-09-20'), now=new Date(asof||Date.now());
+  const mo=Math.max(0.5,(now-startDate)/(30.44*864e5)), trade=bal-start-depsum, depPace=depsum/mo, tradePace=trade/mo;
+  $('#tiles').innerHTML=[['account now',M(bal),'as of '+asof],['started',M(start),'Sep 20, 2026'],['deposits so far',M(depsum),deps.length+' deposits'],['from trading',(trade>=0?'+':'')+M(trade),'balance − start − deposits']]
+    .map(([k,v,s])=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
+  $('#bars').innerHTML=GOALS.map(([x,lab])=>`<div class="sub" style="margin-top:8px">${M(x)} · ${lab} · ${pc(Math.min(1,bal/x))} there</div><div class="bar"><i style="width:${Math.min(100,100*bal/x)}%"></i></div>`).join('');
+  const speeds=[['Steady: $1,000/mo + 8%/yr',b=>months(b,1000,.08,0),[1000,.08]],['Plan: $1,000/mo + 15%/yr (SPY-like)',null,[1000,.15]],['Plan + F: $1,000/mo + 22%/yr (backtest)',null,[1000,.22]]];
+  const pace=(goal)=>{let x=bal,n=0;while(x<goal&&n<600){x+=depPace+tradePace;n++;}return n;};
+  let rows=`<tr><th>speed</th>${GOALS.map(([x])=>`<th>${M(x)}</th>`).join('')}</tr>`;
+  rows+=`<tr><td><b>Our pace so far</b>: ${M(depPace)}/mo deposits + ${M(tradePace)}/mo trading</td>${GOALS.map(([x])=>`<td class="amber">${when(pace(x))}</td>`).join('')}</tr>`;
+  for(const [lab,,p] of speeds) rows+=`<tr><td>${lab}</td>${GOALS.map(([x])=>`<td>${when(months(bal,p[0],p[1],x))}</td>`).join('')}</tr>`;
+  $('#eta').innerHTML=rows;
+  $('#pace').textContent=`Our pace: ${mo.toFixed(1)} months since Sep 20 · deposits ${M(depsum)} (${M(depPace)}/mo) · trading ${trade>=0?'+':''}${M(trade)} (${M(tradePace)}/mo). Deposits are ${pc(depsum/(depsum+Math.max(trade,0)))} of the rise.`;
+  GOALS.forEach(([x,,id])=>{$('#'+id).textContent=when(months(bal,1000,.15,x)).toUpperCase()+' (PLAN)';});
+}).catch(()=>{$('#tiles').innerHTML='<div class="tile">Could not load the balance.</div>';});
+</script>
+</body>
+</html>
