@@ -123,6 +123,25 @@ th{color:var(--dim);font-weight:500}th:first-child,td:first-child{text-align:lef
 <tr><td>Malik, Kay Kim, CallMeShylo, StratGen</td><td><span class="pill no">nothing testable or no edge</span></td></tr>
 </table></div>
 
+<h2>Scoreboard: what each tested change would have done</h2>
+<p class="sub"><b>BACKTEST</b>, 2016-04 to Oct 2026, the S&amp;P 500 as it was each day, 0.10% each way, three same-day orders averaged. Compared with Setup F as it is. Backtests reject ideas better than they confirm them.</p>
+<div class="scroll"><table>
+<tr><th>change tested</th><th>$100k start</th><th>vs F</th><th>$14k start</th><th>vs F</th><th>worst drop</th><th>verdict</th></tr>
+<tr><td><b>Setup F as it is</b></td><td>$789,176</td><td>—</td><td>$114,790 <span class="sub">true sim</span></td><td>—</td><td>−35%</td><td>control</td></tr>
+<tr><td>F entry cap 70% (paper book F CAP 70)</td><td>$812,820</td><td class="up">+$23,644</td><td>$107,329 <span class="sub">true sim</span></td><td class="dn">−$7,461</td><td>−33%</td><td><span class="pill mid">keep testing</span></td></tr>
+<tr><td>F exposure cap 70% (trim weekly)</td><td>$830,745</td><td class="up">+$41,569</td><td>$96,003 <span class="sub">true sim</span></td><td class="dn">−$18,787</td><td>−33%</td><td><span class="pill mid">keep testing</span></td></tr>
+<tr><td>30% Buffett-quality slice</td><td>$794,248</td><td class="up">+$5,072</td><td>$111,195 <span class="sub">scaled</span></td><td>—</td><td>−33%</td><td><span class="pill mid">inconclusive</span></td></tr>
+<tr><td>skip buys near earnings</td><td>$733,515</td><td class="dn">−$55,661</td><td>$102,692 <span class="sub">scaled</span></td><td class="dn">−$7,793</td><td>−36%</td><td><span class="pill no">reject</span></td></tr>
+<tr><td>best-trade ranking, 8 slots</td><td>$697,734</td><td class="dn">−$91,442</td><td>$97,683 <span class="sub">scaled</span></td><td class="dn">−$12,802</td><td>−33%</td><td><span class="pill no">reject</span></td></tr>
+<tr><td>tech-led market gate</td><td>$639,147</td><td class="dn">−$150,029</td><td>$89,481 <span class="sub">scaled</span></td><td class="dn">−$21,004</td><td>−35%</td><td><span class="pill no">reject</span></td></tr>
+<tr><td>hold exactly 70/30</td><td>$557,556</td><td class="dn">−$231,620</td><td>$78,058 <span class="sub">scaled</span></td><td class="dn">−$32,427</td><td>−38%</td><td><span class="pill no">reject</span></td></tr>
+<tr><td>market-first gate</td><td>$533,979</td><td class="dn">−$255,197</td><td>$74,757 <span class="sub">scaled</span></td><td class="dn">−$35,728</td><td>−35%</td><td><span class="pill no">reject</span></td></tr>
+<tr><td>SPY alone</td><td>$441,021</td><td></td><td>$61,743</td><td></td><td>−34%</td><td></td></tr>
+</table></div>
+<p class="sub">"true sim" = a real $14,000 account with whole shares and cash limits; "scaled" = the $100k result × 0.14 (whole-share rounding moves it a few percent, and for the caps it reversed the sign). The caps' gain came from 2022–23 only; they cost money in the 2021 and 2025 bull years. Their lower drawdown and swings held at every cap level; their dollar gain did not.</p>
+<h2>Live paper books</h2>
+<p class="sub"><b>LIVE PAPER</b>, $100,000 each, fills at real quotes since Oct 19–22, 2026. This is the evidence that counts from here on.</p>
+<div class="tiles" id="live"></div>
 <div class="warn"><b>How to read the dates.</b> "Our pace" is the account's real growth per month since Sep 20, deposits included. Most of it is deposits, and a few weeks of trading is not a track record. The steady speeds assume $1,000 a month in deposits and a constant yearly return. They are plans, not predictions, and not advice.</div>
 </div>
 <script>
@@ -146,6 +165,7 @@ fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   $('#pace').textContent=`Our pace: ${mo.toFixed(1)} months since Sep 20 · deposits ${M(depsum)} (${M(depPace)}/mo) · trading ${trade>=0?'+':''}${M(trade)} (${M(tradePace)}/mo). Deposits are ${pc(depsum/(depsum+Math.max(trade,0)))} of the rise.`;
   GOALS.forEach(([x,,id])=>{$('#'+id).textContent=when(months(bal,1000,.15,x)).toUpperCase()+' (PLAN)';});
 }).catch(()=>{$('#tiles').innerHTML='<div class="tile">Could not load the balance.</div>';});
+fetch('pm.json',{cache:'no-store'}).then(r=>r.json()).then(p=>{$('#live').innerHTML=Object.values(p.books).map(b=>`<div class="tile"><div class="k">${b.name} · since ${b.since||'—'}</div><div class="v ${b.ret>=0?'up':'dn'}">${(b.ret>=0?'+':'')+(100*b.ret).toFixed(1)}%</div><div class="s">$${Math.round(b.equity).toLocaleString()} · ${b.positions.length} held · in F ${(100*b.exposure).toFixed(0)}% · drawdown ${(100*b.dd).toFixed(1)}%</div></div>`).join('');}).catch(()=>{$('#live').innerHTML='<div class="tile">paper books not loaded</div>';});
 </script>
 </body>
 </html>
