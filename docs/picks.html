@@ -56,6 +56,7 @@ textarea{width:100%;min-height:54px;resize:vertical}
 </div>
 <div class="sum" id="sum"></div>
 <div class="tbl"><table><thead><tr><th>Date</th><th>Ticker</th><th>Price</th><th>Trend</th><th>20d vs SPY</th><th>60d</th><th>252d</th><th>Worst drop</th><th>Mine</th></tr></thead><tbody id="rows"></tbody></table></div>
+<details class="card" id="livebox"><summary><b>LIVE alerts</b> <span class="note">from the 66-stock scan, since 2026-10-19. Outcomes are too new to score.</span></summary><div class="tbl" style="max-height:260px"><table><thead><tr><th>Date</th><th>Ticker</th><th>Price</th><th>Under high</th><th>Revenue</th></tr></thead><tbody id="live"></tbody></table></div></details>
 <section class="card" id="card" hidden aria-live="polite">
   <div class="cardhead"><h2 id="c-title"></h2><span class="chip" id="c-src"></span></div>
   <canvas id="chart" aria-label="Daily chart at the pick"></canvas>
@@ -79,7 +80,8 @@ const save=()=>{try{localStorage.setItem('pickReviews',JSON.stringify(R))}catch(
 const key=p=>p.s+'_'+p.d, pct=v=>v==null?'—':(v>0?'+':'')+v.toFixed(1)+'%', cls=v=>v==null?'':v>0?'pos':'neg';
 fetch('picks/index.json').then(r=>r.json()).then(d=>{D=d;const ys=[...new Set(d.picks.map(p=>p.y))].sort().reverse();
   $('f-year').innerHTML='<option value="">All years</option>'+ys.map(y=>`<option>${y}</option>`).join('');
-  ['f-year','f-trend','f-out','f-list','f-rev','f-q'].forEach(id=>$(id).addEventListener('input',draw));draw();});
+  ['f-year','f-trend','f-out','f-list','f-rev','f-q'].forEach(id=>$(id).addEventListener('input',draw));draw();
+  $('live').innerHTML=d.live.map(p=>`<tr><td>${p.d}</td><td><b>${p.s}</b></td><td>$${(+p.px).toFixed(2)}</td><td>${p.why.dd==null?'—':p.why.dd+'%'}</td><td>${p.why.rev==null?'—':p.why.rev+'%'}</td></tr>`).join('');});
 function list(){const y=$('f-year').value,t=$('f-trend').value,o=$('f-out').value,l=$('f-list').value,rv=$('f-rev').value,q=$('f-q').value.trim().toUpperCase();
   return D.picks.filter(p=>(!y||p.y===y)&&(!t||p.trend===t)&&(!q||p.s.startsWith(q))&&(!l||(l==='in')===p.in66)&&
     (!o||(o==='open'?p.ret['252']==null:o==='beat'?p.ret['252']>0:p.ret['252']!=null&&p.ret['252']<=0))&&
