@@ -1,0 +1,335 @@
+{
+ "made": "2026-10-23",
+ "rule": "Setup F revenue: last 4 quarters vs prior 4 > 25%, Q4 derived from the 10-K, one tag per company, 8 consecutive recent quarters, filings available on the signal date",
+ "note": "Original alerts, paper trades and accounting are kept exactly as recorded. These rows only flag past eligibility.",
+ "rows": [
+  {
+   "date": "2026-09-14",
+   "sym": "HAL",
+   "scan": "ALERT",
+   "old_rev": 37.416949152542365,
+   "corrected_rev": null,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-16",
+   "sym": "HAL",
+   "scan": "ALERT",
+   "old_rev": 37.416949152542365,
+   "corrected_rev": null,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-17",
+   "sym": "HAL",
+   "scan": "ALERT",
+   "old_rev": 37.416949152542365,
+   "corrected_rev": null,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-17",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-18",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-20",
+   "sym": "BE",
+   "scan": "BLOCKED",
+   "old_rev": null,
+   "corrected_rev": 91.0,
+   "finding": "would have qualified: blocked as 'no SEC data' (download failure that day), revenue was above 25%"
+  },
+  {
+   "date": "2026-09-20",
+   "sym": "HOOD",
+   "scan": "BLOCKED",
+   "old_rev": null,
+   "corrected_rev": 38.3,
+   "finding": "would have qualified: blocked as 'no SEC data' (download failure that day), revenue was above 25%"
+  },
+  {
+   "date": "2026-09-21",
+   "sym": "HOOD",
+   "scan": "BLOCKED",
+   "old_rev": null,
+   "corrected_rev": 38.3,
+   "finding": "would have qualified: blocked as 'no SEC data' (download failure that day), revenue was above 25%"
+  },
+  {
+   "date": "2026-09-21",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-22",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-23",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-24",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-25",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-26",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-27",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-28",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-29",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-09-30",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-01",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-02",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-03",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-04",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-05",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-06",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-07",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-08",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-09",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-10",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-11",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-12",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-13",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-14",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-15",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-16",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-17",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-18",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-19",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-20",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-21",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-22",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  },
+  {
+   "date": "2026-10-23",
+   "sym": "NOW",
+   "scan": "ALERT",
+   "old_rev": 29.36572199730094,
+   "corrected_rev": 22.2,
+   "finding": "would NOT qualify: revenue under 25% (or unknown) with Q4 included, using only filings available that day"
+  }
+ ]
+}

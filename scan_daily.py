@@ -170,33 +170,16 @@ def rsi(c, n=14):
 
 _cik = None; _rev = {}
 def revenue_growth(sym):
-    global _cik
+    """Last 4 quarters vs the prior 4 (SEC companyfacts, filed by today). 2026-10-23 correction: the old version skipped
+    Q4 (filed only inside the 10-K), mixed two revenue tags and could use stale quarters, which overstated growth (NOW 29.4%
+    vs 22.2%). It now uses f_full.rev_growth: Q4 derived from the annual figure, one tag per company, 8 consecutive recent
+    quarters, else None. Past alerts are kept as recorded; see docs/eligibility-corrections.json."""
     if sym in _rev: return _rev[sym]
     try:
-        if _cik is None:
-            m = get("https://www.sec.gov/files/company_tickers.json", SEC_UA)
-            _cik = {v["ticker"]: str(v["cik_str"]).zfill(10) for v in m.values()}
-        c = _cik.get(sym)
-        if not c: _rev[sym] = None; return None
-        g = get(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{c}.json", SEC_UA).get("facts", {}).get("us-gaap", {})
-        today = str(datetime.date.today()); best = {}
-        for tag in ("Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"):
-            for unit, vals in g.get(tag, {}).get("units", {}).items():
-                for x in vals:
-                    if x.get("form") not in ("10-Q", "10-K"): continue
-                    st, en, fl = x.get("start"), x.get("end"), x.get("filed")
-                    if not (st and en and fl) or fl > today: continue
-                    days = (datetime.date.fromisoformat(en) - datetime.date.fromisoformat(st)).days
-                    if not (60 <= days <= 120): continue
-                    if en not in best or fl < best[en][0]: best[en] = (fl, x["val"])
-        ser = sorted((en, v) for en, (fl, v) in best.items())
-        if len(ser) < 8: _rev[sym] = None
-        else:
-            now = sum(v for _, v in ser[-4:]); prior = sum(v for _, v in ser[-8:-4])
-            _rev[sym] = None if prior <= 0 else now / prior - 1
+        import f_full
+        _rev[sym] = f_full.rev_growth(sym)
     except Exception:
         _rev[sym] = None
-    time.sleep(0.12)
     return _rev[sym]
 
 

@@ -71,25 +71,28 @@ def rev_growth(sym, asof=None):
     c = _cik.get(sym.replace(".", "-"))
     if not c: return None
     g = S.get(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{c}.json", S.SEC_UA).get("facts", {}).get("us-gaap", {})
-    q, yr = {}, {}
+    best = None                                                # one revenue tag per company, never mixed (2026-10-23 fix)
     for tag in ("Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"):
-        for unit, vals in g.get(tag, {}).get("units", {}).items():
-            if unit != "USD": continue
-            for x in vals:
-                st, en, fl = x.get("start"), x.get("end"), x.get("filed")
-                if x.get("form") not in ("10-Q", "10-K") or not (st and en and fl) or fl > asof: continue
-                n = (dt.date.fromisoformat(en) - dt.date.fromisoformat(st)).days
-                book = q if 60 <= n <= 120 else yr if 330 <= n <= 400 else None
-                if book is not None and (en not in book or fl < book[en][0]): book[en] = (fl, x["val"], st)
-    for en, (fl, val, st) in yr.items():                      # derive a missing Q4 from the annual figure
-        if en in q: continue
-        inside = [v for e, (f, v, s) in q.items() if st < e < en]
-        if len(inside) == 3: q[en] = (fl, val - sum(inside), st)
-    ser = sorted((en, v) for en, (fl, v, st) in q.items())[-8:]
-    if len(ser) < 8: return None
-    gaps = [(dt.date.fromisoformat(b[0]) - dt.date.fromisoformat(a[0])).days for a, b in zip(ser, ser[1:])]
-    if any(not 75 <= x <= 105 for x in gaps): return None      # not 8 consecutive quarters: unknown, never guessed
-    now = sum(v for _, v in ser[-4:]); prior = sum(v for _, v in ser[:4])
+        q, yr = {}, {}
+        for x in g.get(tag, {}).get("units", {}).get("USD", []):
+            st, en, fl = x.get("start"), x.get("end"), x.get("filed")
+            if x.get("form") not in ("10-Q", "10-K") or not (st and en and fl) or fl > asof: continue
+            n = (dt.date.fromisoformat(en) - dt.date.fromisoformat(st)).days
+            book = q if 60 <= n <= 120 else yr if 330 <= n <= 400 else None
+            if book is not None and (en not in book or fl < book[en][0]): book[en] = (fl, x["val"], st)
+        for en, (fl, val, st) in yr.items():                  # derive a missing Q4 from the annual figure
+            if en in q: continue
+            inside = [v for e, (f, v, s_) in q.items() if st < e < en]
+            if len(inside) == 3: q[en] = (fl, val - sum(inside), st)
+        ser = sorted((en, v) for en, (fl, v, st) in q.items())[-8:]
+        if len(ser) < 8: continue
+        if (dt.date.fromisoformat(asof) - dt.date.fromisoformat(ser[-1][0])).days > 200: continue   # stale: no recent quarters under this tag
+        gaps = [(dt.date.fromisoformat(b_[0]) - dt.date.fromisoformat(a_[0])).days for a_, b_ in zip(ser, ser[1:])]
+        if any(not 75 <= x <= 105 for x in gaps): continue     # not 8 consecutive quarters
+        key = (ser[-1][0], ser[-1][1])                         # the most recent tag wins; then the larger (total) revenue
+        if best is None or key > best[0]: best = (key, ser)
+    if not best: return None                                   # unknown: never guessed
+    ser = best[1]; now = sum(v for _, v in ser[-4:]); prior = sum(v for _, v in ser[:4])
     return None if prior <= 0 else now / prior - 1
 
 
