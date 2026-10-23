@@ -1102,5 +1102,33 @@
    "AVGO",
    "ORCL"
   ]
+ },
+ {
+  "date": "2026-10-23",
+  "vix": 19.030000686645508,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "NOW"
+  ],
+  "D": [
+   "WDAY",
+   "TXN",
+   "CRM",
+   "AMZN",
+   "OXY",
+   "VRTX",
+   "REGN",
+   "SG",
+   "DVN",
+   "PLTR"
+  ],
+  "C": [
+   "ROKU"
+  ],
+  "S": [
+   "NFLX"
+  ]
  }
 ]
