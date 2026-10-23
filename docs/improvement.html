@@ -108,10 +108,10 @@ section{display:flex;flex-direction:column;gap:14px}
   <h1>The Ledger · Report Card</h1>
   <p>Each strategy gets its own grade in eight areas. An A means leave it alone. A C, D or F means look there next. N/A means we have not measured it yet.</p>
   <div class="glance" aria-label="Fifteen-second summary">
-    <div><b>Setup F: four C, one F, three N/A</b><span>It beats SPY on return, but with deeper drops. The F is Setup quality: a few names carry it. No grade can pass C until untouched or live data confirms it.</span></div>
+    <div><b>Setup F: five C, one F, two N/A</b><span>It beats SPY on return, but with deeper drops. The F is Setup quality: a few names carry it. No grade can pass C until untouched or live data confirms it.</span></div>
     <div><b>Version 1: F at setup, entry and exit</b><span>Test 1 finished: its picks are no better than random stocks chosen at the same minute.</span></div>
     <div><b>Your discipline: N/A</b><span>The decision journal started 10-21 and holds 0 decisions. It needs 20.</span></div>
-    <div><b>Next: close the real-account risk gaps</b><span>Puts are not watched, and nothing caps total open option risk.</span></div>
+    <div><b>Next: measure Setup F's position losses</b><span>The risk gaps are fixed. V1's entry, market read and stock picking all tested no better than chance.</span></div>
   </div>
 </header>
 
@@ -135,17 +135,18 @@ section{display:flex;flex-direction:column;gap:14px}
   <h2 id="q">What we work on</h2>
   <div class="queue">
     <div class="main-task">
-      <span class="pill p-inv">Investigate · next</span>
-      <h3>Are we protected when a trade goes wrong?</h3>
+      <span class="pill p-mea">Measure · next</span>
+      <h3>Do single Setup F positions lose more than planned?</h3>
       <dl class="qa">
-        <dt>The problem</dt><dd>Real-account puts are not watched. Nothing caps total open option risk. 4 of 32 real option trades ended past −50%, and the unwatched QCOM paper call ran to −80%.</dd>
-        <dt>Why it matters</dt><dd>These overruns cost about $620 in real and paper trades. A loss limit only works if something watches it.</dd>
-        <dt>What Claude does</dt><dd>Proposes three changes for your approval: watch puts, set a cap on total open option risk, and retire or watch the hand-logged paper books.</dd>
-        <dt>Done when</dt><dd>You approve or reject each one. Nothing changes without your yes.</dd>
-        <dt>Affects</dt><dd>Real account · Position sizing</dd>
+        <dt>The problem</dt><dd>Each F position is 7% of the account with no stop. Nobody has measured how bad a single position gets.</dd>
+        <dt>Why it matters</dt><dd>Position sizing is N/A for Setup F. This task gives it a grade.</dd>
+        <dt>What Claude does</dt><dd>Measures each position's worst drop and final loss, as a share of the account, across the 2016–26 replay.</dd>
+        <dt>Done when</dt><dd>The loss distribution is reported and the sizing checks C3 and C4 are answered.</dd>
+        <dt>Affects</dt><dd>Setup F · Position sizing</dd>
       </dl>
     </div>
     <div class="upcoming">
+      <div class="up"><span class="pill p-pro">Done</span><b>Risk gaps closed</b><span class="small">Puts and the paper books are watched. A daily alert fires when open option risk passes 5%.</span></div>
       <div class="up"><span class="pill p-fix">Done · FAIL</span><b>Does V1 pick better trades than chance?</b><span class="small">No. On untouched data its stocks did no better than random stocks picked at the same minute. Next step: research stock selection, not exits. Affects: V1 Setup quality.</span></div>
       <div class="up"><span class="pill p-mon">Monitor</span><b>Is Setup F too concentrated?</b><span class="small">The cap tests lowered drawdowns but returns were noisy. The F CAP 70 paper book is collecting evidence. Affects: Portfolio allocation.</span></div>
       <div class="up"><span class="pill p-mea">Measure</span><b>Do we pay too much getting into F trades?</b><span class="small">Buying at the next open costs 4–5 points a year against the close. A limit at the close has not been tested. Affects: Entry timing (now N/A).</span></div>
@@ -158,8 +159,8 @@ section{display:flex;flex-direction:column;gap:14px}
   <h2 id="pp">Progress is not performance</h2>
   <p class="note">These four boxes never feed each other. Finishing a task does not raise a grade.</p>
   <div class="four">
-    <div><span class="eyebrow">Work done</span><span class="big">3</span><span class="small">tasks closed this week: options audit, position-risk audit, Test 1 (entry gate). Counted from the task log once it exists.</span></div>
-    <div><span class="eyebrow">Questions answered</span><span class="big">3</span><span class="small">Where did option money go? (entries). Are fixed exits better? (no, 5 of 5 worse). Does V1 beat chance? (no).</span></div>
+    <div><span class="eyebrow">Work done</span><span class="big">8</span><span class="small">tasks closed this week: options audit, risk audit, risk fixes, Test 1, wider chase line, market read, revenue picker, F fill test (one run each). Counted from the task log once it exists.</span></div>
+    <div><span class="eyebrow">Questions answered</span><span class="big">7</span><span class="small">Option losses come from entries. Fixed exits are worse. V1 = chance. A wider chase line, the market read and revenue picking don't help. F's fill cost is small.</span></div>
     <div><span class="eyebrow">Decisions improved</span><span class="big">N/A</span><span class="small">The journal holds 0 decisions. It needs 20 before it can say anything.</span></div>
     <div><span class="eyebrow">Money</span><span class="big">$14,530</span><span class="small">real account on 10-21. Real options since 08-27: −$519 on 32 trades. Paper F V1: +1.3% in 3 sessions.</span></div>
   </div>
@@ -174,6 +175,14 @@ section{display:flex;flex-direction:column;gap:14px}
   <div class="finding">
     <p class="plain">V1's stock picks did <b>no better than random stocks</b> picked at the same minute, on 2,879 trades nobody had looked at.</p>
     <details><summary>Show the statistics</summary><p class="mono">Validation Jul 2025 – Sep 2026, 120 sessions. Stock gross −0.014 R vs C1 −0.002 R; V1 beats 20% of 20 seeds (net: 50%). Option level −$6.0 vs C1 −$10.9 (t +2.03) but coverage 34% &lt; 70% → INCONCLUSIVE; development showed no option edge. Source: thesis/options/entry-gate-results.md.</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">Three more V1 ideas tested no better than chance: a <b>wider chase line</b>, the <b>morning market read</b>, and picking <b>fast revenue growers</b>.</p>
+    <details><summary>Show the statistics</summary><p class="mono">1.0 ATR chase: 8,685 validation trades, beats 15% of random seeds. Market gate off: blocked minus allowed, dev t −0.61, val t +1.75 (sign flips). Revenue over 25%: day-paired gap dev −0.051 R (t −1.08), val −0.008 R (t −0.22). Source: entry-gate-results.md, entry-gate-design.md (Tests 1b, 1c).</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">Buying Setup F at the next open costs about <b>0.1–0.3 points a year</b>, not the 4–5 points we feared. A limit order at the close does not help.</p>
+    <details><summary>Show the statistics</summary><p class="mono">F-only book, 10 seeds. 2016–21: close 8.2%, next open 8.1%, limit 7.2%. 2022–26: close 22.6%, open 22.9%, limit 23.2%. Drawdowns within 1.3 points. Source: thesis/fill_test.py.</p></details>
   </div>
   <div class="finding">
     <p class="plain">Your own exits <b>beat every simple exit rule</b> we tried on the same 32 option trades. The money was lost at entry.</p>
@@ -222,12 +231,12 @@ section{display:flex;flex-direction:column;gap:14px}
   <div class="tbl"><table class="sheet">
     <thead><tr><th>Strategy · area</th><th>Grade</th><th>Task (plain question)</th><th>What Claude does</th><th>Done when</th><th>Changes</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td>V1 · Market environment</td><td class="r">N/A</td><td>Does V1's market read pick better days?</td><td>Splits Test 1's trades by market state, against random picks</td><td>Each state with 30+ trades scored</td><td class="r">C1</td><td class="st st-ready">Ready: data exists</td></tr>
+      <tr><td>V1 · Market environment</td><td class="r">F</td><td>Does V1's market read pick better days?</td><td>Reran Test 1 with the gate off and compared blocked with allowed trades</td><td>Done 10-22: FAIL</td><td class="r">C1, C2</td><td class="st st-done">Done · no</td></tr>
       <tr><td>V1 · Entry timing</td><td class="r">F</td><td>Would the wider 1.0 ATR chase line help?</td><td>Reran Test 1 with the shadow line: 3× more trades, no better than random stocks</td><td>Done 10-22: FAIL</td><td class="r">C1, C2</td><td class="st st-done">Done · no</td></tr>
-      <tr><td>F · Entry timing</td><td class="r">N/A</td><td>Would a limit order at the close save the 4–5 points?</td><td>Replays fills: buy if the next day trades at or below the signal close</td><td>Fill rate and return on 2016–26</td><td class="r">C1, C3</td><td class="st st-ready">Ready</td></tr>
+      <tr><td>F · Entry timing</td><td class="r">C</td><td>Would a limit order at the close save the 4–5 points?</td><td>Replayed 2016–26: the real gap is 0.1–0.3 points, and the limit does not help</td><td>Done 10-22: keep next open</td><td class="r">C1, C3, C4</td><td class="st st-done">Done · no change</td></tr>
       <tr><td>F · Position sizing</td><td class="r">N/A</td><td>Do single positions lose more than planned?</td><td>Measures each position's worst loss against 7% of equity in the replay</td><td>Distribution reported</td><td class="r">C3, C4</td><td class="st st-ready">Ready</td></tr>
       <tr><td>F · Instrument choice</td><td class="r">C</td><td>Do option versions of F drop deeper than shares?</td><td>Adds drawdown to the F Smart and ticket results</td><td>Drawdown compared</td><td class="r">C4</td><td class="st st-ready">Ready</td></tr>
-      <tr><td>V1 · Setup quality</td><td class="r">F</td><td>What makes a candidate better than a random one?</td><td>Starts stock-selection research from ideas with prior evidence (the revenue filter)</td><td>One hypothesis locked and tested</td><td class="r">C1</td><td class="st st-ready">Ready, after you approve</td></tr>
+      <tr><td>V1 · Setup quality</td><td class="r">F</td><td>Does revenue growth over 25% pick better short-term trades?</td><td>Tested on 124,000 same-minute entries: no (dev t −1.08, val t −0.22)</td><td>Done 10-22: FAIL</td><td class="r">C1</td><td class="st st-done">Done · no</td></tr>
       <tr><td>Your discipline</td><td class="r">N/A</td><td>Are we following our own plan?</td><td>Counts journal decisions and reasons each Saturday</td><td>20 decisions logged</td><td class="r">score</td><td class="st st-wait">Waiting: needs your ✅❌⏳</td></tr>
       <tr><td>F · Setup quality</td><td class="r">F</td><td>Does F hold up on data nobody has seen?</td><td>Scores the paper books from 10-19 on as the untouched period</td><td>12 months, or 50 fires</td><td class="r">C2, C5</td><td class="st st-wait">Waiting: time</td></tr>
       <tr><td>F · Market environment</td><td class="r">C</td><td>Would a market dial shrink F's worst drops live?</td><td>Tracks paper drawdown by market state</td><td>One drop of 10%+ observed</td><td class="r">C4, C5</td><td class="st st-wait">Waiting: market</td></tr>
@@ -327,8 +336,8 @@ F:{name:"Setup F",reviewed:"2026-10-22",areas:[
   work:"The S&P pool plus the revenue test finds better names than chance.",hurt:"The names it finds fall harder than the market in bad years.",next:"No change. Re-check after 50 live fires.",src:"revenue_test.py · checks5"},
  {c:{C1:["y","SPY + F 21.8%/yr vs SPY 15.2% (2016–26, point-in-time)"],C2:["u","2022–26 window seen in design (contaminated)"],C3:["n","The top 3 names carry the result; 2022–24 trailed SPY"],C4:["n","2022 drop −38% vs SPY −21%; risk-adjusted return equal"],C5:["u","3 sessions of paper data"]},
   work:"Over ten years the setup made clearly more money than SPY.",hurt:"A few big tech winners carry it, and its drops are deeper. Per unit of risk it equals SPY.",next:"Frozen as the benchmark. The paper books decide; no rule change.",src:"f-audit.md · portfolio-pit"},
- {c:{C1:["u","A limit at the prior close was never tested"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u","Live fills quoted ~2 s old since 10-20"]},
-  work:"Paper fills use quotes only seconds old.",hurt:"Buying at the next open costs 4–5 points a year against the signal close.",next:"Measure: replay a limit order at the close with point-in-time bars.",src:"decision-audit-framework.md §4"},
+ {c:{C1:["y","A one-day limit at the signal close did not beat the next-open fill: 7.2% vs 8.1%/yr (2016–21), 23.2% vs 22.9% (2022–26)"],C2:["u","No untouched period"],C3:["n","The two windows disagree in direction"],C4:["y","Drawdowns within 1.3 points of each other"],C5:["u","Live fills quoted ~2 s old since 10-20"]},
+  work:"Buying at the next open costs only 0.1–0.3 points a year against the close. That is far less than the 4–5 points estimated from 2026 alone.",hurt:"Nothing measurable. A limit order fills less often and does not pay for it.",next:"Keep the next-open fill. Protect.",src:"fill_test.py (2026-10-22)"},
  {c:{C1:["y","Shares beat the 3–9 DTE ticket, the 90–120 day card, and the F Smart chooser"],C2:["u","No untouched period"],C3:["y","Three different option versions all lost to shares"],C4:["u","Drawdown of the option versions not measured"],C5:["u","Too few live fires"]},
   work:"Plain shares beat every option version of Setup F we tried.",hurt:"Nothing measured. The grade is capped until untouched or live data agrees.",next:"Protect. No new option variants for F.",src:"f_smart · f_ticket_test"},
  {c:{C1:["y","Volatility sizing (Test B) failed against 7%"],C2:["u",""],C3:["u","Only one alternative tested"],C4:["u","Per-trade loss vs plan not measured"],C5:["u",""]},
@@ -339,8 +348,8 @@ F:{name:"Setup F",reviewed:"2026-10-22",areas:[
   work:"Funding order and the SPY core both hold up. Unfunded fires were not better trades.",hurt:"With no ceiling, F names can drive almost the whole drop in a bad year.",next:"Monitor the F CAP 70 paper book. Do not add new cap variants.",src:"allocation-audit.md · cap_robustness.py"}
 ]},
 V:{name:"Version 1",reviewed:"2026-10-22",areas:[
- {c:{C1:["u","No eligible V1 trades to judge the market score by"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
-  work:"The market read runs every morning and is logged.",hurt:"Nothing has tested whether the read relates to the day's result.",next:"Measure: market state vs outcome in the entry-gate replay.",src:"decision-audit-framework.md §1"},
+ {c:{C1:["n","Test 1b: with the gate off, trades it would block did no worse than trades it allows (dev t −0.61, val t +1.75; the sign flips)"],C2:["n","Validation gap not significant"],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"The market read runs every morning and is logged.",hurt:"Skipping the days it calls CHOPPY or against the trade does not pick better days. 1 in 4 entries were blocked for nothing.",next:"No change before Nov 23. Then decide whether V1 keeps the gate.",src:"options/eg_market.py · _eg_market.txt"},
  {c:{C1:["u","The seven hand-picked charts were never compared with alternatives"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
   work:"The watchlist is small and focused.",hurt:"Nobody knows if the seven are better than other names.",next:"Measure after the entry test.",src:"decision-audit-framework.md §2"},
  {c:{C1:["n","−0.05 R per trade after costs on 109,486 stock trades; development replay no better than random names (t −0.7)"],C2:["n","Test 1 validation (Jul 2025 – Sep 2026): V1 equals the median random stock at the same minute; FAIL"],C3:["u",""],C4:["u",""],C5:["u","0 paper trades so far"]},
