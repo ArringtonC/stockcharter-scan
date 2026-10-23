@@ -96,7 +96,7 @@ section{display:flex;flex-direction:column;gap:14px}
 .sheet td.st{font-family:var(--mono);font-size:12px;white-space:nowrap}
 .st-ready{color:var(--gA)}.st-wait{color:var(--gC)}.st-block{color:var(--gF)}.st-done{color:var(--muted)}
 .check{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
 @media (max-width:760px){.checks{grid-template-columns:1fr}}
 .verdict{font-family:var(--display);font-weight:800;font-size:18px}
 </style>
@@ -206,6 +206,13 @@ section{display:flex;flex-direction:column;gap:14px}
       <p><b>What is true:</b> it is in a strong uptrend, up 13% in 20 sessions and above every average. Earnings are about early December, outside a 3–9 day window. A chart-only entry like this tested no better than chance in Test 1.</p>
       <details><summary>Show the numbers</summary><p class="mono">1-year high $714.97, low $443.60. EMA 50 $555.11, EMA 200 $535.55. Daily ATR $15.00 (2.4%). Quotes: indicative feed, 10-22 09:56 CT. Past earnings dates (8-K): 12-04, 03-12, 06-02, 08-27.</p></details>
     </div>
+    <div class="check">
+      <span class="eyebrow">NOW Oct 23 $144 call · your real trade, 10-19</span>
+      <span class="verdict">Sold at 2×. The bot's 2× rule said lock the gain, not sell.</span>
+      <p><b>What you did:</b> you bought at $3.40 on 10-19 and sold at $6.80 on 10-20, for <b>+$340</b>.</p>
+      <p><b>Since then:</b> NOW went from $149.56 to $157.01. The call bids about $12.67 today and expires tomorrow. Holding would be worth about $965. That is hindsight.</p>
+      <p><b>The Ledger's rule at 2×:</b> "set a stop at $5.10 to lock the gain". A stop there would still be holding. The options audit points the same way on 16 short-dated trades: holding to expiry made +$1,080 against +$636 actual. That is in-sample, so it is a lead, not a rule.</p>
+    </div>
   </div>
 </section>
 
@@ -216,7 +223,7 @@ section{display:flex;flex-direction:column;gap:14px}
     <thead><tr><th>Strategy · area</th><th>Grade</th><th>Task (plain question)</th><th>What Claude does</th><th>Done when</th><th>Changes</th><th>Status</th></tr></thead>
     <tbody>
       <tr><td>V1 · Market environment</td><td class="r">N/A</td><td>Does V1's market read pick better days?</td><td>Splits Test 1's trades by market state, against random picks</td><td>Each state with 30+ trades scored</td><td class="r">C1</td><td class="st st-ready">Ready: data exists</td></tr>
-      <tr><td>V1 · Entry timing</td><td class="r">F</td><td>Would the wider 1.0 ATR chase line help?</td><td>Reruns Test 1 with the shadow line on the cached data</td><td>Validation scored once</td><td class="r">C1, C2</td><td class="st st-ready">Ready</td></tr>
+      <tr><td>V1 · Entry timing</td><td class="r">F</td><td>Would the wider 1.0 ATR chase line help?</td><td>Reran Test 1 with the shadow line: 3× more trades, no better than random stocks</td><td>Done 10-22: FAIL</td><td class="r">C1, C2</td><td class="st st-done">Done · no</td></tr>
       <tr><td>F · Entry timing</td><td class="r">N/A</td><td>Would a limit order at the close save the 4–5 points?</td><td>Replays fills: buy if the next day trades at or below the signal close</td><td>Fill rate and return on 2016–26</td><td class="r">C1, C3</td><td class="st st-ready">Ready</td></tr>
       <tr><td>F · Position sizing</td><td class="r">N/A</td><td>Do single positions lose more than planned?</td><td>Measures each position's worst loss against 7% of equity in the replay</td><td>Distribution reported</td><td class="r">C3, C4</td><td class="st st-ready">Ready</td></tr>
       <tr><td>F · Instrument choice</td><td class="r">C</td><td>Do option versions of F drop deeper than shares?</td><td>Adds drawdown to the F Smart and ticket results</td><td>Drawdown compared</td><td class="r">C4</td><td class="st st-ready">Ready</td></tr>
@@ -338,8 +345,8 @@ V:{name:"Version 1",reviewed:"2026-10-22",areas:[
   work:"The watchlist is small and focused.",hurt:"Nobody knows if the seven are better than other names.",next:"Measure after the entry test.",src:"decision-audit-framework.md §2"},
  {c:{C1:["n","−0.05 R per trade after costs on 109,486 stock trades; development replay no better than random names (t −0.7)"],C2:["n","Test 1 validation (Jul 2025 – Sep 2026): V1 equals the median random stock at the same minute; FAIL"],C3:["u",""],C4:["u",""],C5:["u","0 paper trades so far"]},
   work:"The trigger is fully written down and testable.",hurt:"On stocks it lost money after costs, and early replays show it picks no better than random names.",next:"Finish Test 1. If it fails, rebuild selection; do not tune exits.",src:"v1_diagnostic.py · options/eg_test.py"},
- {c:{C1:["n","The chase line blocked every entry in 199 replayed sessions"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u","Shadow 1.0 ATR line logged since 10-18"]},
-  work:"The chase line stops panic buying.",hurt:"It also stops almost every trade: 0 of 199 sessions produced an entry.",next:"The Nov 23 verdict compares it with the 1.0 ATR shadow line.",src:"play_of_day_test.py"},
+ {c:{C1:["n","The chase line blocked every entry in 199 replayed sessions"],C2:["n","Test 1 shadow run: the wider 1.0 ATR line let in 8,685 trades on untouched data, no better than random stocks (beats 15% of seeds)"],C3:["u",""],C4:["u",""],C5:["u","Shadow 1.0 ATR line logged since 10-18"]},
+  work:"The chase line stops panic buying.",hurt:"It also stops almost every trade: 0 of 199 sessions produced an entry.",next:"Widening the line does not help, since the entries have no edge. Stock selection comes first.",src:"play_of_day_test.py · entry-gate-results.md"},
  {c:{C1:["u","Option fills found for only 35% of V1 signals in the replay"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
   work:"Contract rules ($400, 3–9 DTE, earnings after expiry) are enforced.",hurt:"Too few historical option prints to judge.",next:"Measure: the live paper test collects real quotes.",src:"options/eg_test.py"},
  {c:{C1:["u","The $400 / $200 caps exist but were not compared with alternatives"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
