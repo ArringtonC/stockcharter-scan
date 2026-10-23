@@ -1,0 +1,45 @@
+{
+ "date": "2026-10-23",
+ "generated": "2026-10-23T16:32-05:00",
+ "rule": "setup-f research rule, full S&P 500",
+ "members_source": "wikipedia",
+ "counts": {
+  "members": 502,
+  "bars": 502,
+  "stale": 0,
+  "short": 4,
+  "chart": 3,
+  "rev_pass": 1,
+  "rev_fail": 2,
+  "rev_unknown": 0
+ },
+ "F": [
+  {
+   "sym": "P",
+   "px": 123.33,
+   "dd": 21.7,
+   "tgt": 157.57,
+   "up": 27.8,
+   "rev": 27.2
+  }
+ ],
+ "in_66": [],
+ "chart_only": [
+  {
+   "sym": "MRNA",
+   "px": 200.1,
+   "dd": 21.4,
+   "tgt": 254.48,
+   "up": 27.2,
+   "rev": -27.6
+  },
+  {
+   "sym": "PYPL",
+   "px": 57.02,
+   "dd": 27.2,
+   "tgt": 78.34,
+   "up": 37.4,
+   "rev": 5.8
+  }
+ ]
+}

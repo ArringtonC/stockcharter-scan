@@ -1105,7 +1105,7 @@
  },
  {
   "date": "2026-10-23",
-  "vix": 19.670000076293945,
+  "vix": 19.450000762939453,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1114,18 +1114,17 @@
   "D": [
    "NOW",
    "WDAY",
+   "TXN",
    "SPOT",
    "OKTA",
    "SG",
-   "HPQ",
    "CRM",
    "SHOP",
+   "HPQ",
    "VRTX",
    "REGN"
   ],
-  "C": [
-   "WDAY"
-  ],
+  "C": [],
   "S": [
    "COIN",
    "F"
