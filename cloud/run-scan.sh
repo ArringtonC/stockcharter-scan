@@ -23,6 +23,7 @@ python3 scan_daily.py || { echo "scan failed -- will retry in 15 min"; rm -f ~/.
 python3 autotrade.py || echo "autotrade failed"
 python3 ticket_bot.py || echo "ticket bot failed"
 python3 f_full.py || echo "full S&P scan failed"                  # after the close only: Setup F on the full S&P 500 for the F FULL S&P book
+python3 calls_paper.py daily || echo "calls paper daily failed"   # paper only: new F episodes and G1 events -> queued call entries
 python3 portfolio_manager.py || echo "portfolio manager failed"   # paper only: F V1, Shadow C, F CAP 70, F FULL S&P books
 git add docs/ trades.csv
 git diff --cached --quiet && { echo "no change"; exit 0; }

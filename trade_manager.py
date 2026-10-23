@@ -346,6 +346,9 @@ def main():
     try:                                                # MNQ paper bot: Frank's ICT model, tested at break-even, on by Arrington's choice 2026-10-21
         import mes_paper, scan_daily as S; mes_paper.tick(lambda t: S.discord(t, "paper"))
     except Exception as e: print("mnq tick failed", e)
+    try:                                                # F-call / G1-call forward paper track (2026-10-23): quotes only, no orders, no messages
+        import calls_paper; calls_paper.tick()
+    except Exception as e: print("calls paper tick failed", e)
     try: board(rows(), st)
     except Exception as e: print("board failed", e)
     try:
