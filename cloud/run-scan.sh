@@ -22,7 +22,8 @@ python3 autotrade.py sync || echo "autotrade sync failed"
 python3 scan_daily.py || { echo "scan failed -- will retry in 15 min"; rm -f ~/.ledger-last-slot; exit 1; }
 python3 autotrade.py || echo "autotrade failed"
 python3 ticket_bot.py || echo "ticket bot failed"
-python3 portfolio_manager.py || echo "portfolio manager failed"   # paper only: F V1 and Shadow C books
+python3 f_full.py || echo "full S&P scan failed"                  # after the close only: Setup F on the full S&P 500 for the F FULL S&P book
+python3 portfolio_manager.py || echo "portfolio manager failed"   # paper only: F V1, Shadow C, F CAP 70, F FULL S&P books
 git add docs/ trades.csv
 git diff --cached --quiet && { echo "no change"; exit 0; }
 git commit -q -m "scan $(date -u '+%F %H:%M')"

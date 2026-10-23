@@ -16,7 +16,8 @@ import datetime, json, os, sys
 import scan_daily as S
 DIR = os.path.expanduser("~/.ledger-pm"); START = 100_000.0; COST = 0.001; HOLD = 252; SIZE = 0.07
 BOOKS = {"f": dict(name="F V1", exit="252"), "c": dict(name="SHADOW C", exit="C"),
-         "x": dict(name="F CAP 70", exit="252", cap=0.70)}   # 2026-10-22: entry cap, paper only (thesis/allocation-audit.md); cloned from F V1 at start
+         "x": dict(name="F CAP 70", exit="252", cap=0.70),   # 2026-10-22: entry cap, paper only (thesis/allocation-audit.md); cloned from F V1 at start
+         "s": dict(name="F FULL S&P", exit="252", src="full")}   # 2026-10-23: research rule on the full S&P 500 (f_full.py); own $100k, starts empty
 NOTIFY = ("order", "fill", "rejected", "risk", "split")
 
 
@@ -262,13 +263,19 @@ def main():
     bars_fn = (lambda s: [b for b in S.bars(s) if b[0] < today]) if market_open else S.bars
     px = lambda s: (S.bars(s) or [(0, None)])[-1][1]
     fires = d.get("F", []) if d.get("date") == today else []
+    try: ff = json.load(open(os.path.join(S.DOCS, "f_full.json")))
+    except Exception: ff = {}
+    fires_full = ff.get("F", []) if ff.get("date") == today else []        # the full-S&P book reads only its own scan
     paused = os.path.exists(os.path.join(DIR, "PAUSE")); books = {}; bad = []
     for book in BOOKS:
         st = load(book)
+        if BOOKS[book].get("src") == "full" and not any(e.get("kind") == "start" for e in st["events"]):
+            st["events"].append(ledger(book, dict(date=today, kind="start", what=f"F FULL S&P book opened with ${START:,.0f} cash: Setup F research rule on the full current S&P 500 (f_full.py); no history inherited")))
+        bf = fires_full if BOOKS[book].get("src") == "full" else fires
         if paused:
             if not any(e.get("kind") == "paused" and e["date"] == today for e in st["events"]): st["events"].append(ledger(book, dict(date=today, kind="paused", what="PAUSE file present: no orders, no fills")))
             ev = []
-        else: ev = step(st, book, today, fires, px, bars_fn, market_open, actions, quote if market_open else None)
+        else: ev = step(st, book, today, bf, px, bars_fn, market_open, actions, quote if market_open else None)
         if book == "f":
             m = my_load(); acts = my_actions(m, ev, today); my_save(m)
             if acts: S.notify(my_text(acts, m), "trades")
