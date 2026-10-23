@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pick History</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ground:#F4F6F2;--surface:#FFFFFF;--sunk:#E9EDE7;--ink:#1B2420;--muted:#5B6862;--line:#D5DCD5;--accent:#1F5C4A;
+  --up:#2E7D4F;--down:#B03636;--warn:#A9790F;--e10:#2E7D4F;--e30:#C0602A;--e50:#2F6DB5;--e200:#7A4FB0;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;--body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--ground:#111614;--surface:#18201C;--sunk:#202A25;--ink:#E4EBE7;--muted:#9AA8A1;--line:#2E3A34;--accent:#6CC3A3;--up:#6BC48D;--down:#EE7A7A;--warn:#E2B44A;--e10:#6BC48D;--e30:#EE8C55;--e50:#6FA8E8;--e200:#B58BE8}}
+:root[data-theme="dark"]{color-scheme:dark;--ground:#111614;--surface:#18201C;--sunk:#202A25;--ink:#E4EBE7;--muted:#9AA8A1;--line:#2E3A34;--accent:#6CC3A3;--up:#6BC48D;--down:#EE7A7A;--warn:#E2B44A;--e10:#6BC48D;--e30:#EE8C55;--e50:#6FA8E8;--e200:#B58BE8}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;padding-inline:16px;padding-block:14px 48px}
+.wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+a{color:var(--accent)}h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}h1{font-size:clamp(24px,4vw,32px);font-weight:800}h2{font-size:19px}
+.note{color:var(--muted);font-size:13.5px;max-width:72ch}
+.mono{font-family:var(--mono);font-size:12.5px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,input[type=search],textarea,button{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
+button{cursor:pointer}button.primary{background:var(--accent);border-color:var(--accent);color:var(--ground);font-weight:700}
+button:focus-visible,select:focus-visible,input:focus-visible,tr:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.sum div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.sum b{font-family:var(--display);font-size:15px}.sum span{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;max-height:440px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{position:sticky;top:0;background:var(--surface);font-family:var(--mono);font-size:11.5px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+td:first-child,th:first-child,td:nth-child(2),th:nth-child(2),td:nth-child(4),th:nth-child(4){text-align:left}
+tbody tr{cursor:pointer}tbody tr:hover,tbody tr.sel{background:var(--sunk)}
+td.pos{color:var(--up)}td.neg{color:var(--down)}
+.chip{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:4px;background:var(--sunk);color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.cardhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+canvas{width:100%;height:340px;display:block;background:var(--surface);border-radius:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:14px}.kv dt{color:var(--muted)}.kv dd{margin:0;font-family:var(--mono)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted)}.legend i{display:inline-block;width:14px;height:3px;margin-right:4px;vertical-align:middle}
+.review{display:flex;gap:6px;flex-wrap:wrap}.review button[aria-pressed=true]{background:var(--accent);color:var(--ground);border-color:var(--accent)}
+textarea{width:100%;min-height:54px;resize:vertical}
+[hidden]{display:none!important}
+</style></head><body>
+<div class="wrap">
+<p class="mono"><a href="index.html">← The Ledger</a> · <a href="improvement.html">Report card</a></p>
+<header style="display:flex;flex-direction:column;gap:6px">
+  <h1>Pick History</h1>
+  <p class="note">Every Setup F pick since 2016. <b>RECONSTRUCTED</b> picks come from the locked rule replayed on all S&amp;P 500 members as of each day. <b>LIVE</b> picks are real alerts from the 66-stock scan, since 2026-10-19. Returns are measured against SPY over the same sessions. This is research, not advice.</p>
+</header>
+<div class="bar" role="group" aria-label="Filters">
+  <select id="f-year" aria-label="Year"></select>
+  <select id="f-trend" aria-label="Trend at the pick"><option value="">All trends</option><option>UPTREND</option><option>RECOVERY</option><option>SIDEWAYS</option><option>DOWNTREND</option></select>
+  <select id="f-out" aria-label="Outcome"><option value="">All outcomes</option><option value="beat">Beat SPY at 252 days</option><option value="miss">Behind SPY at 252 days</option><option value="open">Not 252 days yet</option></select>
+  <select id="f-list" aria-label="Universe"><option value="">All S&amp;P picks</option><option value="in">In the 66-stock list</option><option value="out">Outside the 66</option></select>
+  <select id="f-rev" aria-label="My review"><option value="">Any review</option><option value="none">Not reviewed</option><option value="take">I'd take</option><option value="pass">I'd pass</option><option value="unsure">Unsure</option></select>
+  <input type="search" id="f-q" placeholder="Ticker" aria-label="Ticker" size="8">
+  <button class="primary" id="practice">Practice: blind review</button>
+</div>
+<div class="sum" id="sum"></div>
+<div class="tbl"><table><thead><tr><th>Date</th><th>Ticker</th><th>Price</th><th>Trend</th><th>20d vs SPY</th><th>60d</th><th>252d</th><th>Worst drop</th><th>Mine</th></tr></thead><tbody id="rows"></tbody></table></div>
+<section class="card" id="card" hidden aria-live="polite">
+  <div class="cardhead"><h2 id="c-title"></h2><span class="chip" id="c-src"></span></div>
+  <canvas id="chart" aria-label="Daily chart at the pick"></canvas>
+  <div class="legend"><span><i style="background:var(--e10)"></i>10 EMA</span><span><i style="background:var(--e30)"></i>30 EMA</span><span><i style="background:var(--e50)"></i>50 EMA</span><span><i style="background:var(--e200)"></i>200 EMA</span><span><i style="background:var(--warn)"></i>1-year high (target)</span><span><i style="background:var(--muted)"></i>pick day</span></div>
+  <div class="grid2">
+    <div><h3>Why it qualified</h3><dl class="kv" id="c-why"></dl></div>
+    <div><h3>Your review</h3><p class="note" id="c-ask"></p>
+      <div class="review" role="group" aria-label="Would you take it?"><button data-v="take">I'd take it</button><button data-v="pass">I'd pass</button><button data-v="unsure">Unsure</button></div>
+      <label class="note" for="c-reason">Why</label><textarea id="c-reason"></textarea>
+      <div class="bar"><button id="reveal">Reveal what happened</button><button id="next" hidden>Next blind pick</button></div>
+    </div>
+  </div>
+  <div id="c-after" hidden><h3>What happened next</h3><div class="tbl" style="max-height:none"><table><thead><tr><th>Sessions</th><th>Stock</th><th>vs SPY</th></tr></thead><tbody id="c-out"></tbody></table></div></div>
+</section>
+<p class="note">Your reviews stay in this browser only. They are not sent anywhere and not published, and they never change Setup F. <button id="copy">Copy my reviews</button> <span id="copied" class="mono"></span></p>
+</div>
+<script>
+const $=id=>document.getElementById(id);let D=null,cur=null,blind=false;
+const R=(()=>{try{return JSON.parse(localStorage.getItem('pickReviews')||'{}')}catch(e){return{}}})();
+const save=()=>{try{localStorage.setItem('pickReviews',JSON.stringify(R))}catch(e){}};
+const key=p=>p.s+'_'+p.d, pct=v=>v==null?'—':(v>0?'+':'')+v.toFixed(1)+'%', cls=v=>v==null?'':v>0?'pos':'neg';
+fetch('picks/index.json').then(r=>r.json()).then(d=>{D=d;const ys=[...new Set(d.picks.map(p=>p.y))].sort().reverse();
+  $('f-year').innerHTML='<option value="">All years</option>'+ys.map(y=>`<option>${y}</option>`).join('');
+  ['f-year','f-trend','f-out','f-list','f-rev','f-q'].forEach(id=>$(id).addEventListener('input',draw));draw();});
+function list(){const y=$('f-year').value,t=$('f-trend').value,o=$('f-out').value,l=$('f-list').value,rv=$('f-rev').value,q=$('f-q').value.trim().toUpperCase();
+  return D.picks.filter(p=>(!y||p.y===y)&&(!t||p.trend===t)&&(!q||p.s.startsWith(q))&&(!l||(l==='in')===p.in66)&&
+    (!o||(o==='open'?p.ret['252']==null:o==='beat'?p.ret['252']>0:p.ret['252']!=null&&p.ret['252']<=0))&&
+    (!rv||(rv==='none'?!R[key(p)]:R[key(p)]&&R[key(p)].v===rv)));}
+function draw(){const L=list();
+  $('rows').innerHTML=L.map((p,i)=>`<tr tabindex="0" data-i="${D.picks.indexOf(p)}"><td>${p.d}</td><td><b>${p.s}</b>${p.in66?' <span class="chip">66</span>':''}</td><td>$${p.px.toFixed(2)}</td><td>${p.trend.toLowerCase()}</td><td class="${cls(p.ret['20'])}">${pct(p.ret['20'])}</td><td class="${cls(p.ret['60'])}">${pct(p.ret['60'])}</td><td class="${cls(p.ret['252'])}">${pct(p.ret['252'])}</td><td>${pct(p.dd)}</td><td>${R[key(p)]?R[key(p)].v:''}</td></tr>`).join('')||'<tr><td colspan="9">No picks match.</td></tr>';
+  $('rows').querySelectorAll('tr[data-i]').forEach(tr=>{const go=()=>open(D.picks[+tr.dataset.i],false);tr.onclick=go;tr.onkeydown=e=>{if(e.key==='Enter')go()}});
+  const g={};L.forEach(p=>(g[p.trend]=g[p.trend]||[]).push(p));
+  const box=(name,P)=>{const v=P.map(p=>p.ret['252']).filter(x=>x!=null);const m=v.length?v.reduce((a,b)=>a+b,0)/v.length:null;
+    return `<div><b>${name}</b><span>${P.length} picks · 252d vs SPY ${pct(m)} · beat SPY ${v.length?Math.round(100*v.filter(x=>x>0).length/v.length)+'%':'—'} of ${v.length}</span></div>`};
+  $('sum').innerHTML=box('All shown',L)+['UPTREND','RECOVERY','SIDEWAYS','DOWNTREND'].map(t=>g[t]?box(t.toLowerCase(),g[t]):'').join('');}
+function open(p,isBlind){cur=p;blind=isBlind;$('card').hidden=false;
+  $('c-title').textContent=isBlind?'Blind pick · ticker hidden':`${p.s} · Setup F pick ${p.d} at $${p.px.toFixed(2)}`;
+  $('c-src').textContent=p.src+(p.in66?' · in the 66-stock list':'');
+  const w=p.why;$('c-why').innerHTML=[['Under its 1-year high',w.dd+'% (rule 20–45%)'],['1-year high',isBlind?'shown on the chart':'$'+w.hi],['10 EMA over 30 EMA',`${w.e10} > ${w.e30}`],['50 EMA over 200 EMA',`${w.e50} > ${w.e200}`],['Revenue growth',w.rev==null?'—':w.rev+'% (rule over 25%)'],['Trend at the pick',p.trend.toLowerCase()]].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('');
+  $('c-ask').textContent=isBlind?'Decide from the chart frozen on the pick day, then reveal.':'The chart stops at the pick day until you reveal.';
+  const r=R[key(p)]||{};document.querySelectorAll('.review button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===r.v));$('c-reason').value=r.why||'';
+  $('c-after').hidden=true;$('next').hidden=!isBlind;$('reveal').disabled=false;
+  fetch(`picks/c/${key(p)}.json`).then(r=>r.json()).then(c=>{cur.chart=c;chart(c,false)});
+  $('card').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}
+document.querySelectorAll('.review button').forEach(b=>b.onclick=()=>{if(!cur)return;const k=key(cur);R[k]=Object.assign(R[k]||{},{v:b.dataset.v,at:new Date().toISOString().slice(0,10)});save();
+  document.querySelectorAll('.review button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw();});
+$('c-reason').oninput=()=>{if(!cur)return;const k=key(cur);R[k]=Object.assign(R[k]||{},{why:$('c-reason').value});save();};
+$('reveal').onclick=()=>{if(!cur||!cur.chart)return;chart(cur.chart,true);$('c-title').textContent=`${cur.s} · Setup F pick ${cur.d} at $${cur.px.toFixed(2)}`;
+  $('c-out').innerHTML=['5','20','60','126','252'].map(h=>`<tr><td>${h}</td><td class="${cls(cur.raw[h])}">${pct(cur.raw[h])}</td><td class="${cls(cur.ret[h])}">${pct(cur.ret[h])}</td></tr>`).join('')+`<tr><td>worst drop</td><td>${pct(cur.dd)}</td><td></td></tr>`;$('c-after').hidden=false;};
+$('practice').onclick=()=>{const L=D.picks.filter(p=>!R[key(p)]&&p.ret['252']!=null);if(!L.length)return;open(L[Math.floor(Math.random()*L.length)],true);};
+$('next').onclick=()=>$('practice').onclick();
+$('copy').onclick=()=>{const t=JSON.stringify(R,null,1);navigator.clipboard.writeText(t).then(()=>$('copied').textContent='copied',()=>{$('copied').textContent='copy blocked: '+Object.keys(R).length+' reviews'});};
+function chart(c,showAfter){const cv=$('chart'),dpr=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;const x=cv.getContext('2d');x.scale(dpr,dpr);
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();x.clearRect(0,0,W,H);
+  const n=showAfter?c.bars.length:c.i+1,B=c.bars.slice(0,n);let lo=Infinity,hi=-Infinity;
+  B.forEach(b=>{lo=Math.min(lo,b[3]);hi=Math.max(hi,b[2])});hi=Math.max(hi,c.hi);const pad=(hi-lo)*.05;lo-=pad;hi+=pad;
+  const L=8,Rr=52,T=8,Bt=20,cw=(W-L-Rr)/Math.max(n,c.i+40),X=i=>L+(i+.5)*cw,Y=v=>T+(hi-v)/(hi-lo)*(H-T-Bt);
+  x.strokeStyle=css('--line');x.fillStyle=css('--muted');x.font='11px '+css('--mono');x.lineWidth=1;
+  for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;x.beginPath();x.moveTo(L,Y(v));x.lineTo(W-Rr,Y(v));x.stroke();x.fillText(v.toFixed(v<20?2:0),W-Rr+4,Y(v)+4);}
+  x.setLineDash([5,4]);x.strokeStyle=css('--warn');x.beginPath();x.moveTo(L,Y(c.hi));x.lineTo(W-Rr,Y(c.hi));x.stroke();
+  x.strokeStyle=css('--muted');x.beginPath();x.moveTo(X(c.i),T);x.lineTo(X(c.i),H-Bt);x.stroke();x.setLineDash([]);
+  x.fillText(c.bars[c.i][0],Math.min(X(c.i)+4,W-Rr-80),H-6);
+  B.forEach((b,i)=>{const up=b[4]>=b[1];x.strokeStyle=x.fillStyle=up?css('--up'):css('--down');x.beginPath();x.moveTo(X(i),Y(b[2]));x.lineTo(X(i),Y(b[3]));x.stroke();
+    const y1=Y(Math.max(b[1],b[4])),y2=Y(Math.min(b[1],b[4]));x.fillRect(X(i)-Math.max(cw*.35,.5),y1,Math.max(cw*.7,1),Math.max(y2-y1,1));});
+  [['10','--e10'],['30','--e30'],['50','--e50'],['200','--e200']].forEach(([k,col])=>{x.strokeStyle=css(col);x.lineWidth=1.4;x.beginPath();
+    c.ema[k].slice(0,n).forEach((v,i)=>{if(v==null)return;i?x.lineTo(X(i),Y(v)):x.moveTo(X(i),Y(v))});x.stroke();});}
+addEventListener('resize',()=>{if(cur&&cur.chart)chart(cur.chart,!$('c-after').hidden)});
+</script>
+</body></html>
