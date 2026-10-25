@@ -1156,5 +1156,32 @@
    "COIN",
    "F"
   ]
+ },
+ {
+  "date": "2026-10-25",
+  "vix": 19.450000762939453,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "NOW",
+   "WDAY",
+   "TXN",
+   "SPOT",
+   "OKTA",
+   "SG",
+   "CRM",
+   "SHOP",
+   "HPQ",
+   "VRTX",
+   "REGN"
+  ],
+  "C": [],
+  "S": [
+   "COIN",
+   "F"
+  ]
  }
 ]

@@ -1,6 +1,6 @@
 {
- "date": "2026-10-24",
- "stamp": "2026-10-24 14:00 UTC",
+ "date": "2026-10-25",
+ "stamp": "2026-10-25 23:30 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 19.450000762939453,
@@ -1180,7 +1180,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 454,
+   "days": 453,
    "now": 9.819999694824219,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1224,7 +1224,7 @@
    "exit": "Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
-   "days": 27,
+   "days": 26,
    "now": 175.91000366210938,
    "target": 253.72,
    "cost": 392.0,
@@ -1246,7 +1246,7 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 454,
+   "days": 453,
    "now": 6.340000152587891,
    "target": 12.34,
    "cost": 468.0,
@@ -1429,12 +1429,12 @@
   "USO": 4.319734170204925,
   "USO_px": 169.53,
   "USO_chg": 7.02000000000001,
-  "NQ=F": -0.08321323176171402,
-  "NQ=F_px": 29117.75,
-  "NQ=F_chg": -24.25,
-  "CL=F": 3.8202473107469492,
-  "CL=F_px": 103.27,
-  "CL=F_chg": 3.799999999999997,
+  "NQ=F": 0.2927767427084893,
+  "NQ=F_px": 29203.0,
+  "NQ=F_chg": 85.25,
+  "CL=F": -0.8908685968819663,
+  "CL=F_px": 102.35,
+  "CL=F_chg": -0.9200000000000017,
   "^TNX": 0.7066424389259085,
   "^TNX_px": 4.988,
   "^TNX_chg": 0.03500000000000014,
@@ -1447,38 +1447,38 @@
   "fut": [
    [
     "S&P",
-    7659.75,
-    -0.5711504137595358,
+    7672.75,
+    0.16971833284376014,
     true
    ],
    [
     "Nasdaq",
-    29117.75,
-    0.07905206265734765,
+    29200.75,
+    0.2850494972997497,
     true
    ],
    [
     "Dow",
-    52394.0,
-    -1.3016859753225973,
+    52459.0,
+    0.12406000687101848,
     true
    ],
    [
     "Russell",
-    2784.5,
-    -0.29005576785047227,
+    2790.199951171875,
+    0.20470286126323956,
     true
    ],
    [
     "Oil",
-    103.2699966430664,
-    4.207869054644098,
+    102.37000274658203,
+    -0.8714960063328281,
     true
    ],
    [
     "Gold",
-    4007.89990234375,
-    -0.7896466681223124,
+    4009.39990234375,
+    0.03742608439702977,
     true
    ]
   ],
@@ -2283,10 +2283,10 @@
    "now": 48.875,
    "spot": 85.2699966430664,
    "intrinsic": 47.769996643066406,
-   "dte": 83,
+   "dte": 82,
    "sessions": 34,
    "mark": "alpaca",
-   "iv": 1.123
+   "iv": 1.131
   },
   {
    "id": "2026-09-04-WDAY-big",
@@ -2308,10 +2308,10 @@
    "now": 43.504999999999995,
    "spot": 209.99000549316406,
    "intrinsic": 39.99000549316406,
-   "dte": 55,
+   "dte": 54,
    "sessions": 34,
    "mark": "alpaca",
-   "iv": 0.5056
+   "iv": 0.5113
   },
   {
    "id": "2026-09-11-QCOM-sh",
@@ -2379,10 +2379,10 @@
    "now": 7.9,
    "spot": 158.9600067138672,
    "intrinsic": 0.0,
-   "dte": 55,
+   "dte": 54,
    "sessions": 27,
    "mark": "alpaca",
-   "iv": 0.5629
+   "iv": 0.5683
   },
   {
    "id": "2026-09-23-NOW-auto",
@@ -2542,10 +2542,10 @@
    "now": 7.4795,
    "spot": 9.819999694824219,
    "intrinsic": 6.819999694824219,
-   "dte": 454,
+   "dte": 453,
    "sessions": 20,
    "mark": "alpaca",
-   "iv": 1.1336
+   "iv": 1.135
   },
   {
    "id": "2026-09-26-SNAP-5c-real",
@@ -2567,10 +2567,10 @@
    "now": 2.59,
    "spot": 6.340000152587891,
    "intrinsic": 1.3400001525878906,
-   "dte": 454,
+   "dte": 453,
    "sessions": 20,
    "mark": "alpaca",
-   "iv": 0.7034
+   "iv": 0.7043
   },
   {
    "id": "2026-09-28-NOW-leap",
@@ -2592,10 +2592,10 @@
    "now": 64.265,
    "spot": 158.9600067138672,
    "intrinsic": 23.960006713867188,
-   "dte": 783,
+   "dte": 782,
    "sessions": 19,
    "mark": "alpaca",
-   "iv": 0.557
+   "iv": 0.5575
   },
   {
    "id": "2026-09-28-SHOP-leap",
@@ -2617,10 +2617,10 @@
    "now": 74.38,
    "spot": 168.67999267578125,
    "intrinsic": 28.67999267578125,
-   "dte": 783,
+   "dte": 782,
    "sessions": 19,
    "mark": "alpaca",
-   "iv": 0.6214
+   "iv": 0.6218
   },
   {
    "id": "2026-09-28-HOOD-leap",
@@ -2642,10 +2642,10 @@
    "now": 30.049999999999997,
    "spot": 95.06999969482422,
    "intrinsic": 0.0,
-   "dte": 783,
+   "dte": 782,
    "sessions": 19,
    "mark": "alpaca",
-   "iv": 0.6429
+   "iv": 0.6433
   },
   {
    "id": "2026-09-30-ZS-f",
@@ -2690,10 +2690,10 @@
    "now": 110.15,
    "spot": 255.14999389648438,
    "intrinsic": 55.149993896484375,
-   "dte": 601,
+   "dte": 600,
    "sessions": 16,
    "mark": "alpaca",
-   "iv": 0.6514
+   "iv": 0.652
   },
   {
    "id": "2026-10-08-AVGO-f",
@@ -3511,29 +3511,6 @@
  "week": {
   "days": [
    {
-    "date": "2026-10-20",
-    "vix": 17.309999465942383,
-    "regime": "NORMAL",
-    "vix_fires": false,
-    "F": [
-     "ZS",
-     "NOW"
-    ],
-    "D": [
-     "WDAY",
-     "CRM",
-     "AMZN",
-     "OXY",
-     "REGN",
-     "MRK"
-    ],
-    "C": [
-     "WDAY",
-     "LLY"
-    ],
-    "S": []
-   },
-   {
     "date": "2026-10-21",
     "vix": 16.68000030517578,
     "regime": "NORMAL",
@@ -3619,6 +3596,33 @@
    },
    {
     "date": "2026-10-24",
+    "vix": 19.450000762939453,
+    "regime": "NORMAL",
+    "vix_fires": false,
+    "F": [
+     "ZS"
+    ],
+    "D": [
+     "NOW",
+     "WDAY",
+     "TXN",
+     "SPOT",
+     "OKTA",
+     "SG",
+     "CRM",
+     "SHOP",
+     "HPQ",
+     "VRTX",
+     "REGN"
+    ],
+    "C": [],
+    "S": [
+     "COIN",
+     "F"
+    ]
+   },
+   {
+    "date": "2026-10-25",
     "vix": 19.450000762939453,
     "regime": "NORMAL",
     "vix_fires": false,
@@ -3762,12 +3766,33 @@
    }
   ],
   "by_setup": {
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 2,
+    "open_mean": 2.1522873194219527
+   },
    "C": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 1,
     "open_mean": -4.172793124089235
+   },
+   "Setup F": {
+    "wins": 1,
+    "losses": 0,
+    "closed_mean": 100.0,
+    "open_n": 0,
+    "open_mean": null
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 19,
+    "open_mean": 5.20066301407076
    },
    "E": {
     "wins": 0,
@@ -3782,80 +3807,9 @@
     "closed_mean": -28.029999999999994,
     "open_n": 3,
     "open_mean": 37.493419894088014
-   },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 2,
-    "open_mean": 2.1522873194219527
-   },
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 19,
-    "open_mean": 5.20066301407076
-   },
-   "Setup F": {
-    "wins": 1,
-    "losses": 0,
-    "closed_mean": 100.0,
-    "open_n": 0,
-    "open_mean": null
    }
   },
   "produced": [
-   {
-    "date": "2026-10-20",
-    "sym": "AMZN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "CRM",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "LLY",
-    "setup": "C"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "MRK",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "NOW",
-    "setup": "F"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "OXY",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "REGN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "WDAY",
-    "setup": "C"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "WDAY",
-    "setup": "D"
-   },
-   {
-    "date": "2026-10-20",
-    "sym": "ZS",
-    "setup": "F"
-   },
    {
     "date": "2026-10-21",
     "sym": "AMZN",
@@ -4138,6 +4092,76 @@
    },
    {
     "date": "2026-10-24",
+    "sym": "ZS",
+    "setup": "F"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "COIN",
+    "setup": "S"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "CRM",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "F",
+    "setup": "S"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "HPQ",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "NOW",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "OKTA",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "REGN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "SG",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "SHOP",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "SPOT",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "TXN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "VRTX",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
+    "sym": "WDAY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-10-25",
     "sym": "ZS",
     "setup": "F"
    }
@@ -231876,7 +231900,7 @@
  },
  "report": {
   "week": "2026-W43",
-  "final": false,
+  "final": true,
   "from_": "2026-10-19",
   "to_": "2026-10-23",
   "had_before": true,
@@ -231889,8 +231913,8 @@
    "real_n": 4,
    "real_pl": 31.9,
    "paper_pl": 6.3,
-   "fired": 6,
-   "sessions": 6
+   "fired": 7,
+   "sessions": 7
   },
   "changed": [
    {
@@ -231932,7 +231956,7 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 454,
+    "dte": 453,
     "acct": "real",
     "setup": "none",
     "before": 7.85,
@@ -231971,7 +231995,7 @@
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 454,
+    "dte": 453,
     "acct": "real",
     "setup": "none",
     "before": 2.46,
@@ -231984,7 +232008,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 83,
+    "dte": 82,
     "acct": "big",
     "setup": "E",
     "before": 38.260000000000005,
@@ -231997,7 +232021,7 @@
     "sym": "ZS",
     "kind": "call",
     "strike": "200",
-    "dte": 601,
+    "dte": 600,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 72.46000000000001,
@@ -232010,7 +232034,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 783,
+    "dte": 782,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 74.83000000000001,
@@ -232023,7 +232047,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 783,
+    "dte": 782,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 51.11,
@@ -232036,7 +232060,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 55,
+    "dte": 54,
     "acct": "small",
     "setup": "F",
     "before": 3.79,
@@ -232088,7 +232112,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 55,
+    "dte": 54,
     "acct": "big",
     "setup": "E",
     "before": 28.235,
@@ -232309,7 +232333,7 @@
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 783,
+    "dte": 782,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 33.21,
