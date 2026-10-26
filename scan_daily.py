@@ -1289,7 +1289,7 @@ PHASES = [
     dict(n=2, name="One signal", when="CPI 4%+ OR a SpaceX/OpenAI IPO prices",
          do=["Stop adding to QQQ -- new deposits go to SPY only", "Sell half of any position up 50%+", "Keep taking F cards"]),
     dict(n=3, name="Both signals", when="CPI 4%+ AND a mega-IPO has priced",
-         do=["Sell the QQQ part, keep SPY", "Deposits pile up as cash", "No puts, no shorting"]),
+         do=["Sell the QQQ part, keep SPY", "Deposits pile up as cash", "No puts or shorts as a bet against the bubble; short-term trades follow the trade rules"]),
     dict(n=4, name="The drop", when="Phase 3, then QQQ 20%+ off its high AND VIX 25+ falling 3 days",
          do=["Put the cash into QQQ (Setup VIX)", "F fires more after drops -- take the cards", "Deposits back to 60/40"]),
 ]
