@@ -104,14 +104,14 @@ section{display:flex;flex-direction:column;gap:14px}
 <div class="wrap">
 
 <header>
-  <span class="draft">Stage 1 · read-only · grades from rubric v0 · updated 2026-10-22</span>
+  <span class="draft">Stage 1 · read-only · grades from rubric v0 · updated 2026-10-25</span>
   <h1>The Ledger · Report Card</h1>
   <p>Each strategy gets its own grade in eight areas. An A means leave it alone. A C, D or F means look there next. N/A means we have not measured it yet.</p>
   <div class="glance" aria-label="Fifteen-second summary">
     <div><b>Setup F: five C, one F, two N/A</b><span>It beats SPY on return, but with deeper drops. The F is Setup quality: a few names carry it. No grade can pass C until untouched or live data confirms it.</span></div>
     <div><b>Version 1: F at setup, entry and exit</b><span>Test 1 finished: its picks are no better than random stocks chosen at the same minute.</span></div>
     <div><b>Your discipline: N/A</b><span>The decision journal started 10-21 and holds 0 decisions. It needs 20.</span></div>
-    <div><b>Next: measure Setup F's position losses</b><span>The risk gaps are fixed. V1's entry, market read and stock picking all tested no better than chance.</span></div>
+    <div><b>Your options: F at exits</b><span>11 of 32 trades doubled, then faded. Selling at 2× would have turned −$519 into +$2,071.</span></div>
   </div>
 </header>
 
@@ -121,6 +121,7 @@ section{display:flex;flex-direction:column;gap:14px}
     <div class="tabs" role="tablist">
       <button role="tab" id="tab-F" aria-selected="true" data-s="F">Setup F</button>
       <button role="tab" id="tab-V" aria-selected="false" data-s="V">Version 1</button>
+      <button role="tab" id="tab-R" aria-selected="false" data-s="R">Your options</button>
     </div>
   </div>
   <div class="grid" id="tiles" role="group" aria-label="Eight areas"></div>
@@ -135,14 +136,14 @@ section{display:flex;flex-direction:column;gap:14px}
   <h2 id="q">What we work on</h2>
   <div class="queue">
     <div class="main-task">
-      <span class="pill p-mea">Measure · next</span>
-      <h3>Do single Setup F positions lose more than planned?</h3>
+      <span class="pill p-fix">Fix · strongest evidence so far</span>
+      <h3>Sell at 2× — put the order in when you buy</h3>
       <dl class="qa">
-        <dt>The problem</dt><dd>Each F position is 7% of the account with no stop. Nobody has measured how bad a single position gets.</dd>
-        <dt>Why it matters</dt><dd>Position sizing is N/A for Setup F. This task gives it a grade.</dd>
-        <dt>What Claude does</dt><dd>Measures each position's worst drop and final loss, as a share of the account, across the 2016–26 replay.</dd>
-        <dt>Done when</dt><dd>The loss distribution is reported and the sizing checks C3 and C4 are answered.</dd>
-        <dt>Affects</dt><dd>Setup F · Position sizing</dd>
+        <dt>The problem</dt><dd>11 of your 32 option trades doubled at some point. Most ended at a loss or a small gain.</dd>
+        <dt>Why it matters</dt><dd>Selling all at 2× would have made +$2,071 instead of −$519. On 56,000 short-dated trades, selling at 2× beat holding, trailing and runners.</dd>
+        <dt>What Claude does</dt><dd>When you log a buy in Discord, the bot replies with the exact 2× limit price to enter in Schwab as a good-till-cancelled sell. A message only; it places nothing.</dd>
+        <dt>Done when</dt><dd>Every new call has a 2× sell order waiting, checked in the Saturday review.</dd>
+        <dt>Affects</dt><dd>Your options · Exit management</dd>
       </dl>
     </div>
     <div class="upcoming">
@@ -159,8 +160,8 @@ section{display:flex;flex-direction:column;gap:14px}
   <h2 id="pp">Progress is not performance</h2>
   <p class="note">These four boxes never feed each other. Finishing a task does not raise a grade.</p>
   <div class="four">
-    <div><span class="eyebrow">Work done</span><span class="big">8</span><span class="small">tasks closed this week: options audit, risk audit, risk fixes, Test 1, wider chase line, market read, revenue picker, F fill test (one run each). Counted from the task log once it exists.</span></div>
-    <div><span class="eyebrow">Questions answered</span><span class="big">7</span><span class="small">Option losses come from entries. Fixed exits are worse. V1 = chance. A wider chase line, the market read and revenue picking don't help. F's fill cost is small.</span></div>
+    <div><span class="eyebrow">Work done</span><span class="big">6</span><span class="small">builds this week: risk alerts, full-S&amp;P paper book, Pick History, calls paper track, revenue-rule fix, report card. Counted from the task log once it exists.</span></div>
+    <div><span class="eyebrow">Questions answered</span><span class="big">15</span><span class="small">Tests run once each: options audit, exits ×3, V1 entry ×4, F fill, F-continuation, G1 calls, COT, insider, drift, crowd picks, runner. Only "sell at 2×" survived.</span></div>
     <div><span class="eyebrow">Decisions improved</span><span class="big">N/A</span><span class="small">The journal holds 0 decisions. It needs 20 before it can say anything.</span></div>
     <div><span class="eyebrow">Money</span><span class="big">$14,530</span><span class="small">real account on 10-21. Real options since 08-27: −$519 on 32 trades. Paper F V1: +1.3% in 3 sessions.</span></div>
   </div>
@@ -175,6 +176,14 @@ section{display:flex;flex-direction:column;gap:14px}
   <div class="finding">
     <p class="plain">V1's stock picks did <b>no better than random stocks</b> picked at the same minute, on 2,879 trades nobody had looked at.</p>
     <details><summary>Show the statistics</summary><p class="mono">Validation Jul 2025 – Sep 2026, 120 sessions. Stock gross −0.014 R vs C1 −0.002 R; V1 beats 20% of 20 seeds (net: 50%). Option level −$6.0 vs C1 −$10.9 (t +2.03) but coverage 34% &lt; 70% → INCONCLUSIVE; development showed no option edge. Source: thesis/options/entry-gate-results.md.</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">On short-dated options, <b>selling at 2× beat every way of holding</b>: trailing stops, runners, half-and-ride, converting to a spread and rolling up all made the same or less.</p>
+    <details><summary>Show the statistics</summary><p class="mono">56,159 trades (3–9 DTE ATM, 2024–26). Validation per $1,000: sell at 2× −$76; runner −$81; trail plan −$81; hold −$89. On trades that hit 2×: +$741 vs +$726–734. Real account: actual −$519, runner +$1,104, sell at 2× +$2,071. Spread at 2× (sell the new at-the-money call): −$83/trade vs selling (t −1.89, val); roll-up: +$5 (t −0.07) but ends below the 2× sale 77% of the time. Source: thesis/exits/.</p></details>
+  </div>
+  <div class="finding">
+    <p class="plain">Outside data ideas tested this week all came up empty: <b>COT positioning, insider buying, earnings drift and Facebook stock picks</b>.</p>
+    <details><summary>Show the statistics</summary><p class="mono">COT: sign flips, following funds −$3,301 on MES. Insider clusters (S&amp;P): val −1.75% vs equal-weight, t −0.18. Earnings drift: val +0.35 pts, t 0.41. Crowd picks: 389 scored, −0.53% vs SPY at 20 days; breakout watchlists −10.6% (n 25). Sources: thesis/cot, insider, drift, crowd.</p></details>
   </div>
   <div class="finding">
     <p class="plain">Three more V1 ideas tested no better than chance: a <b>wider chase line</b>, the <b>morning market read</b>, and picking <b>fast revenue growers</b>.</p>
@@ -363,6 +372,24 @@ V:{name:"Version 1",reviewed:"2026-10-22",areas:[
  {c:{C1:["n","The 1-ATR stop sits inside daily noise; 16% of stopped trades were first up 1 ATR"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
   work:"Exits are automatic and logged.",hurt:"The stop is so tight that costs and noise take most trades out.",next:"Wait for Test 1. Exits are not the first fix.",src:"decision-audit-framework.md Part D"},
  {na:"Not used: V1 trades one contract at a time, so there is no allocation decision to grade."}
+]},
+R:{name:"Your options (real account)",reviewed:"2026-10-25",areas:[
+ {c:{C1:["u","No decision-time record of market reads for real trades"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"The premarket report runs every day.",hurt:"Trades are not logged with the market read at the time.",next:"Use the journal's ✅❌⏳ on each trade so this can be graded.",src:"journal.py"},
+ {c:{C1:["y","Trades on Setup F names: 3 of 3 won, +$720; the other 29 trades lost −$1,239"],C2:["u",""],C3:["u","Only 3 Setup F trades"],C4:["u",""],C5:["u",""]},
+  work:"When you traded the Ledger's own picks (NOW), you made money.",hurt:"Most trades came from elsewhere: friends, levels, ABCD, the trading person's calls.",next:"Keep options to Setup F names; re-grade at 20 trades.",src:"trades.csv · week-review"},
+ {c:{C1:["n","The setups used outside Setup F (ABCD, harmonics, candles, levels, others' calls) all tested no better than chance"],C2:["n","Off-plan real trades: −$1,239 on 29"],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"Ideas are written down and can be tested.",hurt:"The chart setups behind most trades have no tested edge.",next:"Trade only setups that passed a test (Setup F).",src:"patterns/README.md · decision-audit"},
+ {c:{C1:["u","Entry timing of real trades not compared with an alternative"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"Entries on NOW came right after the signal.",hurt:"Not measured.",next:"Log entry time vs signal time in the journal.",src:"—"},
+ {c:{C1:["n","Same-day options −$267 on 8; 10+ day calls −$888 on 8; 2–9 day calls +$636 on 16"],C2:["u",""],C3:["u",""],C4:["n","Puts bought against a rising market; 2 losers held into earnings"],C5:["u",""]},
+  work:"2–9 day calls made money.",hurt:"Same-day options and longer calls lost.",next:"Stick to 2–9 day calls; never into earnings.",src:"options-audit.md"},
+ {c:{C1:["y","Actual sizing (−$519) beat equal sizing (−$782): bigger bets on Setup F helped"],C2:["u",""],C3:["n","The 8 biggest bets lost −$577 (only one was Setup F)"],C4:["n","4 trades ran past −50% (−$145 extra)"],C5:["u",""]},
+  work:"Sizing up on Setup F names paid.",hurt:"The biggest bets went to off-plan ideas (QQQ, AMZN, NFLX).",next:"Size up only on Setup F; cap others at $300.",src:"runner-results.md"},
+ {c:{C1:["n","Selling all at 2× would have made +$2,071 on the same 32 trades, vs −$519 actual"],C2:["n","Confirmed on 25k untouched trades: selling at 2× beat every hold rule"],C3:["n","11 of 32 trades doubled, then most gave it back"],C4:["u",""],C5:["u",""]},
+  work:"You sold NOW at 2× — the tested best exit.",hurt:"Most other doubles were held until they faded.",next:"Place a limit sell at 2× the moment you buy a call.",src:"runner-results.md · exit-plan-rules.md"},
+ {c:{C1:["u","Idle cash (about 70%) not tested against SPY"],C2:["u",""],C3:["u",""],C4:["u",""],C5:["u",""]},
+  work:"Most of the account is safe in cash.",hurt:"Idle cash may lag SPY.",next:"Measure cash drag vs the paper books' SPY core.",src:"decision-audit-framework.md §8"}
 ]}};
 
 function grade(a){
