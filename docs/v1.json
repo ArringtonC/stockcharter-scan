@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-10-26T10:03-05:00",
+ "updated": "2026-10-26T11:33-05:00",
  "day": "2026-10-26",
  "market": {
   "state": "CHOPPY",
   "score": 5,
   "confirmed": true,
-  "at": "2026-10-26T10:00-05:00",
-  "data_time": "2026-10-26T10:00-05:00",
+  "at": "2026-10-26T11:30-05:00",
+  "data_time": "2026-10-26T11:30-05:00",
   "parts": {
    "es": 1,
    "es_mid": 7674.75,
@@ -23,114 +23,6 @@
  },
  "market_history": [
   {
-   "at": "2026-10-26T08:25-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-26T08:30-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-26T08:35-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-26T08:40-05:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": false
-  },
-  {
-   "at": "2026-10-26T08:45-05:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T08:50-05:00",
-   "state": "BULLISH",
-   "score": 4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T08:55-05:00",
-   "state": "BULLISH",
-   "score": 4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:00-05:00",
-   "state": "CHOPPY",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:05-05:00",
-   "state": "CHOPPY",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:10-05:00",
-   "state": "CHOPPY",
-   "score": 1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:15-05:00",
-   "state": "CHOPPY",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:20-05:00",
-   "state": "CHOPPY",
-   "score": 4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:25-05:00",
-   "state": "CHOPPY",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:30-05:00",
-   "state": "CHOPPY",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:35-05:00",
-   "state": "CHOPPY",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:40-05:00",
-   "state": "CHOPPY",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:45-05:00",
-   "state": "CHOPPY",
-   "score": 4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-10-26T09:50-05:00",
-   "state": "CHOPPY",
-   "score": 4,
-   "confirmed": true
-  },
-  {
    "at": "2026-10-26T09:55-05:00",
    "state": "CHOPPY",
    "score": 5,
@@ -138,6 +30,114 @@
   },
   {
    "at": "2026-10-26T10:00-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:05-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:10-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:15-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:20-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:25-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:30-05:00",
+   "state": "CHOPPY",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:35-05:00",
+   "state": "CHOPPY",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:40-05:00",
+   "state": "CHOPPY",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:45-05:00",
+   "state": "CHOPPY",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:50-05:00",
+   "state": "CHOPPY",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T10:55-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:00-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:05-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:10-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:15-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:20-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:25-05:00",
+   "state": "CHOPPY",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-10-26T11:30-05:00",
    "state": "CHOPPY",
    "score": 5,
    "confirmed": true
