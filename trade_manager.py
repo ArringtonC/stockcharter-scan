@@ -3,13 +3,13 @@
 watches and journals his REAL trades. It never places an order -- every order is his click.
 
   check AMZN 10/23 265C        -> the pre-trade check: Ledger signal? cost vs the 7% cap, breakeven,
-                                  earnings before expiry, and the bracket to enter (+50% / -50%)
+                                  earnings before expiry, and the bracket to enter (sell at 2x / stop at -50%)
   bought AMZN 10/23 265C 3.18  -> logs it in trades.csv (acct real) and starts watching it
   sold AMZN 265C 4.90          -> closes it, journals the result and whether the plan was followed
   trades                       -> open real positions with live prices
   anything else                -> the help text
-Watching: every run, each open real option trade is priced; one alert at +50% (take profit) and one
-at -50% (stop), and one at 2x (lock the gain). Only messages from the server owner are acted on.
+Watching: every run, each open real option trade is priced; one alert at 2x (take profit; 2026-10-26: 56k-trade
+tests found selling at 2x beat +50%, 3x, 4x, runners and trailing stops) and one at -50% (stop). Only messages from the server owner are acted on.
 Runs every minute (launchd com.arrington.ledger-tm). Self-test: TMTEST=1 python3 trade_manager.py"""
 import csv, datetime, json, os, re, time, urllib.request
 import journal as J
@@ -66,8 +66,9 @@ def parse(text):
 
 
 def bracket(px):
-    """Pure: the exits to enter with the buy (thesis/exit-gauntlet.md: +50%/-50% was the best rule)."""
-    return dict(tp=round(px * 1.5, 2), sl=round(px * 0.5, 2), lock=round(px * 2, 2))
+    """Pure: the exits to enter with the buy. Take profit at 2x, stop at -50% (2026-10-26: thesis/exits/runner-results.md;
+    +50% made about half as much on winners). lock = the 2x level, kept for long-dated thesis calls."""
+    return dict(tp=round(px * 2, 2), sl=round(px * 0.5, 2), lock=round(px * 2, 2))
 
 
 def path(who=OWNER):
@@ -143,7 +144,7 @@ def bought(c, rs, who=OWNER):
     save(rs, who)
     return (f"✅ **LOGGED · {c['sym']} {c['exp'][5:]} ${c['k']:g}{c['right']} × {c['n']} @ ${c['px']:.2f}** (${c['px'] * 100 * c['n']:,.0f})\n"
             f"Enter now in Schwab: take-profit limit **${br['tp']}** + stop **${br['sl']}** (OCO)\n"
-            f"I'll text you at +50%, at -50%, and at 2x. Signal: {', '.join(sig) if sig else 'none ⚠️'}")
+            f"Sell at 2x: put the take-profit in now. I'll text you at 2x and at -50%. Signal: {', '.join(sig) if sig else 'none ⚠️'}")
 
 
 def sold(c, rs, who=OWNER):
@@ -185,7 +186,7 @@ def open_risk(rs, balance):
 
 
 def watch(rs, st, tag=""):
-    """One text per event per trade: +50%, -50%, 2x. Calls and puts (puts were unwatched until 2026-10-22), and the
+    """One text per event per trade: 2x (take profit) and -50% (stop). Calls and puts (puts were unwatched until 2026-10-22), and the
     hand-logged paper books (small, big), labelled PAPER. For the owner, one text a day when open option risk passes the cap."""
     from ticket_bot import quote
     for r in [r for r in rs if (r["acct"] in ("real", "small", "big") or r["acct"].startswith("friend-")) and r["status"] == "open"
@@ -196,11 +197,12 @@ def watch(rs, st, tag=""):
         if not b: continue
         e = float(r["entry"]); br = bracket(e); nm = f"{r['symbol']} ${float(r['strike']):g}{rt}" + (" · PAPER" if r["acct"] in ("small", "big") else "")
         far = (datetime.date.fromisoformat(r["expiry"]) - datetime.date.today()).days > 60   # long-dated (SG, SNAP 2028): 2x lock only
-        for key, hit, msg in (("tp", b >= br["tp"], f"🎯 **{nm} at +50%** · bid ${b:.2f} (you paid ${e:.2f}) -- your take-profit level"),
+        for key, hit, msg in (("tp", b >= br["tp"], f"🎯 **{nm} at 2x** · bid ${b:.2f} (you paid ${e:.2f}) -- your take-profit level: the tested exit is to sell here"),
                               ("sl", b <= br["sl"], f"🛑 **{nm} at -50%** · bid ${b:.2f} -- your stop level"),
                               ("2x", b >= br["lock"], f"🚀 **{nm} at 2x** · bid ${b:.2f} -- set a stop at ${max(1.5 * e, 0.75 * b):.2f} to lock the gain")):
             k = f"{r['id']}:{key}"
             if far and key == "tp": continue
+            if not far and key == "2x": continue                                     # 2x is the take-profit now: one text, not two
             if hit and not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
     if not tag:
         import scan_daily as S
@@ -371,7 +373,7 @@ if __name__ == "__main__":
         assert parse("Check be 10/16 272.50 call")[1] == dict(sym="BE", exp=f"{YEAR}-10-16", k=272.5, right="C", px=None, n=1)
         assert parse("check AMZN 10/23 250 puts")[1]["right"] == "P"
         assert parse("check META calls")[1]["right"] == "C" and parse("check META")[1]["right"] is None and parse("pin meta") == ("pin", dict(sym="META"))
-        assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=4.77, sl=1.59, lock=6.36)
+        assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=6.36, sl=1.59, lock=6.36)
         assert gate("NFLX", 70, 622, 850, [], False, 0.05)[0] == "WAIT" and gate("SG", 400, 400, 850, [], False, 0.05)[0] == "APPROVED"
         assert gate("QQQ", 3, 300, 850, [], False, 0.02)[0] == "PASS" and gate("QQQ", 3, 300, 850, ["pattern #7"], False, 0.02)[0] == "APPROVED"
         assert gate("AMZN", 11, 302, 850, ["level broke up 10-09"], False, 0.03)[0] == "WAIT" and gate("AMZN", 11, 302, 850, [], False, 0.03)[0] == "PASS"
