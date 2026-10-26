@@ -1420,6 +1420,11 @@ def market(d, open_):
             if last and base: m[s + "_pre"] = (base, last[-1])
         except Exception:
             pass
+    # premarket gappers (2026-10-26): watch list + Setup F names 1%+ away from yesterday's close; information only
+    # (thesis/gaps/gap-rules.md: a gap does not predict the rest of the day; it tells how often it fills)
+    ny_ = datetime.datetime.now(ZoneInfo("America/New_York"))
+    if ny_.weekday() < 5 and (4, 0) <= (ny_.hour, ny_.minute) < (9, 30):
+        m["gaps"] = gappers(d)
     # two market headlines for the write-up; keyword filter, no AI
     try:
         import re, html
@@ -1898,6 +1903,26 @@ def mega_ipo_headlines(m):
     return [h for h in (m.get("heads") or []) if re.search(rf"\b({MEGA_IPOS})\b.*\b(IPO|prices|priced|pricing|debut|listing|goes public)\b", h, re.I)]
 
 
+def gap_pct(base, last):
+    """Pure. Premarket gap in % from yesterday's close."""
+    return None if not base or not last else round((last / base - 1) * 100, 1)
+
+
+def gappers(d, n=8):
+    """Premarket last trade vs yesterday's close for the watch list and today's Setup F names; |gap| >= 1%, biggest first."""
+    names = list(dict.fromkeys([x for x in UNIVERSE + CORE if x not in ("QQQ", "SPY")] + [r["sym"] for r in d.get("F", [])]
+                               + [r["sym"] for r in (json.load(open(os.path.join(DOCS, "f_full.json"))).get("F", []) if os.path.exists(os.path.join(DOCS, "f_full.json")) else [])]))
+    out = []
+    for s in names:
+        try:
+            r = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=1d&interval=1m&includePrePost=true")["chart"]["result"][0]
+            last = [c for c in r["indicators"]["quote"][0]["close"] if c]; g = gap_pct(r["meta"].get("regularMarketPrice"), last[-1] if last else None)
+            if g is not None and abs(g) >= 1: out.append((s, g))
+        except Exception:
+            pass
+    return sorted(out, key=lambda x: -abs(x[1]))[:n]
+
+
 def market_report(d):
     """Message 1 of 2: where the market is. Separate from the trades on purpose."""
     M = []
@@ -1909,7 +1934,9 @@ def market_report(d):
             "PREMARKET REPORT" if pre else
             f"{'▲' if (m.get('QQQ') or 0) > 0 else '▼'} BIG MOVE TODAY" if move_bucket(m) else "MARKET REPORT")
     F_ = [f"· <b>{x['sym']}</b> {x['form']} {x['date'][5:]}: {x['what']} · <a href=\"{x['url']}\">filing</a>" for x in d.get("filings", [])]
-    M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + (["", "<b>COMPANY FILINGS</b> (your stocks + Setup F, last 3 days)"] + F_ if F_ else []) + ["", "<i>not a signal</i>"]
+    G_ = ([f"· <b>{s}</b> {g:+.1f}%" for s, g in m.get("gaps") or []] + ["<i>Tested 2016–26: a gap does not tell which way the day goes. 1–2% gaps fill back to yesterday's close about 45% of days; 4%+ gaps only about 15%.</i>"]) if pre and m.get("gaps") else []
+    M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + (["", "<b>GAPS</b> (premarket vs yesterday's close, 1%+, watch list + Setup F)"] + G_ if G_ else []) \
+         + (["", "<b>COMPANY FILINGS</b> (your stocks + Setup F, last 3 days)"] + F_ if F_ else []) + ["", "<i>not a signal</i>"]
     M = alerts(d, m) + M
     return "\n".join(M)
 
