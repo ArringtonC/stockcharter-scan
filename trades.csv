@@ -68,3 +68,8 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-10-20-SPY-760p-real,put,real,2026-10-20,SPY,none,0.62,,760,2026-10-21,1,closed,2026-10-21,0.01,-98.39,REAL. Closed 10-21 1:17 PM in a 2-leg sale with the 770P for $0.11 total; split assumed 0.01 / 0.10.
 2026-10-21-SPY-770p-real,put,real,2026-10-21,SPY,none,0.52,,770,2026-10-21,1,closed,2026-10-21,0.10,-80.77,REAL. 0DTE. Closed in the 2-leg sale with the 760P ($0.11 total).
 2026-10-21-TSLA-350p-real,put,real,2026-10-21,TSLA,none,1.41,,350,2026-10-23,1,closed,2026-10-21,1.03,-26.95,REAL.
+2026-10-22-AAPL-342.5p-1023-real,put,real,2026-10-22,AAPL,none,1.27,,342.5,2026-10-23,1,closed,2026-10-22,1.91,50.39,REAL. From the Schwab order list 10-26 (market/limit fills as listed).
+2026-10-22-AAPL-342.5p-1028-real,put,real,2026-10-22,AAPL,none,2.96,,342.5,2026-10-28,1,closed,2026-10-22,3.70,25.0,REAL. From the Schwab order list 10-26: BTO 9:42 AM market $2.96; sold by stop-market $3.70 at 10:31 AM.
+2026-10-22-SPY-770c-real,call,real,2026-10-22,SPY,none,0.83,,770,2026-10-23,1,closed,2026-10-22,0.99,19.28,REAL. From the Schwab order list 10-26 (market/limit fills as listed).
+2026-10-23-AAPL-342.5p-1026-real,put,real,2026-10-23,AAPL,none,0.55,,342.5,2026-10-26,1,closed,2026-10-23,0.92,67.27,REAL. From the Schwab order list 10-26 (market/limit fills as listed).
+2026-10-26-GOOG-290p-real,put,real,2026-10-26,GOOG,none,1.31,,290,2026-10-30,1,open,,,,"REAL. From the Schwab order list 10-26: BTO limit $1.38, filled $1.31 at 9:32 AM. GOOG earnings 10-28 fall inside this contract."
