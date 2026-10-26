@@ -1,6 +1,6 @@
 {
- "date": "2026-10-23",
- "generated": "2026-10-23T16:32-05:00",
+ "date": "2026-10-26",
+ "generated": "2026-10-26T16:32-05:00",
  "rule": "setup-f research rule, full S&P 500",
  "members_source": "wikipedia",
  "counts": {
@@ -8,38 +8,45 @@
   "bars": 502,
   "stale": 0,
   "short": 4,
-  "chart": 3,
-  "rev_pass": 1,
-  "rev_fail": 2,
-  "rev_unknown": 0
+  "chart": 4,
+  "rev_pass": 0,
+  "rev_fail": 3,
+  "rev_unknown": 1
  },
- "F": [
-  {
-   "sym": "P",
-   "px": 123.33,
-   "dd": 21.7,
-   "tgt": 157.57,
-   "up": 27.8,
-   "rev": 27.2
-  }
- ],
+ "F": [],
  "in_66": [],
  "chart_only": [
   {
+   "sym": "DVA",
+   "px": 184.03,
+   "dd": 25.6,
+   "tgt": 247.49,
+   "up": 34.5,
+   "rev": 6.4
+  },
+  {
+   "sym": "LUV",
+   "px": 42.85,
+   "dd": 21.2,
+   "tgt": 54.38,
+   "up": 26.9,
+   "rev": 14.5
+  },
+  {
    "sym": "MRNA",
-   "px": 200.1,
-   "dd": 21.4,
+   "px": 198.85,
+   "dd": 21.9,
    "tgt": 254.48,
-   "up": 27.2,
+   "up": 28.0,
    "rev": -27.6
   },
   {
    "sym": "PYPL",
-   "px": 57.02,
-   "dd": 27.2,
+   "px": 54.99,
+   "dd": 29.8,
    "tgt": 78.34,
-   "up": 37.4,
-   "rev": 5.8
+   "up": 42.5,
+   "rev": null
   }
  ]
 }

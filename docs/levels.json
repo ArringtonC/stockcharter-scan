@@ -224,7 +224,12 @@
   "down": 178.0,
   "target_up": 285.5,
   "target_down": 170.0,
-  "close": true
+  "close": true,
+  "fired": {
+   "way": "down",
+   "price": 168.44,
+   "at": "2026-10-26 17:31"
+  }
  },
  {
   "symbol": "DASH",

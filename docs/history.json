@@ -1186,7 +1186,7 @@
  },
  {
   "date": "2026-10-26",
-  "vix": 18.3799991607666,
+  "vix": 18.389999389648438,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1198,13 +1198,15 @@
    "SPOT",
    "TXN",
    "PANW",
-   "CRM",
    "SG",
+   "CRM",
    "SHOP",
-   "REGN",
    "PLTR",
    "OKTA",
-   "HPQ"
+   "REGN",
+   "HPQ",
+   "JNJ",
+   "OXY"
   ],
   "C": [],
   "S": [
