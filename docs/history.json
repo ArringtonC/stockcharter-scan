@@ -1216,7 +1216,7 @@
  },
  {
   "date": "2026-10-27",
-  "vix": 17.719999313354492,
+  "vix": 17.610000610351562,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1228,12 +1228,11 @@
    "SPOT",
    "WDAY",
    "TXN",
-   "HPQ",
    "PANW",
    "OXY",
+   "HPQ",
    "PLTR",
-   "REGN",
-   "SG"
+   "REGN"
   ],
   "C": [],
   "S": [
