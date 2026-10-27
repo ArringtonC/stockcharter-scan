@@ -1213,5 +1213,32 @@
    "NFLX",
    "COIN"
   ]
+ },
+ {
+  "date": "2026-10-27",
+  "vix": 18.389999389648438,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "NOW",
+   "WDAY",
+   "TXN",
+   "SPOT",
+   "OKTA",
+   "SG",
+   "CRM",
+   "SHOP",
+   "HPQ",
+   "VRTX",
+   "REGN"
+  ],
+  "C": [],
+  "S": [
+   "COIN",
+   "F"
+  ]
  }
 ]
