@@ -12,6 +12,7 @@ Watching: every run, each open real option trade is priced; one alert at 2x (tak
 tests found selling at 2x beat +50%, 3x, 4x, runners and trailing stops) and one at -50% (stop). Only messages from the server owner are acted on.
 Runs every minute (launchd com.arrington.ledger-tm). Self-test: TMTEST=1 python3 trade_manager.py"""
 import csv, datetime, json, os, re, time, urllib.request
+from zoneinfo import ZoneInfo
 import journal as J
 CH, OWNER = "1559302594189328544", "468902102995959808"
 # who may use it: the owner's trades go to trades.csv (public repo); a friend's journal stays on this Mac
@@ -257,6 +258,42 @@ def watch_charts(rs, st, tag=""):
             if not st.get(k): st[k] = datetime.date.today().isoformat(); say(tag + msg)
 
 
+def move_levels(pct_day, pct_2d):
+    """Pure. The move thresholds crossed: day ±1%/±2%, two days ±2%/±3%. Returns keys like 'day+1', '2d-3'."""
+    out = []
+    for v, steps, tag in ((pct_day, (1, 2), "day"), (pct_2d, (2, 3), "2d")):
+        if v is None: continue
+        for k in steps:
+            if abs(v) >= k: out.append(f"{tag}{'+' if v > 0 else '-'}{k}")
+    return out
+
+
+def move_alert(st, now=None):
+    """SPY/QQQ big-move alert every minute in market hours (2026-10-27: the 90-minute scan slots told him late; QQQ's
+    +2.4% over two days had no alert at all). One text per threshold per day, to #market. An alert, not a signal."""
+    now = now or datetime.datetime.now(ZoneInfo("America/Chicago"))
+    if now.weekday() >= 5 or not ((8, 31) <= (now.hour, now.minute) < (15, 0)): return
+    import scan_daily as S
+    day = now.date().isoformat(); mv = st.setdefault("moves", {})
+    if mv.get("day") != day: mv.clear(); mv["day"] = day
+    for sym in ("QQQ", "SPY"):
+        try:
+            if f"{sym}_closes" not in mv:                       # yesterday's and the day before's closes, once a day
+                b = [x for x in S.bars(sym, "10d") if x[0] < day]; mv[f"{sym}_closes"] = [b[-2][1], b[-1][1]]
+            c2, c1 = mv[f"{sym}_closes"]
+            r = json.load(urllib.request.urlopen(urllib.request.Request(f"https://data.alpaca.markets/v2/stocks/trades/latest?symbols={sym}&feed=iex",
+                headers={"APCA-API-KEY-ID": os.environ["ALPACA_KEY"], "APCA-API-SECRET-KEY": os.environ["ALPACA_SECRET"]}), timeout=15))
+            px = r["trades"][sym]["p"]; d1 = 100 * (px / c1 - 1); d2 = 100 * (px / c2 - 1)
+            for key in move_levels(d1, d2):
+                k = f"{sym}:{key}"
+                if mv.get(k): continue
+                mv[k] = now.strftime("%H:%M")
+                what = f"{'up' if (d1 if key.startswith('day') else d2) > 0 else 'down'} {abs(d1 if key.startswith('day') else d2):.1f}% " + ("today" if key.startswith("day") else "over 2 days")
+                S.discord(f"{'📈' if '+' in key else '📉'} **{sym} {what}** · ${px:,.2f} · {now.strftime('%-I:%M %p')} CT · today {d1:+.1f}%, 2 days {d2:+.1f}% · a move alert, not a signal", "market")
+        except Exception as e:
+            print("move alert failed", sym, e)
+
+
 def board_text(rs):
     """The live board: every open real position with its live price and P&L, one message, edited in place."""
     import scan_daily as S
@@ -351,6 +388,8 @@ def main():
     try:                                                # F-call / G1-call forward paper track (2026-10-23): quotes only, no orders, no messages
         import calls_paper; calls_paper.tick()
     except Exception as e: print("calls paper tick failed", e)
+    try: move_alert(st)
+    except Exception as e: print("move alert failed", e)
     try: board(rows(), st)
     except Exception as e: print("board failed", e)
     try:
@@ -373,6 +412,7 @@ if __name__ == "__main__":
         assert parse("Check be 10/16 272.50 call")[1] == dict(sym="BE", exp=f"{YEAR}-10-16", k=272.5, right="C", px=None, n=1)
         assert parse("check AMZN 10/23 250 puts")[1]["right"] == "P"
         assert parse("check META calls")[1]["right"] == "C" and parse("check META")[1]["right"] is None and parse("pin meta") == ("pin", dict(sym="META"))
+        assert move_levels(1.3, 2.4) == ["day+1", "2d+2"] and move_levels(-2.1, -3.5) == ["day-1", "day-2", "2d-2", "2d-3"] and move_levels(0.4, 1.9) == []
         assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=6.36, sl=1.59, lock=6.36)
         assert gate("NFLX", 70, 622, 850, [], False, 0.05)[0] == "WAIT" and gate("SG", 400, 400, 850, [], False, 0.05)[0] == "APPROVED"
         assert gate("QQQ", 3, 300, 850, [], False, 0.02)[0] == "PASS" and gate("QQQ", 3, 300, 850, ["pattern #7"], False, 0.02)[0] == "APPROVED"
