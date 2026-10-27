@@ -1216,7 +1216,7 @@
  },
  {
   "date": "2026-10-27",
-  "vix": 17.8700008392334,
+  "vix": 17.709999084472656,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1224,22 +1224,19 @@
   ],
   "D": [
    "NOW",
-   "WDAY",
+   "TSLA",
    "SPOT",
+   "WDAY",
    "TXN",
    "PANW",
    "SG",
-   "CRM",
-   "SHOP",
-   "OKTA",
-   "PLTR",
-   "REGN",
    "HPQ",
-   "OXY"
+   "PLTR",
+   "OXY",
+   "REGN",
+   "OKTA"
   ],
   "C": [],
-  "S": [
-   "NFLX"
-  ]
+  "S": []
  }
 ]
