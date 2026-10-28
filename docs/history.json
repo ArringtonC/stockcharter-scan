@@ -1241,7 +1241,7 @@
  },
  {
   "date": "2026-10-28",
-  "vix": 17.350000381469727,
+  "vix": 17.049999237060547,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1254,9 +1254,10 @@
    "SHOP",
    "TXN",
    "OXY",
+   "REGN",
    "VRTX",
    "OKTA",
-   "REGN"
+   "BIIB"
   ],
   "C": [
    "HAL"
