@@ -1241,23 +1241,21 @@
  },
  {
   "date": "2026-10-28",
-  "vix": 17.450000762939453,
+  "vix": 17.31999969482422,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS"
   ],
   "D": [
-   "NOW",
    "TSLA",
-   "SPOT",
    "WDAY",
-   "TXN",
    "HPQ",
+   "TXN",
    "PANW",
    "OXY",
-   "PLTR",
-   "REGN"
+   "REGN",
+   "DOCU"
   ],
   "C": [],
   "S": [
