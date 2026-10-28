@@ -6,6 +6,7 @@
 <title>Ledger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="context.css?v=4">
 <style>
 /* Ledger redesign — the approved system, extracted from Today (page 1).
    Pages 2-8 link this file. Do not fork it; if a page needs a new component,
@@ -595,6 +596,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
     <button role="tab" data-tab="trades" aria-selected="false">Trades<span class="n" id="n-trades"></span></button>
     <button role="tab" data-tab="watching" aria-selected="false">Watching<span class="n" id="n-watching"></span></button>
     <button role="tab" data-tab="charts" aria-selected="false">Charts<span class="n" id="n-charts"></span></button>
+    <button role="tab" data-tab="context" aria-selected="false">Context</button>
     <button role="tab" data-tab="playbook" aria-selected="false">Playbook</button>
     <button role="tab" data-tab="report" aria-selected="false">Report</button>
     <button role="tab" data-tab="research" aria-selected="false">Research</button>
@@ -606,6 +608,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
   <section role="tabpanel" id="tab-watching" class="today" hidden></section>
 
   <section role="tabpanel" id="tab-charts" class="today" hidden></section>
+  <section role="tabpanel" id="tab-context" class="today" hidden></section>
 
   <section role="tabpanel" id="tab-playbook" class="today" hidden></section>
   <section role="tabpanel" id="tab-report" class="today" hidden></section>
@@ -627,6 +630,7 @@ section[role=tabpanel]{padding-top:var(--s2);animation:in .3s cubic-bezier(.2,.8
 </div>
 
 <script src="vendor/lightweight-charts.standalone.production.js"></script>
+<script src="context.js?v=4"></script>
 <script>
 /* ══ Today ══════════════════════════════════ */
 function todayTrades(d){
@@ -1476,6 +1480,12 @@ function mountOneChart(item){
     // same rule as the Discord charts: once the target is touched, the stop sits at the target
     mark(p.target,p.armed?'STOP AT TARGET':'TARGET',p.armed?C.dn:C.up);
   });
+  // Market Context levels (context.js): dotted, never part of the autoscale, information only
+  if(!hourly&&window.contextLines)window.contextLines(item.sym).forEach(([title,price,k])=>{
+    if(!Number.isFinite(Number(price)))return;
+    priceSeries.createPriceLine({price:Number(price),color:k==='res'?C.dn:k==='sup'?C.up:k==='pend'?C.ink2:C.dim,lineWidth:1,
+      lineStyle:L.LineStyle.Dotted,axisLabelVisible:true,title});
+  });
   // Price lines alone do not expand the library's autoscale range.
   // Include held-position levels so a distant target or strike stays visible.
   if(levels.length&&!hourly)priceSeries.applyOptions({autoscaleInfoProvider:base=>{   // hourly: the candles set the scale, not a far target
@@ -2246,7 +2256,7 @@ const money=x=>'$'+Number(x).toLocaleString(undefined,{minimumFractionDigits:2,m
 const n0=x=>'$'+Math.round(Math.abs(x)).toLocaleString();
 
 /* ── navigation ────────────────────────────────────────────────────────────── */
-const PANELS=['today','trades','watching','charts','playbook','report','research','system'];
+const PANELS=['today','trades','watching','charts','context','playbook','report','research','system'];
 function show(tab){
   document.querySelectorAll('nav [role=tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
   PANELS.forEach(p=>$('#tab-'+p).hidden=p!==tab);
@@ -2287,10 +2297,13 @@ function renderAll(d,state){
 
 renderAll({},'loading');
 window.__loadErr=null;
+const CTXP=fetch('context.json?'+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null);
 fetch('data.json?'+Date.now())
   .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(d=>CTXP.then(c=>{window.CTX=c;return d}))
   .then(d=>{
     renderAll(d,'live');
+    try{window.LEDGER_CHARTS=d.charts||{};window.renderContext&&window.renderContext($('#tab-context'),window.CTX)}catch(e){console.error('context',e)}
     let t='today',s='setups';
     try{t=localStorage.getItem('tab')||'today';s=localStorage.getItem('sub')||'setups'}catch(e){}
     if(PANELS.includes(location.hash.slice(1)))t=location.hash.slice(1);

@@ -20,6 +20,7 @@ echo "=== $(date '+%F %T %Z') · slot $slot CT ==="
 git pull --rebase --autostash -q -X theirs || echo "pull failed -- scanning anyway"
 python3 autotrade.py sync || echo "autotrade sync failed"
 python3 scan_daily.py || { echo "scan failed -- will retry in 15 min"; rm -f ~/.ledger-last-slot; exit 1; }
+python3 context.py || echo "context failed"                    # information only: structure + 6-month strength for the Focus names -> docs/context.json
 python3 autotrade.py || echo "autotrade failed"
 python3 ticket_bot.py || echo "ticket bot failed"
 python3 f_full.py || echo "full S&P scan failed"                  # after the close only: Setup F on the full S&P 500 for the F FULL S&P book

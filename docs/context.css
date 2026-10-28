@@ -1,0 +1,105 @@
+/* Market Context tab (2026-10-27, v2 2026-10-28) — information only. Uses the page's tokens; every class is cx- prefixed. */
+.cxroot{display:flex;flex-direction:column;gap:14px;padding-top:var(--s4,24px)}
+.cxroot .cx-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 12px;flex-wrap:wrap;border-bottom:1px solid var(--line2);padding-bottom:8px}
+.cxroot .cx-head h2{font:600 19px/1.2 var(--serif);margin:0}
+.cxroot .cx-tag,.cxroot .cx-k{font-size:10.5px;letter-spacing:var(--tr,.12em);text-transform:uppercase;color:var(--dim)}
+.cxroot .cx-lede{margin:0;font-size:13px;line-height:1.6;color:var(--ink2);max-width:68ch}
+.cxroot .cx-fine{margin:0;font-size:11.5px;line-height:1.55;color:var(--dim);max-width:72ch}
+.cxroot .cx-key span{white-space:nowrap}
+
+/* at a glance */
+.cxroot .cx-glance{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.cxroot .cx-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:var(--panel);color:var(--ink);text-decoration:none;font-variant-numeric:tabular-nums}
+.cxroot .cx-row:hover{border-color:var(--line2)}
+.cxroot .cx-row:focus-visible,.cxroot .cx-btn:focus-visible,.cxroot .cx-rbtn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.cxroot .cx-row b{font-weight:600;min-width:3.6em}
+.cxroot .cx-dots{display:flex;gap:4px}
+.cxroot .cx-rk{margin-left:auto;font-size:12px;color:var(--ink2)}
+.cxroot .cx-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--line2);vertical-align:-1px;margin-right:3px}
+.cxroot .cx-dot.cx-up{background:var(--up)}.cxroot .cx-dot.cx-dn{background:var(--dn)}
+.cxroot .cx-dot.cx-flat{background:var(--amber)}.cxroot .cx-dot.cx-turn{background:transparent;box-shadow:inset 0 0 0 2px var(--amber)}
+
+/* groups and cards */
+.cxroot .cx-group{font:600 15px/1.3 var(--serif);margin:10px 0 0;color:var(--ink);display:flex;gap:8px;align-items:baseline}
+.cxroot .cx-group span{font:500 11px var(--mono);color:var(--dim)}
+.cxroot .cx-card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:72px}
+.cxroot .cx-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.cxroot .cx-id{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.cxroot .cx-sym{font:600 24px/1 var(--serif)}
+.cxroot .cx-px{font-variant-numeric:tabular-nums;font-size:15px}
+.cxroot .cx-fresh{font-size:10.5px;letter-spacing:var(--tr,.12em);text-transform:uppercase;color:var(--dim)}
+.cxroot .cx-fresh.cx-stale{color:var(--dn)}
+.cxroot .cx-btns{display:flex;gap:6px}
+.cxroot .cx-btn,.cxroot .cx-rbtn{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);background:transparent;border:1px solid var(--line2);border-radius:3px;padding:8px 12px;cursor:pointer;min-height:36px}
+.cxroot .cx-btn:hover,.cxroot .cx-rbtn:hover{color:var(--ink);border-color:var(--ink2)}
+.cxroot .cx-btn[aria-expanded="true"],.cxroot .cx-rbtn[aria-pressed="true"]{color:var(--amber);border-color:var(--amber)}
+
+.cxroot .cx-pills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.cxroot .cx-pill{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:3px;background:var(--bg2);border-left:3px solid var(--line2);min-width:0}
+.cxroot .cx-pill small{font-size:inherit;text-transform:none;letter-spacing:0;opacity:.8}
+.cxroot .cx-pill b{font-size:14px;font-weight:600}
+.cxroot .cx-pill.cx-up{border-left-color:var(--up)}.cxroot .cx-pill.cx-up b{color:var(--up)}
+.cxroot .cx-pill.cx-dn{border-left-color:var(--dn)}.cxroot .cx-pill.cx-dn b{color:var(--dn)}
+.cxroot .cx-pill.cx-flat,.cxroot .cx-pill.cx-turn{border-left-color:var(--amber)}.cxroot .cx-pill.cx-flat b,.cxroot .cx-pill.cx-turn b{color:var(--amber)}
+.cxroot .cx-pill.cx-turn{border-left-style:dashed}
+.cxroot .cx-warn{font-size:11px;color:var(--ink2)}
+
+.cxroot .cx-say{margin:0;font:300 15.5px/1.55 var(--serif);max-width:66ch;text-wrap:pretty}
+.cxroot .cx-levels{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;font-variant-numeric:tabular-nums}
+.cxroot .cx-levels>span{display:flex;flex-direction:column;gap:1px}
+.cxroot .cx-levels em{font-style:normal;font-size:11.5px}
+.cxroot em.cx-up{color:var(--up)}.cxroot em.cx-dn{color:var(--dn)}
+.cxroot .cx-rs{display:flex;gap:6px 12px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+.cxroot .cx-rs b{color:var(--ink)}
+.cxroot .cx-rsbar{position:relative;width:120px;height:6px;background:var(--bg2);border:1px solid var(--line2);border-radius:3px}
+.cxroot .cx-rsbar span{position:absolute;top:-4px;width:2px;height:12px;background:var(--ink)}
+
+/* chart */
+.cxroot .cx-chartwrap{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.cxroot .cx-rng{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.cxroot .cx-rbtn{padding:6px 10px;min-height:32px}
+.cxroot .cx-legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-left:auto;font-size:11px;color:var(--dim)}
+.cxroot .cx-legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.cxroot .cx-legend i{display:inline-block;width:16px;border-top:2px dotted var(--amber)}
+.cxroot .cx-legend i.cx-l-res{border-top-color:var(--dn)}.cxroot .cx-legend i.cx-l-sup{border-top-color:var(--up)}
+.cxroot .cx-legend i.cx-l-pend{border-top:2px dashed var(--ink2)}
+.cxroot .cx-chart{width:100%;min-height:260px}
+
+/* details */
+.cxroot .cx-det{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:12px}
+.cxroot .cx-scale{position:relative;height:84px;margin:4px 6px 0}
+.cxroot .cx-rail{position:absolute;left:0;right:0;top:48px;height:2px;background:var(--line2)}
+.cxroot .cx-band{position:absolute;top:44px;height:10px;background:color-mix(in srgb,var(--amber) 18%,transparent);border-left:2px solid var(--amber);border-right:2px solid var(--amber)}
+.cxroot .cx-mk{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;font-size:10.5px;color:var(--dim);white-space:nowrap;font-variant-numeric:tabular-nums}
+.cxroot .cx-mk i{display:block;width:1px;background:var(--line2);margin-top:2px}
+.cxroot .cx-mk.cx-res{color:var(--dn)}.cxroot .cx-mk.cx-res i{background:var(--dn)}
+.cxroot .cx-mk.cx-sup{color:var(--up)}.cxroot .cx-mk.cx-sup i{background:var(--up)}
+.cxroot .cx-mk.cx-pend i{background:none;border-left:1px dashed var(--ink2)}
+.cxroot .cx-now{position:absolute;top:42px;width:14px;height:14px;border-radius:50%;background:var(--ink);transform:translateX(-50%);box-shadow:0 0 0 3px var(--panel)}
+.cxroot .cx-now b{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--ink);white-space:nowrap}
+.cxroot .cx-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12.5px}
+.cxroot .cx-facts>div{display:flex;flex-direction:column;gap:2px;border-top:2px solid var(--line2);padding-top:6px;min-width:0;overflow-wrap:anywhere}
+.cxroot .cx-tbl{overflow-x:auto}
+.cxroot table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums;min-width:620px}
+.cxroot th,.cxroot td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid var(--line)}
+.cxroot th{font-weight:500;color:var(--dim);font-size:10.5px;letter-spacing:var(--tr,.12em);text-transform:uppercase}
+.cxroot td small{display:block;color:var(--dim);font-size:10.5px}
+.cxroot .cx-unc{font-style:italic;color:var(--ink2)}
+
+/* phone */
+@media (max-width:600px){
+  .cxroot .cx-card{padding:14px}
+  .cxroot .cx-top{align-items:flex-start}
+  .cxroot .cx-btns{width:100%}
+  .cxroot .cx-btn{flex:1}
+  .cxroot .cx-pills{gap:4px}
+  .cxroot .cx-pill{padding:6px 7px}
+  .cxroot .cx-pill .cx-k small{display:none}
+  .cxroot .cx-pill b{font-size:13px}
+  .cxroot .cx-say{font-size:15px}
+  .cxroot .cx-levels{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cxroot .cx-levels>span:last-child{grid-column:1 / -1}
+  .cxroot .cx-facts{grid-template-columns:1fr}
+  .cxroot .cx-legend{margin-left:0}
+  .cxroot .cx-glance{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
