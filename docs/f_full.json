@@ -1,6 +1,6 @@
 {
- "date": "2026-10-27",
- "generated": "2026-10-27T16:32-05:00",
+ "date": "2026-10-28",
+ "generated": "2026-10-28T16:32-05:00",
  "rule": "setup-f research rule, full S&P 500",
  "members_source": "wikipedia",
  "counts": {
@@ -8,37 +8,70 @@
   "bars": 502,
   "stale": 0,
   "short": 4,
-  "chart": 3,
-  "rev_pass": 0,
-  "rev_fail": 2,
+  "chart": 7,
+  "rev_pass": 1,
+  "rev_fail": 5,
   "rev_unknown": 1
  },
- "F": [],
+ "F": [
+  {
+   "sym": "COF",
+   "px": 204.88,
+   "dd": 20.2,
+   "tgt": 256.63,
+   "up": 25.3,
+   "rev": 45.3
+  }
+ ],
  "in_66": [],
  "chart_only": [
   {
    "sym": "CTSH",
-   "px": 66.22,
-   "dd": 22.5,
+   "px": 66.36,
+   "dd": 22.4,
    "tgt": 85.48,
-   "up": 29.1,
+   "up": 28.8,
    "rev": null
   },
   {
+   "sym": "DVA",
+   "px": 183.93,
+   "dd": 25.7,
+   "tgt": 247.49,
+   "up": 34.6,
+   "rev": 6.4
+  },
+  {
    "sym": "LUV",
-   "px": 43.44,
+   "px": 43.47,
    "dd": 20.1,
    "tgt": 54.38,
-   "up": 25.2,
+   "up": 25.1,
    "rev": 14.5
   },
   {
+   "sym": "NOW",
+   "px": 150.13,
+   "dd": 22.2,
+   "tgt": 192.97,
+   "up": 28.5,
+   "rev": 21.8
+  },
+  {
    "sym": "PYPL",
-   "px": 56.09,
-   "dd": 28.4,
+   "px": 56.55,
+   "dd": 27.8,
    "tgt": 78.34,
-   "up": 39.7,
+   "up": 38.5,
    "rev": 4.4
+  },
+  {
+   "sym": "QCOM",
+   "px": 182.97,
+   "dd": 29.0,
+   "tgt": 257.56,
+   "up": 40.8,
+   "rev": 1.9
   }
  ]
 }
