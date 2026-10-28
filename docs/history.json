@@ -1241,7 +1241,7 @@
  },
  {
   "date": "2026-10-28",
-  "vix": 17.31999969482422,
+  "vix": 17.350000381469727,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1249,13 +1249,13 @@
   ],
   "D": [
    "TSLA",
+   "SPOT",
    "WDAY",
+   "MRNA",
    "HPQ",
    "TXN",
    "PANW",
-   "OXY",
-   "REGN",
-   "DOCU"
+   "OXY"
   ],
   "C": [],
   "S": [
