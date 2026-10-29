@@ -1269,7 +1269,7 @@
  },
  {
   "date": "2026-10-29",
-  "vix": 16.639999389648438,
+  "vix": 16.8700008392334,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1280,9 +1280,9 @@
    "SPOT",
    "MRNA",
    "TXN",
-   "OKTA",
    "GM",
    "OXY",
+   "OKTA",
    "REGN",
    "DOCU"
   ],
