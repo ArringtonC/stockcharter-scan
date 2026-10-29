@@ -186,3 +186,17 @@
 {"date": "2026-10-28", "sym": "MRNA", "px": 198.85, "dd": 21.9, "trend": true, "rev": -27.6, "verdict": "fail", "forming": false, "held": false, "rule": "setup-f v1"}
 {"date": "2026-10-28", "sym": "DELL", "px": 467.09, "dd": 21.6, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": true, "rule": "setup-f v1"}
 {"date": "2026-10-28", "sym": "TSLA", "px": 391.62, "dd": 21.5, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "ZS", "px": 260.15, "dd": 22.8, "trend": true, "rev": 25.4, "verdict": "pass", "target": 336.99, "held": true, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "BE", "px": 218.5, "dd": 37.8, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "HOOD", "px": 94.56, "dd": 37.2, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "INTC", "px": 93.74, "dd": 34.1, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "F", "px": 11.71, "dd": 34.1, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "ADBE", "px": 248.36, "dd": 31.7, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "AVGO", "px": 342.33, "dd": 30.8, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": true, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "PYPL", "px": 56.09, "dd": 29.2, "trend": true, "rev": 4.4, "verdict": "fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "QCOM", "px": 184.17, "dd": 29.1, "trend": false, "rev": null, "verdict": "trend-fail", "forming": true, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "MU", "px": 928.76, "dd": 26.0, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": true, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "IBM", "px": 250.25, "dd": 24.7, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "U", "px": 40.1, "dd": 23.1, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "GOOGL", "px": 320.58, "dd": 21.5, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}
+{"date": "2026-10-29", "sym": "META", "px": 620.19, "dd": 20.5, "trend": false, "rev": null, "verdict": "trend-fail", "forming": false, "held": false, "rule": "setup-f v1"}

@@ -1266,5 +1266,30 @@
   "S": [
    "NFLX"
   ]
+ },
+ {
+  "date": "2026-10-29",
+  "vix": 16.90999984741211,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "NOW",
+   "TSLA",
+   "SPOT",
+   "WDAY",
+   "TXN",
+   "HPQ",
+   "PANW",
+   "OXY",
+   "PLTR",
+   "REGN"
+  ],
+  "C": [],
+  "S": [
+   "NFLX"
+  ]
  }
 ]
