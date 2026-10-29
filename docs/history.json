@@ -1269,25 +1269,28 @@
  },
  {
   "date": "2026-10-29",
-  "vix": 16.90999984741211,
+  "vix": 17.100000381469727,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS"
   ],
   "D": [
-   "NOW",
    "TSLA",
-   "SPOT",
+   "MRNA",
    "WDAY",
-   "TXN",
-   "HPQ",
    "PANW",
+   "SHOP",
+   "TXN",
    "OXY",
-   "PLTR",
-   "REGN"
+   "BIIB",
+   "VRTX",
+   "REGN",
+   "OKTA"
   ],
-  "C": [],
+  "C": [
+   "HAL"
+  ],
   "S": [
    "NFLX"
   ]
