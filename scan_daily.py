@@ -1304,16 +1304,26 @@ def cpi_yoy(months=36):
     return [(k, round((v[k] / v[f"{int(k[:4]) - 1}{k[4:]}"] - 1) * 100, 2)) for k in ks[-months:] if f"{int(k[:4]) - 1}{k[4:]}" in v]
 
 
+def gap_numbers(bb):
+    """Phase-3 -> Phase-4 progress: (pct, qqq share, vix share, checks ok list). Pure."""
+    off, vmax, v3 = bb["qqq_off"], bb.get("vix_max") or 15, bb.get("vix3") or []
+    falling = len(v3) == 3 and v3[2] < v3[1] < v3[0]
+    ok = [True, off <= -20, vmax >= 25 and falling]
+    qp = max(0.0, min(1.0, off / -20)); vp = 1.0 if ok[2] else max(0.0, min(0.99, (vmax - 15) / 10))
+    return round(100 * (qp + vp) / 2), qp, vp, ok, falling
+
+
+GAP_ALERTS = [("pct60", lambda n, bb: n[0] >= 60, "Phase 4 is 60% of the way"), ("pct80", lambda n, bb: n[0] >= 80, "Phase 4 is 80% of the way"),
+              ("qqq15", lambda n, bb: bb["qqq_off"] <= -15, "QQQ is 15%+ below its high (Phase 4 needs 20%)"),
+              ("vix25", lambda n, bb: (bb.get("vix_max") or 0) >= 25, "VIX hit 25 (Phase 4 then needs it to fall 3 days in a row)")]
+
+
 def phase_gap(bb):
     """Plain lines: what the NEXT phase needs, each check with today's number and the distance (2026-10-30)."""
     if bb.get("phase") == 3:
         hi, q, off = bb["qqq_hi"], bb["qqq"], bb["qqq_off"]; line = hi * 0.8
         vmax, v3 = bb.get("vix_max"), bb.get("vix3") or []
-        falling = len(v3) == 3 and v3[2] < v3[1] < v3[0]
-        ok = [True, off <= -20, (vmax or 0) >= 25 and falling]
-        qp = max(0.0, min(1.0, off / -20))                                         # share of the way to a 20% QQQ drop
-        vp = 1.0 if ok[2] else max(0.0, min(0.99, ((vmax or 15) - 15) / 10))       # VIX from a calm 15 toward 25 (100% only once it fades from 25+)
-        pct = round(100 * (qp + vp) / 2)
+        pct, qp, vp, ok, falling = gap_numbers(bb)   # QQQ share of the 20% drop; VIX from a calm 15 toward 25 (100% only once it fades from 25+)
         L = [f"<b>Distance to Phase 4: {pct}% of the way</b> (QQQ drop {round(100 * qp)}% · VIX {round(100 * vp)}% · {sum(ok)} of 3 checks met)",
              "· ✅ Phase 3 is on (both signals fired)",
              f"· {'✅' if ok[1] else '❌'} QQQ 20%+ below its high: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
@@ -1351,6 +1361,17 @@ def bubble(d):
         st_["phase"] = phase
         st_["since"] = max([x for x in (st_.get("cpi"), st_.get("ipo")) if x], default=d["date"]) if phase in (2, 3) else d["date"]
     json.dump(st_, open(BUBBLE_STATE, "w"))
+    R0 = dict(phase=phase, qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]])
+    new_alerts = []
+    if phase == 3:
+        n = gap_numbers(R0)
+        st_.setdefault("gap_hist", {})[d["date"]] = dict(pct=n[0], qqq_off=R0["qqq_off"], vix_max=R0["vix_max"], vix=round(vc[-1], 2))
+        st_["gap_hist"] = dict(sorted(st_["gap_hist"].items())[-500:])
+        sent = st_.setdefault("gap_alerts", {})
+        for key, cond, text in GAP_ALERTS:                                      # once per threshold per 30 days
+            if cond(n, R0) and (not sent.get(key) or (datetime.date.fromisoformat(d["date"]) - datetime.date.fromisoformat(sent[key])).days > 30):
+                sent[key] = d["date"]; new_alerts.append(text)
+    json.dump(st_, open(BUBBLE_STATE, "w"))
     runhi, dd = 0, []
     for x in q[::5] + [q[-1]]:
         runhi = max(runhi, x[1]); dd.append((x[0], round((x[1] / runhi - 1) * 100, 1)))
@@ -1358,7 +1379,7 @@ def bubble(d):
                 cpi_peak=max(cpi[-12:], key=lambda x: x[1]),
                 cpi_fired=st_.get("cpi"), ipo=IPO_SIGNALS, ipo_fired=st_.get("ipo"),
                 qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix=vc[-1], vix_buy=vix_buy, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]],
-                cpi_series=cpi, qqq_dd=dd)
+                cpi_series=cpi, qqq_dd=dd, gap_alerts=new_alerts, gap_hist=st_.get("gap_hist", {}))
 
 
 def playbook():
@@ -1653,7 +1674,7 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
 
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"),
+    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"), (d.get("bubble") or {}).get("gap_alerts"),
                        sorted(((d.get("playbook") or {}).get("flips") or {}).items()),
                        mega_ipo_headlines(d.get("market", {}))[:1], sorted(x["acc"] for x in d.get("filings", [])),
                        sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
@@ -1871,6 +1892,8 @@ def alerts(d, m):
     if bb.get("changed_from"):
         ph = bb["phases"][bb["phase"] - 1]
         A += [f"<b>🚨 AI BUBBLE PLAN: PHASE {bb['changed_from']} → PHASE {bb['phase']} ({ph['name'].upper()})</b>", f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]] + [""]
+    for t in bb.get("gap_alerts") or []:
+        A += [f"<b>📉 AI BUBBLE PLAN: {t}</b>"] + [x for x in phase_gap(bb)] + [""]
     for k, v in ((d.get("playbook") or {}).get("flips") or {}).items():
         t, lines = ALERT_TEXT[(k, v)]
         A += [f"<b>{t}</b>"] + [f"· {x}" for x in lines] + [""]
