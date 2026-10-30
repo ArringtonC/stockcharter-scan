@@ -1293,22 +1293,21 @@
  },
  {
   "date": "2026-10-30",
-  "vix": 19.1200008392334,
-  "regime": "NORMAL",
+  "vix": 20.1200008392334,
+  "regime": "ELEVATED",
   "vix_fires": false,
   "F": [
    "ZS"
   ],
   "D": [
-   "PYPL",
    "TSLA",
+   "PYPL",
    "MRNA",
    "SPOT",
    "TXN",
    "BMY",
-   "OXY",
-   "GM",
-   "MRK"
+   "SG",
+   "OXY"
   ],
   "C": [
    "HAL",
