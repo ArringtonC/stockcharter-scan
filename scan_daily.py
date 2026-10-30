@@ -1311,7 +1311,10 @@ def phase_gap(bb):
         vmax, v3 = bb.get("vix_max"), bb.get("vix3") or []
         falling = len(v3) == 3 and v3[2] < v3[1] < v3[0]
         ok = [True, off <= -20, (vmax or 0) >= 25 and falling]
-        L = [f"<b>Distance to Phase 4</b> ({sum(ok)} of 3 checks met):",
+        qp = max(0.0, min(1.0, off / -20))                                         # share of the way to a 20% QQQ drop
+        vp = 1.0 if ok[2] else max(0.0, min(0.99, ((vmax or 15) - 15) / 10))       # VIX from a calm 15 toward 25 (100% only once it fades from 25+)
+        pct = round(100 * (qp + vp) / 2)
+        L = [f"<b>Distance to Phase 4: {pct}% of the way</b> (QQQ drop {round(100 * qp)}% · VIX {round(100 * vp)}% · {sum(ok)} of 3 checks met)",
              "· ✅ Phase 3 is on (both signals fired)",
              f"· {'✅' if ok[1] else '❌'} QQQ 20%+ below its high: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
              + (f"{(1 - line / q) * 100:.1f}% below today's ${q:,.2f})" if not ok[1] else "reached)"),
