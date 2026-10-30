@@ -72,4 +72,4 @@ id,kind,acct,opened,symbol,setup,entry,target,strike,expiry,contracts,status,clo
 2026-10-22-AAPL-342.5p-1028-real,put,real,2026-10-22,AAPL,none,2.96,,342.5,2026-10-28,1,closed,2026-10-22,3.70,25.0,REAL. From the Schwab order list 10-26: BTO 9:42 AM market $2.96; sold by stop-market $3.70 at 10:31 AM.
 2026-10-22-SPY-770c-real,call,real,2026-10-22,SPY,none,0.83,,770,2026-10-23,1,closed,2026-10-22,0.99,19.28,REAL. From the Schwab order list 10-26 (market/limit fills as listed).
 2026-10-23-AAPL-342.5p-1026-real,put,real,2026-10-23,AAPL,none,0.55,,342.5,2026-10-26,1,closed,2026-10-23,0.92,67.27,REAL. From the Schwab order list 10-26 (market/limit fills as listed).
-2026-10-26-GOOG-290p-real,put,real,2026-10-26,GOOG,none,1.31,,290,2026-10-30,1,open,,,,"REAL. From the Schwab order list 10-26: BTO limit $1.38, filled $1.31 at 9:32 AM. GOOG earnings 10-28 fall inside this contract."
+2026-10-26-GOOG-290p-real,put,real,2026-10-26,GOOG,none,1.31,,290,2026-10-30,1,closed,2026-10-30,31.89,2334.4,"REAL. From the Schwab order list 10-26: BTO limit $1.38, filled $1.31 at 9:32 AM. GOOG earnings 10-28 fall inside this contract. · expired at intrinsic"

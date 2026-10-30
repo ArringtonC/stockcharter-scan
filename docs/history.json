@@ -1290,5 +1290,33 @@
    "JNJ"
   ],
   "S": []
+ },
+ {
+  "date": "2026-10-30",
+  "vix": 17.200000762939453,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "TSLA",
+   "MRNA",
+   "WDAY",
+   "PANW",
+   "SHOP",
+   "TXN",
+   "OXY",
+   "BIIB",
+   "VRTX",
+   "REGN",
+   "OKTA"
+  ],
+  "C": [
+   "HAL"
+  ],
+  "S": [
+   "NFLX"
+  ]
  }
 ]
