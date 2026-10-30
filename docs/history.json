@@ -1293,26 +1293,29 @@
  },
  {
   "date": "2026-10-30",
-  "vix": 18.56999969482422,
+  "vix": 18.700000762939453,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS"
   ],
   "D": [
+   "PYPL",
    "TSLA",
    "SPOT",
    "MRNA",
+   "BMY",
    "GM",
-   "OXY",
    "TXN",
-   "OKTA",
-   "DOCU"
+   "OXY",
+   "OKTA"
   ],
   "C": [
    "VRTX",
    "JNJ"
   ],
-  "S": []
+  "S": [
+   "COIN"
+  ]
  }
 ]
