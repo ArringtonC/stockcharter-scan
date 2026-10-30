@@ -1304,6 +1304,27 @@ def cpi_yoy(months=36):
     return [(k, round((v[k] / v[f"{int(k[:4]) - 1}{k[4:]}"] - 1) * 100, 2)) for k in ks[-months:] if f"{int(k[:4]) - 1}{k[4:]}" in v]
 
 
+def phase_gap(bb):
+    """Plain lines: what the NEXT phase needs, each check with today's number and the distance (2026-10-30)."""
+    if bb.get("phase") == 3:
+        hi, q, off = bb["qqq_hi"], bb["qqq"], bb["qqq_off"]; line = hi * 0.8
+        vmax, v3 = bb.get("vix_max"), bb.get("vix3") or []
+        falling = len(v3) == 3 and v3[2] < v3[1] < v3[0]
+        ok = [True, off <= -20, (vmax or 0) >= 25 and falling]
+        L = [f"<b>Distance to Phase 4</b> ({sum(ok)} of 3 checks met):",
+             "· ✅ Phase 3 is on (both signals fired)",
+             f"· {'✅' if ok[1] else '❌'} QQQ 20%+ below its high: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
+             + (f"{(1 - line / q) * 100:.1f}% below today's ${q:,.2f})" if not ok[1] else "reached)"),
+             f"· {'✅' if ok[2] else '❌'} VIX 25+ in the last 2 weeks, then falling 3 days: 2-week high {vmax}" + (f", needs {25 - vmax:.1f} more" if (vmax or 0) < 25 else "")
+             + f" · last 3 days {' → '.join(str(x) for x in v3)} ({'falling' if falling else 'not falling'})"]
+        L.append("<i>Phase 4 is the buy-back stage: all three must be true at once. Until then the Phase 3 rules stand.</i>")
+        return L
+    if bb.get("phase") == 2:
+        miss = "a mega-IPO (SpaceX/OpenAI) pricing" if not bb.get("ipo_fired") else "CPI at 4%+ (now " + f"{bb.get('cpi')}%)"
+        return [f"<b>Distance to Phase 3:</b> the one signal still missing is {miss}."]
+    return []
+
+
 def bubble(d):
     """Current phase of the AI-bubble plan + the two chart series for the site."""
     st_ = json.load(open(BUBBLE_STATE)) if os.path.exists(BUBBLE_STATE) else {}
@@ -1333,7 +1354,7 @@ def bubble(d):
     return dict(phase=phase, since=st_["since"], phases=PHASES, changed_from=changed_from, cpi=now_cpi, cpi_month=cpi[-1][0],
                 cpi_peak=max(cpi[-12:], key=lambda x: x[1]),
                 cpi_fired=st_.get("cpi"), ipo=IPO_SIGNALS, ipo_fired=st_.get("ipo"),
-                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix=vc[-1], vix_buy=vix_buy,
+                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix=vc[-1], vix_buy=vix_buy, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]],
                 cpi_series=cpi, qqq_dd=dd)
 
 
@@ -1821,7 +1842,7 @@ def writeup(d, m, pre=True):
     if bb and bb["phase"] > 1:
         ph = bb["phases"][bb["phase"] - 1]
         W += ["", f"<b>AI BUBBLE PLAN · PHASE {bb['phase']}: {ph['name'].upper()}</b> (since {bb['since'][5:]})"] \
-             + [f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]]
+             + [f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]] + phase_gap(bb)
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if pre and nq is not None and abs(nq) >= 1:
