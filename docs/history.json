@@ -1293,18 +1293,42 @@
  },
  {
   "date": "2026-10-30",
-  "vix": 20.889999389648438,
-  "regime": "ELEVATED",
+  "vix": 19.420000076293945,
+  "regime": "NORMAL",
   "vix_fires": false,
   "F": [
    "ZS"
   ],
   "D": [
+   "TSLA",
    "PYPL",
    "MRNA",
    "SPOT",
    "TXN",
-   "BMY",
+   "SG",
+   "OXY"
+  ],
+  "C": [
+   "VRTX"
+  ],
+  "S": [
+   "COIN"
+  ]
+ },
+ {
+  "date": "2026-10-31",
+  "vix": 19.420000076293945,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "TSLA",
+   "PYPL",
+   "MRNA",
+   "SPOT",
+   "TXN",
    "SG",
    "OXY"
   ],
