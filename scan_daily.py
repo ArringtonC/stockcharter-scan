@@ -1324,12 +1324,14 @@ def phase_gap(bb):
         hi, q, off = bb["qqq_hi"], bb["qqq"], bb["qqq_off"]; line = hi * 0.8
         vmax, v3 = bb.get("vix_max"), bb.get("vix3") or []
         pct, qp, vp, ok, falling = gap_numbers(bb)   # QQQ share of the 20% drop; VIX from a calm 15 toward 25 (100% only once it fades from 25+)
-        L = [f"<b>Distance to Phase 4: {pct}% of the way</b> (QQQ drop {round(100 * qp)}% · VIX {round(100 * vp)}% · {sum(ok)} of 3 checks met)",
-             "· ✅ Phase 3 is on (both signals fired)",
+        head = (f"<b>Distance to Phase 4: {pct}% of the way</b> (QQQ drop {round(100 * qp)}% · VIX {round(100 * vp)}% · {sum(ok)} of 3 checks met)" if vmax is not None
+                else f"<b>Distance to Phase 4:</b> QQQ drop {round(100 * qp)}% of the way · VIX reading missing this scan")
+        vix_line = (f"· {'✅' if ok[2] else '❌'} VIX 25+ in the last 2 weeks, then falling 3 days: 2-week high {vmax}" + (f", needs {25 - vmax:.1f} more" if vmax < 25 else "")
+                    + f" · last 3 days {' → '.join(str(x) for x in v3)} ({'falling' if falling else 'not falling'})") if vmax is not None \
+                   else "· ❔ VIX check: no fresh VIX reading in this scan (the last bubble reading was kept)"
+        L = [head, "· ✅ Phase 3 is on (both signals fired)",
              f"· {'✅' if ok[1] else '❌'} QQQ 20%+ below its high: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
-             + (f"{(1 - line / q) * 100:.1f}% below today's ${q:,.2f})" if not ok[1] else "reached)"),
-             f"· {'✅' if ok[2] else '❌'} VIX 25+ in the last 2 weeks, then falling 3 days: 2-week high {vmax}" + (f", needs {25 - vmax:.1f} more" if (vmax or 0) < 25 else "")
-             + f" · last 3 days {' → '.join(str(x) for x in v3)} ({'falling' if falling else 'not falling'})"]
+             + (f"{(1 - line / q) * 100:.1f}% below today's ${q:,.2f})" if not ok[1] else "reached)"), vix_line]
         L.append("<i>Phase 4 is the buy-back stage: all three must be true at once. Until then the Phase 3 rules stand.</i>")
         return L
     if bb.get("phase") == 2:
@@ -1341,7 +1343,11 @@ def phase_gap(bb):
 def bubble(d):
     """Current phase of the AI-bubble plan + the two chart series for the site."""
     st_ = json.load(open(BUBBLE_STATE)) if os.path.exists(BUBBLE_STATE) else {}
-    cpi = cpi_yoy(); now_cpi = cpi[-1][1]
+    try: cpi = cpi_yoy(); st_["cpi_cache"] = cpi
+    except Exception as e:                                                       # FRED times out now and then: keep going on the last good CPI
+        if not st_.get("cpi_cache"): raise
+        cpi = [tuple(x) for x in st_["cpi_cache"]]; print(f"  bubble: CPI from cache ({str(e)[:40]})")
+    now_cpi = cpi[-1][1]
     # a signal stays fired once it fires (the replay's rule). Look back a year, dated the
     # 15th of the next month -- when that CPI number was actually published.
     hot = [m for m, v in cpi[-12:] if v >= 4]
