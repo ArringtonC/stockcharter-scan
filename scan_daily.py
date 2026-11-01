@@ -328,7 +328,7 @@ def occ(sym, expiry, strike, pad=True, right="C"):
     return f"{root}{y[2:]}{m}{d}{right}{int(round(float(strike) * 1000)):08d}"
 
 _TOK = {}
-def schwab_quote(sym, expiry, strike):
+def schwab_quote(sym, expiry, strike, right="C"):
     """Mid of the real bid/ask from Schwab. None unless all three env vars are set."""
     k, sec, ref = (os.environ.get(x) for x in ("SCHWAB_KEY", "SCHWAB_SECRET", "SCHWAB_REFRESH"))
     if not (k and sec and ref): return None
@@ -342,7 +342,7 @@ def schwab_quote(sym, expiry, strike):
                                                  "Content-Type": "application/x-www-form-urlencoded"})
             j = json.load(urllib.request.urlopen(rq, timeout=20))
             _TOK["t"] = j["access_token"]; _TOK["exp"] = time.time() + j.get("expires_in", 1800) - 60
-        u = "https://api.schwabapi.com/marketdata/v1/quotes?symbols=" + urllib.request.quote(occ(sym, expiry, strike))
+        u = "https://api.schwabapi.com/marketdata/v1/quotes?symbols=" + urllib.request.quote(occ(sym, expiry, strike, right=right))
         rq = urllib.request.Request(u, headers={"Authorization": f"Bearer {_TOK['t']}"})
         j = json.load(urllib.request.urlopen(rq, timeout=20))
         q = list(j.values())[0].get("quote", {})
@@ -366,14 +366,16 @@ def alpaca_quote(sym, expiry, strike, right="C"):
     except Exception:
         return None
 
-def option_mark(sym, expiry, strike, spot, dte, realized):
+def option_mark(sym, expiry, strike, spot, dte, realized, right="C"):
     """(price, source-tag). Real quote if any source answers, else Black-Scholes."""
     for fn, tag in ((schwab_quote, "schwab"), (alpaca_quote, "alpaca")):
-        v = fn(sym, expiry, strike)
+        v = fn(sym, expiry, strike, right)
         if v and v > 0: return v, tag
-    iv = chain_iv(sym, expiry, strike)
+    iv = chain_iv(sym, expiry, strike) if right == "C" else None   # chain_iv reads calls only
     if iv and iv < 0.10: iv = None   # ponytail: a failed IV solve returns its 5% floor -> priced calls at a quarter of real; use realized vol
-    return bs_call(spot, float(strike), max(0.0, dte) / 365, iv or realized), ("iv" if iv else "est")
+    t = max(0.0, dte) / 365; c = bs_call(spot, float(strike), t, iv or realized)
+    if right == "P": c = max(0.0, c - spot + float(strike) * math.exp(-0.04 * t))   # put-call parity
+    return c, ("iv" if iv else "est")
 
 
 SECTORS = {"XLK": "Technology", "XLF": "Financials", "XLV": "Health Care", "XLY": "Consumer Disc",
@@ -576,9 +578,10 @@ def mark_trades():
                     elif sessions >= 252:
                         r.update(status="closed", closed=b[-1][0], exit=f"{spot:.2f}",
                                  pl_pct=f"{(spot/entry-1)*100:.1f}", note=(r["note"] + " · 252-session timeout").strip(" ·"))
-                else:  # call, marked at intrinsic
+                else:  # call or put, marked at intrinsic on the expiry-day close
                     K = float(r["strike"]); exp = datetime.date.fromisoformat(r["expiry"])
-                    intr = max(0.0, spot - K)
+                    sx = next((x[1] for x in reversed(b) if x[0] <= r["expiry"]), spot)
+                    intr = max(0.0, K - sx) if r["kind"] == "put" else max(0.0, sx - K)
                     if today >= exp:
                         r.update(status="closed", closed=str(exp), exit=f"{intr:.2f}",
                                  pl_pct=f"{(intr/entry-1)*100:.1f}", note=(r["note"] + " · expired at intrinsic").strip(" ·"))
@@ -593,9 +596,11 @@ def mark_trades():
                     c60 = [x[1] for x in b[-61:]]
                     sig = max(0.15, min(1.5, (sum((math.log(c60[j + 1] / c60[j])) ** 2 for j in range(len(c60) - 1)) / max(1, len(c60) - 1)) ** 0.5 * math.sqrt(252)))
                     dte = (exp - today).days
-                    est, src = option_mark(r["symbol"], r["expiry"], K, spot, dte, sig)
-                    extra = dict(now=est, pl_pct=(est / entry - 1) * 100, spot=spot, intrinsic=max(0.0, spot - K),
-                                 dte=dte, sessions=sessions, mark=src, iv=implied_vol(est, spot, K, dte / 365) or sig)   # iv: for docs/calc.html
+                    put = r["kind"] == "put"
+                    est, src = option_mark(r["symbol"], r["expiry"], K, spot, dte, sig, "P" if put else "C")
+                    ceq = est + spot - K * math.exp(-0.04 * dte / 365) if put else est   # IV solver takes a call price
+                    extra = dict(now=est, pl_pct=(est / entry - 1) * 100, spot=spot, intrinsic=max(0.0, K - spot) if put else max(0.0, spot - K),
+                                 dte=dte, sessions=sessions, mark=src, iv=implied_vol(ceq, spot, K, dte / 365) or sig)   # iv: for docs/calc.html
                 open_.append({**r, **extra})
             else:
                 closed.append({**r, "result": "win" if float(r["pl_pct"] or 0) > 0 else "loss"})
