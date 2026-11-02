@@ -1,47 +1,47 @@
 {
  "generated": "2026-11-02",
- "market_open": true,
+ "market_open": false,
  "paused": false,
  "reconcile_failed": [],
  "books": {
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 96676.36,
-   "ret": -0.0332,
-   "dd": -0.0511,
-   "spy_value": 84567.97,
+   "equity": 96499.03,
+   "ret": -0.035,
+   "dd": -0.0528,
+   "spy_value": 84461.29,
    "spy_units": 112.3006,
    "cash": 0.0,
-   "exposure": 0.1252,
+   "exposure": 0.1247,
    "realized": 0,
-   "unrealized": -1537.15,
+   "unrealized": -1607.8,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 225.43,
+     "now": 223.79,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 440.59,
-     "ret": 0.065,
-     "sessions": 8,
-     "value": 7213.76
+     "pl": 388.11,
+     "ret": 0.0573,
+     "sessions": 9,
+     "value": 7161.28
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 106.4,
+     "now": 106.01,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -1977.74,
-     "ret": -0.2878,
-     "sessions": 8,
-     "value": 4894.63
+     "pl": -1995.91,
+     "ret": -0.2904,
+     "sessions": 9,
+     "value": 4876.46
     }
    ],
    "pending": [],
@@ -122,6 +122,12 @@
      "quote_time": "2026-10-20T13:33:20+00:00",
      "age_s": 2,
      "source": "yahoo"
+    },
+    {
+     "date": "2026-11-02",
+     "at": "16:33",
+     "kind": "risk",
+     "what": "missed 1 session(s) 2026-10-30..2026-10-30: their entries are gone; exits judged at today's close"
     }
    ],
    "curve": [
@@ -183,50 +189,50 @@
     ],
     [
      "2026-11-02",
-     96676.36
+     96499.03
     ]
    ],
-   "last_decision": "2026-10-29",
+   "last_decision": "2026-11-02",
    "since": "2026-10-19"
   },
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 96686.79,
-   "ret": -0.0331,
-   "dd": -0.0511,
-   "spy_value": 84578.4,
+   "equity": 96509.44,
+   "ret": -0.0349,
+   "dd": -0.0528,
+   "spy_value": 84471.7,
    "spy_units": 112.3145,
    "cash": 0.0,
-   "exposure": 0.1252,
+   "exposure": 0.1247,
    "realized": 0,
-   "unrealized": -1526.55,
+   "unrealized": -1597.2,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 225.43,
+     "now": 223.79,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 440.59,
-     "ret": 0.065,
-     "sessions": 8,
-     "value": 7213.76
+     "pl": 388.11,
+     "ret": 0.0573,
+     "sessions": 9,
+     "value": 7161.28
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.17,
-     "now": 106.4,
+     "now": 106.01,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -1967.14,
-     "ret": -0.2867,
-     "sessions": 8,
-     "value": 4894.63
+     "pl": -1985.31,
+     "ret": -0.2893,
+     "sessions": 9,
+     "value": 4876.46
     }
    ],
    "pending": [],
@@ -307,6 +313,12 @@
      "quote_time": "2026-10-20T13:33:21+00:00",
      "age_s": 2,
      "source": "yahoo"
+    },
+    {
+     "date": "2026-11-02",
+     "at": "16:34",
+     "kind": "risk",
+     "what": "missed 1 session(s) 2026-10-30..2026-10-30: their entries are gone; exits judged at today's close"
     }
    ],
    "curve": [
@@ -368,50 +380,50 @@
     ],
     [
      "2026-11-02",
-     96686.79
+     96509.44
     ]
    ],
-   "last_decision": "2026-10-29",
+   "last_decision": "2026-11-02",
    "since": "2026-10-19"
   },
   "x": {
    "name": "F CAP 70",
    "exit": "252",
-   "equity": 96676.36,
-   "ret": -0.0332,
-   "dd": -0.0511,
-   "spy_value": 84567.97,
+   "equity": 96499.03,
+   "ret": -0.035,
+   "dd": -0.0528,
+   "spy_value": 84461.29,
    "spy_units": 112.3006,
    "cash": 0.0,
-   "exposure": 0.1252,
+   "exposure": 0.1247,
    "realized": 0,
-   "unrealized": -1537.15,
+   "unrealized": -1607.8,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 225.43,
+     "now": 223.79,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": 440.59,
-     "ret": 0.065,
-     "sessions": 8,
-     "value": 7213.76
+     "pl": 388.11,
+     "ret": 0.0573,
+     "sessions": 9,
+     "value": 7161.28
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 106.4,
+     "now": 106.01,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -1977.74,
-     "ret": -0.2878,
-     "sessions": 8,
-     "value": 4894.63
+     "pl": -1995.91,
+     "ret": -0.2904,
+     "sessions": 9,
+     "value": 4876.46
     }
    ],
    "pending": [],
@@ -492,6 +504,12 @@
      "quote_time": "2026-10-20T13:33:20+00:00",
      "age_s": 2,
      "source": "yahoo"
+    },
+    {
+     "date": "2026-11-02",
+     "at": "16:34",
+     "kind": "risk",
+     "what": "missed 1 session(s) 2026-10-30..2026-10-30: their entries are gone; exits judged at today's close"
     }
    ],
    "curve": [
@@ -553,50 +571,50 @@
     ],
     [
      "2026-11-02",
-     96676.36
+     96499.03
     ]
    ],
-   "last_decision": "2026-10-29",
+   "last_decision": "2026-11-02",
    "since": "2026-10-19"
   },
   "s": {
    "name": "F FULL S&P",
    "exit": "252",
-   "equity": 98632.63,
-   "ret": -0.0137,
-   "dd": -0.035,
-   "spy_value": 85117.73,
+   "equity": 98548.21,
+   "ret": -0.0145,
+   "dd": -0.0358,
+   "spy_value": 85010.35,
    "spy_units": 113.0306,
    "cash": 0.0,
-   "exposure": 0.137,
+   "exposure": 0.1374,
    "realized": 0,
-   "unrealized": -568.53,
+   "unrealized": -545.56,
    "positions": [
     {
      "sym": "P",
      "q": 56,
      "entry": 124.66,
-     "now": 112.94,
+     "now": 113.78,
      "opened": "2026-10-26",
      "tgt": 157.57,
      "armed": false,
-     "pl": -656.29,
-     "ret": -0.094,
-     "sessions": 4,
-     "value": 6324.92
+     "pl": -609.53,
+     "ret": -0.0873,
+     "sessions": 5,
+     "value": 6371.68
     },
     {
      "sym": "COF",
      "q": 34,
      "entry": 208.89,
-     "now": 211.47,
+     "now": 210.77,
      "opened": "2026-10-29",
      "tgt": 256.63,
      "armed": false,
-     "pl": 87.76,
-     "ret": 0.0124,
-     "sessions": 1,
-     "value": 7189.98
+     "pl": 63.97,
+     "ret": 0.009,
+     "sessions": 2,
+     "value": 7166.18
     }
    ],
    "pending": [],
@@ -682,6 +700,12 @@
      "quote_time": "2026-10-29T13:34:46+00:00",
      "age_s": 7,
      "source": "yahoo"
+    },
+    {
+     "date": "2026-11-02",
+     "at": "16:34",
+     "kind": "risk",
+     "what": "missed 1 session(s) 2026-10-30..2026-10-30: their entries are gone; exits judged at today's close"
     }
    ],
    "curve": [
@@ -727,10 +751,10 @@
     ],
     [
      "2026-11-02",
-     98632.63
+     98548.21
     ]
    ],
-   "last_decision": "2026-10-29",
+   "last_decision": "2026-11-02",
    "since": "2026-10-23"
   }
  },
