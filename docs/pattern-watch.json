@@ -13,5 +13,20 @@
   "above30": true,
   "pattern": "channel-base-breakout",
   "logged": "2026-09-29"
+ },
+ {
+  "sym": "TSLA",
+  "date": "2026-11-02",
+  "close": 413.1549987792969,
+  "base_high": 410.8500061035156,
+  "peak": 498.8299865722656,
+  "peak_date": "2025-12-22",
+  "low": 297.3800048828125,
+  "e10": 395.02500880825517,
+  "e30": 380.40791306962456,
+  "e30_up": true,
+  "above30": true,
+  "pattern": "channel-base-breakout",
+  "logged": "2026-11-02"
  }
 ]
