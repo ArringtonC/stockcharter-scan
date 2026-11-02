@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T10:17-04:00",
+ "generated": "2026-11-01T19:32-05:00",
  "last_session": "2026-10-30",
  "items": [
   {
@@ -1178,6 +1178,95 @@
     "ret6m": -0.06903564770351955,
     "universe": 499,
     "member": true
+   }
+  },
+  {
+   "sym": "SPY",
+   "asof": "2026-10-30",
+   "close": 755.72,
+   "stale": false,
+   "blocks": {
+    "Monthly": {
+     "label": "Bullish",
+     "detail": "HH / HL",
+     "hi": {
+      "p": 697.84,
+      "pivot": "2026-01-02",
+      "conf": "2026-03-31"
+     },
+     "lo": {
+      "p": 629.28,
+      "pivot": "2026-03-02",
+      "conf": "2026-05-29"
+     },
+     "unconfirmed": [
+      {
+       "kind": "high",
+       "p": 779.37,
+       "pivot": "2026-08-03",
+       "need": 1
+      }
+     ],
+     "res": null,
+     "sup": 629.28,
+     "range_break": "Above upper boundary",
+     "swing_conf": "New swing high $779.37 not confirmed (needs 1 more bar)",
+     "outcome": "Holding"
+    },
+    "Weekly": {
+     "label": "Bullish",
+     "detail": "HH / HL",
+     "hi": {
+      "p": 781.62,
+      "pivot": "2026-10-05",
+      "conf": "2026-10-23"
+     },
+     "lo": {
+      "p": 749.6,
+      "pivot": "2026-09-14",
+      "conf": "2026-10-02"
+     },
+     "unconfirmed": [],
+     "res": 760.4,
+     "sup": 749.6,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "\u2014"
+    },
+    "Daily": {
+     "label": "Bearish",
+     "detail": "LH / LL",
+     "hi": {
+      "p": 774.44,
+      "pivot": "2026-10-21",
+      "conf": "2026-10-26"
+     },
+     "lo": {
+      "p": 758.68,
+      "pivot": "2026-10-23",
+      "conf": "2026-10-28"
+     },
+     "unconfirmed": [
+      {
+       "kind": "high",
+       "p": 773.36,
+       "pivot": "2026-10-28",
+       "need": 1
+      }
+     ],
+     "res": 756.68,
+     "sup": 749.6,
+     "range_break": "Below lower boundary",
+     "swing_conf": "No new swing low yet",
+     "outcome": "Holding"
+    }
+   },
+   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price is inside the confirmed weekly range ($749.60\u2013$781.62). Nearest confirmed weekly resistance $760.40 is 0.6% above.",
+   "rs": {
+    "pct": null,
+    "ret6m": 0.0486644001942691,
+    "universe": 499,
+    "member": false
    }
   },
   {

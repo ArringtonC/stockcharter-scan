@@ -1338,5 +1338,29 @@
   "S": [
    "COIN"
   ]
+ },
+ {
+  "date": "2026-11-01",
+  "vix": 19.420000076293945,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "TSLA",
+   "PYPL",
+   "MRNA",
+   "SPOT",
+   "TXN",
+   "SG",
+   "OXY"
+  ],
+  "C": [
+   "VRTX"
+  ],
+  "S": [
+   "COIN"
+  ]
  }
 ]
