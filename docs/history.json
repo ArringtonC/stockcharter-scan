@@ -1365,7 +1365,7 @@
  },
  {
   "date": "2026-11-02",
-  "vix": 21.100000381469727,
+  "vix": 21.149999618530273,
   "regime": "ELEVATED",
   "vix_fires": false,
   "F": [
@@ -1376,16 +1376,14 @@
    "PYPL",
    "MRNA",
    "SPOT",
-   "BMY",
    "TXN",
-   "MRK"
+   "BMY"
   ],
   "C": [
    "GM"
   ],
   "S": [
-   "ORCL",
-   "COIN"
+   "ORCL"
   ]
  }
 ]
