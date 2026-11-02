@@ -1365,8 +1365,8 @@
  },
  {
   "date": "2026-11-02",
-  "vix": 19.079999923706055,
-  "regime": "NORMAL",
+  "vix": 20.030000686645508,
+  "regime": "ELEVATED",
   "vix_fires": false,
   "F": [
    "ZS"
@@ -1374,16 +1374,13 @@
   "D": [
    "TSLA",
    "PYPL",
-   "WDAY",
    "MRNA",
    "SPOT",
-   "BMY",
    "TXN",
    "MRK"
   ],
   "C": [
-   "GM",
-   "VRTX"
+   "GM"
   ],
   "S": [
    "ORCL"
