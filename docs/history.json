@@ -1388,19 +1388,19 @@
  },
  {
   "date": "2026-11-03",
-  "vix": 20.40999984741211,
+  "vix": 20.540000915527344,
   "regime": "ELEVATED",
   "vix_fires": false,
   "F": [
-   "ZS"
+   "ZS",
+   "SHOP"
   ],
   "D": [
-   "TSLA",
    "PYPL",
    "SPOT",
    "MRNA",
    "TXN",
-   "SG"
+   "DOCU"
   ],
   "C": [],
   "S": []
