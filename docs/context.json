@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T14:02-05:00",
+ "generated": "2026-11-03T15:32-05:00",
  "last_session": "2026-11-02",
  "items": [
   {
@@ -1216,6 +1216,81 @@
    "rs": {
     "pct": null,
     "ret6m": 0.5737693389592124,
+    "universe": 498,
+    "member": false
+   }
+  },
+  {
+   "sym": "SHOP",
+   "asof": "2026-11-02",
+   "close": 156.22,
+   "stale": false,
+   "blocks": {
+    "Monthly": {
+     "label": "Range",
+     "detail": "HH + LL",
+     "hi": {
+      "p": 182.19,
+      "pivot": "2025-10-01",
+      "conf": "2025-12-31"
+     },
+     "lo": {
+      "p": 94,
+      "pivot": "2026-05-01",
+      "conf": "2026-07-31"
+     },
+     "unconfirmed": [],
+     "res": 165,
+     "sup": 104.92,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "\u2014"
+    },
+    "Weekly": {
+     "label": "Bullish",
+     "detail": "HH / HL",
+     "hi": {
+      "p": 180.88,
+      "pivot": "2026-10-12",
+      "conf": "2026-10-30"
+     },
+     "lo": {
+      "p": 124.03,
+      "pivot": "2026-09-08",
+      "conf": "2026-09-25"
+     },
+     "unconfirmed": [],
+     "res": 156.85,
+     "sup": 139.5,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "\u2014"
+    },
+    "Daily": {
+     "label": "Transitioning down",
+     "detail": "was HH/HL, now a lower high \u2014 price below the last confirmed low",
+     "hi": {
+      "p": 180.41,
+      "pivot": "2026-10-16",
+      "conf": "2026-10-21"
+     },
+     "lo": {
+      "p": 163.252,
+      "pivot": "2026-10-15",
+      "conf": "2026-10-20"
+     },
+     "unconfirmed": [],
+     "res": 156.49,
+     "sup": 144.12,
+     "range_break": "Below lower boundary",
+     "swing_conf": "No new swing low yet",
+     "outcome": "Holding"
+    }
+   },
+   "interpretation": "Daily reads transitioning down, but monthly reads range; weekly reads bullish. Price is inside the confirmed weekly range ($124.03\u2013$180.88). Nearest confirmed weekly resistance $156.85 is 0.4% above.",
+   "rs": {
+    "pct": null,
+    "ret6m": 0.2247745981967857,
     "universe": 498,
     "member": false
    }
