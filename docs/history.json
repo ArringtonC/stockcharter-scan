@@ -1388,7 +1388,7 @@
  },
  {
   "date": "2026-11-03",
-  "vix": 20.959999084472656,
+  "vix": 20.530000686645508,
   "regime": "ELEVATED",
   "vix_fires": false,
   "F": [
@@ -1398,17 +1398,13 @@
   "D": [
    "TSLA",
    "PYPL",
-   "MRNA",
    "SPOT",
+   "MRNA",
    "TXN",
-   "BMY",
-   "DOCU",
-   "COP",
+   "VRTX",
    "SG"
   ],
   "C": [],
-  "S": [
-   "ORCL"
-  ]
+  "S": []
  }
 ]
