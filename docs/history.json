@@ -1385,5 +1385,28 @@
   "S": [
    "ORCL"
   ]
+ },
+ {
+  "date": "2026-11-03",
+  "vix": 21.149999618530273,
+  "regime": "ELEVATED",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "TSLA",
+   "PYPL",
+   "MRNA",
+   "SPOT",
+   "TXN",
+   "BMY"
+  ],
+  "C": [
+   "GM"
+  ],
+  "S": [
+   "ORCL"
+  ]
  }
 ]
