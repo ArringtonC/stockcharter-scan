@@ -1404,5 +1404,28 @@
   ],
   "C": [],
   "S": []
+ },
+ {
+  "date": "2026-11-04",
+  "vix": 20.829999923706055,
+  "regime": "ELEVATED",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "TSLA",
+   "PYPL",
+   "MRNA",
+   "SPOT",
+   "TXN",
+   "BMY"
+  ],
+  "C": [
+   "GM"
+  ],
+  "S": [
+   "ORCL"
+  ]
  }
 ]
