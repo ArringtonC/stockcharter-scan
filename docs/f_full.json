@@ -1,67 +1,67 @@
 {
- "date": "2026-11-03",
- "generated": "2026-11-03T16:32-06:00",
+ "date": "2026-11-04",
+ "generated": "2026-11-04T16:33-06:00",
  "rule": "setup-f research rule, full S&P 500",
  "members_source": "wikipedia",
  "counts": {
   "members": 502,
   "bars": 502,
-  "stale": 1,
+  "stale": 0,
   "short": 4,
   "chart": 6,
   "rev_pass": 0,
-  "rev_fail": 5,
-  "rev_unknown": 1
+  "rev_fail": 4,
+  "rev_unknown": 2
  },
  "F": [],
  "in_66": [],
  "chart_only": [
   {
    "sym": "CTSH",
-   "px": 63.83,
-   "dd": 25.3,
+   "px": 65.78,
+   "dd": 23.0,
    "tgt": 85.48,
-   "up": 33.9,
+   "up": 29.9,
    "rev": 5.0
   },
   {
+   "sym": "DOW",
+   "px": 32.7,
+   "dd": 21.8,
+   "tgt": 41.82,
+   "up": 27.9,
+   "rev": null
+  },
+  {
    "sym": "DVA",
-   "px": 182.17,
-   "dd": 26.4,
+   "px": 192.66,
+   "dd": 22.2,
    "tgt": 247.49,
-   "up": 35.9,
+   "up": 28.5,
    "rev": 6.4
   },
   {
    "sym": "HAL",
-   "px": 34.07,
-   "dd": 21.1,
+   "px": 33,
+   "dd": 23.6,
    "tgt": 43.2,
-   "up": 26.8,
+   "up": 30.9,
    "rev": null
   },
   {
-   "sym": "IT",
-   "px": 204.22,
-   "dd": 20.5,
-   "tgt": 256.895,
-   "up": 25.8,
-   "rev": -0.2
-  },
-  {
-   "sym": "LUV",
-   "px": 43.45,
-   "dd": 20.1,
-   "tgt": 54.38,
-   "up": 25.2,
-   "rev": 14.5
+   "sym": "LYB",
+   "px": 62.96,
+   "dd": 23.4,
+   "tgt": 82.22,
+   "up": 30.6,
+   "rev": -1.8
   },
   {
    "sym": "MCHP",
-   "px": 77.9,
-   "dd": 25.6,
+   "px": 75.34,
+   "dd": 28.1,
    "tgt": 104.75,
-   "up": 34.5,
+   "up": 39.0,
    "rev": 20.9
   }
  ]
