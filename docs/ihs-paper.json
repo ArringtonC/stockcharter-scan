@@ -15,5 +15,22 @@
   "chase": 785.13,
   "asof": "8:30 AM CT",
   "valid": "3:00 PM CT"
+ },
+ {
+  "sym": "SPY",
+  "tf": "30-MIN",
+  "at": "2026-11-04 09:30",
+  "entry": 764.07,
+  "neck": 763.86,
+  "head": 751.6,
+  "stop": 753.51,
+  "target": 776.12,
+  "trail": 4.59,
+  "qty": 1,
+  "cap": 1000,
+  "risk": 10.56,
+  "chase": 766.71,
+  "asof": "8:30 AM CT",
+  "valid": "9:30 AM CT"
  }
 ]

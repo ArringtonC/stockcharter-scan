@@ -1407,21 +1407,25 @@
  },
  {
   "date": "2026-11-04",
-  "vix": 18.3700008392334,
+  "vix": 17.969999313354492,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
-   "ZS",
-   "SHOP"
+   "ZS"
   ],
   "D": [
+   "WDAY",
    "PYPL",
    "SPOT",
    "MRNA",
+   "BMY",
+   "TXN",
    "DOCU",
-   "TXN"
+   "VRTX"
   ],
-  "C": [],
+  "C": [
+   "XYZ"
+  ],
   "S": []
  }
 ]
