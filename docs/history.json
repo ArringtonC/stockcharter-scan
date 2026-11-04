@@ -1407,7 +1407,7 @@
  },
  {
   "date": "2026-11-04",
-  "vix": 17.260000228881836,
+  "vix": 16.90999984741211,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [
@@ -1418,8 +1418,9 @@
    "PYPL",
    "BMY",
    "TXN",
+   "DOCU",
    "SPOT",
-   "DOCU"
+   "MRK"
   ],
   "C": [
    "GM",
