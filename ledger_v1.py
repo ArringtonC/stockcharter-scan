@@ -790,6 +790,7 @@ def replay():
 
 if __name__ == "__main__":
     if os.environ.get("V1TEST"):
+        for k in [k for k in os.environ if k.startswith(("DISCORD_", "TELEGRAM_"))]: os.environ.pop(k)   # tests never post (2026-11-04: 3 test cards reached Discord)
         import tempfile; DB = os.path.join(tempfile.mkdtemp(), "d.jsonl")   # never the real paper log
         T = dt.date(2026, 10, 12); now = dt.datetime(2026, 10, 12, 10, 20, tzinfo=CT)
         # market score
