@@ -773,6 +773,7 @@ function bubblePlan(d){
     ${trendChart(b.qqq_dd,-20,'−20% = the drop','%',false,'QQQ distance from its high over the last year against the minus 20 percent line')}
     <p class="more">QQQ, % below its high. Phase 4 needs Phase 3 first, then QQQ under the dashed line and VIX 25+ falling 3 days.
       Now: ${b.qqq_off.toFixed(1)}% off the high · VIX ${b.vix.toFixed(1)}.</p>
+    ${bubbleTimeline(b)}
     <h3 style="margin:14px 0 6px">The four phases</h3>
     ${b.phases.map(p=>`<div class="row" style="${p.n===b.phase?'background:var(--panel);outline:1px solid var(--amber)':'opacity:.72'}">
       <div class="sym">${p.n}<small>${p.n===b.phase?'now':''}</small></div>
@@ -781,6 +782,39 @@ function bubblePlan(d){
     <p class="more">Replayed on 1973, 2000 and 2021 with $1,000/month: beat holding by +3%, +1% and +9%, with smaller drops.
       In 2021 it sold QQQ on Dec 1, eight trading days after the top. Not a prediction; the date of the top is unknowable.</p>
   </div>`;
+}
+
+/* Timeline of the bubble plan: what has already happened (dated, from the saved readings),
+   where we are today, and exactly what Phase 4 still needs. Numbers come from scan_daily.bubble();
+   nothing here decides anything. */
+function bubbleTimeline(b){
+  const gh=b.gap_hist||{}, days=Object.keys(gh).sort(), last=days[days.length-1], now=last?gh[last]:null;
+  const first=(f)=>days.find(d=>f(gh[d]));
+  const hiDate=(b.qqq_dd||[]).slice().reverse().find(x=>x[1]===0);
+  const line=b.qqq_hi*0.8, need=(1-line/b.qqq)*100, v3=b.vix3||[], falling=v3.length===3&&v3[2]<v3[1]&&v3[0]>v3[1];
+  const fmt=d=>d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
+  const ev=[];
+  if(b.ipo_fired) ev.push([b.ipo_fired,'✅',`<b>Signal 2 fired</b> · ${esc(Object.keys(b.ipo).find(k=>b.ipo[k]===b.ipo_fired)||'a mega-IPO')} priced`]);
+  if(b.cpi_fired) ev.push([b.cpi_fired,'✅',`<b>Signal 1 fired</b> · inflation ${b.cpi_peak[1].toFixed(1)}% (${esc(b.cpi_peak[0])})`]);
+  if(b.since) ev.push([b.since,'✅',`<b>Phase 3 began</b> · both signals on: sell the QQQ part, keep SPY, let cash build`]);
+  if(hiDate) ev.push([hiDate[0],'📈',`<b>QQQ high</b> · $${b.qqq_hi.toFixed(2)} (week of ${fmt(hiDate[0])}). Phase 4 line = 20% under it: <b>$${line.toFixed(2)}</b>`]);
+  const m=[[first(x=>x.pct>=60),'60% of the way'],[first(x=>x.qqq_off<=-15),'QQQ 15%+ below its high'],[first(x=>x.vix_max>=25),'VIX reached 25'],[first(x=>x.pct>=80),'80% of the way']];
+  const byDay={}; for(const [d,t] of m) if(d) (byDay[d]=byDay[d]||[]).push(t);   // one row per day, however many marks it hit
+  for(const d in byDay) ev.push([d,'✅',`<b>${byDay[d].join(' · ')}</b> · ${gh[d].qqq_off.toFixed(1)}% off the high, VIX ${gh[d].vix.toFixed(1)}`]);
+  ev.sort((x,y)=>x[0]<y[0]?-1:1);
+  const past=ev.map(([d,i,t])=>`<div class="row tight"><div class="sym">${esc(fmt(d))}<small>${esc(d.slice(0,4))}</small></div><div class="main"><div class="t">${i} ${t}</div></div></div>`).join('');
+  const strip=days.slice(-10).map(d=>`${esc(fmt(d))} <b>${gh[d].pct}%</b>`).join(' · ');
+  const todayRow=now?`<div class="row" style="background:var(--panel);outline:1px solid var(--amber)"><div class="sym">${esc(fmt(last))}<small>now</small></div>
+      <div class="main"><div class="t"><b>${now.pct}% of the way to Phase 4</b> · QQQ ${now.qqq_off.toFixed(1)}% off its high · VIX ${now.vix.toFixed(1)}</div>
+      <div class="miss">${strip}</div></div></div>`:'';
+  const nxt=[[b.qqq_off<=-20,`<b>QQQ closes under $${line.toFixed(2)}</b> (20% below the high)`, b.qqq_off<=-20?'reached':`needs ${need.toFixed(1)}% more from $${b.qqq.toFixed(2)}`],
+             [(b.vix_max||0)>=25,`<b>VIX touches 25</b>`, (b.vix_max||0)>=25?`reached (2-week high ${b.vix_max.toFixed(2)})`:`2-week high ${(b.vix_max||0).toFixed(2)}, needs ${(25-(b.vix_max||0)).toFixed(1)} more`],
+             [(b.vix_max||0)>=25&&falling,`<b>then VIX falls 3 days in a row</b>`, falling?'reached':`last 3 closes ${v3.map(x=>x.toFixed(1)).join(' → ')} · earliest in 3 sessions`]];
+  const future=nxt.map(([ok,t,s])=>`<div class="row tight"><div class="sym">${ok?'✅':'⬜'}</div><div class="main"><div class="t">${t}</div><div class="miss">${esc(s)}</div></div></div>`).join('')
+    +`<div class="row tight"><div class="sym">4</div><div class="main"><div class="t"><b>Phase 4 · The drop</b> · all three true at once</div><div class="miss">${b.phases[3].do.map(esc).join(' · ')}</div></div></div>`;
+  return `<h3 style="margin:14px 0 6px">Timeline</h3>
+    <p class="more">What has happened, where we are, and what Phase 4 still needs. Dates are the day Ledger recorded each reading.</p>
+    ${past}${todayRow}${future}`;
 }
 
 /* S&P 500 adds and drops. Index funds must buy what joins and sell what leaves,
