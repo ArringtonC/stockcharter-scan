@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T17:32-05:00",
+ "generated": "2026-11-05T08:03-05:00",
  "last_session": "2026-11-04",
  "items": [
   {
@@ -80,7 +80,7 @@
    "rs": {
     "pct": null,
     "ret6m": 0.7176128093158662,
-    "universe": 498,
+    "universe": 499,
     "member": false
    }
   },
@@ -155,7 +155,7 @@
    "rs": {
     "pct": null,
     "ret6m": -0.03109656301145669,
-    "universe": 498,
+    "universe": 499,
     "member": false
    }
   },
@@ -237,7 +237,7 @@
    "rs": {
     "pct": 8,
     "ret6m": -0.2478758355047015,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -326,7 +326,7 @@
    "rs": {
     "pct": 77,
     "ret6m": 0.21564467322875736,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -408,7 +408,7 @@
    "rs": {
     "pct": 29,
     "ret6m": -0.032583003018291756,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -490,7 +490,7 @@
    "rs": {
     "pct": 5,
     "ret6m": -0.2979997898202964,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -572,7 +572,7 @@
    "rs": {
     "pct": 78,
     "ret6m": 0.22189781021897814,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -647,7 +647,7 @@
    "rs": {
     "pct": 28,
     "ret6m": -0.037049511620074194,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -722,7 +722,7 @@
    "rs": {
     "pct": 83,
     "ret6m": 0.2833545108005082,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -811,7 +811,7 @@
    "rs": {
     "pct": 40,
     "ret6m": 0.02793369011878344,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -893,7 +893,7 @@
    "rs": {
     "pct": 6,
     "ret6m": -0.2729159285316596,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -936,7 +936,7 @@
    "rs": {
     "pct": null,
     "ret6m": null,
-    "universe": 498,
+    "universe": 499,
     "member": false
    }
   },
@@ -1011,7 +1011,7 @@
    "rs": {
     "pct": 73,
     "ret6m": 0.1822944573435732,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -1100,7 +1100,7 @@
    "rs": {
     "pct": 19,
     "ret6m": -0.1006387287739523,
-    "universe": 498,
+    "universe": 499,
     "member": true
    }
   },
@@ -1182,7 +1182,7 @@
    "rs": {
     "pct": null,
     "ret6m": 0.6166534610674925,
-    "universe": 498,
+    "universe": 499,
     "member": false
    }
   },
@@ -1264,7 +1264,7 @@
    "rs": {
     "pct": null,
     "ret6m": 0.4513467374810318,
-    "universe": 498,
+    "universe": 499,
     "member": false
    }
   }
