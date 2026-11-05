@@ -7,54 +7,54 @@
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 94687.05,
-   "ret": -0.0531,
-   "dd": -0.0706,
-   "spy_value": 76596.78,
+   "equity": 93915.98,
+   "ret": -0.0608,
+   "dd": -0.0782,
+   "spy_value": 76064.03,
    "spy_units": 103.4462,
    "cash": 0.0,
-   "exposure": 0.1911,
+   "exposure": 0.1901,
    "realized": 0,
-   "unrealized": -2320.57,
+   "unrealized": -2558.9,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 207.77,
+     "now": 204.27,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -124.53,
-     "ret": -0.0184,
+     "pl": -236.53,
+     "ret": -0.0349,
      "sessions": 11,
-     "value": 6648.64
+     "value": 6536.64
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 104.34,
+     "now": 102.31,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -2072.67,
-     "ret": -0.3016,
+     "pl": -2166.11,
+     "ret": -0.3152,
      "sessions": 11,
-     "value": 4799.69
+     "value": 4706.26
     },
     {
      "sym": "SHOP",
      "q": 46,
      "entry": 147.07,
-     "now": 144.39,
+     "now": 143.68,
      "opened": "2026-11-04",
      "tgt": 180.88,
      "armed": false,
-     "pl": -123.37,
-     "ret": -0.0182,
+     "pl": -156.26,
+     "ret": -0.0231,
      "sessions": 0,
-     "value": 6641.94
+     "value": 6609.05
     }
    ],
    "pending": [],
@@ -248,7 +248,7 @@
     ],
     [
      "2026-11-05",
-     94687.05
+     93915.98
     ]
    ],
    "last_decision": "2026-11-04",
@@ -257,54 +257,54 @@
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 94696.63,
-   "ret": -0.053,
-   "dd": -0.0706,
-   "spy_value": 76606.36,
+   "equity": 93925.49,
+   "ret": -0.0607,
+   "dd": -0.0782,
+   "spy_value": 76073.54,
    "spy_units": 103.4592,
    "cash": 0.0,
-   "exposure": 0.191,
+   "exposure": 0.1901,
    "realized": 0,
-   "unrealized": -2310.67,
+   "unrealized": -2549.0,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 207.77,
+     "now": 204.27,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -124.53,
-     "ret": -0.0184,
+     "pl": -236.53,
+     "ret": -0.0349,
      "sessions": 11,
-     "value": 6648.64
+     "value": 6536.64
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.17,
-     "now": 104.34,
+     "now": 102.31,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -2062.08,
-     "ret": -0.3005,
+     "pl": -2155.52,
+     "ret": -0.3141,
      "sessions": 11,
-     "value": 4799.69
+     "value": 4706.26
     },
     {
      "sym": "SHOP",
      "q": 46,
      "entry": 147.09,
-     "now": 144.39,
+     "now": 143.68,
      "opened": "2026-11-04",
      "tgt": 180.88,
      "armed": false,
-     "pl": -124.06,
-     "ret": -0.0183,
+     "pl": -156.95,
+     "ret": -0.0232,
      "sessions": 0,
-     "value": 6641.94
+     "value": 6609.05
     }
    ],
    "pending": [],
@@ -498,7 +498,7 @@
     ],
     [
      "2026-11-05",
-     94696.63
+     93925.49
     ]
    ],
    "last_decision": "2026-11-04",
@@ -507,54 +507,54 @@
   "x": {
    "name": "F CAP 70",
    "exit": "252",
-   "equity": 94686.38,
-   "ret": -0.0531,
-   "dd": -0.0706,
-   "spy_value": 76596.11,
+   "equity": 93915.31,
+   "ret": -0.0608,
+   "dd": -0.0782,
+   "spy_value": 76063.36,
    "spy_units": 103.4453,
    "cash": 0.0,
-   "exposure": 0.1911,
+   "exposure": 0.1901,
    "realized": 0,
-   "unrealized": -2321.26,
+   "unrealized": -2559.59,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 207.77,
+     "now": 204.27,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -124.53,
-     "ret": -0.0184,
+     "pl": -236.53,
+     "ret": -0.0349,
      "sessions": 11,
-     "value": 6648.64
+     "value": 6536.64
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 104.34,
+     "now": 102.31,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -2072.67,
-     "ret": -0.3016,
+     "pl": -2166.11,
+     "ret": -0.3152,
      "sessions": 11,
-     "value": 4799.69
+     "value": 4706.26
     },
     {
      "sym": "SHOP",
      "q": 46,
      "entry": 147.09,
-     "now": 144.39,
+     "now": 143.68,
      "opened": "2026-11-04",
      "tgt": 180.88,
      "armed": false,
-     "pl": -124.06,
-     "ret": -0.0183,
+     "pl": -156.95,
+     "ret": -0.0232,
      "sessions": 0,
-     "value": 6641.94
+     "value": 6609.05
     }
    ],
    "pending": [],
@@ -748,7 +748,7 @@
     ],
     [
      "2026-11-05",
-     94686.38
+     93915.31
     ]
    ],
    "last_decision": "2026-11-04",
@@ -757,41 +757,41 @@
   "s": {
    "name": "F FULL S&P",
    "exit": "252",
-   "equity": 95904.62,
-   "ret": -0.041,
-   "dd": -0.0617,
-   "spy_value": 83693.54,
+   "equity": 95288.21,
+   "ret": -0.0471,
+   "dd": -0.0677,
+   "spy_value": 83111.43,
    "spy_units": 113.0306,
    "cash": 0.0,
-   "exposure": 0.1273,
+   "exposure": 0.1278,
    "realized": 0,
-   "unrealized": -1872.35,
+   "unrealized": -1906.65,
    "positions": [
     {
      "sym": "P",
      "q": 56,
      "entry": 124.66,
-     "now": 94.04,
+     "now": 94.32,
      "opened": "2026-10-26",
      "tgt": 157.57,
      "armed": false,
-     "pl": -1714.97,
-     "ret": -0.2457,
+     "pl": -1699.29,
+     "ret": -0.2434,
      "sessions": 7,
-     "value": 5266.24
+     "value": 5281.92
     },
     {
      "sym": "COF",
      "q": 34,
      "entry": 208.89,
-     "now": 204.26,
+     "now": 202.79,
      "opened": "2026-10-29",
      "tgt": 256.63,
      "armed": false,
-     "pl": -157.38,
-     "ret": -0.0222,
+     "pl": -207.36,
+     "ret": -0.0292,
      "sessions": 4,
-     "value": 6944.84
+     "value": 6894.86
     }
    ],
    "pending": [],
@@ -940,7 +940,7 @@
     ],
     [
      "2026-11-05",
-     95904.62
+     95288.21
     ]
    ],
    "last_decision": "2026-11-04",

@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-11-05T11:34-06:00",
+ "updated": "2026-11-05T13:04-06:00",
  "day": "2026-11-05",
  "market": {
   "state": "BEARISH",
   "score": -5,
   "confirmed": true,
-  "at": "2026-11-05T11:30-06:00",
-  "data_time": "2026-11-05T11:10-06:00",
+  "at": "2026-11-05T13:00-06:00",
+  "data_time": "2026-11-05T13:00-06:00",
   "parts": {
    "es": -1,
    "es_mid": 7714.88,
@@ -23,114 +23,6 @@
  },
  "market_history": [
   {
-   "at": "2026-11-05T09:55-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:00-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:05-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:10-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:15-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:20-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:25-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:30-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:35-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:40-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:45-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:50-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T10:55-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T11:00-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T11:05-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T11:10-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T11:15-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-05T11:20-06:00",
-   "state": "BEARISH",
-   "score": -5,
-   "confirmed": true
-  },
-  {
    "at": "2026-11-05T11:25-06:00",
    "state": "BEARISH",
    "score": -5,
@@ -138,6 +30,114 @@
   },
   {
    "at": "2026-11-05T11:30-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T11:35-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T11:40-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T11:45-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T11:50-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T11:55-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:00-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:05-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:10-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:15-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:20-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:25-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:30-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:35-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:40-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:45-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:50-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T12:55-06:00",
+   "state": "BEARISH",
+   "score": -5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-05T13:00-06:00",
    "state": "BEARISH",
    "score": -5,
    "confirmed": true
@@ -2012,11 +2012,11 @@
     ]
    },
    "state": {
-    "state": "DATA STALE",
+    "state": "WAIT",
     "codes": [
-     "DATA_STALE"
+     "MARKET_CONFLICT"
     ],
-    "at": "2026-11-05T11:34-06:00"
+    "at": "2026-11-05T13:04-06:00"
    }
   },
   {
