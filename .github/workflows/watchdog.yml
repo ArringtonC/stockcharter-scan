@@ -1,0 +1,28 @@
+name: box watchdog
+
+# Outside check for the Hetzner box (delivery.py can't text you if the box itself is down).
+# Fails -- and GitHub emails the repo owner -- when docs/data.json has not been refreshed for 4 hours
+# on a weekday. GitHub's scheduler runs 2-4 hours late on public repos, so this fires once,
+# mid-session, and the 4-hour limit covers the gaps between slots (longest weekday gap: 90 minutes).
+on:
+  schedule:
+    - cron: '17 17 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: is the scan fresh?
+        run: |
+          python3 - <<'PY'
+          import json, datetime as dt, sys
+          s = json.load(open("docs/data.json"))["stamp"]
+          age = dt.datetime.now(dt.timezone.utc) - dt.datetime.strptime(s, "%Y-%m-%d %H:%M UTC").replace(tzinfo=dt.timezone.utc)
+          print(f"last scan {s} ({age.total_seconds() / 3600:.1f} h ago)")
+          sys.exit(f"Ledger box looks DOWN: no scan for {age.total_seconds() / 3600:.1f} hours" if age > dt.timedelta(hours=4) else 0)
+          PY

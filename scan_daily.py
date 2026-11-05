@@ -1708,6 +1708,10 @@ ROUTES = {"watch": "DISCORD_WEBHOOK_WATCH", "market": "DISCORD_WEBHOOK_MARKET", 
           "paper": "DISCORD_WEBHOOK_PAPER"}
 
 
+_SENT = [0, 0]   # [ok, failed] for delivery.py; printed at exit as LEDGER_SENT
+import atexit; atexit.register(lambda: print(f"LEDGER_SENT ok={_SENT[0]} failed={_SENT[1]}"))
+
+
 def discord(text, route=None):
     """Post to a Discord channel webhook. Unset means it does nothing."""
     if route == "watch" and not os.environ.get("DISCORD_WEBHOOK_WATCH"): route = "updates"
@@ -1717,9 +1721,9 @@ def discord(text, route=None):
         urllib.request.urlopen(urllib.request.Request(
             url, data=json.dumps(dict(content=to_discord(text)[:2000])).encode(),
             headers={"Content-Type": "application/json", "User-Agent": "Ledger (stockcharter-scan)"}), timeout=20).read()
-        return True
+        _SENT[0] += 1; return True
     except Exception as e:
-        print(f"discord failed: {str(e)[:60]}")
+        print(f"discord failed: {str(e)[:60]}"); _SENT[1] += 1
         return False
 
 
@@ -1783,7 +1787,7 @@ def discord_file(text, png, route=None, name="chart.png"):
     try:
         urllib.request.urlopen(urllib.request.Request(url, data=body, headers={"Content-Type": f"multipart/form-data; boundary={k}",
                                "User-Agent": "Ledger (stockcharter-scan)"}), timeout=30).read()
-        return True
+        _SENT[0] += 1; return True
     except Exception as e:
         print(f"discord chart failed: {str(e)[:60]}"); return discord(text, route)
 
@@ -1799,9 +1803,9 @@ def notify(text, route=None, discord_too=True):
         urllib.request.urlopen(
             urllib.request.Request(f"https://api.telegram.org/bot{tok}/sendMessage", data=body),
             timeout=20).read()
-        return True
+        _SENT[0] += 1; return True
     except Exception as e:
-        print(f"notify failed: {str(e)[:60]}")
+        print(f"notify failed: {str(e)[:60]}"); _SENT[1] += 1
         return False
 
 
@@ -1995,6 +1999,12 @@ def market_report(d):
     G_ = ([f"· <b>{s}</b> {g:+.1f}%" for s, g in m.get("gaps") or []] + ["<i>Tested 2016–26: a gap does not tell which way the day goes. 1–2% gaps fill back to yesterday's close about 45% of days; 4%+ gaps only about 15%.</i>"]) if pre and m.get("gaps") else []
     M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + (["", "<b>GAPS</b> (premarket vs yesterday's close, 1%+, watch list + Setup F)"] + G_ if G_ else []) \
          + (["", "<b>COMPANY FILINGS</b> (your stocks + Setup F, last 3 days)"] + F_ if F_ else []) + ["", "<i>not a signal</i>"]
+    if head == "WEEKEND REPORT":   # delivery check (delivery.py): how the scheduled runs went this week
+        try:
+            import delivery; w = delivery.week()
+            M += ["", f"<b>DELIVERY THIS WEEK</b> · {w['ok']} of {w['slots']} runs went out · {w['recovered_after_retry']} needed a retry"
+                      f" · {w['never_ran_ok']} never succeeded · {w['ran_but_sent_nothing']} closing runs sent nothing"]
+        except Exception as e: print(f"delivery summary failed: {str(e)[:60]}")
     M = alerts(d, m) + M
     return "\n".join(M)
 
@@ -2229,6 +2239,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
 
 
 if __name__ == "__main__":
+    if os.environ.get("LEDGER_FAKE_FAIL"): raise SystemExit("LEDGER_FAKE_FAIL: forced failure for the delivery test")
     os.makedirs(DOCS, exist_ok=True)
     d = scan()
     open_, closed = mark_trades()

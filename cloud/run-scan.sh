@@ -14,12 +14,18 @@ key = f"{now:%F} {due[-1]}" if due else ""
 if key and key != last: open(f, "w").write(key); print(key)
 PY
 )
-[ -z "$slot" ] && exit 0
 set -a; . /root/.stockcharter.env; set +a
+python3 delivery.py missed >/dev/null || echo "missed-slot check failed"   # every 15 min: a slot that never went out texts you once
+[ -z "$slot" ] && exit 0
 echo "=== $(date '+%F %T %Z') · slot $slot CT ==="
 git pull --rebase --autostash -q -X theirs || echo "pull failed -- scanning anyway"
 python3 autotrade.py sync || echo "autotrade sync failed"
-python3 scan_daily.py || { echo "scan failed -- will retry in 15 min"; rm -f ~/.ledger-last-slot; exit 1; }
+python3 scan_daily.py 2>&1 | tee /tmp/ledger-scan.out
+if [ "${PIPESTATUS[0]}" -ne 0 ]; then   # delivery check: log it; the 2nd failure of a slot texts you (delivery.py)
+  python3 delivery.py fail "$slot" "$(grep -v '^[[:space:]]*$' /tmp/ledger-scan.out | grep -v '^LEDGER_SENT' | tail -1 | cut -c1-200)" || true
+  echo "scan failed -- will retry in 15 min"; rm -f ~/.ledger-last-slot; exit 1
+fi
+python3 delivery.py ok "$slot" /tmp/ledger-scan.out || echo "delivery check failed"
 python3 context.py || echo "context failed"                    # information only: structure + 6-month strength for the Focus names -> docs/context.json
 python3 cost_log.py || echo "cost log failed"                 # read-only: live option bid/ask for the Focus names -> ~/.ledger-costs/quotes.jsonl
 python3 autotrade.py || echo "autotrade failed"
