@@ -556,10 +556,15 @@ def weekly_cross():
     return out
 
 
+def expired(exp, ny):
+    """An option is finished only after its expiry day's 4pm ET close (not the evening or morning before)."""
+    return ny.date() > exp or (ny.date() == exp and ny.hour >= 16)
+
+
 def mark_trades():
     """Mark every open paper trade, auto-close on target / timeout / expiry, write trades.csv back."""
     rows = list(csv.DictReader(open(TRADES))) if os.path.exists(TRADES) else []
-    today = datetime.date.today(); open_, closed = [], []
+    ny = datetime.datetime.now(ZoneInfo("America/New_York")); today = ny.date(); open_, closed = [], []
     for r in rows:
         try:
             b = bars(r["symbol"]); after = [x for x in b if x[0] > r["opened"]]
@@ -582,7 +587,7 @@ def mark_trades():
                     K = float(r["strike"]); exp = datetime.date.fromisoformat(r["expiry"])
                     sx = next((x[1] for x in reversed(b) if x[0] <= r["expiry"]), spot)
                     intr = max(0.0, K - sx) if r["kind"] == "put" else max(0.0, sx - K)
-                    if today >= exp:
+                    if expired(exp, ny):
                         r.update(status="closed", closed=str(exp), exit=f"{intr:.2f}",
                                  pl_pct=f"{(intr/entry-1)*100:.1f}", note=(r["note"] + " · expired at intrinsic").strip(" ·"))
             if r["status"] == "open":
@@ -687,7 +692,7 @@ def report(d, hist, open_, closed):
     period = [x for x in hist if week_key(x["date"]) == wk]
     mon = today - datetime.timedelta(days=today.weekday())
     fri = mon + datetime.timedelta(days=4)
-    final = today.weekday() >= 4 and datetime.datetime.now(datetime.timezone.utc).hour >= 20
+    final = today.weekday() >= 4 and datetime.datetime.now(ZoneInfo("America/New_York")).hour >= 16   # Friday after the 4pm ET close
 
     prev = {}
     if os.path.exists(REPORT_STATE):
@@ -1326,6 +1331,8 @@ GAP_ALERTS = [("pct60", lambda n, bb: n[0] >= 60, "Phase 4 is 60% of the way"), 
 def phase_gap(bb):
     """Plain lines: what the NEXT phase needs, each check with today's number and the distance (2026-10-30)."""
     if bb.get("phase") == 3:
+        if any(bb.get(k) is None for k in ("qqq_hi", "qqq", "qqq_off")):   # an old kept reading without QQQ fields: say so, never crash the report
+            return ["<b>Distance to Phase 4:</b> QQQ reading missing this scan (the last bubble reading was kept)"]
         hi, q, off = bb["qqq_hi"], bb["qqq"], bb["qqq_off"]; line = hi * 0.8
         vmax, v3 = bb.get("vix_max"), bb.get("vix3") or []
         pct, qp, vp, ok, falling = gap_numbers(bb)   # QQQ share of the 20% drop; VIX from a calm 15 toward 25 (100% only once it fades from 25+)
@@ -1574,7 +1581,7 @@ def should_push(d, open_, name="key", key=None):
     """(send?, why). Closing run and first-of-day always go; the rest must earn it.
     name="key" is the trade report; name="mkt" the market report, keyed on the 1%/2% bucket."""
     now = datetime.datetime.now(datetime.timezone.utc)
-    closing = now.hour >= 20                       # after 3pm ET, the session is done
+    closing = now.astimezone(ZoneInfo("America/New_York")).hour >= 16   # after the 4pm ET close (DST-safe; was UTC hour 20)
     prev = {}
     if os.path.exists(ALERT_STATE):
         try: prev = json.load(open(ALERT_STATE))
@@ -2225,7 +2232,7 @@ def summary(d, open_, closed=(), parts=False, title="TRADE REPORT", closed_days=
     if not (C + B + U): L += ["NOTHING TO BUY TODAY", ""]
     while L and L[-1] == "": L.pop()
 
-    intra = datetime.datetime.now(datetime.timezone.utc).hour < 20
+    intra = datetime.datetime.now(ZoneInfo("America/New_York")).hour < 16
     # direction earns one word: it flips the sign at 20-25 and is the whole of
     # Setup VIX at 25+ (thesis/vix-trend.md, 2026-09-22). Under 16 it changes nothing.
     v5 = d.get("vix5") or []

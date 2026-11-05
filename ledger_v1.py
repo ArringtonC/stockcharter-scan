@@ -381,7 +381,7 @@ def tick(say, now=None):
             st["recap"] = day; save_state(st); say(recap(st, day))
         return
     if st.get("day") != day:
-        build_workspace(st, now); st["sent"] = {}; st["mk"] = {}; save_state(st)
+        build_workspace(st, now); st["sent"] = {}; st["mk"] = {}; st["states"] = {}; save_state(st)   # MISSED is final for the day only
     # market: 8:15 provisional, 8:45 confirmed, then one message per change
     if (now.hour, now.minute) >= (8, 15) and (not st["mk"].get("last") or now.minute % 5 == 0):
         mk = market(now); prev = st["mk"].get("last")
@@ -429,7 +429,7 @@ def step(sym, p, mk, st, say, now, equity, bs=None, quote_fn=None, chain=None):
         if not st["sent"].get(key): st["sent"][key] = now.isoformat(timespec="minutes"); say(card(state, sym, p, mk, [code]))
         return
     shadow(sym, p, mk, st, now, equity, bs, quote_fn, chain)
-    if pos or (st.get("states", {}).get(sym) or {}).get("state") == "MISSED": return   # OUT or MISSED: no re-entry without a new prepared trigger
+    if (pos and str(pos.get("closed", ""))[:10] == day) or (st.get("states", {}).get(sym) or {}).get("state") == "MISSED": return   # OUT or MISSED today: no re-entry until tomorrow's prepared trigger
     if not p.get("complete"):
         st.setdefault("states", {})[sym] = dict(state="PREP NEEDED", codes=["PREP_MISSING"]); return
     trig, info = trigger_state(bs, p, now)
@@ -867,6 +867,17 @@ if __name__ == "__main__":
         sent = []; stt = dict(sent={}, states={"X": dict(state="MISSED")}, pos={}, alert_ask={})
         step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
         assert sent == [] and not stt["pos"]
+        # ...but only for that day (2026-11-04 audit: DASH/ZS stayed MISSED for weeks; SG blocked by a void row)
+        for old, blocks in ((dict(status="closed", closed="2026-10-09T10:00"), False), (dict(status="void"), False),
+                            (dict(status="closed", closed="2026-10-12T09:40"), True)):
+            sent = []; stt = dict(sent={}, states={}, pos={"X": old}, alert_ask={})
+            step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs2, lambda e, k: (*qf(e, k), None), ch)
+            assert (stt["pos"]["X"] is old) == blocks, (old, stt["pos"]["X"])
+        # after the daily reset, a run already past the chase line gives ONE MISSED card, not one per minute
+        bs3 = bs + [(base + dt.timedelta(minutes=100), 99.5, 101.0, 99.4, 100.9, 2000)]          # closes past chase 100.25
+        sent = []; stt = dict(sent={}, states={}, pos={}, alert_ask={})
+        for _ in range(3): step("X", p2, dict(state="BULLISH", data_time="2026-10-12T10:00"), stt, sent.append, now, 12000, bs3, lambda e, k: (*qf(e, k), None), ch)
+        assert len(sent) == 1 and sent[0].startswith("**MISSED") and not stt["pos"], sent
         h = [dict(state="MIXED")] * 3 + [dict(state="BEARISH")] * 2
         assert recap(dict(plans={"X": {}}, states={"X": dict(state="MISSED")}, mk={}), "2026-10-13").splitlines()[1] == "X: MISSED"
         P = {"A": dict(complete=True, source=dict(type="Setup F"), m15=dict(direction="CALLS", trigger=100, atr=1)),

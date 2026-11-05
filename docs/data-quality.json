@@ -1,0 +1,1621 @@
+{
+ "generated": "2026-11-04T21:24-05:00",
+ "source": "git author scan-bot",
+ "commits": [
+  {
+   "commit": "a6569c7",
+   "at_utc": "2026-11-05T01:34+00:00",
+   "at_new_york": "2026-11-04T20:34-05:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.bubble-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-11-05\", \"sym\": \"ZS\", \"px\": 225.09, \"dd\": 33.2, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"SHOP\", \"px\": 142.57, \"dd\": 21.2, \"trend\": true, \"rev\": 32.5, \"verdict\": \"pass\", \"target\": 180.88, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"HOOD\", \"px\": 85.68, \"dd\": 42.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"NOW\", \"px\": 109.16, \"dd\": 40.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"BE\", \"px\": 214.01, \"dd\": 39.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"CAVA\", \"px\": 60.31, \"dd\": 39.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"QCOM\", \"px\": 164.43, \"dd\": 36.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"AVGO\", \"px\": 332.13, \"dd\": 32.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"ADBE\", \"px\": 246.14, \"dd\": 32.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"MU\", \"px\": 855.1, \"dd\": 31.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"GOOGL\", \"px\": 280.03, \"dd\": 31.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"DELL\", \"px\": 408.4, \"dd\": 31.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"F\", \"px\": 12.31, \"dd\": 30.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"AMD\", \"px\": 483.9, \"dd\": 26.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"IBM\", \"px\": 250.04, \"dd\": 24.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"SNOW\", \"px\": 295.04, \"dd\": 23.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"U\", \"px\": 40.48, \"dd\": 22.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"HPQ\", \"px\": 28.27, \"dd\": 22.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"HAL\", \"px\": 34.07, \"dd\": 21.8, \"trend\": true, \"rev\": null, \"verdict\": \"unknown\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"CSCO\", \"px\": 102.97, \"dd\": 21.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"META\", \"px\": 621.03, \"dd\": 20.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-05\", \"sym\": \"TSLA\", \"px\": 398.5, \"dd\": 20.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-11-05"
+   ]
+  },
+  {
+   "commit": "20583cc",
+   "at_utc": "2026-11-04T19:57+00:00",
+   "at_new_york": "2026-11-04T14:57-05:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.bubble-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-11-04"
+   ]
+  },
+  {
+   "commit": "9d22862",
+   "at_utc": "2026-11-04T01:32+00:00",
+   "at_new_york": "2026-11-03T20:32-05:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.bubble-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-11-04\", \"sym\": \"ZS\", \"px\": 223.79, \"dd\": 33.6, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"HOOD\", \"px\": 83.84, \"dd\": 44.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"BE\", \"px\": 196.25, \"dd\": 44.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"NOW\", \"px\": 106.01, \"dd\": 44.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"QCOM\", \"px\": 162.08, \"dd\": 37.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"CAVA\", \"px\": 62.05, \"dd\": 37.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"AVGO\", \"px\": 322.23, \"dd\": 34.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"DELL\", \"px\": 392.78, \"dd\": 34.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"MU\", \"px\": 833.59, \"dd\": 33.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"GOOGL\", \"px\": 278.99, \"dd\": 31.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"ADBE\", \"px\": 251.47, \"dd\": 30.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"F\", \"px\": 12.6, \"dd\": 29.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"AMD\", \"px\": 466.84, \"dd\": 29.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"U\", \"px\": 38.87, \"dd\": 25.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"SNOW\", \"px\": 290.68, \"dd\": 24.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"IBM\", \"px\": 252.51, \"dd\": 24.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"META\", \"px\": 606.73, \"dd\": 22.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"CSCO\", \"px\": 101.61, \"dd\": 22.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"HPQ\", \"px\": 28.43, \"dd\": 21.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"OKTA\", \"px\": 184.87, \"dd\": 21.3, \"trend\": true, \"rev\": 11.2, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-04\", \"sym\": \"HAL\", \"px\": 34.61, \"dd\": 20.6, \"trend\": true, \"rev\": null, \"verdict\": \"unknown\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-11-04"
+   ]
+  },
+  {
+   "commit": "3d7123a",
+   "at_utc": "2026-11-03T19:40+00:00",
+   "at_new_york": "2026-11-03T14:40-05:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.bubble-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-11-03"
+   ]
+  },
+  {
+   "commit": "c7e2b49",
+   "at_utc": "2026-11-03T03:00+00:00",
+   "at_new_york": "2026-11-02T22:00-05:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.bubble-state.json",
+    "docs/.report-state.json",
+    "docs/.sent-trades.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-11-03\", \"sym\": \"ZS\", \"px\": 223.79, \"dd\": 33.6, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"HOOD\", \"px\": 83.84, \"dd\": 44.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"BE\", \"px\": 196.25, \"dd\": 44.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"NOW\", \"px\": 106.01, \"dd\": 44.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"QCOM\", \"px\": 162.08, \"dd\": 37.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"CAVA\", \"px\": 62.05, \"dd\": 37.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"AVGO\", \"px\": 322.23, \"dd\": 34.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"DELL\", \"px\": 392.78, \"dd\": 34.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"MU\", \"px\": 833.59, \"dd\": 33.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"GOOGL\", \"px\": 278.99, \"dd\": 31.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"ADBE\", \"px\": 251.47, \"dd\": 30.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"F\", \"px\": 12.6, \"dd\": 29.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"AMD\", \"px\": 466.84, \"dd\": 29.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"U\", \"px\": 38.87, \"dd\": 25.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"SNOW\", \"px\": 290.68, \"dd\": 24.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"IBM\", \"px\": 252.51, \"dd\": 24.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"META\", \"px\": 606.73, \"dd\": 22.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"CSCO\", \"px\": 101.61, \"dd\": 22.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"HPQ\", \"px\": 28.43, \"dd\": 21.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"OKTA\", \"px\": 184.87, \"dd\": 21.3, \"trend\": true, \"rev\": 11.2, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-11-03\", \"sym\": \"HAL\", \"px\": 34.61, \"dd\": 20.6, \"trend\": true, \"rev\": null, \"verdict\": \"unknown\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-11-03"
+   ]
+  },
+  {
+   "commit": "e42ab0e",
+   "at_utc": "2026-11-02T21:51+00:00",
+   "at_new_york": "2026-11-02T16:51-05:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.bubble-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-11-02"
+   ]
+  },
+  {
+   "commit": "6971d93",
+   "at_utc": "2026-10-30T18:09+00:00",
+   "at_new_york": "2026-10-30T14:09-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-30"
+   ]
+  },
+  {
+   "commit": "0a21707",
+   "at_utc": "2026-10-30T01:13+00:00",
+   "at_new_york": "2026-10-29T21:13-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json",
+    "trades.csv"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-30\", \"sym\": \"ZS\", \"px\": 255.8, \"dd\": 24.1, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"HOOD\", \"px\": 91.43, \"dd\": 39.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"BE\", \"px\": 228.08, \"dd\": 35.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"INTC\", \"px\": 95.53, \"dd\": 32.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"F\", \"px\": 11.95, \"dd\": 32.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"ADBE\", \"px\": 249.76, \"dd\": 31.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"QCOM\", \"px\": 182.97, \"dd\": 29.6, \"trend\": true, \"rev\": 1.9, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"AVGO\", \"px\": 351.81, \"dd\": 28.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"PYPL\", \"px\": 56.55, \"dd\": 28.6, \"trend\": true, \"rev\": 4.4, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"U\", \"px\": 39.5, \"dd\": 24.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"IBM\", \"px\": 253.22, \"dd\": 23.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"NOW\", \"px\": 150.13, \"dd\": 22.2, \"trend\": true, \"rev\": 21.8, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"MU\", \"px\": 983.23, \"dd\": 21.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"META\", \"px\": 612.49, \"dd\": 21.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"GOOGL\", \"px\": 324.89, \"dd\": 20.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-30\", \"sym\": \"SPOT\", \"px\": 538.4, \"dd\": 20.0, \"trend\": true, \"rev\": null, \"verdict\": \"unknown\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "trades.csv": [
+    "2026-10-26-GOOG-290p-real,put,real,2026-10-26,GOOG,none,1.31,,290,2026-10-30,1,closed,2026-10-30,31.89,2334.4,\"REAL. From the Schwab order list 10-26: BTO limit $1.38, filled $1.31 at 9:32 AM. GOOG earnings 10-28 fall inside this contract. \u00b7 expired at intrinsic\""
+   ],
+   "history_days": [
+    "2026-10-30"
+   ]
+  },
+  {
+   "commit": "7d12192",
+   "at_utc": "2026-10-29T18:35+00:00",
+   "at_new_york": "2026-10-29T14:35-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-29"
+   ]
+  },
+  {
+   "commit": "10eb9a1",
+   "at_utc": "2026-10-29T01:07+00:00",
+   "at_new_york": "2026-10-28T21:07-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-29\", \"sym\": \"ZS\", \"px\": 260.15, \"dd\": 22.8, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"BE\", \"px\": 218.5, \"dd\": 37.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"HOOD\", \"px\": 94.56, \"dd\": 37.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"INTC\", \"px\": 93.74, \"dd\": 34.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"F\", \"px\": 11.71, \"dd\": 34.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"ADBE\", \"px\": 248.36, \"dd\": 31.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"AVGO\", \"px\": 342.33, \"dd\": 30.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"PYPL\", \"px\": 56.09, \"dd\": 29.2, \"trend\": true, \"rev\": 4.4, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"QCOM\", \"px\": 184.17, \"dd\": 29.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": true, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"MU\", \"px\": 928.76, \"dd\": 26.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"IBM\", \"px\": 250.25, \"dd\": 24.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"U\", \"px\": 40.1, \"dd\": 23.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"GOOGL\", \"px\": 320.58, \"dd\": 21.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-29\", \"sym\": \"META\", \"px\": 620.19, \"dd\": 20.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-10-29"
+   ]
+  },
+  {
+   "commit": "372f7ac",
+   "at_utc": "2026-10-28T18:26+00:00",
+   "at_new_york": "2026-10-28T14:26-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-28"
+   ]
+  },
+  {
+   "commit": "1943a00",
+   "at_utc": "2026-10-28T00:37+00:00",
+   "at_new_york": "2026-10-27T20:37-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-28\", \"sym\": \"ZS\", \"px\": 260.45, \"dd\": 22.7, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"BE\", \"px\": 203.92, \"dd\": 41.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"HOOD\", \"px\": 92.84, \"dd\": 38.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"INTC\", \"px\": 90.47, \"dd\": 36.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"F\", \"px\": 11.58, \"dd\": 34.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"AVGO\", \"px\": 329.17, \"dd\": 33.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"QCOM\", \"px\": 179.6, \"dd\": 30.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": true, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"PYPL\", \"px\": 54.99, \"dd\": 30.6, \"trend\": true, \"rev\": 4.4, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"ADBE\", \"px\": 258.62, \"dd\": 28.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"MU\", \"px\": 903.7, \"dd\": 28.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"IBM\", \"px\": 253.44, \"dd\": 23.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"U\", \"px\": 40.33, \"dd\": 22.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"GOOGL\", \"px\": 316.8, \"dd\": 22.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"MRNA\", \"px\": 198.85, \"dd\": 21.9, \"trend\": true, \"rev\": -27.6, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"DELL\", \"px\": 467.09, \"dd\": 21.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-28\", \"sym\": \"TSLA\", \"px\": 391.62, \"dd\": 21.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-10-28"
+   ]
+  },
+  {
+   "commit": "d510799",
+   "at_utc": "2026-10-27T18:08+00:00",
+   "at_new_york": "2026-10-27T14:08-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-27"
+   ]
+  },
+  {
+   "commit": "4e8a4b4",
+   "at_utc": "2026-10-27T00:39+00:00",
+   "at_new_york": "2026-10-26T20:39-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-27\", \"sym\": \"ZS\", \"px\": 255.15, \"dd\": 24.3, \"trend\": true, \"rev\": 25.4, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"BE\", \"px\": 193.3, \"dd\": 45.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"NFLX\", \"px\": 65.85, \"dd\": 43.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"INTC\", \"px\": 86.96, \"dd\": 38.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"HOOD\", \"px\": 95.07, \"dd\": 36.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"AVGO\", \"px\": 321.68, \"dd\": 35.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"F\", \"px\": 11.6, \"dd\": 34.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"QCOM\", \"px\": 175.91, \"dd\": 32.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"MU\", \"px\": 877.55, \"dd\": 30.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"PYPL\", \"px\": 57.02, \"dd\": 28.0, \"trend\": true, \"rev\": null, \"verdict\": \"unknown\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"ADBE\", \"px\": 263.82, \"dd\": 27.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"TSLA\", \"px\": 372.22, \"dd\": 25.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"IBM\", \"px\": 253.56, \"dd\": 23.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"DELL\", \"px\": 456.44, \"dd\": 23.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"U\", \"px\": 40.79, \"dd\": 21.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"GOOGL\", \"px\": 320.21, \"dd\": 21.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"AMD\", \"px\": 516.79, \"dd\": 21.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-27\", \"sym\": \"MRNA\", \"px\": 200.1, \"dd\": 21.4, \"trend\": true, \"rev\": -27.6, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-10-27"
+   ]
+  },
+  {
+   "commit": "d6addfd",
+   "at_utc": "2026-10-26T18:46+00:00",
+   "at_new_york": "2026-10-26T14:46-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-26"
+   ]
+  },
+  {
+   "commit": "77da74d",
+   "at_utc": "2026-10-23T23:55+00:00",
+   "at_new_york": "2026-10-23T19:55-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/spy-events.json"
+   ]
+  },
+  {
+   "commit": "e8b3a9e",
+   "at_utc": "2026-10-23T17:20+00:00",
+   "at_new_york": "2026-10-23T13:20-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-23"
+   ]
+  },
+  {
+   "commit": "f8bc782",
+   "at_utc": "2026-10-23T00:04+00:00",
+   "at_new_york": "2026-10-22T20:04-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-23\", \"sym\": \"ZS\", \"px\": 231.33, \"dd\": 31.4, \"trend\": true, \"rev\": 33.1, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"NOW\", \"px\": 153.12, \"dd\": 20.6, \"trend\": true, \"rev\": 29.4, \"verdict\": \"pass\", \"target\": 192.97, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"CAVA\", \"px\": 55.0, \"dd\": 44.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"INTC\", \"px\": 92.96, \"dd\": 34.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"F\", \"px\": 11.9, \"dd\": 33.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"HOOD\", \"px\": 101.93, \"dd\": 32.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"BE\", \"px\": 238.53, \"dd\": 32.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"AVGO\", \"px\": 337.8, \"dd\": 31.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"QCOM\", \"px\": 177.96, \"dd\": 31.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"ADBE\", \"px\": 255.06, \"dd\": 29.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"PYPL\", \"px\": 57.2, \"dd\": 27.8, \"trend\": true, \"rev\": 6.5, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"MU\", \"px\": 913.67, \"dd\": 27.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"SPOT\", \"px\": 525.34, \"dd\": 24.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"IBM\", \"px\": 251.46, \"dd\": 24.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"TSLA\", \"px\": 386.47, \"dd\": 22.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"HAL\", \"px\": 33.99, \"dd\": 22.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-23\", \"sym\": \"U\", \"px\": 41.21, \"dd\": 21.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-10-23"
+   ]
+  },
+  {
+   "commit": "1d6a699",
+   "at_utc": "2026-10-22T17:23+00:00",
+   "at_new_york": "2026-10-22T13:23-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-22"
+   ]
+  },
+  {
+   "commit": "51db260",
+   "at_utc": "2026-10-22T00:05+00:00",
+   "at_new_york": "2026-10-21T20:05-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-22\", \"sym\": \"ZS\", \"px\": 214.51, \"dd\": 36.3, \"trend\": true, \"rev\": 33.1, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"NOW\", \"px\": 149.54, \"dd\": 22.5, \"trend\": true, \"rev\": 29.4, \"verdict\": \"pass\", \"target\": 192.97, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"NFLX\", \"px\": 68.69, \"dd\": 45.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"CAVA\", \"px\": 57.45, \"dd\": 41.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"BE\", \"px\": 222.65, \"dd\": 36.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"INTC\", \"px\": 91.69, \"dd\": 35.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"HOOD\", \"px\": 98.21, \"dd\": 34.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"AVGO\", \"px\": 334.37, \"dd\": 32.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"QCOM\", \"px\": 175.71, \"dd\": 32.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"F\", \"px\": 12.15, \"dd\": 31.7, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"ADBE\", \"px\": 256.73, \"dd\": 29.4, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"MU\", \"px\": 896.07, \"dd\": 28.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"PYPL\", \"px\": 57.14, \"dd\": 27.9, \"trend\": true, \"rev\": 6.5, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"IBM\", \"px\": 241.92, \"dd\": 27.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"TSLA\", \"px\": 373.71, \"dd\": 25.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"SPOT\", \"px\": 526.08, \"dd\": 24.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"U\", \"px\": 40.16, \"dd\": 23.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"HAL\", \"px\": 33.59, \"dd\": 22.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"DELL\", \"px\": 461.56, \"dd\": 22.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-22\", \"sym\": \"PANW\", \"px\": 340.28, \"dd\": 21.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-10-22"
+   ]
+  },
+  {
+   "commit": "4af531e",
+   "at_utc": "2026-10-21T17:26+00:00",
+   "at_new_york": "2026-10-21T13:26-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-21"
+   ]
+  },
+  {
+   "commit": "7a91abd",
+   "at_utc": "2026-10-21T00:01+00:00",
+   "at_new_york": "2026-10-20T20:01-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/spy-events.json"
+   ]
+  },
+  {
+   "commit": "4268595",
+   "at_utc": "2026-10-20T17:23+00:00",
+   "at_new_york": "2026-10-20T13:23-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-20"
+   ]
+  },
+  {
+   "commit": "1a523e6",
+   "at_utc": "2026-10-20T00:30+00:00",
+   "at_new_york": "2026-10-19T20:30-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/signal-ledger.jsonl",
+    "docs/spy-events.json"
+   ],
+   "signal-ledger.jsonl": [
+    "{\"date\": \"2026-10-20\", \"sym\": \"ZS\", \"px\": 207.38, \"dd\": 38.5, \"trend\": true, \"rev\": 33.1, \"verdict\": \"pass\", \"target\": 336.99, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"NOW\", \"px\": 141.97, \"dd\": 26.4, \"trend\": true, \"rev\": 29.4, \"verdict\": \"pass\", \"target\": 192.97, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"SNOW\", \"px\": 306.84, \"dd\": 20.2, \"trend\": true, \"rev\": 43.8, \"verdict\": \"pass\", \"target\": 384.56, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"NFLX\", \"px\": 70.53, \"dd\": 43.5, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"CAVA\", \"px\": 57.25, \"dd\": 42.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"BE\", \"px\": 221.31, \"dd\": 37.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"INTC\", \"px\": 89.85, \"dd\": 36.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"HOOD\", \"px\": 98.87, \"dd\": 34.3, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"QCOM\", \"px\": 172.11, \"dd\": 33.8, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"AVGO\", \"px\": 328.75, \"dd\": 33.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"ADBE\", \"px\": 245.2, \"dd\": 32.6, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"IBM\", \"px\": 232.14, \"dd\": 30.2, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"F\", \"px\": 12.43, \"dd\": 30.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"MU\", \"px\": 878.84, \"dd\": 30.0, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"TSLA\", \"px\": 354.72, \"dd\": 28.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"PYPL\", \"px\": 56.7, \"dd\": 28.4, \"trend\": true, \"rev\": 6.5, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"DELL\", \"px\": 451.71, \"dd\": 24.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": true, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"SPOT\", \"px\": 530.46, \"dd\": 23.9, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"HAL\", \"px\": 33.5, \"dd\": 23.1, \"trend\": false, \"rev\": null, \"verdict\": \"trend-fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"WDAY\", \"px\": 190.81, \"dd\": 22.9, \"trend\": true, \"rev\": 17.7, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"U\", \"px\": 40.4, \"dd\": 22.5, \"trend\": true, \"rev\": 9.8, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"PANW\", \"px\": 342.0, \"dd\": 20.9, \"trend\": true, \"rev\": 24.0, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}",
+    "{\"date\": \"2026-10-20\", \"sym\": \"OKTA\", \"px\": 187.26, \"dd\": 20.3, \"trend\": true, \"rev\": 16.2, \"verdict\": \"fail\", \"forming\": false, \"held\": false, \"rule\": \"setup-f v1\"}"
+   ],
+   "history_days": [
+    "2026-10-20"
+   ]
+  },
+  {
+   "commit": "fcc9a4b",
+   "at_utc": "2026-10-19T18:48+00:00",
+   "at_new_york": "2026-10-19T14:48-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/focus.json",
+    "docs/history.json",
+    "docs/spy-events.json"
+   ],
+   "history_days": [
+    "2026-10-19"
+   ]
+  },
+  {
+   "commit": "c32eaf7",
+   "at_utc": "2026-10-16T23:45+00:00",
+   "at_new_york": "2026-10-16T19:45-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/.sent-trades.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-16"
+   ]
+  },
+  {
+   "commit": "c4e0fd4",
+   "at_utc": "2026-10-16T16:49+00:00",
+   "at_new_york": "2026-10-16T12:49-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-16"
+   ]
+  },
+  {
+   "commit": "69d8714",
+   "at_utc": "2026-10-15T23:45+00:00",
+   "at_new_york": "2026-10-15T19:45-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-15"
+   ]
+  },
+  {
+   "commit": "7ed8ea9",
+   "at_utc": "2026-10-15T17:13+00:00",
+   "at_new_york": "2026-10-15T13:13-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/.sent-trades.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-15"
+   ]
+  },
+  {
+   "commit": "1ff3419",
+   "at_utc": "2026-10-15T00:01+00:00",
+   "at_new_york": "2026-10-14T20:01-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "81fc10c",
+   "at_utc": "2026-10-14T17:23+00:00",
+   "at_new_york": "2026-10-14T13:23-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/.sent-trades.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-14"
+   ]
+  },
+  {
+   "commit": "6dca566",
+   "at_utc": "2026-10-14T00:26+00:00",
+   "at_new_york": "2026-10-13T20:26-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-14"
+   ]
+  },
+  {
+   "commit": "a6a684e",
+   "at_utc": "2026-10-13T19:24+00:00",
+   "at_new_york": "2026-10-13T15:24-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-13"
+   ]
+  },
+  {
+   "commit": "b8d6084",
+   "at_utc": "2026-10-13T02:40+00:00",
+   "at_new_york": "2026-10-12T22:40-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.forming-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-13"
+   ]
+  },
+  {
+   "commit": "b766d8d",
+   "at_utc": "2026-10-12T21:22+00:00",
+   "at_new_york": "2026-10-12T17:22-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/.sent-trades.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-12"
+   ]
+  },
+  {
+   "commit": "df42ff6",
+   "at_utc": "2026-10-10T01:04+00:00",
+   "at_new_york": "2026-10-09T21:04-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-10"
+   ]
+  },
+  {
+   "commit": "c13e89b",
+   "at_utc": "2026-10-09T18:28+00:00",
+   "at_new_york": "2026-10-09T14:28-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-09"
+   ]
+  },
+  {
+   "commit": "4a69de9",
+   "at_utc": "2026-10-09T01:19+00:00",
+   "at_new_york": "2026-10-08T21:19-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-09"
+   ]
+  },
+  {
+   "commit": "e4b8682",
+   "at_utc": "2026-10-08T18:57+00:00",
+   "at_new_york": "2026-10-08T14:57-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/.sent-trades.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-08"
+   ]
+  },
+  {
+   "commit": "28399f5",
+   "at_utc": "2026-10-08T01:08+00:00",
+   "at_new_york": "2026-10-07T21:08-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-08"
+   ]
+  },
+  {
+   "commit": "9d6fb9d",
+   "at_utc": "2026-10-07T19:01+00:00",
+   "at_new_york": "2026-10-07T15:01-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-07"
+   ]
+  },
+  {
+   "commit": "c0cb5ef",
+   "at_utc": "2026-10-07T00:52+00:00",
+   "at_new_york": "2026-10-06T20:52-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-07"
+   ]
+  },
+  {
+   "commit": "50c4aca",
+   "at_utc": "2026-10-06T18:31+00:00",
+   "at_new_york": "2026-10-06T14:31-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.ihs-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json",
+    "docs/ihs-paper.json"
+   ],
+   "ihs-paper.json": [
+    "[]"
+   ],
+   "history_days": [
+    "2026-10-06"
+   ]
+  },
+  {
+   "commit": "a12724d",
+   "at_utc": "2026-10-06T01:50+00:00",
+   "at_new_york": "2026-10-05T21:50-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-06"
+   ]
+  },
+  {
+   "commit": "4418aca",
+   "at_utc": "2026-10-03T00:36+00:00",
+   "at_new_york": "2026-10-02T20:36-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-03"
+   ]
+  },
+  {
+   "commit": "9ce03b4",
+   "at_utc": "2026-10-02T17:57+00:00",
+   "at_new_york": "2026-10-02T13:57-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-02"
+   ]
+  },
+  {
+   "commit": "ba216fd",
+   "at_utc": "2026-10-02T00:59+00:00",
+   "at_new_york": "2026-10-01T20:59-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json",
+    "trades.csv"
+   ],
+   "trades.csv": [
+    "2026-09-04-SHOP-big,call,big,2026-09-04,SHOP,E,27.93,182.19,120,2026-10-02,1,closed,2026-10-02,28.30,1.3,expired at intrinsic"
+   ],
+   "history_days": [
+    "2026-10-02"
+   ]
+  },
+  {
+   "commit": "23c60f1",
+   "at_utc": "2026-10-01T18:29+00:00",
+   "at_new_york": "2026-10-01T14:29-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-01"
+   ]
+  },
+  {
+   "commit": "c60dcc1",
+   "at_utc": "2026-10-01T00:39+00:00",
+   "at_new_york": "2026-09-30T20:39-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-10-01"
+   ]
+  },
+  {
+   "commit": "223c444",
+   "at_utc": "2026-09-30T18:03+00:00",
+   "at_new_york": "2026-09-30T14:03-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-30"
+   ]
+  },
+  {
+   "commit": "e96c028",
+   "at_utc": "2026-09-30T00:37+00:00",
+   "at_new_york": "2026-09-29T20:37-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-30"
+   ]
+  },
+  {
+   "commit": "9321cd0",
+   "at_utc": "2026-09-29T18:10+00:00",
+   "at_new_york": "2026-09-29T14:10-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-29"
+   ]
+  },
+  {
+   "commit": "2009ee3",
+   "at_utc": "2026-09-29T01:06+00:00",
+   "at_new_york": "2026-09-28T21:06-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-29"
+   ]
+  },
+  {
+   "commit": "79a45a3",
+   "at_utc": "2026-09-28T19:44+00:00",
+   "at_new_york": "2026-09-28T15:44-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-28"
+   ]
+  },
+  {
+   "commit": "2732222",
+   "at_utc": "2026-09-25T23:58+00:00",
+   "at_new_york": "2026-09-25T19:58-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "e064592",
+   "at_utc": "2026-09-25T17:21+00:00",
+   "at_new_york": "2026-09-25T13:21-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-25"
+   ]
+  },
+  {
+   "commit": "1ed8d4f",
+   "at_utc": "2026-09-24T23:55+00:00",
+   "at_new_york": "2026-09-24T19:55-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "4dcf7d0",
+   "at_utc": "2026-09-24T17:22+00:00",
+   "at_new_york": "2026-09-24T13:22-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-24"
+   ]
+  },
+  {
+   "commit": "835dd85",
+   "at_utc": "2026-09-23T23:48+00:00",
+   "at_new_york": "2026-09-23T19:48-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "09bdb46",
+   "at_utc": "2026-09-22T23:40+00:00",
+   "at_new_york": "2026-09-22T19:40-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "4acd3f4",
+   "at_utc": "2026-09-22T17:04+00:00",
+   "at_new_york": "2026-09-22T13:04-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-22"
+   ]
+  },
+  {
+   "commit": "4028d27",
+   "at_utc": "2026-09-22T00:11+00:00",
+   "at_new_york": "2026-09-21T20:11-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-22"
+   ]
+  },
+  {
+   "commit": "f09d167",
+   "at_utc": "2026-09-21T13:33+00:00",
+   "at_new_york": "2026-09-21T09:33-04:00",
+   "files": [
+    "docs/.alert-state.json",
+    "docs/.report-state.json",
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-21"
+   ]
+  },
+  {
+   "commit": "2f7c628",
+   "at_utc": "2026-09-18T23:19+00:00",
+   "at_new_york": "2026-09-18T19:19-04:00",
+   "files": [
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "456c96e",
+   "at_utc": "2026-09-18T23:18+00:00",
+   "at_new_york": "2026-09-18T19:18-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-18"
+   ]
+  },
+  {
+   "commit": "720273d",
+   "at_utc": "2026-09-18T19:30+00:00",
+   "at_new_york": "2026-09-18T15:30-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-18"
+   ]
+  },
+  {
+   "commit": "5aa9502",
+   "at_utc": "2026-09-18T17:04+00:00",
+   "at_new_york": "2026-09-18T13:04-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-18"
+   ]
+  },
+  {
+   "commit": "72d480f",
+   "at_utc": "2026-09-17T23:33+00:00",
+   "at_new_york": "2026-09-17T19:33-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "68fcfb8",
+   "at_utc": "2026-09-17T17:52+00:00",
+   "at_new_york": "2026-09-17T13:52-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "9adf396",
+   "at_utc": "2026-09-17T17:36+00:00",
+   "at_new_york": "2026-09-17T13:36-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "17f070a",
+   "at_utc": "2026-09-17T14:58+00:00",
+   "at_new_york": "2026-09-17T10:58-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "63ced0f",
+   "at_utc": "2026-09-17T14:40+00:00",
+   "at_new_york": "2026-09-17T10:40-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "25b78fd",
+   "at_utc": "2026-09-17T14:32+00:00",
+   "at_new_york": "2026-09-17T10:32-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "f1626aa",
+   "at_utc": "2026-09-17T14:22+00:00",
+   "at_new_york": "2026-09-17T10:22-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "c1abc7d",
+   "at_utc": "2026-09-17T00:07+00:00",
+   "at_new_york": "2026-09-16T20:07-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-17"
+   ]
+  },
+  {
+   "commit": "4906e6f",
+   "at_utc": "2026-09-16T23:39+00:00",
+   "at_new_york": "2026-09-16T19:39-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "fa2232c",
+   "at_utc": "2026-09-16T17:37+00:00",
+   "at_new_york": "2026-09-16T13:37-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "ca8fe02",
+   "at_utc": "2026-09-16T15:15+00:00",
+   "at_new_york": "2026-09-16T11:15-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "24168bf",
+   "at_utc": "2026-09-16T15:01+00:00",
+   "at_new_york": "2026-09-16T11:01-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "5559e0b",
+   "at_utc": "2026-09-16T14:58+00:00",
+   "at_new_york": "2026-09-16T10:58-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "2378dd3",
+   "at_utc": "2026-09-16T14:54+00:00",
+   "at_new_york": "2026-09-16T10:54-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "cabed2f",
+   "at_utc": "2026-09-16T14:08+00:00",
+   "at_new_york": "2026-09-16T10:08-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-16"
+   ]
+  },
+  {
+   "commit": "0c9adc5",
+   "at_utc": "2026-09-15T23:32+00:00",
+   "at_new_york": "2026-09-15T19:32-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-15"
+   ]
+  },
+  {
+   "commit": "31cc195",
+   "at_utc": "2026-09-15T19:52+00:00",
+   "at_new_york": "2026-09-15T15:52-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-15"
+   ]
+  },
+  {
+   "commit": "f8f0065",
+   "at_utc": "2026-09-15T17:39+00:00",
+   "at_new_york": "2026-09-15T13:39-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-15"
+   ]
+  },
+  {
+   "commit": "c6f8f4f",
+   "at_utc": "2026-09-15T15:46+00:00",
+   "at_new_york": "2026-09-15T11:46-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-15"
+   ]
+  },
+  {
+   "commit": "2d95242",
+   "at_utc": "2026-09-14T23:52+00:00",
+   "at_new_york": "2026-09-14T19:52-04:00",
+   "files": [
+    "docs/data.json"
+   ]
+  },
+  {
+   "commit": "41040c3",
+   "at_utc": "2026-09-14T20:47+00:00",
+   "at_new_york": "2026-09-14T16:47-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-14"
+   ]
+  },
+  {
+   "commit": "cc6b84f",
+   "at_utc": "2026-09-14T18:35+00:00",
+   "at_new_york": "2026-09-14T14:35-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-14"
+   ]
+  },
+  {
+   "commit": "59967e4",
+   "at_utc": "2026-09-14T15:59+00:00",
+   "at_new_york": "2026-09-14T11:59-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-14"
+   ]
+  },
+  {
+   "commit": "7ba9f1e",
+   "at_utc": "2026-09-14T14:30+00:00",
+   "at_new_york": "2026-09-14T10:30-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-14"
+   ]
+  },
+  {
+   "commit": "eea5fe6",
+   "at_utc": "2026-09-11T23:16+00:00",
+   "at_new_york": "2026-09-11T19:16-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-11"
+   ]
+  },
+  {
+   "commit": "42f7f89",
+   "at_utc": "2026-09-11T18:34+00:00",
+   "at_new_york": "2026-09-11T14:34-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-11"
+   ]
+  },
+  {
+   "commit": "9ea4a5d",
+   "at_utc": "2026-09-11T17:00+00:00",
+   "at_new_york": "2026-09-11T13:00-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-11"
+   ]
+  },
+  {
+   "commit": "2956f3b",
+   "at_utc": "2026-09-10T23:11+00:00",
+   "at_new_york": "2026-09-10T19:11-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-10"
+   ]
+  },
+  {
+   "commit": "3b72aaa",
+   "at_utc": "2026-09-10T16:20+00:00",
+   "at_new_york": "2026-09-10T12:20-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-10"
+   ]
+  },
+  {
+   "commit": "4ca9f9c",
+   "at_utc": "2026-09-10T16:09+00:00",
+   "at_new_york": "2026-09-10T12:09-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-10"
+   ]
+  },
+  {
+   "commit": "119a5d2",
+   "at_utc": "2026-09-10T16:04+00:00",
+   "at_new_york": "2026-09-10T12:04-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-10"
+   ]
+  },
+  {
+   "commit": "1ee37f4",
+   "at_utc": "2026-09-10T15:51+00:00",
+   "at_new_york": "2026-09-10T11:51-04:00",
+   "files": [
+    "docs/data.json",
+    "docs/history.json"
+   ],
+   "history_days": [
+    "2026-09-10"
+   ]
+  }
+ ],
+ "summary": {
+  "commits": 99,
+  "signal_ledger_rows": 188,
+  "trades_rows": 2,
+  "ihs_rows": 1,
+  "history_days": [
+   "2026-09-10",
+   "2026-09-11",
+   "2026-09-14",
+   "2026-09-15",
+   "2026-09-16",
+   "2026-09-17",
+   "2026-09-18",
+   "2026-09-21",
+   "2026-09-22",
+   "2026-09-24",
+   "2026-09-25",
+   "2026-09-28",
+   "2026-09-29",
+   "2026-09-30",
+   "2026-10-01",
+   "2026-10-02",
+   "2026-10-03",
+   "2026-10-06",
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09",
+   "2026-10-10",
+   "2026-10-12",
+   "2026-10-13",
+   "2026-10-14",
+   "2026-10-15",
+   "2026-10-16",
+   "2026-10-19",
+   "2026-10-20",
+   "2026-10-21",
+   "2026-10-22",
+   "2026-10-23",
+   "2026-10-26",
+   "2026-10-27",
+   "2026-10-28",
+   "2026-10-29",
+   "2026-10-30",
+   "2026-11-02",
+   "2026-11-03",
+   "2026-11-04",
+   "2026-11-05"
+  ]
+ }
+}

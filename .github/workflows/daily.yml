@@ -1,15 +1,15 @@
 name: daily scan
 
 on:
-  schedule:
     # BACKSTOP ONLY -- for when the Mac is off. Measured on six scheduled runs,
     # this cron fired 124 to 228 minutes late EVERY time; GitHub's scheduler is
     # best-effort on public repos and the top of the hour is the worst slot. The
     # real schedule is launchd on the Mac (run_local.sh). Hourly here would only
     # queue up runs that arrive hours after they are useful, so it is twice a day
     # on an odd minute.
-    - cron: '23 12 * * 1-5'
-    - cron: '23 21 * * 1-5'
+    # DISABLED 2026-11-05 (ledger audit): ran 2-4 h late on UTC dates with stale prices, overwrote the box's data,
+    # closed expiring options a day early and wrote fake trading days. The Hetzner box is the scheduler;
+    # watchdog.yml covers it being down. Manual runs only.
   workflow_dispatch:
 
 permissions:

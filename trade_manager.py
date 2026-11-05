@@ -298,7 +298,7 @@ def board_text(rs):
     """The live board: every open real position with its live price and P&L, one message, edited in place."""
     import scan_daily as S
     from ticket_bot import quote
-    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5)))
+    now = datetime.datetime.now(ZoneInfo("America/Chicago"))
     L = [f"**📊 LIVE BOARD** · {now.strftime('%a %-I:%M %p')} CT · account ${S.PLAN['balance']:,.0f} (Schwab {S.PLAN.get('balance_as_of', '')[5:]})"]
     tot = 0.0
     for r in [r for r in rs if r["acct"] == "real" and r["status"] == "open"]:
@@ -320,7 +320,7 @@ def board_text(rs):
 
 def board(rs, st):
     """Post the board once, then edit the same message every minute (no new messages, no pings)."""
-    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5))); day = now.date().isoformat()
+    now = datetime.datetime.now(ZoneInfo("America/Chicago")); day = now.date().isoformat()
     live = now.weekday() < 5 and (8, 25) <= (now.hour, now.minute) <= (15, 5)
     if not live and st.get("board_day") == day: return
     if not st.get("board_ch"):
@@ -395,7 +395,7 @@ def main():
     try:
         watch(rows(), st)
         for fid in FRIENDS: watch(rows(fid), st, f"<@{fid}> ")
-        now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-5))); day = now.date().isoformat()
+        now = datetime.datetime.now(ZoneInfo("America/Chicago")); day = now.date().isoformat()
         if now.weekday() < 5 and (now.hour, now.minute) >= (15, 10) and st.get("charts_day") != day:   # once, after the close
             st["charts_day"] = day; watch_charts(rows(), st)
             for fid in FRIENDS: watch_charts(rows(fid), st, f"<@{fid}> ")
