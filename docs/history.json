@@ -1427,5 +1427,24 @@
    "XYZ"
   ],
   "S": []
+ },
+ {
+  "date": "2026-11-05",
+  "vix": 16.610000610351562,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [
+   "ZS",
+   "SHOP"
+  ],
+  "D": [
+   "PYPL",
+   "SPOT",
+   "MRNA",
+   "DOCU",
+   "TXN"
+  ],
+  "C": [],
+  "S": []
  }
 ]
