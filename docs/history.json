@@ -1430,7 +1430,7 @@
  },
  {
   "date": "2026-11-05",
-  "vix": 26.540000915527344,
+  "vix": 25.950000762939453,
   "regime": "HIGH",
   "vix_fires": false,
   "F": [
@@ -1438,21 +1438,19 @@
   ],
   "D": [
    "PYPL",
-   "SPOT",
    "REGN",
-   "SG",
+   "SPOT",
    "MRNA",
-   "BMY",
-   "DOCU",
    "U",
+   "LLY",
+   "GILD",
    "XYZ"
   ],
   "C": [],
   "S": [
    "TSLA",
    "AVGO",
-   "ORCL",
-   "COIN"
+   "ORCL"
   ]
  }
 ]
