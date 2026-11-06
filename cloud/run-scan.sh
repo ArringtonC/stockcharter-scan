@@ -30,7 +30,8 @@ python3 context.py || echo "context failed"                    # information onl
 python3 cost_log.py || echo "cost log failed"                 # read-only: live option bid/ask for the Focus names -> ~/.ledger-costs/quotes.jsonl
 python3 autotrade.py || echo "autotrade failed"
 python3 ticket_bot.py || echo "ticket bot failed"
-python3 f_full.py || echo "full S&P scan failed"                  # after the close only: Setup F on the full S&P 500 for the F FULL S&P book
+python3 f_full.py || echo "full S&P scan failed"
+python3 opportunities.py nightly || echo "opportunities failed"       # after the close only: copy V1 results, replay open plans -> docs/opportunities.jsonl                  # after the close only: Setup F on the full S&P 500 for the F FULL S&P book
 python3 calls_paper.py daily || echo "calls paper daily failed"   # paper only: new F episodes and G1 events -> queued call entries
 python3 portfolio_manager.py || echo "portfolio manager failed"   # paper only: F V1, Shadow C, F CAP 70, F FULL S&P books
 git add docs/ trades.csv

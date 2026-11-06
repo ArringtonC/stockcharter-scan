@@ -2292,7 +2292,9 @@ if __name__ == "__main__":
     try: spy_event(d)
     except Exception as e: print("spy event failed", str(e)[:80])
     try: n = signal_ledger(d, open_); print(f"  signal ledger: {n} candidates logged" if n else "  signal ledger: already logged today")
-    except Exception as e: print("signal ledger failed", str(e)[:80])
+    except Exception as e: print(f"  signal ledger failed: {str(e)[:60]}")
+    try: import opportunities as O; n = O.from_scan(d); print(f"  opportunities: {n} new plan rows")   # plan at alert time (trade-plan-design.md)
+    except Exception as e: print("opportunities failed", str(e)[:80])
     print(f"{d['date']}  vix {d['vix']:.2f} {d['regime']}  F={len(d['F'])} D={len(d['D'])} C={len(d['C'])} "
           f"S={len(d['S'])}  open={len(open_)} closed={len(closed)}  errors={len(d['errors'])}"
           f"  charts={len(d['charts'])}")
