@@ -1455,27 +1455,23 @@
  },
  {
   "date": "2026-11-06",
-  "vix": 26.799999237060547,
-  "regime": "HIGH",
+  "vix": 24.65999984741211,
+  "regime": "ELEVATED",
   "vix_fires": false,
   "F": [
    "ZS"
   ],
   "D": [
-   "REGN",
+   "PYPL",
    "SPOT",
+   "REGN",
    "LLY",
-   "GILD",
    "GM",
-   "XYZ",
-   "SG"
+   "GILD"
   ],
   "C": [
    "U"
   ],
-  "S": [
-   "TSLA",
-   "AVGO"
-  ]
+  "S": []
  }
 ]
