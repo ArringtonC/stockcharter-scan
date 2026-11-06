@@ -1455,8 +1455,8 @@
  },
  {
   "date": "2026-11-06",
-  "vix": 24.09000015258789,
-  "regime": "ELEVATED",
+  "vix": 25.639999389648438,
+  "regime": "HIGH",
   "vix_fires": false,
   "F": [
    "ZS"
@@ -1465,7 +1465,6 @@
    "PYPL",
    "SPOT",
    "REGN",
-   "GM",
    "LLY",
    "GILD"
   ],
