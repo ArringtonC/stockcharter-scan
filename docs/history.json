@@ -1452,5 +1452,30 @@
    "AVGO",
    "ORCL"
   ]
+ },
+ {
+  "date": "2026-11-06",
+  "vix": 27.110000610351562,
+  "regime": "HIGH",
+  "vix_fires": false,
+  "F": [
+   "ZS"
+  ],
+  "D": [
+   "PYPL",
+   "REGN",
+   "SPOT",
+   "MRNA",
+   "U",
+   "LLY",
+   "GILD",
+   "XYZ"
+  ],
+  "C": [],
+  "S": [
+   "TSLA",
+   "AVGO",
+   "ORCL"
+  ]
  }
 ]
