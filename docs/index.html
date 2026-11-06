@@ -817,6 +817,36 @@ function bubbleTimeline(b){
     ${past}${todayRow}${future}`;
 }
 
+/* What the tested rules say to do right now, and what each could make, from today's numbers.
+   Every figure is the rule's own backtest result; the evidence column says how good it is. Not advice. */
+function rulesNow(d){
+  const b=d.bubble, h=(d.report||{}).here||{}; if(!b) return '';
+  const bal=h.balance||0, asof=h.as_of||'', stale=asof&&(new Date(d.date)-new Date(asof))/864e5>7;
+  const line=b.qqq_hi*0.8, need=(1-line/b.qqq)*100, back=(b.qqq_hi/line-1)*100, v3=b.vix3||[], fall=v3.length===3&&v3[2]<v3[1]&&v3[1]<v3[0];
+  const $=x=>'$'+Math.round(x).toLocaleString('en-US');
+  const row=(what,rule,make,ev)=>`<tr><td><b>${what}</b></td><td>${rule}</td><td>${make}</td><td class="miss">${ev}</td></tr>`;
+  const F=(d.F||[]).map(x=>{const n=Math.floor(0.07*bal/x.px), cost=n*x.px, gain=n*(x.tgt-x.px);
+    return row(`Setup F: ${esc(x.sym)}`,`${n} share${n===1?'':'s'} ≈ ${$(cost)} at $${x.px.toFixed(2)} · target $${x.tgt.toFixed(2)} (+${((x.tgt/x.px-1)*100).toFixed(0)}%) · no stop · up to 1 year`,
+      `Target hit: <b>+${$(gain)}</b>`,'On a fair stock list, F alone ≈ SPY. As a small sleeve next to SPY: 20–25%/yr with deeper drops. A few stocks carry most of the gain.');}).join('');
+  return `<div class="sec" id="rules-now">
+    <h2>What the rules say now <span class="tag watch">not advice</span></h2>
+    <p class="lede">Your own tested rules, today's numbers, and what each could make. Account ${$(bal)} as of ${esc(asof)}${stale?' <b style="color:var(--dn)">(stale: paste a fresh balance)</b>':''}.</p>
+    <div class="tw"><table><thead><tr><th>Action</th><th>Rule</th><th>What it could make</th><th>Evidence</th></tr></thead><tbody>
+    ${row('Hold the Phase 3 cash',`No new QQQ until Phase 4. QQQ needs ${need>0?need.toFixed(1)+'% more':'nothing more'} to reach the line $${line.toFixed(2)}.`,'Avoids the rest of the drop.','Replayed on 1973, 2000 and 2021: beat holding by 1–9%. One live episode.')}
+    ${row('Setup VIX card',`When VIX (now ${b.vix.toFixed(1)}) falls 3 closes in a row${fall?' — <b>it has</b>':` — last 3: ${v3.map(x=>x.toFixed(1)).join(' → ')}`}: $1,000 QQQ call ~30 days out, hold 21 sessions, no stop.`,'Average <b>+$640 per $1,000</b>. 58% win. 13% lose it all. Bad years: −15% (2022), −34% (2024).','286 signals over 15 years. Modeled option prices; few separate episodes.')}
+    ${row('Phase 4: cash back into QQQ',`After QQQ is 20%+ down and VIX is falling. Deposits back to 60/40.`,`QQQ back from $${line.toFixed(0)} to its $${b.qqq_hi.toFixed(0)} high = +${back.toFixed(0)}%. On $10,000 of cash: <b>+${$(100*back)}</b>. In 2022 that took about 2 years.`,'Not tested. One episode.')}
+    ${F}
+    ${row('Short-dated options','Only with: sell at 2×, cut at −50%, no 0–1 day options, no holds through earnings.','Real result Sep 22 – Oct 30: +$733, almost all one GOOG put.','8 put studies and the V1 tests: buying short-dated options loses after costs on average.')}
+    </tbody></table></div>
+    <h3 style="margin:14px 0 6px">What the account can make</h3>
+    <div class="row tight"><div class="sym">15%</div><div class="main"><div class="t">SPY alone: about <b>${$(bal*0.15)}</b> a year</div></div></div>
+    <div class="row tight"><div class="sym">20–25%</div><div class="main"><div class="t">The plan (SPY core + F sleeve): about <b>${$(bal*0.20)}–${$(bal*0.25)}</b> a year, with drops of 30–40% possible</div></div></div>
+    <div class="row tight"><div class="sym">once</div><div class="main"><div class="t">Phase 4 cash move + a Setup VIX win: about <b>$1,000–3,000</b>, if this drop plays out like past ones</div></div></div>
+    <div class="row tight"><div class="sym">$90k</div><div class="main"><div class="t">What $3,000 a month needs. The account size is the limit, not the strategy. Each $1,000 deposited earns more over time than any setup tested.</div></div></div>
+    <p class="more">Sources: bubble-plan.md, vix-trend.md, f-audit, portfolio-pit, puts/*-results.md, account plan. Numbers update with each scan.</p>
+  </div>`;
+}
+
 /* S&P 500 adds and drops. Index funds must buy what joins and sell what leaves,
    so these names move for reasons that have nothing to do with the setups. */
 function spChanges(d){
@@ -985,6 +1015,7 @@ function renderToday(d,state){
   ${todayTrades(d)}
 
   ${bubblePlan(d)}
+  ${rulesNow(d)}
 
   ${spChanges(d)}
 
