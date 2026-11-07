@@ -2012,6 +2012,9 @@ def market_report(d):
             M += ["", f"<b>DELIVERY THIS WEEK</b> · {w['ok']} of {w['slots']} runs went out · {w['recovered_after_retry']} needed a retry"
                       f" · {w['never_ran_ok']} never succeeded · {w['ran_but_sent_nothing']} closing runs sent nothing"]
         except Exception as e: print(f"delivery summary failed: {str(e)[:60]}")
+        try:
+            import hedge_watch; M += ["", hedge_watch.line()]   # paper log of the put-hedge idea, not a rule
+        except Exception as e: print(f"hedge line failed: {str(e)[:60]}")
     M = alerts(d, m) + M
     return "\n".join(M)
 

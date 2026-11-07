@@ -32,6 +32,7 @@ python3 autotrade.py || echo "autotrade failed"
 python3 ticket_bot.py || echo "ticket bot failed"
 python3 f_full.py || echo "full S&P scan failed"
 python3 opportunities.py nightly || echo "opportunities failed"       # after the close only: copy V1 results, replay open plans -> docs/opportunities.jsonl                  # after the close only: Setup F on the full S&P 500 for the F FULL S&P book
+python3 hedge_watch.py nightly || echo "hedge watch failed"             # paper only: forward log of the Phase-3 put hedge idea (V2 vs V1 vs random) -> docs/hedge-log.json
 python3 calls_paper.py daily || echo "calls paper daily failed"   # paper only: new F episodes and G1 events -> queued call entries
 python3 portfolio_manager.py || echo "portfolio manager failed"   # paper only: F V1, Shadow C, F CAP 70, F FULL S&P books
 git add docs/ trades.csv

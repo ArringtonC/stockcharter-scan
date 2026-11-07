@@ -1,0 +1,41 @@
+{
+ "start": "2026-11-06",
+ "rows": [],
+ "asof": "2026-11-06",
+ "summary": {
+  "V2": {
+   "triggers": 0,
+   "closed": 0,
+   "open": 0,
+   "won": 0,
+   "total_per100": 0,
+   "total_contract": 0,
+   "doubled": 0
+  },
+  "V1": {
+   "triggers": 0,
+   "closed": 0,
+   "open": 0,
+   "won": 0,
+   "total_per100": 0,
+   "total_contract": 0,
+   "doubled": 0
+  },
+  "RND": {
+   "triggers": 0,
+   "closed": 0,
+   "open": 0,
+   "won": 0,
+   "total_per100": 0,
+   "total_contract": 0,
+   "doubled": 0
+  },
+  "verdict": "not enough (needs 8 V2 triggers)"
+ },
+ "state": {
+  "e10": 685.42,
+  "e30": 708.6,
+  "below": "10 is below 30",
+  "vix": 25.639999389648438
+ }
+}
