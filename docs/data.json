@@ -1,24 +1,24 @@
 {
- "date": "2026-11-08",
- "stamp": "2026-11-09 00:30 UTC",
+ "date": "2026-11-09",
+ "stamp": "2026-11-09 13:00 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 25.639999389648438,
+ "vix": 23.280000686645508,
  "vix5": [
-  21.149999618530273,
   20.829999923706055,
   16.610000610351562,
   28.18000030517578,
-  25.639999389648438
+  25.639999389648438,
+  23.280000686645508
  ],
  "vix_hi10": 28.18000030517578,
  "qqq": 656.0999755859375,
  "qdd": -13.63241466177535,
- "regime": "HIGH",
- "advice": "Everything live. Size up longs. Setup S works here.",
+ "regime": "ELEVATED",
+ "advice": "Setup F yes. Do NOT short \u2014 worst zone (\u22122.89pp).",
  "peaked": true,
- "falling": false,
- "vix_fires": false,
+ "falling": true,
+ "vix_fires": true,
  "F": [
   {
    "sym": "ZS",
@@ -1186,7 +1186,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 439,
+   "days": 438,
    "now": 12.010000228881836,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1230,7 +1230,7 @@
    "exit": "Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
    "kills": "A close back under $180, which would undo the breakout that produced the signal.",
    "odds": null,
-   "days": 12,
+   "days": 11,
    "now": 165.41000366210938,
    "target": 253.72,
    "cost": 392.0,
@@ -1252,7 +1252,7 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 439,
+   "days": 438,
    "now": 4.960000038146973,
    "target": 12.34,
    "cost": 468.0,
@@ -1465,74 +1465,108 @@
   "USO": 0.13494366102151378,
   "USO_px": 148.41,
   "USO_chg": 0.19999999999998863,
-  "NQ=F": -0.46150580112791495,
-  "NQ=F_px": 26960.25,
-  "NQ=F_chg": -125.0,
-  "CL=F": -0.5614884949906473,
-  "CL=F_px": 90.32,
-  "CL=F_chg": -0.5100000000000051,
+  "NQ=F": 1.0642323774009865,
+  "NQ=F_px": 27373.5,
+  "NQ=F_chg": 288.25,
+  "CL=F": -3.930419464934487,
+  "CL=F_px": 87.26,
+  "CL=F_chg": -3.569999999999993,
   "^TNX": 0.4548273723382401,
   "^TNX_px": 4.859,
   "^TNX_chg": 0.02200000000000024,
-  "^VIX": -9.013484740951029,
-  "^VIX_px": 25.64,
-  "^VIX_chg": -2.539999999999999,
+  "^VIX": -9.243369734789397,
+  "^VIX_px": 23.27,
+  "^VIX_chg": -2.370000000000001,
   "exp_by": "Fri",
   "QQQ_exp": 25.35,
   "SPY_exp": 19.22,
   "fut": [
    [
     "S&P",
-    7400.0,
-    -0.027019724398813505,
+    7475.5,
+    0.9929748716563047,
     true
    ],
    [
     "Nasdaq",
-    26958.5,
-    -0.46796688234370665,
+    27371.25,
+    1.0559252729806845,
     true
    ],
    [
     "Dow",
-    51570.0,
-    0.36002724530503905,
+    51993.0,
+    1.1832246764620136,
     true
    ],
    [
     "Russell",
-    2766.89990234375,
-    0.23183851996921856,
+    2801.699951171875,
+    1.4924814769742722,
     true
    ],
    [
     "Oil",
-    90.30000305175781,
-    -0.583506295951286,
+    87.22000122070312,
+    -3.9744583701167624,
     true
    ],
    [
     "Gold",
-    4075.39990234375,
-    0.012270240054546022,
+    4132.10009765625,
+    1.4037202553024652,
     true
    ]
   ],
   "QQQ_pre": [
    656.1,
-   657.5
+   662.48
   ],
   "SPY_pre": [
    735.29,
-   736.53
+   742.12
   ],
   "USO_pre": [
    148.41,
-   148.213
+   143.17
   ],
   "^VIX_pre": [
-   28.18,
-   25.639999389648438
+   25.64,
+   23.209999084472656
+  ],
+  "gaps": [
+   [
+    "NVDA",
+    -5.1
+   ],
+   [
+    "AMD",
+    4.4
+   ],
+   [
+    "TTD",
+    3.6
+   ],
+   [
+    "BE",
+    3.4
+   ],
+   [
+    "AVGO",
+    3.2
+   ],
+   [
+    "AMZN",
+    3.1
+   ],
+   [
+    "GOOGL",
+    3.0
+   ],
+   [
+    "META",
+    2.5
+   ]
   ],
   "heads": [],
   "tnx_since": "2023",
@@ -1564,22 +1598,6 @@
    "what": "quarterly report",
    "acc": "0001628280-26-071243",
    "url": "https://www.sec.gov/Archives/edgar/data/1477815/000162828026071243/sg-20260927.htm"
-  },
-  {
-   "sym": "SG",
-   "form": "8-K",
-   "date": "2026-11-05",
-   "what": "earnings results",
-   "acc": "0001628280-26-071064",
-   "url": "https://www.sec.gov/Archives/edgar/data/1477815/000162828026071064/sg-20261105.htm"
-  },
-  {
-   "sym": "SNAP",
-   "form": "10-Q",
-   "date": "2026-11-05",
-   "what": "quarterly report",
-   "acc": "0001564408-26-000067",
-   "url": "https://www.sec.gov/Archives/edgar/data/1564408/000156440826000067/snap-20260930.htm"
   }
  ],
  "forming": [],
@@ -1647,13 +1665,13 @@
   "qqq": 656.0999755859375,
   "qqq_hi": 759.6599731445312,
   "qqq_off": -13.6,
-  "vix": 25.639999389648438,
-  "vix_buy": false,
+  "vix": 23.280000686645508,
+  "vix_buy": true,
   "vix_max": 28.18,
   "vix3": [
-   16.61,
    28.18,
-   25.64
+   25.64,
+   23.28
   ],
   "cpi_series": [
    [
@@ -2066,6 +2084,12 @@
     "qqq_off": -13.6,
     "vix_max": 28.18,
     "vix": 25.64
+   },
+   "2026-11-09": {
+    "pct": 84,
+    "qqq_off": -13.6,
+    "vix_max": 28.18,
+    "vix": 23.28
    }
   }
  },
@@ -2384,7 +2408,7 @@
    "now": 39.995000000000005,
    "spot": 77.61000061035156,
    "intrinsic": 40.11000061035156,
-   "dte": 68,
+   "dte": 67,
    "sessions": 44,
    "mark": "alpaca",
    "iv": 0.41502302365336347
@@ -2409,10 +2433,10 @@
    "now": 28.85,
    "spot": 192.89999389648438,
    "intrinsic": 22.899993896484375,
-   "dte": 40,
+   "dte": 39,
    "sessions": 44,
    "mark": "alpaca",
-   "iv": 0.5854
+   "iv": 0.5935
   },
   {
    "id": "2026-09-11-QCOM-sh",
@@ -2480,10 +2504,10 @@
    "now": 0.05500000000000001,
    "spot": 101.97000122070312,
    "intrinsic": 0.0,
-   "dte": 40,
+   "dte": 39,
    "sessions": 37,
    "mark": "alpaca",
-   "iv": 0.6506
+   "iv": 0.659
   },
   {
    "id": "2026-09-23-NOW-auto",
@@ -2643,7 +2667,7 @@
    "now": 9.105,
    "spot": 12.010000228881836,
    "intrinsic": 9.010000228881836,
-   "dte": 439,
+   "dte": 438,
    "sessions": 30,
    "mark": "alpaca",
    "iv": 0.5909970868389733
@@ -2668,10 +2692,10 @@
    "now": 1.55,
    "spot": 4.960000038146973,
    "intrinsic": 0.0,
-   "dte": 439,
+   "dte": 438,
    "sessions": 30,
    "mark": "alpaca",
-   "iv": 0.6986
+   "iv": 0.6995
   },
   {
    "id": "2026-09-28-NOW-leap",
@@ -2693,10 +2717,10 @@
    "now": 23.88,
    "spot": 101.97000122070312,
    "intrinsic": 0.0,
-   "dte": 768,
+   "dte": 767,
    "sessions": 29,
    "mark": "alpaca",
-   "iv": 0.5312
+   "iv": 0.5316
   },
   {
    "id": "2026-09-28-SHOP-leap",
@@ -2718,10 +2742,10 @@
    "now": 56.735,
    "spot": 148.91000366210938,
    "intrinsic": 8.910003662109375,
-   "dte": 768,
+   "dte": 767,
    "sessions": 29,
    "mark": "alpaca",
-   "iv": 0.5903
+   "iv": 0.5907
   },
   {
    "id": "2026-09-28-HOOD-leap",
@@ -2743,10 +2767,10 @@
    "now": 21.655,
    "spot": 80.91000366210938,
    "intrinsic": 0.0,
-   "dte": 768,
+   "dte": 767,
    "sessions": 29,
    "mark": "alpaca",
-   "iv": 0.6495
+   "iv": 0.6499
   },
   {
    "id": "2026-09-30-ZS-f",
@@ -2791,10 +2815,10 @@
    "now": 66.9795,
    "spot": 197.66000366210938,
    "intrinsic": 0.0,
-   "dte": 586,
+   "dte": 585,
    "sessions": 26,
    "mark": "alpaca",
-   "iv": 0.653
+   "iv": 0.6537
   },
   {
    "id": "2026-10-08-AVGO-f",
@@ -3916,29 +3940,6 @@
  "week": {
   "days": [
    {
-    "date": "2026-11-04",
-    "vix": 16.610000610351562,
-    "regime": "NORMAL",
-    "vix_fires": false,
-    "F": [
-     "ZS"
-    ],
-    "D": [
-     "WDAY",
-     "PYPL",
-     "TXN",
-     "BMY",
-     "DOCU",
-     "REGN",
-     "SPOT"
-    ],
-    "C": [
-     "GM",
-     "XYZ"
-    ],
-    "S": []
-   },
-   {
     "date": "2026-11-05",
     "vix": 28.18000030517578,
     "regime": "HIGH",
@@ -4022,6 +4023,26 @@
      "U"
     ],
     "S": []
+   },
+   {
+    "date": "2026-11-09",
+    "vix": 23.280000686645508,
+    "regime": "ELEVATED",
+    "vix_fires": true,
+    "F": [
+     "ZS"
+    ],
+    "D": [
+     "PYPL",
+     "SPOT",
+     "REGN",
+     "LLY",
+     "GILD"
+    ],
+    "C": [
+     "U"
+    ],
+    "S": []
    }
   ],
   "closed": [
@@ -4072,13 +4093,6 @@
     "open_n": 1,
     "open_mean": -6.775568385615505
    },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": -9.892681994819752
-   },
    "none": {
     "wins": 0,
     "losses": 1,
@@ -4086,72 +4100,29 @@
     "open_n": 3,
     "open_mean": 44.873912560843856
    },
-   "E": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 5,
-    "open_mean": -1.596810675042846
-   },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 19,
     "open_mean": -27.417860963975755
+   },
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": -9.892681994819752
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 5,
+    "open_mean": -1.596810675042846
    }
   },
   "produced": [
-   {
-    "date": "2026-11-04",
-    "sym": "BMY",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "DOCU",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "GM",
-    "setup": "C"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "PYPL",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "REGN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "SPOT",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "TXN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "WDAY",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "XYZ",
-    "setup": "C"
-   },
-   {
-    "date": "2026-11-04",
-    "sym": "ZS",
-    "setup": "F"
-   },
    {
     "date": "2026-11-05",
     "sym": "AVGO",
@@ -4314,6 +4285,41 @@
    },
    {
     "date": "2026-11-08",
+    "sym": "ZS",
+    "setup": "F"
+   },
+   {
+    "date": "2026-11-09",
+    "sym": "GILD",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-09",
+    "sym": "LLY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-09",
+    "sym": "PYPL",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-09",
+    "sym": "REGN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-09",
+    "sym": "SPOT",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-09",
+    "sym": "U",
+    "setup": "C"
+   },
+   {
+    "date": "2026-11-09",
     "sym": "ZS",
     "setup": "F"
    }
@@ -228041,13 +228047,13 @@
   }
  },
  "report": {
-  "week": "2026-W45",
-  "final": true,
-  "from_": "2026-11-02",
-  "to_": "2026-11-06",
+  "week": "2026-W46",
+  "final": false,
+  "from_": "2026-11-09",
+  "to_": "2026-11-13",
   "had_before": true,
-  "before_week": "2026-W44",
-  "before_date": "2026-11-01",
+  "before_week": "2026-W45",
+  "before_date": "2026-11-08",
   "here": {
    "balance": 14529.91,
    "as_of": "2026-10-21",
@@ -228055,8 +228061,8 @@
    "real_n": 4,
    "real_pl": 27.1,
    "paper_pl": -20.8,
-   "fired": 7,
-   "sessions": 7
+   "fired": 1,
+   "sessions": 1
   },
   "changed": [
    {
@@ -228069,19 +228075,19 @@
    },
    {
     "label": "Open \u00b7 real",
-    "before": 9.3,
+    "before": 27.1,
     "after": 27.1,
     "fmt": "pct",
     "sub": "4 positions",
-    "delta": 17.8
+    "delta": 0.0
    },
    {
     "label": "Open \u00b7 paper",
-    "before": -10.4,
+    "before": -20.8,
     "after": -20.8,
     "fmt": "pct",
     "sub": "25 positions",
-    "delta": -10.4
+    "delta": 0.0
    },
    {
     "label": "Closed real money",
@@ -228098,12 +228104,12 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 439,
+    "dte": 438,
     "acct": "real",
     "setup": "none",
-    "before": 8.59,
+    "before": 9.105,
     "after": 9.105,
-    "before_pl": 84.46935532362667,
+    "before_pl": 95.52892668470558,
     "after_pl": 95.52892668470558,
     "isnew": false
    },
@@ -228114,9 +228120,9 @@
     "dte": null,
     "acct": "real",
     "setup": "none",
-    "before": 11.069999694824219,
+    "before": 12.010000228881836,
     "after": 12.010000228881836,
-    "before_pl": 59.496292753136885,
+    "before_pl": 73.03979812814218,
     "after_pl": 73.03979812814218,
     "isnew": false
    },
@@ -228127,9 +228133,9 @@
     "dte": null,
     "acct": "real",
     "setup": "F",
-    "before": 105.12000274658203,
+    "before": 101.97000122070312,
     "after": 101.97000122070312,
-    "before_pl": -23.88675494418795,
+    "before_pl": -26.167546723116995,
     "after_pl": -26.167546723116995,
     "isnew": false
    },
@@ -228137,12 +228143,12 @@
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 439,
+    "dte": 438,
     "acct": "real",
     "setup": "none",
-    "before": 1.85,
+    "before": 1.55,
     "after": 1.55,
-    "before_pl": -21.162533026506438,
+    "before_pl": -33.946987130316195,
     "after_pl": -33.946987130316195,
     "isnew": false
    },
@@ -228150,12 +228156,12 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 68,
+    "dte": 67,
     "acct": "big",
     "setup": "E",
-    "before": 45.575,
+    "before": 39.995000000000005,
     "after": 39.995000000000005,
-    "before_pl": 73.75142966069387,
+    "before_pl": 52.47807853602746,
     "after_pl": 52.47807853602746,
     "isnew": false
    },
@@ -228166,9 +228172,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "F",
-    "before": 157.49000549316406,
+    "before": 148.91000366210938,
     "after": 148.91000366210938,
-    "before_pl": 17.442211404298334,
+    "before_pl": 11.043999748030853,
     "after_pl": 11.043999748030853,
     "isnew": false
    },
@@ -228176,12 +228182,12 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 768,
+    "dte": 767,
     "acct": "bot-leaps",
     "setup": "F",
-    "before": 64.50999999999999,
+    "before": 56.735,
     "after": 56.735,
-    "before_pl": 20.579439252336428,
+    "before_pl": 6.046728971962612,
     "after_pl": 6.046728971962612,
     "isnew": false
    },
@@ -228192,9 +228198,9 @@
     "dte": null,
     "acct": "paper-auto",
     "setup": "F",
-    "before": 157.49000549316406,
+    "before": 148.91000366210938,
     "after": 148.91000366210938,
-    "before_pl": 10.472787242679615,
+    "before_pl": 4.454267439751236,
     "after_pl": 4.454267439751236,
     "isnew": false
    },
@@ -228205,9 +228211,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "E",
-    "before": 257.80999755859375,
+    "before": 245.0,
     "after": 245.0,
-    "before_pl": 9.841931557493822,
+    "before_pl": 4.38413361169101,
     "after_pl": 4.38413361169101,
     "isnew": false
    },
@@ -228218,9 +228224,9 @@
     "dte": null,
     "acct": "bot",
     "setup": "F",
-    "before": 237.8300018310547,
+    "before": 197.66000366210938,
     "after": 197.66000366210938,
-    "before_pl": 18.447134733330685,
+    "before_pl": -1.5588407479907418,
     "after_pl": -1.5588407479907418,
     "isnew": false
    },
@@ -228228,12 +228234,12 @@
     "sym": "ZS",
     "kind": "call",
     "strike": "200",
-    "dte": 586,
+    "dte": 585,
     "acct": "bot-leaps",
     "setup": "F",
-    "before": 99.195,
+    "before": 66.9795,
     "after": 66.9795,
-    "before_pl": 43.24187725631767,
+    "before_pl": -3.2787003610108334,
     "after_pl": -3.2787003610108334,
     "isnew": false
    },
@@ -228244,9 +228250,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "D",
-    "before": 197.82000732421875,
+    "before": 192.89999389648438,
     "after": 192.89999389648438,
-    "before_pl": -4.397831372405392,
+    "before_pl": -6.775568385615505,
     "after_pl": -6.775568385615505,
     "isnew": false
    },
@@ -228257,9 +228263,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "C",
-    "before": 164.7899932861328,
+    "before": 165.41000366210938,
     "after": 165.41000366210938,
-    "before_pl": -10.2304334661803,
+    "before_pl": -9.892681994819752,
     "after_pl": -9.892681994819752,
     "isnew": false
    },
@@ -228270,9 +228276,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "E",
-    "before": 326.0799865722656,
+    "before": 293.69000244140625,
     "after": 293.69000244140625,
-    "before_pl": -8.701986064434541,
+    "before_pl": -17.770746320582866,
     "after_pl": -17.770746320582866,
     "isnew": false
    },
@@ -228283,9 +228289,9 @@
     "dte": null,
     "acct": "bot",
     "setup": "F",
-    "before": 326.0799865722656,
+    "before": 293.69000244140625,
     "after": 293.69000244140625,
-    "before_pl": -12.155176031178438,
+    "before_pl": -20.880926066431506,
     "after_pl": -20.880926066431506,
     "isnew": false
    },
@@ -228296,9 +228302,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "E",
-    "before": 62.08000183105469,
+    "before": 63.40999984741211,
     "after": 63.40999984741211,
-    "before_pl": -24.906251565193315,
+    "before_pl": -23.297447868135833,
     "after_pl": -23.297447868135833,
     "isnew": false
    },
@@ -228306,12 +228312,12 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 40,
+    "dte": 39,
     "acct": "big",
     "setup": "E",
-    "before": 32.76,
+    "before": 28.85,
     "after": 28.85,
-    "before_pl": -13.447820343461036,
+    "before_pl": -23.778071334214,
     "after_pl": -23.778071334214,
     "isnew": false
    },
@@ -228322,9 +228328,9 @@
     "dte": null,
     "acct": "paper-auto",
     "setup": "F",
-    "before": 105.12000274658203,
+    "before": 101.97000122070312,
     "after": 101.97000122070312,
-    "before_pl": -25.24534010341202,
+    "before_pl": -27.485420835796383,
     "after_pl": -27.485420835796383,
     "isnew": false
    },
@@ -228335,9 +228341,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "F",
-    "before": 105.12000274658203,
+    "before": 101.97000122070312,
     "after": 101.97000122070312,
-    "before_pl": -25.58402750489732,
+    "before_pl": -27.813959209469672,
     "after_pl": -27.813959209469672,
     "isnew": false
    },
@@ -228348,9 +228354,9 @@
     "dte": null,
     "acct": "bot",
     "setup": "F",
-    "before": 424.29998779296875,
+    "before": 328.5299987792969,
     "after": 328.5299987792969,
-    "before_pl": -8.526465928000704,
+    "before_pl": -29.173224365787032,
     "after_pl": -29.173224365787032,
     "isnew": false
    },
@@ -228361,9 +228367,9 @@
     "dte": null,
     "acct": "bot",
     "setup": "F",
-    "before": 884.739990234375,
+    "before": 690.0,
     "after": 690.0,
-    "before_pl": -10.812500984438,
+    "before_pl": -30.443548387096776,
     "after_pl": -30.443548387096776,
     "isnew": false
    },
@@ -228374,9 +228380,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "F",
-    "before": 884.739990234375,
+    "before": 690.0,
     "after": 690.0,
-    "before_pl": -11.548998237020868,
+    "before_pl": -31.017935336812428,
     "after_pl": -31.017935336812428,
     "isnew": false
    },
@@ -228387,9 +228393,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "F",
-    "before": 84.98999786376953,
+    "before": 80.91000366210938,
     "after": 80.91000366210938,
-    "before_pl": -27.56945810144066,
+    "before_pl": -31.046528326138258,
     "after_pl": -31.046528326138258,
     "isnew": false
    },
@@ -228400,9 +228406,9 @@
     "dte": null,
     "acct": "paper-auto",
     "setup": "F",
-    "before": 84.98999786376953,
+    "before": 80.91000366210938,
     "after": 80.91000366210938,
-    "before_pl": -30.541028225098454,
+    "before_pl": -33.87544650040096,
     "after_pl": -33.87544650040096,
     "isnew": false
    },
@@ -228413,9 +228419,9 @@
     "dte": null,
     "acct": "paper-auto",
     "setup": "F",
-    "before": 203.1699981689453,
+    "before": 173.24000549316406,
     "after": 173.24000549316406,
-    "before_pl": -26.125373365956904,
+    "before_pl": -37.00821558680675,
     "after_pl": -37.00821558680675,
     "isnew": false
    },
@@ -228426,9 +228432,9 @@
     "dte": null,
     "acct": "paper",
     "setup": "F",
-    "before": 203.1699981689453,
+    "before": 173.24000549316406,
     "after": 173.24000549316406,
-    "before_pl": -26.71163762753579,
+    "before_pl": -37.50811431600749,
     "after_pl": -37.50811431600749,
     "isnew": false
    },
@@ -228436,12 +228442,12 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 768,
+    "dte": 767,
     "acct": "bot-leaps",
     "setup": "F",
-    "before": 25.225,
+    "before": 23.88,
     "after": 23.88,
-    "before_pl": -46.61375661375661,
+    "before_pl": -49.46031746031746,
     "after_pl": -49.46031746031746,
     "isnew": false
    },
@@ -228449,12 +228455,12 @@
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 768,
+    "dte": 767,
     "acct": "bot-leaps",
     "setup": "F",
-    "before": 23.025,
+    "before": 21.655,
     "after": 21.655,
-    "before_pl": -53.95000000000001,
+    "before_pl": -56.69,
     "after_pl": -56.69,
     "isnew": false
    },
@@ -228462,28 +228468,17 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 40,
+    "dte": 39,
     "acct": "small",
     "setup": "F",
-    "before": 0.1,
+    "before": 0.05500000000000001,
     "after": 0.05500000000000001,
-    "before_pl": -98.31932773109243,
+    "before_pl": -99.07563025210084,
     "after_pl": -99.07563025210084,
     "isnew": false
    }
   ],
-  "gone": [
-   {
-    "sym": "MSFT",
-    "kind": "shares",
-    "pl": 2.3112156246630766
-   },
-   {
-    "sym": "SPY",
-    "kind": "call",
-    "pl": -52.604166666666664
-   }
-  ],
+  "gone": [],
   "notes": [
    "SG is up 73.0% on a trade that broke a rule going in. A good outcome is not a good decision.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
