@@ -1515,8 +1515,8 @@
  },
  {
   "date": "2026-11-09",
-  "vix": 20.229999542236328,
-  "regime": "ELEVATED",
+  "vix": 19.690000534057617,
+  "regime": "NORMAL",
   "vix_fires": true,
   "F": [],
   "D": [
