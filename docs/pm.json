@@ -1,60 +1,60 @@
 {
  "generated": "2026-11-09",
- "market_open": false,
+ "market_open": true,
  "paused": false,
  "reconcile_failed": [],
  "books": {
   "f": {
    "name": "F V1",
    "exit": "252",
-   "equity": 93928.59,
-   "ret": -0.0607,
-   "dd": -0.078,
-   "spy_value": 76062.99,
+   "equity": 94821.0,
+   "ret": -0.0518,
+   "dd": -0.0693,
+   "spy_value": 76884.35,
    "spy_units": 103.4462,
    "cash": 0.0,
-   "exposure": 0.1902,
+   "exposure": 0.1892,
    "realized": 0,
-   "unrealized": -2545.25,
+   "unrealized": -2474.2,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 197.66,
+     "now": 198.22,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -448.05,
-     "ret": -0.0662,
+     "pl": -430.13,
+     "ret": -0.0635,
      "sessions": 13,
-     "value": 6325.12
+     "value": 6343.04
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 101.97,
+     "now": 102.43,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -2181.75,
-     "ret": -0.3175,
+     "pl": -2160.36,
+     "ret": -0.3144,
      "sessions": 13,
-     "value": 4690.62
+     "value": 4712.01
     },
     {
      "sym": "SHOP",
      "q": 46,
      "entry": 147.07,
-     "now": 148.91,
+     "now": 149.6,
      "opened": "2026-11-04",
      "tgt": 180.88,
      "armed": false,
-     "pl": 84.55,
-     "ret": 0.0125,
+     "pl": 116.29,
+     "ret": 0.0172,
      "sessions": 2,
-     "value": 6849.86
+     "value": 6881.6
     }
    ],
    "pending": [],
@@ -264,7 +264,7 @@
     ],
     [
      "2026-11-09",
-     93928.59
+     94821.0
     ]
    ],
    "last_decision": "2026-11-06",
@@ -273,54 +273,54 @@
   "c": {
    "name": "SHADOW C",
    "exit": "C",
-   "equity": 93938.11,
-   "ret": -0.0606,
-   "dd": -0.078,
-   "spy_value": 76072.51,
+   "equity": 94830.63,
+   "ret": -0.0517,
+   "dd": -0.0693,
+   "spy_value": 76893.98,
    "spy_units": 103.4592,
    "cash": 0.0,
-   "exposure": 0.1902,
+   "exposure": 0.1891,
    "realized": 0,
-   "unrealized": -2535.34,
+   "unrealized": -2464.3,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 197.66,
+     "now": 198.22,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -448.05,
-     "ret": -0.0662,
+     "pl": -430.13,
+     "ret": -0.0635,
      "sessions": 13,
-     "value": 6325.12
+     "value": 6343.04
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.17,
-     "now": 101.97,
+     "now": 102.43,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -2171.15,
-     "ret": -0.3164,
+     "pl": -2149.77,
+     "ret": -0.3133,
      "sessions": 13,
-     "value": 4690.62
+     "value": 4712.01
     },
     {
      "sym": "SHOP",
      "q": 46,
      "entry": 147.09,
-     "now": 148.91,
+     "now": 149.6,
      "opened": "2026-11-04",
      "tgt": 180.88,
      "armed": false,
-     "pl": 83.86,
-     "ret": 0.0124,
+     "pl": 115.6,
+     "ret": 0.0171,
      "sessions": 2,
-     "value": 6849.86
+     "value": 6881.6
     }
    ],
    "pending": [],
@@ -530,7 +530,7 @@
     ],
     [
      "2026-11-09",
-     93938.11
+     94830.63
     ]
    ],
    "last_decision": "2026-11-06",
@@ -539,54 +539,54 @@
   "x": {
    "name": "F CAP 70",
    "exit": "252",
-   "equity": 93927.93,
-   "ret": -0.0607,
-   "dd": -0.078,
-   "spy_value": 76062.33,
+   "equity": 94820.33,
+   "ret": -0.0518,
+   "dd": -0.0693,
+   "spy_value": 76883.68,
    "spy_units": 103.4453,
    "cash": 0.0,
-   "exposure": 0.1902,
+   "exposure": 0.1892,
    "realized": 0,
-   "unrealized": -2545.94,
+   "unrealized": -2474.89,
    "positions": [
     {
      "sym": "ZS",
      "q": 32,
      "entry": 211.66,
-     "now": 197.66,
+     "now": 198.22,
      "opened": "2026-10-20",
      "tgt": 336.99,
      "armed": false,
-     "pl": -448.05,
-     "ret": -0.0662,
+     "pl": -430.13,
+     "ret": -0.0635,
      "sessions": 13,
-     "value": 6325.12
+     "value": 6343.04
     },
     {
      "sym": "NOW",
      "q": 46,
      "entry": 149.4,
-     "now": 101.97,
+     "now": 102.43,
      "opened": "2026-10-20",
      "tgt": 192.97,
      "armed": false,
-     "pl": -2181.75,
-     "ret": -0.3175,
+     "pl": -2160.36,
+     "ret": -0.3144,
      "sessions": 13,
-     "value": 4690.62
+     "value": 4712.01
     },
     {
      "sym": "SHOP",
      "q": 46,
      "entry": 147.09,
-     "now": 148.91,
+     "now": 149.6,
      "opened": "2026-11-04",
      "tgt": 180.88,
      "armed": false,
-     "pl": 83.86,
-     "ret": 0.0124,
+     "pl": 115.6,
+     "ret": 0.0171,
      "sessions": 2,
-     "value": 6849.86
+     "value": 6881.6
     }
    ],
    "pending": [],
@@ -796,7 +796,7 @@
     ],
     [
      "2026-11-09",
-     93927.93
+     94820.33
     ]
    ],
    "last_decision": "2026-11-06",
@@ -805,54 +805,54 @@
   "s": {
    "name": "F FULL S&P",
    "exit": "252",
-   "equity": 95381.0,
-   "ret": -0.0462,
-   "dd": -0.0668,
-   "spy_value": 76635.32,
+   "equity": 96194.23,
+   "ret": -0.0381,
+   "dd": -0.0588,
+   "spy_value": 77462.86,
    "spy_units": 104.2246,
    "cash": 0.0,
-   "exposure": 0.1965,
+   "exposure": 0.1947,
    "realized": 0,
-   "unrealized": -1808.89,
+   "unrealized": -1823.21,
    "positions": [
     {
      "sym": "P",
      "q": 56,
      "entry": 124.66,
-     "now": 96.75,
+     "now": 98.06,
      "opened": "2026-10-26",
      "tgt": 157.57,
      "armed": false,
-     "pl": -1563.21,
-     "ret": -0.2239,
+     "pl": -1490.13,
+     "ret": -0.2134,
      "sessions": 9,
-     "value": 5418.0
+     "value": 5491.08
     },
     {
      "sym": "COF",
      "q": 34,
      "entry": 208.89,
-     "now": 201.87,
+     "now": 196.89,
      "opened": "2026-10-29",
      "tgt": 256.63,
      "armed": false,
-     "pl": -238.64,
-     "ret": -0.0336,
+     "pl": -407.96,
+     "ret": -0.0574,
      "sessions": 6,
-     "value": 6863.58
+     "value": 6694.26
     },
     {
      "sym": "STLD",
      "q": 29,
      "entry": 223.14,
-     "now": 222.9,
+     "now": 225.73,
      "opened": "2026-11-06",
      "tgt": 287.4,
      "armed": false,
-     "pl": -7.04,
-     "ret": -0.0011,
+     "pl": 74.88,
+     "ret": 0.0116,
      "sessions": 0,
-     "value": 6464.1
+     "value": 6546.03
     }
    ],
    "pending": [],
@@ -1051,7 +1051,7 @@
     ],
     [
      "2026-11-09",
-     95381.0
+     96194.23
     ]
    ],
    "last_decision": "2026-11-06",
