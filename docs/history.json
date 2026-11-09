@@ -1515,14 +1515,15 @@
  },
  {
   "date": "2026-11-09",
-  "vix": 19.690000534057617,
+  "vix": 19.920000076293945,
   "regime": "NORMAL",
   "vix_fires": true,
   "F": [],
   "D": [
    "PYPL",
    "SPOT",
-   "REGN"
+   "REGN",
+   "U"
   ],
   "C": [
    "XYZ"

@@ -1,17 +1,17 @@
 {
  "rule_version": "1.0",
- "updated": "2026-11-09T14:33-06:00",
+ "updated": "2026-11-09T14:59-06:00",
  "day": "2026-11-09",
  "market": {
   "state": "BULLISH",
-  "score": 5,
+  "score": 3,
   "confirmed": true,
-  "at": "2026-11-09T14:30-06:00",
-  "data_time": "2026-11-09T14:30-06:00",
+  "at": "2026-11-09T14:55-06:00",
+  "data_time": "2026-11-09T14:54-06:00",
   "parts": {
-   "es": 1,
+   "es": 0,
    "es_mid": 7431.0,
-   "nq": 1,
+   "nq": 0,
    "nq_mid": 27064.62,
    "spy": 1,
    "qqq": 1,
@@ -22,36 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-11-09T12:55-06:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-09T13:00-06:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-09T13:05-06:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-09T13:10-06:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-09T13:15-06:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
   {
    "at": "2026-11-09T13:20-06:00",
    "state": "BULLISH",
@@ -140,6 +110,36 @@
    "at": "2026-11-09T14:30-06:00",
    "state": "BULLISH",
    "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-09T14:35-06:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-09T14:40-06:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-09T14:45-06:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-09T14:50-06:00",
+   "state": "BULLISH",
+   "score": 4,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-09T14:55-06:00",
+   "state": "BULLISH",
+   "score": 3,
    "confirmed": true
   }
  ],
@@ -1974,7 +1974,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-11-09T14:33-06:00"
+    "at": "2026-11-09T14:59-06:00"
    }
   },
   {
@@ -3806,7 +3806,7 @@
     "codes": [
      "TRIGGER_WAITING"
     ],
-    "at": "2026-11-09T14:33-06:00"
+    "at": "2026-11-09T14:59-06:00"
    }
   }
  ]
