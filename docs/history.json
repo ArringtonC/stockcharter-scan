@@ -1532,22 +1532,20 @@
  },
  {
   "date": "2026-11-10",
-  "vix": 19.950000762939453,
+  "vix": 19.459999084472656,
   "regime": "NORMAL",
-  "vix_fires": false,
+  "vix_fires": true,
   "F": [],
   "D": [
    "PYPL",
    "MRNA",
    "SPOT",
-   "U",
    "REGN",
-   "GM",
-   "AMZN"
+   "U",
+   "AMZN",
+   "GM"
   ],
   "C": [],
-  "S": [
-   "ADBE"
-  ]
+  "S": []
  }
 ]
