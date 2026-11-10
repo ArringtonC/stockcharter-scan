@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T17:32-05:00",
+ "generated": "2026-11-10T08:03-05:00",
  "last_session": "2026-11-09",
  "items": [
   {
@@ -1144,88 +1144,6 @@
     "ret6m": -0.27811223845409005,
     "universe": 499,
     "member": true
-   }
-  },
-  {
-   "sym": "ZS",
-   "asof": "2026-11-09",
-   "close": 199.04,
-   "stale": false,
-   "blocks": {
-    "Monthly": {
-     "label": "Bearish",
-     "detail": "LH / LL \u2014 BROKEN: closed above the last lower high",
-     "hi": {
-      "p": 191.25,
-      "pivot": "2026-05-01",
-      "conf": "2026-07-31"
-     },
-     "lo": {
-      "p": 114.625,
-      "pivot": "2026-04-01",
-      "conf": "2026-06-30"
-     },
-     "unconfirmed": [],
-     "res": 208.14,
-     "sup": 164.78,
-     "range_break": "Above upper boundary",
-     "swing_conf": "No new swing high yet",
-     "outcome": "Holding"
-    },
-    "Weekly": {
-     "label": "Bullish",
-     "detail": "HH / HL",
-     "hi": {
-      "p": 190.97,
-      "pivot": "2026-08-17",
-      "conf": "2026-09-04"
-     },
-     "lo": {
-      "p": 159.2,
-      "pivot": "2026-09-08",
-      "conf": "2026-09-25"
-     },
-     "unconfirmed": [
-      {
-       "kind": "high",
-       "p": 267.8706,
-       "pivot": "2026-10-26",
-       "need": 1
-      }
-     ],
-     "res": 202.64,
-     "sup": 183.8351,
-     "range_break": "Above upper boundary",
-     "swing_conf": "New swing high $267.87 not confirmed (needs 1 more bar)",
-     "outcome": "Holding"
-    },
-    "Daily": {
-     "label": "Bullish",
-     "detail": "HH / HL \u2014 BROKEN: closed below the last higher low",
-     "hi": {
-      "p": 267.8706,
-      "pivot": "2026-10-27",
-      "conf": "2026-10-30"
-     },
-     "lo": {
-      "p": 203.33,
-      "pivot": "2026-10-16",
-      "conf": "2026-10-21"
-     },
-     "unconfirmed": [],
-     "res": 216.9698,
-     "sup": 187.6705,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
-    }
-   },
-   "interpretation": "Daily reads bullish, but monthly reads bearish; weekly reads bullish. Price has crossed above the confirmed weekly high ($190.97); new swing high $267.87 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $202.64 is 1.8% above.",
-   "rs": {
-    "pct": null,
-    "ret6m": 0.33700544098878216,
-    "universe": 499,
-    "member": false
    }
   }
  ],
