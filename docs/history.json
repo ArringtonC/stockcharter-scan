@@ -1550,17 +1550,17 @@
  },
  {
   "date": "2026-11-11",
-  "vix": 17.770000457763672,
+  "vix": 17.34000015258789,
   "regime": "NORMAL",
   "vix_fires": true,
   "F": [],
   "D": [
+   "AMD",
    "PYPL",
    "MRNA",
    "SPOT",
-   "DOCU",
    "U",
-   "REGN",
+   "DOCU",
    "TXN",
    "GM"
   ],
