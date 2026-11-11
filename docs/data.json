@@ -1,15 +1,15 @@
 {
  "date": "2026-11-11",
- "stamp": "2026-11-11 13:00 UTC",
+ "stamp": "2026-11-11 14:30 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 18.420000076293945,
+ "vix": 18.309999465942383,
  "vix5": [
   28.18000030517578,
   25.639999389648438,
   19.920000076293945,
   19.459999084472656,
-  18.420000076293945
+  18.309999465942383
  ],
  "vix_hi10": 28.18000030517578,
  "qqq": 674.760009765625,
@@ -22,39 +22,25 @@
  "F": [],
  "D": [
   {
-   "sym": "PYPL",
-   "px": 58.779998779296875,
-   "dd": 13.546108801071865,
-   "rsi": 57.298952909109694,
-   "up": 15.668593527968122
+   "sym": "SPOT",
+   "px": 599.9500122070312,
+   "dd": 10.253626939741,
+   "rsi": 60.15783380615585,
+   "up": 11.425115678888043
   },
   {
    "sym": "MRNA",
-   "px": 250.8300018310547,
-   "dd": 10.673072387741932,
-   "rsi": 59.66617804615167,
-   "up": 11.9483258554135
-  },
-  {
-   "sym": "SPOT",
-   "px": 606.219970703125,
-   "dd": 9.315705408257491,
-   "rsi": 62.558970646191284,
-   "up": 10.272677810635766
+   "px": 252.25999450683594,
+   "dd": 10.16381571468411,
+   "rsi": 60.046103725938224,
+   "up": 11.31372152050032
   },
   {
    "sym": "REGN",
-   "px": 916.0599975585938,
-   "dd": 7.630099361762777,
-   "rsi": 64.30940936448357,
-   "up": 8.260374114340285
-  },
-  {
-   "sym": "U",
-   "px": 50.34000015258789,
-   "dd": 7.233021802648865,
-   "rsi": 67.97368780112214,
-   "up": 7.7969789931730205
+   "px": 904.989990234375,
+   "dd": 8.74633135456655,
+   "rsi": 61.326608586309966,
+   "up": 9.584635318663693
   },
   {
    "sym": "AMZN",
@@ -65,34 +51,41 @@
   },
   {
    "sym": "GM",
-   "px": 88.69000244140625,
-   "dd": 5.346845965857772,
-   "rsi": 57.16030273433833,
-   "up": 5.6488830408431
+   "px": 88.44999694824219,
+   "dd": 5.602988442891821,
+   "rsi": 56.66844184398337,
+   "up": 5.935557016550397
+  },
+  {
+   "sym": "SG",
+   "px": 13.1899995803833,
+   "dd": 5.039602200412907,
+   "rsi": 75.84864171423729,
+   "up": 5.307056749118644
   }
  ],
  "C": [],
  "S": [],
  "blocked": [
   {
-   "sym": "DELL",
-   "px": 334.3800048828125,
-   "dd": 43.849809507918344,
-   "up": 78.09378583337501,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 595.510009765625,
-   "gap": 14.855795524696285
-  },
-  {
    "sym": "NOW",
-   "px": 99.61000061035156,
-   "dd": 43.07999965122767,
-   "up": 75.68517109497321,
+   "px": 100.65979766845703,
+   "dd": 42.48011561802455,
+   "up": 73.85292247099198,
    "why": "trend broken",
    "forming": false,
    "tgt": 175.0,
-   "gap": 11.623020695871512
+   "gap": 12.036164122209705
+  },
+  {
+   "sym": "BE",
+   "px": 202.88999938964844,
+   "dd": 42.242655404607675,
+   "up": 73.13815359852546,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 351.2799987792969,
+   "gap": 10.145686797233733
   },
   {
    "sym": "MU",
@@ -105,16 +98,6 @@
    "gap": 10.741752036318868
   },
   {
-   "sym": "HOOD",
-   "px": 81.33000183105469,
-   "dd": 41.803218725542266,
-   "up": 71.83080886964702,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 139.75,
-   "gap": 9.922556631159999
-  },
-  {
    "sym": "ZS",
    "px": 194.9199981689453,
    "dd": 41.62323997245283,
@@ -125,14 +108,34 @@
    "gap": 1.4391548398363063
   },
   {
+   "sym": "HOOD",
+   "px": 83.01000213623047,
+   "dd": 40.60107181665082,
+   "up": 68.35320612406639,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 139.75,
+   "gap": 9.649148561301626
+  },
+  {
    "sym": "CAVA",
-   "px": 60.38999938964844,
-   "dd": 38.87033218950337,
-   "up": 63.58668970687409,
+   "px": 59.73500061035156,
+   "dd": 39.53335352083928,
+   "up": 65.38043007637953,
    "why": "trend broken",
    "forming": false,
    "tgt": 98.79000091552734,
-   "gap": -3.535067884077001
+   "gap": -3.342276883059404
+  },
+  {
+   "sym": "DELL",
+   "px": 360.45001220703125,
+   "dd": 39.4720481106785,
+   "up": 65.21292539826094,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 595.510009765625,
+   "gap": 14.56989294513159
   },
   {
    "sym": "ADBE",
@@ -166,13 +169,13 @@
   },
   {
    "sym": "F",
-   "px": 12.279999732971191,
-   "dd": 30.933637464959986,
-   "up": 44.788282355634635,
+   "px": 12.220000267028809,
+   "dd": 31.271092266001965,
+   "up": 45.49918410900793,
    "why": "trend broken",
    "forming": false,
    "tgt": 17.780000686645508,
-   "gap": 0.3682098890618717
+   "gap": 0.470398699337179
   },
   {
    "sym": "NVDA",
@@ -195,24 +198,24 @@
    "gap": 6.858360392394642
   },
   {
-   "sym": "HAL",
-   "px": 31.860000610351562,
-   "dd": 26.909840562457376,
-   "up": 36.817323658258694,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 43.59000015258789,
-   "gap": 1.5475560542169098
-  },
-  {
    "sym": "IBM",
-   "px": 244.52999877929688,
-   "dd": 26.448293008412204,
-   "up": 35.95877524832582,
+   "px": 243.7100067138672,
+   "dd": 26.694936841205685,
+   "up": 36.416225143110225,
    "why": "trend broken",
    "forming": false,
    "tgt": 332.4599914550781,
-   "gap": -1.9778378172695095
+   "gap": -1.6398098535898538
+  },
+  {
+   "sym": "HAL",
+   "px": 32.540000915527344,
+   "dd": 25.349849044229742,
+   "up": 33.95820198575268,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 43.59000015258789,
+   "gap": 1.6197280059541554
   },
   {
    "sym": "CSCO",
@@ -223,16 +226,6 @@
    "forming": false,
    "tgt": 130.3699951171875,
    "gap": 4.562308617838227
-  },
-  {
-   "sym": "PANW",
-   "px": 326.3599853515625,
-   "dd": 24.51136967409727,
-   "up": 32.47028005181143,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 432.3299865722656,
-   "gap": 5.16588548748931
   },
   {
    "sym": "OKTA",
@@ -255,14 +248,14 @@
    "gap": -0.3588753176308192
   },
   {
-   "sym": "SNOW",
-   "px": 295.760009765625,
-   "dd": 23.091322123133384,
-   "up": 30.024338944043947,
+   "sym": "PANW",
+   "px": 338.07470703125,
+   "dd": 21.80169834813447,
+   "up": 27.88001515070546,
    "why": "trend broken",
    "forming": false,
-   "tgt": 384.55999755859375,
-   "gap": 5.425810269049097
+   "tgt": 432.3299865722656,
+   "gap": 4.96779974905401
   },
   {
    "sym": "AMD",
@@ -276,33 +269,13 @@
   },
   {
    "sym": "HPQ",
-   "px": 28.420000076293945,
-   "dd": 21.55671974778144,
-   "up": 27.480645478452903,
+   "px": 28.530000686645508,
+   "dd": 21.253102271266357,
+   "up": 26.989129583845695,
    "why": "trend broken",
    "forming": false,
    "tgt": 36.22999954223633,
-   "gap": 3.6345366850623098
-  },
-  {
-   "sym": "PLTR",
-   "px": 168.82000732421875,
-   "dd": 20.719448958082832,
-   "up": 26.134340245854304,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 212.94000244140625,
-   "gap": 4.85763103206315
-  },
-  {
-   "sym": "CRM",
-   "px": 213.47999572753906,
-   "dd": 20.671841496832233,
-   "up": 26.058642841188306,
-   "why": "trend broken",
-   "forming": false,
-   "tgt": 269.1099853515625,
-   "gap": 3.1032817688960104
+   "gap": 3.758743744523227
   },
   {
    "sym": "WDAY",
@@ -311,6 +284,26 @@
    "up": 25.363970467954246,
    "rev": 13.349704208058943,
    "why": "revenue +13%"
+  },
+  {
+   "sym": "CRM",
+   "px": 214.80059814453125,
+   "dd": 20.18111187367575,
+   "up": 25.283629410793584,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 269.1099853515625,
+   "gap": 3.342221407764839
+  },
+  {
+   "sym": "SNOW",
+   "px": 307.4599914550781,
+   "dd": 20.048888754158114,
+   "up": 25.07643538875868,
+   "why": "trend broken",
+   "forming": false,
+   "tgt": 384.55999755859375,
+   "gap": 4.686896653068398
   }
  ],
  "errors": [],
@@ -318,24 +311,24 @@
   {
    "sym": "XLV",
    "name": "Health Care",
-   "px": 188.8800048828125,
-   "gap": 8.082401471116718,
+   "px": 187.24000549316406,
+   "gap": 8.192939295513613,
    "up": true,
-   "rel": 13.44197935798801,
+   "rel": 13.072666616975093,
    "rank": 1,
    "d_week": 0,
-   "d_month": 2,
+   "d_month": 0,
    "track": [
     1,
     1,
     6,
-    3,
-    3,
-    5,
+    2,
+    1,
     2,
     3,
+    4,
     3,
-    2
+    5
    ],
    "hold": [
     {
@@ -398,104 +391,27 @@
     "MRK",
     "PFE"
    ],
-   "churn": "3 of 9"
-  },
-  {
-   "sym": "XLP",
-   "name": "Staples",
-   "px": 91.02999877929688,
-   "gap": 2.63385188697558,
-   "up": true,
-   "rel": 11.464308178972793,
-   "rank": 2,
-   "d_week": 0,
-   "d_month": 3,
-   "track": [
-    2,
-    2,
-    3,
-    2,
-    5,
-    7,
-    5,
-    5,
-    5,
-    7
-   ],
-   "hold": [
-    {
-     "sym": "WMT",
-     "name": "Walmart Inc",
-     "pct": 11.14
-    },
-    {
-     "sym": "COST",
-     "name": "Costco Wholesale Corp",
-     "pct": 9.09
-    },
-    {
-     "sym": "PG",
-     "name": "Procter & Gamble Co",
-     "pct": 7.6
-    },
-    {
-     "sym": "KO",
-     "name": "Coca-Cola Co",
-     "pct": 7.37
-    },
-    {
-     "sym": "PM",
-     "name": "Philip Morris International Inc",
-     "pct": 6.59
-    },
-    {
-     "sym": "MO",
-     "name": "Altria Group Inc",
-     "pct": 4.7
-    },
-    {
-     "sym": "CL",
-     "name": "Colgate-Palmolive Co",
-     "pct": 4.42
-    },
-    {
-     "sym": "MDLZ",
-     "name": "Mondelez International Inc Class A",
-     "pct": 4.25
-    },
-    {
-     "sym": "PEP",
-     "name": "PepsiCo Inc",
-     "pct": 4.11
-    },
-    {
-     "sym": "TGT",
-     "name": "Target Corp",
-     "pct": 4.0
-    }
-   ],
-   "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLY",
    "name": "Consumer Disc",
-   "px": 121.05000305175781,
-   "gap": -0.12039111145388803,
-   "up": false,
-   "rel": 11.442080461877158,
-   "rank": 3,
-   "d_week": 2,
-   "d_month": 3,
+   "px": 121.26000213623047,
+   "gap": 0.03839437023709369,
+   "up": true,
+   "rel": 10.631735121382613,
+   "rank": 2,
+   "d_week": 3,
+   "d_month": 4,
    "track": [
-    3,
+    2,
     5,
     4,
+    5,
     6,
-    6,
-    6,
-    7,
-    7,
+    5,
+    8,
+    9,
     9,
     10
    ],
@@ -555,106 +471,106 @@
     "AMZN",
     "TSLA"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
-   "sym": "XLB",
-   "name": "Materials",
-   "px": 52.849998474121094,
-   "gap": 1.9922827834672363,
+   "sym": "XLP",
+   "name": "Staples",
+   "px": 90.41999816894531,
+   "gap": 2.739869785904525,
    "up": true,
-   "rel": 10.518890708638008,
-   "rank": 4,
-   "d_week": 2,
-   "d_month": 4,
+   "rel": 10.110688933512202,
+   "rank": 3,
+   "d_week": -1,
+   "d_month": 0,
    "track": [
-    4,
+    3,
+    2,
+    3,
+    3,
+    3,
     6,
-    5,
+    6,
+    6,
     4,
-    8,
-    9,
-    11,
-    10,
-    7,
     8
    ],
    "hold": [
     {
-     "sym": "LIN",
-     "name": "Linde PLC",
-     "pct": 12.84
+     "sym": "WMT",
+     "name": "Walmart Inc",
+     "pct": 11.14
     },
     {
-     "sym": "NEM",
-     "name": "Newmont Corp",
-     "pct": 6.09
+     "sym": "COST",
+     "name": "Costco Wholesale Corp",
+     "pct": 9.09
     },
     {
-     "sym": "VMC",
-     "name": "Vulcan Materials Co",
-     "pct": 5.14
+     "sym": "PG",
+     "name": "Procter & Gamble Co",
+     "pct": 7.6
     },
     {
-     "sym": "ECL",
-     "name": "Ecolab Inc",
-     "pct": 5.08
+     "sym": "KO",
+     "name": "Coca-Cola Co",
+     "pct": 7.37
     },
     {
-     "sym": "APD",
-     "name": "Air Products and Chemicals Inc",
-     "pct": 4.89
+     "sym": "PM",
+     "name": "Philip Morris International Inc",
+     "pct": 6.59
     },
     {
-     "sym": "MLM",
-     "name": "Martin Marietta Materials Inc",
-     "pct": 4.86
+     "sym": "MO",
+     "name": "Altria Group Inc",
+     "pct": 4.7
     },
     {
-     "sym": "FCX",
-     "name": "Freeport-McMoRan Inc",
-     "pct": 4.86
+     "sym": "CL",
+     "name": "Colgate-Palmolive Co",
+     "pct": 4.42
     },
     {
-     "sym": "NUE",
-     "name": "Nucor Corp",
-     "pct": 4.85
+     "sym": "MDLZ",
+     "name": "Mondelez International Inc Class A",
+     "pct": 4.25
     },
     {
-     "sym": "STLD",
-     "name": "Steel Dynamics Inc",
-     "pct": 4.75
+     "sym": "PEP",
+     "name": "PepsiCo Inc",
+     "pct": 4.11
     },
     {
-     "sym": "SHW",
-     "name": "Sherwin-Williams Co",
-     "pct": 4.73
+     "sym": "TGT",
+     "name": "Target Corp",
+     "pct": 4.0
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLRE",
    "name": "Real Estate",
-   "px": 44.58000183105469,
-   "gap": -0.30517339209713557,
+   "px": 44.45000076293945,
+   "gap": -0.20656574215665024,
    "up": false,
-   "rel": 9.967070495190477,
-   "rank": 5,
+   "rel": 8.974209949251788,
+   "rank": 4,
    "d_week": -1,
-   "d_month": 5,
+   "d_month": 6,
    "track": [
-    5,
     4,
+    3,
     8,
     8,
     10,
-    10,
-    9,
     11,
+    9,
+    10,
     8,
-    9
+    7
    ],
    "hold": [
     {
@@ -709,28 +625,105 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
+  },
+  {
+   "sym": "XLB",
+   "name": "Materials",
+   "px": 52.83000183105469,
+   "gap": 2.053533795832685,
+   "up": true,
+   "rel": 8.965794721946551,
+   "rank": 5,
+   "d_week": 1,
+   "d_month": 3,
+   "track": [
+    5,
+    6,
+    5,
+    7,
+    8,
+    9,
+    11,
+    7,
+    7,
+    9
+   ],
+   "hold": [
+    {
+     "sym": "LIN",
+     "name": "Linde PLC",
+     "pct": 12.84
+    },
+    {
+     "sym": "NEM",
+     "name": "Newmont Corp",
+     "pct": 6.09
+    },
+    {
+     "sym": "VMC",
+     "name": "Vulcan Materials Co",
+     "pct": 5.14
+    },
+    {
+     "sym": "ECL",
+     "name": "Ecolab Inc",
+     "pct": 5.08
+    },
+    {
+     "sym": "APD",
+     "name": "Air Products and Chemicals Inc",
+     "pct": 4.89
+    },
+    {
+     "sym": "MLM",
+     "name": "Martin Marietta Materials Inc",
+     "pct": 4.86
+    },
+    {
+     "sym": "FCX",
+     "name": "Freeport-McMoRan Inc",
+     "pct": 4.86
+    },
+    {
+     "sym": "NUE",
+     "name": "Nucor Corp",
+     "pct": 4.85
+    },
+    {
+     "sym": "STLD",
+     "name": "Steel Dynamics Inc",
+     "pct": 4.75
+    },
+    {
+     "sym": "SHW",
+     "name": "Sherwin-Williams Co",
+     "pct": 4.73
+    }
+   ],
+   "ours": [],
+   "churn": "4 of 9"
   },
   {
    "sym": "XLF",
    "name": "Financials",
-   "px": 58.290000915527344,
-   "gap": 2.8175715155029923,
+   "px": 58.20000076293945,
+   "gap": 2.894171394179179,
    "up": true,
-   "rel": 9.507203348408044,
+   "rel": 8.876400453648204,
    "rank": 6,
-   "d_week": 1,
+   "d_week": -2,
    "d_month": 5,
    "track": [
     6,
-    7,
-    7,
-    7,
-    11,
-    11,
-    8,
-    6,
     4,
+    7,
+    6,
+    11,
+    10,
+    10,
+    8,
+    5,
     6
    ],
    "hold": [
@@ -786,29 +779,29 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLU",
    "name": "Utilities",
-   "px": 43.72999954223633,
-   "gap": -2.0980505703376173,
+   "px": 43.709999084472656,
+   "gap": -1.9948046717864432,
    "up": false,
-   "rel": 8.66607694639956,
+   "rel": 7.105320540475891,
    "rank": 7,
-   "d_week": -4,
-   "d_month": -3,
+   "d_week": 0,
+   "d_month": -2,
    "track": [
     7,
-    3,
+    7,
     2,
-    5,
     4,
+    5,
     8,
+    7,
+    11,
     10,
-    8,
-    10,
-    5
+    3
    ],
    "hold": [
     {
@@ -863,15 +856,15 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLI",
    "name": "Industrials",
-   "px": 168.72999572753906,
-   "gap": -0.15014639572690225,
+   "px": 169.97000122070312,
+   "gap": -0.14904908546357065,
    "up": false,
-   "rel": 3.373342383136435,
+   "rel": 3.4815030641408007,
    "rank": 8,
    "d_week": 1,
    "d_month": -1,
@@ -881,9 +874,9 @@
     9,
     9,
     7,
-    4,
-    6,
-    9,
+    7,
+    5,
+    5,
     11,
     11
    ],
@@ -940,15 +933,15 @@
     }
    ],
    "ours": [],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLC",
    "name": "Communications",
-   "px": 107.76000213623047,
-   "gap": -2.441039542807033,
+   "px": 107.91999816894531,
+   "gap": -2.4270400092020528,
    "up": false,
-   "rel": 0.3107444494158118,
+   "rel": -1.1723843652414967,
    "rank": 9,
    "d_week": 1,
    "d_month": 0,
@@ -956,13 +949,13 @@
     9,
     10,
     11,
-    10,
+    11,
     9,
-    2,
     3,
     2,
     2,
-    3
+    2,
+    4
    ],
    "hold": [
     {
@@ -1021,27 +1014,27 @@
     "META",
     "NFLX"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLE",
    "name": "Energy",
-   "px": 62.209999084472656,
-   "gap": 9.487573392745553,
+   "px": 62.869998931884766,
+   "gap": 9.301088687295866,
    "up": true,
-   "rel": -2.1350663318957186,
+   "rel": -3.732684231463468,
    "rank": 10,
    "d_week": -2,
-   "d_month": -8,
+   "d_month": -6,
    "track": [
     10,
     8,
     1,
     1,
-    2,
+    4,
+    4,
+    4,
     3,
-    4,
-    4,
     1,
     1
    ],
@@ -1103,29 +1096,29 @@
     "SLB",
     "XOM"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   },
   {
    "sym": "XLK",
    "name": "Technology",
-   "px": 168.91000366210938,
-   "gap": 6.591370673017383,
+   "px": 173.75,
+   "gap": 6.346712814858924,
    "up": true,
-   "rel": -10.357782312552533,
+   "rel": -8.767734061106358,
    "rank": 11,
    "d_week": 0,
-   "d_month": -10,
+   "d_month": -9,
    "track": [
     11,
     11,
     10,
-    11,
-    1,
+    10,
+    2,
     1,
     1,
     1,
     6,
-    4
+    2
    ],
    "hold": [
     {
@@ -1190,7 +1183,7 @@
     "NVDA",
     "PLTR"
    ],
-   "churn": "3 of 9"
+   "churn": "4 of 9"
   }
  ],
  "today": [
@@ -1203,14 +1196,14 @@
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
    "days": 436,
-   "now": 13.239999771118164,
+   "now": 13.1899995803833,
    "target": 17.6,
    "cost": 459.99999999999994,
    "be": 7.6,
    "loss": -459.99999999999994,
    "profit": 1000.0000000000002,
    "ret": 217.39130434782618,
-   "move": 32.93051589315563,
+   "move": 33.43442426014502,
    "strike": 3,
    "expiry": "2028-01-21",
    "n": 1,
@@ -1225,14 +1218,14 @@
    "kills": "Nothing. No stop, by design \u2014 six tests say stops make this worse.",
    "odds": 83,
    "days": null,
-   "now": 99.61000061035156,
+   "now": 100.65979766845703,
    "target": 194.73,
    "cost": 557.16,
    "be": 139.29,
    "loss": null,
    "profit": 221.76,
    "ret": 39.80185225069999,
-   "move": 95.49241924185219,
+   "move": 93.45359767300725,
    "strike": null,
    "expiry": null,
    "n": 4,
@@ -1269,14 +1262,14 @@
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
    "days": 436,
-   "now": 5.0,
+   "now": 5.025000095367432,
    "target": 12.34,
    "cost": 468.0,
    "be": 7.34,
    "loss": -468.0,
    "profit": 1000.0,
    "ret": 213.67521367521368,
-   "move": 146.8,
+   "move": 145.5721346428689,
    "strike": 5,
    "expiry": "2028-01-21",
    "n": 2,
@@ -1332,30 +1325,30 @@
  ],
  "weekly": [
   {
-   "sym": "CSCO",
-   "px": 98.1500015258789,
-   "gap": -0.5050184585202088,
-   "dd": 24.714270766326685,
-   "hi": 130.3699951171875,
-   "up": false,
-   "state": "near",
-   "band": true
-  },
-  {
    "sym": "QCOM",
-   "px": 173.52999877929688,
-   "gap": -0.5436502746600744,
-   "dd": 33.23715381095751,
+   "px": 178.85000610351562,
+   "gap": -0.17855662516969342,
+   "dd": 31.190367473091353,
    "hi": 259.9200134277344,
    "up": false,
    "state": "near",
    "band": true
   },
   {
+   "sym": "CSCO",
+   "px": 100.66000366210938,
+   "gap": -0.19992769158067333,
+   "dd": 22.788979495145554,
+   "hi": 130.3699951171875,
+   "up": false,
+   "state": "near",
+   "band": true
+  },
+  {
    "sym": "TSLA",
-   "px": 379.7799987792969,
-   "gap": -0.6019356918123856,
-   "dd": 23.86584427512598,
+   "px": 388.1700134277344,
+   "gap": -0.3353853664159674,
+   "dd": 22.18390556368446,
    "hi": 498.8299865722656,
    "up": true,
    "state": "near",
@@ -1363,19 +1356,29 @@
   },
   {
    "sym": "IBM",
-   "px": 244.52999877929688,
-   "gap": -1.2787884742566424,
-   "dd": 26.448293008412204,
+   "px": 243.5800018310547,
+   "gap": -1.3295254160088692,
+   "dd": 26.734040759317313,
    "hi": 332.4599914550781,
    "up": true,
    "state": "near",
    "band": true
   },
   {
+   "sym": "BE",
+   "px": 203.47000122070312,
+   "gap": -1.9803634731538629,
+   "dd": 42.077544429582005,
+   "hi": 351.2799987792969,
+   "up": false,
+   "state": "near",
+   "band": true
+  },
+  {
    "sym": "HAL",
-   "px": 31.860000610351562,
-   "gap": -2.4950082620223397,
-   "dd": 26.909840562457376,
+   "px": 32.404998779296875,
+   "gap": -2.2557638360220937,
+   "dd": 25.659558004445138,
    "hi": 43.59000015258789,
    "up": false,
    "state": "near",
@@ -1383,69 +1386,59 @@
   },
   {
    "sym": "ADBE",
-   "px": 236.6999969482422,
-   "gap": -3.088342346160881,
-   "dd": 34.741252646866315,
+   "px": 235.7550048828125,
+   "gap": -3.147740491000015,
+   "dd": 35.00178918781979,
    "hi": 362.7099914550781,
    "up": false,
    "state": "near",
    "band": true
   },
   {
-   "sym": "BE",
-   "px": 185.4199981689453,
-   "gap": -3.3150404780843954,
-   "dd": 47.215896489045065,
-   "hi": 351.2799987792969,
-   "up": false,
-   "state": "near",
-   "band": false
-  },
-  {
-   "sym": "NOW",
-   "px": 99.61000061035156,
-   "gap": -3.624434277664775,
-   "dd": 43.07999965122767,
-   "hi": 175.0,
-   "up": false,
-   "state": "near",
-   "band": true
-  },
-  {
    "sym": "NVDA",
-   "px": 168.88999938964844,
-   "gap": -3.731032386842635,
-   "dd": 30.603606534024653,
+   "px": 173.5189971923828,
+   "gap": -3.3185701415617754,
+   "dd": 28.701565240682214,
    "hi": 243.3699951171875,
    "up": false,
    "state": "near",
    "band": true
   },
   {
-   "sym": "F",
-   "px": 12.279999732971191,
-   "gap": -4.36536876139827,
-   "dd": 30.933637464959986,
-   "hi": 17.780000686645508,
+   "sym": "NOW",
+   "px": 100.75499725341797,
+   "gap": -3.4499415852259996,
+   "dd": 42.42571585518973,
+   "hi": 175.0,
    "up": false,
    "state": "near",
    "band": true
   },
   {
    "sym": "HOOD",
-   "px": 81.33000183105469,
-   "gap": -4.956463640194286,
-   "dd": 41.803218725542266,
+   "px": 84.0999984741211,
+   "gap": -4.406855819413858,
+   "dd": 39.82111021529796,
    "hi": 139.75,
    "up": false,
    "state": "near",
    "band": true
   },
   {
+   "sym": "F",
+   "px": 12.234999656677246,
+   "gap": -4.424567950619256,
+   "dd": 31.18673124761514,
+   "hi": 17.780000686645508,
+   "up": false,
+   "state": "near",
+   "band": true
+  },
+  {
    "sym": "AVGO",
-   "px": 331.9800109863281,
-   "gap": -5.494252190142454,
-   "dd": 32.93333111387311,
+   "px": 351.32000732421875,
+   "gap": -4.546054144421533,
+   "dd": 29.026261146622478,
    "hi": 495.0,
    "up": false,
    "state": "near",
@@ -1453,9 +1446,9 @@
   },
   {
    "sym": "GOOGL",
-   "px": 287.3800048828125,
-   "gap": -5.565683084913249,
-   "dd": 29.668873697358467,
+   "px": 290.1700134277344,
+   "gap": -5.399381695751225,
+   "dd": 28.9860689091883,
    "hi": 408.6099853515625,
    "up": false,
    "state": "near",
@@ -1470,141 +1463,116 @@
   "blocked": [
    {
     "sym": "BAC",
-    "px": 50.68000030517578,
-    "dd": 22.305691097609348,
-    "up": 28.709555967133383,
+    "px": 50.810001373291016,
+    "dd": 22.106394667400874,
+    "up": 28.38024324719395,
     "why": "trend broken",
     "forming": false,
     "tgt": 65.2300033569336,
-    "gap": 3.260088989132373
+    "gap": 2.970072349830407
    }
   ]
  },
  "market": {
   "events": [],
-  "QQQ": -0.6756458379333252,
-  "QQQ_px": 674.76,
-  "QQQ_chg": -4.590000000000032,
-  "SPY": -0.36801339196749216,
-  "SPY_px": 749.92,
-  "SPY_chg": -2.7700000000000955,
-  "USO": -0.8481704752558605,
-  "USO_px": 141.45,
-  "USO_chg": -1.210000000000008,
-  "NQ=F": 1.956152720022275,
-  "NQ=F_px": 28379.75,
-  "NQ=F_chg": 544.5,
-  "CL=F": 1.5341701534170138,
-  "CL=F_px": 87.36,
-  "CL=F_chg": 1.3199999999999932,
-  "^TNX": 2.4465460526315708,
-  "^TNX_px": 4.983,
-  "^TNX_chg": 0.11899999999999977,
-  "^VIX": -5.344295991778003,
-  "^VIX_px": 18.42,
-  "^VIX_chg": -1.0399999999999991,
+  "QQQ": 1.8880787242871566,
+  "QQQ_px": 687.5,
+  "QQQ_chg": 12.740000000000009,
+  "SPY": 0.9693074851337302,
+  "SPY_px": 757.29,
+  "SPY_chg": 7.269999999999982,
+  "USO": 0.8415246446503044,
+  "USO_px": 142.6,
+  "USO_chg": 1.1899999999999977,
+  "NQ=F": 1.9417824521065885,
+  "NQ=F_px": 28375.75,
+  "NQ=F_chg": 540.5,
+  "CL=F": 1.2552301255230214,
+  "CL=F_px": 87.12,
+  "CL=F_chg": 1.0799999999999983,
+  "^TNX": 0.30101744123918195,
+  "^TNX_px": 4.998,
+  "^TNX_chg": 0.014999700000000615,
+  "^VIX": -5.858170606372049,
+  "^VIX_px": 18.32,
+  "^VIX_chg": -1.1400000000000006,
   "exp_by": "Fri",
-  "QQQ_exp": 14.265,
-  "SPY_exp": 9.305,
+  "QQQ_exp": 12.545,
+  "SPY_exp": 7.825,
   "fut": [
    [
     "S&P",
-    7611.75,
-    0.7511581733951056,
+    7616.5,
+    0.8140304434149481,
     true
    ],
    [
     "Nasdaq",
-    28380.5,
-    1.7194878273881553,
+    28374.75,
+    1.6988790623907901,
     true
    ],
    [
     "Dow",
-    52396.0,
-    0.04200557528544202,
+    52450.0,
+    0.14511016916791686,
     true
    ],
    [
     "Russell",
-    2851.0,
-    0.6566903790972134,
+    2854.199951171875,
+    0.7696670519613313,
     true
    ],
    [
     "Oil",
-    87.37000274658203,
-    1.0758911139621796,
+    87.1500015258789,
+    0.8213779088610318,
     true
    ],
    [
     "Gold",
-    4050.89990234375,
-    0.25739146996039963,
+    4037.300048828125,
+    -0.07919691057728384,
     true
    ]
   ],
   "QQQ_pre": [
-   674.76,
-   687.14
+   687.78,
+   687.780029296875
   ],
   "SPY_pre": [
-   749.92,
-   756.2888
+   757.26,
+   757.260009765625
   ],
   "USO_pre": [
-   141.45,
-   142.6
+   142.62,
+   142.62030029296875
   ],
   "^VIX_pre": [
    19.46,
-   18.420000076293945
-  ],
-  "gaps": [
-   [
-    "BE",
-    7.6
-   ],
-   [
-    "DELL",
-    7.2
-   ],
-   [
-    "MU",
-    6.5
-   ],
-   [
-    "INTC",
-    6.2
-   ],
-   [
-    "AMD",
-    5.5
-   ],
-   [
-    "MPWR",
-    5.4
-   ],
-   [
-    "ORCL",
-    5.3
-   ],
-   [
-    "AVGO",
-    3.9
-   ]
+   18.290000915527344
   ],
   "heads": [],
-  "tnx_since": "2023",
-  "movers": []
+  "tnx_since": "2007",
+  "movers": [
+   [
+    "BE",
+    9.42185384166887
+   ],
+   [
+    "BAC",
+    0.2565135503796778
+   ]
+  ]
  },
  "playbook": {
   "rule_a": {
-   "spx": 7520.93017578125,
-   "sma200": 7331.078413085937,
-   "gap": 2.5896839727757914,
+   "spx": 7595.4501953125,
+   "sma200": 7334.162663574219,
+   "gap": 3.562608899254305,
    "above": true,
-   "streak": 151,
+   "streak": 152,
    "invested": true,
    "pending": 0
   },
@@ -1682,13 +1650,13 @@
   "qqq": 674.760009765625,
   "qqq_hi": 759.6599731445312,
   "qqq_off": -11.2,
-  "vix": 18.420000076293945,
+  "vix": 18.309999465942383,
   "vix_buy": true,
   "vix_max": 28.18,
   "vix3": [
    19.92,
    19.46,
-   18.42
+   18.31
   ],
   "cpi_series": [
    [
@@ -2118,7 +2086,7 @@
     "pct": 78,
     "qqq_off": -11.2,
     "vix_max": 28.18,
-    "vix": 18.42
+    "vix": 18.31
    }
   }
  },
@@ -2271,12 +2239,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 4.183885978141899,
+   "pl_pct": 3.8345220543935854,
    "note": "paper",
-   "now": 244.52999877929688,
-   "to_target": 35.95877874275264,
-   "progress": 0.10046034556825442,
-   "sessions": 47,
+   "now": 243.7100067138672,
+   "to_target": 36.41622864929448,
+   "progress": 0.09207167993726018,
+   "sessions": 48,
    "armed": false
   },
   {
@@ -2340,12 +2308,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -33.11449456426474,
+   "pl_pct": -26.812640000848276,
    "note": "fires Setup C AND F. NOT in the tested universe, +386% on the year \u2014 untested situation",
-   "now": 185.4199981689453,
-   "to_target": 89.45097803308757,
+   "now": 202.88999938964844,
+   "to_target": 73.13815420018305,
    "progress": 0,
-   "sessions": 45,
+   "sessions": 46,
    "armed": false
   },
   {
@@ -2363,12 +2331,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -30.68859567832394,
+   "pl_pct": -29.256858585111246,
    "note": "matches the backtest profile: real pullback, +62% revenue",
-   "now": 81.33000183105469,
-   "to_target": 89.17988016231766,
+   "now": 83.01000213623047,
+   "to_target": 85.35115774060004,
    "progress": 0,
-   "sessions": 45,
+   "sessions": 46,
    "armed": false
   },
   {
@@ -2409,12 +2377,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 9.32885951554927,
+   "pl_pct": 11.176663597158143,
    "note": "+46% revenue. Option already held in both option books",
-   "now": 146.61000061035156,
-   "to_target": 24.268466845048398,
-   "progress": 0.26013725536185417,
-   "sessions": 45,
+   "now": 149.08790588378906,
+   "to_target": 22.20307134906927,
+   "progress": 0.3116636698646094,
+   "sessions": 46,
    "armed": false
   },
   {
@@ -2432,9 +2400,9 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 52.82119710255433,
+   "pl_pct": 53.297750667174995,
    "note": "",
-   "now": 40.085,
+   "now": 40.21,
    "spot": 77.66000366210938,
    "intrinsic": 40.160003662109375,
    "dte": 65,
@@ -2457,15 +2425,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -31.10964332892999,
+   "pl_pct": -31.241743725231185,
    "note": "",
-   "now": 26.075,
+   "now": 26.025,
    "spot": 188.88999938964844,
    "intrinsic": 18.889999389648438,
    "dte": 37,
    "sessions": 46,
    "mark": "alpaca",
-   "iv": 0.6254
+   "iv": 0.6228
   },
   {
    "id": "2026-09-11-QCOM-sh",
@@ -2505,12 +2473,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -29.484637823621995,
+   "pl_pct": -28.741471281001672,
    "note": "Setup F complete: 27.5% below high, revenue +29.4%, and the 50 EMA crossed the 200 TODAY (125.13 vs 124.96) after weeks in the halfway state. That cross is the 88%-win entry from halfway.md. The cross is thin \u2014 0.17 points.",
-   "now": 99.61000061035156,
-   "to_target": 95.49241924185219,
+   "now": 100.65979766845703,
+   "to_target": 93.45359767300725,
    "progress": 0,
-   "sessions": 39,
+   "sessions": 40,
    "armed": false
   },
   {
@@ -2528,15 +2496,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -99.15966386554622,
+   "pl_pct": -98.99159663865547,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
-   "now": 0.05,
-   "spot": 99.61000061035156,
+   "now": 0.06,
+   "spot": 100.65979766845703,
    "intrinsic": 0.0,
    "dte": 37,
-   "sessions": 39,
+   "sessions": 40,
    "mark": "alpaca",
-   "iv": 0.6962
+   "iv": 0.6985
   },
   {
    "id": "2026-09-23-NOW-auto",
@@ -2553,12 +2521,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -29.163703164306952,
+   "pl_pct": -28.417154267915635,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 99.61000061035156,
-   "to_target": 95.49241924185219,
+   "now": 100.65979766845703,
+   "to_target": 93.45359767300725,
    "progress": 0,
-   "sessions": 34,
+   "sessions": 35,
    "armed": false
   },
   {
@@ -2576,12 +2544,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -32.57944943315202,
+   "pl_pct": -26.22718369949515,
    "note": "Paper bot. Setup F fired; 2 shares at market, GTC sell at the target.",
-   "now": 185.4199981689453,
-   "to_target": 89.45097803308757,
+   "now": 202.88999938964844,
+   "to_target": 73.13815420018305,
    "progress": 0,
-   "sessions": 34,
+   "sessions": 35,
    "armed": false
   },
   {
@@ -2599,12 +2567,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -33.532198568932095,
+   "pl_pct": -32.15920060785349,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 81.33000183105469,
-   "to_target": 89.17988016231766,
+   "now": 83.01000213623047,
+   "to_target": 85.35115774060004,
    "progress": 0,
-   "sessions": 33,
+   "sessions": 34,
    "armed": false
   },
   {
@@ -2622,12 +2590,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 2.840909519045698,
+   "pl_pct": 4.579058560458105,
    "note": "Paper bot. Setup F fired; 4 shares at market, GTC sell at the target.",
-   "now": 146.61000061035156,
-   "to_target": 24.268466845048398,
-   "progress": 0.10219532198717034,
-   "sessions": 33,
+   "now": 149.08790588378906,
+   "to_target": 22.20307134906927,
+   "progress": 0.1647213192982352,
+   "sessions": 34,
    "armed": false
   },
   {
@@ -2645,12 +2613,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -27.876330019295093,
+   "pl_pct": -27.11621340347765,
    "note": "REAL. 1 share of NOW on the Setup F fire, target the prior high $194.73, no stop. Fill $138.11 per Schwab. PLAN 10-08: stop = NOW closes under $126.75 (20-day low, at the 200-day) -> sell (-8%). Close over $149.60 = breakout; at the $192.97 target the stop moves up to it.",
-   "now": 99.61000061035156,
-   "to_target": 95.49241924185219,
+   "now": 100.65979766845703,
+   "to_target": 93.45359767300725,
    "progress": 0,
-   "sessions": 33,
+   "sessions": 34,
    "armed": false
   },
   {
@@ -2668,12 +2636,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 90.76160232714987,
+   "pl_pct": 90.04120076626374,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: protect the gain -- SG closes under $7.96 (30-day EMA) -> sell half (locks ~+15%); under $6.61 (20-day low) -> sell the rest. New 1-year high $10.63 -> sell a quarter (SG is ~25% of the account, over the 7% rule).",
-   "now": 13.239999771118164,
+   "now": 13.1899995803833,
    "to_target": null,
    "progress": 0,
-   "sessions": 32,
+   "sessions": 33,
    "armed": false
   },
   {
@@ -2691,15 +2659,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 134.18373920886486,
+   "pl_pct": 127.84864493407207,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: same SG levels; long-dated and in the money, so hold unless SG closes under $6.61.",
-   "now": 10.905000000000001,
-   "spot": 13.239999771118164,
-   "intrinsic": 10.239999771118164,
+   "now": 10.61,
+   "spot": 13.1899995803833,
+   "intrinsic": 10.1899995803833,
    "dte": 436,
-   "sessions": 32,
+   "sessions": 33,
    "mark": "alpaca",
-   "iv": 1.2941
+   "iv": 1.0635
   },
   {
    "id": "2026-09-26-SNAP-5c-real",
@@ -2719,12 +2687,12 @@
    "pl_pct": -34.79928407057019,
    "note": "REAL. Held in Schwab; opened before it was logged here (date unknown). Entry = Schwab cost basis. No setup recorded. PLAN 10-08: SNAP closes under $5.18 (20-day low) -> sell one of the two; under $4.28 (60-day low) -> sell the other. Over $6.07 = breakout, hold.",
    "now": 1.53,
-   "spot": 5.0,
-   "intrinsic": 0.0,
+   "spot": 5.025000095367432,
+   "intrinsic": 0.02500009536743164,
    "dte": 436,
-   "sessions": 32,
+   "sessions": 33,
    "mark": "alpaca",
-   "iv": 0.6776
+   "iv": 0.6692
   },
   {
    "id": "2026-09-28-NOW-leap",
@@ -2741,15 +2709,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -52.910052910052904,
+   "pl_pct": -50.88888888888889,
    "note": "F LEAPS. 1x $135C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $192.97 or 30 days before expiry.",
-   "now": 22.25,
-   "spot": 99.61000061035156,
+   "now": 23.205,
+   "spot": 100.65979766845703,
    "intrinsic": 0.0,
    "dte": 765,
-   "sessions": 31,
+   "sessions": 32,
    "mark": "alpaca",
-   "iv": 0.5265
+   "iv": 0.5332
   },
   {
    "id": "2026-09-28-SHOP-leap",
@@ -2766,15 +2734,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": 3.4485981308411295,
+   "pl_pct": 4.336448598130849,
    "note": "F LEAPS. 1x $140C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $182.19 or 30 days before expiry.",
-   "now": 55.345,
-   "spot": 146.61000061035156,
-   "intrinsic": 6.6100006103515625,
+   "now": 55.82,
+   "spot": 149.08790588378906,
+   "intrinsic": 9.087905883789062,
    "dte": 765,
-   "sessions": 31,
+   "sessions": 32,
    "mark": "alpaca",
-   "iv": 0.5955
+   "iv": 0.5772
   },
   {
    "id": "2026-09-28-HOOD-leap",
@@ -2791,15 +2759,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -56.410000000000004,
+   "pl_pct": -54.39000000000001,
    "note": "F LEAPS. 1x $120C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $153.86 or 30 days before expiry.",
-   "now": 21.795,
-   "spot": 81.33000183105469,
+   "now": 22.805,
+   "spot": 83.01000213623047,
    "intrinsic": 0.0,
    "dte": 765,
-   "sessions": 31,
+   "sessions": 32,
    "mark": "alpaca",
-   "iv": 0.6489
+   "iv": 0.6503
   },
   {
    "id": "2026-09-30-ZS-f",
@@ -2839,15 +2807,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -5.77617328519856,
+   "pl_pct": -1.0108303249097284,
    "note": "F LEAPS. 1x $200C 2028-06-16 (~2 years), 7% of a $100k book. Sells when the stock reaches $336.99 or 30 days before expiry.",
-   "now": 65.25,
+   "now": 68.55000000000001,
    "spot": 194.9199981689453,
    "intrinsic": 0.0,
    "dte": 583,
    "sessions": 28,
    "mark": "alpaca",
-   "iv": 0.6565
+   "iv": 0.694
   },
   {
    "id": "2026-10-08-AVGO-f",
@@ -2910,12 +2878,12 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -27.91203947767328,
+   "pl_pct": -22.291686491962647,
    "note": "Pure Setup F. 14 shares, 7% of equity. Target $595.51; no stop; held 252 sessions, no exit at the target (paper test since 10-06).",
-   "now": 334.3800048828125,
-   "to_target": 78.09378291285798,
+   "now": 360.45001220703125,
+   "to_target": 65.21292268897403,
    "progress": 0,
-   "sessions": 18,
+   "sessions": 19,
    "armed": false
   }
  ],
@@ -4045,18 +4013,17 @@
    },
    {
     "date": "2026-11-11",
-    "vix": 18.420000076293945,
+    "vix": 18.309999465942383,
     "regime": "NORMAL",
     "vix_fires": true,
     "F": [],
     "D": [
-     "PYPL",
-     "MRNA",
      "SPOT",
+     "MRNA",
      "REGN",
-     "U",
      "AMZN",
-     "GM"
+     "GM",
+     "SG"
     ],
     "C": [],
     "S": []
@@ -4084,20 +4051,6 @@
    }
   ],
   "by_setup": {
-   "D": {
-    "wins": 1,
-    "losses": 0,
-    "closed_mean": 8.5,
-    "open_n": 1,
-    "open_mean": -8.713512763556707
-   },
-   "none": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 3,
-    "open_mean": 63.382019155148186
-   },
    "C": {
     "wins": 0,
     "losses": 0,
@@ -4105,19 +4058,33 @@
     "open_n": 1,
     "open_mean": -5.469303928040048
    },
-   "F": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 19,
-    "open_mean": -26.88895997213592
-   },
    "E": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 5,
-    "open_mean": -0.926702555947298
+    "open_mean": -0.9276847070330664
+   },
+   "F": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 19,
+    "open_mean": -24.953306383159134
+   },
+   "none": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 3,
+    "open_mean": 61.03018720992188
+   },
+   "D": {
+    "wins": 1,
+    "losses": 0,
+    "closed_mean": 8.5,
+    "open_n": 1,
+    "open_mean": -8.713512763556707
    }
   },
   "produced": [
@@ -4268,22 +4235,17 @@
    },
    {
     "date": "2026-11-11",
-    "sym": "PYPL",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-11",
     "sym": "REGN",
     "setup": "D"
    },
    {
     "date": "2026-11-11",
-    "sym": "SPOT",
+    "sym": "SG",
     "setup": "D"
    },
    {
     "date": "2026-11-11",
-    "sym": "U",
+    "sym": "SPOT",
     "setup": "D"
    }
   ]
@@ -8559,13 +8521,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -8977,16 +8932,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     307.53,
-     309.64,
-     310.43,
-     310.62,
-     310.4,
-     310.61,
-     309.7,
      310.13,
      315.96,
      318.18,
@@ -9398,16 +9347,10 @@
      348.19,
      348.12,
      348.46,
-     348.66
+     348.66,
+     349.58
     ],
     "h": [
-     310.27,
-     311.49,
-     310.64,
-     310.94,
-     310.65,
-     311.24,
-     311.07,
      317.81,
      319.28,
      318.23,
@@ -9819,16 +9762,10 @@
      350.69,
      348.59,
      348.9,
-     350.0
+     350.0,
+     352.65
     ],
     "l": [
-     305.74,
-     309.6,
-     309.01,
-     310.2,
-     309.75,
-     309.37,
-     309.6,
      309.6,
      315.76,
      315.97,
@@ -10240,16 +10177,10 @@
      347.12,
      347.6,
      347.94,
-     348.47
+     348.47,
+     349.33
     ],
     "c": [
-     309.66,
-     310.43,
-     310.61,
-     310.4,
-     310.63,
-     309.71,
-     310.2,
      316.01,
      318.18,
      316.56,
@@ -10661,16 +10592,10 @@
      348.12,
      348.42,
      348.68,
-     348.63
+     348.63,
+     352.54
     ],
     "v": [
-     12040495,
-     5798137,
-     3765824,
-     3345582,
-     3979233,
-     3801923,
-     5897762,
      12465429,
      5409560,
      3124257,
@@ -11082,53 +11007,47 @@
      1823592,
      1512906,
      2126648,
-     2844178
+     2844178,
+     1737785
     ],
     "e10": [
-     309.66,
-     309.8,
-     309.95,
-     310.03,
-     310.14,
-     310.06,
-     310.09,
-     311.16,
-     312.44,
-     313.19,
-     313.53,
-     313.77,
-     314.3,
-     314.77,
-     315.08,
-     315.47,
-     315.65,
-     315.83,
-     315.65,
-     315.24,
-     314.53,
-     313.3,
-     312.81,
-     312.52,
-     312.25,
-     311.57,
-     311.23,
-     310.9,
-     311.27,
-     311.45,
-     311.54,
-     311.64,
-     311.66,
+     316.01,
+     316.4,
+     316.43,
+     316.18,
+     315.94,
+     316.07,
+     316.22,
+     316.27,
+     316.44,
+     316.44,
+     316.48,
+     316.19,
+     315.67,
+     314.89,
+     313.6,
+     313.05,
+     312.72,
+     312.41,
+     311.7,
+     311.34,
+     310.99,
+     311.35,
+     311.51,
      311.59,
-     311.36,
-     311.13,
-     310.8,
-     310.65,
+     311.68,
+     311.69,
+     311.61,
+     311.38,
+     311.15,
+     310.81,
+     310.66,
      310.47,
      310.3,
      310.06,
      310.03,
      310.35,
-     310.74,
+     310.75,
      311.21,
      311.56,
      311.83,
@@ -11503,129 +11422,123 @@
      348.3,
      348.33,
      348.39,
-     348.43
+     348.43,
+     349.18
     ],
     "e30": [
-     309.66,
-     309.71,
-     309.77,
-     309.81,
-     309.86,
-     309.85,
-     309.87,
-     310.27,
-     310.78,
-     311.15,
-     311.41,
-     311.63,
-     311.95,
-     312.27,
-     312.54,
-     312.84,
-     313.08,
-     313.31,
-     313.41,
-     313.41,
-     313.27,
-     312.92,
-     312.77,
-     312.67,
-     312.56,
-     312.3,
-     312.13,
-     311.96,
-     312.02,
-     312.04,
-     312.03,
-     312.04,
-     312.02,
-     311.97,
-     311.86,
-     311.75,
-     311.59,
-     311.49,
-     311.37,
-     311.25,
-     311.1,
-     311.02,
-     311.07,
-     311.17,
-     311.3,
-     311.42,
-     311.53,
-     311.74,
-     311.85,
-     311.79,
-     311.97,
-     312.14,
-     312.34,
-     312.46,
-     312.53,
-     312.66,
-     312.92,
-     313.51,
-     313.99,
-     314.36,
-     314.69,
-     315.01,
-     315.3,
-     315.33,
-     315.31,
-     315.27,
+     316.01,
+     316.15,
+     316.18,
+     316.1,
+     316.02,
+     316.07,
+     316.12,
+     316.14,
+     316.21,
+     316.23,
+     316.26,
+     316.16,
+     315.98,
+     315.68,
      315.18,
-     315.22,
-     315.27,
+     314.88,
+     314.64,
+     314.41,
+     314.03,
+     313.75,
+     313.47,
+     313.44,
+     313.36,
+     313.27,
+     313.19,
+     313.1,
+     312.98,
+     312.81,
+     312.64,
+     312.42,
+     312.26,
+     312.09,
+     311.93,
+     311.74,
+     311.62,
+     311.63,
+     311.69,
+     311.79,
+     311.88,
+     311.95,
+     312.14,
+     312.23,
+     312.13,
+     312.3,
+     312.44,
+     312.63,
+     312.73,
+     312.78,
+     312.9,
+     313.14,
+     313.71,
+     314.18,
+     314.54,
+     314.86,
+     315.16,
+     315.45,
+     315.47,
+     315.44,
      315.39,
-     316.04,
-     316.59,
-     317.24,
-     317.72,
-     318.2,
-     318.68,
-     319.09,
-     319.45,
-     319.9,
-     320.21,
-     320.53,
-     320.9,
-     321.2,
-     321.45,
-     321.98,
-     322.49,
-     322.98,
-     323.28,
-     323.53,
-     323.81,
-     324.09,
-     323.87,
-     323.59,
-     323.39,
-     323.28,
-     323.12,
-     323.04,
-     322.84,
-     322.38,
-     321.98,
-     321.6,
-     321.26,
+     315.3,
+     315.32,
+     315.37,
+     315.49,
+     316.12,
+     316.67,
+     317.31,
+     317.79,
+     318.27,
+     318.74,
+     319.15,
+     319.5,
+     319.95,
+     320.26,
+     320.57,
      320.94,
-     320.61,
-     320.34,
-     319.98,
-     319.49,
-     319.12,
-     318.64,
-     318.22,
-     318.05,
+     321.24,
+     321.48,
+     322.02,
+     322.52,
+     323.01,
+     323.31,
+     323.56,
+     323.83,
+     324.11,
+     323.89,
+     323.61,
+     323.41,
+     323.3,
+     323.14,
+     323.05,
+     322.86,
+     322.39,
+     322.0,
+     321.61,
+     321.27,
+     320.95,
+     320.62,
+     320.35,
+     319.99,
+     319.5,
+     319.13,
+     318.65,
+     318.23,
+     318.06,
      317.88,
      317.95,
-     318.32,
-     318.55,
+     318.33,
+     318.56,
      318.96,
      319.29,
      319.68,
-     320.12,
-     321.02,
+     320.13,
+     321.03,
      321.96,
      322.75,
      323.47,
@@ -11633,7 +11546,7 @@
      324.63,
      325.12,
      325.64,
-     326.09,
+     326.1,
      326.64,
      327.16,
      327.63,
@@ -11924,7 +11837,8 @@
      346.81,
      346.91,
      347.02,
-     347.13
+     347.13,
+     347.48
     ],
     "pat": []
    }
@@ -16524,7 +16438,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     192.31,
@@ -17027,7 +16942,8 @@
     347.6,
     346.16,
     343.1,
-    364.79
+    364.79,
+    392.6
    ],
    "h": [
     193.2,
@@ -17530,7 +17446,8 @@
     350.0,
     348.71,
     375.53,
-    382.27
+    382.27,
+    393.25
    ],
    "l": [
     186.46,
@@ -18033,7 +17950,8 @@
     316.95,
     329.29,
     342.98,
-    364.23
+    364.23,
+    389.21
    ],
    "c": [
     188.56,
@@ -18536,7 +18454,8 @@
     319.25,
     332.72,
     370.55,
-    372.53
+    372.53,
+    390.69
    ],
    "v": [
     5475200,
@@ -19039,7 +18958,8 @@
     17048700,
     9472100,
     11002700,
-    6325300
+    6325300,
+    371435
    ],
    "e10": [
     188.56,
@@ -19542,7 +19462,8 @@
     380.1,
     371.49,
     371.32,
-    371.54
+    371.54,
+    375.02
    ],
    "e30": [
     188.56,
@@ -20045,41 +19966,10 @@
     422.1,
     416.33,
     413.38,
-    410.74
+    410.74,
+    409.45
    ],
    "pat": [
-    {
-     "kind": "bull flag",
-     "end": "2026-04-17",
-     "lines": [
-      [
-       "2026-03-30",
-       323.1199951171875,
-       "2026-04-08",
-       385.7200012207031,
-       0
-      ],
-      [
-       "2026-04-09",
-       403.82904343377976,
-       "2026-04-16",
-       394.7376171293713,
-       1
-      ],
-      [
-       "2026-04-09",
-       392.4457237606957,
-       "2026-04-16",
-       383.78427705310645,
-       1
-      ]
-     ],
-     "label": {
-      "time": "2026-04-17",
-      "up": true,
-      "text": "BULL FLAG"
-     }
-    },
     {
      "kind": "bear flag",
      "end": "2026-10-30",
@@ -20113,14 +20003,46 @@
      }
     },
     {
+     "kind": "bear flag",
+     "end": "2026-11-11",
+     "lines": [
+      [
+       "2026-10-14",
+       446.6300048828125,
+       "2026-11-04",
+       369.3999938964844,
+       0
+      ],
+      [
+       "2026-11-05",
+       345.93999633789065,
+       "2026-11-11",
+       393.96399536132816,
+       1
+      ],
+      [
+       "2026-11-05",
+       312.639990234375,
+       "2026-11-11",
+       384.424072265625,
+       1
+      ]
+     ],
+     "label": {
+      "time": "2026-11-11",
+      "up": false,
+      "text": "BEAR FLAG \u00b7 forming"
+     }
+    },
+    {
      "kind": "resistance line",
      "end": "2026-06-30",
      "lines": [
       [
        "2026-06-30",
        739.6699829101562,
-       "2026-11-10",
-       468.532734264027,
+       "2026-11-11",
+       465.61727997750944,
        0
       ]
      ],
@@ -20134,8 +20056,8 @@
       [
        "2025-11-14",
        203.39999389648438,
-       "2026-11-10",
-       450.53063774108887,
+       "2026-11-11",
+       451.5311666635367,
        0
       ]
      ],
@@ -20152,13 +20074,13 @@
       [
        "2026-10-15",
        447.0,
-       "2026-11-10",
+       "2026-11-11",
        447.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $447.00 \u00b7 weekly breakdown: lower high at 547 after the 740 top, lost the weekly 30 EMA (480), 5 red days to the week's low"
      }
@@ -20170,13 +20092,13 @@
       [
        "2026-10-15",
        418.24,
-       "2026-11-10",
+       "2026-11-11",
        418.24,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $418.24 \u00b7 weekly breakdown: lower high at 547 after the 740 top, lost the weekly 30 EMA (480), 5 red days to the week's low"
      }
@@ -28614,13 +28536,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -29032,16 +28947,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     260.63,
-     261.14,
-     260.46,
-     261.03,
-     260.87,
-     260.55,
-     260.03,
      260.85,
      261.19,
      263.99,
@@ -29453,16 +29362,10 @@
      269.02,
      268.6,
      270.55,
-     271.73
+     271.73,
+     273.27
     ],
     "h": [
-     261.27,
-     262.18,
-     261.48,
-     262.14,
-     260.87,
-     260.65,
-     260.33,
      262.68,
      264.97,
      265.15,
@@ -29874,16 +29777,10 @@
      269.25,
      270.62,
      272.34,
-     272.18
+     272.18,
+     274.87
     ],
     "l": [
-     257.73,
-     260.28,
-     259.69,
-     260.87,
-     260.05,
-     259.86,
-     259.11,
      258.58,
      261.18,
      263.78,
@@ -30295,16 +30192,10 @@
      266.93,
      268.6,
      270.37,
-     270.73
+     270.73,
+     272.76
     ],
     "c": [
-     261.15,
-     260.43,
-     261.05,
-     260.89,
-     260.56,
-     260.02,
-     259.48,
      261.17,
      263.98,
      264.55,
@@ -30716,16 +30607,10 @@
      268.61,
      270.55,
      271.73,
-     270.9
+     270.9,
+     273.01
     ],
     "v": [
-     7344434,
-     4300309,
-     2574986,
-     2697383,
-     2417634,
-     2298425,
-     4341416,
      7142823,
      6276408,
      2598636,
@@ -31137,43 +31022,37 @@
      3280962,
      3505067,
      3829873,
-     4020041
+     4020041,
+     2333240
     ],
     "e10": [
-     261.15,
-     261.02,
-     261.02,
-     261.0,
+     261.17,
+     261.68,
+     262.2,
+     262.66,
+     262.98,
+     263.44,
+     263.89,
+     263.47,
+     262.99,
+     262.85,
+     262.59,
+     262.29,
+     262.11,
+     261.76,
+     261.39,
      260.92,
-     260.75,
-     260.52,
-     260.64,
-     261.25,
-     261.85,
-     262.37,
-     262.74,
-     263.24,
-     263.73,
-     263.33,
-     262.88,
-     262.76,
-     262.52,
-     262.23,
-     262.06,
-     261.72,
-     261.35,
-     260.9,
-     260.53,
-     260.3,
-     259.92,
-     259.84,
-     259.62,
-     259.95,
-     260.44,
+     260.56,
+     260.31,
+     259.93,
+     259.85,
+     259.63,
+     259.96,
+     260.45,
      260.86,
      261.05,
      261.37,
-     261.49,
+     261.5,
      261.59,
      261.48,
      261.31,
@@ -31558,87 +31437,81 @@
      268.07,
      268.52,
      269.1,
-     269.43
+     269.43,
+     270.08
     ],
     "e30": [
-     261.15,
-     261.1,
-     261.1,
-     261.08,
-     261.05,
-     260.98,
-     260.89,
-     260.9,
-     261.1,
-     261.33,
-     261.54,
-     261.73,
-     261.97,
-     262.23,
-     262.18,
-     262.1,
-     262.1,
-     262.06,
-     261.99,
+     261.17,
+     261.36,
+     261.56,
+     261.77,
      261.94,
-     261.83,
-     261.69,
-     261.51,
-     261.34,
-     261.2,
-     261.01,
-     260.91,
-     260.77,
-     260.81,
-     260.93,
-     261.05,
+     262.17,
+     262.41,
+     262.35,
+     262.25,
+     262.25,
+     262.2,
+     262.12,
+     262.07,
+     261.95,
+     261.8,
+     261.61,
+     261.43,
+     261.29,
+     261.09,
+     260.99,
+     260.84,
+     260.88,
+     260.99,
      261.1,
-     261.21,
+     261.16,
      261.26,
      261.31,
-     261.29,
-     261.24,
-     261.22,
-     261.16,
-     261.09,
-     261.03,
-     261.02,
-     260.9,
-     260.85,
-     260.7,
-     260.61,
-     260.49,
-     260.45,
-     260.44,
-     260.23,
-     259.98,
-     259.75,
-     259.5,
-     259.22,
-     258.99,
-     258.82,
-     258.95,
-     259.46,
-     259.87,
-     260.22,
-     260.54,
-     260.9,
-     261.25,
-     261.18,
-     261.2,
+     261.36,
+     261.33,
+     261.28,
+     261.26,
      261.19,
-     261.16,
+     261.12,
+     261.06,
+     261.05,
+     260.92,
+     260.87,
+     260.72,
+     260.63,
+     260.51,
+     260.47,
+     260.46,
+     260.24,
+     260.0,
+     259.77,
+     259.52,
+     259.23,
+     259.01,
+     258.83,
+     258.96,
+     259.47,
+     259.88,
+     260.23,
+     260.55,
+     260.91,
+     261.26,
+     261.18,
+     261.21,
+     261.19,
+     261.17,
      260.95,
      260.82,
-     260.76,
-     260.36,
-     260.01,
-     259.65,
+     260.77,
+     260.37,
+     260.02,
+     259.66,
      259.31,
      259.03,
      258.71,
      258.47,
-     258.31,
+     258.32,
      258.12,
      257.91,
      257.71,
@@ -31662,7 +31535,7 @@
      257.49,
      257.48,
      257.44,
-     257.4,
+     257.41,
      257.38,
      257.37,
      257.34,
@@ -31979,7 +31852,8 @@
      263.93,
      264.36,
      264.83,
-     265.23
+     265.23,
+     265.73
     ],
     "pat": []
    }
@@ -36671,7 +36545,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     13.6,
@@ -37174,6 +37049,7 @@
     188.0,
     183.31,
     182.24,
+    185.0,
     185.0
    ],
    "h": [
@@ -37677,7 +37553,8 @@
     188.8,
     186.33,
     199.83,
-    194.68
+    194.68,
+    203.88
    ],
    "l": [
     12.96,
@@ -38180,7 +38057,8 @@
     156.0,
     168.84,
     180.5,
-    181.01
+    181.01,
+    199.48
    ],
    "c": [
     13.62,
@@ -38683,7 +38561,8 @@
     167.52,
     173.24,
     193.88,
-    185.42
+    185.42,
+    202.89
    ],
    "v": [
     9914300,
@@ -39186,7 +39065,8 @@
     37634000,
     23285600,
     16802500,
-    13213800
+    13213800,
+    1408693
    ],
    "e10": [
     13.62,
@@ -39689,7 +39569,8 @@
     204.79,
     199.06,
     198.11,
-    195.81
+    195.81,
+    197.09
    ],
    "e30": [
     13.62,
@@ -40192,7 +40073,8 @@
     228.47,
     224.9,
     222.9,
-    220.48
+    220.48,
+    219.35
    ],
    "pat": [
     {
@@ -40202,8 +40084,8 @@
       [
        "2026-06-25",
        351.2799987792969,
-       "2026-11-10",
-       280.1149153275923,
+       "2026-11-11",
+       279.37361237497043,
        0
       ]
      ],
@@ -40217,8 +40099,8 @@
       [
        "2025-12-17",
        75.69999694824219,
-       "2026-11-10",
-       196.53980355513724,
+       "2026-11-11",
+       197.076869362279,
        0
       ]
      ],
@@ -40231,13 +40113,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -40649,16 +40524,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     220.76,
-     212.86,
-     208.17,
-     206.88,
-     208.64,
-     206.9,
-     207.95,
      212.55,
      202.79,
      203.41,
@@ -41070,16 +40939,10 @@
      183.16,
      183.48,
      183.93,
-     185.52
+     185.52,
+     199.48
     ],
     "h": [
-     222.7,
-     214.15,
-     210.4,
-     210.37,
-     208.89,
-     208.1,
-     210.14,
      212.56,
      205.93,
      204.75,
@@ -41491,16 +41354,10 @@
      183.98,
      185.45,
      185.86,
-     186.23
+     186.23,
+     205.32
     ],
     "l": [
-     210.58,
-     205.5,
-     206.69,
-     206.5,
-     206.22,
-     206.37,
-     207.2,
      200.09,
      201.04,
      201.35,
@@ -41912,16 +41769,10 @@
      181.01,
      183.43,
      183.3,
-     183.79
+     183.79,
+     199.48
     ],
     "c": [
-     213.04,
-     208.22,
-     206.97,
-     208.71,
-     206.96,
-     208.04,
-     208.97,
      202.73,
      203.5,
      203.7,
@@ -42333,16 +42184,10 @@
      183.43,
      183.9,
      185.55,
-     185.44
+     185.44,
+     204.51
     ],
     "v": [
-     4995076,
-     2727192,
-     1615167,
-     1115321,
-     1364473,
-     1135672,
-     1628799,
      3947343,
      1243523,
      718864,
@@ -42754,62 +42599,56 @@
      952957,
      827799,
      1270189,
-     1320676
+     1320676,
+     1786740
     ],
     "e10": [
-     213.04,
-     212.16,
-     211.22,
-     210.76,
-     210.07,
-     209.7,
-     209.57,
-     208.32,
-     207.45,
-     206.77,
-     205.98,
-     205.36,
-     205.08,
-     205.33,
-     204.83,
-     204.04,
-     203.19,
-     202.36,
-     201.94,
-     201.84,
-     201.93,
-     201.68,
-     200.72,
-     200.38,
-     200.33,
-     200.46,
-     200.68,
-     200.8,
-     199.87,
-     200.34,
-     201.35,
-     202.12,
-     203.21,
-     203.66,
-     203.75,
-     204.91,
-     206.94,
-     208.79,
-     210.12,
-     211.35,
-     212.4,
+     202.73,
+     202.87,
+     203.02,
+     202.92,
+     202.85,
+     203.03,
+     203.65,
+     203.45,
+     202.91,
+     202.27,
+     201.6,
+     201.32,
+     201.34,
+     201.52,
+     201.34,
+     200.44,
+     200.15,
+     200.15,
+     200.31,
+     200.56,
+     200.7,
+     199.78,
+     200.27,
+     201.3,
+     202.08,
+     203.17,
+     203.63,
+     203.72,
+     204.89,
+     206.92,
+     208.78,
+     210.11,
+     211.34,
+     212.39,
      213.34,
      214.05,
      214.35,
-     214.51,
+     214.5,
      214.97,
-     215.34,
-     215.99,
+     215.33,
+     215.98,
      216.4,
-     217.07,
+     217.06,
      216.97,
      217.28,
-     217.67,
+     217.66,
      217.7,
      217.9,
      217.88,
@@ -43175,133 +43014,127 @@
      187.35,
      186.72,
      186.51,
-     186.31
+     186.31,
+     189.62
     ],
     "e30": [
-     213.04,
-     212.72,
-     212.35,
-     212.12,
-     211.79,
-     211.54,
-     211.38,
-     210.82,
-     210.35,
-     209.92,
-     209.44,
-     208.99,
-     208.66,
-     208.52,
-     208.13,
-     207.64,
-     207.11,
-     206.56,
-     206.14,
-     205.83,
-     205.61,
-     205.28,
-     204.71,
-     204.33,
-     204.06,
-     203.86,
-     203.72,
-     203.57,
+     202.73,
+     202.78,
+     202.84,
+     202.81,
+     202.8,
+     202.86,
+     203.09,
      203.06,
-     203.02,
-     203.21,
-     203.36,
-     203.67,
-     203.8,
+     202.89,
+     202.67,
+     202.41,
+     202.25,
+     202.2,
+     202.21,
+     202.1,
+     201.73,
+     201.55,
+     201.45,
+     201.43,
+     201.44,
+     201.44,
+     201.06,
+     201.16,
+     201.46,
+     201.73,
+     202.14,
+     202.37,
+     202.48,
+     202.98,
      203.82,
-     204.23,
-     204.99,
-     205.77,
-     206.44,
-     207.11,
-     207.76,
-     208.39,
-     208.96,
-     209.4,
-     209.77,
-     210.24,
-     210.68,
-     211.21,
-     211.67,
-     212.21,
-     212.48,
-     212.89,
-     213.31,
-     213.6,
-     213.93,
-     214.18,
-     214.65,
-     214.83,
-     214.66,
-     214.51,
+     204.68,
+     205.42,
+     206.16,
+     206.86,
+     207.56,
+     208.18,
+     208.67,
+     209.09,
+     209.6,
+     210.08,
+     210.65,
+     211.14,
+     211.72,
+     212.03,
+     212.46,
+     212.9,
+     213.22,
+     213.58,
+     213.86,
+     214.35,
+     214.54,
      214.39,
-     214.21,
+     214.25,
+     214.15,
      213.99,
-     213.42,
-     212.86,
-     212.23,
-     211.78,
-     211.28,
-     210.82,
-     210.52,
-     209.85,
-     209.53,
-     209.31,
-     209.05,
-     208.89,
-     208.99,
-     209.29,
+     213.78,
+     213.23,
+     212.68,
+     212.06,
+     211.62,
+     211.13,
+     210.68,
+     210.39,
+     209.73,
+     209.42,
+     209.2,
+     208.95,
+     208.8,
+     208.9,
+     209.2,
+     209.15,
+     209.06,
+     209.07,
      209.22,
-     209.14,
-     209.14,
-     209.28,
-     209.44,
-     209.82,
-     210.3,
-     210.86,
-     212.36,
-     213.81,
-     215.33,
-     216.72,
-     217.93,
-     219.04,
-     220.69,
-     222.18,
-     223.73,
-     225.09,
-     226.4,
-     227.88,
-     229.49,
-     232.37,
-     235.16,
-     237.99,
-     240.9,
-     243.57,
-     245.99,
-     248.0,
-     249.88,
-     251.35,
-     252.82,
-     254.14,
-     255.36,
-     256.52,
-     257.33,
-     258.1,
-     258.6,
-     258.77,
+     209.38,
+     209.77,
+     210.25,
+     210.81,
+     212.31,
+     213.77,
+     215.29,
+     216.69,
+     217.89,
+     219.0,
+     220.66,
+     222.15,
+     223.7,
+     225.06,
+     226.38,
+     227.85,
+     229.47,
+     232.35,
+     235.14,
+     237.97,
+     240.88,
+     243.55,
+     245.98,
+     247.99,
+     249.87,
+     251.34,
+     252.81,
+     254.13,
+     255.35,
+     256.51,
+     257.32,
+     258.09,
+     258.59,
+     258.76,
      258.95,
      259.14,
      259.17,
-     259.13,
-     260.15,
-     261.19,
+     259.12,
+     260.14,
+     261.18,
      262.08,
-     262.88,
-     263.68,
+     262.87,
+     263.67,
      264.39,
      265.11,
      264.67,
@@ -43317,7 +43150,7 @@
      262.93,
      262.71,
      262.47,
-     262.26,
+     262.25,
      262.67,
      263.16,
      263.57,
@@ -43596,7 +43429,8 @@
      188.83,
      188.51,
      188.32,
-     188.14
+     188.14,
+     189.19
     ],
     "pat": []
    }
@@ -44103,7 +43937,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     173.92,
@@ -44606,7 +44441,8 @@
     255.25,
     241.28,
     250.36,
-    253.56
+    253.56,
+    249.78
    ],
    "h": [
     173.92,
@@ -45109,7 +44945,8 @@
     255.7,
     250.03,
     261.0,
-    254.7
+    254.7,
+    250.96
    ],
    "l": [
     171.11,
@@ -45612,7 +45449,8 @@
     243.65,
     240.0,
     246.44,
-    250.44
+    250.44,
+    249.71
    ],
    "c": [
     172.03,
@@ -46115,7 +45953,8 @@
     243.93,
     248.35,
     254.87,
-    253.25
+    253.25,
+    250.96
    ],
    "v": [
     1458100,
@@ -46618,7 +46457,8 @@
     1220700,
     1002100,
     1143200,
-    735000
+    735000,
+    6501
    ],
    "e10": [
     172.03,
@@ -47121,7 +46961,8 @@
     247.81,
     247.91,
     249.17,
-    249.91
+    249.91,
+    250.1
    ],
    "e30": [
     172.03,
@@ -47624,7 +47465,8 @@
     238.78,
     239.39,
     240.39,
-    241.22
+    241.22,
+    241.85
    ],
    "pat": [
     {
@@ -47667,8 +47509,8 @@
       [
        "2026-01-20",
        160.36000061035156,
-       "2026-11-10",
-       192.84307274451623,
+       "2026-11-11",
+       193.00230349027194,
        0
       ]
      ],
@@ -47688,7 +47530,7 @@
       [
        "2026-08-19",
        253.41000366210938,
-       "2026-11-10",
+       "2026-11-11",
        253.41000366210938,
        1
       ],
@@ -48224,7 +48066,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     60.72,
@@ -48727,6 +48570,7 @@
     65.0,
     61.46,
     62.88,
+    61.67,
     61.67
    ],
    "h": [
@@ -49230,7 +49074,8 @@
     65.54,
     63.06,
     63.06,
-    62.92
+    62.92,
+    62.11
    ],
    "l": [
     59.53,
@@ -49733,7 +49578,8 @@
     62.99,
     61.32,
     61.8,
-    61.3
+    61.3,
+    61.85
    ],
    "c": [
     59.82,
@@ -50236,7 +50082,8 @@
     63.13,
     62.14,
     62.14,
-    62.8
+    62.8,
+    61.93
    ],
    "v": [
     27898400,
@@ -50739,7 +50586,8 @@
     9026800,
     9794700,
     7667800,
-    7617100
+    7617100,
+    82568
    ],
    "e10": [
     59.82,
@@ -51242,7 +51090,8 @@
     62.28,
     62.26,
     62.24,
-    62.34
+    62.34,
+    62.26
    ],
    "e30": [
     59.82,
@@ -51745,6 +51594,7 @@
     61.76,
     61.78,
     61.81,
+    61.87,
     61.87
    ],
    "pat": [
@@ -51788,8 +51638,8 @@
       [
        "2025-11-20",
        45.27000045776367,
-       "2026-11-10",
-       57.12578637503722,
+       "2026-11-11",
+       57.17457561749514,
        0
       ]
      ],
@@ -51809,7 +51659,7 @@
       [
        "2026-11-04",
        71.67999267578125,
-       "2026-11-10",
+       "2026-11-11",
        71.67999267578125,
        1
       ],
@@ -52345,7 +52195,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     171.4,
@@ -52848,7 +52699,8 @@
     190.71,
     179.7,
     182.57,
-    178.72
+    178.72,
+    176.92
    ],
    "h": [
     175.23,
@@ -53351,7 +53203,8 @@
     192.5,
     183.82,
     183.35,
-    179.92
+    179.92,
+    176.92
    ],
    "l": [
     170.51,
@@ -53854,7 +53707,8 @@
     167.38,
     175.2,
     179.58,
-    172.19
+    172.19,
+    174.5
    ],
    "c": [
     174.95,
@@ -54357,7 +54211,8 @@
     179.92,
     179.67,
     180.96,
-    178.25
+    178.25,
+    175.88
    ],
    "v": [
     3962300,
@@ -54860,7 +54715,8 @@
     18787000,
     4548100,
     5330400,
-    4517100
+    4517100,
+    108359
    ],
    "e10": [
     174.95,
@@ -55363,7 +55219,8 @@
     183.83,
     183.07,
     182.69,
-    181.88
+    181.88,
+    180.79
    ],
    "e30": [
     174.95,
@@ -55866,7 +55723,8 @@
     187.26,
     186.77,
     186.39,
-    185.87
+    185.87,
+    185.22
    ],
    "pat": [
     {
@@ -55940,8 +55798,8 @@
       [
        "2025-12-19",
        239.0,
-       "2026-11-10",
-       238.7770037983739,
+       "2026-11-11",
+       238.77600381540697,
        0
       ]
      ],
@@ -55955,8 +55813,8 @@
       [
        "2025-12-19",
        143.3660019275754,
-       "2026-11-10",
-       143.1430057259493,
+       "2026-11-11",
+       143.14200574298238,
        1
       ]
      ]
@@ -55969,8 +55827,8 @@
       [
        "2026-03-27",
        143.3000030517578,
-       "2026-11-10",
-       151.7840341421274,
+       "2026-11-11",
+       151.83807255671576,
        0
       ]
      ],
@@ -55990,7 +55848,7 @@
       [
        "2026-11-04",
        232.14999389648438,
-       "2026-11-10",
+       "2026-11-11",
        232.14999389648438,
        1
       ],
@@ -56029,13 +55887,13 @@
       [
        "2026-10-09",
        204.09,
-       "2026-11-10",
+       "2026-11-11",
        204.09,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $204.09 \u00b7 breakout: daily CLOSE above the 20-day high -> Oct 30 $200 call ticket (limit ~$6.35, stop DASH close < $189, take profit ~$12, out by Oct 28)"
      }
@@ -56047,13 +55905,13 @@
       [
        "2026-10-09",
        178.0,
-       "2026-11-10",
+       "2026-11-11",
        178.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $178.00 \u00b7 breakout: daily CLOSE above the 20-day high -> Oct 30 $200 call ticket (limit ~$6.35, stop DASH close < $189, take profit ~$12, out by Oct 28)"
      }
@@ -56065,13 +55923,13 @@
       [
        "2026-10-09",
        1000000000.0,
-       "2026-11-10",
+       "2026-11-11",
        1000000000.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $1,000,000,000.00 \u00b7 green + : 10-day EMA closed above the 30 -> Setup F fires (target $285.50); same Oct 30 $200 call ticket"
      }
@@ -56083,13 +55941,13 @@
       [
        "2026-10-09",
        178.0,
-       "2026-11-10",
+       "2026-11-11",
        178.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $178.00 \u00b7 green + : 10-day EMA closed above the 30 -> Setup F fires (target $285.50); same Oct 30 $200 call ticket"
      }
@@ -56097,13 +55955,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -56515,16 +56366,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     212.89,
-     220.66,
-     221.86,
-     221.29,
-     218.32,
-     217.08,
-     217.4,
      217.18,
      219.65,
      219.08,
@@ -56936,16 +56781,10 @@
      174.92,
      174.85,
      175.93,
-     177.03
+     177.03,
+     176.92
     ],
     "h": [
-     221.25,
-     222.81,
-     221.94,
-     221.5,
-     218.88,
-     217.8,
-     217.97,
      220.7,
      221.06,
      221.12,
@@ -57357,16 +57196,10 @@
      180.96,
      175.98,
      177.2,
-     178.59
+     178.59,
+     176.92
     ],
     "l": [
-     212.66,
-     220.09,
-     220.46,
-     218.37,
-     216.98,
-     215.31,
-     216.24,
      215.85,
      218.41,
      218.88,
@@ -57778,16 +57611,10 @@
      173.91,
      174.12,
      175.8,
-     176.58
+     176.58,
+     174.5
     ],
     "c": [
-     220.65,
-     221.87,
-     221.33,
-     218.45,
-     217.04,
-     217.31,
-     216.36,
      219.66,
      218.92,
      220.29,
@@ -58199,16 +58026,10 @@
      174.66,
      175.87,
      177.03,
-     178.24
+     178.24,
+     176.3
     ],
     "v": [
-     1281900,
-     796280,
-     524494,
-     418138,
-     402210,
-     680344,
-     889701,
      768928,
      365328,
      276956,
@@ -58620,47 +58441,41 @@
      244860,
      305394,
      309173,
-     792157
+     792157,
+     103312
     ],
     "e10": [
-     220.65,
-     220.87,
-     220.95,
-     220.5,
-     219.87,
-     219.4,
-     218.85,
-     219.0,
-     218.98,
-     219.22,
-     219.54,
-     219.91,
-     220.26,
-     220.26,
-     220.23,
-     220.27,
-     220.64,
-     221.04,
-     221.36,
-     221.7,
-     221.83,
-     222.05,
-     222.66,
-     222.79,
-     222.93,
-     222.9,
+     219.66,
+     219.53,
+     219.66,
+     219.9,
+     220.21,
+     220.51,
+     220.46,
+     220.39,
+     220.41,
+     220.75,
+     221.13,
+     221.43,
+     221.76,
+     221.88,
+     222.09,
+     222.69,
+     222.82,
+     222.95,
      222.92,
-     223.04,
-     223.99,
+     222.94,
+     223.05,
+     224.0,
      224.95,
      225.69,
-     226.33,
-     226.9,
+     226.34,
+     226.91,
      227.3,
      227.62,
      228.39,
      229.0,
-     229.86,
+     229.87,
      230.48,
      230.78,
      231.22,
@@ -59041,90 +58856,84 @@
      177.66,
      177.33,
      177.28,
-     177.45
+     177.45,
+     177.24
     ],
     "e30": [
-     220.65,
-     220.72,
-     220.76,
-     220.61,
-     220.38,
-     220.18,
-     219.94,
-     219.92,
+     219.66,
+     219.61,
+     219.66,
+     219.74,
      219.86,
-     219.88,
-     219.95,
-     220.06,
-     220.17,
+     219.99,
+     220.0,
+     220.01,
+     220.04,
      220.18,
-     220.17,
-     220.19,
-     220.33,
-     220.49,
-     220.64,
-     220.81,
-     220.91,
-     221.05,
-     221.33,
-     221.46,
-     221.6,
-     221.67,
-     221.76,
-     221.87,
-     222.29,
-     222.74,
-     223.14,
-     223.54,
-     223.92,
-     224.25,
-     224.56,
-     225.03,
-     225.47,
-     226.0,
-     226.47,
-     226.83,
-     227.24,
-     227.64,
-     228.22,
-     228.74,
-     229.15,
-     229.64,
-     230.2,
-     230.66,
-     231.06,
-     231.13,
-     231.18,
+     220.36,
+     220.51,
+     220.69,
+     220.8,
+     220.95,
+     221.23,
+     221.37,
+     221.51,
+     221.59,
+     221.69,
+     221.81,
+     222.22,
+     222.68,
+     223.09,
+     223.48,
+     223.87,
+     224.21,
+     224.52,
+     224.99,
+     225.43,
+     225.97,
+     226.44,
+     226.8,
+     227.22,
+     227.62,
+     228.2,
+     228.72,
+     229.13,
+     229.62,
+     230.18,
+     230.64,
+     231.04,
+     231.11,
+     231.17,
+     231.26,
      231.27,
-     231.28,
-     231.25,
-     231.27,
-     231.31,
-     231.55,
+     231.24,
+     231.26,
+     231.3,
+     231.54,
      232.0,
      232.26,
-     232.48,
-     232.73,
+     232.47,
+     232.72,
      232.98,
-     233.22,
+     233.21,
      233.27,
-     233.26,
+     233.25,
      233.23,
      233.2,
-     233.09,
+     233.08,
      233.0,
      232.92,
-     232.86,
+     232.85,
      232.64,
      232.45,
      232.17,
-     231.89,
-     231.53,
+     231.88,
+     231.52,
      231.15,
      230.83,
      230.51,
      230.25,
-     230.01,
+     230.0,
      229.79,
      229.62,
      229.4,
@@ -59134,7 +58943,7 @@
      228.21,
      227.89,
      227.52,
-     227.17,
+     227.16,
      226.38,
      225.73,
      225.03,
@@ -59144,7 +58953,7 @@
      222.34,
      220.95,
      219.59,
-     218.36,
+     218.35,
      217.17,
      216.17,
      215.16,
@@ -59168,7 +58977,7 @@
      204.83,
      204.75,
      204.59,
-     204.39,
+     204.38,
      204.23,
      204.02,
      203.88,
@@ -59178,7 +58987,7 @@
      203.5,
      203.51,
      203.38,
-     203.2,
+     203.19,
      203.08,
      202.91,
      202.78,
@@ -59462,7 +59271,8 @@
      180.3,
      180.02,
      179.83,
-     179.72
+     179.72,
+     179.5
     ],
     "pat": []
    }
@@ -59969,7 +59779,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     138.47,
@@ -60472,6 +60283,7 @@
     350.0,
     346.05,
     337.35,
+    337.78,
     337.78
    ],
    "h": [
@@ -60975,7 +60787,8 @@
     352.7,
     350.36,
     354.5,
-    346.75
+    346.75,
+    360.6
    ],
    "l": [
     135.0,
@@ -61478,7 +61291,8 @@
     315.0,
     325.1,
     328.3,
-    321.25
+    321.25,
+    360.39
    ],
    "c": [
     138.51,
@@ -61981,7 +61795,8 @@
     316.91,
     328.53,
     346.31,
-    334.38
+    334.38,
+    360.45
    ],
    "v": [
     7210900,
@@ -62484,7 +62299,8 @@
     14226900,
     8601300,
     6725600,
-    6651000
+    6651000,
+    324758
    ],
    "e10": [
     138.51,
@@ -62987,7 +62803,8 @@
     414.24,
     398.65,
     389.14,
-    379.18
+    379.18,
+    375.77
    ],
    "e30": [
     138.51,
@@ -63490,7 +63307,8 @@
     469.44,
     460.35,
     452.99,
-    445.34
+    445.34,
+    439.86
    ],
    "pat": [
     {
@@ -63564,8 +63382,8 @@
       [
        "2026-09-18",
        595.510009765625,
-       "2026-11-10",
-       594.399979654948,
+       "2026-11-11",
+       594.3699788411458,
        0
       ]
      ],
@@ -63579,8 +63397,8 @@
       [
        "2026-01-21",
        110.22000122070312,
-       "2026-11-10",
-       122.65369701385498,
+       "2026-11-11",
+       122.71494674682617,
        0
       ]
      ],
@@ -68165,7 +67983,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     38.71,
@@ -68668,6 +68487,7 @@
     44.74,
     41.0,
     41.52,
+    41.81,
     41.81
    ],
    "h": [
@@ -69171,7 +68991,8 @@
     45.12,
     43.18,
     42.53,
-    43.72
+    43.72,
+    44.04
    ],
    "l": [
     38.36,
@@ -69674,7 +69495,8 @@
     42.8,
     40.6,
     41.29,
-    41.49
+    41.49,
+    43.94
    ],
    "c": [
     38.96,
@@ -70177,7 +69999,8 @@
     42.88,
     42.21,
     42.4,
-    43.41
+    43.41,
+    44.0
    ],
    "v": [
     8426700,
@@ -70680,7 +70503,8 @@
     14102900,
     19219700,
     15719500,
-    10991600
+    10991600,
+    214251
    ],
    "e10": [
     38.96,
@@ -71183,7 +71007,8 @@
     47.83,
     46.81,
     46.01,
-    45.54
+    45.54,
+    45.26
    ],
    "e30": [
     38.96,
@@ -71686,7 +71511,8 @@
     48.71,
     48.29,
     47.91,
-    47.62
+    47.62,
+    47.39
    ],
    "pat": [
     {
@@ -71760,8 +71586,8 @@
       [
        "2026-03-30",
        52.709999084472656,
-       "2026-11-10",
-       51.33991440482762,
+       "2026-11-11",
+       51.33113181072733,
        0
       ]
      ],
@@ -71779,8 +71605,8 @@
       [
        "2026-01-07",
        34.22999954223633,
-       "2026-11-10",
-       44.33942183187185,
+       "2026-11-11",
+       44.38710778606824,
        0
       ]
      ],
@@ -71804,7 +71630,7 @@
       [
        "2026-10-30",
        63.900001525878906,
-       "2026-11-10",
+       "2026-11-11",
        63.900001525878906,
        1
       ],
@@ -72340,7 +72166,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     56.17,
@@ -72843,6 +72670,7 @@
     93.03,
     87.42,
     87.45,
+    88.81,
     88.81
    ],
    "h": [
@@ -73346,7 +73174,8 @@
     93.53,
     88.54,
     90.11,
-    89.44
+    89.44,
+    88.65
    ],
    "l": [
     55.96,
@@ -73849,7 +73678,8 @@
     88.39,
     86.08,
     87.09,
-    88.35
+    88.35,
+    88.32
    ],
    "c": [
     57.66,
@@ -74352,7 +74182,8 @@
     89.33,
     86.16,
     89.65,
-    88.69
+    88.69,
+    88.45
    ],
    "v": [
     11276500,
@@ -74855,7 +74686,8 @@
     11315800,
     9046100,
     7208400,
-    6833700
+    6833700,
+    38641
    ],
    "e10": [
     57.66,
@@ -75358,7 +75190,8 @@
     86.45,
     86.39,
     86.99,
-    87.3
+    87.3,
+    87.51
    ],
    "e30": [
     57.66,
@@ -75861,7 +75694,8 @@
     83.74,
     83.89,
     84.27,
-    84.55
+    84.55,
+    84.8
    ],
    "pat": [
     {
@@ -75935,8 +75769,8 @@
       [
        "2026-07-29",
        91.8499984741211,
-       "2026-11-10",
-       83.5280029296875,
+       "2026-11-11",
+       83.41400299072265,
        0
       ]
      ],
@@ -75954,8 +75788,8 @@
       [
        "2026-07-29",
        81.54399261474609,
-       "2026-11-10",
-       73.2219970703125,
+       "2026-11-11",
+       73.10799713134764,
        1
       ]
      ]
@@ -75968,8 +75802,8 @@
       [
        "2026-05-19",
        70.43000030517578,
-       "2026-11-10",
-       75.04797755250144,
+       "2026-11-11",
+       75.086142653719,
        0
       ]
      ],
@@ -75989,7 +75823,7 @@
       [
        "2026-05-27",
        94.90999603271484,
-       "2026-11-10",
+       "2026-11-11",
        94.90999603271484,
        1
       ],
@@ -76525,7 +76359,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     180.07,
@@ -77028,7 +76863,8 @@
     291.8,
     283.42,
     290.55,
-    287.14
+    287.14,
+    287.57
    ],
    "h": [
     182.09,
@@ -77531,7 +77367,8 @@
     293.64,
     289.22,
     294.69,
-    289.5
+    289.5,
+    287.83
    ],
    "l": [
     179.99,
@@ -78034,7 +77871,8 @@
     276.2,
     283.0,
     285.94,
-    283.37
+    283.37,
+    287.16
    ],
    "c": [
     181.97,
@@ -78537,7 +78375,8 @@
     281.74,
     283.93,
     286.01,
-    284.92
+    284.92,
+    287.37
    ],
    "v": [
     12503400,
@@ -79040,7 +78879,8 @@
     41149900,
     24620200,
     24040000,
-    15059000
+    15059000,
+    1058205
    ],
    "e10": [
     181.97,
@@ -79543,7 +79383,8 @@
     294.87,
     292.88,
     291.63,
-    290.41
+    290.41,
+    289.86
    ],
    "e30": [
     181.97,
@@ -80046,7 +79887,8 @@
     317.14,
     315.0,
     313.13,
-    311.31
+    311.31,
+    309.76
    ],
    "pat": [
     {
@@ -80120,8 +79962,8 @@
       [
        "2026-05-18",
        404.4700012207031,
-       "2026-11-10",
-       353.2751781322338,
+       "2026-11-11",
+       352.85554843478735,
        0
       ]
      ],
@@ -80135,8 +79977,8 @@
       [
        "2025-11-14",
        271.4100036621094,
-       "2026-11-10",
-       271.7492893763951,
+       "2026-11-11",
+       271.7506630027687,
        0
       ]
      ],
@@ -80156,7 +79998,7 @@
       [
        "2026-04-30",
        428.7649841308594,
-       "2026-11-10",
+       "2026-11-11",
        428.7649841308594,
        1
       ],
@@ -80191,13 +80033,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -80609,16 +80444,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     339.8,
-     341.9,
-     340.65,
-     341.45,
-     340.74,
-     342.36,
-     341.81,
      339.8,
      340.07,
      342.06,
@@ -81030,16 +80859,10 @@
      284.38,
      283.72,
      284.82,
-     285.07
+     285.07,
+     287.57
     ],
     "h": [
-     341.95,
-     342.08,
-     341.75,
-     341.55,
-     342.39,
-     342.39,
-     342.36,
      341.84,
      343.19,
      343.56,
@@ -81451,16 +81274,10 @@
      286.01,
      284.98,
      285.31,
-     285.53
+     285.53,
+     287.83
     ],
     "l": [
-     337.52,
-     340.44,
-     340.06,
-     340.46,
-     340.57,
-     340.22,
-     341.21,
      338.05,
      339.85,
      341.66,
@@ -81872,16 +81689,10 @@
      283.37,
      283.46,
      284.36,
-     284.72
+     284.72,
+     286.9
     ],
     "c": [
-     341.9,
-     340.74,
-     341.45,
-     340.75,
-     342.35,
-     341.78,
-     341.37,
      340.11,
      342.07,
      342.58,
@@ -82293,16 +82104,10 @@
      283.73,
      284.83,
      285.07,
-     284.93
+     284.93,
+     287.5
     ],
     "v": [
-     2930089,
-     1410816,
-     997459,
-     827704,
-     1303195,
-     1267438,
-     2478155,
      2971314,
      1920573,
      1222401,
@@ -82714,45 +82519,39 @@
      1055108,
      1138180,
      1083067,
-     1616717
+     1616717,
+     1161316
     ],
     "e10": [
-     341.9,
-     341.69,
-     341.65,
-     341.48,
-     341.64,
-     341.67,
-     341.61,
-     341.34,
-     341.47,
-     341.67,
-     341.55,
-     341.4,
-     341.32,
-     341.4,
-     340.9,
-     340.18,
-     339.84,
-     339.6,
-     339.16,
-     339.02,
-     338.87,
-     339.05,
-     339.5,
-     339.83,
-     340.27,
-     340.51,
+     340.11,
+     340.47,
+     340.85,
      340.88,
-     341.05,
-     341.84,
-     342.85,
-     343.71,
-     344.1,
+     340.85,
+     340.87,
+     341.03,
+     340.59,
+     339.93,
+     339.64,
+     339.44,
+     339.02,
+     338.91,
+     338.78,
+     338.97,
+     339.44,
+     339.78,
+     340.23,
+     340.48,
+     340.85,
+     341.03,
+     341.82,
+     342.84,
+     343.7,
+     344.09,
      344.37,
      344.58,
-     344.59,
-     344.34,
+     344.58,
+     344.33,
      344.09,
      343.95,
      343.81,
@@ -82763,7 +82562,7 @@
      342.04,
      341.2,
      340.64,
-     340.24,
+     340.23,
      339.91,
      339.76,
      339.26,
@@ -83135,126 +82934,120 @@
      285.88,
      285.69,
      285.58,
-     285.46
+     285.46,
+     285.83
     ],
     "e30": [
-     341.9,
-     341.83,
-     341.8,
-     341.73,
-     341.77,
-     341.77,
-     341.75,
-     341.64,
-     341.67,
-     341.73,
-     341.68,
-     341.62,
-     341.58,
-     341.59,
-     341.4,
-     341.11,
-     340.93,
-     340.78,
-     340.54,
-     340.4,
-     340.26,
-     340.23,
-     340.32,
-     340.38,
-     340.5,
-     340.57,
-     340.7,
-     340.77,
-     341.07,
-     341.48,
-     341.87,
-     342.13,
-     342.35,
-     342.56,
-     342.69,
-     342.72,
-     342.74,
-     342.78,
-     342.8,
-     342.8,
-     342.82,
-     342.86,
-     342.59,
-     342.38,
-     342.06,
-     341.81,
-     341.59,
-     341.39,
-     341.24,
-     340.97,
-     340.76,
-     340.61,
+     340.11,
+     340.24,
+     340.39,
+     340.43,
+     340.45,
+     340.48,
+     340.56,
      340.44,
-     340.25,
-     340.07,
-     339.91,
-     339.93,
-     340.26,
-     340.42,
-     340.58,
-     340.71,
-     340.92,
-     341.05,
-     340.58,
-     340.22,
+     340.21,
+     340.09,
+     339.99,
+     339.81,
+     339.71,
+     339.62,
+     339.63,
+     339.75,
      339.86,
-     339.53,
-     339.2,
-     338.93,
-     338.71,
-     338.36,
-     338.02,
-     337.64,
-     337.28,
-     336.89,
-     336.52,
-     336.22,
-     336.14,
-     335.99,
-     335.87,
-     335.79,
-     335.69,
-     335.6,
-     335.49,
-     335.72,
-     335.95,
-     336.07,
-     336.26,
+     340.01,
+     340.11,
+     340.27,
+     340.37,
+     340.69,
+     341.13,
+     341.54,
+     341.82,
+     342.06,
+     342.29,
+     342.44,
+     342.49,
+     342.52,
+     342.57,
+     342.61,
+     342.62,
+     342.66,
+     342.7,
+     342.44,
+     342.25,
+     341.93,
+     341.69,
+     341.48,
+     341.28,
+     341.14,
+     340.87,
+     340.67,
+     340.53,
+     340.36,
+     340.18,
+     340.0,
+     339.84,
+     339.87,
+     340.2,
+     340.37,
+     340.53,
+     340.66,
+     340.88,
+     341.01,
+     340.54,
+     340.18,
+     339.83,
+     339.5,
+     339.17,
+     338.91,
+     338.68,
+     338.34,
+     338.0,
+     337.62,
+     337.26,
+     336.87,
      336.51,
-     336.72,
-     336.88,
+     336.21,
+     336.13,
+     335.98,
+     335.86,
+     335.77,
+     335.68,
+     335.59,
+     335.48,
+     335.71,
+     335.94,
+     336.07,
+     336.25,
+     336.5,
+     336.71,
+     336.87,
      336.73,
      336.58,
-     336.5,
-     336.43,
+     336.49,
+     336.42,
      336.34,
      336.34,
      336.27,
      335.99,
-     335.94,
-     335.9,
+     335.93,
+     335.89,
      335.91,
      335.84,
      335.75,
      335.73,
-     335.25,
+     335.24,
      334.68,
-     334.21,
+     334.2,
      333.86,
-     333.5,
+     333.49,
      333.19,
      332.88,
      332.6,
      332.27,
-     332.02,
+     332.01,
      331.85,
-     331.71,
+     331.7,
      331.6,
      331.53,
      331.9,
@@ -83556,7 +83349,8 @@
      286.19,
      286.11,
      286.04,
-     285.97
+     285.97,
+     286.07
     ],
     "pat": []
    }
@@ -88244,7 +88038,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     32.94,
@@ -88747,7 +88542,8 @@
     85.75,
     79.56,
     80.88,
-    81.27
+    81.27,
+    83.07
    ],
    "h": [
     34.32,
@@ -89250,7 +89046,8 @@
     86.75,
     81.6,
     85.34,
-    83.32
+    83.32,
+    83.19
    ],
    "l": [
     32.23,
@@ -89753,7 +89550,8 @@
     75.51,
     77.95,
     80.55,
-    79.96
+    79.96,
+    82.94
    ],
    "c": [
     32.8,
@@ -90256,7 +90054,8 @@
     78.39,
     80.91,
     83.32,
-    81.33
+    81.33,
+    83.01
    ],
    "v": [
     43967200,
@@ -90759,7 +90558,8 @@
     32403600,
     16498800,
     15184600,
-    13402500
+    13402500,
+    745143
    ],
    "e10": [
     32.8,
@@ -91262,7 +91062,8 @@
     88.22,
     86.89,
     86.24,
-    85.35
+    85.35,
+    84.92
    ],
    "e30": [
     32.8,
@@ -91765,7 +91566,8 @@
     97.61,
     96.53,
     95.68,
-    94.75
+    94.75,
+    93.99
    ],
    "pat": [
     {
@@ -91807,8 +91609,8 @@
       [
        "2025-12-09",
        139.75,
-       "2026-11-10",
-       124.49461678442012,
+       "2026-11-11",
+       124.42857616443925,
        0
       ]
      ],
@@ -91822,8 +91624,8 @@
       [
        "2026-03-30",
        63.51499938964844,
-       "2026-11-10",
-       100.52370695226332,
+       "2026-11-11",
+       100.76094225715188,
        0
       ]
      ],
@@ -92337,7 +92139,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     214.4,
@@ -92840,6 +92643,7 @@
     255.92,
     242.92,
     246.0,
+    244.38,
     244.38
    ],
    "h": [
@@ -93343,7 +93147,8 @@
     256.18,
     246.34,
     248.81,
-    246.0
+    246.0,
+    244.73
    ],
    "l": [
     213.48,
@@ -93846,7 +93651,8 @@
     245.72,
     240.35,
     245.2,
-    242.7
+    242.7,
+    243.62
    ],
    "c": [
     213.57,
@@ -94349,7 +94155,8 @@
     247.11,
     245.0,
     246.11,
-    244.53
+    244.53,
+    243.71
    ],
    "v": [
     3013000,
@@ -94852,7 +94659,8 @@
     5339500,
     3491900,
     4625900,
-    2967900
+    2967900,
+    101638
    ],
    "e10": [
     213.57,
@@ -95355,7 +95163,8 @@
     250.46,
     249.47,
     248.86,
-    248.07
+    248.07,
+    247.28
    ],
    "e30": [
     213.57,
@@ -95858,7 +95667,8 @@
     242.83,
     242.97,
     243.17,
-    243.26
+    243.26,
+    243.29
    ],
    "pat": [
     {
@@ -95932,8 +95742,8 @@
       [
        "2026-06-02",
        332.4599914550781,
-       "2026-11-10",
-       231.85475623089334,
+       "2026-11-11",
+       230.956495202106,
        0
       ]
      ],
@@ -95951,8 +95761,8 @@
       [
        "2026-07-23",
        199.19000244140625,
-       "2026-11-10",
-       225.72648479320384,
+       "2026-11-11",
+       226.0711144341363,
        0
       ]
      ],
@@ -95965,7 +95775,7 @@
       [
        "2026-06-02",
        332.4599914550781,
-       "2026-11-10",
+       "2026-11-11",
        332.4599914550781,
        1
       ],
@@ -100658,7 +100468,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     155.62,
@@ -101161,6 +100972,7 @@
     278.92,
     267.56,
     278.0,
+    282.0,
     282.0
    ],
    "h": [
@@ -101664,7 +101476,8 @@
     281.92,
     276.41,
     282.73,
-    283.25
+    283.25,
+    278.0
    ],
    "l": [
     154.91,
@@ -102167,7 +101980,8 @@
     271.64,
     265.55,
     276.2,
-    279.19
+    279.19,
+    276.71
    ],
    "c": [
     155.04,
@@ -102670,7 +102484,8 @@
     272.32,
     276.22,
     282.11,
-    280.78
+    280.78,
+    276.71
    ],
    "v": [
     7146800,
@@ -103173,7 +102988,8 @@
     9654800,
     8860000,
     6899500,
-    7383900
+    7383900,
+    109081
    ],
    "e10": [
     155.04,
@@ -103676,7 +103492,8 @@
     269.74,
     270.92,
     272.96,
-    274.38
+    274.38,
+    274.8
    ],
    "e30": [
     155.04,
@@ -104179,7 +103996,8 @@
     265.72,
     266.4,
     267.41,
-    268.28
+    268.28,
+    268.82
    ],
    "pat": [
     {
@@ -104189,8 +104007,8 @@
       [
        "2026-09-02",
        281.07000732421875,
-       "2026-11-10",
-       262.38201904296875,
+       "2026-11-11",
+       261.99268595377606,
        0
       ]
      ],
@@ -104208,8 +104026,8 @@
       [
        "2026-09-02",
        256.0713246663411,
-       "2026-11-10",
-       237.38333638509113,
+       "2026-11-11",
+       236.9940032958984,
        1
       ]
      ]
@@ -104222,8 +104040,8 @@
       [
        "2025-12-09",
        199.91000366210938,
-       "2026-11-10",
-       213.49823895622703,
+       "2026-11-11",
+       213.5570624856388,
        0
       ]
      ],
@@ -104243,7 +104061,7 @@
       [
        "2026-11-09",
        316.9700164794922,
-       "2026-11-10",
+       "2026-11-11",
        316.9700164794922,
        1
       ],
@@ -108431,13 +108249,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -108849,16 +108660,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     557.31,
-     547.89,
-     552.22,
-     551.68,
-     548.96,
-     547.23,
-     545.28,
      541.34,
      547.42,
      550.36,
@@ -109270,16 +109075,10 @@
      640.27,
      638.18,
      641.94,
-     644.7
+     644.7,
+     646.73
     ],
     "h": [
-     560.63,
-     553.56,
-     555.8,
-     552.28,
-     549.36,
-     547.4,
-     546.26,
      548.01,
      550.59,
      554.06,
@@ -109691,16 +109490,10 @@
      641.93,
      642.33,
      645.12,
-     646.79
+     646.79,
+     647.69
     ],
     "l": [
-     546.61,
-     545.47,
-     551.37,
-     548.25,
-     546.43,
-     543.91,
-     543.21,
      537.28,
      546.75,
      550.14,
@@ -110112,16 +109905,10 @@
      637.23,
      637.71,
      641.0,
-     641.04
+     641.04,
+     642.29
     ],
     "c": [
-     547.83,
-     552.22,
-     551.83,
-     548.92,
-     547.24,
-     545.23,
-     543.73,
      547.42,
      550.36,
      552.31,
@@ -110533,16 +110320,10 @@
      638.24,
      641.83,
      644.72,
-     641.66
+     641.66,
+     645.49
     ],
     "v": [
-     7947794,
-     3736094,
-     2122193,
-     2174188,
-     2201289,
-     2475290,
-     2843823,
      5060525,
      2197874,
      1785051,
@@ -110954,41 +110735,35 @@
      1105737,
      781412,
      1132171,
-     1667322
+     1667322,
+     1119582
     ],
     "e10": [
-     547.83,
-     548.63,
-     549.21,
-     549.16,
-     548.81,
-     548.16,
-     547.35,
-     547.37,
-     547.91,
-     548.71,
-     549.54,
-     549.66,
-     549.49,
-     548.85,
-     548.05,
-     547.28,
-     546.52,
-     545.72,
+     547.42,
+     547.95,
+     548.75,
+     549.57,
+     549.69,
+     549.51,
+     548.86,
+     548.06,
+     547.29,
+     546.53,
+     545.73,
      544.85,
-     544.45,
-     544.71,
+     544.46,
+     544.72,
      545.55,
      546.3,
-     547.09,
-     548.02,
+     547.1,
+     548.03,
      548.22,
      548.66,
      548.89,
      549.43,
      550.64,
      551.52,
-     552.64,
+     552.65,
      554.02,
      555.04,
      555.79,
@@ -111375,91 +111150,85 @@
      638.59,
      639.18,
      640.19,
-     640.45
+     640.45,
+     641.37
     ],
     "e30": [
-     547.83,
-     548.11,
-     548.35,
-     548.39,
-     548.32,
-     548.12,
-     547.83,
-     547.81,
-     547.97,
+     547.42,
+     547.61,
+     547.91,
+     548.26,
+     548.38,
+     548.4,
      548.25,
-     548.58,
-     548.68,
-     548.68,
-     548.51,
-     548.25,
-     547.96,
-     547.65,
-     547.29,
-     546.88,
-     546.61,
-     546.56,
-     546.74,
-     546.93,
-     547.17,
-     547.49,
-     547.6,
-     547.8,
-     547.93,
-     548.19,
-     548.7,
-     549.13,
-     549.69,
-     550.36,
-     550.96,
-     551.49,
-     552.24,
-     552.96,
-     553.78,
-     554.53,
-     555.21,
-     555.92,
-     556.82,
-     557.94,
-     559.53,
-     560.64,
-     561.78,
-     562.81,
-     563.73,
-     564.53,
-     565.42,
-     565.81,
-     566.27,
-     566.59,
-     566.76,
-     566.93,
-     567.2,
-     567.83,
-     568.91,
-     569.32,
-     569.74,
-     570.05,
-     570.52,
-     571.0,
-     570.95,
+     548.0,
+     547.73,
+     547.43,
+     547.09,
+     546.69,
+     546.43,
+     546.4,
+     546.59,
+     546.79,
+     547.04,
+     547.37,
+     547.48,
+     547.69,
+     547.83,
+     548.09,
+     548.61,
+     549.05,
+     549.61,
+     550.29,
+     550.9,
+     551.43,
+     552.18,
+     552.9,
+     553.73,
+     554.48,
+     555.16,
+     555.88,
+     556.78,
+     557.9,
+     559.49,
+     560.61,
+     561.75,
+     562.79,
+     563.7,
+     564.5,
+     565.4,
+     565.79,
+     566.25,
+     566.57,
+     566.74,
+     566.91,
+     567.18,
+     567.82,
+     568.9,
+     569.31,
+     569.73,
+     570.04,
+     570.51,
      570.99,
+     570.94,
      570.98,
-     570.98,
-     571.02,
+     570.97,
+     570.97,
+     571.01,
      571.13,
-     571.25,
+     571.24,
      571.15,
-     571.65,
+     571.64,
      572.21,
-     572.74,
-     573.3,
+     572.73,
+     573.29,
      573.78,
-     574.09,
+     574.08,
      575.44,
      576.83,
      577.82,
      578.78,
-     579.7,
+     579.69,
      580.64,
      581.43,
      583.42,
@@ -111482,9 +111251,9 @@
      604.49,
      605.27,
      605.79,
-     606.28,
-     608.7,
-     611.52,
+     606.27,
+     608.69,
+     611.51,
      614.07,
      616.62,
      619.0,
@@ -111796,7 +111565,8 @@
      630.04,
      630.8,
      631.7,
-     632.34
+     632.34,
+     633.19
     ],
     "pat": []
    }
@@ -120084,13 +119854,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -120502,16 +120265,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     77.35,
-     78.14,
-     78.75,
-     78.83,
-     78.61,
-     78.71,
-     78.47,
      78.22,
      80.23,
      80.62,
@@ -120923,16 +120680,10 @@
      62.74,
      62.71,
      62.89,
-     62.92
+     62.92,
+     62.84
     ],
     "h": [
-     78.53,
-     79.1,
-     78.93,
-     78.93,
-     78.75,
-     78.74,
-     78.5,
      80.59,
      81.16,
      80.69,
@@ -121344,16 +121095,10 @@
      63.95,
      62.89,
      63.05,
-     63.29
+     63.29,
+     63.49
     ],
     "l": [
-     76.34,
-     78.05,
-     78.51,
-     78.57,
-     78.39,
-     78.35,
-     77.75,
      78.1,
      80.19,
      80.36,
@@ -121765,16 +121510,10 @@
      62.6,
      62.66,
      62.79,
-     62.9
+     62.9,
+     62.75
     ],
     "c": [
-     78.13,
-     78.75,
-     78.83,
-     78.61,
-     78.71,
-     78.44,
-     77.79,
      80.22,
      80.62,
      80.55,
@@ -122186,16 +121925,10 @@
      62.72,
      62.88,
      62.92,
-     63.25
+     63.25,
+     63.21
     ],
     "v": [
-     8458705,
-     5050815,
-     2919254,
-     2787921,
-     2286737,
-     2983873,
-     4853864,
      8329455,
      5287404,
      2196766,
@@ -122607,52 +122340,46 @@
      1919606,
      1812855,
      2419120,
-     3453571
+     3453571,
+     1634644
     ],
     "e10": [
-     78.13,
-     78.24,
-     78.35,
-     78.4,
-     78.45,
-     78.45,
-     78.33,
-     78.67,
-     79.03,
-     79.31,
-     79.53,
-     79.73,
-     79.86,
-     79.92,
-     79.99,
-     80.02,
-     80.07,
-     80.16,
-     80.26,
+     80.22,
      80.29,
-     80.27,
-     80.16,
-     80.16,
-     80.17,
-     80.17,
-     80.1,
-     80.0,
-     79.93,
-     80.0,
-     80.03,
-     80.07,
-     80.14,
-     80.21,
+     80.34,
+     80.38,
+     80.42,
+     80.42,
+     80.39,
+     80.37,
+     80.33,
+     80.33,
+     80.37,
+     80.43,
+     80.43,
+     80.38,
+     80.25,
      80.23,
-     80.19,
-     80.44,
+     80.24,
+     80.22,
+     80.14,
+     80.03,
+     79.96,
+     80.02,
+     80.05,
+     80.08,
+     80.15,
+     80.22,
+     80.24,
+     80.2,
+     80.45,
      80.66,
-     80.93,
+     80.94,
      81.16,
-     81.3,
+     81.31,
      81.47,
      81.61,
-     81.7,
+     81.71,
      81.73,
      81.69,
      81.71,
@@ -123028,108 +122755,102 @@
      63.25,
      63.18,
      63.13,
-     63.16
+     63.16,
+     63.17
     ],
     "e30": [
-     78.13,
-     78.17,
-     78.21,
-     78.24,
-     78.27,
-     78.28,
-     78.25,
-     78.38,
-     78.52,
-     78.65,
-     78.77,
-     78.89,
-     78.99,
-     79.07,
-     79.15,
-     79.21,
-     79.29,
-     79.37,
-     79.45,
-     79.52,
-     79.56,
-     79.56,
-     79.6,
-     79.64,
-     79.68,
-     79.68,
-     79.67,
-     79.67,
-     79.71,
-     79.74,
-     79.77,
-     79.82,
-     79.86,
-     79.89,
-     79.9,
-     80.01,
-     80.11,
+     80.22,
      80.25,
-     80.37,
-     80.47,
-     80.59,
+     80.27,
+     80.28,
+     80.31,
+     80.31,
+     80.31,
+     80.31,
+     80.3,
+     80.3,
+     80.31,
+     80.34,
+     80.35,
+     80.33,
+     80.29,
+     80.28,
+     80.28,
+     80.27,
+     80.24,
+     80.19,
+     80.16,
+     80.17,
+     80.17,
+     80.17,
+     80.19,
+     80.21,
+     80.22,
+     80.21,
+     80.29,
+     80.38,
+     80.5,
+     80.6,
      80.69,
      80.79,
+     80.88,
+     80.96,
+     81.02,
+     81.05,
+     81.1,
+     81.15,
+     81.18,
+     81.2,
+     81.11,
+     81.02,
+     80.93,
      80.85,
-     80.89,
+     80.79,
+     80.74,
+     80.68,
+     80.72,
+     80.82,
+     80.87,
+     80.91,
      80.95,
      81.01,
-     81.06,
+     81.05,
+     81.05,
      81.08,
-     81.0,
-     80.91,
-     80.83,
-     80.76,
-     80.7,
-     80.66,
-     80.6,
-     80.65,
-     80.75,
-     80.81,
-     80.85,
-     80.9,
-     80.96,
-     81.01,
-     81.0,
-     81.04,
-     81.07,
-     81.1,
-     81.13,
-     81.14,
-     81.14,
-     81.19,
-     81.17,
-     81.16,
-     81.14,
-     81.12,
      81.11,
-     81.09,
+     81.13,
+     81.16,
+     81.17,
+     81.17,
+     81.22,
+     81.2,
      81.18,
-     81.27,
-     81.32,
-     81.38,
-     81.45,
-     81.53,
-     81.6,
-     81.65,
-     81.71,
-     81.73,
-     81.8,
-     81.84,
-     81.9,
-     81.95,
-     81.87,
-     81.72,
-     81.56,
+     81.17,
+     81.15,
+     81.13,
+     81.11,
+     81.19,
+     81.28,
+     81.33,
      81.4,
-     81.24,
+     81.46,
+     81.54,
+     81.61,
+     81.66,
+     81.72,
+     81.74,
+     81.8,
+     81.85,
+     81.91,
+     81.96,
+     81.88,
+     81.72,
+     81.57,
+     81.4,
+     81.25,
      81.08,
-     80.89,
-     80.6,
+     80.9,
+     80.61,
      80.35,
      80.1,
      79.88,
@@ -123139,21 +122860,21 @@
      79.13,
      78.96,
      78.79,
-     78.63,
-     78.48,
+     78.64,
+     78.49,
      78.33,
-     78.18,
+     78.19,
      78.05,
      77.92,
      77.81,
      77.69,
      77.57,
      77.46,
-     77.36,
-     77.3,
+     77.37,
+     77.31,
      77.27,
      77.24,
-     77.22,
+     77.23,
      77.23,
      77.24,
      77.25,
@@ -123449,7 +123170,8 @@
      63.73,
      63.68,
      63.63,
-     63.6
+     63.6,
+     63.58
     ],
     "pat": []
    }
@@ -123956,7 +123678,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     202.6,
@@ -124459,6 +124182,7 @@
     108.36,
     102.41,
     101.63,
+    100.55,
     100.55
    ],
    "h": [
@@ -124962,7 +124686,8 @@
     108.7,
     103.78,
     104.52,
-    102.24
+    102.24,
+    100.66
    ],
    "l": [
     202.6,
@@ -125465,7 +125190,8 @@
     101.8,
     100.55,
     101.5,
-    97.0
+    97.0,
+    100.45
    ],
    "c": [
     207.2,
@@ -125968,7 +125694,8 @@
     102.36,
     101.97,
     102.76,
-    99.61
+    99.61,
+    100.66
    ],
    "v": [
     6535500,
@@ -126471,7 +126198,8 @@
     25077900,
     15125300,
     13053000,
-    18936900
+    18936900,
+    547014
    ],
    "e10": [
     207.2,
@@ -126974,7 +126702,8 @@
     119.9,
     116.64,
     114.12,
-    111.48
+    111.48,
+    109.51
    ],
    "e30": [
     207.2,
@@ -127477,7 +127206,8 @@
     131.62,
     129.71,
     127.97,
-    126.14
+    126.14,
+    124.5
    ],
    "pat": [
     {
@@ -127551,8 +127281,8 @@
       [
        "2025-12-11",
        175.0,
-       "2026-11-10",
-       158.64285714285714,
+       "2026-11-11",
+       158.57142857142858,
        0
       ]
      ],
@@ -127566,8 +127296,8 @@
       [
        "2026-04-10",
        81.23999786376953,
-       "2026-11-10",
-       102.68957723698146,
+       "2026-11-11",
+       102.834506827341,
        0
       ]
      ],
@@ -127591,7 +127321,7 @@
       [
        "2026-07-29",
        136.0500030517578,
-       "2026-11-10",
+       "2026-11-11",
        136.0500030517578,
        1
       ],
@@ -127630,13 +127360,13 @@
       [
        "2026-10-08",
        149.6,
-       "2026-11-10",
+       "2026-11-11",
        149.6,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $149.60 \u00b7 your NOW share: breakout over the 60-day high vs close under the 20-day low / 200-day"
      }
@@ -127648,13 +127378,13 @@
       [
        "2026-10-08",
        126.75,
-       "2026-11-10",
+       "2026-11-11",
        126.75,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $126.75 \u00b7 your NOW share: breakout over the 60-day high vs close under the 20-day low / 200-day"
      }
@@ -127666,13 +127396,13 @@
       [
        "2026-10-09",
        147.57,
-       "2026-11-10",
+       "2026-11-11",
        147.57,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $147.57 \u00b7 your Oct 16 140C: take profit at the 20-day high vs stop under the 10-day EMA"
      }
@@ -127684,13 +127414,13 @@
       [
        "2026-10-09",
        137.5,
-       "2026-11-10",
+       "2026-11-11",
        137.5,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $137.50 \u00b7 your Oct 16 140C: take profit at the 20-day high vs stop under the 10-day EMA"
      }
@@ -127698,13 +127428,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -128116,16 +127839,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     119.48,
-     119.63,
-     120.15,
-     119.99,
-     120.75,
-     121.45,
-     120.85,
      118.64,
      124.59,
      127.82,
@@ -128537,16 +128254,10 @@
      98.51,
      97.63,
      97.93,
-     98.6
+     98.6,
+     100.46
     ],
     "h": [
-     121.38,
-     120.77,
-     120.36,
-     120.97,
-     121.84,
-     121.62,
-     121.03,
      124.95,
      128.58,
      129.6,
@@ -128958,16 +128669,10 @@
      98.73,
      98.51,
      98.67,
-     99.61
+     99.61,
+     101.19
     ],
     "l": [
-     117.84,
-     119.29,
-     119.54,
-     119.71,
-     120.63,
-     120.55,
-     119.36,
      118.51,
      124.57,
      127.75,
@@ -129379,16 +129084,10 @@
      97.45,
      97.0,
      97.72,
-     98.48
+     98.48,
+     100.4
     ],
     "c": [
-     119.62,
-     120.15,
-     119.99,
-     120.76,
-     121.46,
-     120.83,
-     119.47,
      124.59,
      127.79,
      129.32,
@@ -129800,16 +129499,10 @@
      97.64,
      97.92,
      98.57,
-     99.61
+     99.61,
+     100.76
     ],
     "v": [
-     5417720,
-     1764285,
-     1506075,
-     1074482,
-     1374678,
-     1461442,
-     1895302,
      3678067,
      4878114,
      2842607,
@@ -130221,55 +129914,49 @@
      1816669,
      1695222,
      1904702,
-     2376060
+     2376060,
+     744574
     ],
     "e10": [
-     119.62,
-     119.72,
-     119.77,
-     119.95,
-     120.22,
-     120.33,
-     120.18,
-     120.98,
-     122.22,
-     123.51,
-     124.36,
-     125.1,
-     125.65,
-     125.93,
-     126.43,
+     124.59,
+     125.17,
+     125.92,
+     126.34,
+     126.72,
      126.98,
-     127.66,
-     128.0,
-     128.32,
-     128.66,
-     128.85,
-     128.89,
-     129.25,
-     129.42,
-     129.38,
-     129.14,
-     128.94,
+     127.02,
+     127.32,
+     127.7,
+     128.26,
+     128.48,
+     128.72,
+     128.98,
+     129.12,
+     129.1,
+     129.43,
+     129.56,
+     129.5,
+     129.24,
+     129.02,
+     128.93,
      128.86,
-     128.8,
-     128.78,
-     128.7,
-     128.64,
-     128.66,
-     128.66,
-     128.55,
-     128.31,
-     128.11,
-     127.92,
-     127.73,
-     127.54,
+     128.82,
+     128.73,
+     128.67,
+     128.68,
+     128.68,
+     128.56,
+     128.32,
+     128.12,
+     127.93,
+     127.74,
+     127.55,
      127.36,
-     127.29,
-     126.69,
+     127.3,
+     126.7,
      126.34,
      126.1,
-     125.9,
+     125.91,
      126.0,
      126.01,
      125.98,
@@ -130642,132 +130329,126 @@
      100.86,
      100.33,
      100.01,
-     99.94
+     99.94,
+     100.09
     ],
     "e30": [
-     119.62,
-     119.65,
-     119.68,
-     119.75,
-     119.86,
-     119.92,
-     119.89,
-     120.19,
-     120.68,
-     121.24,
-     121.69,
-     122.12,
-     122.51,
-     122.81,
-     123.19,
-     123.59,
-     124.06,
-     124.41,
-     124.75,
-     125.1,
-     125.4,
-     125.64,
-     125.98,
-     126.25,
-     126.44,
-     126.54,
-     126.64,
-     126.76,
+     124.59,
+     124.8,
+     125.09,
+     125.29,
+     125.49,
+     125.66,
+     125.76,
+     125.95,
+     126.17,
+     126.47,
+     126.66,
      126.87,
-     126.99,
      127.08,
-     127.16,
-     127.26,
-     127.35,
-     127.4,
-     127.39,
-     127.37,
+     127.25,
      127.36,
-     127.32,
-     127.28,
-     127.24,
-     127.22,
-     127.01,
-     126.87,
-     126.75,
-     126.64,
-     126.62,
-     126.59,
-     126.54,
-     127.26,
-     127.86,
-     128.43,
-     129.01,
-     129.56,
-     130.14,
-     130.67,
-     131.43,
-     132.31,
-     132.96,
-     133.65,
-     134.4,
-     135.06,
-     135.68,
-     136.31,
-     137.01,
-     137.72,
-     138.33,
-     138.97,
-     139.61,
-     140.15,
-     140.49,
-     140.68,
-     140.8,
-     140.99,
-     141.17,
-     141.35,
-     141.45,
-     141.28,
-     141.05,
-     140.77,
-     140.55,
-     140.34,
-     140.14,
-     139.92,
-     140.27,
-     140.52,
-     140.81,
+     127.59,
+     127.76,
+     127.85,
+     127.87,
+     127.88,
+     127.92,
+     127.96,
+     128.0,
+     128.02,
+     128.05,
+     128.09,
+     128.13,
+     128.12,
+     128.07,
+     128.01,
+     127.95,
+     127.88,
+     127.8,
+     127.72,
+     127.68,
+     127.44,
+     127.27,
+     127.12,
+     126.98,
+     126.95,
+     126.89,
+     126.82,
+     127.53,
+     128.11,
+     128.67,
+     129.22,
+     129.76,
+     130.33,
+     130.85,
+     131.59,
+     132.47,
+     133.11,
+     133.79,
+     134.53,
+     135.18,
+     135.79,
+     136.42,
+     137.11,
+     137.81,
+     138.42,
+     139.05,
+     139.68,
+     140.22,
+     140.56,
+     140.74,
+     140.86,
      141.04,
-     141.39,
-     141.7,
+     141.22,
+     141.4,
+     141.5,
+     141.33,
+     141.09,
+     140.81,
+     140.58,
+     140.38,
+     140.17,
+     139.94,
+     140.3,
+     140.55,
+     140.83,
+     141.06,
+     141.41,
+     141.72,
+     141.96,
+     142.02,
      141.95,
-     142.0,
-     141.94,
+     141.89,
      141.88,
-     141.86,
-     141.87,
-     141.82,
-     141.78,
-     141.27,
-     140.9,
+     141.88,
+     141.83,
+     141.8,
+     141.28,
+     140.91,
      140.45,
-     140.01,
+     140.02,
      139.59,
-     139.21,
+     139.22,
      138.89,
      138.5,
-     138.11,
+     138.12,
      137.65,
      137.24,
-     136.89,
+     136.9,
      136.56,
      136.21,
-     135.99,
+     136.0,
      135.87,
-     135.71,
+     135.72,
      135.47,
-     135.19,
+     135.2,
      134.92,
      134.68,
-     134.49,
+     134.5,
      134.3,
      134.12,
-     134.04,
+     134.05,
      133.97,
      133.9,
      133.81,
@@ -131063,7 +130744,8 @@
      104.1,
      103.7,
      103.37,
-     103.13
+     103.13,
+     102.97
     ],
     "pat": []
    }
@@ -135194,13 +134876,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -135612,16 +135287,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     220.45,
-     219.94,
-     219.53,
-     219.53,
-     220.31,
-     219.93,
-     219.24,
      221.67,
      218.15,
      219.26,
@@ -136033,16 +135702,10 @@
      167.53,
      167.6,
      167.62,
-     168.7
+     168.7,
+     172.72
     ],
     "h": [
-     221.64,
-     220.53,
-     220.36,
-     220.45,
-     220.51,
-     220.19,
-     220.03,
      222.87,
      219.95,
      220.65,
@@ -136454,16 +136117,10 @@
      178.67,
      169.0,
      168.82,
-     169.54
+     169.54,
+     174.11
     ],
     "l": [
-     218.84,
-     218.69,
-     219.32,
-     219.39,
-     219.22,
-     219.13,
-     218.92,
      216.76,
      217.96,
      218.64,
@@ -136875,16 +136532,10 @@
      166.24,
      167.55,
      165.89,
-     167.72
+     167.72,
+     172.5
     ],
     "c": [
-     219.97,
-     219.54,
-     219.53,
-     220.33,
-     219.93,
-     219.24,
-     219.8,
      218.15,
      219.27,
      219.4,
@@ -137296,16 +136947,10 @@
      167.6,
      167.62,
      168.69,
-     168.79
+     168.79,
+     173.3
     ],
     "v": [
-     26756702,
-     13264389,
-     8440865,
-     7609414,
-     7081084,
-     7061411,
-     12278943,
      25906631,
      11630304,
      9384406,
@@ -137717,48 +137362,42 @@
      34303988,
      32246737,
      45727461,
-     33256111
+     33256111,
+     35288160
     ],
     "e10": [
-     219.97,
-     219.89,
-     219.83,
-     219.92,
-     219.92,
-     219.8,
-     219.8,
-     219.5,
-     219.46,
-     219.45,
-     219.36,
-     219.33,
-     219.36,
-     219.05,
-     218.77,
-     218.42,
-     218.13,
-     217.8,
-     217.64,
-     217.6,
-     217.5,
-     216.98,
-     216.77,
-     216.57,
-     216.3,
-     216.13,
-     215.91,
-     215.7,
-     214.54,
-     213.69,
-     213.14,
-     212.44,
-     212.07,
-     211.58,
-     211.01,
-     211.16,
+     218.15,
+     218.35,
+     218.54,
+     218.62,
+     218.72,
+     218.87,
+     218.65,
+     218.44,
+     218.15,
+     217.91,
+     217.62,
+     217.49,
+     217.48,
+     217.4,
+     216.9,
+     216.71,
+     216.52,
+     216.26,
+     216.1,
+     215.88,
+     215.67,
+     214.52,
+     213.68,
+     213.13,
+     212.43,
+     212.06,
+     211.57,
+     211.0,
+     211.15,
      211.16,
      211.35,
-     211.52,
+     211.51,
      211.65,
      211.72,
      211.95,
@@ -138138,131 +137777,125 @@
      173.72,
      172.61,
      171.9,
-     171.34
+     171.34,
+     171.69
     ],
     "e30": [
-     219.97,
-     219.94,
-     219.92,
-     219.94,
-     219.94,
-     219.9,
-     219.89,
-     219.78,
-     219.75,
-     219.72,
-     219.68,
-     219.64,
-     219.64,
-     219.51,
-     219.38,
-     219.21,
-     219.06,
-     218.88,
-     218.76,
-     218.67,
-     218.57,
-     218.31,
      218.15,
-     217.99,
-     217.81,
-     217.65,
-     217.47,
-     217.29,
-     216.78,
-     216.34,
-     215.97,
-     215.54,
+     218.22,
+     218.3,
+     218.34,
+     218.4,
+     218.47,
+     218.42,
+     218.36,
+     218.26,
+     218.17,
+     218.05,
+     217.97,
+     217.94,
+     217.88,
+     217.67,
+     217.55,
+     217.43,
+     217.28,
+     217.16,
+     217.01,
+     216.87,
+     216.38,
+     215.96,
+     215.62,
      215.21,
-     214.83,
-     214.42,
-     214.25,
-     214.05,
-     213.93,
-     213.83,
-     213.73,
+     214.9,
+     214.54,
+     214.15,
+     214.0,
+     213.82,
+     213.71,
      213.62,
-     213.58,
-     213.38,
-     213.23,
-     213.03,
-     212.84,
+     213.53,
+     213.44,
+     213.41,
+     213.22,
+     213.08,
+     212.89,
      212.71,
      212.59,
-     212.42,
-     213.28,
-     214.06,
-     215.0,
-     215.92,
-     216.57,
-     217.26,
-     217.96,
-     218.42,
+     212.48,
+     212.31,
+     213.18,
+     213.97,
+     214.91,
+     215.84,
+     216.5,
+     217.19,
+     217.89,
+     218.36,
+     218.72,
+     218.81,
+     218.81,
      218.78,
-     218.87,
-     218.86,
-     218.83,
-     218.73,
-     218.65,
-     218.74,
-     218.84,
+     218.68,
+     218.61,
+     218.7,
+     218.8,
+     218.9,
      218.93,
-     218.96,
-     218.96,
+     218.93,
+     218.99,
+     219.11,
      219.01,
-     219.13,
+     219.0,
      219.04,
-     219.02,
-     219.06,
-     219.01,
-     218.91,
-     218.83,
-     218.74,
-     219.01,
-     219.48,
-     219.97,
-     220.32,
-     220.62,
-     220.87,
-     221.09,
-     221.5,
-     221.91,
-     222.24,
+     218.99,
+     218.89,
+     218.81,
+     218.73,
+     218.99,
+     219.46,
+     219.95,
+     220.31,
+     220.61,
+     220.86,
+     221.08,
+     221.49,
+     221.9,
+     222.23,
      222.57,
-     223.02,
+     223.01,
      223.44,
      223.76,
-     224.47,
+     224.46,
      224.94,
      225.34,
      225.69,
      225.99,
      226.24,
-     226.51,
-     226.6,
-     226.62,
-     226.55,
      226.5,
+     226.6,
+     226.61,
+     226.55,
+     226.49,
      226.47,
      226.41,
      226.37,
      226.27,
      226.1,
-     225.96,
-     225.85,
+     225.95,
+     225.84,
      225.74,
      225.64,
      225.51,
      225.04,
      224.6,
-     224.16,
+     224.15,
      223.8,
      223.43,
      223.1,
-     222.8,
+     222.79,
      222.72,
      222.55,
-     222.34,
+     222.33,
      222.14,
      221.97,
      221.74,
@@ -138270,7 +137903,7 @@
      220.8,
      220.19,
      219.65,
-     219.2,
+     219.19,
      218.74,
      218.31,
      217.83,
@@ -138559,7 +138192,8 @@
      183.72,
      182.68,
      181.78,
-     180.94
+     180.94,
+     180.45
     ],
     "pat": []
    }
@@ -139066,7 +138700,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     60.13,
@@ -139569,7 +139204,8 @@
     166.71,
     158.68,
     161.27,
-    168.21
+    168.21,
+    173.31
    ],
    "h": [
     62.08,
@@ -140072,7 +139708,8 @@
     167.25,
     163.97,
     170.83,
-    170.0
+    170.0,
+    173.56
    ],
    "l": [
     58.69,
@@ -140575,7 +140212,8 @@
     152.6,
     157.24,
     161.0,
-    164.0
+    164.0,
+    173.24
    ],
    "c": [
     60.24,
@@ -141078,7 +140716,8 @@
     154.99,
     160.38,
     169.2,
-    168.82
+    168.82,
+    173.24
    ],
    "v": [
     108357800,
@@ -141581,7 +141220,8 @@
     50014300,
     24335100,
     23856900,
-    19520500
+    19520500,
+    760001
    ],
    "e10": [
     60.24,
@@ -142084,7 +141724,8 @@
     180.12,
     176.53,
     175.2,
-    174.04
+    174.04,
+    173.89
    ],
    "e30": [
     60.24,
@@ -142587,7 +142228,8 @@
     186.6,
     184.91,
     183.9,
-    182.92
+    182.92,
+    182.3
    ],
    "pat": [
     {
@@ -142662,8 +142304,8 @@
       [
        "2026-06-25",
        106.37000274658203,
-       "2026-11-10",
-       156.63907900723544,
+       "2026-11-11",
+       157.16271521828392,
        0
       ]
      ],
@@ -142676,13 +142318,13 @@
       [
        "2026-10-01",
        192.0,
-       "2026-11-10",
+       "2026-11-11",
        192.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $192.00 \u00b7 ascending triangle after a trendline break"
      }
@@ -142694,13 +142336,13 @@
       [
        "2026-10-01",
        188.7,
-       "2026-11-10",
+       "2026-11-11",
        188.7,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $188.70 \u00b7 ascending triangle after a trendline break"
      }
@@ -142708,13 +142350,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -143126,16 +142761,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     171.93,
-     173.22,
-     172.2,
-     171.93,
-     172.76,
-     173.2,
-     172.33,
      172.62,
      172.08,
      175.11,
@@ -143547,16 +143176,10 @@
      165.19,
      165.41,
      166.11,
-     167.25
+     167.25,
+     173.31
     ],
     "h": [
-     174.98,
-     173.54,
-     172.74,
-     173.49,
-     173.98,
-     173.3,
-     173.1,
      176.53,
      175.31,
      176.82,
@@ -143968,16 +143591,10 @@
      169.2,
      166.55,
      167.5,
-     169.0
+     169.0,
+     175.2
     ],
     "l": [
-     170.63,
-     171.0,
-     171.58,
-     171.76,
-     172.68,
-     172.05,
-     171.19,
      169.77,
      171.27,
      173.77,
@@ -144389,16 +144006,10 @@
      164.0,
      165.41,
      165.84,
-     167.05
+     167.05,
+     173.04
     ],
     "c": [
-     173.21,
-     172.25,
-     171.92,
-     172.77,
-     173.24,
-     172.29,
-     171.59,
      172.01,
      175.16,
      176.32,
@@ -144810,16 +144421,10 @@
      165.39,
      166.07,
      167.25,
-     168.84
+     168.84,
+     174.89
     ],
     "v": [
-     7893434,
-     3698010,
-     1971705,
-     1953122,
-     1762863,
-     1767285,
-     3778623,
      10923097,
      3699744,
      5330859,
@@ -145231,45 +144836,39 @@
      1852651,
      1289044,
      1408681,
-     1985638
+     1985638,
+     1170278
     ],
     "e10": [
-     173.21,
-     173.04,
-     172.84,
-     172.82,
-     172.9,
-     172.79,
-     172.57,
-     172.47,
-     172.96,
-     173.57,
-     173.63,
-     173.9,
-     174.27,
-     174.43,
-     174.49,
-     174.49,
-     174.65,
-     174.58,
-     174.64,
-     174.7,
-     174.56,
+     172.01,
+     172.59,
+     173.27,
+     173.39,
+     173.7,
+     174.1,
+     174.3,
+     174.38,
+     174.4,
+     174.57,
      174.52,
-     175.19,
-     176.29,
-     177.01,
-     177.37,
-     177.63,
-     178.05,
+     174.59,
+     174.66,
+     174.52,
+     174.49,
+     175.17,
+     176.27,
+     177.0,
+     177.36,
+     177.62,
+     178.04,
      177.25,
      177.31,
-     177.35,
+     177.34,
      177.48,
      177.68,
      177.56,
      177.25,
-     176.82,
+     176.81,
      176.33,
      176.17,
      175.6,
@@ -145652,110 +145251,104 @@
      166.57,
      166.48,
      166.62,
-     167.02
+     167.02,
+     168.45
     ],
     "e30": [
-     173.21,
-     173.15,
-     173.07,
-     173.05,
-     173.07,
-     173.02,
-     172.92,
-     172.86,
-     173.01,
-     173.23,
-     173.27,
-     173.39,
-     173.55,
-     173.66,
-     173.73,
-     173.78,
-     173.88,
-     173.9,
-     173.97,
-     174.03,
-     174.03,
-     174.05,
-     174.32,
-     174.76,
-     175.12,
-     175.37,
-     175.59,
-     175.87,
-     175.73,
-     175.85,
-     175.95,
-     176.09,
-     176.25,
-     176.3,
-     176.27,
-     176.18,
-     176.05,
-     176.01,
-     175.82,
+     172.01,
+     172.22,
+     172.48,
+     172.58,
+     172.74,
+     172.94,
+     173.09,
+     173.19,
+     173.28,
+     173.41,
+     173.47,
+     173.56,
+     173.65,
+     173.67,
+     173.71,
+     174.0,
+     174.47,
+     174.84,
+     175.11,
+     175.35,
      175.64,
-     175.43,
-     175.26,
-     175.3,
-     175.22,
-     175.2,
-     175.25,
-     175.34,
      175.52,
-     175.64,
-     176.22,
-     176.78,
-     177.37,
-     177.9,
-     178.4,
-     178.92,
-     179.37,
-     179.76,
-     180.29,
-     180.62,
-     180.96,
-     181.29,
-     181.59,
-     181.89,
-     182.13,
-     182.39,
-     182.7,
-     182.89,
-     183.16,
-     183.43,
-     183.62,
-     183.75,
-     183.78,
-     183.69,
+     175.65,
+     175.77,
+     175.92,
+     176.09,
+     176.15,
+     176.13,
+     176.05,
+     175.93,
+     175.9,
+     175.71,
+     175.54,
+     175.34,
+     175.17,
+     175.22,
+     175.15,
+     175.13,
+     175.18,
+     175.28,
+     175.46,
+     175.59,
+     176.17,
+     176.74,
+     177.32,
+     177.86,
+     178.36,
+     178.89,
+     179.34,
+     179.73,
+     180.26,
+     180.59,
+     180.93,
+     181.27,
+     181.57,
+     181.87,
+     182.11,
+     182.37,
+     182.68,
+     182.87,
+     183.14,
+     183.42,
      183.61,
-     183.46,
-     183.34,
-     183.12,
-     182.51,
-     181.65,
-     180.71,
-     179.92,
+     183.74,
+     183.76,
+     183.67,
+     183.6,
+     183.45,
+     183.33,
+     183.11,
+     182.5,
+     181.64,
+     180.7,
+     179.91,
      179.23,
-     178.57,
-     177.98,
+     178.56,
+     177.97,
      178.4,
-     178.75,
+     178.74,
      179.05,
-     179.3,
+     179.29,
      179.52,
      179.8,
      179.97,
      179.74,
-     179.51,
+     179.5,
      179.21,
      178.91,
      178.65,
      178.37,
      178.11,
      177.72,
-     177.31,
-     176.88,
+     177.3,
+     176.87,
      176.56,
      176.22,
      175.86,
@@ -145769,10 +145362,10 @@
      173.52,
      173.15,
      172.78,
-     172.41,
+     172.4,
      172.0,
      171.61,
-     171.24,
+     171.23,
      170.89,
      170.62,
      170.37,
@@ -146073,7 +145666,8 @@
      167.59,
      167.49,
      167.47,
-     167.56
+     167.56,
+     168.03
     ],
     "pat": []
    }
@@ -146580,7 +146174,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     84.07,
@@ -147083,7 +146678,8 @@
     60.44,
     57.64,
     59.72,
-    59.5
+    59.5,
+    58.17
    ],
    "h": [
     87.47,
@@ -147586,7 +147182,8 @@
     60.78,
     59.82,
     60.63,
-    59.9
+    59.9,
+    58.25
    ],
    "l": [
     83.38,
@@ -148089,7 +147686,8 @@
     58.32,
     57.57,
     59.66,
-    58.56
+    58.56,
+    58.1
    ],
    "c": [
     86.94,
@@ -148592,7 +148190,8 @@
     58.96,
     59.24,
     60.05,
-    58.78
+    58.78,
+    58.11
    ],
    "v": [
     15459400,
@@ -149095,7 +148694,8 @@
     11254300,
     7440300,
     11733200,
-    6255800
+    6255800,
+    155990
    ],
    "e10": [
     86.94,
@@ -149598,7 +149198,8 @@
     57.95,
     58.19,
     58.53,
-    58.57
+    58.57,
+    58.49
    ],
    "e30": [
     86.94,
@@ -150101,7 +149702,8 @@
     56.58,
     56.75,
     56.97,
-    57.08
+    57.08,
+    57.15
    ],
    "pat": [
     {
@@ -150175,8 +149777,8 @@
       [
        "2025-12-03",
        63.93000030517578,
-       "2026-11-10",
-       62.34572963500291,
+       "2026-11-11",
+       62.338988057683025,
        0
       ]
      ],
@@ -150190,8 +149792,8 @@
       [
        "2026-02-12",
        38.459999084472656,
-       "2026-11-10",
-       42.428051692683525,
+       "2026-11-11",
+       42.44927122534775,
        0
       ]
      ],
@@ -150204,7 +149806,7 @@
       [
        "2025-11-03",
        70.3499984741211,
-       "2026-11-10",
+       "2026-11-11",
        70.3499984741211,
        1
       ],
@@ -154396,13 +153998,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -154814,16 +154409,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     157.89,
-     158.09,
-     157.6,
-     158.43,
-     158.83,
-     159.77,
-     160.87,
      163.02,
      161.99,
      162.37,
@@ -155235,16 +154824,10 @@
      170.02,
      170.19,
      171.15,
-     173.25
+     173.25,
+     178.15
     ],
     "h": [
-     161.81,
-     158.65,
-     159.45,
-     159.62,
-     160.0,
-     161.05,
-     161.13,
      166.5,
      163.25,
      163.4,
@@ -155656,16 +155239,10 @@
      171.47,
      171.21,
      173.56,
-     174.39
+     174.39,
+     178.99
     ],
     "l": [
-     157.82,
-     156.75,
-     157.6,
-     158.43,
-     158.81,
-     159.48,
-     159.3,
      160.19,
      161.49,
      161.42,
@@ -156077,16 +155654,10 @@
      169.45,
      170.0,
      171.09,
-     172.85
+     172.85,
+     177.6
     ],
     "c": [
-     158.1,
-     157.57,
-     158.47,
-     158.84,
-     159.82,
-     160.93,
-     160.27,
      162.0,
      162.4,
      163.01,
@@ -156498,16 +156069,10 @@
      170.15,
      171.15,
      173.26,
-     173.52
+     173.52,
+     178.34
     ],
     "v": [
-     1809730,
-     1072368,
-     695727,
-     506035,
-     1161833,
-     777913,
-     1667058,
      1902834,
      726928,
      609546,
@@ -156919,54 +156484,48 @@
      447771,
      600571,
      765482,
-     1103193
+     1103193,
+     350058
     ],
     "e10": [
-     158.1,
-     158.0,
-     158.09,
-     158.23,
-     158.52,
-     158.95,
-     159.19,
-     159.7,
-     160.19,
-     160.71,
-     161.0,
-     161.26,
-     161.49,
-     161.57,
-     161.84,
-     162.27,
-     162.49,
-     162.55,
-     162.43,
-     162.12,
-     161.87,
-     161.65,
-     161.48,
-     161.27,
-     161.12,
+     162.0,
+     162.07,
+     162.24,
+     162.26,
+     162.29,
+     162.34,
+     162.25,
+     162.4,
+     162.73,
+     162.87,
+     162.86,
+     162.68,
+     162.32,
+     162.04,
+     161.79,
+     161.6,
+     161.37,
+     161.2,
+     161.07,
+     161.06,
      161.01,
-     161.01,
-     160.97,
-     160.23,
-     159.65,
-     159.44,
-     159.17,
-     159.13,
-     159.15,
-     159.04,
+     160.26,
+     159.67,
+     159.46,
      159.19,
-     159.36,
-     159.68,
+     159.14,
+     159.16,
+     159.05,
+     159.2,
+     159.37,
+     159.69,
      159.84,
-     159.74,
-     159.78,
+     159.75,
+     159.79,
      159.93,
      159.96,
      160.16,
-     160.49,
+     160.5,
      160.7,
      161.05,
      161.49,
@@ -157340,122 +156899,116 @@
      170.42,
      170.55,
      171.04,
-     171.49
+     171.49,
+     172.74
     ],
     "e30": [
-     158.1,
-     158.07,
-     158.09,
-     158.14,
-     158.25,
-     158.42,
-     158.54,
-     158.76,
-     159.0,
-     159.26,
-     159.46,
-     159.65,
-     159.83,
-     159.97,
-     160.17,
-     160.43,
-     160.63,
-     160.77,
-     160.84,
-     160.83,
-     160.83,
-     160.82,
-     160.81,
-     160.78,
-     160.76,
-     160.74,
-     160.76,
-     160.76,
-     160.51,
-     160.29,
-     160.17,
-     160.03,
-     159.96,
-     159.91,
-     159.82,
-     159.83,
-     159.85,
-     159.93,
-     159.97,
-     159.93,
-     159.93,
-     159.97,
-     159.98,
-     160.05,
-     160.17,
-     160.27,
-     160.42,
-     160.62,
-     160.82,
-     161.1,
-     161.3,
-     161.51,
+     162.0,
+     162.03,
+     162.09,
+     162.11,
+     162.13,
+     162.15,
+     162.14,
+     162.2,
+     162.33,
+     162.4,
+     162.43,
+     162.39,
+     162.28,
+     162.19,
+     162.09,
+     162.0,
+     161.89,
+     161.8,
      161.71,
+     161.67,
+     161.61,
+     161.31,
+     161.03,
+     160.87,
+     160.68,
+     160.57,
+     160.48,
+     160.36,
+     160.33,
+     160.31,
+     160.37,
+     160.38,
+     160.31,
+     160.29,
+     160.31,
+     160.29,
+     160.34,
+     160.45,
+     160.53,
+     160.66,
+     160.84,
+     161.03,
+     161.3,
+     161.48,
+     161.68,
      161.87,
-     161.98,
-     162.17,
-     162.24,
-     162.38,
-     162.38,
-     162.41,
-     162.45,
-     162.57,
-     162.68,
-     163.08,
-     163.43,
-     163.76,
-     164.08,
-     164.46,
-     164.83,
+     162.02,
+     162.12,
+     162.3,
+     162.36,
+     162.5,
+     162.49,
+     162.51,
+     162.55,
+     162.66,
+     162.76,
+     163.16,
+     163.5,
+     163.83,
+     164.14,
+     164.52,
+     164.89,
+     165.25,
+     165.17,
      165.2,
-     165.12,
-     165.16,
-     165.2,
-     165.26,
-     165.28,
-     165.4,
-     165.48,
-     165.72,
-     165.97,
-     166.17,
-     166.36,
-     166.56,
-     166.77,
-     166.98,
+     165.24,
+     165.3,
+     165.31,
+     165.44,
+     165.51,
+     165.75,
+     166.0,
+     166.19,
+     166.38,
+     166.59,
+     166.79,
      167.0,
-     167.14,
-     167.23,
-     167.36,
-     167.51,
-     167.62,
-     167.68,
-     167.86,
-     167.92,
+     167.02,
+     167.16,
+     167.25,
+     167.38,
+     167.52,
+     167.63,
+     167.69,
+     167.87,
+     167.94,
+     167.98,
+     167.98,
+     168.02,
      167.97,
-     167.97,
-     168.01,
-     167.96,
-     168.01,
-     168.61,
-     169.14,
+     168.02,
+     168.62,
+     169.15,
      169.6,
-     169.91,
+     169.92,
      170.26,
      170.43,
-     170.66,
+     170.67,
      171.07,
      171.25,
      171.57,
      171.81,
      172.09,
-     172.33,
+     172.34,
      172.6,
-     172.7,
+     172.71,
      173.0,
      173.4,
      173.85,
@@ -157468,13 +157021,13 @@
      176.73,
      177.18,
      177.53,
-     177.81,
+     177.82,
      177.93,
      177.89,
      177.99,
      178.07,
      178.28,
-     178.43,
+     178.44,
      178.54,
      179.08,
      179.69,
@@ -157519,7 +157072,7 @@
      189.63,
      190.18,
      190.41,
-     190.78,
+     190.79,
      191.12,
      191.45,
      191.77,
@@ -157761,7 +157314,8 @@
      168.39,
      168.57,
      168.87,
-     169.17
+     169.17,
+     169.76
     ],
     "pat": []
    }
@@ -160295,7 +159849,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     824.0,
@@ -160798,6 +160353,7 @@
     938.51,
     887.22,
     922.35,
+    915.34,
     915.34
    ],
    "h": [
@@ -161301,7 +160857,8 @@
     948.11,
     911.64,
     933.36,
-    919.72
+    919.72,
+    904.99
    ],
    "l": [
     820.45,
@@ -161804,7 +161361,8 @@
     901.53,
     887.04,
     901.07,
-    905.38
+    905.38,
+    904.99
    ],
    "c": [
     825.68,
@@ -162307,7 +161865,8 @@
     902.9,
     904.35,
     919.96,
-    916.06
+    916.06,
+    904.99
    ],
    "v": [
     691800,
@@ -162810,7 +162369,8 @@
     1407000,
     1122800,
     856500,
-    517000
+    517000,
+    43831
    ],
    "e10": [
     825.68,
@@ -163313,7 +162873,8 @@
     887.42,
     890.5,
     895.85,
-    899.53
+    899.53,
+    900.52
    ],
    "e30": [
     825.68,
@@ -163816,7 +163377,8 @@
     830.49,
     835.25,
     840.72,
-    845.58
+    845.58,
+    849.41
    ],
    "pat": [
     {
@@ -163853,7 +163415,7 @@
     },
     {
      "kind": "bull flag",
-     "end": "2026-11-10",
+     "end": "2026-11-11",
      "lines": [
       [
        "2026-10-13",
@@ -163878,9 +163440,9 @@
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
-      "text": "BULL FLAG \u00b7 forming"
+      "text": "BULL FLAG"
      }
     },
     {
@@ -163891,8 +163453,8 @@
       [
        "2026-06-02",
        591.52001953125,
-       "2026-11-10",
-       739.61591796875,
+       "2026-11-11",
+       740.9382027762276,
        0
       ]
      ],
@@ -164402,7 +163964,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     40.46,
@@ -164905,6 +164468,7 @@
     11.31,
     11.25,
     12.01,
+    13.61,
     13.61
    ],
    "h": [
@@ -165408,7 +164972,8 @@
     11.65,
     12.48,
     13.45,
-    13.89
+    13.89,
+    13.19
    ],
    "l": [
     38.03,
@@ -165911,7 +165476,8 @@
     10.85,
     11.05,
     12.0,
-    13.15
+    13.15,
+    13.05
    ],
    "c": [
     39.26,
@@ -166414,7 +165980,8 @@
     11.55,
     12.01,
     13.36,
-    13.24
+    13.24,
+    13.19
    ],
    "v": [
     3828800,
@@ -166917,7 +166484,8 @@
     7687900,
     12912000,
     7768200,
-    5822700
+    5822700,
+    55667
    ],
    "e10": [
     39.26,
@@ -167420,7 +166988,8 @@
     11.13,
     11.29,
     11.66,
-    11.95
+    11.95,
+    12.18
    ],
    "e30": [
     39.26,
@@ -167923,7 +167492,8 @@
     10.05,
     10.17,
     10.38,
-    10.56
+    10.56,
+    10.73
    ],
    "pat": [
     {
@@ -167997,8 +167567,8 @@
       [
        "2026-05-22",
        10.630000114440918,
-       "2026-11-10",
-       5.456152402437651,
+       "2026-11-11",
+       5.412306235386775,
        0
       ]
      ],
@@ -168016,8 +167586,8 @@
       [
        "2026-03-30",
        4.489999771118164,
-       "2026-11-10",
-       5.374000167846679,
+       "2026-11-11",
+       5.379666837056478,
        0
       ]
      ],
@@ -168037,7 +167607,7 @@
       [
        "2026-04-15",
        8.110000610351562,
-       "2026-11-10",
+       "2026-11-11",
        8.110000610351562,
        1
       ],
@@ -168076,13 +167646,13 @@
       [
        "2026-10-08",
        10.63,
-       "2026-11-10",
+       "2026-11-11",
        10.63,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $10.63 \u00b7 your SG shares + Jan-28 3C: new 1-year high vs close under the 30-day EMA"
      }
@@ -168094,13 +167664,13 @@
       [
        "2026-10-08",
        7.96,
-       "2026-11-10",
+       "2026-11-11",
        7.96,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $7.96 \u00b7 your SG shares + Jan-28 3C: new 1-year high vs close under the 30-day EMA"
      }
@@ -168108,13 +167678,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -168526,16 +168089,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     5.77,
-     5.91,
-     5.92,
-     5.89,
-     5.86,
-     5.82,
-     5.84,
      5.95,
      6.45,
      6.53,
@@ -168947,16 +168504,10 @@
      13.81,
      13.77,
      13.59,
-     13.28
+     13.28,
+     13.1
     ],
     "h": [
-     5.95,
-     5.98,
-     5.93,
-     5.93,
-     5.86,
-     5.84,
-     5.87,
      6.47,
      6.56,
      6.65,
@@ -169368,16 +168919,10 @@
      13.86,
      13.82,
      13.61,
-     13.35
+     13.35,
+     13.19
     ],
     "l": [
-     5.76,
-     5.87,
-     5.88,
-     5.85,
-     5.8,
-     5.77,
-     5.8,
      5.95,
      6.42,
      6.5,
@@ -169789,16 +169334,10 @@
      13.75,
      13.57,
      13.25,
-     13.15
+     13.15,
+     13.05
     ],
     "c": [
-     5.91,
-     5.91,
-     5.89,
-     5.86,
-     5.82,
-     5.84,
-     5.82,
      6.45,
      6.53,
      6.53,
@@ -170210,16 +169749,10 @@
      13.76,
      13.59,
      13.28,
-     13.23
+     13.23,
+     13.19
     ],
     "v": [
-     578454,
-     341926,
-     194419,
-     381720,
-     275850,
-     475880,
-     937089,
      1271855,
      1134999,
      941580,
@@ -170631,46 +170164,40 @@
      358537,
      680910,
      824853,
-     1324685
+     1324685,
+     61910
     ],
     "e10": [
-     5.91,
-     5.91,
-     5.91,
-     5.9,
-     5.89,
-     5.88,
-     5.87,
-     5.97,
-     6.07,
-     6.16,
-     6.23,
-     6.3,
-     6.32,
-     6.34,
-     6.37,
-     6.39,
-     6.4,
-     6.41,
-     6.43,
      6.45,
-     6.48,
+     6.46,
+     6.47,
      6.49,
      6.51,
-     6.54,
-     6.58,
-     6.62,
-     6.66,
-     6.72,
-     6.76,
-     6.8,
-     6.82,
-     6.82,
+     6.49,
+     6.48,
+     6.48,
+     6.48,
+     6.48,
+     6.48,
+     6.49,
+     6.49,
+     6.51,
+     6.52,
+     6.53,
+     6.56,
+     6.6,
+     6.64,
+     6.67,
+     6.73,
+     6.77,
+     6.81,
+     6.83,
+     6.83,
      6.84,
      6.85,
      6.88,
      6.92,
-     6.93,
+     6.94,
      6.96,
      6.95,
      6.94,
@@ -170678,7 +170205,7 @@
      6.93,
      6.91,
      6.9,
-     6.89,
+     6.9,
      6.88,
      6.88,
      6.88,
@@ -171052,70 +170579,62 @@
      13.34,
      13.38,
      13.37,
-     13.34
+     13.34,
+     13.31
     ],
     "e30": [
-     5.91,
-     5.91,
-     5.91,
-     5.91,
-     5.9,
-     5.9,
-     5.89,
-     5.93,
-     5.97,
-     6.0,
-     6.04,
-     6.08,
-     6.1,
-     6.12,
-     6.14,
-     6.17,
-     6.18,
-     6.2,
-     6.22,
-     6.24,
-     6.27,
-     6.28,
-     6.3,
-     6.33,
-     6.36,
-     6.39,
-     6.42,
      6.45,
+     6.45,
+     6.46,
+     6.46,
+     6.47,
+     6.47,
+     6.46,
+     6.47,
+     6.47,
+     6.47,
+     6.47,
+     6.47,
      6.48,
+     6.48,
+     6.49,
+     6.49,
+     6.51,
      6.52,
      6.54,
      6.56,
-     6.58,
-     6.6,
-     6.63,
+     6.59,
+     6.61,
+     6.64,
+     6.65,
      6.66,
      6.68,
-     6.71,
+     6.7,
      6.72,
-     6.73,
      6.74,
-     6.75,
      6.76,
-     6.76,
-     6.77,
-     6.78,
      6.78,
      6.79,
      6.79,
-     6.78,
-     6.78,
-     6.77,
-     6.77,
-     6.77,
-     6.77,
-     6.77,
-     6.78,
+     6.8,
+     6.81,
+     6.81,
+     6.81,
+     6.81,
+     6.82,
+     6.82,
+     6.82,
+     6.82,
+     6.82,
+     6.81,
+     6.8,
+     6.8,
+     6.79,
+     6.79,
+     6.79,
      6.8,
      6.82,
-     6.83,
-     6.83,
+     6.84,
      6.84,
      6.85,
      6.85,
@@ -171125,27 +170644,29 @@
      6.87,
      6.88,
      6.88,
+     6.89,
+     6.89,
      6.86,
-     6.83,
+     6.84,
      6.82,
-     6.8,
+     6.81,
      6.79,
-     6.76,
+     6.77,
+     6.75,
      6.75,
      6.74,
      6.74,
      6.73,
      6.73,
      6.73,
-     6.72,
-     6.72,
-     6.72,
-     6.72,
-     6.72,
+     6.73,
      6.72,
      6.72,
      6.73,
-     6.72,
+     6.73,
+     6.73,
+     6.73,
+     6.73,
      6.73,
      6.74,
      6.75,
@@ -171155,7 +170676,7 @@
      6.78,
      6.79,
      6.8,
-     6.8,
+     6.81,
      6.8,
      6.79,
      6.79,
@@ -171473,7 +170994,8 @@
      12.53,
      12.6,
      12.65,
-     12.68
+     12.68,
+     12.72
     ],
     "pat": []
    }
@@ -171980,7 +171502,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     88.95,
@@ -172483,7 +172006,8 @@
     151.85,
     143.45,
     151.15,
-    150.33
+    150.33,
+    149.12
    ],
    "h": [
     92.16,
@@ -172986,7 +172510,8 @@
     152.15,
     151.38,
     152.59,
-    151.2
+    151.2,
+    149.8
    ],
    "l": [
     88.71,
@@ -173489,7 +173014,8 @@
     137.7,
     142.62,
     148.01,
-    142.1
+    142.1,
+    149.09
    ],
    "c": [
     89.99,
@@ -173992,7 +173518,8 @@
     143.75,
     148.91,
     152.06,
-    146.61
+    146.61,
+    149.09
    ],
    "v": [
     20014100,
@@ -174495,7 +174022,8 @@
     12231200,
     7972800,
     6027900,
-    6622400
+    6622400,
+    49142
    ],
    "e10": [
     89.99,
@@ -174998,7 +174526,8 @@
     156.42,
     155.05,
     154.51,
-    153.07
+    153.07,
+    152.35
    ],
    "e30": [
     89.99,
@@ -175501,7 +175030,8 @@
     158.5,
     157.88,
     157.5,
-    156.8
+    156.8,
+    156.3
    ],
    "pat": [
     {
@@ -175576,8 +175106,8 @@
       [
        "2026-05-14",
        94.0,
-       "2026-11-10",
-       138.99617101791057,
+       "2026-11-11",
+       139.3590433648292,
        0
       ]
      ],
@@ -175597,7 +175127,7 @@
       [
        "2026-08-05",
        150.23999786376953,
-       "2026-11-10",
+       "2026-11-11",
        150.23999786376953,
        1
       ],
@@ -176133,7 +175663,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     12.1,
@@ -176636,6 +176167,7 @@
     5.29,
     5.04,
     4.94,
+    4.97,
     4.97
    ],
    "h": [
@@ -177139,7 +176671,8 @@
     5.56,
     5.09,
     5.13,
-    5.09
+    5.09,
+    5.04
    ],
    "l": [
     11.93,
@@ -177642,7 +177175,8 @@
     4.96,
     4.9,
     4.92,
-    4.85
+    4.85,
+    5.0
    ],
    "c": [
     11.96,
@@ -178145,7 +177679,8 @@
     5.09,
     4.96,
     5.05,
-    5.0
+    5.0,
+    5.03
    ],
    "v": [
     31883100,
@@ -178648,7 +178183,8 @@
     81527600,
     40597200,
     48272800,
-    33494500
+    33494500,
+    902260
    ],
    "e10": [
     11.96,
@@ -179151,7 +178687,8 @@
     5.7,
     5.56,
     5.47,
-    5.39
+    5.39,
+    5.32
    ],
    "e30": [
     11.96,
@@ -179654,7 +179191,8 @@
     5.82,
     5.77,
     5.72,
-    5.67
+    5.67,
+    5.63
    ],
    "pat": [
     {
@@ -179664,8 +179202,8 @@
       [
        "2025-11-12",
        9.130000114440918,
-       "2026-11-10",
-       8.726213506750158,
+       "2026-11-11",
+       8.724591873787546,
        0
       ]
      ],
@@ -179679,8 +179217,8 @@
       [
        "2026-03-27",
        3.809999942779541,
-       "2026-11-10",
-       4.732375466823578,
+       "2026-11-11",
+       4.738250470161438,
        0
       ]
      ],
@@ -179693,13 +179231,13 @@
       [
        "2026-10-08",
        6.07,
-       "2026-11-10",
+       "2026-11-11",
        6.07,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $6.07 \u00b7 your Jan-28 5C x2: over the 60-day high vs close under the 20-day low"
      }
@@ -179711,13 +179249,13 @@
       [
        "2026-10-08",
        5.18,
-       "2026-11-10",
+       "2026-11-11",
        5.18,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $5.18 \u00b7 your Jan-28 5C x2: over the 60-day high vs close under the 20-day low"
      }
@@ -179725,13 +179263,6 @@
    ],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -180143,16 +179674,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     5.2,
-     5.28,
-     5.26,
-     5.21,
-     5.17,
-     5.19,
-     5.17,
      5.12,
      5.14,
      5.16,
@@ -180564,16 +180089,10 @@
      4.88,
      4.88,
      4.94,
-     4.99
+     4.99,
+     5.04
     ],
     "h": [
-     5.31,
-     5.3,
-     5.27,
-     5.22,
-     5.2,
-     5.2,
-     5.19,
      5.17,
      5.18,
      5.23,
@@ -180985,16 +180504,10 @@
      4.89,
      4.94,
      5.0,
-     5.01
+     5.01,
+     5.07
     ],
     "l": [
-     5.17,
-     5.25,
-     5.2,
-     5.17,
-     5.16,
-     5.15,
-     5.1,
      5.03,
      5.11,
      5.14,
@@ -181406,16 +180919,10 @@
      4.85,
      4.87,
      4.93,
-     4.96
+     4.96,
+     5.0
     ],
     "c": [
-     5.28,
-     5.26,
-     5.22,
-     5.17,
-     5.19,
-     5.16,
-     5.11,
      5.13,
      5.16,
      5.22,
@@ -181827,16 +181334,10 @@
      4.88,
      4.93,
      4.99,
-     5.01
+     5.01,
+     5.06
     ],
     "v": [
-     6338646,
-     3109482,
-     2519469,
-     2774353,
-     2068949,
-     2417999,
-     4077120,
      7920526,
      4225587,
      3799751,
@@ -182248,40 +181749,34 @@
      3094130,
      2209034,
      3942396,
-     3972723
+     3972723,
+     1025912
     ],
     "e10": [
-     5.28,
-     5.27,
-     5.26,
-     5.25,
-     5.24,
-     5.22,
-     5.2,
-     5.19,
-     5.18,
-     5.19,
-     5.2,
-     5.2,
-     5.21,
-     5.22,
-     5.2,
-     5.18,
+     5.13,
+     5.14,
+     5.15,
      5.16,
+     5.18,
+     5.19,
+     5.2,
+     5.18,
+     5.17,
      5.15,
      5.14,
-     5.16,
+     5.14,
+     5.15,
+     5.17,
      5.17,
      5.18,
      5.19,
      5.19,
-     5.19,
      5.18,
      5.17,
-     5.19,
+     5.18,
      5.22,
      5.26,
-     5.3,
+     5.29,
      5.32,
      5.35,
      5.37,
@@ -182669,80 +182164,74 @@
      4.95,
      4.95,
      4.96,
-     4.97
+     4.97,
+     4.98
     ],
     "e30": [
-     5.28,
-     5.27,
-     5.27,
-     5.26,
-     5.26,
-     5.25,
-     5.24,
-     5.24,
-     5.23,
-     5.23,
-     5.23,
-     5.23,
-     5.23,
-     5.23,
-     5.22,
-     5.22,
-     5.21,
-     5.2,
-     5.2,
-     5.2,
-     5.2,
-     5.2,
-     5.2,
-     5.2,
-     5.2,
-     5.2,
-     5.19,
+     5.13,
+     5.13,
+     5.14,
+     5.14,
+     5.15,
+     5.16,
+     5.16,
+     5.16,
+     5.15,
+     5.15,
+     5.15,
+     5.14,
+     5.15,
+     5.15,
+     5.16,
+     5.16,
+     5.16,
+     5.17,
+     5.16,
+     5.16,
+     5.17,
+     5.18,
      5.2,
      5.21,
-     5.22,
+     5.23,
      5.24,
-     5.25,
      5.26,
      5.28,
-     5.29,
+     5.3,
      5.32,
-     5.34,
-     5.36,
-     5.38,
-     5.41,
+     5.35,
+     5.37,
+     5.39,
+     5.43,
+     5.46,
+     5.46,
+     5.46,
+     5.46,
+     5.45,
+     5.45,
+     5.45,
+     5.45,
      5.44,
-     5.47,
-     5.47,
-     5.47,
-     5.47,
-     5.46,
-     5.46,
      5.45,
      5.45,
      5.45,
      5.45,
-     5.46,
-     5.46,
-     5.46,
      5.45,
+     5.44,
      5.45,
      5.45,
      5.46,
      5.46,
      5.46,
      5.46,
-     5.46,
-     5.46,
+     5.45,
+     5.45,
      5.46,
      5.46,
      5.47,
      5.47,
      5.47,
      5.48,
-     5.48,
-     5.48,
+     5.47,
      5.47,
      5.46,
      5.45,
@@ -182753,11 +182242,11 @@
      5.45,
      5.46,
      5.47,
-     5.49,
+     5.48,
      5.49,
      5.5,
      5.52,
-     5.54,
+     5.53,
      5.55,
      5.56,
      5.57,
@@ -183090,6 +182579,7 @@
      5.13,
      5.12,
      5.11,
+     5.1,
      5.1
     ],
     "pat": []
@@ -183201,7 +182691,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     150.0,
@@ -183308,7 +182799,8 @@
     131.34,
     130.94,
     136.51,
-    139.16
+    139.16,
+    143.4
    ],
    "h": [
     176.52,
@@ -183415,7 +182907,8 @@
     131.87,
     135.32,
     143.2,
-    144.89
+    144.89,
+    145.01
    ],
    "l": [
     149.34,
@@ -183522,7 +183015,8 @@
     120.39,
     128.57,
     135.37,
-    137.65
+    137.65,
+    142.82
    ],
    "c": [
     160.95,
@@ -183629,7 +183123,8 @@
     123.62,
     134.27,
     142.07,
-    143.09
+    143.09,
+    144.91
    ],
    "v": [
     519234800,
@@ -183736,7 +183231,8 @@
     171356200,
     115495000,
     103473200,
-    81629900
+    81629900,
+    13346819
    ],
    "e10": [
     160.95,
@@ -183843,7 +183339,8 @@
     138.82,
     137.99,
     138.73,
-    139.52
+    139.52,
+    140.5
    ],
    "e30": [
     160.95,
@@ -183950,18 +183447,12 @@
     145.76,
     145.02,
     144.83,
-    144.72
+    144.72,
+    144.73
    ],
    "pat": [],
    "h1": {
     "d": [
-     1787059800,
-     1787063400,
-     1787067000,
-     1787070600,
-     1787074200,
-     1787077800,
-     1787081400,
      1787146200,
      1787149800,
      1787153400,
@@ -184373,16 +183864,10 @@
      1794331800,
      1794335400,
      1794339000,
-     1794342600
+     1794342600,
+     1794407400
     ],
     "o": [
-     140.73,
-     142.57,
-     142.17,
-     144.46,
-     145.4,
-     143.53,
-     142.94,
      144.96,
      138.59,
      140.03,
@@ -184794,16 +184279,10 @@
      141.65,
      140.29,
      141.38,
-     142.21
+     142.21,
+     143.4
     ],
     "h": [
-     142.93,
-     143.08,
-     145.23,
-     146.46,
-     145.53,
-     143.79,
-     143.72,
      145.01,
      140.4,
      140.89,
@@ -185215,16 +184694,10 @@
      142.07,
      141.58,
      142.34,
-     143.19
+     143.19,
+     145.0
     ],
     "l": [
-     139.41,
-     140.43,
-     141.72,
-     143.8,
-     143.34,
-     142.15,
-     141.92,
      136.72,
      138.06,
      138.5,
@@ -185636,16 +185109,10 @@
      140.07,
      139.95,
      140.88,
-     141.77
+     141.77,
+     142.82
     ],
     "c": [
-     142.53,
-     142.18,
-     144.46,
-     145.4,
-     143.52,
-     142.93,
-     143.34,
      138.59,
      140.03,
      140.5,
@@ -186057,16 +185524,10 @@
      140.3,
      141.37,
      142.18,
-     143.15
+     143.15,
+     144.0
     ],
     "v": [
-     24740820,
-     9739921,
-     11181753,
-     10608677,
-     7086124,
-     8302356,
-     7253785,
      29003162,
      11817501,
      7265741,
@@ -186478,55 +185939,49 @@
      6459671,
      5796909,
      6412940,
-     9116359
+     9116359,
+     12543019
     ],
     "e10": [
-     142.53,
-     142.47,
-     142.83,
-     143.3,
-     143.34,
-     143.26,
-     143.28,
-     142.42,
-     141.99,
-     141.72,
-     141.32,
-     141.13,
-     140.68,
-     140.49,
-     139.12,
-     137.85,
-     136.58,
-     135.64,
-     135.07,
-     134.63,
-     134.51,
-     134.25,
-     134.6,
-     134.9,
+     138.59,
+     138.85,
+     139.15,
+     139.22,
+     139.4,
+     139.27,
+     139.34,
+     138.18,
+     137.08,
+     135.95,
      135.12,
-     135.24,
-     135.38,
-     135.66,
-     135.39,
-     135.81,
-     135.98,
-     135.98,
-     136.01,
-     135.85,
-     135.7,
-     136.04,
-     136.53,
-     136.86,
-     137.16,
+     134.65,
+     134.28,
+     134.23,
+     134.02,
+     134.41,
+     134.75,
+     134.99,
+     135.13,
+     135.29,
+     135.59,
+     135.33,
+     135.76,
+     135.94,
+     135.95,
+     135.99,
+     135.83,
+     135.68,
+     136.03,
+     136.52,
+     136.85,
+     137.15,
      137.32,
      137.53,
      137.61,
-     137.36,
-     137.15,
+     137.35,
+     137.14,
      137.05,
-     137.27,
+     137.26,
      137.38,
      137.78,
      138.11,
@@ -186899,129 +186354,123 @@
      140.54,
      140.69,
      140.96,
-     141.36
+     141.36,
+     141.84
     ],
     "e30": [
-     142.53,
-     142.51,
-     142.63,
-     142.81,
-     142.86,
-     142.86,
-     142.89,
-     142.62,
-     142.45,
-     142.32,
-     142.14,
-     142.02,
-     141.8,
-     141.66,
-     141.1,
-     140.52,
-     139.9,
-     139.35,
-     138.91,
-     138.51,
-     138.22,
-     137.88,
-     137.77,
-     137.67,
-     137.57,
-     137.46,
-     137.36,
-     137.34,
-     137.13,
-     137.17,
-     137.14,
-     137.07,
-     137.01,
-     136.89,
-     136.77,
-     136.82,
-     136.94,
-     137.03,
-     137.13,
-     137.19,
-     137.27,
-     137.31,
-     137.24,
-     137.18,
-     137.14,
-     137.21,
-     137.26,
-     137.41,
-     137.55,
-     137.72,
-     137.86,
-     138.05,
-     138.2,
-     138.35,
-     138.42,
+     138.59,
+     138.68,
+     138.8,
+     138.84,
+     138.93,
+     138.92,
+     138.96,
      138.58,
-     138.77,
-     138.98,
-     138.95,
-     139.01,
-     139.08,
-     139.2,
-     139.35,
-     139.58,
-     139.79,
-     140.03,
-     140.18,
-     140.32,
-     140.46,
-     140.67,
-     140.88,
-     141.08,
-     141.21,
-     141.32,
-     141.44,
-     141.57,
-     141.61,
-     141.55,
-     141.48,
-     141.47,
-     141.41,
-     141.37,
-     141.31,
+     138.16,
+     137.69,
+     137.28,
+     136.97,
+     136.7,
+     136.52,
+     136.3,
+     136.29,
+     136.29,
+     136.28,
+     136.24,
+     136.23,
+     136.27,
+     136.14,
+     136.24,
+     136.27,
+     136.25,
+     136.25,
+     136.18,
+     136.1,
+     136.2,
+     136.36,
+     136.49,
+     136.62,
+     136.71,
+     136.82,
+     136.9,
+     136.85,
+     136.81,
+     136.8,
+     136.89,
+     136.96,
+     137.13,
+     137.28,
+     137.48,
+     137.63,
+     137.84,
+     138.0,
+     138.16,
+     138.25,
+     138.42,
+     138.62,
+     138.84,
+     138.81,
+     138.88,
+     138.96,
+     139.09,
+     139.24,
+     139.48,
+     139.7,
+     139.95,
+     140.11,
+     140.25,
+     140.39,
+     140.61,
+     140.82,
+     141.02,
+     141.16,
      141.27,
-     141.79,
-     142.29,
-     142.69,
-     143.23,
-     143.72,
-     144.23,
-     144.58,
-     144.95,
-     145.23,
-     145.43,
-     145.66,
-     145.84,
-     146.06,
-     146.18,
-     146.29,
-     146.66,
-     147.05,
-     147.44,
-     147.84,
-     148.26,
+     141.4,
+     141.53,
+     141.57,
+     141.51,
+     141.44,
+     141.44,
+     141.38,
+     141.34,
+     141.28,
+     141.24,
+     141.77,
+     142.27,
+     142.67,
+     143.21,
+     143.7,
+     144.21,
+     144.56,
+     144.94,
+     145.22,
+     145.42,
+     145.65,
+     145.83,
+     146.05,
+     146.17,
+     146.28,
+     146.65,
+     147.04,
+     147.43,
+     147.83,
+     148.25,
      148.59,
-     148.67,
-     148.53,
+     148.66,
+     148.52,
      148.38,
-     148.22,
+     148.21,
      148.22,
      148.15,
-     148.12,
+     148.11,
      148.24,
-     148.33,
-     148.56,
+     148.32,
+     148.55,
      148.75,
-     148.73,
+     148.72,
      148.69,
      148.66,
-     148.63,
+     148.62,
      148.55,
      148.56,
      148.64,
@@ -187030,15 +186479,15 @@
      148.97,
      148.95,
      149.04,
-     149.22,
+     149.21,
      149.39,
      149.51,
      149.49,
      149.4,
-     149.17,
+     149.16,
      148.91,
      148.6,
-     148.29,
+     148.28,
      148.05,
      147.75,
      147.48,
@@ -187320,7 +186769,8 @@
      137.89,
      138.11,
      138.37,
-     138.68
+     138.68,
+     139.03
     ],
     "pat": []
    }
@@ -187827,7 +187277,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     405.11,
@@ -188330,6 +187781,7 @@
     635.0,
     592.23,
     602.02,
+    602.43,
     602.43
    ],
    "h": [
@@ -188833,7 +188285,8 @@
     635.0,
     610.82,
     609.28,
-    607.71
+    607.71,
+    600.18
    ],
    "l": [
     404.79,
@@ -189336,7 +188789,8 @@
     609.67,
     589.5,
     588.24,
-    593.5
+    593.5,
+    596.9
    ],
    "c": [
     410.19,
@@ -189839,7 +189293,8 @@
     614.41,
     603.01,
     609.1,
-    606.22
+    606.22,
+    599.95
    ],
    "v": [
     3289900,
@@ -190342,7 +189797,8 @@
     1737500,
     1842400,
     1729700,
-    1219900
+    1219900,
+    13981
    ],
    "e10": [
     410.19,
@@ -190845,7 +190301,8 @@
     587.01,
     589.92,
     593.41,
-    595.74
+    595.74,
+    596.5
    ],
    "e30": [
     410.19,
@@ -191348,7 +190805,8 @@
     553.98,
     557.14,
     560.49,
-    563.44
+    563.44,
+    565.8
    ],
    "pat": [
     {
@@ -191385,7 +190843,7 @@
     },
     {
      "kind": "bull flag",
-     "end": "2026-11-10",
+     "end": "2026-11-11",
      "lines": [
       [
        "2026-10-19",
@@ -191396,21 +190854,21 @@
       ],
       [
        "2026-11-04",
-       634.1159912109375,
-       "2026-11-10",
-       604.0020263671876,
+       633.4090459914435,
+       "2026-11-11",
+       598.4176345098587,
        1
       ],
       [
        "2026-11-04",
-       606.9400024414062,
-       "2026-11-10",
-       588.0059936523437,
+       604.3440958658854,
+       "2026-11-11",
+       590.4112345377604,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BULL FLAG \u00b7 forming"
      }
@@ -191422,8 +190880,8 @@
       [
        "2025-12-11",
        619.958984375,
-       "2026-11-10",
-       564.647954584478,
+       "2026-11-11",
+       564.4064217032967,
        0
       ]
      ],
@@ -191441,8 +190899,8 @@
       [
        "2026-02-05",
        405.0,
-       "2026-11-10",
-       424.32384072580646,
+       "2026-11-11",
+       424.4244857295867,
        0
       ]
      ],
@@ -191462,7 +190920,7 @@
       [
        "2026-10-22",
        681.75,
-       "2026-11-10",
+       "2026-11-11",
        681.75,
        1
       ],
@@ -191501,7 +190959,7 @@
       [
        "2025-11-13",
        668.4949951171875,
-       "2026-11-10",
+       "2026-11-11",
        668.4949951171875,
        1
       ],
@@ -196134,7 +195592,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     125.37,
@@ -196637,7 +196096,8 @@
     13.39,
     12.7,
     13.78,
-    14.52
+    14.52,
+    15.23
    ],
    "h": [
     131.8,
@@ -197140,7 +196600,8 @@
     13.63,
     13.05,
     15.29,
-    15.8
+    15.8,
+    15.28
    ],
    "l": [
     125.13,
@@ -197643,7 +197104,8 @@
     12.6,
     12.56,
     13.75,
-    14.3
+    14.3,
+    15.11
    ],
    "c": [
     129.34,
@@ -198146,7 +197608,8 @@
     12.81,
     12.93,
     14.93,
-    15.42
+    15.42,
+    15.26
    ],
    "v": [
     6755600,
@@ -198649,7 +198112,8 @@
     14990800,
     14354800,
     99845500,
-    64901400
+    64901400,
+    436334
    ],
    "e10": [
     129.34,
@@ -199152,7 +198616,8 @@
     12.79,
     12.82,
     13.2,
-    13.6
+    13.6,
+    13.9
    ],
    "e30": [
     129.34,
@@ -199655,7 +199120,8 @@
     12.85,
     12.85,
     12.99,
-    13.14
+    13.14,
+    13.28
    ],
    "pat": [
     {
@@ -199665,8 +199131,8 @@
       [
        "2026-01-06",
        40.900001525878906,
-       "2026-11-10",
-       10.916990119583751,
+       "2026-11-11",
+       10.776224807817108,
        0
       ]
      ],
@@ -199683,7 +199149,7 @@
       [
        "2025-11-06",
        47.959999084472656,
-       "2026-11-10",
+       "2026-11-11",
        47.959999084472656,
        1
       ],
@@ -200205,7 +199671,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     20.5,
@@ -200708,6 +200175,7 @@
     48.06,
     51.13,
     52.15,
+    50.96,
     50.96
    ],
    "h": [
@@ -201211,7 +200679,8 @@
     49.49,
     52.91,
     54.26,
-    51.78
+    51.78,
+    51.87
    ],
    "l": [
     19.72,
@@ -201714,7 +201183,8 @@
     44.82,
     49.07,
     51.15,
-    48.94
+    48.94,
+    51.05
    ],
    "c": [
     20.2,
@@ -202217,7 +201687,8 @@
     48.8,
     51.49,
     51.43,
-    50.34
+    50.34,
+    51.6
    ],
    "v": [
     16544000,
@@ -202720,7 +202191,8 @@
     50967900,
     23628100,
     15212500,
-    12489000
+    12489000,
+    302652
    ],
    "e10": [
     20.2,
@@ -203223,7 +202695,8 @@
     41.95,
     43.68,
     45.09,
-    46.05
+    46.05,
+    47.05
    ],
    "e30": [
     20.2,
@@ -203726,7 +203199,8 @@
     41.84,
     42.46,
     43.04,
-    43.51
+    43.51,
+    44.03
    ],
    "pat": [
     {
@@ -203762,46 +203236,14 @@
      }
     },
     {
-     "kind": "bear flag",
-     "end": "2026-11-04",
-     "lines": [
-      [
-       "2026-10-09",
-       46.880001068115234,
-       "2026-10-28",
-       39.5,
-       0
-      ],
-      [
-       "2026-10-29",
-       38.96799926757813,
-       "2026-11-04",
-       42.295999145507814,
-       1
-      ],
-      [
-       "2026-10-29",
-       37.39800186157226,
-       "2026-11-04",
-       38.81599960327148,
-       1
-      ]
-     ],
-     "label": {
-      "time": "2026-11-04",
-      "up": false,
-      "text": "BEAR FLAG \u00b7 forming"
-     }
-    },
-    {
      "kind": "resistance line",
      "end": "2026-11-05",
      "lines": [
       [
        "2025-12-11",
        52.150001525878906,
-       "2026-11-10",
-       47.32778881146358,
+       "2026-11-11",
+       47.306731114020714,
        0
       ]
      ],
@@ -203819,8 +203261,8 @@
       [
        "2026-02-23",
        16.780000686645508,
-       "2026-11-10",
-       18.668694537618887,
+       "2026-11-11",
+       18.6791293102762,
        0
       ]
      ],
@@ -203840,7 +203282,7 @@
       [
        "2026-11-05",
        59.82499694824219,
-       "2026-11-10",
+       "2026-11-11",
        59.82499694824219,
        1
       ],
@@ -203879,7 +203321,7 @@
       [
        "2025-12-11",
        52.150001525878906,
-       "2026-11-10",
+       "2026-11-11",
        52.150001525878906,
        1
       ],
@@ -204401,7 +203843,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     518.27,
@@ -204904,6 +204347,7 @@
     556.85,
     531.53,
     555.99,
+    546.97,
     546.97
    ],
    "h": [
@@ -205407,7 +204851,8 @@
     557.85,
     548.76,
     555.99,
-    551.86
+    551.86,
+    543.96
    ],
    "l": [
     500.13,
@@ -205910,7 +205355,8 @@
     540.02,
     531.53,
     538.48,
-    543.44
+    543.44,
+    543.96
    ],
    "c": [
     501.72,
@@ -206413,7 +205859,8 @@
     542.5,
     547.09,
     550.87,
-    547.89
+    547.89,
+    543.96
    ],
    "v": [
     1335500,
@@ -206916,7 +206363,8 @@
     2482700,
     1271500,
     1213400,
-    1239300
+    1239300,
+    87012
    ],
    "e10": [
     501.72,
@@ -207419,7 +206867,8 @@
     537.27,
     539.06,
     541.21,
-    542.42
+    542.42,
+    542.7
    ],
    "e30": [
     501.72,
@@ -207922,7 +207371,8 @@
     525.44,
     526.83,
     528.38,
-    529.64
+    529.64,
+    530.57
    ],
    "pat": [
     {
@@ -207996,8 +207446,8 @@
       [
        "2026-09-03",
        560.25,
-       "2026-11-10",
-       471.06754302978516,
+       "2026-11-11",
+       469.1700439453125,
        0
       ]
      ],
@@ -208015,8 +207465,8 @@
       [
        "2026-05-05",
        412.2699890136719,
-       "2026-11-10",
-       462.96712493896484,
+       "2026-11-11",
+       463.3541259765625,
        0
       ]
      ],
@@ -208036,7 +207486,7 @@
       [
        "2026-10-22",
        575.7000427246094,
-       "2026-11-10",
+       "2026-11-11",
        575.7000427246094,
        1
       ],
@@ -212675,7 +212125,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     52.96,
@@ -213178,7 +212629,8 @@
     304.12,
     287.0,
     271.28,
-    283.04
+    283.04,
+    308.32
    ],
    "h": [
     53.02,
@@ -213681,7 +213133,8 @@
     305.41,
     288.0,
     293.4,
-    294.95
+    294.95,
+    310.97
    ],
    "l": [
     50.85,
@@ -214184,7 +213637,8 @@
     265.0,
     258.61,
     269.87,
-    276.16
+    276.16,
+    305.0
    ],
    "c": [
     50.93,
@@ -214687,7 +214141,8 @@
     267.63,
     263.78,
     289.78,
-    289.2
+    289.2,
+    305.85
    ],
    "v": [
     5891451,
@@ -215190,7 +214645,8 @@
     18349400,
     12132000,
     8417000,
-    6515900
+    6515900,
+    572847
    ],
    "e10": [
     50.93,
@@ -215693,7 +215149,8 @@
     340.79,
     326.79,
     320.06,
-    314.45
+    314.45,
+    312.89
    ],
    "e30": [
     50.93,
@@ -216196,7 +215653,8 @@
     377.53,
     370.19,
     365.0,
-    360.11
+    360.11,
+    356.61
    ],
    "pat": [
     {
@@ -216206,8 +215664,8 @@
       [
        "2026-06-18",
        799.8699951171875,
-       "2026-11-10",
-       256.3342721121652,
+       "2026-11-11",
+       250.89891488211492,
        0
       ]
      ],
@@ -216225,8 +215683,8 @@
       [
        "2025-11-21",
        132.42999267578125,
-       "2026-11-10",
-       346.87426459418407,
+       "2026-11-11",
+       347.7603979492187,
        0
       ]
      ],
@@ -216243,13 +215701,13 @@
       [
        "2026-10-02",
        462.56,
-       "2026-11-10",
+       "2026-11-11",
        462.56,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": true,
       "text": "BREAKOUT $462.56 \u00b7 Toshiba gap-down: gap fill vs breakdown"
      }
@@ -216261,13 +215719,13 @@
       [
        "2026-10-02",
        415.0,
-       "2026-11-10",
+       "2026-11-11",
        415.0,
        1
       ]
      ],
      "label": {
-      "time": "2026-11-10",
+      "time": "2026-11-11",
       "up": false,
       "text": "BREAKDOWN $415.00 \u00b7 Toshiba gap-down: gap fill vs breakdown"
      }
@@ -216776,7 +216234,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     75.9,
@@ -217279,6 +216738,7 @@
     88.29,
     84.07,
     87.0,
+    88.0,
     88.0
    ],
    "h": [
@@ -217782,7 +217242,8 @@
     88.29,
     86.65,
     89.39,
-    88.77
+    88.77,
+    85.78
    ],
    "l": [
     75.8,
@@ -218285,7 +217746,8 @@
     81.82,
     83.09,
     86.93,
-    84.28
+    84.28,
+    85.6
    ],
    "c": [
     83.4,
@@ -218788,7 +218250,8 @@
     84.04,
     85.48,
     88.56,
-    85.58
+    85.58,
+    85.76
    ],
    "v": [
     20910700,
@@ -219291,7 +218754,8 @@
     9235400,
     7757300,
     7484300,
-    6163200
+    6163200,
+    48346
    ],
    "e10": [
     83.4,
@@ -219794,7 +219258,8 @@
     79.48,
     80.57,
     82.02,
-    82.67
+    82.67,
+    83.23
    ],
    "e30": [
     83.4,
@@ -220297,7 +219762,8 @@
     77.97,
     78.45,
     79.1,
-    79.52
+    79.52,
+    79.92
    ],
    "pat": [
     {
@@ -220307,8 +219773,8 @@
       [
        "2026-08-27",
        86.91999816894531,
-       "2026-11-10",
-       78.38309195382254,
+       "2026-11-11",
+       78.2189206804548,
        0
       ]
      ],
@@ -220326,8 +219792,8 @@
       [
        "2026-02-12",
        48.209999084472656,
-       "2026-11-10",
-       75.23519875908976,
+       "2026-11-11",
+       75.37971854344599,
        0
       ]
      ],
@@ -220347,7 +219813,7 @@
       [
        "2026-06-26",
        88.8600082397461,
-       "2026-11-10",
+       "2026-11-11",
        88.8600082397461,
        1
       ],
@@ -225036,7 +224502,8 @@
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ],
    "o": [
     6008.86,
@@ -225539,7 +225006,8 @@
     7678.72,
     7377.65,
     7422.24,
-    7513.09
+    7513.09,
+    7586.65
    ],
    "h": [
     6017.31,
@@ -226042,7 +225510,8 @@
     7681.29,
     7444.2,
     7577.39,
-    7543.92
+    7543.92,
+    7602.23
    ],
    "l": [
     5986.69,
@@ -226545,7 +226014,8 @@
     7350.35,
     7369.55,
     7422.24,
-    7470.43
+    7470.43,
+    7586.65
    ],
    "c": [
     6001.35,
@@ -227048,7 +226518,8 @@
     7353.73,
     7376.86,
     7549.94,
-    7520.93
+    7520.93,
+    7601.53
    ],
    "v": [
     4333000000,
@@ -227551,7 +227022,8 @@
     7654840000,
     5701900000,
     5819360000,
-    5056350000
+    5056350000,
+    147544396
    ],
    "e10": [
     6001.35,
@@ -228054,7 +227526,8 @@
     7598.28,
     7558.02,
     7556.55,
-    7550.07
+    7550.07,
+    7559.43
    ],
    "e30": [
     6001.35,
@@ -228557,7 +228030,8 @@
     7662.47,
     7644.04,
     7637.97,
-    7630.42
+    7630.42,
+    7628.56
    ],
    "pat": []
   }
@@ -228575,8 +228049,8 @@
    "as_of": "2026-10-21",
    "open_n": 29,
    "real_n": 4,
-   "real_pl": 40.6,
-   "paper_pl": -20.1,
+   "real_pl": 39.0,
+   "paper_pl": -18.6,
    "fired": 3,
    "sessions": 3
   },
@@ -228592,18 +228066,18 @@
    {
     "label": "Open \u00b7 real",
     "before": 27.1,
-    "after": 40.6,
+    "after": 39.0,
     "fmt": "pct",
     "sub": "4 positions",
-    "delta": 13.5
+    "delta": 11.9
    },
    {
     "label": "Open \u00b7 paper",
     "before": -20.8,
-    "after": -20.1,
+    "after": -18.6,
     "fmt": "pct",
     "sub": "25 positions",
-    "delta": 0.7
+    "delta": 2.2
    },
    {
     "label": "Closed real money",
@@ -228624,9 +228098,9 @@
     "acct": "real",
     "setup": "none",
     "before": 9.105,
-    "after": 10.905000000000001,
+    "after": 10.61,
     "before_pl": 95.52892668470558,
-    "after_pl": 134.18373920886486,
+    "after_pl": 127.84864493407207,
     "isnew": false
    },
    {
@@ -228637,9 +228111,9 @@
     "acct": "real",
     "setup": "none",
     "before": 12.010000228881836,
-    "after": 13.239999771118164,
+    "after": 13.1899995803833,
     "before_pl": 73.03979812814218,
-    "after_pl": 90.76160232714987,
+    "after_pl": 90.04120076626374,
     "isnew": false
    },
    {
@@ -228650,9 +228124,9 @@
     "acct": "real",
     "setup": "F",
     "before": 101.97000122070312,
-    "after": 99.61000061035156,
+    "after": 100.65979766845703,
     "before_pl": -26.167546723116995,
-    "after_pl": -27.876330019295093,
+    "after_pl": -27.11621340347765,
     "isnew": false
    },
    {
@@ -228676,9 +228150,9 @@
     "acct": "big",
     "setup": "E",
     "before": 39.995000000000005,
-    "after": 40.085,
+    "after": 40.21,
     "before_pl": 52.47807853602746,
-    "after_pl": 52.82119710255433,
+    "after_pl": 53.297750667174995,
     "isnew": false
    },
    {
@@ -228689,35 +228163,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 148.91000366210938,
-    "after": 146.61000061035156,
+    "after": 149.08790588378906,
     "before_pl": 11.043999748030853,
-    "after_pl": 9.32885951554927,
-    "isnew": false
-   },
-   {
-    "sym": "IBM",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "E",
-    "before": 245.0,
-    "after": 244.52999877929688,
-    "before_pl": 4.38413361169101,
-    "after_pl": 4.183885978141899,
-    "isnew": false
-   },
-   {
-    "sym": "SHOP",
-    "kind": "call",
-    "strike": "140",
-    "dte": 765,
-    "acct": "bot-leaps",
-    "setup": "F",
-    "before": 56.735,
-    "after": 55.345,
-    "before_pl": 6.046728971962612,
-    "after_pl": 3.4485981308411295,
+    "after_pl": 11.176663597158143,
     "isnew": false
    },
    {
@@ -228728,9 +228176,48 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 148.91000366210938,
-    "after": 146.61000061035156,
+    "after": 149.08790588378906,
     "before_pl": 4.454267439751236,
-    "after_pl": 2.840909519045698,
+    "after_pl": 4.579058560458105,
+    "isnew": false
+   },
+   {
+    "sym": "SHOP",
+    "kind": "call",
+    "strike": "140",
+    "dte": 765,
+    "acct": "bot-leaps",
+    "setup": "F",
+    "before": 56.735,
+    "after": 55.82,
+    "before_pl": 6.046728971962612,
+    "after_pl": 4.336448598130849,
+    "isnew": false
+   },
+   {
+    "sym": "IBM",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "E",
+    "before": 245.0,
+    "after": 243.7100067138672,
+    "before_pl": 4.38413361169101,
+    "after_pl": 3.8345220543935854,
+    "isnew": false
+   },
+   {
+    "sym": "ZS",
+    "kind": "call",
+    "strike": "200",
+    "dte": 583,
+    "acct": "bot-leaps",
+    "setup": "F",
+    "before": 66.9795,
+    "after": 68.55000000000001,
+    "before_pl": -3.2787003610108334,
+    "after_pl": -1.0108303249097284,
     "isnew": false
    },
    {
@@ -228757,19 +228244,6 @@
     "after": 173.52999877929688,
     "before_pl": -9.892681994819752,
     "after_pl": -5.469303928040048,
-    "isnew": false
-   },
-   {
-    "sym": "ZS",
-    "kind": "call",
-    "strike": "200",
-    "dte": 583,
-    "acct": "bot-leaps",
-    "setup": "F",
-    "before": 66.9795,
-    "after": 65.25,
-    "before_pl": -3.2787003610108334,
-    "after_pl": -5.77617328519856,
     "isnew": false
    },
    {
@@ -228812,6 +228286,19 @@
     "isnew": false
    },
    {
+    "sym": "DELL",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "bot",
+    "setup": "F",
+    "before": 328.5299987792969,
+    "after": 360.45001220703125,
+    "before_pl": -29.173224365787032,
+    "after_pl": -22.291686491962647,
+    "isnew": false
+   },
+   {
     "sym": "NFLX",
     "kind": "shares",
     "strike": "",
@@ -228822,6 +228309,32 @@
     "after": 63.2599983215332,
     "before_pl": -23.297447868135833,
     "after_pl": -23.478894010483607,
+    "isnew": false
+   },
+   {
+    "sym": "BE",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper-auto",
+    "setup": "F",
+    "before": 173.24000549316406,
+    "after": 202.88999938964844,
+    "before_pl": -37.00821558680675,
+    "after_pl": -26.22718369949515,
+    "isnew": false
+   },
+   {
+    "sym": "BE",
+    "kind": "shares",
+    "strike": "",
+    "dte": null,
+    "acct": "paper",
+    "setup": "F",
+    "before": 173.24000549316406,
+    "after": 202.88999938964844,
+    "before_pl": -37.50811431600749,
+    "after_pl": -26.812640000848276,
     "isnew": false
    },
    {
@@ -228851,19 +228364,6 @@
     "isnew": false
    },
    {
-    "sym": "DELL",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "bot",
-    "setup": "F",
-    "before": 328.5299987792969,
-    "after": 334.3800048828125,
-    "before_pl": -29.173224365787032,
-    "after_pl": -27.91203947767328,
-    "isnew": false
-   },
-   {
     "sym": "NOW",
     "kind": "shares",
     "strike": "",
@@ -228871,9 +228371,9 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 101.97000122070312,
-    "after": 99.61000061035156,
+    "after": 100.65979766845703,
     "before_pl": -27.485420835796383,
-    "after_pl": -29.163703164306952,
+    "after_pl": -28.417154267915635,
     "isnew": false
    },
    {
@@ -228884,9 +228384,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 101.97000122070312,
-    "after": 99.61000061035156,
+    "after": 100.65979766845703,
     "before_pl": -27.813959209469672,
-    "after_pl": -29.484637823621995,
+    "after_pl": -28.741471281001672,
     "isnew": false
    },
    {
@@ -228897,9 +228397,9 @@
     "acct": "paper",
     "setup": "F",
     "before": 80.91000366210938,
-    "after": 81.33000183105469,
+    "after": 83.01000213623047,
     "before_pl": -31.046528326138258,
-    "after_pl": -30.68859567832394,
+    "after_pl": -29.256858585111246,
     "isnew": false
    },
    {
@@ -228910,35 +228410,9 @@
     "acct": "big",
     "setup": "E",
     "before": 28.85,
-    "after": 26.075,
+    "after": 26.025,
     "before_pl": -23.778071334214,
-    "after_pl": -31.10964332892999,
-    "isnew": false
-   },
-   {
-    "sym": "BE",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper-auto",
-    "setup": "F",
-    "before": 173.24000549316406,
-    "after": 185.4199981689453,
-    "before_pl": -37.00821558680675,
-    "after_pl": -32.57944943315202,
-    "isnew": false
-   },
-   {
-    "sym": "BE",
-    "kind": "shares",
-    "strike": "",
-    "dte": null,
-    "acct": "paper",
-    "setup": "F",
-    "before": 173.24000549316406,
-    "after": 185.4199981689453,
-    "before_pl": -37.50811431600749,
-    "after_pl": -33.11449456426474,
+    "after_pl": -31.241743725231185,
     "isnew": false
    },
    {
@@ -228949,9 +228423,9 @@
     "acct": "paper-auto",
     "setup": "F",
     "before": 80.91000366210938,
-    "after": 81.33000183105469,
+    "after": 83.01000213623047,
     "before_pl": -33.87544650040096,
-    "after_pl": -33.532198568932095,
+    "after_pl": -32.15920060785349,
     "isnew": false
    },
    {
@@ -228962,9 +228436,9 @@
     "acct": "bot-leaps",
     "setup": "F",
     "before": 23.88,
-    "after": 22.25,
+    "after": 23.205,
     "before_pl": -49.46031746031746,
-    "after_pl": -52.910052910052904,
+    "after_pl": -50.88888888888889,
     "isnew": false
    },
    {
@@ -228975,9 +228449,9 @@
     "acct": "bot-leaps",
     "setup": "F",
     "before": 21.655,
-    "after": 21.795,
+    "after": 22.805,
     "before_pl": -56.69,
-    "after_pl": -56.410000000000004,
+    "after_pl": -54.39000000000001,
     "isnew": false
    },
    {
@@ -228988,15 +228462,15 @@
     "acct": "small",
     "setup": "F",
     "before": 0.05500000000000001,
-    "after": 0.05,
+    "after": 0.06,
     "before_pl": -99.07563025210084,
-    "after_pl": -99.15966386554622,
+    "after_pl": -98.99159663865547,
     "isnew": false
    }
   ],
   "gone": [],
   "notes": [
-   "SG is up 90.8% on a trade that broke a rule going in. A good outcome is not a good decision.",
+   "SG is up 90.0% on a trade that broke a rule going in. A good outcome is not a good decision.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
   "goal": {
