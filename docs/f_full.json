@@ -1,6 +1,6 @@
 {
- "date": "2026-11-10",
- "generated": "2026-11-10T16:32-06:00",
+ "date": "2026-11-11",
+ "generated": "2026-11-11T16:33-06:00",
  "rule": "setup-f research rule, full S&P 500",
  "members_source": "wikipedia",
  "counts": {
@@ -8,70 +8,45 @@
   "bars": 502,
   "stale": 0,
   "short": 4,
-  "chart": 7,
-  "rev_pass": 1,
-  "rev_fail": 5,
+  "chart": 4,
+  "rev_pass": 0,
+  "rev_fail": 3,
   "rev_unknown": 1
  },
- "F": [
-  {
-   "sym": "MPWR",
-   "px": 1357.6,
-   "dd": 20.6,
-   "tgt": 1708.96,
-   "up": 25.9,
-   "rev": 40.5
-  }
- ],
+ "F": [],
  "in_66": [],
  "chart_only": [
   {
    "sym": "CTSH",
-   "px": 65,
-   "dd": 24.0,
+   "px": 64.43,
+   "dd": 24.6,
    "tgt": 85.48,
-   "up": 31.5,
+   "up": 32.7,
    "rev": 5.0
   },
   {
    "sym": "DOW",
-   "px": 31.48,
-   "dd": 24.7,
+   "px": 32.54,
+   "dd": 22.2,
    "tgt": 41.82,
-   "up": 32.8,
+   "up": 28.5,
    "rev": null
   },
   {
    "sym": "DVA",
-   "px": 179.28,
-   "dd": 27.6,
+   "px": 183.5,
+   "dd": 25.9,
    "tgt": 247.49,
-   "up": 38.0,
+   "up": 34.9,
    "rev": 6.4
   },
   {
    "sym": "NXPI",
-   "px": 261.56,
-   "dd": 22.5,
-   "tgt": 337.68,
-   "up": 29.1,
-   "rev": 14.6
-  },
-  {
-   "sym": "UHS",
-   "px": 195.41,
-   "dd": 20.3,
-   "tgt": 245.26,
-   "up": 25.5,
-   "rev": 8.0
-  },
-  {
-   "sym": "WDAY",
-   "px": 188.89,
+   "px": 269.51,
    "dd": 20.2,
-   "tgt": 236.8,
-   "up": 25.4,
-   "rev": 13.3
+   "tgt": 337.68,
+   "up": 25.3,
+   "rev": 14.6
   }
  ]
 }
