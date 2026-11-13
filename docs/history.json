@@ -1587,7 +1587,7 @@
  },
  {
   "date": "2026-11-13",
-  "vix": 19.3700008392334,
+  "vix": 18.959999084472656,
   "regime": "NORMAL",
   "vix_fires": false,
   "F": [],
@@ -1595,8 +1595,8 @@
    "SG",
    "PYPL",
    "SPOT",
-   "BMY",
    "AMZN",
+   "BMY",
    "DOCU",
    "XYZ"
   ],
