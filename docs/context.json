@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T17:32-05:00",
+ "generated": "2026-11-14T10:02-05:00",
  "last_session": "2026-11-13",
  "items": [
   {
@@ -249,7 +249,7 @@
    },
    "interpretation": "All three timeframes read bearish. Price has crossed below the confirmed weekly low ($65.08); new swing low $61.39 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $73.07 is 17.6% above.",
    "rs": {
-    "pct": 5,
+    "pct": 6,
     "ret6m": -0.28579636865088487,
     "universe": 499,
     "member": true

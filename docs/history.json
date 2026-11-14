@@ -1604,5 +1604,25 @@
   "S": [
    "COIN"
   ]
+ },
+ {
+  "date": "2026-11-14",
+  "vix": 19.299999237060547,
+  "regime": "NORMAL",
+  "vix_fires": false,
+  "F": [],
+  "D": [
+   "PYPL",
+   "SG",
+   "SPOT",
+   "BMY",
+   "AMZN",
+   "DOCU",
+   "XYZ"
+  ],
+  "C": [],
+  "S": [
+   "COIN"
+  ]
  }
 ]
