@@ -1,27 +1,27 @@
 {
- "updated": "2026-11-13T16:33-06:00",
+ "updated": "2026-11-16T09:05-06:00",
  "feed": "indicative",
  "started": "2026-10-23",
  "arms": {
   "F-call": {
-   "closed": 2,
-   "open": 2,
-   "pending": 0,
-   "win": 50.0,
-   "expectancy": 7.8,
-   "pf": 1.03,
-   "total": 15.5,
-   "maxdd": -506.0
-  },
-  "G1-call": {
-   "closed": 0,
+   "closed": 3,
    "open": 1,
    "pending": 0,
-   "win": null,
-   "expectancy": null,
-   "pf": null,
-   "total": 0,
-   "maxdd": 0.0
+   "win": 33.3,
+   "expectancy": -176.6,
+   "pf": 0.5,
+   "total": -529.9,
+   "maxdd": -1051.4
+  },
+  "G1-call": {
+   "closed": 1,
+   "open": 0,
+   "pending": 0,
+   "win": 0.0,
+   "expectancy": -600.7,
+   "pf": 0.0,
+   "total": -600.7,
+   "maxdd": -600.7
   }
  },
  "episodes": 4,
