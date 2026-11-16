@@ -1647,15 +1647,13 @@
  },
  {
   "date": "2026-11-16",
-  "vix": 21.190000534057617,
+  "vix": 23.649999618530273,
   "regime": "ELEVATED",
   "vix_fires": false,
   "F": [],
   "D": [
    "SG",
    "PYPL",
-   "BMY",
-   "XYZ",
    "SPOT",
    "DOCU"
   ],
