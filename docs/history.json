@@ -1667,15 +1667,14 @@
  },
  {
   "date": "2026-11-17",
-  "vix": 25.75,
+  "vix": 27.0,
   "regime": "HIGH",
   "vix_fires": false,
   "F": [],
   "D": [
    "SG",
-   "SPOT",
    "U",
-   "AMGN"
+   "SPOT"
   ],
   "C": [],
   "S": [
