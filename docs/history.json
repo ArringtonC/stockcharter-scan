@@ -1667,22 +1667,18 @@
  },
  {
   "date": "2026-11-17",
-  "vix": 22.809999465942383,
+  "vix": 22.8700008392334,
   "regime": "ELEVATED",
   "vix_fires": false,
   "F": [],
   "D": [
    "SG",
-   "PYPL",
-   "DOCU",
    "SPOT",
    "GILD"
   ],
   "C": [],
   "S": [
-   "NFLX",
-   "HOOD",
-   "COIN"
+   "NFLX"
   ]
  }
 ]
