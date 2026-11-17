@@ -484,7 +484,7 @@ TODAY = [
          target=17.60, odds=None,
          why="Conviction hold, not a signal. Revenue +4.4% sits in the flat zone no setup wants.",
          exit="No mechanical exit. 491 days. Sell if the thesis on the business changes.",
-         kills="A close under $5.67, the 2026 low. Below that the recovery case is gone."),
+         kills="A close under $5.67, the 2026 low. Below that the recovery case is gone.", kill=5.67),
     dict(sym="NOW",  kind="shares", strike=None, expiry=None,        prem=139.29, n=4,
          target=194.73, odds=83,
          why="The only real Setup F. 50/200 cross held through the Fed. Revenue +29.4%.",
@@ -494,13 +494,19 @@ TODAY = [
          target=253.72, odds=None,
          why="Setup C fired 09-15 but breadth fails and revenue +4% fails F. Up 12.6% in ten sessions — this is the chase.",
          exit="Sell at +100% or by Nov 13, a week before expiry. Do not hold into the last week.",
-         kills="A close back under $180, which would undo the breakout that produced the signal."),
+         kills="A close back under $180, which would undo the breakout that produced the signal.", kill=180, sell_by="2026-11-13"),
     dict(sym="SNAP", kind="call",   strike=5,   expiry="2028-01-21", prem=2.34, n=2,
          target=12.34, odds=None,
          why="Halfway state: 50 EMA needs 44c to cross the 200. Revenue +15.7%, under F's +25% bar.",
          exit="No mechanical exit. 491 days is the whole point — it buys time for the cross.",
-         kills="A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%."),
+         kills="A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.", kill=4.71),
 ]
+def card_dead(t, spot, days, today=None):
+    """Pure. True when the card's own kill price, sell-by date or expiry has passed."""
+    today = today or str(datetime.date.today())
+    return bool((t.get("kill") and spot < t["kill"]) or (t.get("sell_by") and t["sell_by"] < today) or (days is not None and days < 0))
+
+
 def today_trades():
     """Mark each of the four. Returns [] if prices fail rather than half a table."""
     out = []
@@ -518,6 +524,7 @@ def today_trades():
         else:
             plain = f'Buy {t["n"]} shares of {t["sym"]}.'
         days = (datetime.date.fromisoformat(t["expiry"]) - datetime.date.today()).days if t["expiry"] else None
+        if card_dead(t, spot, days): continue   # a card its own rules killed (QCOM under $180 after Nov 13, 2026-11-17) must not show
         out.append(dict(sym=t["sym"], kind=t["kind"], plain=plain, why=t["why"],
                         exit=t["exit"], kills=t["kills"], odds=t["odds"], days=days,
                         now=spot, target=t["target"], cost=cost, be=be,
