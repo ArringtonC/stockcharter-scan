@@ -1,19 +1,19 @@
 {
  "rule_version": "1.0",
- "updated": "2026-11-18T11:33-06:00",
+ "updated": "2026-11-18T13:03-06:00",
  "day": "2026-11-18",
  "market": {
-  "state": "MIXED",
-  "score": 2,
+  "state": "BULLISH",
+  "score": 3,
   "confirmed": true,
-  "at": "2026-11-18T11:25-06:00",
-  "data_time": "2026-11-18T11:30-06:00",
+  "at": "2026-11-18T13:00-06:00",
+  "data_time": "2026-11-18T13:00-06:00",
   "parts": {
    "es": 0,
    "es_mid": 7398.5,
    "nq": 0,
    "nq_mid": 27351.38,
-   "spy": 0,
+   "spy": 1,
    "qqq": 1,
    "breadth_vix": 1,
    "spy_vwap_crosses": 1,
@@ -23,114 +23,6 @@
  },
  "market_history": [
   {
-   "at": "2026-11-18T09:55-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:00-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:05-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:10-06:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:15-06:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:20-06:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:25-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:30-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:35-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:40-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:45-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:50-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T10:55-06:00",
-   "state": "BEARISH",
-   "score": -4,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T11:00-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T11:05-06:00",
-   "state": "BEARISH",
-   "score": -3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T11:10-06:00",
-   "state": "MIXED",
-   "score": -2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T11:15-06:00",
-   "state": "MIXED",
-   "score": -1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-18T11:20-06:00",
-   "state": "MIXED",
-   "score": 1,
-   "confirmed": true
-  },
-  {
    "at": "2026-11-18T11:25-06:00",
    "state": "MIXED",
    "score": 2,
@@ -138,6 +30,114 @@
   },
   {
    "at": "2026-11-18T11:30-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T11:35-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T11:40-06:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T11:45-06:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T11:50-06:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T11:55-06:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:00-06:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:05-06:00",
+   "state": "MIXED",
+   "score": -1,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:10-06:00",
+   "state": "BEARISH",
+   "score": -3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:15-06:00",
+   "state": "BEARISH",
+   "score": -3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:20-06:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:25-06:00",
+   "state": "MIXED",
+   "score": 0,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:30-06:00",
+   "state": "MIXED",
+   "score": 0,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:35-06:00",
+   "state": "MIXED",
+   "score": 2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:40-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:45-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:50-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T12:55-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-18T13:00-06:00",
    "state": "BULLISH",
    "score": 3,
    "confirmed": true
@@ -2014,9 +2014,9 @@
    "state": {
     "state": "WAIT",
     "codes": [
-     "TRIGGER_WAITING"
+     "MARKET_CONFLICT"
     ],
-    "at": "2026-11-18T11:33-06:00"
+    "at": "2026-11-18T13:03-06:00"
    }
   }
  ]
