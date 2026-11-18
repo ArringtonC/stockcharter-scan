@@ -1686,5 +1686,27 @@
    "COIN",
    "F"
   ]
+ },
+ {
+  "date": "2026-11-18",
+  "vix": 24.719999313354492,
+  "regime": "ELEVATED",
+  "vix_fires": false,
+  "F": [],
+  "D": [
+   "SG",
+   "U",
+   "SPOT",
+   "AMGN"
+  ],
+  "C": [],
+  "S": [
+   "NFLX",
+   "IBM",
+   "NOW",
+   "HOOD",
+   "COIN",
+   "F"
+  ]
  }
 ]
