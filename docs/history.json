@@ -1689,14 +1689,14 @@
  },
  {
   "date": "2026-11-18",
-  "vix": 25.149999618530273,
-  "regime": "HIGH",
+  "vix": 24.68000030517578,
+  "regime": "ELEVATED",
   "vix_fires": false,
   "F": [],
   "D": [
    "U",
+   "AMZN",
    "LLY",
-   "SG",
    "SPOT"
   ],
   "C": [],
