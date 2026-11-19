@@ -1,7 +1,18 @@
 {
  "start": "2026-11-06",
- "rows": [],
- "asof": "2026-11-18",
+ "rows": [
+  {
+   "kind": "RND",
+   "d": "2026-11-19",
+   "spot": 645.04,
+   "vix": 28.440000534057617,
+   "status": "pending",
+   "occ": "QQQ270219P00645000",
+   "expiry": "2027-02-19",
+   "strike": 645.0
+  }
+ ],
+ "asof": "2026-11-19",
  "summary": {
   "V2": {
    "triggers": 0,
@@ -22,9 +33,9 @@
    "doubled": 0
   },
   "RND": {
-   "triggers": 0,
+   "triggers": 1,
    "closed": 0,
-   "open": 0,
+   "open": 1,
    "won": 0,
    "total_per100": 0,
    "total_contract": 0,
@@ -33,9 +44,9 @@
   "verdict": "not enough (needs 8 V2 triggers)"
  },
  "state": {
-  "e10": 672.75,
-  "e30": 693.65,
+  "e10": 667.71,
+  "e30": 690.52,
   "below": "10 is below 30",
-  "vix": 24.559999465942383
+  "vix": 28.440000534057617
  }
 }

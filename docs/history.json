@@ -1710,15 +1710,14 @@
  },
  {
   "date": "2026-11-19",
-  "vix": 28.329999923706055,
+  "vix": 28.440000534057617,
   "regime": "HIGH",
   "vix_fires": false,
   "F": [],
   "D": [
-   "OKTA",
    "SG",
-   "REGN",
-   "GILD"
+   "OKTA",
+   "REGN"
   ],
   "C": [],
   "S": [
@@ -1728,8 +1727,7 @@
    "ADBE",
    "IBM",
    "NOW",
-   "COIN",
-   "F"
+   "COIN"
   ]
  }
 ]
