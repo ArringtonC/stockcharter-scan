@@ -1707,5 +1707,26 @@
    "NOW",
    "COIN"
   ]
+ },
+ {
+  "date": "2026-11-19",
+  "vix": 22.31999969482422,
+  "regime": "ELEVATED",
+  "vix_fires": true,
+  "F": [],
+  "D": [
+   "U",
+   "AMZN",
+   "LLY",
+   "SG",
+   "SPOT"
+  ],
+  "C": [],
+  "S": [
+   "ADBE",
+   "IBM",
+   "NOW",
+   "COIN"
+  ]
  }
 ]
