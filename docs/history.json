@@ -1710,19 +1710,21 @@
  },
  {
   "date": "2026-11-19",
-  "vix": 25.110000610351562,
+  "vix": 28.190000534057617,
   "regime": "HIGH",
   "vix_fires": false,
   "F": [],
   "D": [
-   "OKTA",
    "U",
+   "OKTA",
    "SG",
    "REGN",
-   "AMZN"
+   "GILD"
   ],
   "C": [],
   "S": [
+   "NFLX",
+   "ADBE",
    "IBM",
    "F"
   ]
