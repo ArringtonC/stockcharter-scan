@@ -1710,18 +1710,21 @@
  },
  {
   "date": "2026-11-19",
-  "vix": 22.40999984741211,
-  "regime": "ELEVATED",
-  "vix_fires": true,
+  "vix": 25.110000610351562,
+  "regime": "HIGH",
+  "vix_fires": false,
   "F": [],
   "D": [
    "OKTA",
    "U",
    "SG",
-   "AMZN",
-   "SPOT"
+   "REGN",
+   "AMZN"
   ],
   "C": [],
-  "S": []
+  "S": [
+   "IBM",
+   "F"
+  ]
  }
 ]
