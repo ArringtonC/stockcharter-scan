@@ -1732,22 +1732,20 @@
  },
  {
   "date": "2026-11-20",
-  "vix": 29.709999084472656,
+  "vix": 30.020000457763672,
   "regime": "HIGH",
   "vix_fires": false,
   "F": [],
   "D": [
    "SG",
-   "OKTA",
    "REGN"
   ],
   "C": [],
   "S": [
    "NVDA",
-   "GOOGL",
    "NFLX",
-   "ADBE",
    "ORCL",
+   "HOOD",
    "COIN"
   ]
  }

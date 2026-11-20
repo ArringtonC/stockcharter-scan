@@ -1,17 +1,17 @@
 {
- "updated": "2026-11-19T16:33-06:00",
+ "updated": "2026-11-20T08:45-06:00",
  "feed": "indicative",
  "started": "2026-10-23",
  "arms": {
   "F-call": {
-   "closed": 3,
-   "open": 1,
+   "closed": 4,
+   "open": 0,
    "pending": 0,
-   "win": 33.3,
-   "expectancy": -176.6,
-   "pf": 0.5,
-   "total": -529.9,
-   "maxdd": -1051.4
+   "win": 25.0,
+   "expectancy": -285.6,
+   "pf": 0.31,
+   "total": -1142.5,
+   "maxdd": -1664.1
   },
   "G1-call": {
    "closed": 1,
