@@ -1732,22 +1732,23 @@
  },
  {
   "date": "2026-11-20",
-  "vix": 35.45000076293945,
+  "vix": 35.88999938964844,
   "regime": "HIGH",
   "vix_fires": false,
   "F": [],
   "D": [
    "SG",
-   "REGN",
-   "GILD"
+   "REGN"
   ],
   "C": [],
   "S": [
    "NVDA",
    "GOOGL",
    "NFLX",
+   "INTC",
    "ADBE",
    "ORCL",
+   "NOW",
    "HAL",
    "CAVA",
    "HOOD",
