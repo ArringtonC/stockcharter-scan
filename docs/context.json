@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-23T15:32-05:00",
- "last_session": "2026-11-20",
+ "generated": "2026-11-23T17:32-05:00",
+ "last_session": "2026-11-23",
  "items": [
   {
    "sym": "SG",
-   "asof": "2026-11-20",
-   "close": 12.16,
+   "asof": "2026-11-23",
+   "close": 12.2,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -41,20 +41,27 @@
       "pivot": "2026-08-03",
       "conf": "2026-08-21"
      },
-     "unconfirmed": [],
+     "unconfirmed": [
+      {
+       "kind": "high",
+       "p": 13.89,
+       "pivot": "2026-11-09",
+       "need": 1
+      }
+     ],
      "res": 15.14,
      "sup": 11.86,
      "range_break": "Above upper boundary",
-     "swing_conf": "No new swing high yet",
+     "swing_conf": "New swing high $13.89 not confirmed (needs 1 more bar)",
      "outcome": "Holding"
     },
     "Daily": {
-     "label": "Bullish",
-     "detail": "HH / HL",
+     "label": "Transitioning down",
+     "detail": "was HH/HL, now a lower high",
      "hi": {
-      "p": 13.89,
-      "pivot": "2026-11-10",
-      "conf": "2026-11-13"
+      "p": 13.31,
+      "pivot": "2026-11-18",
+      "conf": "2026-11-23"
      },
      "lo": {
       "p": 11.4905,
@@ -63,31 +70,31 @@
      },
      "unconfirmed": [
       {
-       "kind": "high",
-       "p": 13.31,
-       "pivot": "2026-11-18",
-       "need": 1
+       "kind": "low",
+       "p": 11.7652,
+       "pivot": "2026-11-20",
+       "need": 2
       }
      ],
-     "res": 13.89,
+     "res": 13.31,
      "sup": 11.4905,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
     }
    },
-   "interpretation": "Monthly bullish, weekly bearish, daily bullish. Price has crossed above the confirmed weekly high ($9.49); no new swing high yet. Nearest confirmed weekly resistance $15.14 is 24.5% above.",
+   "interpretation": "Daily reads transitioning down, but monthly reads bullish; weekly reads bearish. Price has crossed above the confirmed weekly high ($9.49); new swing high $13.89 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $15.14 is 24.1% above.",
    "rs": {
     "pct": null,
-    "ret6m": 0.24335378323108392,
+    "ret6m": 0.3174946004319654,
     "universe": 499,
     "member": false
    }
   },
   {
    "sym": "SNAP",
-   "asof": "2026-11-20",
-   "close": 4.55,
+   "asof": "2026-11-23",
+   "close": 4.92,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -125,18 +132,18 @@
      },
      "unconfirmed": [],
      "res": 5.52,
-     "sup": 4.28,
+     "sup": 4.6501,
      "range_break": "Below lower boundary",
      "swing_conf": "No new swing low yet",
      "outcome": "Holding"
     },
     "Daily": {
-     "label": "Transitioning up",
-     "detail": "was LH/LL, now a higher low \u2014 price below the last confirmed low",
+     "label": "Bullish",
+     "detail": "HH / HL \u2014 BROKEN: closed below the last higher low",
      "hi": {
-      "p": 5.43,
-      "pivot": "2026-11-11",
-      "conf": "2026-11-16"
+      "p": 5.62,
+      "pivot": "2026-11-18",
+      "conf": "2026-11-23"
      },
      "lo": {
       "p": 4.99,
@@ -145,31 +152,31 @@
      },
      "unconfirmed": [
       {
-       "kind": "high",
-       "p": 5.62,
-       "pivot": "2026-11-18",
-       "need": 1
+       "kind": "low",
+       "p": 4.53,
+       "pivot": "2026-11-20",
+       "need": 2
       }
      ],
-     "res": 4.875,
-     "sup": 4.5,
+     "res": 5.43,
+     "sup": 4.85,
      "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
+     "swing_conf": "New swing low $4.53 not confirmed (needs 2 more bars)",
      "outcome": "Holding"
     }
    },
-   "interpretation": "Monthly transitioning up, weekly bullish, daily transitioning up. Price has crossed below the confirmed weekly low ($5.17); no new swing low yet. Nearest confirmed weekly resistance $5.52 is 21.3% above.",
+   "interpretation": "Daily reads bullish, but monthly reads transitioning up; weekly reads bullish. Price has crossed below the confirmed weekly low ($5.17); no new swing low yet. Nearest confirmed weekly resistance $5.52 is 12.2% above.",
    "rs": {
     "pct": null,
-    "ret6m": -0.20454545454545459,
+    "ret6m": -0.1443478260869565,
     "universe": 499,
     "member": false
    }
   },
   {
    "sym": "NFLX",
-   "asof": "2026-11-20",
-   "close": 56.73,
+   "asof": "2026-11-23",
+   "close": 58.1,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -193,7 +200,7 @@
        "need": 1
       }
      ],
-     "res": 57.25,
+     "res": 59.33,
      "sup": 54.2,
      "range_break": "Below lower boundary",
      "swing_conf": "No new swing low yet",
@@ -232,26 +239,33 @@
       "pivot": "2026-10-29",
       "conf": "2026-11-03"
      },
-     "unconfirmed": [],
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 56.56,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
      "res": 64.56,
      "sup": null,
      "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
+     "swing_conf": "New swing low $56.56 not confirmed (needs 2 more bars)",
      "outcome": "Holding"
     }
    },
-   "interpretation": "All three timeframes read bearish. Price has crossed below the confirmed weekly low ($61.39); no new swing low yet. Nearest confirmed weekly resistance $73.07 is 28.8% above.",
+   "interpretation": "All three timeframes read bearish. Price has crossed below the confirmed weekly low ($61.39); no new swing low yet. Nearest confirmed weekly resistance $73.07 is 25.8% above.",
    "rs": {
     "pct": 7,
-    "ret6m": -0.359706546275395,
+    "ret6m": -0.33736313868613144,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "AAPL",
-   "asof": "2026-11-20",
-   "close": 342.56,
+   "asof": "2026-11-23",
+   "close": 349.08,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -275,31 +289,31 @@
      "outcome": "Holding"
     },
     "Weekly": {
-     "label": "Bullish",
-     "detail": "HH / HL",
+     "label": "Range",
+     "detail": "HH + LL \u2014 price above the last confirmed high",
      "hi": {
       "p": 345.34,
       "pivot": "2026-09-21",
       "conf": "2026-10-09"
      },
      "lo": {
-      "p": 325.81,
-      "pivot": "2026-09-28",
-      "conf": "2026-10-16"
+      "p": 325.33,
+      "pivot": "2026-11-02",
+      "conf": "2026-11-20"
      },
      "unconfirmed": [
       {
-       "kind": "low",
-       "p": 325.33,
-       "pivot": "2026-11-02",
+       "kind": "high",
+       "p": 360.83,
+       "pivot": "2026-11-09",
        "need": 1
       }
      ],
-     "res": 344.5699,
+     "res": null,
      "sup": 325.81,
-     "range_break": "Inside range",
-     "swing_conf": "\u2014",
-     "outcome": "Failed (closed back inside)"
+     "range_break": "Above upper boundary",
+     "swing_conf": "New swing high $360.83 not confirmed (needs 1 more bar)",
+     "outcome": "Holding"
     },
     "Daily": {
      "label": "Range",
@@ -314,26 +328,33 @@
       "pivot": "2026-11-03",
       "conf": "2026-11-06"
      },
-     "unconfirmed": [],
-     "res": 342.988,
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 340.56,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
+     "res": 351.43,
      "sup": 338.7,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
     }
    },
-   "interpretation": "Daily reads range, but monthly reads bullish; weekly reads bullish. Price is inside the confirmed weekly range ($325.81\u2013$345.34). Nearest confirmed weekly resistance $344.57 is 0.6% above.",
+   "interpretation": "Daily reads range, but monthly reads bullish; weekly reads range. Price has crossed above the confirmed weekly high ($345.34); new swing high $360.83 not confirmed (needs 1 more bar). No confirmed weekly resistance above price.",
    "rs": {
-    "pct": 74,
-    "ret6m": 0.10925458195712712,
+    "pct": 73,
+    "ret6m": 0.1321635909577401,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "AMZN",
-   "asof": "2026-11-20",
-   "close": 246.82,
+   "asof": "2026-11-23",
+   "close": 255.39,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -369,8 +390,15 @@
       "pivot": "2026-10-26",
       "conf": "2026-11-13"
      },
-     "unconfirmed": [],
-     "res": 248.94,
+     "unconfirmed": [
+      {
+       "kind": "high",
+       "p": 275.34,
+       "pivot": "2026-11-09",
+       "need": 1
+      }
+     ],
+     "res": 258.6,
      "sup": 244.3,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
@@ -394,33 +422,39 @@
        "kind": "high",
        "p": 274,
        "pivot": "2026-11-19",
+       "need": 1
+      },
+      {
+       "kind": "low",
+       "p": 245.31,
+       "pivot": "2026-11-20",
        "need": 2
       }
      ],
-     "res": 249.51,
-     "sup": 246.4516,
+     "res": 258.0825,
+     "sup": 255.19,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
     }
    },
-   "interpretation": "All three timeframes read range. Price is inside the confirmed weekly range ($229.36\u2013$287.20). Nearest confirmed weekly resistance $248.94 is 0.9% above.",
+   "interpretation": "All three timeframes read range. Price is inside the confirmed weekly range ($229.36\u2013$287.20). Nearest confirmed weekly resistance $258.60 is 1.3% above.",
    "rs": {
-    "pct": 34,
-    "ret6m": -0.0732201862421148,
+    "pct": 37,
+    "ret6m": -0.03731765238041396,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "BE",
-   "asof": "2026-11-20",
-   "close": 142.39,
+   "asof": "2026-11-23",
+   "close": 168.15,
    "stale": false,
    "blocks": {
     "Monthly": {
      "label": "Bullish",
-     "detail": "HH / HL \u2014 BROKEN: closed below the last higher low",
+     "detail": "HH / HL",
      "hi": {
       "p": 351.28,
       "pivot": "2026-06-01",
@@ -433,10 +467,10 @@
      },
      "unconfirmed": [],
      "res": 351.28,
-     "sup": 75.7,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "sup": 157.3339,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "\u2014"
     },
     "Weekly": {
      "label": "Bullish",
@@ -451,18 +485,11 @@
       "pivot": "2026-08-24",
       "conf": "2026-09-11"
      },
-     "unconfirmed": [
-      {
-       "kind": "low",
-       "p": 156,
-       "pivot": "2026-11-02",
-       "need": 1
-      }
-     ],
-     "res": 147.86,
-     "sup": 131,
+     "unconfirmed": [],
+     "res": 169.09,
+     "sup": 157.3339,
      "range_break": "Below lower boundary",
-     "swing_conf": "New swing low $156.00 not confirmed (needs 1 more bar)",
+     "swing_conf": "No new swing low yet",
      "outcome": "Holding"
     },
     "Daily": {
@@ -483,28 +510,34 @@
        "kind": "high",
        "p": 187,
        "pivot": "2026-11-19",
+       "need": 1
+      },
+      {
+       "kind": "low",
+       "p": 140.69,
+       "pivot": "2026-11-20",
        "need": 2
       }
      ],
      "res": 217.845,
-     "sup": null,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "sup": 157.3339,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "Failed (closed back inside)"
     }
    },
-   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price has crossed below the confirmed weekly low ($185.93); new swing low $156.00 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $147.86 is 3.8% above.",
+   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price has crossed below the confirmed weekly low ($185.93); no new swing low yet. Nearest confirmed weekly resistance $169.09 is 0.6% above.",
    "rs": {
-    "pct": 1,
-    "ret6m": -0.5292736949981818,
+    "pct": 2,
+    "ret6m": -0.4439484126984127,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "NOW",
-   "asof": "2026-11-20",
-   "close": 87.61,
+   "asof": "2026-11-23",
+   "close": 91.72,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -522,7 +555,7 @@
      },
      "unconfirmed": [],
      "res": 98.92,
-     "sup": 81.29,
+     "sup": 89.65,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
@@ -542,7 +575,7 @@
      },
      "unconfirmed": [],
      "res": 113.79,
-     "sup": 85.44,
+     "sup": 91.5311,
      "range_break": "Below lower boundary",
      "swing_conf": "No new swing low yet",
      "outcome": "Holding"
@@ -560,31 +593,38 @@
       "pivot": "2026-11-10",
       "conf": "2026-11-13"
      },
-     "unconfirmed": [],
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 87.335,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
      "res": 112.35,
-     "sup": null,
+     "sup": 91.5311,
      "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
+     "swing_conf": "New swing low $87.33 not confirmed (needs 2 more bars)",
      "outcome": "Holding"
     }
    },
-   "interpretation": "Monthly bearish, weekly bullish, daily bearish. Price has crossed below the confirmed weekly low ($126.75); no new swing low yet. Nearest confirmed weekly resistance $113.79 is 29.9% above.",
+   "interpretation": "Monthly bearish, weekly bullish, daily bearish. Price has crossed below the confirmed weekly low ($126.75); no new swing low yet. Nearest confirmed weekly resistance $113.79 is 24.1% above.",
    "rs": {
-    "pct": 22,
-    "ret6m": -0.14217174189758153,
+    "pct": 29,
+    "ret6m": -0.0820656525220177,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "NVDA",
-   "asof": "2026-11-20",
-   "close": 125.53,
+   "asof": "2026-11-23",
+   "close": 165.05,
    "stale": false,
    "blocks": {
     "Monthly": {
      "label": "Bullish",
-     "detail": "HH / HL \u2014 BROKEN: closed below the last higher low",
+     "detail": "HH / HL",
      "hi": {
       "p": 236.54,
       "pivot": "2026-05-01",
@@ -596,11 +636,11 @@
       "conf": "2026-05-29"
      },
      "unconfirmed": [],
-     "res": 153.13,
-     "sup": 90.69,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "res": 195.95,
+     "sup": 164.27,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "\u2014"
     },
     "Weekly": {
      "label": "Bullish",
@@ -617,7 +657,7 @@
      },
      "unconfirmed": [],
      "res": 184.48,
-     "sup": 86.62,
+     "sup": 164.27,
      "range_break": "Below lower boundary",
      "swing_conf": "No new swing low yet",
      "outcome": "Holding"
@@ -635,26 +675,33 @@
       "pivot": "2026-11-12",
       "conf": "2026-11-17"
      },
-     "unconfirmed": [],
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 124.5,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
      "res": 212.7107,
-     "sup": null,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "sup": 148.8,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "Failed (closed back inside)"
     }
    },
-   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price has crossed below the confirmed weekly low ($208.93); no new swing low yet. Nearest confirmed weekly resistance $184.48 is 47.0% above.",
+   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price has crossed below the confirmed weekly low ($208.93); no new swing low yet. Nearest confirmed weekly resistance $184.48 is 11.8% above.",
    "rs": {
-    "pct": 5,
-    "ret6m": -0.4170343194167093,
+    "pct": 12,
+    "ret6m": -0.23182537466257103,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "PLTR",
-   "asof": "2026-11-20",
-   "close": 143.49,
+   "asof": "2026-11-23",
+   "close": 159.36,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -690,18 +737,11 @@
       "pivot": "2026-09-08",
       "conf": "2026-09-25"
      },
-     "unconfirmed": [
-      {
-       "kind": "low",
-       "p": 152.6,
-       "pivot": "2026-11-02",
-       "need": 1
-      }
-     ],
-     "res": 148.215,
-     "sup": 142.34,
+     "unconfirmed": [],
+     "res": 161.45,
+     "sup": 147.56,
      "range_break": "Below lower boundary",
-     "swing_conf": "New swing low $152.60 not confirmed (needs 1 more bar)",
+     "swing_conf": "No new swing low yet",
      "outcome": "Holding"
     },
     "Daily": {
@@ -722,28 +762,34 @@
        "kind": "high",
        "p": 167.13,
        "pivot": "2026-11-19",
+       "need": 1
+      },
+      {
+       "kind": "low",
+       "p": 142.28,
+       "pivot": "2026-11-20",
        "need": 2
       }
      ],
      "res": 175.41,
-     "sup": 131.63,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "sup": 152.6,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "Failed (closed back inside)"
     }
    },
-   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price has crossed below the confirmed weekly low ($164.55); new swing low $152.60 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $148.22 is 3.3% above.",
+   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bullish. Price has crossed below the confirmed weekly low ($164.55); no new swing low yet. Nearest confirmed weekly resistance $161.45 is 1.3% above.",
    "rs": {
-    "pct": 61,
-    "ret6m": 0.04829047340736414,
+    "pct": 78,
+    "ret6m": 0.1666178623718888,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "META",
-   "asof": "2026-11-20",
-   "close": 560.84,
+   "asof": "2026-11-23",
+   "close": 597.6,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -768,7 +814,7 @@
       }
      ],
      "res": 740.91,
-     "sup": 524.49,
+     "sup": 581.25,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
@@ -788,14 +834,14 @@
      },
      "unconfirmed": [
       {
-       "kind": "low",
-       "p": 583.8,
-       "pivot": "2026-11-02",
+       "kind": "high",
+       "p": 648.4499,
+       "pivot": "2026-11-09",
        "need": 1
       }
      ],
      "res": 612.43,
-     "sup": 540.18,
+     "sup": 592.6,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
@@ -813,26 +859,33 @@
       "pivot": "2026-11-05",
       "conf": "2026-11-10"
      },
-     "unconfirmed": [],
-     "res": 593.34,
-     "sup": 557.01,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 558.68,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
+     "res": 605.81,
+     "sup": 594.8083,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "Failed (closed back inside)"
     }
    },
-   "interpretation": "Daily reads bearish, but monthly reads transitioning up; weekly reads transitioning up. Price is inside the confirmed weekly range ($537.27\u2013$771.27). Nearest confirmed weekly resistance $612.43 is 9.2% above.",
+   "interpretation": "Daily reads bearish, but monthly reads transitioning up; weekly reads transitioning up. Price is inside the confirmed weekly range ($537.27\u2013$771.27). Nearest confirmed weekly resistance $612.43 is 2.5% above.",
    "rs": {
-    "pct": 32,
-    "ret6m": -0.08098187657719658,
+    "pct": 41,
+    "ret6m": -0.02407159421236571,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "GOOG",
-   "asof": "2026-11-20",
-   "close": 264,
+   "asof": "2026-11-23",
+   "close": 279.53,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -850,7 +903,7 @@
      },
      "unconfirmed": [],
      "res": 381.81,
-     "sup": 148.2,
+     "sup": 271.535,
      "range_break": "Below lower boundary",
      "swing_conf": "No new swing low yet",
      "outcome": "Holding"
@@ -868,18 +921,11 @@
       "pivot": "2026-09-28",
       "conf": "2026-10-16"
      },
-     "unconfirmed": [
-      {
-       "kind": "low",
-       "p": 272,
-       "pivot": "2026-11-02",
-       "need": 1
-      }
-     ],
+     "unconfirmed": [],
      "res": 328.67,
-     "sup": 236.685,
+     "sup": 271.535,
      "range_break": "Below lower boundary",
-     "swing_conf": "New swing low $272.00 not confirmed (needs 1 more bar)",
+     "swing_conf": "No new swing low yet",
      "outcome": "Holding"
     },
     "Daily": {
@@ -900,28 +946,34 @@
        "kind": "high",
        "p": 292.21,
        "pivot": "2026-11-19",
+       "need": 1
+      },
+      {
+       "kind": "low",
+       "p": 262.27,
+       "pivot": "2026-11-20",
        "need": 2
       }
      ],
      "res": 301.62,
-     "sup": null,
-     "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
-     "outcome": "Holding"
+     "sup": 272,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "Failed (closed back inside)"
     }
    },
-   "interpretation": "Daily reads bearish, but monthly reads transitioning down; weekly reads range. Price has crossed below the confirmed weekly low ($332.65); new swing low $272.00 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $328.67 is 24.5% above.",
+   "interpretation": "Daily reads bearish, but monthly reads transitioning down; weekly reads range. Price has crossed below the confirmed weekly low ($332.65); no new swing low yet. Nearest confirmed weekly resistance $328.67 is 17.6% above.",
    "rs": {
     "pct": 9,
-    "ret6m": -0.30412778744266966,
+    "ret6m": -0.2736461906246752,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "SPCX",
-   "asof": "2026-11-20",
-   "close": 127.79,
+   "asof": "2026-11-23",
+   "close": 133.35,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -950,13 +1002,19 @@
        "kind": "high",
        "p": 147.29,
        "pivot": "2026-11-19",
+       "need": 1
+      },
+      {
+       "kind": "low",
+       "p": 126.28,
+       "pivot": "2026-11-20",
        "need": 2
       }
      ],
      "res": 147.6,
-     "sup": 120.39,
+     "sup": 130.39,
      "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
+     "swing_conf": "New swing low $126.28 not confirmed (needs 2 more bars)",
      "outcome": "Holding"
     }
    },
@@ -970,8 +1028,8 @@
   },
   {
    "sym": "DASH",
-   "asof": "2026-11-20",
-   "close": 152.6,
+   "asof": "2026-11-23",
+   "close": 161.35,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -989,34 +1047,27 @@
      },
      "unconfirmed": [],
      "res": 215.245,
-     "sup": 146.11,
+     "sup": 155.4,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
     },
     "Weekly": {
-     "label": "Range",
-     "detail": "HH + LL \u2014 price below the last confirmed low",
+     "label": "Bearish",
+     "detail": "LH / LL",
      "hi": {
-      "p": 238.8283,
-      "pivot": "2026-08-24",
-      "conf": "2026-09-11"
+      "p": 199.09,
+      "pivot": "2026-11-02",
+      "conf": "2026-11-20"
      },
      "lo": {
       "p": 163.68,
       "pivot": "2026-10-26",
       "conf": "2026-11-13"
      },
-     "unconfirmed": [
-      {
-       "kind": "high",
-       "p": 199.09,
-       "pivot": "2026-11-02",
-       "need": 1
-      }
-     ],
-     "res": 181.3,
-     "sup": 146.81,
+     "unconfirmed": [],
+     "res": 181.7799,
+     "sup": 158,
      "range_break": "Below lower boundary",
      "swing_conf": "No new swing low yet",
      "outcome": "Holding"
@@ -1034,26 +1085,33 @@
       "pivot": "2026-11-05",
       "conf": "2026-11-10"
      },
-     "unconfirmed": [],
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 151.588,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
      "res": 163.97,
      "sup": 151.66,
      "range_break": "Below lower boundary",
-     "swing_conf": "No new swing low yet",
+     "swing_conf": "New swing low $151.59 not confirmed (needs 2 more bars)",
      "outcome": "Holding"
     }
    },
-   "interpretation": "Daily reads bullish, but monthly reads transitioning up; weekly reads range. Price has crossed below the confirmed weekly low ($163.68); no new swing low yet. Nearest confirmed weekly resistance $181.30 is 18.8% above.",
+   "interpretation": "Daily reads bullish, but monthly reads transitioning up; weekly reads bearish. Price has crossed below the confirmed weekly low ($163.68); no new swing low yet. Nearest confirmed weekly resistance $181.78 is 12.7% above.",
    "rs": {
-    "pct": 40,
-    "ret6m": -0.04773790951638068,
+    "pct": 57,
+    "ret6m": 0.04772727272727262,
     "universe": 499,
     "member": true
    }
   },
   {
    "sym": "QCOM",
-   "asof": "2026-11-20",
-   "close": 149.94,
+   "asof": "2026-11-23",
+   "close": 165.38,
    "stale": false,
    "blocks": {
     "Monthly": {
@@ -1077,38 +1135,31 @@
        "need": 1
       }
      ],
-     "res": 152.28,
-     "sup": 149.43,
+     "res": 167.94,
+     "sup": 151.3901,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
     },
     "Weekly": {
-     "label": "Range",
-     "detail": "LH + HL \u2014 price below the last confirmed low",
+     "label": "Bearish",
+     "detail": "LH / LL",
      "hi": {
       "p": 185.59,
       "pivot": "2026-10-26",
       "conf": "2026-11-13"
      },
      "lo": {
-      "p": 156.225,
-      "pivot": "2026-08-24",
-      "conf": "2026-09-11"
+      "p": 148.25,
+      "pivot": "2026-11-02",
+      "conf": "2026-11-20"
      },
-     "unconfirmed": [
-      {
-       "kind": "low",
-       "p": 148.25,
-       "pivot": "2026-11-02",
-       "need": 1
-      }
-     ],
-     "res": 162.14,
-     "sup": 149.683,
-     "range_break": "Below lower boundary",
-     "swing_conf": "New swing low $148.25 not confirmed (needs 1 more bar)",
-     "outcome": "Holding"
+     "unconfirmed": [],
+     "res": 174.44,
+     "sup": 158.85,
+     "range_break": "Inside range",
+     "swing_conf": "\u2014",
+     "outcome": "\u2014"
     },
     "Daily": {
      "label": "Bearish",
@@ -1123,18 +1174,25 @@
       "pivot": "2026-11-05",
       "conf": "2026-11-10"
      },
-     "unconfirmed": [],
+     "unconfirmed": [
+      {
+       "kind": "low",
+       "p": 149.13,
+       "pivot": "2026-11-20",
+       "need": 2
+      }
+     ],
      "res": 166.965,
-     "sup": 148.25,
+     "sup": 164.774,
      "range_break": "Inside range",
      "swing_conf": "\u2014",
      "outcome": "\u2014"
     }
    },
-   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads range. Price has crossed below the confirmed weekly low ($156.22); new swing low $148.25 not confirmed (needs 1 more bar). Nearest confirmed weekly resistance $162.14 is 8.1% above.",
+   "interpretation": "Daily reads bearish, but monthly reads bullish; weekly reads bearish. Price is inside the confirmed weekly range ($148.25\u2013$185.59). Nearest confirmed weekly resistance $174.44 is 5.5% above.",
    "rs": {
     "pct": 7,
-    "ret6m": -0.3704232448773933,
+    "ret6m": -0.33534281810143884,
     "universe": 499,
     "member": true
    }

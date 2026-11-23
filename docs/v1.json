@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-11-23T14:33-06:00",
+ "updated": "2026-11-23T14:59-06:00",
  "day": "2026-11-23",
  "market": {
   "state": "BULLISH",
   "score": 5,
   "confirmed": true,
-  "at": "2026-11-23T14:30-06:00",
-  "data_time": "2026-11-23T14:30-06:00",
+  "at": "2026-11-23T14:50-06:00",
+  "data_time": "2026-11-23T14:55-06:00",
   "parts": {
    "es": 1,
    "es_mid": 7106.38,
@@ -22,36 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-11-23T12:55-06:00",
-   "state": "MIXED",
-   "score": 2,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-23T13:00-06:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-23T13:05-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-23T13:10-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-23T13:15-06:00",
-   "state": "BULLISH",
-   "score": 5,
-   "confirmed": true
-  },
   {
    "at": "2026-11-23T13:20-06:00",
    "state": "BULLISH",
@@ -140,6 +110,36 @@
    "at": "2026-11-23T14:30-06:00",
    "state": "BULLISH",
    "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-23T14:35-06:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-23T14:40-06:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-23T14:45-06:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-23T14:50-06:00",
+   "state": "BULLISH",
+   "score": 5,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-23T14:55-06:00",
+   "state": "MIXED",
+   "score": 2,
    "confirmed": true
   }
  ],
@@ -2016,7 +2016,7 @@
     "codes": [
      "MARKET_CONFLICT"
     ],
-    "at": "2026-11-23T14:33-06:00"
+    "at": "2026-11-23T14:59-06:00"
    }
   }
  ]
