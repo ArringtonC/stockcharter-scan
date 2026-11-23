@@ -1804,5 +1804,30 @@
    "HOOD",
    "COIN"
   ]
+ },
+ {
+  "date": "2026-11-23",
+  "vix": 31.510000228881836,
+  "regime": "HIGH",
+  "vix_fires": false,
+  "F": [],
+  "D": [
+   "SG",
+   "REGN"
+  ],
+  "C": [],
+  "S": [
+   "NVDA",
+   "GOOGL",
+   "NFLX",
+   "INTC",
+   "ADBE",
+   "ORCL",
+   "NOW",
+   "HAL",
+   "CAVA",
+   "HOOD",
+   "COIN"
+  ]
  }
 ]
