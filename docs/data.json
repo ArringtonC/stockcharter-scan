@@ -1,6 +1,6 @@
 {
- "date": "2026-11-21",
- "stamp": "2026-11-21 15:00 UTC",
+ "date": "2026-11-22",
+ "stamp": "2026-11-23 00:30 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 35.88999938964844,
@@ -1246,7 +1246,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 426,
+   "days": 425,
    "now": 12.15999984741211,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1478,12 +1478,12 @@
   "USO": 1.115214715040902,
   "USO_px": 139.63,
   "USO_chg": 1.539999999999992,
-  "NQ=F": -5.540361462768207,
-  "NQ=F_px": 25126.5,
-  "NQ=F_chg": -1473.75,
-  "CL=F": 1.1766132945172147,
-  "CL=F_px": 83.41,
-  "CL=F_chg": 0.9699999999999989,
+  "NQ=F": 2.7759536744075053,
+  "NQ=F_px": 25824.0,
+  "NQ=F_chg": 697.5,
+  "CL=F": -0.7073492387003943,
+  "CL=F_px": 82.82,
+  "CL=F_chg": -0.5900000000000034,
   "^TNX": -2.7711797307996777,
   "^TNX_px": 4.912,
   "^TNX_chg": -0.13999999999999968,
@@ -1496,38 +1496,38 @@
   "fut": [
    [
     "S&P",
-    6935.0,
-    -3.445875391576747,
+    7073.75,
+    2.0007209805335213,
     true
    ],
    [
     "Nasdaq",
-    25126.5,
-    -5.202693780536116,
+    25824.0,
+    2.7759536744075053,
     true
    ],
    [
     "Dow",
-    48216.0,
-    -1.794406990243802,
+    48871.0,
+    1.3584702173552454,
     true
    ],
    [
     "Russell",
-    2587.39990234375,
-    -2.6854274549846235,
+    2632.60009765625,
+    1.7469350320202137,
     true
    ],
    [
     "Oil",
-    83.41000366210938,
-    0.30062528738670213,
+    82.81999969482422,
+    -0.7073539640104043,
     true
    ],
    [
     "Gold",
-    3515.39990234375,
-    -3.1009675853328034,
+    3573.39990234375,
+    1.6498834161465137,
     true
    ]
   ],
@@ -2132,6 +2132,12 @@
     "qqq_off": -19.9,
     "vix_max": 35.89,
     "vix": 35.89
+   },
+   "2026-11-22": {
+    "pct": 99,
+    "qqq_off": -19.9,
+    "vix_max": 35.89,
+    "vix": 35.89
    }
   }
  },
@@ -2450,10 +2456,10 @@
    "now": 38.150000000000006,
    "spot": 74.55999755859375,
    "intrinsic": 37.05999755859375,
-   "dte": 55,
+   "dte": 54,
    "sessions": 54,
    "mark": "alpaca",
-   "iv": 1.251
+   "iv": 1.2638
   },
   {
    "id": "2026-09-04-WDAY-big",
@@ -2475,10 +2481,10 @@
    "now": 15.145,
    "spot": 174.52000427246094,
    "intrinsic": 4.5200042724609375,
-   "dte": 27,
+   "dte": 26,
    "sessions": 54,
    "mark": "alpaca",
-   "iv": 0.6693
+   "iv": 0.6826
   },
   {
    "id": "2026-09-11-QCOM-sh",
@@ -2546,10 +2552,10 @@
    "now": 0.04,
    "spot": 87.61000061035156,
    "intrinsic": 0.0,
-   "dte": 27,
+   "dte": 26,
    "sessions": 47,
    "mark": "alpaca",
-   "iv": 0.9632
+   "iv": 0.9816
   },
   {
    "id": "2026-09-23-NOW-auto",
@@ -2709,10 +2715,10 @@
    "now": 9.625,
    "spot": 12.15999984741211,
    "intrinsic": 9.15999984741211,
-   "dte": 426,
+   "dte": 425,
    "sessions": 40,
    "mark": "alpaca",
-   "iv": 1.0909
+   "iv": 1.0925
   },
   {
    "id": "2026-09-26-SNAP-5c-real",
@@ -2734,10 +2740,10 @@
    "now": 1.3199999999999998,
    "spot": 4.550000190734863,
    "intrinsic": 0.0,
-   "dte": 426,
+   "dte": 425,
    "sessions": 40,
    "mark": "alpaca",
-   "iv": 0.7296
+   "iv": 0.7305
   },
   {
    "id": "2026-09-28-NOW-leap",
@@ -2759,10 +2765,10 @@
    "now": 16.66,
    "spot": 87.61000061035156,
    "intrinsic": 0.0,
-   "dte": 755,
+   "dte": 754,
    "sessions": 39,
    "mark": "alpaca",
-   "iv": 0.5396
+   "iv": 0.54
   },
   {
    "id": "2026-09-28-SHOP-leap",
@@ -2784,10 +2790,10 @@
    "now": 40.59,
    "spot": 123.72000122070312,
    "intrinsic": 0.0,
-   "dte": 755,
+   "dte": 754,
    "sessions": 39,
    "mark": "alpaca",
-   "iv": 0.6146
+   "iv": 0.615
   },
   {
    "id": "2026-09-28-HOOD-leap",
@@ -2809,10 +2815,10 @@
    "now": 12.239999999999998,
    "spot": 62.16999816894531,
    "intrinsic": 0.0,
-   "dte": 755,
+   "dte": 754,
    "sessions": 39,
    "mark": "alpaca",
-   "iv": 0.6561
+   "iv": 0.6566
   },
   {
    "id": "2026-09-30-ZS-f",
@@ -2857,10 +2863,10 @@
    "now": 65.465,
    "spot": 194.82000732421875,
    "intrinsic": 0.0,
-   "dte": 573,
+   "dte": 572,
    "sessions": 36,
    "mark": "alpaca",
-   "iv": 0.6662
+   "iv": 0.6669
   },
   {
    "id": "2026-10-08-AVGO-f",
@@ -3982,28 +3988,6 @@
  "week": {
   "days": [
    {
-    "date": "2026-11-17",
-    "vix": 25.459999084472656,
-    "regime": "HIGH",
-    "vix_fires": false,
-    "F": [],
-    "D": [
-     "SG",
-     "U",
-     "SPOT",
-     "AMGN"
-    ],
-    "C": [],
-    "S": [
-     "NFLX",
-     "IBM",
-     "NOW",
-     "HOOD",
-     "COIN",
-     "F"
-    ]
-   },
-   {
     "date": "2026-11-18",
     "vix": 24.559999465942383,
     "regime": "ELEVATED",
@@ -4095,16 +4079,41 @@
      "HOOD",
      "COIN"
     ]
+   },
+   {
+    "date": "2026-11-22",
+    "vix": 35.88999938964844,
+    "regime": "HIGH",
+    "vix_fires": false,
+    "F": [],
+    "D": [
+     "SG",
+     "REGN"
+    ],
+    "C": [],
+    "S": [
+     "NVDA",
+     "GOOGL",
+     "NFLX",
+     "INTC",
+     "ADBE",
+     "ORCL",
+     "NOW",
+     "HAL",
+     "CAVA",
+     "HOOD",
+     "COIN"
+    ]
    }
   ],
   "closed": [],
   "by_setup": {
-   "E": {
+   "D": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
-    "open_n": 5,
-    "open_mean": -13.013062216764911
+    "open_n": 1,
+    "open_mean": -15.658223336332423
    },
    "none": {
     "wins": 0,
@@ -4113,19 +4122,19 @@
     "open_n": 3,
     "open_mean": 46.04948655068831
    },
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": -15.658223336332423
-   },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 19,
     "open_mean": -38.79557666310535
+   },
+   "E": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 5,
+    "open_mean": -13.013062216764911
    },
    "C": {
     "wins": 0,
@@ -4136,56 +4145,6 @@
    }
   },
   "produced": [
-   {
-    "date": "2026-11-17",
-    "sym": "AMGN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "COIN",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "F",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "HOOD",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "IBM",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "NFLX",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "NOW",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "SG",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "SPOT",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-17",
-    "sym": "U",
-    "setup": "D"
-   },
    {
     "date": "2026-11-18",
     "sym": "ADBE",
@@ -4408,6 +4367,71 @@
    },
    {
     "date": "2026-11-21",
+    "sym": "SG",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "ADBE",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "CAVA",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "COIN",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "GOOGL",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "HAL",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "HOOD",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "INTC",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "NFLX",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "NOW",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "NVDA",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "ORCL",
+    "setup": "S"
+   },
+   {
+    "date": "2026-11-22",
+    "sym": "REGN",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-22",
     "sym": "SG",
     "setup": "D"
    }
@@ -253209,7 +253233,7 @@
  },
  "report": {
   "week": "2026-W47",
-  "final": false,
+  "final": true,
   "from_": "2026-11-16",
   "to_": "2026-11-20",
   "had_before": true,
@@ -253223,7 +253247,7 @@
    "real_pl": 25.4,
    "paper_pl": -32.0,
    "fired": 0,
-   "sessions": 6
+   "sessions": 7
   },
   "changed": [
    {
@@ -253265,7 +253289,7 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 426,
+    "dte": 425,
     "acct": "real",
     "setup": "none",
     "before": 9.485,
@@ -253304,7 +253328,7 @@
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 426,
+    "dte": 425,
     "acct": "real",
     "setup": "none",
     "before": 1.6800000000000002,
@@ -253317,7 +253341,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 55,
+    "dte": 54,
     "acct": "big",
     "setup": "E",
     "before": 43.07,
@@ -253356,7 +253380,7 @@
     "sym": "ZS",
     "kind": "call",
     "strike": "200",
-    "dte": 573,
+    "dte": 572,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 63.44499999999999,
@@ -253447,7 +253471,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 755,
+    "dte": 754,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 55.515,
@@ -253590,7 +253614,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 27,
+    "dte": 26,
     "acct": "big",
     "setup": "E",
     "before": 30.15,
@@ -253603,7 +253627,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 755,
+    "dte": 754,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 23.07,
@@ -253616,7 +253640,7 @@
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 755,
+    "dte": 754,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 19.88,
@@ -253629,7 +253653,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 27,
+    "dte": 26,
     "acct": "small",
     "setup": "F",
     "before": 0.045,
