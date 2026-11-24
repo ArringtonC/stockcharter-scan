@@ -1307,7 +1307,7 @@ PHASES = [
          do=["Stop adding to QQQ -- new deposits go to SPY only", "Sell half of any position up 50%+", "Keep taking F cards"]),
     dict(n=3, name="Both signals", when="CPI 4%+ AND a mega-IPO has priced",
          do=["Sell the QQQ part, keep SPY", "Deposits pile up as cash", "No puts or shorts as a bet against the bubble; short-term trades follow the trade rules"]),
-    dict(n=4, name="The drop", when="Phase 3, then QQQ 20%+ off its high AND VIX 25+ falling 3 days",
+    dict(n=4, name="The drop", when="Phase 3, then QQQ 19.5%+ off its high in the last 2 weeks AND VIX 25+ falling 3 closes",
          do=["Put the cash into QQQ (Setup VIX)", "F fires more after drops -- take the cards", "Deposits back to 60/40"]),
 ]
 
@@ -1321,13 +1321,23 @@ def cpi_yoy(months=36):
     return [(k, round((v[k] / v[f"{int(k[:4]) - 1}{k[4:]}"] - 1) * 100, 2)) for k in ks[-months:] if f"{int(k[:4]) - 1}{k[4:]}" in v]
 
 
+QQQ_LINE = -19.5   # 2026-11-23 owner's rule: a close within half a point of -20% counts ("targets can be extra close")
+
+
+def qqq_hit(off, hist, today, days=14):
+    """Pure. True if QQQ closed at/under QQQ_LINE today or on any scan date in the last `days` days.
+    The hit is remembered for 2 weeks, like the VIX 25+ window, so a bounce before VIX fades does not erase it."""
+    lo = (datetime.date.fromisoformat(today) - datetime.timedelta(days=days)).isoformat()
+    return off <= QQQ_LINE or any(k >= lo and (v.get("qqq_off") or 0) <= QQQ_LINE for k, v in (hist or {}).items())
+
+
 def gap_numbers(bb):
     """Phase-3 -> Phase-4 progress: (pct, qqq share, vix share, checks ok list). Pure."""
     off, vmax, v3 = bb["qqq_off"], bb.get("vix_max") or 15, bb.get("vix3") or []
     falling = len(v3) == 3 and v3[2] < v3[1] < v3[0]
-    ok = [True, off <= -20, vmax >= 25 and falling]
-    qp = max(0.0, min(1.0, off / -20)); vp = 1.0 if ok[2] else max(0.0, min(0.99, (vmax - 15) / 10))
-    return round(100 * (qp + vp) / 2), qp, vp, ok, falling
+    ok = [True, bool(bb.get("qqq_hit")) or off <= QQQ_LINE, vmax >= 25 and falling]
+    qp = 1.0 if ok[1] else max(0.0, min(1.0, off / -20)); vp = 1.0 if ok[2] else max(0.0, min(0.99, (vmax - 15) / 10))
+    return min(100 if all(ok) else 99, round(100 * (qp + vp) / 2)), qp, vp, ok, falling   # never show 100% with a check still open
 
 
 GAP_ALERTS = [("pct60", lambda n, bb: n[0] >= 60, "Phase 4 is 60% of the way"), ("pct80", lambda n, bb: n[0] >= 80, "Phase 4 is 80% of the way"),
@@ -1349,7 +1359,7 @@ def phase_gap(bb):
                     + f" · last 3 days {' → '.join(str(x) for x in v3)} ({'falling' if falling else 'not falling'})") if vmax is not None \
                    else "· ❔ VIX check: no fresh VIX reading in this scan (the last bubble reading was kept)"
         L = [head, "· ✅ Phase 3 is on (both signals fired)",
-             f"· {'✅' if ok[1] else '❌'} QQQ 20%+ below its high: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
+             f"· {'✅' if ok[1] else '❌'} QQQ 19.5%+ below its high on a close in the last 2 weeks: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
              + (f"{(1 - line / q) * 100:.1f}% below today's ${q:,.2f})" if not ok[1] else "reached)"), vix_line]
         L.append("<i>Phase 4 is the buy-back stage: all three must be true at once. Until then the Phase 3 rules stand.</i>")
         return L
@@ -1380,13 +1390,14 @@ def bubble(d):
     v = bars("^VIX", "6mo"); vc = [x[1] for x in v]
     vix_buy = max(vc[-11:]) >= 25 and vc[-1] < vc[-2] < vc[-3]
     phase = 1 + bool(st_.get("cpi")) + bool(st_.get("ipo"))
-    if st_.get("phase") == 4 or (phase == 3 and off <= -20 and vix_buy): phase = 4
+    hit = qqq_hit(off, st_.get("gap_hist"), d["date"])
+    if st_.get("phase") == 4 or (phase == 3 and hit and vix_buy): phase = 4
     changed_from = st_.get("phase") if st_.get("phase") and phase != st_.get("phase") else None
     if phase != st_.get("phase"):
         st_["phase"] = phase
         st_["since"] = max([x for x in (st_.get("cpi"), st_.get("ipo")) if x], default=d["date"]) if phase in (2, 3) else d["date"]
     json.dump(st_, open(BUBBLE_STATE, "w"))
-    R0 = dict(phase=phase, qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]])
+    R0 = dict(phase=phase, qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), qqq_hit=hit, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]])
     new_alerts = []
     if phase == 3:
         n = gap_numbers(R0)
@@ -1403,7 +1414,7 @@ def bubble(d):
     return dict(phase=phase, since=st_["since"], phases=PHASES, changed_from=changed_from, cpi=now_cpi, cpi_month=cpi[-1][0],
                 cpi_peak=max(cpi[-12:], key=lambda x: x[1]),
                 cpi_fired=st_.get("cpi"), ipo=IPO_SIGNALS, ipo_fired=st_.get("ipo"),
-                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), vix=vc[-1], vix_buy=vix_buy, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]],
+                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), qqq_hit=hit, vix=vc[-1], vix_buy=vix_buy, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]],
                 cpi_series=cpi, qqq_dd=dd, gap_alerts=new_alerts, gap_hist=st_.get("gap_hist", {}))
 
 
