@@ -1369,6 +1369,50 @@ def phase_gap(bb):
     return []
 
 
+TREND_STATE = os.path.join(DOCS, ".trend-state.json")
+
+
+def trend_state(prev, dc, c4, hold=6):
+    """Pure. QQQ trend from the 10/30 EMA on daily closes `dc` and 4-hour closes `c4`.
+    'down' = daily 10 under 30 AND the 4-hour 10 under 30 for `hold` bars (3 days); 'up' is the mirror; else keep `prev`.
+    Returns (state, daily_down, run) where run counts 4-hour bars on the current side (negative = down).
+    Lookback 2026-11-20: this describes the trend, it does not forecast (thesis/trend-alert-lookback-2026-11-20.md)."""
+    d10, d30 = ema(dc, 10), ema(dc, 30); f10, f30 = ema(c4, 10), ema(c4, 30)
+    dn = d10[-1] < d30[-1]; side = f10[-1] < f30[-1]; run = 0
+    for a, b in zip(reversed(f10), reversed(f30)):
+        if (a < b) != side: break
+        run += 1
+    state = "down" if dn and side and run >= hold else "up" if not dn and not side and run >= hold else prev
+    return state, dn, -run if side else run
+
+
+def trend(d):
+    """QQQ trend flag for the report, with a one-time alert when it flips (2026-11-23, the owner's ask after the Oct-Nov drop).
+    4-hour bars = the regular session split 9:30-13:30 / 13:30-16:00 ET, built from Yahoo 30-minute bars."""
+    st_ = json.load(open(TREND_STATE)) if os.path.exists(TREND_STATE) else {}
+    r = get("https://query1.finance.yahoo.com/v8/finance/chart/QQQ?range=60d&interval=30m")["chart"]["result"][0]   # 60 days is Yahoo's limit for 30-minute bars: ~120 four-hour bars
+    h4 = {}
+    for t, c in zip(r["timestamp"], r["indicators"]["quote"][0]["close"]):
+        z = datetime.datetime.fromtimestamp(t, ZoneInfo("America/New_York")); m = z.hour * 60 + z.minute
+        if c is not None and 570 <= m < 960: h4[(z.date().isoformat(), m >= 810)] = c   # the last close in each block wins
+    c4 = [h4[k] for k in sorted(h4)]; dc = [x[1] for x in bars("QQQ")]
+    state, dn, run = trend_state(st_.get("state"), dc, c4)
+    changed = state is not None and state != st_.get("state")
+    if changed: st_ = dict(state=state, since=d["date"], qqq=dc[-1]); json.dump(st_, open(TREND_STATE, "w"))
+    return dict(state=state, since=st_.get("since"), qqq_then=st_.get("qqq"), changed=changed, daily_down=dn, h4_run=run)
+
+
+def trend_lines(tr, bb=None):
+    """Plain lines for the trend flag. Pure."""
+    if not tr or not tr.get("state"): return []
+    down = tr["state"] == "down"
+    L = [f"<b>{'📉 QQQ TREND: DOWN' if down else '📈 QQQ TREND: UP'}</b> flagged {tr['since'][5:]} (10/30 EMA on the daily and the 4-hour, held 3 days)",
+         "· Your Oct–Nov record: calls bought while the trend was down went 4 wins in 20" if down else "· The down-trend flag is off",
+         "· This says where the trend is now. In tests it did not forecast the next 60 sessions"]
+    if bb and bb.get("phase"): L.append(f"· AI bubble plan: Phase {bb['phase']} ({bb['phases'][bb['phase'] - 1]['name']})")
+    return L
+
+
 def bubble(d):
     """Current phase of the AI-bubble plan + the two chart series for the site."""
     st_ = json.load(open(BUBBLE_STATE)) if os.path.exists(BUBBLE_STATE) else {}
@@ -1710,7 +1754,7 @@ def dispatch(d, open_, closed, dow, send_tg=None, send_dc=None, send_file=None):
 
 def market_key(d):
     ny = datetime.datetime.now(ZoneInfo("America/New_York"))
-    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"), (d.get("bubble") or {}).get("gap_alerts"),
+    return json.dumps([(ny.hour, ny.minute) < (9, 30), move_bucket(d.get("market", {})), (d.get("bubble") or {}).get("phase"), (d.get("bubble") or {}).get("gap_alerts"), (d.get("trend") or {}).get("state"),
                        sorted(((d.get("playbook") or {}).get("flips") or {}).items()),
                        mega_ipo_headlines(d.get("market", {}))[:1], sorted(x["acc"] for x in d.get("filings", [])),
                        sorted(c["effective"] + c["added"] + c["removed"] for c in d.get("sp500", [])[:6])])
@@ -1907,6 +1951,7 @@ def writeup(d, m, pre=True):
         ph = bb["phases"][bb["phase"] - 1]
         W += ["", f"<b>AI BUBBLE PLAN · PHASE {bb['phase']}: {ph['name'].upper()}</b> (since {bb['since'][5:]})"] \
              + [f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]] + phase_gap(bb)
+    if (d.get("trend") or {}).get("state"): W += [""] + trend_lines(d["trend"])[:1]
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if pre and nq is not None and abs(nq) >= 1:
@@ -1932,6 +1977,7 @@ def alerts(d, m):
     if bb.get("changed_from"):
         ph = bb["phases"][bb["phase"] - 1]
         A += [f"<b>🚨 AI BUBBLE PLAN: PHASE {bb['changed_from']} → PHASE {bb['phase']} ({ph['name'].upper()})</b>", f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]] + [""]
+    if (d.get("trend") or {}).get("changed"): A += trend_lines(d["trend"], bb) + [""]
     for t in bb.get("gap_alerts") or []:
         A += [f"<b>📉 AI BUBBLE PLAN: {t}</b>"] + [x for x in phase_gap(bb)] + [""]
     for k, v in ((d.get("playbook") or {}).get("flips") or {}).items():
@@ -2296,6 +2342,8 @@ if __name__ == "__main__":
         # rather than blanking the section (seen 2026-09-29 01:05 UTC)
         try: d["bubble"] = json.load(open(os.path.join(DOCS, "data.json")))["bubble"]; print(f"  bubble: kept last reading ({str(e)[:40]})")
         except Exception: d["errors"].append(f"bubble: {str(e)[:40]}")
+    try: d["trend"] = trend(d)
+    except Exception as e: d["errors"].append(f"trend: {str(e)[:40]}")
     try: d["sp500"] = sp500_changes()
     except Exception as e: d["sp500"] = []; d["errors"].append(f"sp500: {str(e)[:40]}")
     hist = json.load(open(HIST)) if os.path.exists(HIST) else []
