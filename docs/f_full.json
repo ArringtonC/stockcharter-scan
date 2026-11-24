@@ -1,6 +1,6 @@
 {
- "date": "2026-11-23",
- "generated": "2026-11-23T16:32-06:00",
+ "date": "2026-11-24",
+ "generated": "2026-11-24T16:32-06:00",
  "rule": "setup-f research rule, full S&P 500",
  "members_source": "wikipedia",
  "counts": {
@@ -8,53 +8,36 @@
   "bars": 502,
   "stale": 0,
   "short": 3,
-  "chart": 5,
-  "rev_pass": 1,
-  "rev_fail": 4,
+  "chart": 3,
+  "rev_pass": 0,
+  "rev_fail": 3,
   "rev_unknown": 0
  },
- "F": [
-  {
-   "sym": "MPWR",
-   "px": 1333.88,
-   "dd": 21.9,
-   "tgt": 1708.96,
-   "up": 28.1,
-   "rev": 40.5
-  }
- ],
+ "F": [],
  "in_66": [],
  "chart_only": [
   {
    "sym": "ADSK",
-   "px": 255.33,
-   "dd": 20.2,
+   "px": 255.7,
+   "dd": 20.1,
    "tgt": 320,
-   "up": 25.3,
+   "up": 25.1,
    "rev": 17.9
   },
   {
-   "sym": "BR",
-   "px": 181.82,
-   "dd": 20.5,
-   "tgt": 228.65,
-   "up": 25.8,
-   "rev": 7.1
-  },
-  {
    "sym": "NXPI",
-   "px": 256.03,
-   "dd": 24.2,
+   "px": 239.4,
+   "dd": 29.1,
    "tgt": 337.68,
-   "up": 31.9,
+   "up": 41.1,
    "rev": 14.6
   },
   {
    "sym": "UHS",
-   "px": 183.33,
+   "px": 183.2,
    "dd": 25.3,
    "tgt": 245.26,
-   "up": 33.8,
+   "up": 33.9,
    "rev": 8.0
   }
  ]

@@ -1,19 +1,19 @@
 {
  "rule_version": "1.0",
- "updated": "2026-11-24T14:33-06:00",
+ "updated": "2026-11-24T14:59-06:00",
  "day": "2026-11-24",
  "market": {
-  "state": "CHOPPY",
+  "state": "MIXED",
   "score": -1,
   "confirmed": true,
-  "at": "2026-11-24T14:25-06:00",
-  "data_time": "2026-11-24T14:30-06:00",
+  "at": "2026-11-24T14:40-06:00",
+  "data_time": "2026-11-24T14:55-06:00",
   "parts": {
    "es": 0,
    "es_mid": 7221.5,
-   "nq": -1,
+   "nq": 0,
    "nq_mid": 26589.12,
-   "spy": 1,
+   "spy": 0,
    "qqq": -1,
    "breadth_vix": 0,
    "spy_vwap_crosses": 0,
@@ -22,36 +22,6 @@
   }
  },
  "market_history": [
-  {
-   "at": "2026-11-24T12:55-06:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-24T13:00-06:00",
-   "state": "CHOPPY",
-   "score": -1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-24T13:05-06:00",
-   "state": "CHOPPY",
-   "score": -1,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-24T13:10-06:00",
-   "state": "MIXED",
-   "score": 0,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-24T13:15-06:00",
-   "state": "MIXED",
-   "score": -1,
-   "confirmed": true
-  },
   {
    "at": "2026-11-24T13:20-06:00",
    "state": "MIXED",
@@ -140,6 +110,36 @@
    "at": "2026-11-24T14:30-06:00",
    "state": "MIXED",
    "score": -2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-24T14:35-06:00",
+   "state": "MIXED",
+   "score": -2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-24T14:40-06:00",
+   "state": "MIXED",
+   "score": -1,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-24T14:45-06:00",
+   "state": "CHOPPY",
+   "score": -2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-24T14:50-06:00",
+   "state": "CHOPPY",
+   "score": -2,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-24T14:55-06:00",
+   "state": "MIXED",
+   "score": 1,
    "confirmed": true
   }
  ],
@@ -2014,9 +2014,9 @@
    "state": {
     "state": "WAIT",
     "codes": [
-     "MARKET_CONFLICT"
+     "TRIGGER_WAITING"
     ],
-    "at": "2026-11-24T14:33-06:00"
+    "at": "2026-11-24T14:59-06:00"
    }
   }
  ]
