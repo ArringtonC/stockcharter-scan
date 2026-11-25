@@ -1427,6 +1427,35 @@ def trend_lines(tr, bb=None):
     return L
 
 
+def weekly_trend_row(sym, wc, dd, dc):
+    """Pure. One plain line for the weekend report from weekly closes `wc`, daily dates `dd` and daily closes `dc`:
+    weekly 10/30 EMA side and how long, the gap now vs 4 weeks ago, the daily side and its cross date,
+    distance from the 52-week high, and the 20-week Bollinger band position. Describes; it does not forecast."""
+    w10, w30 = ema(wc, 10), ema(wc, 30); gap = lambda i: (w10[i] - w30[i]) / wc[i] * 100
+    down = w10[-1] < w30[-1]; run = next((k for k in range(1, len(wc)) if (w10[-1 - k] < w30[-1 - k]) != down), len(wc))
+    d10, d30 = ema(dc, 10), ema(dc, 30); ddn = d10[-1] < d30[-1]
+    k = next((k for k in range(1, len(dc)) if (d10[-1 - k] < d30[-1 - k]) != ddn), len(dc) - 1)
+    m = sum(wc[-20:]) / 20; sd = (sum((x - m) ** 2 for x in wc[-20:]) / 20) ** 0.5
+    band = "under the 20-week lower band" if wc[-1] < m - 2 * sd else "over the 20-week upper band" if wc[-1] > m + 2 * sd else "inside the 20-week bands"
+    near = abs(gap(-1)) < 1.5 and abs(gap(-1)) < abs(gap(-5)) and (gap(-5) < 0) == down    # lines closing in: a cross may be near
+    return (f"· <b>{sym}</b> weekly 10 {'under' if down else 'over'} 30 for {run} week{'s' * (run != 1)} (gap {gap(-1):+.1f}%, was {gap(-5):+.1f}% four weeks ago)"
+            f"{' ⚠️ lines closing' if near else ''} · daily 10 {'under' if ddn else 'over'} 30 since {dd[-k][5:]}"
+            f" · {(1 - wc[-1] / max(wc[-52:])) * 100:.1f}% off the high · {band}")
+
+
+def weekly_trend(syms=("QQQ", "SPY")):
+    """Weekend report section (2026-11-25, the owner's ask): the weekly picture he reads off his charts, in words."""
+    L = []
+    for s in syms:
+        r = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=5y&interval=1wk")["chart"]["result"][0]
+        wk = {}   # Yahoo adds a live bar inside the current week: keep one close per ISO week, the last one
+        for t, c in zip(r["timestamp"], r["indicators"]["quote"][0]["close"]):
+            if c: wk[tuple(datetime.datetime.fromtimestamp(t, datetime.timezone.utc).isocalendar()[:2])] = c
+        b = bars(s); L.append(weekly_trend_row(s, [wk[k] for k in sorted(wk)], [x[0] for x in b], [x[1] for x in b]))
+    return ["<b>WEEKLY TREND</b> (10/30 EMA on weekly and daily closes)"] + L + \
+           ["<i>Where the trend is, not a forecast. The weekly cross is late: in Nov 2026 it came at the low. The daily cross is earlier and wrong more often.</i>"]
+
+
 def bubble(d):
     """Current phase of the AI-bubble plan + the two chart series for the site."""
     st_ = json.load(open(BUBBLE_STATE)) if os.path.exists(BUBBLE_STATE) else {}
@@ -2087,6 +2116,9 @@ def market_report(d):
     G_ = ([f"· <b>{s}</b> {g:+.1f}%" for s, g in m.get("gaps") or []] + ["<i>Tested 2016–26: a gap does not tell which way the day goes. 1–2% gaps fill back to yesterday's close about 45% of days; 4%+ gaps only about 15%.</i>"]) if pre and m.get("gaps") else []
     M += [f"<b>{head}</b>", ""] + writeup(d, m, pre) + (["", "<b>GAPS</b> (premarket vs yesterday's close, 1%+, watch list + Setup F)"] + G_ if G_ else []) \
          + (["", "<b>COMPANY FILINGS</b> (your stocks + Setup F, last 3 days)"] + F_ if F_ else []) + ["", "<i>not a signal</i>"]
+    if weekend:
+        try: M += [""] + weekly_trend()
+        except Exception as e: print(f"weekly trend failed: {str(e)[:60]}")
     if head == "WEEKEND REPORT":   # delivery check (delivery.py): how the scheduled runs went this week
         try:
             import delivery; w = delivery.week()
