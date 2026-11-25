@@ -791,7 +791,7 @@ function bubbleTimeline(b){
   const gh=b.gap_hist||{}, days=Object.keys(gh).sort(), last=days[days.length-1], now=last?gh[last]:null;
   const first=(f)=>days.find(d=>f(gh[d]));
   const hiDate=(b.qqq_dd||[]).slice().reverse().find(x=>x[1]===0);
-  const line=b.qqq_hi*0.8, need=(1-line/b.qqq)*100, v3=b.vix3||[], falling=v3.length===3&&v3[2]<v3[1]&&v3[0]>v3[1];
+  const line=b.qqq_hi*0.8, need=(1-line/b.qqq)*100, v3=b.vix3||[], falling=v3.length===4&&v3[3]<v3[2]&&v3[2]<v3[1]&&v3[1]<v3[0];
   const fmt=d=>d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
   const ev=[];
   if(b.ipo_fired) ev.push([b.ipo_fired,'✅',`<b>Signal 2 fired</b> · ${esc(Object.keys(b.ipo).find(k=>b.ipo[k]===b.ipo_fired)||'a mega-IPO')} priced`]);
@@ -809,7 +809,7 @@ function bubbleTimeline(b){
       <div class="miss">${strip}</div></div></div>`:'';
   const nxt=[[b.qqq_off<=-20,`<b>QQQ closes under $${line.toFixed(2)}</b> (20% below the high)`, b.qqq_off<=-20?'reached':`needs ${need.toFixed(1)}% more from $${b.qqq.toFixed(2)}`],
              [(b.vix_max||0)>=25,`<b>VIX touches 25</b>`, (b.vix_max||0)>=25?`reached (2-week high ${b.vix_max.toFixed(2)})`:`2-week high ${(b.vix_max||0).toFixed(2)}, needs ${(25-(b.vix_max||0)).toFixed(1)} more`],
-             [(b.vix_max||0)>=25&&falling,`<b>then VIX falls 3 days in a row</b>`, falling?'reached':`last 3 closes ${v3.map(x=>x.toFixed(1)).join(' → ')} · earliest in 3 sessions`]];
+             [(b.vix_max||0)>=25&&falling,`<b>then VIX falls 3 days in a row</b>`, falling?'reached':`last 4 closes ${v3.map(x=>x.toFixed(1)).join(' → ')} · earliest in 3 sessions`]];
   const future=nxt.map(([ok,t,s])=>`<div class="row tight"><div class="sym">${ok?'✅':'⬜'}</div><div class="main"><div class="t">${t}</div><div class="miss">${esc(s)}</div></div></div>`).join('')
     +`<div class="row tight"><div class="sym">4</div><div class="main"><div class="t"><b>Phase 4 · The drop</b> · all three true at once</div><div class="miss">${b.phases[3].do.map(esc).join(' · ')}</div></div></div>`;
   return `<h3 style="margin:14px 0 6px">Timeline</h3>
@@ -822,7 +822,7 @@ function bubbleTimeline(b){
 function rulesNow(d){
   const b=d.bubble, h=(d.report||{}).here||{}; if(!b) return '';
   const bal=h.balance||0, asof=h.as_of||'', stale=asof&&(new Date(d.date)-new Date(asof))/864e5>7;
-  const line=b.qqq_hi*0.8, need=(1-line/b.qqq)*100, back=(b.qqq_hi/line-1)*100, v3=b.vix3||[], fall=v3.length===3&&v3[2]<v3[1]&&v3[1]<v3[0];
+  const line=b.qqq_hi*0.8, need=(1-line/b.qqq)*100, back=(b.qqq_hi/line-1)*100, v3=b.vix3||[], fall=v3.length===4&&v3[3]<v3[2]&&v3[2]<v3[1]&&v3[1]<v3[0];
   const $=x=>'$'+Math.round(x).toLocaleString('en-US');
   const row=(what,rule,make,ev)=>`<tr><td><b>${what}</b></td><td>${rule}</td><td>${make}</td><td class="miss">${ev}</td></tr>`;
   const F=(d.F||[]).map(x=>{const n=Math.floor(0.07*bal/x.px), cost=n*x.px, gain=n*(x.tgt-x.px);
@@ -833,7 +833,7 @@ function rulesNow(d){
     <p class="lede">Your own tested rules, today's numbers, and what each could make. Account ${$(bal)} as of ${esc(asof)}${stale?' <b style="color:var(--dn)">(stale: paste a fresh balance)</b>':''}.</p>
     <div class="tw"><table><thead><tr><th>Action</th><th>Rule</th><th>What it could make</th><th>Evidence</th></tr></thead><tbody>
     ${row('Hold the Phase 3 cash',`No new QQQ until Phase 4. QQQ needs ${need>0?need.toFixed(1)+'% more':'nothing more'} to reach the line $${line.toFixed(2)}.`,'Avoids the rest of the drop.','Replayed on 1973, 2000 and 2021: beat holding by 1–9%. One live episode.')}
-    ${row('Setup VIX card',`When VIX (now ${b.vix.toFixed(1)}) falls 3 closes in a row${fall?' — <b>it has</b>':` — last 3: ${v3.map(x=>x.toFixed(1)).join(' → ')}`}: $1,000 QQQ call ~30 days out, hold 21 sessions, no stop.`,'Average <b>+$640 per $1,000</b>. 58% win. 13% lose it all. Bad years: −15% (2022), −34% (2024).','286 signals over 15 years. Modeled option prices; few separate episodes.')}
+    ${row('Setup VIX card',`When VIX (now ${b.vix.toFixed(1)}) falls 3 closes in a row${fall?' — <b>it has</b>':` — last 4: ${v3.map(x=>x.toFixed(1)).join(' → ')}`}: $1,000 QQQ call ~30 days out, hold 21 sessions, no stop.`,'Average <b>+$640 per $1,000</b>. 58% win. 13% lose it all. Bad years: −15% (2022), −34% (2024).','286 signals over 15 years. Modeled option prices; few separate episodes.')}
     ${row('Phase 4: cash back into QQQ',`After QQQ is 20%+ down and VIX is falling. Deposits back to 60/40.`,`QQQ back from $${line.toFixed(0)} to its $${b.qqq_hi.toFixed(0)} high = +${back.toFixed(0)}%. On $10,000 of cash: <b>+${$(100*back)}</b>. In 2022 that took about 2 years.`,'Not tested. One episode.')}
     ${F}
     ${row('Short-dated options','Only with: sell at 2×, cut at −50%, no 0–1 day options, no holds through earnings.','Real result Sep 22 – Oct 30: +$733, almost all one GOOG put.','8 put studies and the V1 tests: buying short-dated options loses after costs on average.')}

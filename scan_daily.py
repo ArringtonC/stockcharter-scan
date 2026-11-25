@@ -1307,7 +1307,7 @@ PHASES = [
          do=["Stop adding to QQQ -- new deposits go to SPY only", "Sell half of any position up 50%+", "Keep taking F cards"]),
     dict(n=3, name="Both signals", when="CPI 4%+ AND a mega-IPO has priced",
          do=["Sell the QQQ part, keep SPY", "Deposits pile up as cash", "No puts or shorts as a bet against the bubble; short-term trades follow the trade rules"]),
-    dict(n=4, name="The drop", when="Phase 3, then QQQ 19.5%+ off its high in the last 2 weeks AND VIX 25+ falling 3 closes",
+    dict(n=4, name="The drop", when="Phase 3, then QQQ 19.5%+ off its high in the last 2 weeks AND VIX 25+ then 3 lower closes in a row",
          do=["Put the cash into QQQ (Setup VIX)", "F fires more after drops -- take the cards", "Deposits back to 60/40"]),
 ]
 
@@ -1331,10 +1331,24 @@ def qqq_hit(off, hist, today, days=14):
     return off <= QQQ_LINE or any(k >= lo and (v.get("qqq_off") or 0) <= QQQ_LINE for k, v in (hist or {}).items())
 
 
+def closes_only(rows, now=None):
+    """Pure. Daily bars without today's unfinished bar: before 4:15pm ET the last Yahoo bar is a live reading, not a close.
+    2026-11-25: the gate fired at a 1pm scan on a live VIX reading; the rule says closes."""
+    now = now or datetime.datetime.now(ZoneInfo("America/New_York"))
+    live = bool(rows) and rows[-1][0] == str(now.date()) and (now.hour, now.minute) < (16, 15)
+    return rows[:-1] if live else rows
+
+
+def falling3(v):
+    """Pure. True when the last 3 closes are each lower than the one before, so it needs 4 closes.
+    2026-11-25 owner's wording: 'VIX closes lower three days in a row'. The old check (3 closes in a falling line) was only 2 lower days."""
+    return len(v) >= 4 and v[-1] < v[-2] < v[-3] < v[-4]
+
+
 def gap_numbers(bb):
     """Phase-3 -> Phase-4 progress: (pct, qqq share, vix share, checks ok list). Pure."""
-    off, vmax, v3 = bb["qqq_off"], bb.get("vix_max") or 15, bb.get("vix3") or []
-    falling = len(v3) == 3 and v3[2] < v3[1] < v3[0]
+    off, vmax, v3 = bb["qqq_off"], bb.get("vix_max") or 15, bb.get("vix3") or []   # vix3 = the last 4 closes (3 lower days need 4)
+    falling = falling3(v3)
     ok = [True, bool(bb.get("qqq_hit")) or off <= QQQ_LINE, vmax >= 25 and falling]
     qp = 1.0 if ok[1] else max(0.0, min(1.0, off / -20)); vp = 1.0 if ok[2] else max(0.0, min(0.99, (vmax - 15) / 10))
     return min(100 if all(ok) else 99, round(100 * (qp + vp) / 2)), qp, vp, ok, falling   # never show 100% with a check still open
@@ -1356,7 +1370,7 @@ def phase_gap(bb):
         head = (f"<b>Distance to Phase 4: {pct}% of the way</b> (QQQ drop {round(100 * qp)}% · VIX {round(100 * vp)}% · {sum(ok)} of 3 checks met)" if vmax is not None
                 else f"<b>Distance to Phase 4:</b> QQQ drop {round(100 * qp)}% of the way · VIX reading missing this scan")
         vix_line = (f"· {'✅' if ok[2] else '❌'} VIX 25+ in the last 2 weeks, then falling 3 days: 2-week high {vmax}" + (f", needs {25 - vmax:.1f} more" if vmax < 25 else "")
-                    + f" · last 3 days {' → '.join(str(x) for x in v3)} ({'falling' if falling else 'not falling'})") if vmax is not None \
+                    + f" · last 4 closes {' → '.join(str(x) for x in v3)} ({'3 lower in a row' if falling else 'not 3 lower in a row'})") if vmax is not None \
                    else "· ❔ VIX check: no fresh VIX reading in this scan (the last bubble reading was kept)"
         L = [head, "· ✅ Phase 3 is on (both signals fired)",
              f"· {'✅' if ok[1] else '❌'} QQQ 19.5%+ below its high on a close in the last 2 weeks: now {off:+.1f}% (high ${hi:,.2f}; the line is ${line:,.2f}, "
@@ -1432,16 +1446,19 @@ def bubble(d):
     q = bars("QQQ", "2y"); qc = [x[1] for x in q]; hi = max(qc)
     off = (qc[-1] / hi - 1) * 100
     v = bars("^VIX", "6mo"); vc = [x[1] for x in v]
-    vix_buy = max(vc[-11:]) >= 25 and vc[-1] < vc[-2] < vc[-3]
+    # The Phase 4 gate reads finished closes only; the display numbers (qqq, off, vix) stay live.
+    vcc = [x[1] for x in closes_only(v)]; qcc = [x[1] for x in closes_only(q)]
+    vix_buy = max(vcc[-11:]) >= 25 and falling3(vcc)
     phase = 1 + bool(st_.get("cpi")) + bool(st_.get("ipo"))
-    hit = qqq_hit(off, st_.get("gap_hist"), d["date"])
+    past = {k: x for k, x in (st_.get("gap_hist") or {}).items() if k < d["date"]}   # today's saved reading may be a live one
+    hit = qqq_hit((qcc[-1] / max(qcc) - 1) * 100, past, d["date"])
     if st_.get("phase") == 4 or (phase == 3 and hit and vix_buy): phase = 4
     changed_from = st_.get("phase") if st_.get("phase") and phase != st_.get("phase") else None
     if phase != st_.get("phase"):
         st_["phase"] = phase
         st_["since"] = max([x for x in (st_.get("cpi"), st_.get("ipo")) if x], default=d["date"]) if phase in (2, 3) else d["date"]
     json.dump(st_, open(BUBBLE_STATE, "w"))
-    R0 = dict(phase=phase, qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), qqq_hit=hit, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]])
+    R0 = dict(phase=phase, qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), qqq_hit=hit, vix_max=round(max(vcc[-11:]), 2), vix3=[round(x, 2) for x in vcc[-4:]])
     new_alerts = []
     if phase == 3:
         n = gap_numbers(R0)
@@ -1458,7 +1475,7 @@ def bubble(d):
     return dict(phase=phase, since=st_["since"], phases=PHASES, changed_from=changed_from, cpi=now_cpi, cpi_month=cpi[-1][0],
                 cpi_peak=max(cpi[-12:], key=lambda x: x[1]),
                 cpi_fired=st_.get("cpi"), ipo=IPO_SIGNALS, ipo_fired=st_.get("ipo"),
-                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), qqq_hit=hit, vix=vc[-1], vix_buy=vix_buy, vix_max=round(max(vc[-11:]), 2), vix3=[round(x, 2) for x in vc[-3:]],
+                qqq=qc[-1], qqq_hi=hi, qqq_off=round(off, 1), qqq_hit=hit, vix=vc[-1], vix_buy=vix_buy, vix_max=R0["vix_max"], vix3=R0["vix3"],
                 cpi_series=cpi, qqq_dd=dd, gap_alerts=new_alerts, gap_hist=st_.get("gap_hist", {}))
 
 
