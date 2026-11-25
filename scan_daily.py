@@ -1456,6 +1456,39 @@ def weekly_trend(syms=("QQQ", "SPY")):
            ["<i>Where the trend is, not a forecast. The weekly cross is late: in Nov 2026 it came at the low. The daily cross is earlier and wrong more often.</i>"]
 
 
+DIRECTION_SYMS = "QQQ SPY NVDA GOOGL AMZN META MSFT AAPL TSLA".split()   # the two indexes + the names the owner trades options on
+
+
+def direction_row(sym, dd, dc):
+    """Pure. (sym, down, days, since) from finished daily closes: the 10/30 EMA side, how many closes it has held, its first date."""
+    a, b = ema(dc, 10), ema(dc, 30); down = a[-1] < b[-1]
+    k = next((k for k in range(1, len(dc)) if (a[-1 - k] < b[-1 - k]) != down), len(dc) - 1)
+    return sym, down, k, dd[-k]
+
+
+def direction_lines(rows):
+    """Pure. The DIRECTION CHECK block of the market report (2026-11-25, the owner's ask): a label for his own trades.
+    Not a rule and not a forecast (thesis/direction/study.py: the next 5 days rise as often after a DOWN day as after an UP day)."""
+    if not rows: return []
+    side = lambda dn: "DOWN" if dn else "UP"
+    L = ["<b>DIRECTION CHECK</b> (10-day average against the 30-day, finished closes)"]
+    L += [f"· <b>{s}</b> {side(dn)} day {k}, since {since[5:]}" for s, dn, k, since in rows if s in ("QQQ", "SPY")]
+    for lab, want in (("Stocks DOWN", True), ("Stocks UP", False)):
+        g = [f"{s} {k}d" for s, dn, k, _ in rows if dn == want and s not in ("QQQ", "SPY")]
+        if g: L.append(f"· {lab}: {', '.join(g)}")
+    q = next((r for r in rows if r[0] == "QQQ"), None)
+    if q: L.append(f"· QQQ is {side(q[1])}: {'puts' if q[1] else 'calls'} go WITH the trend, {'calls' if q[1] else 'puts'} go AGAINST it")
+    return L + ["<i>A label, not a forecast. 2013–2026: QQQ rose over the next 5 days 61% of the time after a DOWN day and 60% after an UP day. Moves are bigger in a down trend.</i>"]
+
+
+def direction(syms=DIRECTION_SYMS, now=None):
+    out = []
+    for s in syms:
+        try: b = closes_only(bars(s), now); out.append(direction_row(s, [x[0] for x in b], [x[1] for x in b]))
+        except Exception: pass   # one missing symbol must not drop the block
+    return out
+
+
 def bubble(d):
     """Current phase of the AI-bubble plan + the two chart series for the site."""
     st_ = json.load(open(BUBBLE_STATE)) if os.path.exists(BUBBLE_STATE) else {}
@@ -1998,6 +2031,7 @@ def writeup(d, m, pre=True):
         W += ["", f"<b>AI BUBBLE PLAN · PHASE {bb['phase']}: {ph['name'].upper()}</b> (since {bb['since'][5:]})"] \
              + [f"<i>A 4-step plan for a possible AI bubble. Phase {bb['phase']} = {ph['when']}.</i>"] + [f"· {x}" for x in ph["do"]] + phase_gap(bb)
     if (d.get("trend") or {}).get("state"): W += [""] + trend_lines(d["trend"])[:1]
+    if d.get("direction"): W += [""] + direction_lines(d["direction"])
     f = [x["sym"] for x in d.get("F", [])]
     W += ["", f"<b>Setup F:</b> {', '.join(f)}. Details in the trade report." if f else "<b>Setup F:</b> nothing fires."]
     if pre and nq is not None and abs(nq) >= 1:
@@ -2393,6 +2427,7 @@ if __name__ == "__main__":
         except Exception: d["errors"].append(f"bubble: {str(e)[:40]}")
     try: d["trend"] = trend(d)
     except Exception as e: d["errors"].append(f"trend: {str(e)[:40]}")
+    d["direction"] = direction()
     try: d["sp500"] = sp500_changes()
     except Exception as e: d["sp500"] = []; d["errors"].append(f"sp500: {str(e)[:40]}")
     hist = json.load(open(HIST)) if os.path.exists(HIST) else []

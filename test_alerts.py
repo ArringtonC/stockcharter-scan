@@ -194,3 +194,11 @@ fx = dict(sym="DASH", px=195.3, dd=32, up=46, tgt=285.5, gap=0.9, forming=True)
 p = S.summary(base(forming=[fx]), [], parts=True)
 assert "🟡 F FORMING · DASH $195.30" in p["watch"] and "not a buy" in p["watch"] and not p["trades"]
 print("forming ok")
+# DIRECTION CHECK: a label block in the market report
+_up = [100 * 1.01 ** i for i in range(80)]; _dn = _up + [_up[-1] * .97 ** k for k in range(1, 12)]; _dd = [f"d{i:03d}-{i:03d}" for i in range(len(_dn))]
+assert S.direction_row("QQQ", _dd[:80], _up)[1] is False
+r = S.direction_row("QQQ", _dd, _dn); assert r[1] is True and 1 <= r[2] <= 11 and r[3] == _dd[-r[2]]
+t = "\n".join(S.direction_lines([r, ("SPY", False, 5, "2026-11-18"), ("NVDA", True, 29, "2026-10-16"), ("AAPL", False, 3, "2026-11-20")]))
+assert "QQQ</b> DOWN day" in t and "SPY</b> UP day 5, since 11-18" in t and "Stocks DOWN: NVDA 29d" in t and "Stocks UP: AAPL 3d" in t and "puts go WITH the trend, calls go AGAINST" in t
+assert S.direction_lines([]) == [] and "calls go WITH" in "\n".join(S.direction_lines([("QQQ", False, 4, "2026-01-05")]))
+print("direction ok")
