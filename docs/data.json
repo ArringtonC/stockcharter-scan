@@ -1,6 +1,6 @@
 {
  "date": "2026-11-26",
- "stamp": "2026-11-26 20:30 UTC",
+ "stamp": "2026-11-26 22:30 UTC",
  "universe": 63,
  "scanned": 63,
  "vix": 26.799999237060547,
@@ -1569,10 +1569,10 @@
   "vix_buy": false,
   "vix_max": 35.89,
   "vix3": [
-   35.89,
    26.62,
    26.36,
-   28.29
+   28.29,
+   26.8
   ],
   "cpi_series": [
    [
@@ -4038,20 +4038,6 @@
   ],
   "closed": [],
   "by_setup": {
-   "D": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": -12.797215135604933
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": -8.122240201498398
-   },
    "none": {
     "wins": 0,
     "losses": 0,
@@ -4059,12 +4045,26 @@
     "open_n": 3,
     "open_mean": 42.08796290221878
    },
+   "D": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": -12.797215135604933
+   },
    "F": {
     "wins": 0,
     "losses": 0,
     "closed_mean": null,
     "open_n": 19,
     "open_mean": -32.84096665952679
+   },
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": -8.122240201498398
    },
    "E": {
     "wins": 0,
