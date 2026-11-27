@@ -120,6 +120,30 @@ def gate(sym, dte, cost, cap, sig, earn_before, spread):
     return "APPROVED", f"{', '.join(tested)} · {dte} days · inside the cap"
 
 
+def direction_text(c, rows, px, sig, today):
+    """Pure. The lines under a `check` reply: trend side for the stock and QQQ, Ledger alert or own pick, strike distance and days left.
+    A label, not a rule (2026-11-27: it fit his month, it did not predict in 26 years of QQQ history)."""
+    side = {s: (dn, n) for s, dn, n, _ in rows}; names = [s for s in dict.fromkeys([c["sym"], "QQQ"]) if s in side]; L = ["**Direction check** (a label, not a rule)"]
+    if names:
+        t = " · ".join(f"{s} {'DOWN' if side[s][0] else 'UP'} day {side[s][1]}" for s in names)
+        if c.get("right"):
+            ok = [side[s][0] == (c["right"] == "P") for s in names]; kind = "put" if c["right"] == "P" else "call"
+            t += f" · a {kind} goes **{'WITH' if all(ok) else 'MIXED' if any(ok) else 'AGAINST'}** the trend" if len(set(ok)) == 1 else f" · **MIXED** for a {kind}"
+        L.append("1. Trend: " + t)
+    L.append("2. Ledger: " + (", ".join(sig) if sig else "no alert for this one. It is your own pick."))
+    if c.get("k") and px:
+        d = c["k"] - px; t = f"3. Strike ${c['k']:g} is ${abs(d):.2f} {'above' if d > 0 else 'below'} the last price ${px:.2f} ({d / px:+.1%})"
+        if c.get("exp"):
+            n = (datetime.date.fromisoformat(c["exp"]) - today).days; t += f" · {n} days left" + (" · 0 or 1 day is against your plan" if n <= 1 else "")
+        L.append(t)
+    return "\n".join(L)
+
+
+def direction_note(c):
+    import scan_daily as S
+    return direction_text(c, S.direction(list(dict.fromkeys([c["sym"], "QQQ"]))), S.bars(c["sym"])[-1][1], signal(c["sym"])[0], datetime.date.today())
+
+
 def post(text, png=None):
     """A message, with the chart attached under it when there is one (multipart, bot token)."""
     if not png: return say(text)
@@ -365,6 +389,9 @@ def main():
         except Exception as e:
             reply = f"Something broke on that one: {str(e)[:120]}"
         text, png = reply if isinstance(reply, tuple) else (reply, None)
+        if v in ("check", "details") and c.get("sym"):
+            try: text += "\n\n" + direction_note(c)
+            except Exception as e: print("direction note failed", e)
         post((f"<@{who}> " if who != OWNER else "") + text, png)
         try:                                            # decision journal (records only; never a signal)
             if v in ("check", "details") and c.get("sym"):
@@ -413,6 +440,11 @@ if __name__ == "__main__":
         assert parse("check AMZN 10/23 250 puts")[1]["right"] == "P"
         assert parse("check META calls")[1]["right"] == "C" and parse("check META")[1]["right"] is None and parse("pin meta") == ("pin", dict(sym="META"))
         assert move_levels(1.3, 2.4) == ["day+1", "2d+2"] and move_levels(-2.1, -3.5) == ["day-1", "day-2", "2d-2", "2d-3"] and move_levels(0.4, 1.9) == []
+        _c = dict(sym="GOOG", right="C", k=300.0, exp="2026-12-11"); _t = direction_text(_c, [("GOOG", True, 27, "x"), ("QQQ", True, 28, "x")], 270.98, [], datetime.date(2026, 11, 25))
+        assert "goes **AGAINST**" in _t and "$29.02 above" in _t and "(+10.7%)" in _t and "16 days left" in _t and "own pick" in _t and "against your plan" not in _t
+        _t = direction_text(dict(_c, right="P", exp="2026-11-26"), [("GOOG", True, 27, "x"), ("QQQ", False, 2, "x")], 310.0, ["Setup F"], datetime.date(2026, 11, 25))
+        assert "**MIXED** for a put" in _t and "below" in _t and "against your plan" in _t and "2. Ledger: Setup F" in _t
+        assert "WITH" in direction_text(dict(sym="QQQ", right="P"), [("QQQ", True, 28, "x")], 640, [], datetime.date(2026, 11, 25)) and "3." not in direction_text(dict(sym="META", right=None), [], None, [], datetime.date(2026, 11, 25))
         assert parse("hello")[0] == "help" and bracket(3.18) == dict(tp=6.36, sl=1.59, lock=6.36)
         assert gate("NFLX", 70, 622, 850, [], False, 0.05)[0] == "WAIT" and gate("SG", 400, 400, 850, [], False, 0.05)[0] == "APPROVED"
         assert gate("QQQ", 3, 300, 850, [], False, 0.02)[0] == "PASS" and gate("QQQ", 3, 300, 850, ["pattern #7"], False, 0.02)[0] == "APPROVED"
