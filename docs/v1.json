@@ -1,13 +1,13 @@
 {
  "rule_version": "1.0",
- "updated": "2026-11-27T11:33-06:00",
+ "updated": "2026-11-27T13:03-06:00",
  "day": "2026-11-27",
  "market": {
   "state": "BULLISH",
   "score": 3,
   "confirmed": true,
-  "at": "2026-11-27T11:30-06:00",
-  "data_time": "2026-11-27T11:30-06:00",
+  "at": "2026-11-27T13:00-06:00",
+  "data_time": "2026-11-27T12:00-06:00",
   "parts": {
    "es": 0,
    "es_mid": null,
@@ -23,114 +23,6 @@
  },
  "market_history": [
   {
-   "at": "2026-11-27T09:55-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:00-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:05-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:10-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:15-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:20-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:25-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:30-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:35-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:40-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:45-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:50-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T10:55-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T11:00-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T11:05-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T11:10-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T11:15-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
-   "at": "2026-11-27T11:20-06:00",
-   "state": "BULLISH",
-   "score": 3,
-   "confirmed": true
-  },
-  {
    "at": "2026-11-27T11:25-06:00",
    "state": "BULLISH",
    "score": 3,
@@ -138,6 +30,114 @@
   },
   {
    "at": "2026-11-27T11:30-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T11:35-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T11:40-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T11:45-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T11:50-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T11:55-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:00-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:05-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:10-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:15-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:20-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:25-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:30-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:35-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:40-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:45-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:50-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T12:55-06:00",
+   "state": "BULLISH",
+   "score": 3,
+   "confirmed": true
+  },
+  {
+   "at": "2026-11-27T13:00-06:00",
    "state": "BULLISH",
    "score": 3,
    "confirmed": true
@@ -3886,11 +3886,11 @@
     ]
    },
    "state": {
-    "state": "WAIT",
+    "state": "DATA STALE",
     "codes": [
-     "MARKET_CONFLICT"
+     "DATA_STALE"
     ],
-    "at": "2026-11-27T11:33-06:00"
+    "at": "2026-11-27T13:03-06:00"
    }
   }
  ]

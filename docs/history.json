@@ -1867,16 +1867,17 @@
  },
  {
   "date": "2026-11-27",
-  "vix": 24.940000534057617,
+  "vix": 23.809999465942383,
   "regime": "ELEVATED",
   "vix_fires": true,
   "F": [],
   "D": [
+   "PANW",
    "OKTA",
    "ZS",
    "HPQ",
-   "U",
    "PYPL",
+   "U",
    "DOCU",
    "LLY"
   ],
