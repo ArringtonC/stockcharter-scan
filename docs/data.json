@@ -1,15 +1,15 @@
 {
- "date": "2026-11-26",
- "stamp": "2026-11-26 22:30 UTC",
+ "date": "2026-11-27",
+ "stamp": "2026-11-27 13:00 UTC",
  "universe": 63,
  "scanned": 63,
- "vix": 26.799999237060547,
+ "vix": 25.43000030517578,
  "vix5": [
-  35.88999938964844,
   26.6200008392334,
   26.360000610351562,
   28.290000915527344,
-  26.799999237060547
+  26.799999237060547,
+  25.43000030517578
  ],
  "vix_hi10": 35.88999938964844,
  "qqq": 633.9299926757812,
@@ -17,8 +17,8 @@
  "regime": "HIGH",
  "advice": "Everything live. Size up longs. Setup S works here.",
  "peaked": true,
- "falling": false,
- "vix_fires": false,
+ "falling": true,
+ "vix_fires": true,
  "F": [
   {
    "sym": "ZS",
@@ -1143,7 +1143,7 @@
    "exit": "No mechanical exit. 491 days. Sell if the thesis on the business changes.",
    "kills": "A close under $5.67, the 2026 low. Below that the recovery case is gone.",
    "odds": null,
-   "days": 421,
+   "days": 420,
    "now": 11.489999771118164,
    "target": 17.6,
    "cost": 459.99999999999994,
@@ -1187,7 +1187,7 @@
    "exit": "No mechanical exit. 491 days is the whole point \u2014 it buys time for the cross.",
    "kills": "A close under $4.71, the 2026 low. The halfway state would become all-trends-down, which hits 39%.",
    "odds": null,
-   "days": 421,
+   "days": 420,
    "now": 5.039999961853027,
    "target": 12.34,
    "cost": 468.0,
@@ -1390,57 +1390,57 @@
   "USO": 3.2932142066011805,
   "USO_px": 139.89,
   "USO_chg": 4.4599999999999795,
-  "NQ=F": 0.46359709198187105,
-  "NQ=F_px": 26221.25,
-  "NQ=F_chg": 121.0,
-  "CL=F": 1.469885277246652,
-  "CL=F_px": 84.91,
-  "CL=F_chg": 1.2299999999999898,
+  "NQ=F": 2.161856687196484,
+  "NQ=F_px": 26664.5,
+  "NQ=F_chg": 564.25,
+  "CL=F": 1.5057361376672906,
+  "CL=F_px": 84.94,
+  "CL=F_chg": 1.259999999999991,
   "^TNX": -1.141931006814989,
   "^TNX_px": 4.848,
   "^TNX_chg": -0.0560003,
-  "^VIX": -5.2668787557440755,
-  "^VIX_px": 26.8,
-  "^VIX_chg": -1.4899999999999984,
+  "^VIX": -5.074626865671639,
+  "^VIX_px": 25.44,
+  "^VIX_chg": -1.3599999999999994,
   "exp_by": "Fri",
-  "QQQ_exp": 13.3,
-  "SPY_exp": 9.940000000000001,
+  "QQQ_exp": 15.935,
+  "SPY_exp": 12.450000000000001,
   "fut": [
    [
     "S&P",
     7247.75,
     0.8382608695652216,
-    true
+    false
    ],
    [
     "Nasdaq",
     26389.75,
     1.4970865944885725,
-    true
+    false
    ],
    [
     "Dow",
     50415.0,
     0.37629912794170384,
-    true
+    false
    ],
    [
     "Russell",
     2721.699951171875,
     0.591344209954614,
-    true
+    false
    ],
    [
     "Oil",
     84.41999816894531,
     0.3208516199294076,
-    true
+    false
    ],
    [
     "Gold",
     3620.39990234375,
     0.07186283046425324,
-    true
+    false
    ]
   ],
   "QQQ_pre": [
@@ -1453,11 +1453,45 @@
   ],
   "USO_pre": [
    139.89,
-   139.569
+   139.5691
   ],
   "^VIX_pre": [
-   28.29,
-   26.799999237060547
+   26.8,
+   25.440000534057617
+  ],
+  "gaps": [
+   [
+    "VRTX",
+    -7.3
+   ],
+   [
+    "PANW",
+    -3.7
+   ],
+   [
+    "BE",
+    3.2
+   ],
+   [
+    "COIN",
+    2.8
+   ],
+   [
+    "HOOD",
+    2.7
+   ],
+   [
+    "U",
+    2.5
+   ],
+   [
+    "MU",
+    2.3
+   ],
+   [
+    "DELL",
+    2.0
+   ]
   ],
   "heads": [],
   "tnx_since": "2023",
@@ -1481,24 +1515,7 @@
   },
   "flips": {}
  },
- "filings": [
-  {
-   "sym": "ZS",
-   "form": "8-K",
-   "date": "2026-11-23",
-   "what": "signed a major agreement, investor presentation",
-   "acc": "0001193125-26-471211",
-   "url": "https://www.sec.gov/Archives/edgar/data/1713683/000119312526471211/d115803d8k.htm"
-  },
-  {
-   "sym": "ZS",
-   "form": "8-K",
-   "date": "2026-11-23",
-   "what": "earnings results",
-   "acc": "0001193125-26-470942",
-   "url": "https://www.sec.gov/Archives/edgar/data/1713683/000119312526470942/d255961d8k.htm"
-  }
- ],
+ "filings": [],
  "forming": [],
  "ihs": [],
  "levels": [],
@@ -1565,7 +1582,7 @@
   "qqq_hi": 759.6599731445312,
   "qqq_off": -16.6,
   "qqq_hit": true,
-  "vix": 26.799999237060547,
+  "vix": 25.43000030517578,
   "vix_buy": false,
   "vix_max": 35.89,
   "vix3": [
@@ -2093,6 +2110,12 @@
     "qqq_off": -16.6,
     "vix_max": 35.89,
     "vix": 26.8
+   },
+   "2026-11-27": {
+    "pct": 99,
+    "qqq_off": -16.6,
+    "vix_max": 35.89,
+    "vix": 25.43
    }
   }
  },
@@ -2419,7 +2442,7 @@
    "now": 43.254999999999995,
    "spot": 80.75,
    "intrinsic": 43.25,
-   "dte": 50,
+   "dte": 49,
    "sessions": 57,
    "mark": "alpaca",
    "iv": 0.38633457218291406
@@ -2444,10 +2467,10 @@
    "now": 16.64,
    "spot": 180.44000244140625,
    "intrinsic": 10.44000244140625,
-   "dte": 22,
+   "dte": 21,
    "sessions": 57,
    "mark": "alpaca",
-   "iv": 0.6028
+   "iv": 0.6178
   },
   {
    "id": "2026-09-11-QCOM-sh",
@@ -2510,15 +2533,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -99.85891607727201,
+   "pl_pct": -99.99999828652221,
    "note": "The same signal bought the way Arrington prefers: $176C Dec-18 at $5.95, the only call under $600. 100% time value, needs +29.4%. Paired with the NOW share trade opened the same day so the two structures can be compared on one signal.",
-   "now": 0.008394493402315767,
+   "now": 1.0195192798134764e-07,
    "spot": 92.16000366210938,
    "intrinsic": 0.0,
-   "dte": 22,
+   "dte": 21,
    "sessions": 50,
    "mark": "iv",
-   "iv": 0.8594
+   "iv": 0.5
   },
   {
    "id": "2026-09-23-NOW-auto",
@@ -2678,10 +2701,10 @@
    "now": 9.024999999999999,
    "spot": 11.489999771118164,
    "intrinsic": 8.489999771118164,
-   "dte": 421,
+   "dte": 420,
    "sessions": 43,
    "mark": "alpaca",
-   "iv": 1.1417
+   "iv": 1.1433
   },
   {
    "id": "2026-09-26-SNAP-5c-real",
@@ -2703,10 +2726,10 @@
    "now": 1.57,
    "spot": 5.039999961853027,
    "intrinsic": 0.039999961853027344,
-   "dte": 421,
+   "dte": 420,
    "sessions": 43,
    "mark": "alpaca",
-   "iv": 0.6979
+   "iv": 0.6988
   },
   {
    "id": "2026-09-28-NOW-leap",
@@ -2728,10 +2751,10 @@
    "now": 18.68,
    "spot": 92.16000366210938,
    "intrinsic": 0.0,
-   "dte": 750,
+   "dte": 749,
    "sessions": 42,
    "mark": "alpaca",
-   "iv": 0.5379
+   "iv": 0.5383
   },
   {
    "id": "2026-09-28-SHOP-leap",
@@ -2753,10 +2776,10 @@
    "now": 47.1,
    "spot": 133.39999389648438,
    "intrinsic": 0.0,
-   "dte": 750,
+   "dte": 749,
    "sessions": 42,
    "mark": "alpaca",
-   "iv": 0.6174
+   "iv": 0.6179
   },
   {
    "id": "2026-09-28-HOOD-leap",
@@ -2773,15 +2796,15 @@
    "status": "open",
    "closed": "",
    "exit": "",
-   "pl_pct": -71.03999999999999,
+   "pl_pct": -69.85,
    "note": "F LEAPS. 1x $120C 2028-12-15 (~2 years), 7% of a $100k book. Sells when the stock reaches $153.86 or 30 days before expiry.",
-   "now": 14.48,
+   "now": 15.075,
    "spot": 65.77999877929688,
    "intrinsic": 0.0,
-   "dte": 750,
+   "dte": 749,
    "sessions": 42,
    "mark": "alpaca",
-   "iv": 0.6742
+   "iv": 0.6906
   },
   {
    "id": "2026-09-30-ZS-f",
@@ -2826,10 +2849,10 @@
    "now": 88.25,
    "spot": 230.86000061035156,
    "intrinsic": 30.860000610351562,
-   "dte": 568,
+   "dte": 567,
    "sessions": 39,
    "mark": "alpaca",
-   "iv": 0.6378
+   "iv": 0.6385
   },
   {
    "id": "2026-10-08-AVGO-f",
@@ -3951,31 +3974,6 @@
  "week": {
   "days": [
    {
-    "date": "2026-11-22",
-    "vix": 35.88999938964844,
-    "regime": "HIGH",
-    "vix_fires": false,
-    "F": [],
-    "D": [
-     "SG",
-     "REGN"
-    ],
-    "C": [],
-    "S": [
-     "NVDA",
-     "GOOGL",
-     "NFLX",
-     "INTC",
-     "ADBE",
-     "ORCL",
-     "NOW",
-     "HAL",
-     "CAVA",
-     "HOOD",
-     "COIN"
-    ]
-   },
-   {
     "date": "2026-11-23",
     "vix": 26.6200008392334,
     "regime": "HIGH",
@@ -4034,17 +4032,26 @@
     ],
     "C": [],
     "S": []
+   },
+   {
+    "date": "2026-11-27",
+    "vix": 25.43000030517578,
+    "regime": "HIGH",
+    "vix_fires": true,
+    "F": [
+     "ZS"
+    ],
+    "D": [
+     "HPQ",
+     "DOCU",
+     "LLY"
+    ],
+    "C": [],
+    "S": []
    }
   ],
   "closed": [],
   "by_setup": {
-   "none": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 3,
-    "open_mean": 42.08796290221878
-   },
    "D": {
     "wins": 0,
     "losses": 0,
@@ -4057,14 +4064,7 @@
     "losses": 0,
     "closed_mean": null,
     "open_n": 19,
-    "open_mean": -32.84096665952679
-   },
-   "C": {
-    "wins": 0,
-    "losses": 0,
-    "closed_mean": null,
-    "open_n": 1,
-    "open_mean": -8.122240201498398
+    "open_mean": -32.78576046001364
    },
    "E": {
     "wins": 0,
@@ -4072,74 +4072,23 @@
     "closed_mean": null,
     "open_n": 5,
     "open_mean": -6.259467330131398
+   },
+   "none": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 3,
+    "open_mean": 42.08796290221878
+   },
+   "C": {
+    "wins": 0,
+    "losses": 0,
+    "closed_mean": null,
+    "open_n": 1,
+    "open_mean": -8.122240201498398
    }
   },
   "produced": [
-   {
-    "date": "2026-11-22",
-    "sym": "ADBE",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "CAVA",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "COIN",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "GOOGL",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "HAL",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "HOOD",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "INTC",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "NFLX",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "NOW",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "NVDA",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "ORCL",
-    "setup": "S"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "REGN",
-    "setup": "D"
-   },
-   {
-    "date": "2026-11-22",
-    "sym": "SG",
-    "setup": "D"
-   },
    {
     "date": "2026-11-23",
     "sym": "OKTA",
@@ -4207,6 +4156,26 @@
    },
    {
     "date": "2026-11-26",
+    "sym": "ZS",
+    "setup": "F"
+   },
+   {
+    "date": "2026-11-27",
+    "sym": "DOCU",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-27",
+    "sym": "HPQ",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-27",
+    "sym": "LLY",
+    "setup": "D"
+   },
+   {
+    "date": "2026-11-27",
     "sym": "ZS",
     "setup": "F"
    }
@@ -227553,8 +227522,8 @@
    "real_n": 4,
    "real_pl": 23.2,
    "paper_pl": -25.7,
-   "fired": 3,
-   "sessions": 4
+   "fired": 4,
+   "sessions": 5
   },
   "changed": [
    {
@@ -227596,7 +227565,7 @@
     "sym": "SG",
     "kind": "call",
     "strike": "3",
-    "dte": 421,
+    "dte": 420,
     "acct": "real",
     "setup": "none",
     "before": 9.625,
@@ -227622,7 +227591,7 @@
     "sym": "SNAP",
     "kind": "call",
     "strike": "5",
-    "dte": 421,
+    "dte": 420,
     "acct": "real",
     "setup": "none",
     "before": 1.3199999999999998,
@@ -227648,7 +227617,7 @@
     "sym": "DOCU",
     "kind": "call",
     "strike": "37.5",
-    "dte": 50,
+    "dte": 49,
     "acct": "big",
     "setup": "E",
     "before": 38.150000000000006,
@@ -227661,7 +227630,7 @@
     "sym": "ZS",
     "kind": "call",
     "strike": "200",
-    "dte": 568,
+    "dte": 567,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 65.465,
@@ -227739,7 +227708,7 @@
     "sym": "SHOP",
     "kind": "call",
     "strike": "140",
-    "dte": 750,
+    "dte": 749,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 40.59,
@@ -227921,7 +227890,7 @@
     "sym": "WDAY",
     "kind": "call",
     "strike": "170",
-    "dte": 22,
+    "dte": 21,
     "acct": "big",
     "setup": "E",
     "before": 15.145,
@@ -227934,7 +227903,7 @@
     "sym": "NOW",
     "kind": "call",
     "strike": "135",
-    "dte": 750,
+    "dte": 749,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 16.66,
@@ -227947,32 +227916,33 @@
     "sym": "HOOD",
     "kind": "call",
     "strike": "120",
-    "dte": 750,
+    "dte": 749,
     "acct": "bot-leaps",
     "setup": "F",
     "before": 12.239999999999998,
-    "after": 14.48,
+    "after": 15.075,
     "before_pl": -75.52000000000001,
-    "after_pl": -71.03999999999999,
+    "after_pl": -69.85,
     "isnew": false
    },
    {
     "sym": "NOW",
     "kind": "call",
     "strike": "176",
-    "dte": 22,
+    "dte": 21,
     "acct": "small",
     "setup": "F",
     "before": 0.04,
-    "after": 0.008394493402315767,
+    "after": 1.0195192798134764e-07,
     "before_pl": -99.32773109243698,
-    "after_pl": -99.85891607727201,
+    "after_pl": -99.99999828652221,
     "isnew": false
    }
   ],
   "gone": [],
   "notes": [
    "SG is up 65.5% on a trade that broke a rule going in. A good outcome is not a good decision.",
+   "2 calls under 21 days: WDAY 21d, NOW 21d. The rule cannot undo a position you already own \u2014 it only says do not add another.",
    "3 closed real trades is a tally, not a track record. Until there are more, the deposits are what move the account."
   ],
   "goal": {
